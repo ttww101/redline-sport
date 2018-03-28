@@ -1,0 +1,76 @@
+//
+//  PrefixHeader.pch
+//  GunQiuLive
+//
+//  Created by WQ_h on 15/11/11.
+//  Copyright (c) 2015年 WQ_h. All rights reserved.
+//
+
+#ifndef GunQiuLive_PrefixHeader_pch
+#define GunQiuLive_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//VC
+#import "AppDelegate.h"
+#import "Methods.h"
+#import "HttpString.h"
+#import "UIView+Additions.h"
+#import "UIBarButtonItem+Addtions.h"
+#import "LoginViewController.h"
+#import "SVProgressHUD.h"
+#import "MBProgressHUD.h"
+#import "UIImageView+WebCache.h"
+#import "UIButton+WebCache.h"
+#import "UserModel.h"
+#import "DCHttpRequest.h"
+#import "HttpString.h"
+#import "DependetNetMethods.h"
+#import "UMStatisticsMgr.h"
+#import "MessageSoundMgr.h"
+
+#import "MJRefresh.h"
+#import "BasicTableView.h"
+#import "Masonry.h"
+#import "UITableView+FDTemplateLayoutCell.h"
+#import "UniversalNetwork.h"
+#import "MineViewController.h"
+#import "UserViewController.h"
+#import "WebVC.h"
+#import "UIScrollView+EmptyDataSet.h"
+//#import "JHChartHeader.h"
+#import "GQapp-Bridging-Header.h"
+#import "SDCycleScrollView.h"
+
+#import "LMJScrollTextView.h"
+#import "WKWebViewController.h"
+#import "DCPageViewController.h"
+#import "DCScrollVIew.h"
+
+#import "NSString+TextSize.h"
+#import "LodingAnimateView.h"
+#import "FenxiPageVC.h"
+
+
+#import "FriendsVC.h"
+
+
+//.h
+#import "Numbers.h"
+#import "Urls.h"
+#import "Device.h"
+#import "Properties.h"
+#import "Contents.h"
+#import "ThirdPartKey.h"
+#import "TokenModel.h"
+
+#import "CacheObject.h"
+//记得在pch中导入APP的appdelegate的.h文件 方便在后面的各个类中使用宏APPDELEGATE
+// APPDELEGATE 宏定义的时候要加括号
+#define APPDELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+
+
+
+
+#endif
