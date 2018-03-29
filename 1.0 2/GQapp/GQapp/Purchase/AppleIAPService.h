@@ -39,7 +39,7 @@ typedef void(^MsgBlock)(NSString *message, NSError *error);
  *
  *  @returning 无
  */
-+(void)checkTheIAPStatusFunction;
++ (void)checkTheIAPStatusFunction;
 
 /**
  *  @brief     添加IAP观察者

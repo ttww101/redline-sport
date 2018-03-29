@@ -99,7 +99,7 @@
     SKPayment *skpayment = [SKPayment paymentWithProduct:product];
     // 2.将票据加入到交易队列
     [[SKPaymentQueue defaultQueue] addPayment:skpayment];
-    [SVProgressHUD showInfoWithStatus:@"购买中..."];
+    [SVProgressHUD showInfoWithStatus:@"生成订单中..."];
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
@@ -272,6 +272,23 @@
 {
     NSLog(@"%s销毁",__FUNCTION__);
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+}
+
+
+- (void)getProductInfo:(NSString *)productIdentifier {
+    
+}
+
+-(void)removeTheIAPOberver {
+    
+}
+
+-(void)addTheIAPObserver {
+    
+}
+
++ (void)checkTheIAPStatusFunction {
+    
 }
 
 @end
