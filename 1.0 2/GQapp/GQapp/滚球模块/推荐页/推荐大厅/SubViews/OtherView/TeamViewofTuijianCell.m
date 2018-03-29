@@ -137,9 +137,8 @@
         _labMoney.attributedText = [Methods withContent:_labMoney.text WithColorText:@"球币" textColor:color33 strFont:font12];
     }
     
-//    隐藏
+//    影藏
     _labMoney.text = @"";
-    _labMoney.attributedText = [[NSMutableAttributedString alloc]initWithString:@""];
 
     
     
@@ -158,12 +157,7 @@
         [_basicView addSubview:self.labSaishi];
         [_basicView addSubview:self.labbeginTime];
         [_basicView addSubview:self.labPankou];
-        
-        
-        // 删除支付相关信息
         [_basicView addSubview:self.labMoney];
-        
-        
         [_basicView addSubview:self.labTeamHome];
         [_basicView addSubview:self.labTeamGuest];
         [_basicView addSubview:self.imgTeamHome];
@@ -302,8 +296,6 @@
         make.bottom.equalTo(self.labPankou.mas_bottom);
         make.right.equalTo(self.basicView.mas_right).offset(-10);
     }];
-    
-    
     [self.imgTeamHome mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(10);
         make.top.equalTo(self.labSaishi.mas_bottom).offset(10);

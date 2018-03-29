@@ -67,6 +67,7 @@
     [self setupUM];
     [self setUMShare];
     [self setUpBugly];
+    [self svPreferrenceConf];
 //    [self setupXGpush:application WithOptions:launchOptions];
     [self setupUPushWith:application WithOptions:launchOptions];
 //    [self setUpRongIMKit];
@@ -99,6 +100,18 @@
     [MessageSoundMgr sharedInstanceForSound];
     //设置系统震动
     [MessageSoundMgr sharedInstanceForVibrate];
+}
+
+#pragma mark --- SVProgressHUD 偏好设置
+-(void)svPreferrenceConf {
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD setBackgroundColor:[UIColor blackColor]];
+    [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
+    [SVProgressHUD setInfoImage:[UIImage imageNamed:@""]];
+    [SVProgressHUD setSuccessImage:[UIImage imageNamed:@""]];
+    [SVProgressHUD setErrorImage:[UIImage imageNamed:@""]];
+    [SVProgressHUD setMaximumDismissTimeInterval:1.5];
 }
 
 //获取截屏事件
@@ -402,15 +415,15 @@
     [[NSUserDefaults standardUserDefaults] setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceTokenStr"];
     
 //    正式环境
-    APPDELEGATE.url_Server = @"http://mobile.gunqiu.com/interface/v2.1";
-    APPDELEGATE.url_jsonHeader = @"http://mobile.gunqiu.com";
-    APPDELEGATE.url_ServerWWW = @"http://www.gunqiu.com";
-    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
-    APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com:8892";
-    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
-   // 新加
-    APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时赔率的
-    APPDELEGATE.url_ip = @"http://mobile.gunqiu.com";
+//    APPDELEGATE.url_Server = @"http://mobile.gunqiu.com/interface/v2.1";
+//    APPDELEGATE.url_jsonHeader = @"http://mobile.gunqiu.com";
+//    APPDELEGATE.url_ServerWWW = @"http://www.gunqiu.com";
+//    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
+//    APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com:8892";
+//    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
+//   // 新加
+//    APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时赔率的
+//    APPDELEGATE.url_ip = @"http://mobile.gunqiu.com";
 
     //    本地测试环境
 //    APPDELEGATE.url_Server = @"http://10.0.80.95/interface";
@@ -423,14 +436,14 @@
     //APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
 
     //上线的时候关闭--wt
-//    APPDELEGATE.url_Server = @"http://mobiledev.gunqiu.com:81/interface";
-//    APPDELEGATE.url_jsonHeader = @"http://mobiledev.gunqiu.com";
-//    APPDELEGATE.url_ip = @"http://10.0.80.95";
-//    APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
-//    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
-//    APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com:8892";
-//    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
-//    APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时赔率的
+    APPDELEGATE.url_Server = @"http://mobiledev.gunqiu.com:81/interface";
+    APPDELEGATE.url_jsonHeader = @"http://mobiledev.gunqiu.com";
+    APPDELEGATE.url_ip = @"http://10.0.80.95";
+    APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
+    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
+    APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com:8892";
+    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
+    APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时赔率的
 
 
 ////    上线的时候开启

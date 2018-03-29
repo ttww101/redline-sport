@@ -88,12 +88,12 @@
         _status = 1;
     }
     
-//    [self payViewpayl];
+    [self payViewpayl];
     [self loadDataWhetherFirst:YES];
     [self.view addSubview:self.tableView];
     
     // if (_status == 1) {
-//    [self.view addSubview:self.payView];
+    [self.view addSubview:self.payView];
     [self.view addSubview:self.bottomView];
     [self addAutoLayout];
     
@@ -163,24 +163,24 @@
     
 //    if (!_model.see) {
     
-//        [self.payView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self.view.mas_left);
-//            make.bottom.equalTo(self.view.mas_bottom);
-//            make.height.mas_equalTo(55);
-//            make.width.equalTo(self.view.mas_width);
-//        }];
+        [self.payView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left);
+            make.bottom.equalTo(self.view.mas_bottom);
+            make.height.mas_equalTo(55);
+            make.width.equalTo(self.view.mas_width);
+        }];
 //    }
 
-//    [self.labelQiuBi mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.payView).offset(2);
-//        make.left.mas_equalTo(15);
-//        make.width.mas_equalTo(120);
-//    }];
-//
-//    [self.btnPay mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.trailing.bottom.equalTo(self.payView);
-//        make.width.mas_equalTo(100);
-//    }];
+    [self.labelQiuBi mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.payView).offset(2);
+        make.left.mas_equalTo(15);
+        make.width.mas_equalTo(120);
+    }];
+    
+    [self.btnPay mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.trailing.bottom.equalTo(self.payView);
+        make.width.mas_equalTo(100);
+    }];
     
     
     
@@ -463,12 +463,12 @@
     self.payView.hidden = YES;
                     self.bottomView.hidden= NO;
                     self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49);
-                    _model.see = false;
+                    _model.see = YES;
                     self.tableView.headerModel = _model;
        [self loadDataWhetherFirst:NO];
                     [self.tableView reloadData];
     
-//    [self paySuccess];
+    [self paySuccess];
 }
 //-(void)respBackPaydata:(BaseResp*)resp{
 //    self.payView.hidden = YES;
@@ -540,44 +540,44 @@
 //    }
 //}
 
-//- (void)paySuccess {
-//
-//     NSLog(@"modelId11111=%ld",_modelId);
-//   NSString*mid= [[NSUserDefaults standardUserDefaults]objectForKey:@"paymodelId"];
-//    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-//
-//    [parameter setObject:mid forKey:@"outerId"];
-//    //[parameter setObject:[NSString stringWithFormat:@"%ld",self.model.user_id] forKey:@"userId"];
-//    [parameter setObject:@"1" forKey:@"oType"];
-////    [parameter setObject:@"IOS" forKey:@"resource"];
-//
-//    [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_appPaySuccess]  ArrayFile:nil Start:^(id requestOrignal) {
-//
-//    } End:^(id responseOrignal) {
-//
-//    } Success:^(id responseResult, id responseOrignal) {
-//        if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
-//
-//            self.payView.hidden = YES;
-//            self.bottomView.hidden= NO;
-//            self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49);
-//            _model.see = YES;
-//            self.tableView.headerModel = _model;
-//            [self.tableView reloadData];
-//
-//             [self loadDataWhetherFirst:YES];
-//        }else {
-//            [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%@",[responseOrignal objectForKey:@"msg"]]];
-//            [SVProgressHUD dismissWithDelay:2.0f];
-//
-//        }
-//
-//    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-//        NSLog(@"pay失败");
-//    }];
-//
-//
-//}
+- (void)paySuccess {
+    
+     NSLog(@"modelId11111=%ld",_modelId);
+   NSString*mid= [[NSUserDefaults standardUserDefaults]objectForKey:@"paymodelId"];
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    
+    [parameter setObject:mid forKey:@"outerId"];
+    //[parameter setObject:[NSString stringWithFormat:@"%ld",self.model.user_id] forKey:@"userId"];
+    [parameter setObject:@"1" forKey:@"oType"];
+//    [parameter setObject:@"IOS" forKey:@"resource"];
+
+    [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_appPaySuccess]  ArrayFile:nil Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
+            
+            self.payView.hidden = YES;
+            self.bottomView.hidden= NO;
+            self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49);
+            _model.see = YES;
+            self.tableView.headerModel = _model;
+            [self.tableView reloadData];
+           
+             [self loadDataWhetherFirst:YES];
+        }else {
+            [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%@",[responseOrignal objectForKey:@"msg"]]];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            
+        }
+        
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        NSLog(@"pay失败");
+    }];
+
+    
+}
 
 - (void)viewDidLayoutSubviews
 {
@@ -886,7 +886,6 @@
             _tableView.arrPic = _buyerArr;
             _model=nil;
             _model= [TuijiandatingModel entityFromDictionary:[[responseOrignal objectForKey:@"data"] objectForKey:@"news"]];
-            _model.see = false;
             if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
                 _tableView.typeTuijianDetailHeader = _typeTuijianDetailHeader;
                 _tableView.headerModel = _model;
@@ -907,6 +906,7 @@
                     _labCommentNum1.text = [NSString stringWithFormat:@"%ld",(long)_model.hate_count];
                     _labComment1.selected = _model.hated;
                     
+                    _labelQiuBi.text = [NSString stringWithFormat:@"需支付%ld球币",_model.amount/100];
                     _labelQiuBi.font = font14;
                     
                     _labelQiuBi.attributedText = [Methods withContent:_labelQiuBi.text WithColorText:[NSString stringWithFormat:@"%ld",_model.amount/100] textColor:redcolor strFont:font18];

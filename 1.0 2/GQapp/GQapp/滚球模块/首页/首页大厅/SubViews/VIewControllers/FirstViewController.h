@@ -7,6 +7,7 @@
 //
 
 #import "BasicViewController.h"
+#import "AppleIAPService.h"
 
 @interface FirstViewController : BasicViewController
 

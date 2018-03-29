@@ -133,7 +133,6 @@
 - (void)setModel:( TuijiandatingModel*)model
 {
     _model = model;
-    _model.see = YES;
     
     if (_model.see) {
         _type = TuijianDetailHeaderViewShowContent;
@@ -224,7 +223,7 @@
 //        _labMoney.attributedText = [Methods withContent:_labMoney.text WithColorText:@"球币" textColor:color33 strFont:font12];
     }
 //    隐藏
-    _labMoney.text = @"";
+//    _labMoney.text = @"";
 
     NSString *space = @"";
     if (isOniPhone4 ||  isOniPhone5) {

@@ -679,11 +679,8 @@
 {
     if (!_basicView) {
         _basicView = [[UIView alloc] init];
-        
-//        [_basicView addSubview:self.labPankou];
-//        [_basicView addSubview:self.labchoice];
-        
-        
+        [_basicView addSubview:self.labPankou];
+        [_basicView addSubview:self.labchoice];
         [_basicView addSubview:self.labPeilv];
         [_basicView addSubview:self.labZhuma];
     }
@@ -737,18 +734,18 @@
         make.bottom.equalTo(self.mas_bottom);
     }];
     
-//    [self.labPankou mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.basicView.mas_left).offset(15);
-//        make.centerY.equalTo(self.basicView.mas_centerY);
-//    }];
+    [self.labPankou mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.basicView.mas_left).offset(15);
+        make.centerY.equalTo(self.basicView.mas_centerY);
+    }];
     
-//    [self.labchoice mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.labPankou.mas_right).offset(10);
-//        make.centerY.equalTo(self.basicView.mas_centerY);
-//    }];
+    [self.labchoice mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.labPankou.mas_right).offset(10);
+        make.centerY.equalTo(self.basicView.mas_centerY);
+    }];
 
     [self.labPeilv mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.basicView.mas_left).offset(15);
+        make.left.equalTo(self.labchoice.mas_right).offset(0);
         make.centerY.equalTo(self.basicView.mas_centerY);
     }];
 

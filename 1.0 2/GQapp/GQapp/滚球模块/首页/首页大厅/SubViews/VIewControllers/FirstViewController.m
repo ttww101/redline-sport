@@ -1360,6 +1360,21 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+# warning 切换
+    
+    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp18" resultBlock:^(NSString *message, NSError *error) {
+        if (error) {
+            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+            [SVProgressHUD showErrorWithStatus:errMse];
+        } else{
+            [SVProgressHUD showErrorWithStatus:@"购买成功"];
+        }
+        NSLog(@"%@   %@",message,error.userInfo);
+    }];
+    
+    return;
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 5) {
         

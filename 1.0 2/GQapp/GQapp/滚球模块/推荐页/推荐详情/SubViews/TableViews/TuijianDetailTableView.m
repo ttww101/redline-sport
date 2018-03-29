@@ -296,7 +296,7 @@
     if (section == 1) {
 //        return nil;
         
-        CGFloat headerHeight = _headerModel.amount == 45;
+        CGFloat headerHeight = _headerModel.amount == 0? 45 : 91;
 //        CGFloat headerHeight = 91;
         UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, headerHeight)];
         header.backgroundColor = [UIColor whiteColor];
@@ -330,7 +330,7 @@
                     make.size.mas_equalTo(CGSizeMake(30, 30));
                     make.right.equalTo(paySeeView.mas_right).offset(-40 - 30*i);
                     make.centerY.mas_equalTo(paySeeView.mas_centerY);
-
+                    
                 }];
                 
             }
@@ -341,7 +341,7 @@
         UIView *viewLineUp = [[UIView alloc] initWithFrame:CGRectMake(0, paySeeView.bottom, Width, 0.5)];
         viewLineUp.backgroundColor = colorDD;
         
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 0 , Width - 30, 45)];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, paySeeView.bottom , Width - 30, 45)];
         lab.font = font14;
         lab.textColor = color33;
         lab.text = [NSString stringWithFormat:@"评论%ld条",_headerModel.comment_count];
@@ -353,9 +353,9 @@
         [paySeeView addSubview:self.payNum];
         
         if (_headerModel.payUsers_count > 0  ) {
-
+            
             [paySeeView addSubview:rightImageView];
-
+          
             [rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.trailing.equalTo(paySeeView).offset(-15);
                 make.centerY.equalTo(paySeeView);
@@ -363,11 +363,11 @@
             }];
         }
         
-//        if (_headerModel.amount != 0) {
-//
-//            [header addSubview:paySeeView];
-//        }
-//        [header addSubview:viewLineUp];
+        if (_headerModel.amount != 0) {
+        
+            [header addSubview:paySeeView];
+        }
+        [header addSubview:viewLineUp];
         [header addSubview:lab];
         [header addSubview:viewLineDown];
         
@@ -410,8 +410,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
-        return 45;
-//        return _headerModel.amount >0 ? 91 : 45;
+//        return 0;
+        return _headerModel.amount >0 ? 91 : 45;
     }
     return 0;
 }

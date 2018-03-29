@@ -42,6 +42,8 @@
 		8481CE7C1F3014EA00A766F2 /* backNew2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7B1F3014EA00A766F2 /* backNew2@2x.png */; };
 		8481CE7E1F30156300A766F2 /* backNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7D1F30156300A766F2 /* backNew@2x.png */; };
 		84BA634C1FC6875100A65360 /* UIAlertController+askForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */; };
+		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
+		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		EB0020A91D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
 		EB076A6D1EC321A000940D64 /* attentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6B1EC321A000940D64 /* attentionNew@2x.png */; };
@@ -1100,6 +1102,9 @@
 		8481CE7D1F30156300A766F2 /* backNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backNew@2x.png"; sourceTree = "<group>"; };
 		84BA63491FC6875100A65360 /* UIAlertController+askForUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+askForUser.h"; sourceTree = "<group>"; };
 		84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+askForUser.m"; sourceTree = "<group>"; };
+		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
+		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
 		C17D0DBC39E419D60F185125 /* Pods-newGQapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.release.xcconfig"; sourceTree = "<group>"; };
 		EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
 		EB0020A81D5B0C3700115EC3 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
@@ -2418,6 +2423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */,
 				EB13317D1D87AC910088A67D /* CoreAudio.framework in Frameworks */,
 				EB3D17AD1CFC1D9200BAF61A /* CFNetwork.framework in Frameworks */,
 				EBC0A4491CA9343700F75E7E /* AVFoundation.framework in Frameworks */,
@@ -2467,6 +2473,7 @@
 		6B99E8BB0D0EDD62941EBD94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A9762874206C87A1007C79D1 /* StoreKit.framework */,
 				EB13317B1D87ABB80088A67D /* CoreAudio.framework */,
 				EB1331791D87AB0C0088A67D /* AssetsLibrary.framework */,
 				EB0AAD881CFD8AD40003644F /* ImageIO.framework */,
@@ -2493,6 +2500,15 @@
 				843C413C1FB54FB9000AB5A0 /* TongJiModel.m */,
 			);
 			name = "及时更新";
+			sourceTree = "<group>";
+		};
+		A9762882206C89BB007C79D1 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				A9762883206C89EB007C79D1 /* AppleIAPService.h */,
+				A9762884206C89EB007C79D1 /* AppleIAPService.m */,
+			);
+			path = Purchase;
 			sourceTree = "<group>";
 		};
 		C16AEDF44CBE23C9E9FDABBA /* Pods */ = {
@@ -6024,6 +6040,7 @@
 		EBC0A2A71CA924AE00F75E7E /* GQapp */ = {
 			isa = PBXGroup;
 			children = (
+				A9762882206C89BB007C79D1 /* Purchase */,
 				EBA21DD31DF067A0004E63C5 /* GQapp.entitlements */,
 				EB8C1C251F21944B00A07863 /* 滚球模块 */,
 				EB24FF101CF039D70035DA24 /* ThirdPart */,
@@ -6786,6 +6803,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {
@@ -7733,6 +7753,7 @@
 				EB9DA4F31F4EC75A00DE7FB9 /* TuijianDatingTable.m in Sources */,
 				EB8C1E4B1F21944C00A07863 /* UserTuiianView.m in Sources */,
 				EB8C1EE51F21974000A07863 /* ZhumaViewOfFabuTuijian.m in Sources */,
+				A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */,
 				EB95FEC71F4C2F8600D29161 /* DateValueFormatter.m in Sources */,
 				EB8C1E991F21944C00A07863 /* GuanzhuViewController.m in Sources */,
 				EB8C1FEA1F219C3D00A07863 /* RonyunDataSource.m in Sources */,
