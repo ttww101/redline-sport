@@ -8,6 +8,7 @@
 
 #import "AppleIAPService.h"
 #import <StoreKit/StoreKit.h>
+#import "ArchiveFile.h"
 
 @interface AppleIAPService () <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
@@ -197,6 +198,15 @@
         return;
     }
     NSString *base64_receipt = [receipt base64EncodedStringWithOptions:0];
+    
+    
+    NSMutableArray *recordArray = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
+    if (!recordArray) {
+        recordArray = [NSMutableArray array];
+    }
+    [recordArray addObject:base64_receipt];
+    [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
+    
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:base64_receipt forKey:@"receipt-data"];

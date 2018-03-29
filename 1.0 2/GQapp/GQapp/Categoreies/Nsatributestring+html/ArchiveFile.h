@@ -56,7 +56,7 @@
  *  @param path    路径
  *  @param dataArr 数组
  */
--(void)saveDataWithPath:(NSString *)path data:(NSArray *)dataArr;
++ (BOOL)saveDataWithPath:(NSString *)path data:(NSMutableArray *)dataArr;
 
 /**
  *  获取数组数据
@@ -65,7 +65,7 @@
  *
  *  @return 数组
  */
--(NSArray *)getDataWithPath:(NSString *)path;
++ (NSMutableArray *)getDataWithPath:(NSString *)path;
 
 
 /**

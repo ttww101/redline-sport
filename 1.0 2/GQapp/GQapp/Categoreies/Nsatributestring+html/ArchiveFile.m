@@ -70,7 +70,7 @@
 
 
 //存储数据
--(void)saveDataWithPath:(NSString *)path data:(NSArray *)dataArr
++ (BOOL)saveDataWithPath:(NSString *)path data:(NSMutableArray *)dataArr
 {
 
 //     //    在这里对数据进行编码操作
@@ -85,16 +85,15 @@
 //    [data writeToFile:path atomically:YES];
     
     // 归档
-    [NSKeyedArchiver archiveRootObject:dataArr toFile:path];
-    
-    NSLog(@"归档,path--%@",path);
+   return [NSKeyedArchiver archiveRootObject:dataArr toFile:path];
+
 }
 
 //取出本地存储数据
--(NSArray *)getDataWithPath:(NSString *)path
++ (NSMutableArray *)getDataWithPath:(NSString *)path
 {
     
-    NSArray * dataArr=nil;
+    NSMutableArray * dataArr=nil;
     if ([ArchiveFile isHaveFileWithPath:path]) {
         
 //        NSData * data=[[NSData alloc] initWithContentsOfFile:path];
@@ -105,14 +104,11 @@
 //        [unArchiver finishDecoding];
         
        dataArr = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        
-        
-         NSLog(@"dataArr=--%@",dataArr);
-        
+        NSLog(@"dataArr=--%@",dataArr);
     }
     else
     {
-        dataArr=[NSArray array];
+        dataArr=[NSMutableArray array];
     }
     
     

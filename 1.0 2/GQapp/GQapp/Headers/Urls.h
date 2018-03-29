@@ -399,6 +399,9 @@
 
 //1.8.0 榜单帮助
 #define BANGDAN_API_HTML @"http://www.gunqiu.com/help/v1.8.0/phb.html"
+
+#define In_App_Purchase_Path [NSString stringWithFormat:@"%@/purchase.data",[ArchiveFile LibraryDirectory]]
+
 #endif
 
 
