@@ -46,7 +46,8 @@
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
         request.delegate = self;
         [request start];
-        [SVProgressHUD showInfoWithStatus:@"正在获取购买信息"];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showInfoWithStatus:@"正在获取商品信息"];
         
     } else {
         NSError *error = [NSError errorWithDomain:@"IAP"
@@ -99,8 +100,6 @@
     // 2.将票据加入到交易队列
     [[SKPaymentQueue defaultQueue] addPayment:skpayment];
     [SVProgressHUD showInfoWithStatus:@"购买中..."];
-    
-    
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
@@ -206,7 +205,7 @@
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:params
                                                           options:0
                                                             error:&error];
-    [SVProgressHUD showErrorWithStatus:@"验证中..."];
+//    [SVProgressHUD showErrorWithStatus:@"验证中..."];
     [self uploadSanBoxReceipt:requestData];
     
 //    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
@@ -248,7 +247,6 @@
     [storeRequest setHTTPBody:requestData];
 
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [SVProgressHUD showErrorWithStatus:@"验证中..."];
     [NSURLConnection sendAsynchronousRequest:storeRequest queue:queue
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                if (connectionError) {

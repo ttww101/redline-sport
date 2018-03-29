@@ -1363,12 +1363,12 @@
     
 # warning 切换
     
-    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp18" resultBlock:^(NSString *message, NSError *error) {
+    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp8" resultBlock:^(NSString *message, NSError *error) {
         if (error) {
             NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
             [SVProgressHUD showErrorWithStatus:errMse];
         } else{
-            [SVProgressHUD showErrorWithStatus:@"购买成功"];
+
         }
         NSLog(@"%@   %@",message,error.userInfo);
     }];
