@@ -221,6 +221,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    adjustsScrollViewInsets_NO(self.tableView, self);
+    
     // Do any additional setup after loading the view.
     
     //    _timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(timerChange) userInfo:nil repeats:YES];
@@ -330,7 +332,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        self.tableView = [[BasicTableView alloc] initWithFrame:CGRectMake(0, 0, Width, Height - 0) style:UITableViewStyleGrouped];
+        self.tableView = [[BasicTableView alloc] initWithFrame:CGRectMake(0, 0, Width, Height - 49)];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.tableView registerClass:[TuijianDatingCell class] forCellReuseIdentifier:cellFirstPageTuijian];
         [self.tableView registerNib:[UINib nibWithNibName:@"FirstFHuaTiCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cellfirstHuati"];
@@ -445,7 +447,7 @@
             if (_arrToHotzMost.count == 0) {
                 return 0;
             }
-            return _arrToHotzMost.count;
+            return 0;
         }
             break;
             
@@ -526,8 +528,10 @@
             
             if (indexPath.row == 3) {
                 return 110;
+            } else {
+                return 95;
             }
-            return 95;
+            
         }
             break;
         case 2:
@@ -891,6 +895,7 @@
             _cycleView.autoScrollTimeInterval = 5;
             _cycleView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
             _cycleView.titleLabelHeight = 28;
+            _cycleView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
             NSMutableArray *arrpics = [NSMutableArray array];
             NSMutableArray *arrtitles = [NSMutableArray array];
             
@@ -962,12 +967,12 @@
             
         case 1:
         {
-            UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width,190)];
+            UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width,100)];
             viewHeader.backgroundColor = [UIColor whiteColor];
             //四个按钮
             [viewHeader addSubview:self.viewInfo];
             
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 189.5 , Width, 0.5)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 99.5 , Width, 0.5)];
             line.backgroundColor = colorDD;
             [viewHeader addSubview:line];
             
@@ -1265,7 +1270,7 @@
             
             break;
         case 1:
-            return 190;
+            return 100;
             
             break;
         case 2:
@@ -1503,7 +1508,7 @@
 - (DataModelView *)viewInfo
 {
     if (!_viewInfo) {
-        _viewInfo = [[DataModelView alloc] initWithFrame:CGRectMake(0, 0, Width, 190)];
+        _viewInfo = [[DataModelView alloc] initWithFrame:CGRectMake(0, 0, Width, 100)];
         _viewInfo.backgroundColor= [UIColor whiteColor];
         _viewInfo.delegate = self;
     }
@@ -1561,10 +1566,13 @@
             break;
         case 0:
         {//极限拐点
-            TongpeiTongjiVC *odd = [[TongpeiTongjiVC alloc] init];
-            odd.hidesBottomBarWhenPushed = YES;
+            [self.tabBarController setSelectedIndex:1];
             
-            [APPDELEGATE.customTabbar pushToViewController:odd animated:YES];        }
+//            TongpeiTongjiVC *odd = [[TongpeiTongjiVC alloc] init];
+//            odd.hidesBottomBarWhenPushed = YES;
+//
+//            [APPDELEGATE.customTabbar pushToViewController:odd animated:YES];
+        }
             break;
         case 2:
         {//极限拐点

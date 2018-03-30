@@ -30,9 +30,11 @@
         
         CGFloat widthSpace = (Width -20*2 -50 *4)/3;
         //        CGFloat widthSpace = Width/6;
-        NSArray *arrtitle = @[@"同赔指数",@"爆冷指数",@"赔率异常",@"亚盘助手",@"交易冷热",@"投注异常",@"极限拐点",@"盘王指数"];
+        NSArray *arrtitle = @[@"比分",@"动画",@"模型",@"工具"];
         
-        UIScrollView *scrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, Width, 95*2)];
+//        NSArray *arrtitle = @[@"同赔指数",@"爆冷指数",@"赔率异常",@"亚盘助手", @"交易冷热",@"投注异常",@"极限拐点",@"盘王指数"];
+        
+        UIScrollView *scrollV = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, Width, 95)];
         scrollV.pagingEnabled = YES;
         scrollV.delegate = self;
         scrollV.showsHorizontalScrollIndicator = NO;
@@ -54,12 +56,13 @@
 
             
             
-            UIButton *upBtn = [[UIButton alloc] initWithFrame:CGRectMake(originX,originY, 50, 95)];
+            UIButton *upBtn = [[UIButton alloc] initWithFrame:CGRectMake(originX,originY, 50, 100)];
             [upBtn setBackgroundImage:[UIImage imageNamed:@"f5f5f5"] forState:UIControlStateHighlighted];
             
             [upBtn setBackgroundImage:nil forState:UIControlStateNormal];
             upBtn.tag = i;
             upBtn.userInteractionEnabled = YES;
+            [upBtn addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
             [upBtn addTarget:self action:@selector(selectedInfo:) forControlEvents:UIControlEventTouchUpInside];
             [scrollV addSubview:upBtn];
             
@@ -128,6 +131,10 @@
     if (_delegate && [_delegate respondsToSelector:@selector(didSelectedDataModelViewIndex:)]) {
         [_delegate didSelectedDataModelViewIndex:btn.tag];
     }
+}
+
+- (void)preventFlicker:(UIButton *)button {
+    button.highlighted = NO;
 }
 
 
