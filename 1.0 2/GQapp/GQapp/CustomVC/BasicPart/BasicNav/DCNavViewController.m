@@ -32,6 +32,8 @@
     
     // 关闭边缘触发手势 防止和原有边缘手势冲突
     [self.interactivePopGestureRecognizer setEnabled:NO];
+    
+    [self configNavigation];
 }
 //  防止导航控制器只有一个rootViewcontroller时触发手势
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -55,9 +57,45 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Dispose of any resources that can be recreated. backNew
 }
 
+#pragma mark - Private Method
+
+- (void)configNavigation {
+    self.navigationBar.barTintColor = redcolor;
+    NSDictionary *textAttributes = @{
+                                     NSFontAttributeName : [UIFont boldSystemFontOfSize:18],
+                                     NSForegroundColorAttributeName : [UIColor whiteColor],
+                                     };
+    [self.navigationBar setTitleTextAttributes:textAttributes];
+    self.navigationBar.translucent = NO;
+    self.extendedLayoutIncludesOpaqueBars = YES;
+    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
+
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    if (self.viewControllers.count >= 1) {
+        viewController.hidesBottomBarWhenPushed = YES;
+        UIImage *backImage = [[UIImage imageNamed:@"backNew"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        backButton.frame = CGRectMake(0, 0, 44, 44);
+        [backButton setImage:backImage forState:UIControlStateNormal];
+        backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [backButton addTarget:self action:@selector(leftBtnItemAction) forControlEvents:UIControlEventTouchUpInside];
+        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        viewController.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:(UIBarButtonItemStylePlain) target:nil action:nil];
+    }
+    [super pushViewController:viewController animated:animated];
+}
+
+#pragma mark - action
+
+- (void)leftBtnItemAction {
+    [self popViewControllerAnimated:YES];
+}
 
 /*
  在实现之前,先推测一下苹果实现pop的大概思路.首先,需要在一个合适的view上添加边缘手势,其次,针对这个手势必然要实现一个方法响应该事件.当然,根据苹果一贯代码风格,处理该事件很可能交给另一个专门的类去处理.

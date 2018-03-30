@@ -42,6 +42,10 @@
 		8481CE7C1F3014EA00A766F2 /* backNew2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7B1F3014EA00A766F2 /* backNew2@2x.png */; };
 		8481CE7E1F30156300A766F2 /* backNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7D1F30156300A766F2 /* backNew@2x.png */; };
 		84BA634C1FC6875100A65360 /* UIAlertController+askForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */; };
+		A941D527206E07E0008CE14F /* ModelPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D526206E07E0008CE14F /* ModelPredictionViewController.m */; };
+		A941D52A206E1233008CE14F /* UniversaListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D529206E1233008CE14F /* UniversaListCell.m */; };
+		A941D52E206E171B008CE14F /* ModelPredictionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D52D206E171B008CE14F /* ModelPredictionViewModel.m */; };
+		A941D531206E1C23008CE14F /* NullTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D530206E1C23008CE14F /* NullTableViewCell.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		EB0020A91D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */; };
@@ -1102,6 +1106,14 @@
 		8481CE7D1F30156300A766F2 /* backNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backNew@2x.png"; sourceTree = "<group>"; };
 		84BA63491FC6875100A65360 /* UIAlertController+askForUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+askForUser.h"; sourceTree = "<group>"; };
 		84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+askForUser.m"; sourceTree = "<group>"; };
+		A941D525206E07E0008CE14F /* ModelPredictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelPredictionViewController.h; sourceTree = "<group>"; };
+		A941D526206E07E0008CE14F /* ModelPredictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelPredictionViewController.m; sourceTree = "<group>"; };
+		A941D528206E1233008CE14F /* UniversaListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversaListCell.h; sourceTree = "<group>"; };
+		A941D529206E1233008CE14F /* UniversaListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UniversaListCell.m; sourceTree = "<group>"; };
+		A941D52C206E171B008CE14F /* ModelPredictionViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelPredictionViewModel.h; sourceTree = "<group>"; };
+		A941D52D206E171B008CE14F /* ModelPredictionViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelPredictionViewModel.m; sourceTree = "<group>"; };
+		A941D52F206E1C23008CE14F /* NullTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NullTableViewCell.h; sourceTree = "<group>"; };
+		A941D530206E1C23008CE14F /* NullTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NullTableViewCell.m; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -2500,6 +2512,53 @@
 				843C413C1FB54FB9000AB5A0 /* TongJiModel.m */,
 			);
 			name = "及时更新";
+			sourceTree = "<group>";
+		};
+		A941D520206E076E008CE14F /* 模型预测 */ = {
+			isa = PBXGroup;
+			children = (
+				A941D52B206E15F8008CE14F /* ViewModel */,
+				A941D522206E07A2008CE14F /* Cells */,
+				A941D524206E07A2008CE14F /* Model */,
+				A941D523206E07A2008CE14F /* VIewControllers */,
+			);
+			path = "模型预测";
+			sourceTree = "<group>";
+		};
+		A941D522206E07A2008CE14F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A941D528206E1233008CE14F /* UniversaListCell.h */,
+				A941D529206E1233008CE14F /* UniversaListCell.m */,
+				A941D52F206E1C23008CE14F /* NullTableViewCell.h */,
+				A941D530206E1C23008CE14F /* NullTableViewCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A941D523206E07A2008CE14F /* VIewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A941D525206E07E0008CE14F /* ModelPredictionViewController.h */,
+				A941D526206E07E0008CE14F /* ModelPredictionViewController.m */,
+			);
+			path = VIewControllers;
+			sourceTree = "<group>";
+		};
+		A941D524206E07A2008CE14F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A941D52B206E15F8008CE14F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A941D52C206E171B008CE14F /* ModelPredictionViewModel.h */,
+				A941D52D206E171B008CE14F /* ModelPredictionViewModel.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		A9762882206C89BB007C79D1 /* Purchase */ = {
@@ -5182,6 +5241,7 @@
 		EB8C1DC51F21944C00A07863 /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				A941D520206E076E008CE14F /* 模型预测 */,
 				EB161CB01F909D8F00118F60 /* 大小球盘口 */,
 				EB518D151F7B931F00D548BC /* 亚盘助手 */,
 				EB518D1C1F7B931F00D548BC /* 赔率异常 */,
@@ -7731,6 +7791,7 @@
 				EB5A469B1F2735D20093962B /* BuyViewofTuijianView.m in Sources */,
 				EB8C1E621F21944C00A07863 /* NavigationModel.m in Sources */,
 				EBFA65A91F8F700100C4BE6A /* YpasTwoCell.m in Sources */,
+				A941D52E206E171B008CE14F /* ModelPredictionViewModel.m in Sources */,
 				EB564C571F4D723B00F4C947 /* PanwangZhishuVC.m in Sources */,
 				EB8C1EE21F21974000A07863 /* Dan_StringGuanModel.m in Sources */,
 				EB3105D51F456FE9009E6AE9 /* UserOfotherCellTwo.m in Sources */,
@@ -7741,6 +7802,7 @@
 				EB518D041F7B808300D548BC /* FeedbackNewVC.m in Sources */,
 				EB8C1EA31F21944C00A07863 /* SelectedAllVC.m in Sources */,
 				EB82F16B1F2B11CC000524A0 /* PriceListModel.m in Sources */,
+				A941D527206E07E0008CE14F /* ModelPredictionViewController.m in Sources */,
 				EB8C1E601F21944C00A07863 /* NewQingBaoViewController.m in Sources */,
 				EB8C1E5B1F21944C00A07863 /* LoginViewController.m in Sources */,
 				EB8C20251F21A0AA00A07863 /* TotalrateModel.m in Sources */,
@@ -7768,6 +7830,7 @@
 				EB8C1EA11F21944C00A07863 /* DSCollectionViewIndex.m in Sources */,
 				EB8C1EAE1F21944C00A07863 /* BettingVC.m in Sources */,
 				EB6BDA3F1F398B6300C9EA73 /* TongPeiPeiLvDTVC.m in Sources */,
+				A941D531206E1C23008CE14F /* NullTableViewCell.m in Sources */,
 				EB8C1E4A1F21944C00A07863 /* UserModel.m in Sources */,
 				EB8C1FB51F219A8C00A07863 /* DCNavViewController.m in Sources */,
 				EB8C20221F21A0AA00A07863 /* StatisticsModel.m in Sources */,
@@ -7795,6 +7858,7 @@
 				EB8C20241F21A0AA00A07863 /* StatisticsSectionTwoTotalModel.m in Sources */,
 				EB8C1FFF1F219D7100A07863 /* ArchiveFile.m in Sources */,
 				EB8C20261F21A0AA00A07863 /* UsercatestatisModel.m in Sources */,
+				A941D52A206E1233008CE14F /* UniversaListCell.m in Sources */,
 				EB8C1E9E1F21944C00A07863 /* SelectedCCell.m in Sources */,
 				EB8C1E611F21944C00A07863 /* QBNavigatCell.m in Sources */,
 				EB8C1FCE1F219A8C00A07863 /* WebVC.m in Sources */,

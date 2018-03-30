@@ -65,6 +65,7 @@
 #import "DataModelView.h"
 
 #import "TodayHotSpotsTwoCell.h"
+#import "ModelPredictionViewController.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource,firstHotInfoCycleViewDelegate,FirstPUserlistViewDelegate,VierticalScrollViewDelegate,SDCycleScrollViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,DataModelViewDelegate>
 
@@ -1576,10 +1577,12 @@
             break;
         case 2:
         {//极限拐点
-            PeilvYichangVC *odd = [[PeilvYichangVC alloc] init];
-            odd.hidesBottomBarWhenPushed = YES;
-            
-            [APPDELEGATE.customTabbar pushToViewController:odd animated:YES];
+//            PeilvYichangVC *odd = [[PeilvYichangVC alloc] init];
+//            odd.hidesBottomBarWhenPushed = YES;
+//
+//            [APPDELEGATE.customTabbar pushToViewController:odd animated:YES];
+            ModelPredictionViewController *control = [[ModelPredictionViewController alloc]init];
+            [self.navigationController pushViewController:control animated:YES];
         }
             break;
         case 3:

@@ -71,7 +71,7 @@
     //为了让进球动画只在即时比分这个页面显示，要在push进去的时候设置为NO，三个页面 筛选页面，设置页面，分析页
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"showJinqiuAnimation"];
     
-    self.navigationController.navigationBar.barTintColor = navColor;
+    self.navigationController.navigationBar.barTintColor = redcolor;
     self.navigationController.navigationBar.translucent = NO;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"screenSleep"]) {

@@ -26,9 +26,9 @@
     //没有色差
     self.navigationController.navigationBar.translucent = NO;
     //导航栏上的字体颜色
-    self.navigationController.navigationBar.tintColor = navTextColor;
-    //导航栏上的背景颜色
-    self.navigationController.navigationBar.barTintColor   = navColor;
+////    self.navigationController.navigationBar.tintColor = navTextColor;
+//    //导航栏上的背景颜色
+//    self.navigationController.navigationBar.barTintColor   = redcolor;
     
     //    导航栏title字体颜色
 //    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:navTextColor,NSForegroundColorAttributeName, font18,NSFontAttributeName,nil]];
