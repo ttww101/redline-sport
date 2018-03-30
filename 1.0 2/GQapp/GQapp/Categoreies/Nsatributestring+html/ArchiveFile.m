@@ -156,4 +156,26 @@
         return [attrs[NSFileSize] intValue] / (1000 * 1000.0);
     }
 }
+
++ (BOOL)savePurchaseProof:(id)proof {
+    NSMutableArray *recordArray = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
+
+    [recordArray addObject:proof];
+   return [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
+}
+
++ (BOOL)removerPurchaseProof:(id)proof {
+    NSMutableArray *recordArray = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
+    BOOL removeSucess = NO;
+    if ([recordArray containsObject:proof]) {
+        [recordArray removeObject:proof];
+        if (recordArray.count == 0) {
+            [ArchiveFile clearCachesWithFilePath:In_App_Purchase_Path];
+            return YES;
+        }
+        return [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
+    }
+    return removeSucess;
+}
+
 @end

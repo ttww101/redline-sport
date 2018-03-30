@@ -13,6 +13,7 @@
 #import "payUserModel.h"
 #import "TuijianDetailHeaderView.h"
 #import "TuijianDTViewController.h"
+#import "AppleIAPService.h"
 @interface TuijianDetailVC ()<UITextViewDelegate>
 @property (nonatomic, strong) TuijianDetailTableView *tableView;
 @property (nonatomic, strong) UITextView *textView;
@@ -434,7 +435,17 @@
     return _btnPay;
 }
 
-- (void)payBtnClick {}
+- (void)payBtnClick {
+    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp8" resultBlock:^(NSString *message, NSError *error) {
+        if (error) {
+            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+            [SVProgressHUD showErrorWithStatus:errMse];
+        } else{
+
+        }
+        NSLog(@"%@   %@",message,error.userInfo);
+    }];
+}
 
 /*
 - (void)WXPay{

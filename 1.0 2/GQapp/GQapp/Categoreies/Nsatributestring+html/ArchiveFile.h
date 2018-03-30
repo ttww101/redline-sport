@@ -79,4 +79,20 @@
 + (void)clearCachesWithFilePath:(NSString *)path;
 
 
+/**
+ 保存购买凭证
+
+ @param proof 购买凭证
+ @return 是否成功
+ */
++ (BOOL)savePurchaseProof:(id)proof;
+
+/**
+ 移除购买凭证
+
+ @param proof 购买凭证
+ @return 是否成功
+ */
++ (BOOL)removerPurchaseProof:(id)proof;
+
 @end

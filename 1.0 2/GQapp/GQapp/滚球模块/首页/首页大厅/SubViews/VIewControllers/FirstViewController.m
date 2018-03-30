@@ -65,7 +65,6 @@
 #import "DataModelView.h"
 
 #import "TodayHotSpotsTwoCell.h"
-#import "ArchiveFile.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource,firstHotInfoCycleViewDelegate,FirstPUserlistViewDelegate,VierticalScrollViewDelegate,SDCycleScrollViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,DataModelViewDelegate>
 
@@ -1361,33 +1360,6 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-# warning 切换
-    
-    
-    NSMutableArray *recordArray = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
-    if (!recordArray) {
-        recordArray = [NSMutableArray array];
-    }
-    [recordArray addObject:@"123456"];
-    
-   BOOL isSucess =  [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
-    NSLog(@"%@ %zi",In_App_Purchase_Path, isSucess);
-    
-    [ArchiveFile clearCachesWithFilePath:In_App_Purchase_Path];
-    
-//    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp8" resultBlock:^(NSString *message, NSError *error) {
-//        if (error) {
-//            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-//            [SVProgressHUD showErrorWithStatus:errMse];
-//        } else{
-//
-//        }
-//        NSLog(@"%@   %@",message,error.userInfo);
-//    }];
-    
-    return;
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 5) {
         
@@ -1436,8 +1408,6 @@
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
-    
-    
     FocusModel *fmodel = [_arrFocus objectAtIndex:index];
     switch (fmodel.linkType) {
         case 0:

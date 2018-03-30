@@ -199,14 +199,7 @@
     }
     NSString *base64_receipt = [receipt base64EncodedStringWithOptions:0];
     
-    
-    NSMutableArray *recordArray = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
-    if (!recordArray) {
-        recordArray = [NSMutableArray array];
-    }
-    [recordArray addObject:base64_receipt];
-    [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
-    
+    [ArchiveFile savePurchaseProof:base64_receipt];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:base64_receipt forKey:@"receipt-data"];
