@@ -46,6 +46,8 @@
 		A941D52A206E1233008CE14F /* UniversaListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D529206E1233008CE14F /* UniversaListCell.m */; };
 		A941D52E206E171B008CE14F /* ModelPredictionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D52D206E171B008CE14F /* ModelPredictionViewModel.m */; };
 		A941D531206E1C23008CE14F /* NullTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D530206E1C23008CE14F /* NullTableViewCell.m */; };
+		A941D534206E22FB008CE14F /* ToolKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D533206E22FB008CE14F /* ToolKitViewController.m */; };
+		A941D537206E236A008CE14F /* ToolKitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D536206E236A008CE14F /* ToolKitViewModel.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		EB0020A91D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */; };
@@ -1114,6 +1116,10 @@
 		A941D52D206E171B008CE14F /* ModelPredictionViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelPredictionViewModel.m; sourceTree = "<group>"; };
 		A941D52F206E1C23008CE14F /* NullTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NullTableViewCell.h; sourceTree = "<group>"; };
 		A941D530206E1C23008CE14F /* NullTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NullTableViewCell.m; sourceTree = "<group>"; };
+		A941D532206E22FB008CE14F /* ToolKitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolKitViewController.h; sourceTree = "<group>"; };
+		A941D533206E22FB008CE14F /* ToolKitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewController.m; sourceTree = "<group>"; };
+		A941D535206E236A008CE14F /* ToolKitViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolKitViewModel.h; sourceTree = "<group>"; };
+		A941D536206E236A008CE14F /* ToolKitViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewModel.m; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -2541,6 +2547,8 @@
 			children = (
 				A941D525206E07E0008CE14F /* ModelPredictionViewController.h */,
 				A941D526206E07E0008CE14F /* ModelPredictionViewController.m */,
+				A941D532206E22FB008CE14F /* ToolKitViewController.h */,
+				A941D533206E22FB008CE14F /* ToolKitViewController.m */,
 			);
 			path = VIewControllers;
 			sourceTree = "<group>";
@@ -2557,6 +2565,8 @@
 			children = (
 				A941D52C206E171B008CE14F /* ModelPredictionViewModel.h */,
 				A941D52D206E171B008CE14F /* ModelPredictionViewModel.m */,
+				A941D535206E236A008CE14F /* ToolKitViewModel.h */,
+				A941D536206E236A008CE14F /* ToolKitViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -7857,6 +7867,7 @@
 				EB518D361F7BB88B00D548BC /* PlycPeilvView.m in Sources */,
 				EB8C20241F21A0AA00A07863 /* StatisticsSectionTwoTotalModel.m in Sources */,
 				EB8C1FFF1F219D7100A07863 /* ArchiveFile.m in Sources */,
+				A941D537206E236A008CE14F /* ToolKitViewModel.m in Sources */,
 				EB8C20261F21A0AA00A07863 /* UsercatestatisModel.m in Sources */,
 				A941D52A206E1233008CE14F /* UniversaListCell.m in Sources */,
 				EB8C1E9E1F21944C00A07863 /* SelectedCCell.m in Sources */,
@@ -7882,6 +7893,7 @@
 				EB9419291F5D7A94002660E4 /* UMStatisticsMgr.m in Sources */,
 				EB9419281F5D7A94002660E4 /* MessageSoundMgr.m in Sources */,
 				EB6BDA5D1F39CD7300C9EA73 /* BaolengDTcell.m in Sources */,
+				A941D534206E22FB008CE14F /* ToolKitViewController.m in Sources */,
 				EB3E74E41F3C726600C29DA7 /* BaolengDetailModel.m in Sources */,
 				EB8C1E6A1F21944C00A07863 /* UsermarkModel.m in Sources */,
 				EB8C1FC11F219A8C00A07863 /* Methods.m in Sources */,

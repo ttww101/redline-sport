@@ -42,6 +42,12 @@
     
     [super viewWillAppear:animated];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.hidden = false;
+}
+
 -(UIStatusBarStyle)preferredStatusBarStyle
 
 {

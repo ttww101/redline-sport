@@ -66,6 +66,7 @@
 
 #import "TodayHotSpotsTwoCell.h"
 #import "ModelPredictionViewController.h"
+#import "ToolKitViewController.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource,firstHotInfoCycleViewDelegate,FirstPUserlistViewDelegate,VierticalScrollViewDelegate,SDCycleScrollViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,DataModelViewDelegate>
 
@@ -1587,10 +1588,13 @@
             break;
         case 3:
         {//极限拐点
-            YapanZhoushouVC *odd = [[YapanZhoushouVC alloc] init];
-            odd.hidesBottomBarWhenPushed = YES;
             
-            [APPDELEGATE.customTabbar pushToViewController:odd animated:YES];
+            ToolKitViewController *control = [[ToolKitViewController alloc]init];
+            [self.navigationController pushViewController:control animated:YES];
+//            YapanZhoushouVC *odd = [[YapanZhoushouVC alloc] init];
+//            odd.hidesBottomBarWhenPushed = YES;
+//
+//            [APPDELEGATE.customTabbar pushToViewController:odd animated:YES];
         }
             break;
             
