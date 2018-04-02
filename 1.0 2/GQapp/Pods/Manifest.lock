@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Bugly (2.4.6)
+  - CYLTabBarController (1.17.6)
   - DCPathButton (2.1.4)
   - DeviceUtil (1.3.8)
   - HYBLoopScrollView (3.0.0)
@@ -38,10 +39,12 @@ PODS:
   - SVProgressHUD (2.1.2)
   - UITableView+FDTemplateLayoutCell (1.4)
   - UMengAnalytics (4.2.4)
+  - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.0)
   - Bugly (~> 2.4.6)
+  - CYLTabBarController (~> 1.17.4)
   - DCPathButton (~> 2.1.3)
   - DeviceUtil (~> 1.3.2)
   - HYBLoopScrollView (~> 3.0.0)
@@ -55,10 +58,12 @@ DEPENDENCIES:
   - SVProgressHUD (~> 2.1.2)
   - UITableView+FDTemplateLayoutCell
   - UMengAnalytics (~> 4.2.4)
+  - YYModel (~> 1.0.4)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Bugly: 7756e72c59387b0d490f46e83ab458ae94ee7fba
+  CYLTabBarController: c374643dea6dadece8bdff9c70f7387f8ffd7d08
   DCPathButton: 99c8211ef3eafc3b438c917a4c7b4502fa77eee7
   DeviceUtil: 9e91dd78b14cd51715d6fada8871c71b00283023
   HYBLoopScrollView: ad1dc5709e05ce77e0b1eb4b4fdd0fe55fc8cab2
@@ -72,7 +77,8 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
   UMengAnalytics: ef8d45f94c0e5771dc364cf6a5731d9d3b101da2
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 8e9abffce02d672f5515cd8c59106cf0877fe059
+PODFILE CHECKSUM: 00fa0b674de8f56d9c3451615a5fca4523efc003
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.1.1

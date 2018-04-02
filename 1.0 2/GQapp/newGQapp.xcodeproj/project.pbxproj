@@ -50,6 +50,7 @@
 		A941D537206E236A008CE14F /* ToolKitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D536206E236A008CE14F /* ToolKitViewModel.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
+		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
 		EB0020A91D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
 		EB076A6D1EC321A000940D64 /* attentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6B1EC321A000940D64 /* attentionNew@2x.png */; };
@@ -1123,6 +1124,8 @@
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
+		A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchListViewModel.h; sourceTree = "<group>"; };
+		A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchListViewModel.m; sourceTree = "<group>"; };
 		C17D0DBC39E419D60F185125 /* Pods-newGQapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.release.xcconfig"; sourceTree = "<group>"; };
 		EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
 		EB0020A81D5B0C3700115EC3 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
@@ -2578,6 +2581,47 @@
 				A9762884206C89EB007C79D1 /* AppleIAPService.m */,
 			);
 			path = Purchase;
+			sourceTree = "<group>";
+		};
+		A9E60CE72071C92E002BF207 /* 动画 */ = {
+			isa = PBXGroup;
+			children = (
+				A9E60CEC2071C9AB002BF207 /* Cells */,
+				A9E60CE92071C9AB002BF207 /* Model */,
+				A9E60CEA2071C9AB002BF207 /* VIewControllers */,
+				A9E60CEB2071C9AB002BF207 /* ViewModel */,
+			);
+			path = "动画";
+			sourceTree = "<group>";
+		};
+		A9E60CE92071C9AB002BF207 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A9E60CEA2071C9AB002BF207 /* VIewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VIewControllers;
+			sourceTree = "<group>";
+		};
+		A9E60CEB2071C9AB002BF207 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */,
+				A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A9E60CEC2071C9AB002BF207 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		C16AEDF44CBE23C9E9FDABBA /* Pods */ = {
@@ -5251,6 +5295,7 @@
 		EB8C1DC51F21944C00A07863 /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				A9E60CE72071C92E002BF207 /* 动画 */,
 				A941D520206E076E008CE14F /* 模型预测 */,
 				EB161CB01F909D8F00118F60 /* 大小球盘口 */,
 				EB518D151F7B931F00D548BC /* 亚盘助手 */,
@@ -7627,7 +7672,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		6A5C06F29B97D748AB4EABC3 /* [CP] Embed Pods Frameworks */ = {
@@ -7793,6 +7838,7 @@
 				EB8C1E8C1F21944C00A07863 /* LivingModel.m in Sources */,
 				EB8C1E821F21944C00A07863 /* FenxiHeaderView.m in Sources */,
 				EBAF52271F46DDFD006905E9 /* UserTongjiCell.m in Sources */,
+				A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */,
 				EB8C1E471F21944C00A07863 /* FansTable.m in Sources */,
 				EB8C1E3F1F21944C00A07863 /* UserViewController.m in Sources */,
 				EB6BDA391F39607E00C9EA73 /* TongPeiSwitch.m in Sources */,

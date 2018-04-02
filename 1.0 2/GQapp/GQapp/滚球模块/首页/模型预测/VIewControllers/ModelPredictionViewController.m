@@ -90,7 +90,39 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSInteger idnex = indexPath.row / 2;
+    switch (idnex) {
+        case 0: {
+            WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
+            webDetailVC.urlTitle = @"胜平负";
+            webDetailVC.url = @"http://mobile.gunqiu.com/mx/spfmode.html";
+            [self.navigationController pushViewController:webDetailVC animated:YES];           
+        }
+            break;
+            
+        case 1: {
+            WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
+            webDetailVC.urlTitle = @"亚盘";
+            webDetailVC.url = @"http://mobile.gunqiu.com/mx/yamode.html";
+            [self.navigationController pushViewController:webDetailVC animated:YES];
+            
+        }
+            break;
+            
+        case 2: {
+            WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
+            webDetailVC.urlTitle = @"大小球";
+            webDetailVC.url = @"http://mobile.gunqiu.com/mx/dxmode.html";
+            [self.navigationController pushViewController:webDetailVC animated:YES];
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
     
+  
 }
 
 #pragma mark - Lazy Load
