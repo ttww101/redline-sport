@@ -81,6 +81,14 @@
     return [LiveListTableViewCell heightForCell];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    LiveListModel *contentModel =self.listModel.data[indexPath.row];
+    WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
+    webDetailVC.urlTitle = @"直播";
+    webDetailVC.url = [NSString stringWithFormat:@"http://api.live.gunqiu.com:88/radarpage/%@.html",contentModel.mid];
+    [self.navigationController pushViewController:webDetailVC animated:YES];
+}
+
 #pragma mark - Lazy Load
 
 - (UITableView *)tableView
