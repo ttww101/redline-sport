@@ -70,5 +70,8 @@ typedef void(^MsgBlock)(NSString *message, NSError *error);
 
 -(void)purchase:(NSString *)product_id resultBlock:(MsgBlock)resultBlock;
 
+- (void)VerifyingLocalCredentialsWithBlock:(MsgBlock)resultBlock;
+
+
 
 @end

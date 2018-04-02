@@ -69,40 +69,40 @@
             
             UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0,19, 50, 50)];
             
-            int imagtag = 0;
+            int imagtag = i;
             
             
-            switch (i) {
-                case 0:
-                    imagtag = 5;
-                    break;
-                case 1:
-                    imagtag = 4;
-                    break;
-                case 2:
-                    imagtag = 6;
-                    break;
-                case 3:
-                    imagtag = 7;
-                    break;
-                case 4:
-                    imagtag = 0;
-                    break;
-                case 5:
-                    imagtag = 1;
-                    break;
-                case 6:
-                    imagtag = 3;
-                    break;
-                case 7:
-                    imagtag = 2;
-                    break;
-
-                default:
-                    break;
-            }
+//            switch (i) {
+//                case 0:
+//                    imagtag = 5;
+//                    break;
+//                case 1:
+//                    imagtag = 4;
+//                    break;
+//                case 2:
+//                    imagtag = 6;
+//                    break;
+//                case 3:
+//                    imagtag = 7;
+//                    break;
+//                case 4:
+//                    imagtag = 0;
+//                    break;
+//                case 5:
+//                    imagtag = 1;
+//                    break;
+//                case 6:
+//                    imagtag = 3;
+//                    break;
+//                case 7:
+//                    imagtag = 2;
+//                    break;
+//
+//                default:
+//                    break;
+//            }
             
-            [imageV setImage:[UIImage imageNamed:[NSString stringWithFormat:@"firstP2%d",imagtag]] ];
+            [imageV setImage:[UIImage imageNamed:[NSString stringWithFormat:@"tool%d",imagtag]] ];
             //            btn.backgroundColor = redcolor;
             [upBtn addSubview:imageV];
             

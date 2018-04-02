@@ -14,6 +14,8 @@
 
 @property (nonatomic, copy) MsgBlock resultBlock;
 
+@property (nonatomic, copy) MsgBlock verifyingResultBlock;
+
 @property (nonatomic , copy) NSString *selectProductID;
 
 @end
@@ -208,42 +210,48 @@
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:params
                                                           options:0
                                                             error:&error];
-//    [SVProgressHUD showErrorWithStatus:@"验证中..."];
-    [self uploadSanBoxReceipt:requestData];
-    
-//    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-//    [parameter setObject:base64_receipt forKey:@"receipt-data"];
-//    [parameter setObject:transaction.transactionIdentifier forKey:@"transaction_id"];
-//    [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_appPaySuccess]  ArrayFile:nil Start:^(id requestOrignal) {
-//
-//    } End:^(id responseOrignal) {
-//
-//    } Success:^(id responseResult, id responseOrignal) {
-//        if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
-//            NSDictionary *dic = responseOrignal[@"data"];
-//            NSString *statusCode = [dic[@"status"] stringValue];
-//            if ([statusCode isEqualToString:@"21007"]) {
-//                [self uploadSanBoxReceipt:requestData];
-//            } else if ([statusCode isEqualToString:@"0"]) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.resultBlock(statusCode,nil);
-//                });
-//            } else {
-//
-//            }
-//
-//        }else {
-//             self.resultBlock(nil,nil);
-//            [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%@",[responseOrignal objectForKey:@"msg"]]];
-//            [SVProgressHUD dismissWithDelay:2.0f];
-//        }
-//
-//    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-//         self.resultBlock(nil,error);
-//    }];
+
+
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    [parameter setObject:base64_receipt forKey:@"receipt-data"];
+    [parameter setObject:transaction.transactionIdentifier forKey:@"transaction_id"];
+    [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase]  ArrayFile:nil Start:^(id requestOrignal) {
+
+    } End:^(id responseOrignal) {
+
+    } Success:^(id responseResult, id responseOrignal) {
+        if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
+            NSDictionary *dic = responseOrignal[@"data"];
+            NSString *statusCode = [dic[@"status"] stringValue];
+            if ([statusCode isEqualToString:@"21007"]) {
+                [self uploadSanBoxReceipt:requestData receipt:base64_receipt];
+            } else if ([statusCode isEqualToString:@"0"]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [ArchiveFile removerPurchaseProof:base64_receipt];
+                    if (self.resultBlock) {
+                        self.resultBlock(statusCode,nil);
+                    }
+                });
+            } else {
+
+            }
+
+        }else {
+             self.resultBlock(nil,nil);
+            [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%@",[responseOrignal objectForKey:@"msg"]]];
+            [SVProgressHUD dismissWithDelay:2.0f];
+        }
+
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        if (self.resultBlock) {
+            self.resultBlock(false,error);
+        }
+        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%@",[responseOrignal objectForKey:@"msg"]]];
+        [SVProgressHUD dismissWithDelay:2.0f];
+    }];
 }
 
--(void)uploadSanBoxReceipt:(NSData *)requestData {
+-(void)uploadSanBoxReceipt:(NSData *)requestData receipt:(NSString *)receipt {
     NSString *verifyUrlString = @"https://sandbox.itunes.apple.com/verifyReceipt";
     NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:verifyUrlString] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0f];
     [storeRequest setHTTPMethod:@"POST"];
@@ -263,11 +271,74 @@
                                    NSString *code = [jsonResponse[@"status"] stringValue];
                                    if ([code isEqualToString:@"0"]) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                           self.resultBlock(code,nil);
+                                           [ArchiveFile removerPurchaseProof:receipt];
+                                           if (self.resultBlock) {
+                                               self.resultBlock(code,nil);
+                                           }
+                                           
+                                           if (self.verifyingResultBlock) {
+                                               self.verifyingResultBlock(code,nil);
+                                           }
                                        });
                                    }
                                }
                            }];
+}
+
+- (void)VerifyingLocalCredentialsWithBlock:(MsgBlock)resultBlock {
+    self.verifyingResultBlock = resultBlock;
+   NSMutableArray *arry = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
+    [arry addObject:@"121313"];
+    if (arry.count > 0) {
+        for (NSInteger i = 0; i < arry.count; i++) {
+            NSString *base64_receipt = arry[i];
+            
+            NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+            [params setObject:base64_receipt forKey:@"receipt-data"];
+            NSError *error;
+            // 转换为 JSON 格式
+            NSData *requestData = [NSJSONSerialization dataWithJSONObject:params
+                                                                  options:0
+                                                                    error:&error];
+            
+            
+            NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+            [parameter setObject:base64_receipt forKey:@"receipt-data"];
+            [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase]  ArrayFile:nil Start:^(id requestOrignal) {
+                
+            } End:^(id responseOrignal) {
+                
+            } Success:^(id responseResult, id responseOrignal) {
+                if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
+                    NSDictionary *dic = responseOrignal[@"data"];
+                    NSString *statusCode = [dic[@"status"] stringValue];
+                    if ([statusCode isEqualToString:@"21007"]) {
+                        [self uploadSanBoxReceipt:requestData receipt:base64_receipt];
+                    } else if ([statusCode isEqualToString:@"0"]) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [ArchiveFile removerPurchaseProof:base64_receipt];
+                            if (self.verifyingResultBlock) {
+                                self.verifyingResultBlock(statusCode,nil);
+                            }
+                            
+                        });
+                    } else {
+                        
+                    }
+                    
+                }else {
+                    self.resultBlock(nil,nil);
+                }
+                
+            } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+                if (self.verifyingResultBlock) {
+                    self.verifyingResultBlock(false,error);
+                }
+                
+            }];
+        }
+    }
+    
 }
 
 

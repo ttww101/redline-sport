@@ -436,15 +436,59 @@
 }
 
 - (void)payBtnClick {
-    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp8" resultBlock:^(NSString *message, NSError *error) {
-        if (error) {
-            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-            [SVProgressHUD showErrorWithStatus:errMse];
-        } else{
-
-        }
-        NSLog(@"%@   %@",message,error.userInfo);
+//    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp8" resultBlock:^(NSString *message, NSError *error) {
+//        if (error) {
+//            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+//            [SVProgressHUD showErrorWithStatus:errMse];
+//        } else{
+//
+//        }
+//        NSLog(@"%@   %@",message,error.userInfo);
+//    }];
+    
+    
+    if (![Methods login]) {
+        [Methods toLogin];
+        return;
+    }
+    
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    [parameter setObject:@"newsTypeId" forKey:@"modelType"];
+    [parameter setObject:@(1) forKey:@"serviceType"];
+    [parameter setObject:@"IOS" forKey:@"resource"];
+    [parameter setObject:@(_model.match_id) forKey:@"matchId"];
+    
+    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase] ArrayFile:nil Start:^(id requestOrignal) {
+        [LodingAnimateView showLodingView];
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        NSLog(@"11111");
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+         NSLog(@"11111");
     }];
+    
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        
+//        [[AppleIAPService sharedInstance]VerifyingLocalCredentialsWithBlock:^(NSString *message, NSError *error) {
+//            if (error) {
+//                NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+//                [SVProgressHUD showErrorWithStatus:errMse];
+//            } else{
+//                
+//            }
+//            NSLog(@"%@   %@",message,error.userInfo);
+//        }];
+//        
+//        
+//        
+//    });
+    
+    
+    
 }
 
 /*

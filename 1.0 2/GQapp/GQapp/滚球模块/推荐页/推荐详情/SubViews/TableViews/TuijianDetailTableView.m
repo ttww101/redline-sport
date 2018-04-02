@@ -183,6 +183,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     [self.superview endEditing:YES];
 
 }

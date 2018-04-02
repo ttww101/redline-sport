@@ -192,6 +192,9 @@
 
 
 
+// 苹果内购验证
+
+#define url_purchase @"/pay/alipay/model"
 
 
 
