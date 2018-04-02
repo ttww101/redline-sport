@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LiveListModel.h"
 
 typedef void (^requestCallBack)(BOOL isSuccess, id response);
 
 @interface MatchListViewModel : NSObject
 
-- (void)fetchMatchDateInterface:(requestCallBack)response;
+- (void)fetchMatchDateInterfaceWithParameter:(id)parameter  callBack:(requestCallBack)response;
 
 @end

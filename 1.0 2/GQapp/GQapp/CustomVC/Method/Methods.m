@@ -1393,7 +1393,46 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
 }
 
 
+//获取字符串的宽度
++ (CGFloat)widthForString:(NSString *)value fontSize:(float)fontSize andHeight:(float)height
+{
+    UIColor  *backgroundColor=[UIColor blackColor];
+    UIFont *font=[UIFont boldSystemFontOfSize:fontSize];
+    CGRect sizeToFit = [value boundingRectWithSize:CGSizeMake(HUGE, HUGE) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{
+                                                                                                                                              NSForegroundColorAttributeName:backgroundColor,
+                                                                                                                                              NSFontAttributeName:font
+                                                                                                                                              } context:nil];
+    
+    return sizeToFit.size.width;
+}
+//获得字符串的高度
++ (CGFloat)heightForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width
+{
+    UIColor  *backgroundColor=[UIColor blackColor];
+    UIFont *font=[UIFont boldSystemFontOfSize:18.0];
+    CGRect sizeToFit = [value boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{
+                                                                                                                                             NSForegroundColorAttributeName:backgroundColor,
+                                                                                                                                             NSFontAttributeName:font
+                                                                                                                                             } context:nil];
+    return sizeToFit.size.height;
+}
 
++ (UIImage *)defaultPlaceHolderImage:(NSString *)imageName {
+    UIImage  *image = [UIImage imageNamed:imageName ? : @""];
+    if (image == nil) {
+//        image = [UIImage i];
+    }
+    return image;
+}
+
++ (NSString *)formatHHSSStamp:(NSUInteger)timeStamp {
+    timeStamp = timeStamp;
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"HH:mm"];
+    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+    NSString *timeText = [stampFormatter stringFromDate:stampDate];
+    return timeText;
+}
 
 
 @end

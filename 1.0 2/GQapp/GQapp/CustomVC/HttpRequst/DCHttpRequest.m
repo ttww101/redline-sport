@@ -393,9 +393,14 @@ static AFHTTPRequestOperationManager *_afnetManager;
         }
         if ([dict isKindOfClass:[NSDictionary class]]) {
             if (success) {
-                
-                
-                if ([[dict objectForKey:@"code"] isEqualToString:@"2008"]) {
+                id code = [dict objectForKey:@"code"];
+                if ([code isKindOfClass:[NSString class]]) {
+                    
+                } else if ([code isKindOfClass:[NSNumber class]]) {
+                    code = [code stringValue];
+                }
+
+                if ([code isEqualToString:@"2008"]) {
                     
                     
                     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];

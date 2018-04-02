@@ -67,6 +67,7 @@
 #import "TodayHotSpotsTwoCell.h"
 #import "ModelPredictionViewController.h"
 #import "ToolKitViewController.h"
+#import "LiveViewController.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource,firstHotInfoCycleViewDelegate,FirstPUserlistViewDelegate,VierticalScrollViewDelegate,SDCycleScrollViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,DataModelViewDelegate>
 
@@ -1560,9 +1561,12 @@
             break;
         case 1:
         {
-            BaolengZhishuVC * jiaoyi = [[BaolengZhishuVC alloc] init];
-            jiaoyi.hidesBottomBarWhenPushed = YES;
-            [APPDELEGATE.customTabbar pushToViewController:jiaoyi animated:YES];
+//            BaolengZhishuVC * jiaoyi = [[BaolengZhishuVC alloc] init];
+//            jiaoyi.hidesBottomBarWhenPushed = YES;
+//            [APPDELEGATE.customTabbar pushToViewController:jiaoyi animated:YES];
+            
+            LiveViewController *control = [[LiveViewController alloc]init];
+            [self.navigationController pushViewController:control animated:YES];
             
         }
             break;

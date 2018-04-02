@@ -107,5 +107,24 @@ typedef NS_ENUM(NSInteger, weekType)
 //但是在iOS9以下的版本是没提供这个便利的方法的。以下为解决方案的思路，就是在iOS9以下版本时，先将本地HTML文件的数据copy到tmp目录中，然后再使用loadRequest来加载。但是如果在HTML中加入了其他资源文件，例如js，css，image等必须一同copy到temp中。
 + (NSURL *)fileURLForBuggyWKWebView8:(NSURL *)fileURL;
 
+//获取字符串的宽度
++ (CGFloat)widthForString:(NSString *)value fontSize:(float)fontSize andHeight:(float)height;
+
+//获得字符串的高度
++ (CGFloat) heightForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width;
+
+
+/**
+ 默认图片
+ 
+ @param imageName 图片名字
+ @return 返回图片
+ */
++ (UIImage *)defaultPlaceHolderImage:(NSString *)imageName;
+
++ (NSString *)formatHHSSStamp:(NSUInteger)timeStamp;
+
+
+
 
 @end

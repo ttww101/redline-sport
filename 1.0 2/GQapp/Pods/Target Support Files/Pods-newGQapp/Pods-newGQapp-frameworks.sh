@@ -85,7 +85,6 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/CYLTabBarController/CYLTabBarController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DCPathButton/DCPathButton.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HYBLoopScrollView/HYBLoopScrollView.framework"
@@ -96,12 +95,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SocketRocket/SocketRocket.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/TYPagerController/TYPagerController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework"
   install_framework "$BUILT_PRODUCTS_DIR/YYModel/YYModel.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/CYLTabBarController/CYLTabBarController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DCPathButton/DCPathButton.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HYBLoopScrollView/HYBLoopScrollView.framework"
@@ -112,12 +111,12 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SocketRocket/SocketRocket.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/TYPagerController/TYPagerController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework"
   install_framework "$BUILT_PRODUCTS_DIR/YYModel/YYModel.framework"
 fi
 if [[ "$CONFIGURATION" == "ad hoc distribution" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/CYLTabBarController/CYLTabBarController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DCPathButton/DCPathButton.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DeviceUtil/DeviceUtil.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HYBLoopScrollView/HYBLoopScrollView.framework"
@@ -128,6 +127,7 @@ if [[ "$CONFIGURATION" == "ad hoc distribution" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SVProgressHUD/SVProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SocketRocket/SocketRocket.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/TYPagerController/TYPagerController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework"
   install_framework "$BUILT_PRODUCTS_DIR/YYModel/YYModel.framework"
 fi

@@ -48,6 +48,10 @@
 		A941D531206E1C23008CE14F /* NullTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D530206E1C23008CE14F /* NullTableViewCell.m */; };
 		A941D534206E22FB008CE14F /* ToolKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D533206E22FB008CE14F /* ToolKitViewController.m */; };
 		A941D537206E236A008CE14F /* ToolKitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D536206E236A008CE14F /* ToolKitViewModel.m */; };
+		A94B676E2071D51D00E0748F /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B676D2071D51D00E0748F /* LiveViewController.m */; };
+		A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67722071D5F100E0748F /* LiveListViewController.m */; };
+		A94B67772071E32E00E0748F /* LiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67762071E32E00E0748F /* LiveListModel.m */; };
+		A94B677A2071E42300E0748F /* LiveListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67792071E42300E0748F /* LiveListTableViewCell.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
@@ -1121,6 +1125,14 @@
 		A941D533206E22FB008CE14F /* ToolKitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewController.m; sourceTree = "<group>"; };
 		A941D535206E236A008CE14F /* ToolKitViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolKitViewModel.h; sourceTree = "<group>"; };
 		A941D536206E236A008CE14F /* ToolKitViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewModel.m; sourceTree = "<group>"; };
+		A94B676C2071D51D00E0748F /* LiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
+		A94B676D2071D51D00E0748F /* LiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
+		A94B67712071D5F100E0748F /* LiveListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveListViewController.h; sourceTree = "<group>"; };
+		A94B67722071D5F100E0748F /* LiveListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveListViewController.m; sourceTree = "<group>"; };
+		A94B67752071E32D00E0748F /* LiveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveListModel.h; sourceTree = "<group>"; };
+		A94B67762071E32E00E0748F /* LiveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveListModel.m; sourceTree = "<group>"; };
+		A94B67782071E42300E0748F /* LiveListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveListTableViewCell.h; sourceTree = "<group>"; };
+		A94B67792071E42300E0748F /* LiveListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveListTableViewCell.m; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -2597,6 +2609,8 @@
 		A9E60CE92071C9AB002BF207 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A94B67752071E32D00E0748F /* LiveListModel.h */,
+				A94B67762071E32E00E0748F /* LiveListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2604,6 +2618,10 @@
 		A9E60CEA2071C9AB002BF207 /* VIewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A94B676C2071D51D00E0748F /* LiveViewController.h */,
+				A94B676D2071D51D00E0748F /* LiveViewController.m */,
+				A94B67712071D5F100E0748F /* LiveListViewController.h */,
+				A94B67722071D5F100E0748F /* LiveListViewController.m */,
 			);
 			path = VIewControllers;
 			sourceTree = "<group>";
@@ -2620,6 +2638,8 @@
 		A9E60CEC2071C9AB002BF207 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				A94B67782071E42300E0748F /* LiveListTableViewCell.h */,
+				A94B67792071E42300E0748F /* LiveListTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -7848,6 +7868,7 @@
 				EB8C1E621F21944C00A07863 /* NavigationModel.m in Sources */,
 				EBFA65A91F8F700100C4BE6A /* YpasTwoCell.m in Sources */,
 				A941D52E206E171B008CE14F /* ModelPredictionViewModel.m in Sources */,
+				A94B67772071E32E00E0748F /* LiveListModel.m in Sources */,
 				EB564C571F4D723B00F4C947 /* PanwangZhishuVC.m in Sources */,
 				EB8C1EE21F21974000A07863 /* Dan_StringGuanModel.m in Sources */,
 				EB3105D51F456FE9009E6AE9 /* UserOfotherCellTwo.m in Sources */,
@@ -7883,6 +7904,7 @@
 				EB8C20211F21A0AA00A07863 /* GoodsclassModel.m in Sources */,
 				EB8C1E5D1F21944C00A07863 /* ChangePhoneNumVC.m in Sources */,
 				EB5BCF541F4186B200EF32E6 /* JSPLDownMode.m in Sources */,
+				A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */,
 				EB8C1EA11F21944C00A07863 /* DSCollectionViewIndex.m in Sources */,
 				EB8C1EAE1F21944C00A07863 /* BettingVC.m in Sources */,
 				EB6BDA3F1F398B6300C9EA73 /* TongPeiPeiLvDTVC.m in Sources */,
@@ -7929,6 +7951,7 @@
 				EB5BCF431F4142B200EF32E6 /* DoubleBattlecell.m in Sources */,
 				EB8C1E7F1F21944C00A07863 /* NewRecommandVC.m in Sources */,
 				EB5BCF451F4142B200EF32E6 /* PeiLvDetailCell.m in Sources */,
+				A94B676E2071D51D00E0748F /* LiveViewController.m in Sources */,
 				EB8C1E551F21944C00A07863 /* NoticePageVC.m in Sources */,
 				EB8C20001F219D7100A07863 /* BiaoQianModel.m in Sources */,
 				EB8C1E751F21944C00A07863 /* CommentDetailView.m in Sources */,
@@ -8013,6 +8036,7 @@
 				EBF439331E9F56A90050AAE8 /* UIScrollView+EmptyDataSet.m in Sources */,
 				EB8C1EA41F21944C00A07863 /* SelectedChupanVC.m in Sources */,
 				EB8C1EAB1F21944C00A07863 /* BettingCell.m in Sources */,
+				A94B677A2071E42300E0748F /* LiveListTableViewCell.m in Sources */,
 				EB75ED961F3D4F5100B6046C /* HSTabBarContentView.m in Sources */,
 				EB8C1E7D1F21944C00A07863 /* RecommandListModel.m in Sources */,
 				EB8C20031F219D7100A07863 /* NSAttributedString+RichText.m in Sources */,

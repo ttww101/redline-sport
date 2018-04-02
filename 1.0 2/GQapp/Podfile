@@ -18,7 +18,7 @@ target 'newGQapp' do
     pod 'Bugly', '~> 2.4.6'
     
     pod 'YYModel', '~> 1.0.4'
-    pod 'CYLTabBarController', '~> 1.17.4'
+    pod 'TYPagerController'
 
     pod 'Masonry', '~> 1.0.1'
     pod 'UITableView+FDTemplateLayoutCell'
