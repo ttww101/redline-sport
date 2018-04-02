@@ -9,6 +9,7 @@
 #import "LiveListViewController.h"
 #import "MatchListViewModel.h"
 #import "LiveListTableViewCell.h"
+#import "ToolWebViewController.h"
 
 @interface LiveListViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -26,6 +27,7 @@
     [super viewDidLoad];
     [self configUI];
     [self loadData];
+    [self setupHeaderView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,13 +43,19 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
+}
+- (void)setupHeaderView {
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+    header.lastUpdatedTimeLabel.hidden = YES;
+    header.stateLabel.font = font13;
+    self.tableView.mj_header = header;
 }
 
 #pragma mark - Load Data
 
 - (void)loadData {
     [self.matchListViewModel fetchMatchDateInterfaceWithParameter:_dayID callBack:^(BOOL isSuccess, id response) {
+        [self.tableView.mj_header endRefreshing];
         if (isSuccess) {
             self.listModel = response;
             if (self.listModel.data.count > 0) {
@@ -83,9 +91,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     LiveListModel *contentModel =self.listModel.data[indexPath.row];
-    WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
-    webDetailVC.urlTitle = @"直播";
-    webDetailVC.url = [NSString stringWithFormat:@"http://api.live.gunqiu.com:88/radarpage/%@.html",contentModel.mid];
+    ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+    webDetailVC.webTitle = @"直播";
+    webDetailVC.urlPath = [NSString stringWithFormat:@"http://api.live.gunqiu.com:88/radarpage/%@.html",contentModel.mid];
     [self.navigationController pushViewController:webDetailVC animated:YES];
 }
 

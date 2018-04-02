@@ -64,6 +64,10 @@
 
 - (void)showAnimateView
 {
+    if (_basicV) {
+        [_basicV removeFromSuperview];
+        _basicV = nil;
+    }
     
     _basicV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
     
@@ -107,7 +111,6 @@
             _basicV.alpha = 0;
         }completion:^(BOOL finished) {
             _basicV.hidden = YES;
-            [_basicV removeAllSubViews];
             [_basicV removeFromSuperview];
             _basicV =nil;
         }];

@@ -10,6 +10,7 @@
 #import "UniversaListCell.h"
 #import "ModelPredictionViewModel.h"
 #import "NullTableViewCell.h"
+#import "ToolWebViewController.h"
 
 @interface ModelPredictionViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
@@ -93,26 +94,30 @@
     NSInteger idnex = indexPath.row / 2;
     switch (idnex) {
         case 0: {
-            WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
-            webDetailVC.urlTitle = @"胜平负";
-            webDetailVC.url = @"http://mobile.gunqiu.com/mx/spfmode.html";
-            [self.navigationController pushViewController:webDetailVC animated:YES];           
+            
+//            http://mobiledev.gunqiu.com:81/ios/spfmode.html
+//            http://mobile.gunqiu.com/mx/spfmode.html
+            
+            ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
+            webControl.webTitle = @"胜平负";
+            webControl.urlPath = @"http://mobiledev.gunqiu.com:81/ios/spfmode.html";
+            [self.navigationController pushViewController:webControl animated:YES];
         }
             break;
             
         case 1: {
-            WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
-            webDetailVC.urlTitle = @"亚盘";
-            webDetailVC.url = @"http://mobile.gunqiu.com/mx/yamode.html";
+            ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+            webDetailVC.webTitle = @"亚盘";
+            webDetailVC.urlPath = @"http://mobile.gunqiu.com/mx/yamode.html";
             [self.navigationController pushViewController:webDetailVC animated:YES];
             
         }
             break;
             
         case 2: {
-            WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
-            webDetailVC.urlTitle = @"大小球";
-            webDetailVC.url = @"http://mobile.gunqiu.com/mx/dxmode.html";
+            ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+            webDetailVC.webTitle = @"大小球";
+            webDetailVC.urlPath = @"http://mobile.gunqiu.com/mx/dxmode.html";
             [self.navigationController pushViewController:webDetailVC animated:YES];
             
         }

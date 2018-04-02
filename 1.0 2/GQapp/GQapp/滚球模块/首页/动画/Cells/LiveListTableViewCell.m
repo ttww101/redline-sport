@@ -82,7 +82,7 @@ static CGFloat imageHeight = 20;
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-0.5);
         make.left.equalTo(self.contentView.mas_left);
-        make.size.mas_equalTo(CGSizeMake(Screen_Base_Width, 0.5));
+        make.size.mas_equalTo(CGSizeMake(Width, 0.5));
     }];
     
     [self.contentView addSubview:self.metchTypeName];

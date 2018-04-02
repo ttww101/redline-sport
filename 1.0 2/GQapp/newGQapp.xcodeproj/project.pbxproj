@@ -52,6 +52,8 @@
 		A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67722071D5F100E0748F /* LiveListViewController.m */; };
 		A94B67772071E32E00E0748F /* LiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67762071E32E00E0748F /* LiveListModel.m */; };
 		A94B677A2071E42300E0748F /* LiveListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67792071E42300E0748F /* LiveListTableViewCell.m */; };
+		A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B677C2071FC0D00E0748F /* ToolWebViewController.m */; };
+		A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* LodingAnimateView.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
@@ -552,7 +554,6 @@
 		EB8C1FC71F219A8C00A07863 /* DCHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1F961F219A8C00A07863 /* DCHttpRequest.m */; };
 		EB8C1FC81F219A8C00A07863 /* DependetNetMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1F981F219A8C00A07863 /* DependetNetMethods.m */; };
 		EB8C1FC91F219A8C00A07863 /* HttpString.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1F9A1F219A8C00A07863 /* HttpString.m */; };
-		EB8C1FCA1F219A8C00A07863 /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1F9C1F219A8C00A07863 /* LodingAnimateView.m */; };
 		EB8C1FCB1F219A8C00A07863 /* UniversalNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1F9E1F219A8C00A07863 /* UniversalNetwork.m */; };
 		EB8C1FCC1F219A8C00A07863 /* LMJScrollTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FA11F219A8C00A07863 /* LMJScrollTextView.m */; };
 		EB8C1FCD1F219A8C00A07863 /* refreshweb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB8C1FA21F219A8C00A07863 /* refreshweb@2x.png */; };
@@ -1133,6 +1134,10 @@
 		A94B67762071E32E00E0748F /* LiveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveListModel.m; sourceTree = "<group>"; };
 		A94B67782071E42300E0748F /* LiveListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveListTableViewCell.h; sourceTree = "<group>"; };
 		A94B67792071E42300E0748F /* LiveListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveListTableViewCell.m; sourceTree = "<group>"; };
+		A94B677B2071FC0D00E0748F /* ToolWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolWebViewController.h; sourceTree = "<group>"; };
+		A94B677C2071FC0D00E0748F /* ToolWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolWebViewController.m; sourceTree = "<group>"; };
+		A94B67812072003A00E0748F /* LodingAnimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LodingAnimateView.m; sourceTree = "<group>"; };
+		A94B67822072003A00E0748F /* LodingAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodingAnimateView.h; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -1893,8 +1898,6 @@
 		EB8C1F981F219A8C00A07863 /* DependetNetMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DependetNetMethods.m; sourceTree = "<group>"; };
 		EB8C1F991F219A8C00A07863 /* HttpString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpString.h; sourceTree = "<group>"; };
 		EB8C1F9A1F219A8C00A07863 /* HttpString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpString.m; sourceTree = "<group>"; };
-		EB8C1F9B1F219A8C00A07863 /* LodingAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodingAnimateView.h; sourceTree = "<group>"; };
-		EB8C1F9C1F219A8C00A07863 /* LodingAnimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LodingAnimateView.m; sourceTree = "<group>"; };
 		EB8C1F9D1F219A8C00A07863 /* UniversalNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversalNetwork.h; sourceTree = "<group>"; };
 		EB8C1F9E1F219A8C00A07863 /* UniversalNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversalNetwork.m; sourceTree = "<group>"; };
 		EB8C1FA01F219A8C00A07863 /* LMJScrollTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJScrollTextView.h; sourceTree = "<group>"; };
@@ -2564,6 +2567,8 @@
 				A941D526206E07E0008CE14F /* ModelPredictionViewController.m */,
 				A941D532206E22FB008CE14F /* ToolKitViewController.h */,
 				A941D533206E22FB008CE14F /* ToolKitViewController.m */,
+				A94B677B2071FC0D00E0748F /* ToolWebViewController.h */,
+				A94B677C2071FC0D00E0748F /* ToolWebViewController.m */,
 			);
 			path = VIewControllers;
 			sourceTree = "<group>";
@@ -5926,6 +5931,8 @@
 		EB8C1F941F219A8C00A07863 /* HttpRequst */ = {
 			isa = PBXGroup;
 			children = (
+				A94B67822072003A00E0748F /* LodingAnimateView.h */,
+				A94B67812072003A00E0748F /* LodingAnimateView.m */,
 				EB9419241F5D7A94002660E4 /* MessageSoundMgr.h */,
 				EB9419251F5D7A94002660E4 /* MessageSoundMgr.m */,
 				EB9419261F5D7A94002660E4 /* UMStatisticsMgr.h */,
@@ -5936,8 +5943,6 @@
 				EB8C1F981F219A8C00A07863 /* DependetNetMethods.m */,
 				EB8C1F991F219A8C00A07863 /* HttpString.h */,
 				EB8C1F9A1F219A8C00A07863 /* HttpString.m */,
-				EB8C1F9B1F219A8C00A07863 /* LodingAnimateView.h */,
-				EB8C1F9C1F219A8C00A07863 /* LodingAnimateView.m */,
 				EB8C1F9D1F219A8C00A07863 /* UniversalNetwork.h */,
 				EB8C1F9E1F219A8C00A07863 /* UniversalNetwork.m */,
 			);
@@ -7948,6 +7953,7 @@
 				EB518D0B1F7B81A500D548BC /* FeedBackModel.m in Sources */,
 				EB8C20351F21A72000A07863 /* AnalystsEventFilterVC.m in Sources */,
 				EB8C1ECA1F21944C00A07863 /* TAPageControl.m in Sources */,
+				A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */,
 				EB5BCF431F4142B200EF32E6 /* DoubleBattlecell.m in Sources */,
 				EB8C1E7F1F21944C00A07863 /* NewRecommandVC.m in Sources */,
 				EB5BCF451F4142B200EF32E6 /* PeiLvDetailCell.m in Sources */,
@@ -7980,7 +7986,6 @@
 				EB8C1E5E1F21944C00A07863 /* NewQingBaoCell.m in Sources */,
 				EB8C20291F21A10C00A07863 /* UserTongjiView.m in Sources */,
 				EB8C1E951F21944C00A07863 /* SelectedDateTitleView.m in Sources */,
-				EB8C1FCA1F219A8C00A07863 /* LodingAnimateView.m in Sources */,
 				EB95FEAE1F4C15B400D29161 /* UserTongjiAllModel.m in Sources */,
 				EB8C1E681F21944C00A07863 /* TuijiandatingModel.m in Sources */,
 				EB9419321F5D7ADC002660E4 /* FenXiHeaderBottomView.m in Sources */,
@@ -8082,6 +8087,7 @@
 				EB518D011F7B807100D548BC /* FeedBackHeaderView.m in Sources */,
 				EB467B3F1F429EBE00C7299E /* BisaiTHeaderFenxiView.m in Sources */,
 				EB8C1EA71F21944C00A07863 /* JiaoYiNewCell.m in Sources */,
+				A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */,
 				EB8C1E4C1F21944C00A07863 /* MineViewController.m in Sources */,
 				EB8C1E461F21944C00A07863 /* FansModel.m in Sources */,
 				EB8C1FBF1F219A8C00A07863 /* TitleIndexView.m in Sources */,
