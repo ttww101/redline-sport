@@ -433,7 +433,7 @@
 //    APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
 //    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
 //    APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com:8892";
-    //APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
+//    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
 
     //上线的时候关闭--wt
     APPDELEGATE.url_Server = @"http://mobiledev.gunqiu.com:81/interface";

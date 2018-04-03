@@ -37,10 +37,16 @@
 #pragma mark - Load Data
 
 - (void)loadData {
+    if (_model) {
+        self.urlPath = _model.webUrl;
+        self.html5Url = _model.htmlUrl;
+    }
+    
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        request.timeoutInterval = 15;
         [self.webView loadRequest:request];
     } else if (self.html5Url != nil) {
         [self.webView loadHTMLString:self.html5Url baseURL:nil];
@@ -54,18 +60,27 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    self.navigationItem.title = _webTitle;
+    self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
 }
 
 #pragma mark - UIWebViewDelegate
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    NSLog(@"%@",request);
+    
+    return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     [LodingAnimateView showLodingView];
+    
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [LodingAnimateView dissMissLoadingView];
+
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -77,21 +92,52 @@
 #pragma mark -
 
 - (void)loadBradge {
-    // 给哪个webview建立JS与OjbC的沟通桥梁
+    
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.bridge setWebViewDelegate:self];
-   
     NSString *token = [Methods getTokenModel].token;
-    [self.bridge callHandler:@"spfmode" data:token];
-    // type 1 刷新当前页面 0 跳转单场付费
-    [self.bridge registerHandler:@"spfpay" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"111");
-    }];
     
-    [self.bridge registerHandler:@"topage" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"111");
-    }];
-    
+    if ([_model.title isEqualToString:@"胜平负"] || [_model.title isEqualToString:@"亚盘"] || [_model.title isEqualToString:@"大小球"]) {
+        [self.bridge callHandler:_model.callHandleActionName data:token responseCallback:^(id responseData) {
+            NSLog(@"%@",responseData);
+        }];
+        
+        
+        [self.bridge registerHandler:@"toPage" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [self responseRegisterAction:data];
+            responseCallback(@"Response from testObjcCallback");
+        }];
+    }
+
+    if (_model.parameter) {
+        [self.bridge callHandler:_model.callHandleActionName data:_model.parameter responseCallback:^(id responseData) {
+            NSLog(@"%@",responseData);
+        }];
+    }
+}
+
+// type 1 单场 0 开通服务
+
+- (void)responseRegisterAction:(id)data {
+    NSString *weakToken = [Methods getTokenModel].token;
+    NSDictionary *dic = (NSDictionary *)data;
+    WebModel *webModel = [[WebModel alloc]init];
+    webModel.title = dic[@"name"];
+    NSString *url = dic[@"url"];
+    webModel.webUrl = [NSString stringWithFormat:@"%@:81/ios/%@", APPDELEGATE.url_jsonHeader ,url];
+    webModel.callHandleActionName = dic[@"model"];
+    if ([dic[@"type"] isEqualToString:@"1"]) {
+        NSMutableDictionary *parametr = [[NSMutableDictionary alloc]init];
+        [parametr setObject:weakToken forKey:@"token"];
+        [parametr setObject:dic[@"homeTeam"] forKey:@"homeTeam"];
+        [parametr setObject:dic[@"guestTeam"] forKey:@"guestTeam"];
+        [parametr setObject:dic[@"scheduleId"] forKey:@"scheduleId"];
+        webModel.parameter = parametr;
+    }
+    ToolWebViewController *control = [[ToolWebViewController alloc]init];
+    control.model = webModel;
+    [self.navigationController pushViewController:control animated:YES];
+   
 }
 
 #pragma mark - Lazy Load

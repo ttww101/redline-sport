@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WebModel.h"
 
 @interface ToolWebViewController : UIViewController
 
@@ -15,5 +16,10 @@
 @property (nonatomic, copy) NSString *html5Url;
 
 @property (nonatomic, copy) NSString *urlPath;
+
+@property (nonatomic , copy) NSDictionary *parameterDic;
+
+@property (nonatomic , strong) WebModel *model;
+
 
 @end

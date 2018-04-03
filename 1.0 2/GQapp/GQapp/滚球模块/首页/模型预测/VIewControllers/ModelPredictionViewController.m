@@ -91,33 +91,45 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (![Methods login]) {
+        [Methods toLogin];
+        return;
+    }
     NSInteger idnex = indexPath.row / 2;
     switch (idnex) {
         case 0: {
-            
-//            http://mobiledev.gunqiu.com:81/ios/spfmode.html
-//            http://mobile.gunqiu.com/mx/spfmode.html
-            
+            WebModel *model = [[WebModel alloc]init];
+            model.title = @"胜平负";
+            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/spfmode.html", APPDELEGATE.url_jsonHeader];
+            model.callHandleActionName = @"spfmode";
+            model.registerActionName = @"toPage";
             ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
-            webControl.webTitle = @"胜平负";
-            webControl.urlPath = @"http://mobiledev.gunqiu.com:81/ios/spfmode.html";
+            webControl.model = model;
             [self.navigationController pushViewController:webControl animated:YES];
         }
             break;
             
         case 1: {
+            WebModel *model = [[WebModel alloc]init];
+            model.title = @"亚盘";
+            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/yamode.html", APPDELEGATE.url_jsonHeader];
+            model.callHandleActionName = @"yamode";
+            model.registerActionName = @"toPage";
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
-            webDetailVC.webTitle = @"亚盘";
-            webDetailVC.urlPath = @"http://mobile.gunqiu.com/mx/yamode.html";
+            webDetailVC.model = model;
             [self.navigationController pushViewController:webDetailVC animated:YES];
             
         }
             break;
             
         case 2: {
+            WebModel *model = [[WebModel alloc]init];
+            model.title = @"大小球";
+            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/dxmode.html", APPDELEGATE.url_jsonHeader];
+            model.callHandleActionName = @"dxmode";
+            model.registerActionName = @"toPage";
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
-            webDetailVC.webTitle = @"大小球";
-            webDetailVC.urlPath = @"http://mobile.gunqiu.com/mx/dxmode.html";
+            webDetailVC.model = model;
             [self.navigationController pushViewController:webDetailVC animated:YES];
             
         }

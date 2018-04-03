@@ -42,6 +42,7 @@
 		8481CE7C1F3014EA00A766F2 /* backNew2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7B1F3014EA00A766F2 /* backNew2@2x.png */; };
 		8481CE7E1F30156300A766F2 /* backNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7D1F30156300A766F2 /* backNew@2x.png */; };
 		84BA634C1FC6875100A65360 /* UIAlertController+askForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */; };
+		A93A4A7420731228007CED8F /* WebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A93A4A7320731228007CED8F /* WebModel.m */; };
 		A941D527206E07E0008CE14F /* ModelPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D526206E07E0008CE14F /* ModelPredictionViewController.m */; };
 		A941D52A206E1233008CE14F /* UniversaListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D529206E1233008CE14F /* UniversaListCell.m */; };
 		A941D52E206E171B008CE14F /* ModelPredictionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D52D206E171B008CE14F /* ModelPredictionViewModel.m */; };
@@ -1114,6 +1115,8 @@
 		8481CE7D1F30156300A766F2 /* backNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backNew@2x.png"; sourceTree = "<group>"; };
 		84BA63491FC6875100A65360 /* UIAlertController+askForUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+askForUser.h"; sourceTree = "<group>"; };
 		84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+askForUser.m"; sourceTree = "<group>"; };
+		A93A4A7220731228007CED8F /* WebModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebModel.h; sourceTree = "<group>"; };
+		A93A4A7320731228007CED8F /* WebModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebModel.m; sourceTree = "<group>"; };
 		A941D525206E07E0008CE14F /* ModelPredictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelPredictionViewController.h; sourceTree = "<group>"; };
 		A941D526206E07E0008CE14F /* ModelPredictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelPredictionViewController.m; sourceTree = "<group>"; };
 		A941D528206E1233008CE14F /* UniversaListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversaListCell.h; sourceTree = "<group>"; };
@@ -2576,6 +2579,8 @@
 		A941D524206E07A2008CE14F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A93A4A7220731228007CED8F /* WebModel.h */,
+				A93A4A7320731228007CED8F /* WebModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -7819,6 +7824,7 @@
 				EB75EDB41F3D4FEA00B6046C /* PeiLvDetailVC.m in Sources */,
 				EB2319D91F7C8FE700003F3C /* PlycModel.m in Sources */,
 				EB8C1E4E1F21944C00A07863 /* UserTuijianVC.m in Sources */,
+				A93A4A7420731228007CED8F /* WebModel.m in Sources */,
 				EB8C1E9F1F21944C00A07863 /* BIfenSelectedSaishiModel.m in Sources */,
 				EB8C1EBA1F21944C00A07863 /* TodayHotSpotsCell.m in Sources */,
 				EB8C1EBC1F21944C00A07863 /* FirstPInfoListModel.m in Sources */,

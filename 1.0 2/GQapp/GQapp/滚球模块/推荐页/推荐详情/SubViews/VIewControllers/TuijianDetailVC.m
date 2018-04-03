@@ -453,7 +453,8 @@
     }
     
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-    [parameter setObject:@"newsTypeId" forKey:@"modelType"];
+    
+    [parameter setObject:@"1" forKey:@"modelType"];
     [parameter setObject:@(1) forKey:@"serviceType"];
     [parameter setObject:@"IOS" forKey:@"resource"];
     [parameter setObject:@(_model.match_id) forKey:@"matchId"];
