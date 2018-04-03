@@ -196,6 +196,8 @@
 
 #define url_purchase @"/pay/applepay/model"
 
+#define url_verifyPayment @"/applepay/verifyPayment"
+
 
 
 //支付

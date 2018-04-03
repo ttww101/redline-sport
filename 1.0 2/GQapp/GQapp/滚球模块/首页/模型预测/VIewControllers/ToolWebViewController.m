@@ -10,6 +10,7 @@
 #import "WebViewJavascriptBridge.h"
 #import "UserModel.h"
 #import "TokenModel.h"
+#import "AppleIAPService.h"
 
 
 @interface ToolWebViewController () <UIWebViewDelegate>
@@ -24,6 +25,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//    if (_webView) {
+//        _webView = nil;
+//        [_webView removeFromSuperview];
+//    }
     [self configUI];
     [self loadBradge];
     [self loadData];
@@ -34,6 +43,34 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)removeWebCache{
+    //先删除cookie
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies])
+    {
+        [storage deleteCookie:cookie];
+    }
+    
+    NSString *libraryDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *bundleId  =  [[[NSBundle mainBundle] infoDictionary]
+                            objectForKey:@"CFBundleIdentifier"];
+    NSString *webkitFolderInLib = [NSString stringWithFormat:@"%@/WebKit",libraryDir];
+    NSString *webKitFolderInCaches = [NSString
+                                      stringWithFormat:@"%@/Caches/%@/WebKit",libraryDir,bundleId];
+    NSString *webKitFolderInCachesfs = [NSString
+                                        stringWithFormat:@"%@/Caches/%@/fsCachedData",libraryDir,bundleId];
+    NSError *error;
+    /* iOS8.0 WebView Cache的存放路径 */
+    [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCaches error:&error];
+    [[NSFileManager defaultManager] removeItemAtPath:webkitFolderInLib error:nil];
+    /* iOS7.0 WebView Cache的存放路径 */
+    [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCachesfs error:&error];
+    NSString *cookiesFolderPath = [libraryDir stringByAppendingString:@"/Cookies"];
+    [[NSFileManager defaultManager] removeItemAtPath:cookiesFolderPath error:&error];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+}
+
 #pragma mark - Load Data
 
 - (void)loadData {
@@ -41,12 +78,11 @@
         self.urlPath = _model.webUrl;
         self.html5Url = _model.htmlUrl;
     }
-    
+
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-        request.timeoutInterval = 15;
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:15];
         [self.webView loadRequest:request];
     } else if (self.html5Url != nil) {
         [self.webView loadHTMLString:self.html5Url baseURL:nil];
@@ -66,12 +102,6 @@
 
 #pragma mark - UIWebViewDelegate
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
-    NSLog(@"%@",request);
-    
-    return YES;
-}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     [LodingAnimateView showLodingView];
@@ -111,12 +141,23 @@
 
     if (_model.parameter) {
         [self.bridge callHandler:_model.callHandleActionName data:_model.parameter responseCallback:^(id responseData) {
-            NSLog(@"%@",responseData);
+        
+        }];
+        // 内购方法
+        [self.bridge registerHandler:@"dxpay" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [[AppleIAPService sharedInstance]purchase:data[@"type"] resultBlock:^(NSString *message, NSError *error) {
+                if (error) {
+                    NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+                    [SVProgressHUD showErrorWithStatus:errMse];
+                } else{
+                    [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }];
         }];
     }
 }
 
-// type 1 单场 0 开通服务
 
 - (void)responseRegisterAction:(id)data {
     NSString *weakToken = [Methods getTokenModel].token;
@@ -126,6 +167,7 @@
     NSString *url = dic[@"url"];
     webModel.webUrl = [NSString stringWithFormat:@"%@:81/ios/%@", APPDELEGATE.url_jsonHeader ,url];
     webModel.callHandleActionName = dic[@"model"];
+    webModel.registerActionName = @"dxpay";
     if ([dic[@"type"] isEqualToString:@"1"]) {
         NSMutableDictionary *parametr = [[NSMutableDictionary alloc]init];
         [parametr setObject:weakToken forKey:@"token"];
@@ -137,7 +179,6 @@
     ToolWebViewController *control = [[ToolWebViewController alloc]init];
     control.model = webModel;
     [self.navigationController pushViewController:control animated:YES];
-   
 }
 
 #pragma mark - Lazy Load

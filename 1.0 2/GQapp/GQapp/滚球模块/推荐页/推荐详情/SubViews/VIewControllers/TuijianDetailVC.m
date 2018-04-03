@@ -436,16 +436,6 @@
 }
 
 - (void)payBtnClick {
-//    [[AppleIAPService sharedInstance]purchase:@"com.Gunqiu.GQapp8" resultBlock:^(NSString *message, NSError *error) {
-//        if (error) {
-//            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-//            [SVProgressHUD showErrorWithStatus:errMse];
-//        } else{
-//
-//        }
-//        NSLog(@"%@   %@",message,error.userInfo);
-//    }];
-    
     
     if (![Methods login]) {
         [Methods toLogin];
@@ -453,22 +443,32 @@
     }
     
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-    
-    [parameter setObject:@"1" forKey:@"modelType"];
+    [parameter setObject:@(_model.playtype ) forKey:@"modelType"];
     [parameter setObject:@(1) forKey:@"serviceType"];
     [parameter setObject:@"IOS" forKey:@"resource"];
     [parameter setObject:@(_model.match_id) forKey:@"matchId"];
-    
     [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase] ArrayFile:nil Start:^(id requestOrignal) {
         [LodingAnimateView showLodingView];
     } End:^(id responseOrignal) {
         
     } Success:^(id responseResult, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
-        NSLog(@"11111");
+        NSDictionary *dic = (NSDictionary *)responseOrignal;
+        if (dic) {
+            NSDictionary *dataDic = dic[@"data"];
+            NSString *productID = dataDic[@"productId"];
+            [[AppleIAPService sharedInstance]purchase:productID resultBlock:^(NSString *message, NSError *error) {
+                if (error) {
+                    NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+                    [SVProgressHUD showErrorWithStatus:errMse];
+                } else{
+                    [self paySuccess];
+                }
+            }];
+        }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
-         NSLog(@"11111");
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
     
     
