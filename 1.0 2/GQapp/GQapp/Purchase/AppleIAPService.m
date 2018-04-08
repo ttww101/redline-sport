@@ -199,6 +199,7 @@
         [SVProgressHUD showSuccessWithStatus:@"本地数据不存在"];
         return;
     }
+    
     NSString *base64_receipt = [receipt base64EncodedStringWithOptions:0];
     
     [ArchiveFile savePurchaseProof:base64_receipt];
@@ -211,38 +212,9 @@
                                                           options:0
                                                             error:&error];
     
-    
-    
-    
-    
-//    if (!requestData) { /* ... Handle error ... */ }
-//
-//    // Create a POST request with the receipt data.
-//    NSURL *storeURL = [NSURL URLWithString:@"https://buy.itunes.apple.com/verifyReceipt"];
-//    NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:storeURL];
-//    [storeRequest setHTTPMethod:@"POST"];
-//    [storeRequest setHTTPBody:requestData];
-//
-//    // Make a connection to the iTunes Store on a background queue.
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    [NSURLConnection sendAsynchronousRequest:storeRequest queue:queue
-//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//                               if (connectionError) {
-//                                   /* ... Handle error ... */
-//                               } else {
-//                                   NSError *error;
-//                                   NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-//                                   if (!jsonResponse) { /* ... Handle error ...*/ }
-//                                   /* ... Send a response back to the device ... */
-//                               }
-//                           }];
-
-//    return;
-    
-    
-    
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
     [parameter setObject:base64_receipt forKey:@"receipt-data"];
+    [parameter setObject:receipt forKey:@"receipt"];
     [parameter setObject:transaction.transactionIdentifier forKey:@"transaction_id"];
     [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_verifyPayment]  ArrayFile:nil Start:^(id requestOrignal) {
 

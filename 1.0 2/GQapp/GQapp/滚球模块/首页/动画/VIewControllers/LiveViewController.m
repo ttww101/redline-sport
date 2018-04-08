@@ -148,7 +148,7 @@
 #pragma mark - Config UI
 
 - (void)configUI {
-    self.navigationItem.title = @"动画";
+    self.navigationItem.title = @"足球";
 }
 
 @end

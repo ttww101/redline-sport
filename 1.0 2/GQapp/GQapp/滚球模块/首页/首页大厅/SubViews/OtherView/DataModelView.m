@@ -30,7 +30,7 @@
         
         CGFloat widthSpace = (Width -20*2 -50 *4)/3;
         //        CGFloat widthSpace = Width/6;
-        NSArray *arrtitle = @[@"比分",@"动画",@"模型",@"工具"];
+        NSArray *arrtitle = @[@"比分直播",@"动画直播",@"模型预测",@"投注工具"];
         
 //        NSArray *arrtitle = @[@"同赔指数",@"爆冷指数",@"赔率异常",@"亚盘助手", @"交易冷热",@"投注异常",@"极限拐点",@"盘王指数"];
         

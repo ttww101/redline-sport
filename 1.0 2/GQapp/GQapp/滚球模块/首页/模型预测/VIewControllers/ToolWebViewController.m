@@ -29,10 +29,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    if (_webView) {
-//        _webView = nil;
-//        [_webView removeFromSuperview];
-//    }
+    if (_webView) {
+        _webView = nil;
+        [_webView removeFromSuperview];
+    }
     [self configUI];
     [self loadBradge];
     [self loadData];
@@ -144,7 +144,7 @@
         
         }];
         // 内购方法
-        [self.bridge registerHandler:@"dxpay" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [self.bridge registerHandler:_model.registerActionName handler:^(id data, WVJBResponseCallback responseCallback) {
             [[AppleIAPService sharedInstance]purchase:data[@"type"] resultBlock:^(NSString *message, NSError *error) {
                 if (error) {
                     NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
@@ -155,10 +155,15 @@
                 }
             }];
         }];
+        
+        [self.bridge registerHandler:@"toPage" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [self responseRegisterAction:data];
+            responseCallback(@"Response from testObjcCallback");
+        }];
     }
 }
 
-
+// 0 大小球开通服务，  1 单场解密， 2 历史记录， 3 值投赛事， 4 最高连红， 5 值投赛事详情， 6 历史记录详情
 - (void)responseRegisterAction:(id)data {
     NSString *weakToken = [Methods getTokenModel].token;
     NSDictionary *dic = (NSDictionary *)data;
@@ -167,15 +172,28 @@
     NSString *url = dic[@"url"];
     webModel.webUrl = [NSString stringWithFormat:@"%@:81/ios/%@", APPDELEGATE.url_jsonHeader ,url];
     webModel.callHandleActionName = dic[@"model"];
-    webModel.registerActionName = @"dxpay";
-    if ([dic[@"type"] isEqualToString:@"1"]) {
-        NSMutableDictionary *parametr = [[NSMutableDictionary alloc]init];
-        [parametr setObject:weakToken forKey:@"token"];
+    webModel.registerActionName = @"payAction";
+    NSMutableDictionary *parametr = [[NSMutableDictionary alloc]init];
+    [parametr setObject:weakToken forKey:@"token"];
+    if ([dic[@"type"] isEqualToString:@"0"]) {
+        
+    } else if ([dic[@"type"] isEqualToString:@"1"]) {
         [parametr setObject:dic[@"homeTeam"] forKey:@"homeTeam"];
         [parametr setObject:dic[@"guestTeam"] forKey:@"guestTeam"];
         [parametr setObject:dic[@"scheduleId"] forKey:@"scheduleId"];
-        webModel.parameter = parametr;
+    } else if ([dic[@"type"] isEqualToString:@"2"]) {
+        
+    } else if ([dic[@"type"] isEqualToString:@"3"]) {
+        
+    } else if ([dic[@"type"] isEqualToString:@"4"]) {
+        [parametr setObject:dic[@"count"] forKey:@"count"];
+    } else if ([dic[@"type"] isEqualToString:@"5"]) {
+        [parametr setObject:dic[@"id"] forKey:@"id"];
+    }  else if ([dic[@"type"] isEqualToString:@"6"]) {
+        [parametr setObject:dic[@"week"] forKey:@"week"];
+        [parametr setObject:dic[@"id"] forKey:@"id"];
     }
+    webModel.parameter = parametr;
     ToolWebViewController *control = [[ToolWebViewController alloc]init];
     control.model = webModel;
     [self.navigationController pushViewController:control animated:YES];

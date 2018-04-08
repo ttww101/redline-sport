@@ -450,7 +450,7 @@
     [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase] ArrayFile:nil Start:^(id requestOrignal) {
         [LodingAnimateView showLodingView];
     } End:^(id responseOrignal) {
-        
+
     } Success:^(id responseResult, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
         NSDictionary *dic = (NSDictionary *)responseOrignal;
@@ -487,9 +487,6 @@
 //        
 //        
 //    });
-    
-    
-    
 }
 
 /*
