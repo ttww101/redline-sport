@@ -164,8 +164,9 @@
                 NSString *productId = data[@"productID"];
                 NSInteger amount = [Methods amountWithProductId:productId];
                 amount = amount * 100;
+                NSString *statusCode = dic[@"code"];
                 
-                if (dic) {
+                if ([statusCode isEqualToString:@"200"]) {
                     [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
                         if (error) {
                             NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
@@ -175,6 +176,8 @@
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                     }];
+                } else {
+                    [SVProgressHUD showErrorWithStatus:dic[@"msg"]];
                 }
             } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
                 [LodingAnimateView dissMissLoadingView];

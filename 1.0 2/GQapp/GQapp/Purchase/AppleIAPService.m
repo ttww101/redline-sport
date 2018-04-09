@@ -223,6 +223,7 @@
     [parameter setObject:transaction.transactionIdentifier forKey:@"transaction_id"];
     [parameter setObject:self.orderID forKey:@"orderId"];
     [parameter setObject:self.amount forKey:@"amount"];
+    
     [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_verifyPayment]  ArrayFile:nil Start:^(id requestOrignal) {
 
     } End:^(id responseOrignal) {
