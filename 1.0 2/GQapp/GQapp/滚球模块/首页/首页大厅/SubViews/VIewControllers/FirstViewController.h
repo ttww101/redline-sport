@@ -7,6 +7,7 @@
 //
 
 #import "BasicViewController.h"
+#import "ArchiveFile.h"
 
 
 @interface FirstViewController : BasicViewController

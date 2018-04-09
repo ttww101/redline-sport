@@ -68,7 +68,7 @@ typedef void(^MsgBlock)(NSString *message, NSError *error);
  */
 - (void)getProductInfo:(NSString *)productIdentifier;
 
--(void)purchase:(NSString *)product_id resultBlock:(MsgBlock)resultBlock;
+-(void)purchase:(id)parameter resultBlock:(MsgBlock)resultBlock;
 
 - (void)VerifyingLocalCredentialsWithBlock:(MsgBlock)resultBlock;
 

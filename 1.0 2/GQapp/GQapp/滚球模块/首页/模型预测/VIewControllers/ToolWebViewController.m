@@ -145,15 +145,43 @@
         }];
         // 内购方法
         [self.bridge registerHandler:_model.registerActionName handler:^(id data, WVJBResponseCallback responseCallback) {
-            [[AppleIAPService sharedInstance]purchase:data[@"type"] resultBlock:^(NSString *message, NSError *error) {
-                if (error) {
-                    NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-                    [SVProgressHUD showErrorWithStatus:errMse];
-                } else{
-                    [SVProgressHUD showSuccessWithStatus:@"购买成功"];
-                    [self.navigationController popViewControllerAnimated:YES];
+        
+            NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+            [parameter setObject:data[@"type"] forKey:@"modelType"];
+            [parameter setObject:data[@"serviceType"] forKey:@"serviceType"];
+            [parameter setObject:@"IOS" forKey:@"resource"];
+            [parameter setObject:PARAM_IS_NIL_ERROR(data[@"scheduleId"]) forKey:@"matchId"];
+    
+            [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase] ArrayFile:nil Start:^(id requestOrignal) {
+                [LodingAnimateView showLodingView];
+            } End:^(id responseOrignal) {
+                
+            } Success:^(id responseResult, id responseOrignal) {
+                [LodingAnimateView dissMissLoadingView];
+                NSDictionary *dic = (NSDictionary *)responseOrignal;
+                NSDictionary *dataDic = dic[@"data"];
+                NSString *ordeId = dataDic[@"orderId"];
+                NSString *productId = data[@"productID"];
+                NSInteger amount = [Methods amountWithProductId:productId];
+                amount = amount * 100;
+                
+                if (dic) {
+                    [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
+                        if (error) {
+                            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+                            [SVProgressHUD showErrorWithStatus:errMse];
+                        } else{
+                            [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                    }];
                 }
+            } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+                [LodingAnimateView dissMissLoadingView];
+                [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
             }];
+            
+
         }];
         
         [self.bridge registerHandler:@"toPage" handler:^(id data, WVJBResponseCallback responseCallback) {

@@ -159,23 +159,31 @@
 
 + (BOOL)savePurchaseProof:(id)proof {
     NSMutableArray *recordArray = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
-
     [recordArray addObject:proof];
    return [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
+   
 }
 
 + (BOOL)removerPurchaseProof:(id)proof {
     NSMutableArray *recordArray = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
-    BOOL removeSucess = NO;
-    if ([recordArray containsObject:proof]) {
-        [recordArray removeObject:proof];
-        if (recordArray.count == 0) {
-            [ArchiveFile clearCachesWithFilePath:In_App_Purchase_Path];
-            return YES;
+      BOOL removeSucess = NO;
+    for (NSInteger i = 0; i < recordArray.count; i ++) {
+        NSDictionary *dic = recordArray[i];
+        NSString *orderID = [dic[@"orderID"] stringValue];
+        if ([orderID integerValue] == [proof integerValue]) {
+            [recordArray removeObject:dic];
+            removeSucess = YES;
+            if (recordArray.count == 0) {
+                [ArchiveFile clearCachesWithFilePath:In_App_Purchase_Path];
+                return YES;
+            }
         }
-        return [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
     }
+    [ArchiveFile saveDataWithPath:In_App_Purchase_Path data:recordArray];
+    
     return removeSucess;
+    
+    
 }
 
 @end

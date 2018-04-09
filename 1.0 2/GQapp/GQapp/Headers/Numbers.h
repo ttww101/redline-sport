@@ -42,7 +42,8 @@
 #define OutOfRefreshTokenTime (60*60*1000*24*31*1000)
 //#define OutOfRefreshTokenTime (60*1000*5)  //测试
 
-
+// 为空时的占位
+#define PARAM_IS_NIL_ERROR(param) ((param == nil || [param isKindOfClass:[NSNull class]]) ? @"" : param)
 
 #define PADDING_OF_LEFT_STEP_LINE 21
 #define PADDING_OF_LEFT_RIGHT 15

@@ -125,6 +125,6 @@ typedef NS_ENUM(NSInteger, weekType)
 + (NSString *)formatHHSSStamp:(NSUInteger)timeStamp;
 
 
-
++ (NSInteger)amountWithProductId:(NSString *)productId;
 
 @end

@@ -194,7 +194,10 @@
 
 // 苹果内购验证
 
-#define url_purchase @"/pay/applepay/model"
+#define url_purchase @"/pay/applepay/model" // 模型
+
+#define url_purchase_recommend @"/payweb/apple/recommend" // 推荐
+
 
 #define url_verifyPayment @"/applepay/verifyPayment"
 

@@ -18,6 +18,10 @@
 
 @property (nonatomic , copy) NSString *selectProductID;
 
+@property (nonatomic , copy) NSString *orderID;
+
+@property (nonatomic , copy) NSString *amount;
+
 @end
 
 @implementation AppleIAPService
@@ -40,12 +44,14 @@
     return self;
 }
 
--(void)purchase:(NSString *)product_id resultBlock:(MsgBlock)resultBlock{
+-(void)purchase:(id)parameter resultBlock:(MsgBlock)resultBlock {
     
     self.resultBlock = resultBlock;
-    self.selectProductID = product_id;
+    self.selectProductID = parameter[@"product_id"];
+    self.amount = [parameter[@"amount"] stringValue];
+    self.orderID = parameter[@"orderID"];
     if ([SKPaymentQueue canMakePayments]) {//用户允许支付
-        NSSet *set = [NSSet setWithObjects:product_id, nil];
+        NSSet *set = [NSSet setWithObjects:self.selectProductID, nil];
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:set];
         request.delegate = self;
         [request start];
@@ -202,7 +208,7 @@
     
     NSString *base64_receipt = [receipt base64EncodedStringWithOptions:0];
     
-    [ArchiveFile savePurchaseProof:base64_receipt];
+    [ArchiveFile savePurchaseProof:@{@"base64_receipt":base64_receipt, @"orderID":self.orderID, @"amount":self.amount}];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:base64_receipt forKey:@"receipt-data"];
@@ -214,8 +220,9 @@
     
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
     [parameter setObject:base64_receipt forKey:@"receipt-data"];
-    [parameter setObject:receipt forKey:@"receipt"];
     [parameter setObject:transaction.transactionIdentifier forKey:@"transaction_id"];
+    [parameter setObject:self.orderID forKey:@"orderId"];
+    [parameter setObject:self.amount forKey:@"amount"];
     [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_verifyPayment]  ArrayFile:nil Start:^(id requestOrignal) {
 
     } End:^(id responseOrignal) {
@@ -225,7 +232,7 @@
             NSDictionary *dic = responseOrignal;
             NSString *statusCode = [dic[@"data"] stringValue];
             if ([statusCode isEqualToString:@"21007"]) {
-                [self uploadSanBoxReceipt:requestData receipt:base64_receipt];
+                [self uploadSanBoxReceipt:requestData receipt:self.orderID];
             } else if ([statusCode isEqualToString:@"0"]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [ArchiveFile removerPurchaseProof:base64_receipt];
@@ -272,13 +279,9 @@
                                    NSString *code = [jsonResponse[@"status"] stringValue];
                                    if ([code isEqualToString:@"0"]) {
                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                           [ArchiveFile removerPurchaseProof:receipt];
+                                           [ArchiveFile removerPurchaseProof:self.orderID];
                                            if (self.resultBlock) {
                                                self.resultBlock(code,nil);
-                                           }
-                                           
-                                           if (self.verifyingResultBlock) {
-                                               self.verifyingResultBlock(code,nil);
                                            }
                                        });
                                    }
@@ -289,10 +292,12 @@
 - (void)VerifyingLocalCredentialsWithBlock:(MsgBlock)resultBlock {
     self.verifyingResultBlock = resultBlock;
    NSMutableArray *arry = [ArchiveFile getDataWithPath:In_App_Purchase_Path];
-    [arry addObject:@"121313"];
     if (arry.count > 0) {
         for (NSInteger i = 0; i < arry.count; i++) {
-            NSString *base64_receipt = arry[i];
+            NSDictionary *dic = arry[i];
+            NSString *base64_receipt = dic[@"base64_receipt"];
+            NSString *orderID = dic[@"orderID"];
+            NSString *amount = dic[@"amount"];
             
             NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
             [params setObject:base64_receipt forKey:@"receipt-data"];
@@ -302,29 +307,30 @@
                                                                   options:0
                                                                     error:&error];
             
-            
             NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
             [parameter setObject:base64_receipt forKey:@"receipt-data"];
-            [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase]  ArrayFile:nil Start:^(id requestOrignal) {
+            [parameter setObject:orderID forKey:@"orderId"];
+            [parameter setObject:amount forKey:@"amount"];
+            [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_verifyPayment]  ArrayFile:nil Start:^(id requestOrignal) {
                 
             } End:^(id responseOrignal) {
                 
             } Success:^(id responseResult, id responseOrignal) {
                 if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
-                    NSDictionary *dic = responseOrignal[@"data"];
-                    NSString *statusCode = [dic[@"status"] stringValue];
+                    NSDictionary *dic = responseOrignal;
+                   NSString *statusCode = [dic[@"data"] stringValue];
                     if ([statusCode isEqualToString:@"21007"]) {
+                        [ArchiveFile removerPurchaseProof:orderID];
                         [self uploadSanBoxReceipt:requestData receipt:base64_receipt];
                     } else if ([statusCode isEqualToString:@"0"]) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [ArchiveFile removerPurchaseProof:base64_receipt];
+                            [ArchiveFile removerPurchaseProof:orderID];
                             if (self.verifyingResultBlock) {
                                 self.verifyingResultBlock(statusCode,nil);
                             }
-                            
                         });
                     } else {
-                        
+
                     }
                     
                 }else {

@@ -23,6 +23,7 @@
 #import "PictureModel.h"
 #import <Bugly/Bugly.h>
 #import "TuijianDetailVC.h"
+#import "AppleIAPService.h"
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -55,6 +56,22 @@
 
 @implementation AppDelegate
 
+/**
+ 遗留在本地的内购验证
+ */
+- (void)resumePuchase {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[AppleIAPService sharedInstance]VerifyingLocalCredentialsWithBlock:^(NSString *message, NSError *error) {
+            if (error) {
+                NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+                [SVProgressHUD showErrorWithStatus:errMse];
+            } else{
+
+            }
+            NSLog(@"%@   %@",message,error.userInfo);
+        }];
+    });
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -62,6 +79,7 @@
     // 根视图 默认是透明的,也就是黑色的
     self.window.backgroundColor = [UIColor whiteColor];
     [self isFirstLaunched];
+    [self resumePuchase];  // 遗留在本地的内购验证
     //根据AppStore版本更新,在firstViewController里面实现
     [self getUrlSerPath];
     [self setupUM];

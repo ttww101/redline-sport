@@ -45,6 +45,12 @@
 //头部数据
 @property (nonatomic, strong) TuijiandatingModel *model;
 
+
+/**
+ 订单ID
+ */
+@property (nonatomic , copy) NSString *orderId;
+
 //分享
 
 //区分发送评论的类型
@@ -443,11 +449,8 @@
     }
     
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-    [parameter setObject:@(_model.playtype ) forKey:@"modelType"];
-    [parameter setObject:@(1) forKey:@"serviceType"];
-    [parameter setObject:@"IOS" forKey:@"resource"];
-    [parameter setObject:@(_model.match_id) forKey:@"matchId"];
-    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase] ArrayFile:nil Start:^(id requestOrignal) {
+    [parameter setObject:@(_modelId) forKey:@"outerId"];
+    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase_recommend] ArrayFile:nil Start:^(id requestOrignal) {
         [LodingAnimateView showLodingView];
     } End:^(id responseOrignal) {
 
@@ -457,12 +460,15 @@
         if (dic) {
             NSDictionary *dataDic = dic[@"data"];
             NSString *productID = dataDic[@"productId"];
-            [[AppleIAPService sharedInstance]purchase:productID resultBlock:^(NSString *message, NSError *error) {
+            _orderId = dataDic[@"orderId"];
+            NSInteger amount = [Methods amountWithProductId:productID];
+            amount = amount * 100;
+            [[AppleIAPService sharedInstance]purchase:@{@"product_id":productID, @"orderID":_orderId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
                 if (error) {
                     NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
                     [SVProgressHUD showErrorWithStatus:errMse];
                 } else{
-                    [self paySuccess];
+                     [self paySuccess];
                 }
             }];
         }
@@ -470,23 +476,6 @@
         [LodingAnimateView dissMissLoadingView];
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
-    
-    
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        
-//        [[AppleIAPService sharedInstance]VerifyingLocalCredentialsWithBlock:^(NSString *message, NSError *error) {
-//            if (error) {
-//                NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-//                [SVProgressHUD showErrorWithStatus:errMse];
-//            } else{
-//                
-//            }
-//            NSLog(@"%@   %@",message,error.userInfo);
-//        }];
-//        
-//        
-//        
-//    });
 }
 
 /*
@@ -594,16 +583,17 @@
 //}
 
 - (void)paySuccess {
-    
-     NSLog(@"modelId11111=%ld",_modelId);
-   NSString*mid= [[NSUserDefaults standardUserDefaults]objectForKey:@"paymodelId"];
+
+//   NSString*mid= [[NSUserDefaults standardUserDefaults]objectForKey:@"paymodelId"];
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
     
-    [parameter setObject:mid forKey:@"outerId"];
-    //[parameter setObject:[NSString stringWithFormat:@"%ld",self.model.user_id] forKey:@"userId"];
+    [parameter setObject:@(_modelId) forKey:@"outerId"];
+//    [parameter setObject:[NSString stringWithFormat:@"%ld",self.model.user_id] forKey:@"userId"];
     [parameter setObject:@"1" forKey:@"oType"];
 //    [parameter setObject:@"IOS" forKey:@"resource"];
-
+    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"解锁中..."];
+//    NSString *path = @"http://10.0.80.51:8081/rollball-interface";
+    // APPDELEGATE.url_Server
     [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_appPaySuccess]  ArrayFile:nil Start:^(id requestOrignal) {
         
     } End:^(id responseOrignal) {
@@ -617,7 +607,6 @@
             _model.see = YES;
             self.tableView.headerModel = _model;
             [self.tableView reloadData];
-           
              [self loadDataWhetherFirst:YES];
         }else {
             [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%@",[responseOrignal objectForKey:@"msg"]]];
@@ -626,7 +615,7 @@
         }
         
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        NSLog(@"pay失败");
+        [SVProgressHUD showErrorWithStatus:@"加载失败"];
     }];
 
     
