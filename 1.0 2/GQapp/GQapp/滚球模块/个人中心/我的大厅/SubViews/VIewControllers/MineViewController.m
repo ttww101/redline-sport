@@ -18,6 +18,7 @@
 #import "TongjiVC.h"
 #import "FeedbackVC.h"
 #import "FeedbackNewVC.h"
+#import "MyBuyTuijianVC.h"
 #define cellMineViewControllerUserCell @"cellMineViewControllerUserCell"
 #define cellMineViewController @"cellMineViewController"
 
@@ -429,7 +430,7 @@
             return 1;
             break;
         case 1:
-            return 2;
+            return 3;
             break;
 //        case 2:
 //            return 2;
@@ -631,6 +632,15 @@
                         }
                             break;
                             
+                        case 2:
+                        {
+                            lab.text = @"购买明细";
+                            imageLeft.image = [UIImage imageNamed:@"myBuyUser1"];
+                            
+                            
+                        }
+                            break;
+                            
                             
                             
                         default:
@@ -681,6 +691,8 @@
                         
                     }
                         break;
+                        
+                    
 
                         
 
@@ -801,14 +813,7 @@
                     break;
                 case 2:
                 {
-                    /*
-                    //                    推荐TransDetailsVC
-                    TransDetailsVC *tuijian = [[TransDetailsVC alloc] init];
-//                    tuijian.userName = _userModel.nickname;
-//                    tuijian.userId = _userModel.idId;
-                    tuijian.hidesBottomBarWhenPushed = YES;
-                    [APPDELEGATE.customTabbar pushToViewController:tuijian animated:YES];
-                     */
+    
                     
                     if(![Methods login]) {
                         
@@ -816,23 +821,16 @@
                         return;
                     }
                     
+                    MyBuyTuijianVC *myBuy = [[MyBuyTuijianVC alloc] init];
+                    myBuy.userId = _userModel.idId;
+                    myBuy.hidesBottomBarWhenPushed = YES;
+                    [APPDELEGATE.customTabbar pushToViewController:myBuy animated:YES];
+                     
                 }
                     break;
                 case 3:
                 {
                     /*
-                    MyBuyTuijianVC *myBuy = [[MyBuyTuijianVC alloc] init];
-                    myBuy.userId = _userModel.idId;
-//                    myBuy.userId = 202;
-                    
-                    myBuy.hidesBottomBarWhenPushed = YES;
-                    [APPDELEGATE.customTabbar pushToViewController:myBuy animated:YES];
-                    
-                    if(![Methods login]) {
-                        
-                        [Methods toLogin];
-                        return;
-                    }
                     TongjiVC *tongji = [[TongjiVC alloc] init];
                     tongji.tongjiType = 1;
                     tongji.userModel = _userModel;

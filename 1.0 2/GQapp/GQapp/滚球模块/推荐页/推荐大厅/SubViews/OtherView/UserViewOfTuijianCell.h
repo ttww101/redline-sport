@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, typeTuijianCell)
     typeTuijianCellUser = 2,
     typeTuijianCellTuijianDetail = 3,
     typeTuijianCellFirstPage = 4,
+    typeTuijianCellMybuy = 5
 
 };
 @interface UserViewOfTuijianCell : UIView

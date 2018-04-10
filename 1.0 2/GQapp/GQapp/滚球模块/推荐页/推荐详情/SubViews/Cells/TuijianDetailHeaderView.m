@@ -363,7 +363,7 @@
 //    _labContent.text = _model.content;
     
 
-    _labCreatTime.text = [NSString stringWithFormat:@"发布于%@",[Methods timeToNowWith:_model.create_time]];
+//    _labCreatTime.text = [NSString stringWithFormat:@"发布于%@",[Methods timeToNowWith:_model.create_time]];
     
 //    _labZanNum.text = @"";
 //    

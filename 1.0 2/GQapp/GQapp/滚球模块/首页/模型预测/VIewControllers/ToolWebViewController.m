@@ -191,6 +191,17 @@
             [self responseRegisterAction:data];
             responseCallback(@"Response from testObjcCallback");
         }];
+        
+        [self.bridge registerHandler:@"toProtocol" handler:^(id data, WVJBResponseCallback responseCallback) {
+            WebModel *webModel = [[WebModel alloc]init];
+            webModel.title = @"滚球增值服务协议";
+            webModel.webUrl = data[@"url"];
+            ToolWebViewController *control = [[ToolWebViewController alloc]init];
+            control.model = webModel;
+            [self.navigationController pushViewController:control animated:YES];
+        }];
+        
+        
     }
 }
 

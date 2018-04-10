@@ -11,12 +11,14 @@
 #import "TeamViewofTuijianCell.h"
 #import "BuyViewofTuijianView.h"
 #import "PeilvViewOfTuijianCell.h"
+#import "UserViewofMyBuyTuijian.h"
 @interface TuijianDatingCell()
 //是否添加过约束
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @property (nonatomic, strong) UIView *basicView;
 @property (nonatomic, strong) UserViewOfTuijianCell *headerUser;
+@property (nonatomic, strong) UserViewofMyBuyTuijian *UserofMyBuy;
 
 @property (nonatomic, strong) TeamViewofTuijianCell *teamView;
 
@@ -92,11 +94,28 @@
     _teamView.model = _model;
     _buymView.model = _model;
     _peilvView.model = _model;
+    _UserofMyBuy.model = _model;
     
+    if (_type == typeTuijianCellMybuy) {
+        _labContent.text = @"";
+        
+        _labCreatTime.text = @"";
+        //    评论数
+        [_btnComment setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        _labConmmentNum.text = @"";
+        //查看人数
+        [_btnNoZan setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        _labNoZanNum.text = @"";
+        
+        [_btnZan setBackgroundImage:[UIImage imageNamed:@""]forState:UIControlStateNormal];
+        _labZanNum.text = @"";
+        _labMoney.text = [NSString stringWithFormat:@" %ld球币 ",_model.amount/100];
+
+    }else{
         _labContent.text = [NSString stringWithFormat:@"分析:  %@",_model.content];
         _labContent.attributedText = [Methods withContent:_labContent.text WithColorText:@"分析:" textColor:color33 strFont:font14];
         
-        _labCreatTime.text = [Methods timeToNowWith:_model.create_time];
+//        _labCreatTime.text = [Methods timeToNowWith:_model.create_time];
         //    评论数
         [_btnComment setBackgroundImage:[UIImage imageNamed:@"commentNum"] forState:UIControlStateNormal];
         _labConmmentNum.text = [NSString stringWithFormat:@"%ld",(long)_model.comment_count];
@@ -110,6 +129,7 @@
         _labZanNum.text = @"";
         
 
+    }
     _labStatus.text = @"";
 
     if (_type == typeTuijianCellUser) {
@@ -229,7 +249,17 @@
 
             }
                 break;
-                       default:
+            case typeTuijianCellMybuy:
+            {
+                [_basicView addSubview:self.UserofMyBuy];
+                [_basicView addSubview:self.teamView];
+                [_basicView addSubview:self.buymView];
+                [_basicView addSubview:self.peilvView];
+                [_basicView addSubview:self.labMoney];
+            }
+                break;
+
+            default:
                 break;
         }
         
@@ -262,6 +292,13 @@
         _headerUser = [[UserViewOfTuijianCell alloc] init];
     }
     return _headerUser;
+}
+- (UserViewofMyBuyTuijian *)UserofMyBuy
+{
+    if (!_UserofMyBuy) {
+        _UserofMyBuy = [[UserViewofMyBuyTuijian alloc] init];
+    }
+    return _UserofMyBuy;
 }
 - (TeamViewofTuijianCell *)teamView
 {
@@ -620,7 +657,74 @@
 
         }
             break;
-       
+        case typeTuijianCellMybuy:
+        {
+            [self.UserofMyBuy mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.basicView.mas_top);
+                make.left.equalTo(self.basicView.mas_left);
+                make.right.equalTo(self.basicView.mas_right);
+                make.height.mas_equalTo(30);
+            }];
+            
+            
+            
+            [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.labMoney.mas_left).offset(-5);
+                make.top.equalTo(self.UserofMyBuy.mas_bottom).offset(8);
+            }];
+            
+            [self.teamView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.basicView.mas_left);
+                make.right.equalTo(self.basicView.mas_right);
+                make.top.equalTo(self.UserofMyBuy.mas_bottom).offset(5);
+                make.size.mas_equalTo(CGSizeMake(Width, 45));
+            }];
+            
+            [self.peilvView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.basicView.mas_left);
+                make.right.equalTo(self.basicView.mas_right);
+                make.top.equalTo(self.teamView.mas_bottom).offset(0);
+                make.size.mas_equalTo(CGSizeMake(Width, 18));
+                
+            }];
+            
+            [self.labMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.basicView.mas_right).offset(-35);
+                make.bottom.equalTo(self.peilvView.mas_top);
+                make.height.mas_equalTo(18);
+            }];
+            [self.labContent mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.basicView.mas_left).offset(15);
+                make.top.equalTo(self.peilvView.mas_bottom).offset(0);
+                make.right.equalTo(self.basicView.mas_right).offset(-15);
+                
+            }];
+            
+            [self.viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.basicView.mas_left);
+                make.bottom.equalTo(self.basicView.mas_bottom);
+                make.size.mas_equalTo(CGSizeMake(Width, 10));
+            }];
+            
+                      //计算cell的高度
+            [self.labCreatTime mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.basicView.mas_left).offset(15);
+                make.bottom.equalTo(self.basicView.mas_bottom).offset(-20 - 25);
+                make.top.equalTo(self.labContent.mas_bottom).offset(0);
+            }];
+            
+            
+            [self.buymView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.basicView.mas_bottom).offset(-10);
+                make.left.equalTo(self.basicView.mas_left).offset(0);
+                make.size.mas_equalTo(CGSizeMake(Width, 30));
+            }];
+
+            
+
+        }
+            break;
+
         default:
             break;
     }
@@ -686,12 +790,26 @@
 
 {
     NSLog(@"_model.idId=%ld",_model.idId);
+    if (_type == typeTuijianCellMybuy) {
+        
+        if (_model.otype == 1) {
             TuijianDetailVC *infoVC = [[TuijianDetailVC alloc] init];
+            infoVC.hidesBottomBarWhenPushed = YES;
+            infoVC.status = _model.status;
+            infoVC.modelId = _model.idId;
+            
+            [APPDELEGATE.customTabbar pushToViewController:infoVC animated:YES];
+
+        }
+ 
+    }else{
+        TuijianDetailVC *infoVC = [[TuijianDetailVC alloc] init];
         infoVC.hidesBottomBarWhenPushed = YES;
         infoVC.status = _model.status;
         infoVC.modelId = _model.idId;
         [APPDELEGATE.customTabbar pushToViewController:infoVC animated:YES];
 
+    }
 
 }
 
