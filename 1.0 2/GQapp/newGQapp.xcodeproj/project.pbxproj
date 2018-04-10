@@ -61,6 +61,7 @@
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
+		A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
 		EB0020A91D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
@@ -1154,6 +1155,8 @@
 		A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewofMyBuyTuijian.m; sourceTree = "<group>"; };
 		A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBuyTuijianVC.m; sourceTree = "<group>"; };
 		A98C9693207B7F4A00C308AE /* MyBuyTuijianVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBuyTuijianVC.h; sourceTree = "<group>"; };
+		A9DD3B58207C7FF5007BDFBC /* MyPurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPurchaseModel.h; sourceTree = "<group>"; };
+		A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPurchaseModel.m; sourceTree = "<group>"; };
 		A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchListViewModel.h; sourceTree = "<group>"; };
 		A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchListViewModel.m; sourceTree = "<group>"; };
 		C17D0DBC39E419D60F185125 /* Pods-newGQapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.release.xcconfig"; sourceTree = "<group>"; };
@@ -4582,6 +4585,8 @@
 				EB8C1D001F21944B00A07863 /* MedalsModel.m */,
 				EB8C1D011F21944B00A07863 /* TuijiandatingModel.h */,
 				EB8C1D021F21944B00A07863 /* TuijiandatingModel.m */,
+				A9DD3B58207C7FF5007BDFBC /* MyPurchaseModel.h */,
+				A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */,
 				EB8C1D031F21944B00A07863 /* TuijianShaixuanItemsModel.h */,
 				EB8C1D041F21944B00A07863 /* TuijianShaixuanItemsModel.m */,
 				EB8C1D051F21944B00A07863 /* UsermarkModel.h */,
@@ -7917,6 +7922,7 @@
 				EB6BDA391F39607E00C9EA73 /* TongPeiSwitch.m in Sources */,
 				EB8C1E531F21944C00A07863 /* RemindModel.m in Sources */,
 				EB2319DF1F7CFB3900003F3C /* YpasCell.m in Sources */,
+				A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */,
 				EB5A469B1F2735D20093962B /* BuyViewofTuijianView.m in Sources */,
 				EB8C1E621F21944C00A07863 /* NavigationModel.m in Sources */,
 				EBFA65A91F8F700100C4BE6A /* YpasTwoCell.m in Sources */,

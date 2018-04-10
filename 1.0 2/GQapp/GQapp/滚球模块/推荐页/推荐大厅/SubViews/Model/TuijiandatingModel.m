@@ -77,6 +77,47 @@
              };
 }
 
+- (void)setHomeTeam:(NSString *)homeTeam {
+    _homeTeam = homeTeam;
+    if (_HomeTeam == nil) {
+        _HomeTeam = _homeTeam;
+    }
+}
+
+- (void)setGuestTeam:(NSString *)guestTeam {
+    _guestTeam = guestTeam;
+    if (_GuestTeam == nil) {
+        _GuestTeam = _guestTeam;
+    }
+}
+
+- (void)setGuestScore:(NSInteger)guestScore {
+    _guestScore = guestScore;
+    if (_GuestScore == 0 && _guestScore > 0) {
+        _GuestScore = _guestScore;
+    }
+}
+
+- (void)setHomeScore:(NSInteger)homeScore {
+    _homeScore = homeScore;
+    if (_HomeScore == 0 && _homeScore > 0) {
+        _HomeScore = _homeScore;
+    }
+}
+
+- (void)setGuestTeamID:(NSInteger)guestTeamID {
+    _guestTeamID = guestTeamID;
+    if (_GuestTeamID == 0 && _guestTeamID > 0) {
+        _GuestTeamID = _guestTeamID;
+    }
+}
+
+- (void)setHomeTeamID:(NSInteger)homeTeamID {
+    _homeTeamID = homeTeamID;
+    if (_HomeTeamID == 0 && _homeTeamID > 0) {
+        _HomeTeamID = _homeTeamID;
+    }
+}
 
 + (NSValueTransformer *)arrUsermarkJSONTransformer
 {

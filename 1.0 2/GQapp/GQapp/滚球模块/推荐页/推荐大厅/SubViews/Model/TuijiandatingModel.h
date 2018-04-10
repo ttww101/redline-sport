@@ -9,12 +9,21 @@
 #import "BasicModel.h"
 
 @interface TuijiandatingModel : BasicModel
+
+
+
+
 @property (nonatomic, copy) NSString *GuestTeam;
+@property (nonatomic, copy) NSString *guestTeam;
+
+
 @property (nonatomic, copy) NSString *Name_JS;
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *userinfo;
 
 @property (nonatomic, copy) NSString *HomeTeam;
+@property (nonatomic, copy) NSString *homeTeam;
+
 @property (nonatomic, copy) NSString *pic;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *contentInfo;
@@ -60,7 +69,9 @@
 @property (nonatomic, copy) NSString *result;
 @property (nonatomic, assign) NSInteger MatchState;
 @property (nonatomic, assign) NSInteger GuestScore;
+@property (nonatomic, assign) NSInteger guestScore;
 @property (nonatomic, assign) NSInteger HomeScore;
+@property (nonatomic, assign) NSInteger homeScore;
 @property (nonatomic, copy) NSString *company;
 
 @property (nonatomic, assign) NSInteger multiple;
@@ -68,7 +79,9 @@
 @property (nonatomic, copy) NSString *usertitle;
 // 球队id
 @property (nonatomic, assign) NSInteger GuestTeamID;
+@property (nonatomic, assign) NSInteger guestTeamID;
 @property (nonatomic, assign) NSInteger HomeTeamID;
+@property (nonatomic, assign) NSInteger homeTeamID;
 @property (nonatomic, assign) NSInteger earn;
 
 @property (nonatomic, strong) NSArray *arrUsermark;
