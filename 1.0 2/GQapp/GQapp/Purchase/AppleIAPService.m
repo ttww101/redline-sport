@@ -208,7 +208,7 @@
     
     NSString *base64_receipt = [receipt base64EncodedStringWithOptions:0];
     
-    [ArchiveFile savePurchaseProof:@{@"base64_receipt":base64_receipt, @"orderID":self.orderID, @"amount":self.amount}];
+    [ArchiveFile savePurchaseProof:@{@"base64_receipt":PARAM_IS_NIL_ERROR(base64_receipt), @"orderID":PARAM_IS_NIL_ERROR(self.orderID), @"amount":PARAM_IS_NIL_ERROR(self.amount)}];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:base64_receipt forKey:@"receipt-data"];

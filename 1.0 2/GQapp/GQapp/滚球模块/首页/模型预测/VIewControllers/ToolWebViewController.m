@@ -25,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -212,7 +213,8 @@
     WebModel *webModel = [[WebModel alloc]init];
     webModel.title = dic[@"name"];
     NSString *url = dic[@"url"];
-    webModel.webUrl = [NSString stringWithFormat:@"%@:81/ios/%@", APPDELEGATE.url_jsonHeader ,url];
+    webModel.webUrl = [NSString stringWithFormat:@"%@/mx/%@", APPDELEGATE.url_jsonHeader ,url];
+//    webModel.webUrl = [NSString stringWithFormat:@"%@:81/ios/%@", APPDELEGATE.url_jsonHeader ,url];
     webModel.callHandleActionName = dic[@"model"];
     webModel.registerActionName = @"payAction";
     NSMutableDictionary *parametr = [[NSMutableDictionary alloc]init];

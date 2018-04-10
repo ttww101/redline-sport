@@ -243,7 +243,11 @@
                 
                 [self.tableView reloadData];
             }else{
+                
+                
+                
                 [_arrdata addObjectsFromArray:arr];
+                
                 [self.tableView reloadData];
                 
                 

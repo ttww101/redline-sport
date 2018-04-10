@@ -68,7 +68,6 @@
             } else{
 
             }
-            NSLog(@"%@   %@",message,error.userInfo);
         }];
     });
 }

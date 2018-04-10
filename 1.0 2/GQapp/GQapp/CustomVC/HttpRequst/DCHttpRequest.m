@@ -218,7 +218,7 @@ static AFHTTPRequestOperationManager *_afnetManager;
                 }
 
                 
-                [formData appendPartWithFileData:imageData name:@"filename" fileName:@"pic.jpg" mimeType:@"image/jpg/png/jpeg"];
+                [formData appendPartWithFileData:imageData name:@"imagefile" fileName:@"pic.jpg" mimeType:@"image/jpg/png/jpeg"];
                 
             }
             

@@ -193,6 +193,12 @@
             }
                 break;
                 
+            case -10:
+            {
+                _imageViewWin.image = [UIImage imageNamed:@""];
+            }
+                break;
+                
             default:
                 break;
         }

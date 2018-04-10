@@ -436,17 +436,19 @@
         [_btnPay.titleLabel setFont:font16];
         
         
-        [_btnPay addTarget:self action:@selector(payBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_btnPay addTarget:self action:@selector(payBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnPay;
 }
 
-- (void)payBtnClick {
+- (void)payBtnClick:(UIButton *)sender {
     
     if (![Methods login]) {
         [Methods toLogin];
         return;
     }
+    
+    sender.userInteractionEnabled = false;
     
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
     [parameter setObject:@(_modelId) forKey:@"outerId"];
@@ -456,6 +458,7 @@
 
     } Success:^(id responseResult, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
+        sender.userInteractionEnabled = YES;
         NSDictionary *dic = (NSDictionary *)responseOrignal;
         if (dic) {
             NSDictionary *dataDic = dic[@"data"];
@@ -464,6 +467,7 @@
             NSInteger amount = [Methods amountWithProductId:productID];
             amount = amount * 100;
             [[AppleIAPService sharedInstance]purchase:@{@"product_id":productID, @"orderID":_orderId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
+                
                 if (error) {
                     NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
                     [SVProgressHUD showErrorWithStatus:errMse];
@@ -474,6 +478,7 @@
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
+        sender.userInteractionEnabled = YES;
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
 }

@@ -265,9 +265,12 @@
 //首页 index.do
 //#define url_firstIndex @"/index"
 #define url_firstIndex @"/newindex"
+// 上传头像到阿里云
+#define url_uploadAliyun @"/oss/upload/pic"
 
-///uploadpic.do 上传头像
-#define url_uploadpic @"/uploadpic"
+///uploadpic.do 上传头像 老的接口地址 /uploadpic
+
+#define url_uploadpic @"/user/v2/updateUserPic"
 ///schedule/infolist 增加情报页面的 相关情报
 #define url_scheduleinfolist @"/schedule/infolist"
 ///ranking/query推荐排行榜

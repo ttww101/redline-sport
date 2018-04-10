@@ -248,29 +248,52 @@
     }];
     
     UIImage *imagef = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
-    [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_uploadpic] ArrayFile:[NSArray arrayWithObjects:imagef, nil] Start:^(id requestOrignal) {
+    
+    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:@{@"type":@"avatar"} PathUrlL:[NSString stringWithFormat:@"http://mobile.gunqiu.com:8897%@",url_uploadAliyun] ArrayFile:[NSArray arrayWithObjects:imagef, nil] Start:^(id requestOrignal) {
         
     } End:^(id responseOrignal) {
         
     } Success:^(id responseResult, id responseOrignal) {
-        
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-            _model = [UserModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
-            [Methods updateUsetModel:_model];
-            if (![[NSUserDefaults standardUserDefaults] boolForKey:@"userPic"]) {
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"userPic"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-            [self.tableView reloadData];
+            NSDictionary *dic = responseOrignal;
+            NSDictionary *contentDic = dic[@"data"];
+            NSString *picUrl = contentDic[@"picurl"];
             
+            
+            picUrl = [NSString stringWithFormat:@"%@%@",url_pic,picUrl];
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+            [parameter setObject:picUrl forKey:@"pic"];
+            
+            [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_uploadpic] ArrayFile:nil Start:^(id requestOrignal) {
+                
+            } End:^(id responseOrignal) {
+                
+            } Success:^(id responseResult, id responseOrignal) {
+                
+                if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+                    _model.pic = picUrl;
+                    [Methods updateUsetModel:_model];
+                    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"userPic"]) {
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"userPic"];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                    }
+                    [self.tableView reloadData];
+                    
+                }else{
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
+                }
+                
+            } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+                [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+            }];
+           
         }else{
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
+    
     
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
