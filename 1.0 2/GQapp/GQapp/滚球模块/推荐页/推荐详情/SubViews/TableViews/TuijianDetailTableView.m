@@ -74,12 +74,15 @@
 
     _payUsersModel = payUsersModel;
     
+    [_picArray removeAllObjects]; //  先移除掉所有的对象在添加
+    
     if (_payUsersModel.pic) {
         [_picArray addObject:_payUsersModel.pic];
     }
 }
 - (void)setArrPic:(NSArray *)arrPic{
     _arrPic = arrPic;
+    [_picArray removeAllObjects]; //  先移除掉所有的对象在添加
     if (_arrPic.count > 0) {
         for (int i = 0; i < _arrPic.count;  i ++) {
             payUserModel *model = _arrPic[i];
@@ -309,7 +312,7 @@
         _payNum.text = [NSString stringWithFormat:@"付费查看%ld人",(long)_headerModel.payUsers_count];
         _payNum.font = font14;
         _payNum.textColor = color33;
-        _payNum.attributedText = [Methods withContent:_payNum.text WithColorText:[NSString stringWithFormat:@"%ld",_headerModel.payUsers_count] textColor:redcolor strFont:font14];
+        _payNum.attributedText = [Methods withContent:_payNum.text WithColorText:[NSString stringWithFormat:@"%zi",_headerModel.payUsers_count] textColor:redcolor strFont:font14];
         paySeeView.userInteractionEnabled = YES;
         
         UITapGestureRecognizer *payViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(payViewTap)];
