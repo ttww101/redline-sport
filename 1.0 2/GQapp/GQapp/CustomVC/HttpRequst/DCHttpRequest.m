@@ -410,9 +410,6 @@ static AFHTTPRequestOperationManager *_afnetManager;
                     [Methods toLogin];
                 }
                 
-                
-                
-                
                 success(@"请求成功",dict);
             }
             return dict;

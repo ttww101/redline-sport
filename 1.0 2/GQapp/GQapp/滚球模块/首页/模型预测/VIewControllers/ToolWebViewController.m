@@ -44,34 +44,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)removeWebCache{
-    //先删除cookie
-    NSHTTPCookie *cookie;
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (cookie in [storage cookies])
-    {
-        [storage deleteCookie:cookie];
-    }
-    
-    NSString *libraryDir = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *bundleId  =  [[[NSBundle mainBundle] infoDictionary]
-                            objectForKey:@"CFBundleIdentifier"];
-    NSString *webkitFolderInLib = [NSString stringWithFormat:@"%@/WebKit",libraryDir];
-    NSString *webKitFolderInCaches = [NSString
-                                      stringWithFormat:@"%@/Caches/%@/WebKit",libraryDir,bundleId];
-    NSString *webKitFolderInCachesfs = [NSString
-                                        stringWithFormat:@"%@/Caches/%@/fsCachedData",libraryDir,bundleId];
-    NSError *error;
-    /* iOS8.0 WebView Cache的存放路径 */
-    [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCaches error:&error];
-    [[NSFileManager defaultManager] removeItemAtPath:webkitFolderInLib error:nil];
-    /* iOS7.0 WebView Cache的存放路径 */
-    [[NSFileManager defaultManager] removeItemAtPath:webKitFolderInCachesfs error:&error];
-    NSString *cookiesFolderPath = [libraryDir stringByAppendingString:@"/Cookies"];
-    [[NSFileManager defaultManager] removeItemAtPath:cookiesFolderPath error:&error];
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
-}
-
 #pragma mark - Load Data
 
 - (void)loadData {
@@ -99,6 +71,13 @@
     }];
     self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
+    
+    UIButton *refrshBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    refrshBtn.frame = CGRectMake(0, 0, 40, 40);
+    [refrshBtn setTitle:@"刷新" forState:UIControlStateNormal];
+    [refrshBtn addTarget:self action:@selector(refreshAction:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:refrshBtn];
+//    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 #pragma mark - UIWebViewDelegate
@@ -144,8 +123,15 @@
         [self.bridge callHandler:_model.callHandleActionName data:_model.parameter responseCallback:^(id responseData) {
         
         }];
+        
         // 内购方法
         [self.bridge registerHandler:_model.registerActionName handler:^(id data, WVJBResponseCallback responseCallback) {
+        
+            MBProgressHUD *hud = [[MBProgressHUD alloc]init];
+            hud.mode = MBProgressHUDModeIndeterminate;
+            hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+            [self.view addSubview:hud];
+            [hud show:YES];
         
             NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
             [parameter setObject:data[@"type"] forKey:@"modelType"];
@@ -159,6 +145,7 @@
                 
             } Success:^(id responseResult, id responseOrignal) {
                 [LodingAnimateView dissMissLoadingView];
+
                 NSDictionary *dic = (NSDictionary *)responseOrignal;
                 NSDictionary *dataDic = dic[@"data"];
                 NSString *ordeId = dataDic[@"orderId"];
@@ -169,6 +156,7 @@
                 
                 if ([statusCode isEqualToString:@"200"]) {
                     [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
+                        [hud hide:YES];
                         if (error) {
                             NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
                             [SVProgressHUD showErrorWithStatus:errMse];
@@ -179,12 +167,13 @@
                     }];
                 } else {
                     [SVProgressHUD showErrorWithStatus:dic[@"msg"]];
+                    [hud hide:YES];
                 }
             } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+                [hud hide:YES];
                 [LodingAnimateView dissMissLoadingView];
                 [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
             }];
-            
 
         }];
         
@@ -201,8 +190,6 @@
             control.model = webModel;
             [self.navigationController pushViewController:control animated:YES];
         }];
-        
-        
     }
 }
 
@@ -241,6 +228,11 @@
     ToolWebViewController *control = [[ToolWebViewController alloc]init];
     control.model = webModel;
     [self.navigationController pushViewController:control animated:YES];
+}
+
+- (void)refreshAction:(UIButton *)sender {
+    [self loadBradge];
+    [self loadData];
 }
 
 #pragma mark - Lazy Load
