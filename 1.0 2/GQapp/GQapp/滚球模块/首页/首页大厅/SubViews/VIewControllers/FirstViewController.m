@@ -126,6 +126,8 @@
 
 @property (nonatomic, strong) dispatch_source_t  timer;
 
+@property (nonatomic , strong) UIImageView *liveQuizImageView;
+@property (nonatomic , copy) NSString *href;
 
 
 @end
@@ -148,6 +150,9 @@
     [self changeTimer];
     //    _timerOn = YES;
     [self loadData];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self loadLiveData];
+    });
     
     
 }
@@ -320,7 +325,12 @@
     
     [self.tableView.mj_header beginRefreshing];
     
-    
+    [self.view addSubview:self.liveQuizImageView];
+    [self.liveQuizImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo (self.view.mas_right).offset(-5);
+        make.bottom.equalTo(self.view.mas_bottom).offset(- (Height / 3));
+        make.size.mas_equalTo(CGSizeMake(50, 50));
+    }];
 }
 
 - (void)setTableViewContentOffsetZero
@@ -1898,14 +1908,58 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark --------- 直播答题
+
+#pragma mark - Events
+
+- (void)loadLiveData {
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveQuiz] Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        NSString *code = responseOrignal[@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *dic = responseOrignal[@"data"];
+            NSString *icon = dic[@"icon"];
+            self.href = dic[@"href"];
+            if (icon) {
+                [self.liveQuizImageView sd_setImageWithURL:[NSURL URLWithString:icon]];
+                self.liveQuizImageView.hidden = false;
+            } else {
+                self.liveQuizImageView.hidden = YES;
+            }
+            
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        NSLog(@"32323");
+    }];
+}
+
+- (void)liveQuziAction:(UITapGestureRecognizer *)tap {
+    WebModel *model = [[WebModel alloc]init];
+    model.title = @"直播答题";
+    model.webUrl = self.href;
+    ToolWebViewController *controller = [[ToolWebViewController alloc]init];
+    controller.model = model;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+
+#pragma mark - Lazy Load
+
+- (UIImageView *)liveQuizImageView {
+    if (_liveQuizImageView == nil) {
+        _liveQuizImageView = [UIImageView new];
+        _liveQuizImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _liveQuizImageView.clipsToBounds = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(liveQuziAction:)];
+        [_liveQuizImageView addGestureRecognizer:tap];
+        _liveQuizImageView.userInteractionEnabled = YES;
+        _liveQuizImageView.hidden = YES;
+    }
+    return _liveQuizImageView;
+}
 
 @end

@@ -57,6 +57,7 @@
 		A94B677A2071E42300E0748F /* LiveListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67792071E42300E0748F /* LiveListTableViewCell.m */; };
 		A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B677C2071FC0D00E0748F /* ToolWebViewController.m */; };
 		A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* LodingAnimateView.m */; };
+		A94D6867207EF98B002F4310 /* gqjssdk.js in Resources */ = {isa = PBXBuildFile; fileRef = A94D6864207EF98B002F4310 /* gqjssdk.js */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
@@ -1148,6 +1149,7 @@
 		A94B677C2071FC0D00E0748F /* ToolWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolWebViewController.m; sourceTree = "<group>"; };
 		A94B67812072003A00E0748F /* LodingAnimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LodingAnimateView.m; sourceTree = "<group>"; };
 		A94B67822072003A00E0748F /* LodingAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodingAnimateView.h; sourceTree = "<group>"; };
+		A94D6864207EF98B002F4310 /* gqjssdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = gqjssdk.js; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -2603,6 +2605,53 @@
 				A941D536206E236A008CE14F /* ToolKitViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A94D6863207EF98B002F4310 /* LiveQuiz */ = {
+			isa = PBXGroup;
+			children = (
+				A94D6864207EF98B002F4310 /* gqjssdk.js */,
+			);
+			path = LiveQuiz;
+			sourceTree = "<group>";
+		};
+		A94D6869207EF9EF002F4310 /* 直播答题 */ = {
+			isa = PBXGroup;
+			children = (
+				A94D686B207EFA3C002F4310 /* Cells */,
+				A94D686A207EFA3C002F4310 /* Model */,
+				A94D686D207EFA3D002F4310 /* VIewControllers */,
+				A94D686C207EFA3C002F4310 /* ViewModel */,
+			);
+			path = "直播答题";
+			sourceTree = "<group>";
+		};
+		A94D686A207EFA3C002F4310 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A94D686B207EFA3C002F4310 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A94D686C207EFA3C002F4310 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A94D686D207EFA3D002F4310 /* VIewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VIewControllers;
 			sourceTree = "<group>";
 		};
 		A9762882206C89BB007C79D1 /* Purchase */ = {
@@ -5372,6 +5421,7 @@
 		EB8C1DC51F21944C00A07863 /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				A94D6869207EF9EF002F4310 /* 直播答题 */,
 				A9E60CE72071C92E002BF207 /* 动画 */,
 				A941D520206E076E008CE14F /* 模型预测 */,
 				EB161CB01F909D8F00118F60 /* 大小球盘口 */,
@@ -6559,6 +6609,7 @@
 		EBF3AB141F21CD3100C2341A /* 本地h5文件 */ = {
 			isa = PBXGroup;
 			children = (
+				A94D6863207EF98B002F4310 /* LiveQuiz */,
 				EBF3AB151F21CD3100C2341A /* img */,
 				EBF3AB521F21CD3100C2341A /* jshtml-App */,
 			);
@@ -7617,6 +7668,7 @@
 				EBF3AB7C1F21CD3100C2341A /* jb-2.png in Resources */,
 				EB9213421DFE964A0020B39F /* peiLvSet0_0@2x.png in Resources */,
 				EB65306A1EBC70990062BA4D /* userBg@2x.png in Resources */,
+				A94D6867207EF98B002F4310 /* gqjssdk.js in Resources */,
 				EB9212911DFE8EFE0020B39F /* shengCirle2.png in Resources */,
 				EBF2232D1F8E32F800A1E67B /* userBg1@2x.png in Resources */,
 				EB2E1D911CEB399700726748 /* Icon-120.png in Resources */,

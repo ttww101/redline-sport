@@ -58,7 +58,9 @@
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:15];
         [self.webView loadRequest:request];
     } else if (self.html5Url != nil) {
-        [self.webView loadHTMLString:self.html5Url baseURL:nil];
+        NSString* path = [[NSBundle mainBundle] pathForResource:self.html5Url ofType:@"html"];
+        NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        [self.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
     }
 }
 
@@ -118,6 +120,53 @@
             responseCallback(@"Response from testObjcCallback");
         }];
     }
+    
+    if ([_model.title isEqualToString:@"直播答题"]) {
+        
+        [self.bridge callHandler:@"getToken" data:token responseCallback:^(id responseData) {
+            
+        }];
+        
+        [self.bridge registerHandler:@"toLogin" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSLog(@"11323");
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+        [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSLog(@"11323");
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+        // 1 登陆 2分享 3不满10元提现 4满10元提现 5我的优惠券列表 6活动规则
+        [self.bridge registerHandler:@"open" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSLog(@"11323");
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+        [self.bridge registerHandler:@"openh5" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSLog(@"11323");
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+        [self.bridge registerHandler:@"txtCopy" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSLog(@"11323");
+            UIPasteboard *paste = [UIPasteboard generalPasteboard];
+            paste.string = data;
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+        [self.bridge registerHandler:@"getState" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSLog(@"11323");
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+        [self.bridge registerHandler:@"back" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [self.navigationController popViewControllerAnimated:YES];
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+    }
+    
 
     if (_model.parameter) {
         [self.bridge callHandler:_model.callHandleActionName data:_model.parameter responseCallback:^(id responseData) {

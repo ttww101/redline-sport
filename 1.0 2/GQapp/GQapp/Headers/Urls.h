@@ -188,6 +188,9 @@
 
 
 
+// 直播答题接口
+#define url_liveQuiz @"/activity_entry"
+
 
 
 
