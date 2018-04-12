@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A129DD3205CEF2600B49673 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A129DC1205CD96400B49673 /* Charts.framework */; };
-		6A129DD4205CEF2600B49673 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A129DC1205CD96400B49673 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29C6ED1DDDC3E800844CBE /* fensiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EC1DDDC3E800844CBE /* fensiuser@2x.png */; };
 		7D29C6EF1DDDC40F00844CBE /* shezhiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EE1DDDC40F00844CBE /* shezhiuser@2x.png */; };
 		7D29C6F91DE43A5000844CBE /* guanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6F71DE43A5000844CBE /* guanzhu.png */; };
@@ -58,13 +56,14 @@
 		A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B677C2071FC0D00E0748F /* ToolWebViewController.m */; };
 		A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* LodingAnimateView.m */; };
 		A94D6867207EF98B002F4310 /* gqjssdk.js in Resources */ = {isa = PBXBuildFile; fileRef = A94D6864207EF98B002F4310 /* gqjssdk.js */; };
+		A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
+		A94D70CE207F4E17002F4310 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D6FBC207F4116002F4310 /* libUMessage_Sdk_1.3.0.a */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
 		A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
-		EB0020A91D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
 		EB076A6D1EC321A000940D64 /* attentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6B1EC321A000940D64 /* attentionNew@2x.png */; };
 		EB076A6E1EC321A000940D64 /* noAttentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6C1EC321A000940D64 /* noAttentionNew@2x.png */; };
@@ -1028,26 +1027,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6A129DC0205CD96400B49673 /* PBXContainerItemProxy */ = {
+		A94D70C8207F43C0002F4310 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6A129DBB205CD96400B49673 /* Charts.xcodeproj */;
+			containerPortal = A94D70C3207F43C0002F4310 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
 			remoteInfo = Charts;
 		};
-		6A129DC2205CD96400B49673 /* PBXContainerItemProxy */ = {
+		A94D70CA207F43C0002F4310 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6A129DBB205CD96400B49673 /* Charts.xcodeproj */;
+			containerPortal = A94D70C3207F43C0002F4310 /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
-		};
-		6A129DD5205CEF2600B49673 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6A129DBB205CD96400B49673 /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A58A4ED274A941CA248EA921;
-			remoteInfo = Charts;
 		};
 		EBC0A2BF1CA924AE00F75E7E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1072,7 +1064,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6A129DD4205CEF2600B49673 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1081,7 +1072,6 @@
 
 /* Begin PBXFileReference section */
 		3FB4EFA75119EACA91C90ED0 /* Pods-newGQapp.ad hoc distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.ad hoc distribution.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.ad hoc distribution.xcconfig"; sourceTree = "<group>"; };
-		6A129DBB205CD96400B49673 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		6F3B3E264152298E04EF53B7 /* Pods-newGQapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.debug.xcconfig"; sourceTree = "<group>"; };
 		7CD5C134CCBD4ACDCC52F80E /* Pods_newGQapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_newGQapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D29C6EC1DDDC3E800844CBE /* fensiuser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fensiuser@2x.png"; sourceTree = "<group>"; };
@@ -1150,6 +1140,9 @@
 		A94B67812072003A00E0748F /* LodingAnimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LodingAnimateView.m; sourceTree = "<group>"; };
 		A94B67822072003A00E0748F /* LodingAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodingAnimateView.h; sourceTree = "<group>"; };
 		A94D6864207EF98B002F4310 /* gqjssdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = gqjssdk.js; sourceTree = "<group>"; };
+		A94D6FBC207F4116002F4310 /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
+		A94D6FBD207F4116002F4310 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		A94D70C3207F43C0002F4310 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -1162,8 +1155,6 @@
 		A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchListViewModel.h; sourceTree = "<group>"; };
 		A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchListViewModel.m; sourceTree = "<group>"; };
 		C17D0DBC39E419D60F185125 /* Pods-newGQapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.release.xcconfig"; sourceTree = "<group>"; };
-		EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
-		EB0020A81D5B0C3700115EC3 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		EB041C101F177BB100E80C97 /* share03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share03.png; sourceTree = "<group>"; };
 		EB076A6B1EC321A000940D64 /* attentionNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attentionNew@2x.png"; sourceTree = "<group>"; };
 		EB076A6C1EC321A000940D64 /* noAttentionNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noAttentionNew@2x.png"; sourceTree = "<group>"; };
@@ -2473,6 +2464,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A94D70CE207F4E17002F4310 /* libUMessage_Sdk_1.3.0.a in Frameworks */,
+				A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */,
 				A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */,
 				EB13317D1D87AC910088A67D /* CoreAudio.framework in Frameworks */,
 				EB3D17AD1CFC1D9200BAF61A /* CFNetwork.framework in Frameworks */,
@@ -2481,13 +2474,11 @@
 				EB13317A1D87AB0C0088A67D /* AssetsLibrary.framework in Frameworks */,
 				EB0AAD831CFD89F50003644F /* libiconv.tbd in Frameworks */,
 				EB0AAD891CFD8AD40003644F /* ImageIO.framework in Frameworks */,
-				6A129DD3205CEF2600B49673 /* Charts.framework in Frameworks */,
 				EB0AAD871CFD8A2B0003644F /* libstdc++.tbd in Frameworks */,
 				EB0AAD851CFD8A120003644F /* CoreGraphics.framework in Frameworks */,
 				EB24FF181CF03B4E0035DA24 /* Security.framework in Frameworks */,
 				EB3D17AF1CFC1DA000BAF61A /* SystemConfiguration.framework in Frameworks */,
 				EB24FF161CF03B3E0035DA24 /* libsqlite3.tbd in Frameworks */,
-				EB0020A91D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a in Frameworks */,
 				EBC0A44D1CA934D500F75E7E /* libz.tbd in Frameworks */,
 				EB24FF141CF03B0B0035DA24 /* CoreTelephony.framework in Frameworks */,
 				FB8F4873CF0A14B270032879 /* Pods_newGQapp.framework in Frameworks */,
@@ -2511,15 +2502,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A129DBC205CD96400B49673 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6A129DC1205CD96400B49673 /* Charts.framework */,
-				6A129DC3205CD96400B49673 /* ChartsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		6B99E8BB0D0EDD62941EBD94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2654,6 +2636,33 @@
 			path = VIewControllers;
 			sourceTree = "<group>";
 		};
+		A94D6EA9207F4115002F4310 /* ThirdPart */ = {
+			isa = PBXGroup;
+			children = (
+				A94D70C3207F43C0002F4310 /* Charts.xcodeproj */,
+				A94D6FBB207F4116002F4310 /* UMessage_Sdk_1.3.0 */,
+			);
+			path = ThirdPart;
+			sourceTree = "<group>";
+		};
+		A94D6FBB207F4116002F4310 /* UMessage_Sdk_1.3.0 */ = {
+			isa = PBXGroup;
+			children = (
+				A94D6FBC207F4116002F4310 /* libUMessage_Sdk_1.3.0.a */,
+				A94D6FBD207F4116002F4310 /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.3.0;
+			sourceTree = "<group>";
+		};
+		A94D70C4207F43C0002F4310 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A94D70C9207F43C0002F4310 /* Charts.framework */,
+				A94D70CB207F43C0002F4310 /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A9762882206C89BB007C79D1 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
@@ -2755,15 +2764,6 @@
 				3FB4EFA75119EACA91C90ED0 /* Pods-newGQapp.ad hoc distribution.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		EB0020A61D5B0C3700115EC3 /* UMessage_Sdk_1.3.0 */ = {
-			isa = PBXGroup;
-			children = (
-				EB0020A71D5B0C3700115EC3 /* libUMessage_Sdk_1.3.0.a */,
-				EB0020A81D5B0C3700115EC3 /* UMessage.h */,
-			);
-			path = UMessage_Sdk_1.3.0;
 			sourceTree = "<group>";
 		};
 		EB0DB9691CFEDF45008FA518 /* other */ = {
@@ -2948,15 +2948,6 @@
 			children = (
 			);
 			path = VIewControllers;
-			sourceTree = "<group>";
-		};
-		EB24FF101CF039D70035DA24 /* ThirdPart */ = {
-			isa = PBXGroup;
-			children = (
-				6A129DBB205CD96400B49673 /* Charts.xcodeproj */,
-				EB0020A61D5B0C3700115EC3 /* UMessage_Sdk_1.3.0 */,
-			);
-			path = ThirdPart;
 			sourceTree = "<group>";
 		};
 		EB2CABBA1CF99514002938D1 /* guide */ = {
@@ -6285,7 +6276,7 @@
 				A9762882206C89BB007C79D1 /* Purchase */,
 				EBA21DD31DF067A0004E63C5 /* GQapp.entitlements */,
 				EB8C1C251F21944B00A07863 /* 滚球模块 */,
-				EB24FF101CF039D70035DA24 /* ThirdPart */,
+				A94D6EA9207F4115002F4310 /* ThirdPart */,
 				EBC0A2DC1CA92AD700F75E7E /* Image */,
 				EBC0A37F1CA92AD700F75E7E /* Headers */,
 				EBC0A3851CA92AD700F75E7E /* CustomVC */,
@@ -6987,7 +6978,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				6A129DD6205CEF2600B49673 /* PBXTargetDependency */,
 			);
 			name = newGQapp;
 			productName = GQapp;
@@ -7084,8 +7074,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 6A129DBC205CD96400B49673 /* Products */;
-					ProjectRef = 6A129DBB205CD96400B49673 /* Charts.xcodeproj */;
+					ProductGroup = A94D70C4207F43C0002F4310 /* Products */;
+					ProjectRef = A94D70C3207F43C0002F4310 /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -7098,18 +7088,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6A129DC1205CD96400B49673 /* Charts.framework */ = {
+		A94D70C9207F43C0002F4310 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = 6A129DC0205CD96400B49673 /* PBXContainerItemProxy */;
+			remoteRef = A94D70C8207F43C0002F4310 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6A129DC3205CD96400B49673 /* ChartsTests.xctest */ = {
+		A94D70CB207F43C0002F4310 /* ChartsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
-			remoteRef = 6A129DC2205CD96400B49673 /* PBXContainerItemProxy */;
+			remoteRef = A94D70CA207F43C0002F4310 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -7801,7 +7791,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6A5C06F29B97D748AB4EABC3 /* [CP] Embed Pods Frameworks */ = {
@@ -7822,7 +7812,9 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
+				"${BUILT_PRODUCTS_DIR}/TYPagerController/TYPagerController.framework",
 				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
+				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -7837,7 +7829,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TYPagerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -8262,11 +8256,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6A129DD6205CEF2600B49673 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Charts;
-			targetProxy = 6A129DD5205CEF2600B49673 /* PBXContainerItemProxy */;
-		};
 		EBC0A2C01CA924AE00F75E7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EBC0A2A41CA924AE00F75E7E /* newGQapp */;
@@ -8418,7 +8407,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GQapp/ThirdPart",
 					"$(PROJECT_DIR)/GQapp/ThirdPart/UMessage_Sdk_1.3.0",
-					"$(PROJECT_DIR)/GQapp/ThirdPart/OpenSDK1.7.9",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -8500,7 +8488,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GQapp/ThirdPart",
 					"$(PROJECT_DIR)/GQapp/ThirdPart/UMessage_Sdk_1.3.0",
-					"$(PROJECT_DIR)/GQapp/ThirdPart/OpenSDK1.7.9",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -8699,7 +8686,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GQapp/ThirdPart",
 					"$(PROJECT_DIR)/GQapp/ThirdPart/UMessage_Sdk_1.3.0",
-					"$(PROJECT_DIR)/GQapp/ThirdPart/OpenSDK1.7.9",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

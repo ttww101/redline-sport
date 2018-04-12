@@ -37,7 +37,7 @@ PODS:
   - SocketRocket (0.5.1)
   - SVProgressHUD (2.1.2)
   - TYPagerController (2.1.2)
-  - UITableView+FDTemplateLayoutCell (1.4)
+  - "UITableView+FDTemplateLayoutCell (1.4)"
   - UMengAnalytics (4.2.4)
   - YYModel (1.0.4)
 
@@ -56,9 +56,29 @@ DEPENDENCIES:
   - SocketRocket
   - SVProgressHUD (~> 2.1.2)
   - TYPagerController
-  - UITableView+FDTemplateLayoutCell
+  - "UITableView+FDTemplateLayoutCell"
   - UMengAnalytics (~> 4.2.4)
   - YYModel (~> 1.0.4)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - Bugly
+    - DCPathButton
+    - DeviceUtil
+    - HYBLoopScrollView
+    - Mantle
+    - Masonry
+    - MBProgressHUD
+    - MJRefresh
+    - RongCloudIMKit
+    - SDWebImage
+    - SocketRocket
+    - SVProgressHUD
+    - TYPagerController
+    - "UITableView+FDTemplateLayoutCell"
+    - UMengAnalytics
+    - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -75,10 +95,10 @@ SPEC CHECKSUMS:
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   TYPagerController: 262556ecef99986d26ed77fb1288a198ed42f4af
-  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
+  "UITableView+FDTemplateLayoutCell": 234e1582bcc4e18461af91155123bb96538ed030
   UMengAnalytics: ef8d45f94c0e5771dc364cf6a5731d9d3b101da2
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: df6ee51210cd8108f1e9d4ea7aec80c833f6596f
+PODFILE CHECKSUM: 27b644a3e16e5c99e02f13a34f02400fed21afbc
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.5.0
