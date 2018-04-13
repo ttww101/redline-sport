@@ -97,6 +97,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/zh-Hans.lproj"
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/Emoji.plist"
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/RCConfig.plist"
+  install_resource "${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/RongCloud.bundle"
@@ -104,6 +105,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/zh-Hans.lproj"
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/Emoji.plist"
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/RCConfig.plist"
+  install_resource "${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "ad hoc distribution" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/RongCloud.bundle"
@@ -111,6 +113,7 @@ if [[ "$CONFIGURATION" == "ad hoc distribution" ]]; then
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/zh-Hans.lproj"
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/Emoji.plist"
   install_resource "${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/RCConfig.plist"
+  install_resource "${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

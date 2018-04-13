@@ -451,10 +451,12 @@
 //                
 //            }];
             
-            [UMessage setUniqueID:[NSString stringWithFormat:@"GQ%lu",(long)model.idId]];
-            [UMessage setAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
-                
-            }];
+            
+# warning 推送代码
+//            [UMessage setUniqueID:[NSString stringWithFormat:@"GQ%lu",(long)model.idId]];
+//            [UMessage setAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+//
+//            }];
 
 
             [self performSelector:@selector(dismissPresent) withObject:nil afterDelay:1];

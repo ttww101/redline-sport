@@ -81,12 +81,14 @@
     [self resumePuchase];  // 遗留在本地的内购验证
     //根据AppStore版本更新,在firstViewController里面实现
     [self getUrlSerPath];
+
     [self setupUM];
     [self setUMShare];
     [self setUpBugly];
     [self svPreferrenceConf];
 //    [self setupXGpush:application WithOptions:launchOptions];
-    [self setupUPushWith:application WithOptions:launchOptions];
+#warning 推送代码
+//    [self setupUPushWith:application WithOptions:launchOptions];
 //    [self setUpRongIMKit];
 //    [self setUpMessageSound];
    // [self setUpFPS];
@@ -565,46 +567,42 @@
 
 
 //友盟推送
-- (void)setupUPushWith:(UIApplication *)application WithOptions:(NSDictionary *)launchOptions
-{
-    //设置 AppKey 及 LaunchOptions
-    [UMessage startWithAppkey:UPushAppKey launchOptions:launchOptions];
-    
-    //1.3.0版本开始简化初始化过程。如不需要交互式的通知，下面用下面一句话注册通知即可。
-    [UMessage registerForRemoteNotifications];
-    
-    [UMessage setLogEnabled:YES];
-    
-    [UMessage setBadgeClear:YES];
-    [UMessage setAutoAlert:NO];
-//    + (void)setLogEnabled:(BOOL)value;
-//    
-//    /** 设置是否允许SDK自动清空角标（默认开启）
-//     @param value 是否开启角标清空
-//     */
-//    + (void)setBadgeClear:(BOOL)value;
-//    
-//    /** 设置是否允许SDK当应用在前台运行收到Push时弹出Alert框（默认开启）
-//     @warning 建议不要关闭，否则会丢失程序在前台收到的Push的点击统计,如果定制了 Alert，可以使用`sendClickReportForRemoteNotification`补发 log
-//     @param value 是否开启弹出框
-//     */
-//    + (void)setAutoAlert:(BOOL)value;
 
-}
 
+//- (void)setupUPushWith:(UIApplication *)application WithOptions:(NSDictionary *)launchOptions
+//{
+//    //设置 AppKey 及 LaunchOptions
+//    [UMessage startWithAppkey:UPushAppKey launchOptions:launchOptions];
+//    
+//    //1.3.0版本开始简化初始化过程。如不需要交互式的通知，下面用下面一句话注册通知即可。
+//    [UMessage registerForRemoteNotifications];
+//    
+//    [UMessage setLogEnabled:YES];
+//    
+//    [UMessage setBadgeClear:YES];
+//    [UMessage setAutoAlert:NO];
+////    + (void)setLogEnabled:(BOOL)value;
+////    
+////    /** 设置是否允许SDK自动清空角标（默认开启）
+////     @param value 是否开启角标清空
+////     */
+////    + (void)setBadgeClear:(BOOL)value;
+////    
+////    /** 设置是否允许SDK当应用在前台运行收到Push时弹出Alert框（默认开启）
+////     @warning 建议不要关闭，否则会丢失程序在前台收到的Push的点击统计,如果定制了 Alert，可以使用`sendClickReportForRemoteNotification`补发 log
+////     @param value 是否开启弹出框
+////     */
+////    + (void)setAutoAlert:(BOOL)value;
+//
+//}
+
+    
+#warning 友盟统计
 //友盟统计
 - (void)setupUM
 {
-    [MobClick setLogEnabled:NO];
-    [MobClick setCrashReportEnabled:NO];
-
-    UMConfigInstance.appKey  = UMAppkey;
-//    UMConfigInstance.channelId = @"App Store";
-//    UMConfigInstance.eSType = E_UM_NORMAL;
-
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [MobClick setAppVersion:version];
-    [MobClick startWithConfigure:UMConfigInstance];
+    [UMConfigure initWithAppkey:UMAppkey channel:@"App Store"];
+//    [UMConfigure setLogEnabled:YES]; // 上线时必须关掉
 
 }
 
@@ -638,54 +636,85 @@
 #endif
 }
 
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    
-    [UMessage didReceiveRemoteNotification:userInfo];
-
-    /*
-     点击推送打开app时,是先进的applicationWillEnterForeground方法,
-     然后进该方法,获取推送消息
-     最后进applicationDidBecomeActive
-     */
-    //推送反馈(app运行时)
-    _successGetPushInfo = YES;
-
-//    [XGPush handleReceiveNotification:userInfo];
-    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
-    NSLog(@"userInfo**************************************************%@",userInfo);
-    
-}
-- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
-{
-    
-    [UMessage didReceiveRemoteNotification:userInfo];
-
-    /*
-     点击推送打开app时,是先进的applicationWillEnterForeground方法,
-     然后进该方法,获取推送消息
-     最后进applicationDidBecomeActive
-     */
-    //推送反馈(app运行时)
-    _successGetPushInfo = YES;
-//    [XGPush handleReceiveNotification:userInfo];
-    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
-    NSLog(@"userInfo**************************************************%@",userInfo);
-    
-}
-
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
-//    本地推送
-    NSLog(@"%@",notification.userInfo);
-
-
-}
+#warning 推送代码
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+//{
+//
+//    [UMessage didReceiveRemoteNotification:userInfo];
+//
+//    /*
+//     点击推送打开app时,是先进的applicationWillEnterForeground方法,
+//     然后进该方法,获取推送消息
+//     最后进applicationDidBecomeActive
+//     */
+//    //推送反馈(app运行时)
+//    _successGetPushInfo = YES;
+//
+////    [XGPush handleReceiveNotification:userInfo];
+//    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
+//    NSLog(@"userInfo**************************************************%@",userInfo);
+//
+//}
+//- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+//{
+//
+//    [UMessage didReceiveRemoteNotification:userInfo];
+//
+//    /*
+//     点击推送打开app时,是先进的applicationWillEnterForeground方法,
+//     然后进该方法,获取推送消息
+//     最后进applicationDidBecomeActive
+//     */
+//    //推送反馈(app运行时)
+//    _successGetPushInfo = YES;
+////    [XGPush handleReceiveNotification:userInfo];
+//    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
+//    NSLog(@"userInfo**************************************************%@",userInfo);
+//
+//}
+//
+//- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+//{
+////    本地推送
+//    NSLog(@"%@",notification.userInfo);
+//
+//
+//}
 
 //友盟分享和第三方登录
-- (void)setUMShare
-{}
+- (void)setUMShare {
+    /*
+     * 打开图片水印
+     */
+    [UMSocialGlobal shareInstance].isUsingWaterMark = YES;
+    [UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+    
+    /* 设置微信的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WXAppID appSecret:WXAppSecret redirectURL:@"http://mobile.umeng.com/social"];
+    /*
+     * 移除相应平台的分享，如微信收藏
+     */
+    [[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
+    
+    /* 设置分享到QQ互联的appID
+     * U-Share SDK为了兼容大部分平台命名，统一用appKey和appSecret进行参数设置，而QQ平台仅需将appID作为U-Share的appKey参数传进即可。
+     */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQAppID  appSecret:QQAppkey redirectURL:@"http://mobile.umeng.com/social"];
+    /* 设置新浪的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:SinaAppKey  appSecret:SinaAppSecret redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+    
+}
+    
+    // 支持所有iOS系统
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+    {
+        //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+        BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+        if (!result) {
+            // 其他如支付等SDK的回调
+        }
+        return result;
+    }
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

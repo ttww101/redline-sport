@@ -11,6 +11,7 @@
 #import "UserModel.h"
 #import "TokenModel.h"
 #import "AppleIAPService.h"
+#import <UShareUI/UShareUI.h>
 
 
 @interface ToolWebViewController () <UIWebViewDelegate>
@@ -122,10 +123,8 @@
     }
     
     if ([_model.title isEqualToString:@"直播答题"]) {
-        
-        [self.bridge callHandler:@"getToken" data:token responseCallback:^(id responseData) {
-            
-        }];
+        NSString *jsonToken = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(token)}];
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(jsonToken)}];
         
         [self.bridge registerHandler:@"toLogin" handler:^(id data, WVJBResponseCallback responseCallback) {
             NSLog(@"11323");
@@ -134,7 +133,18 @@
         
         [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
             NSLog(@"11323");
-            responseCallback(@"Response from testObjcCallback");
+            //显示分享面板
+            [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+                // 根据获取的platformType确定所选平台进行下一步操作
+            }];
+            return;
+        }];
+        
+        [self.bridge registerHandler:@"getToken" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+
+            }];
+            responseCallback(jsonParameter);
         }];
         
         // 1 登陆 2分享 3不满10元提现 4满10元提现 5我的优惠券列表 6活动规则
@@ -165,6 +175,10 @@
             responseCallback(@"Response from testObjcCallback");
         }];
         
+        [self.bridge registerHandler:@"back" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [self.navigationController popViewControllerAnimated:YES];
+            responseCallback(@"Response from testObjcCallback");
+        }];
     }
     
 
@@ -282,6 +296,20 @@
 - (void)refreshAction:(UIButton *)sender {
     [self loadBradge];
     [self loadData];
+}
+
+- (NSString *)getJSONMessage:(NSDictionary *)messageDic {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    //去掉字符串中的空格
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    //去掉字符串中的换行符
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    return mutStr;
 }
 
 #pragma mark - Lazy Load

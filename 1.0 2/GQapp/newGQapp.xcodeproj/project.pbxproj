@@ -55,15 +55,17 @@
 		A94B677A2071E42300E0748F /* LiveListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67792071E42300E0748F /* LiveListTableViewCell.m */; };
 		A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B677C2071FC0D00E0748F /* ToolWebViewController.m */; };
 		A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* LodingAnimateView.m */; };
-		A94D6867207EF98B002F4310 /* gqjssdk.js in Resources */ = {isa = PBXBuildFile; fileRef = A94D6864207EF98B002F4310 /* gqjssdk.js */; };
 		A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
-		A94D70CE207F4E17002F4310 /* libUMessage_Sdk_1.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D6FBC207F4116002F4310 /* libUMessage_Sdk_1.3.0.a */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
 		A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
+		A9E876372080409800480C81 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
+		A9E876382080409800480C81 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A9E8763E208048F600480C81 /* gqjssdk.js in Resources */ = {isa = PBXBuildFile; fileRef = A9E8763C208048F500480C81 /* gqjssdk.js */; };
+		A9E8763F208048F600480C81 /* jssdkdemo2.html in Resources */ = {isa = PBXBuildFile; fileRef = A9E8763D208048F500480C81 /* jssdkdemo2.html */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
 		EB076A6D1EC321A000940D64 /* attentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6B1EC321A000940D64 /* attentionNew@2x.png */; };
 		EB076A6E1EC321A000940D64 /* noAttentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6C1EC321A000940D64 /* noAttentionNew@2x.png */; };
@@ -1041,6 +1043,13 @@
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
+		A9E876392080409800480C81 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A94D70C3207F43C0002F4310 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 		EBC0A2BF1CA924AE00F75E7E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EBC0A29D1CA924AE00F75E7E /* Project object */;
@@ -1064,6 +1073,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A9E876382080409800480C81 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1139,9 +1149,6 @@
 		A94B677C2071FC0D00E0748F /* ToolWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolWebViewController.m; sourceTree = "<group>"; };
 		A94B67812072003A00E0748F /* LodingAnimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LodingAnimateView.m; sourceTree = "<group>"; };
 		A94B67822072003A00E0748F /* LodingAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodingAnimateView.h; sourceTree = "<group>"; };
-		A94D6864207EF98B002F4310 /* gqjssdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = gqjssdk.js; sourceTree = "<group>"; };
-		A94D6FBC207F4116002F4310 /* libUMessage_Sdk_1.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.3.0.a; sourceTree = "<group>"; };
-		A94D6FBD207F4116002F4310 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		A94D70C3207F43C0002F4310 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
@@ -1154,6 +1161,8 @@
 		A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPurchaseModel.m; sourceTree = "<group>"; };
 		A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchListViewModel.h; sourceTree = "<group>"; };
 		A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchListViewModel.m; sourceTree = "<group>"; };
+		A9E8763C208048F500480C81 /* gqjssdk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = gqjssdk.js; sourceTree = "<group>"; };
+		A9E8763D208048F500480C81 /* jssdkdemo2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = jssdkdemo2.html; sourceTree = "<group>"; };
 		C17D0DBC39E419D60F185125 /* Pods-newGQapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.release.xcconfig"; sourceTree = "<group>"; };
 		EB041C101F177BB100E80C97 /* share03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share03.png; sourceTree = "<group>"; };
 		EB076A6B1EC321A000940D64 /* attentionNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attentionNew@2x.png"; sourceTree = "<group>"; };
@@ -2464,10 +2473,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A94D70CE207F4E17002F4310 /* libUMessage_Sdk_1.3.0.a in Frameworks */,
 				A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */,
 				A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */,
 				EB13317D1D87AC910088A67D /* CoreAudio.framework in Frameworks */,
+				A9E876372080409800480C81 /* Charts.framework in Frameworks */,
 				EB3D17AD1CFC1D9200BAF61A /* CFNetwork.framework in Frameworks */,
 				EBC0A4491CA9343700F75E7E /* AVFoundation.framework in Frameworks */,
 				EBC0A44B1CA9344400F75E7E /* AudioToolbox.framework in Frameworks */,
@@ -2589,14 +2598,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		A94D6863207EF98B002F4310 /* LiveQuiz */ = {
-			isa = PBXGroup;
-			children = (
-				A94D6864207EF98B002F4310 /* gqjssdk.js */,
-			);
-			path = LiveQuiz;
-			sourceTree = "<group>";
-		};
 		A94D6869207EF9EF002F4310 /* 直播答题 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2640,18 +2641,8 @@
 			isa = PBXGroup;
 			children = (
 				A94D70C3207F43C0002F4310 /* Charts.xcodeproj */,
-				A94D6FBB207F4116002F4310 /* UMessage_Sdk_1.3.0 */,
 			);
 			path = ThirdPart;
-			sourceTree = "<group>";
-		};
-		A94D6FBB207F4116002F4310 /* UMessage_Sdk_1.3.0 */ = {
-			isa = PBXGroup;
-			children = (
-				A94D6FBC207F4116002F4310 /* libUMessage_Sdk_1.3.0.a */,
-				A94D6FBD207F4116002F4310 /* UMessage.h */,
-			);
-			path = UMessage_Sdk_1.3.0;
 			sourceTree = "<group>";
 		};
 		A94D70C4207F43C0002F4310 /* Products */ = {
@@ -2754,6 +2745,15 @@
 				A94B67792071E42300E0748F /* LiveListTableViewCell.m */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		A9E8763B208048F500480C81 /* LiveQuiz */ = {
+			isa = PBXGroup;
+			children = (
+				A9E8763C208048F500480C81 /* gqjssdk.js */,
+				A9E8763D208048F500480C81 /* jssdkdemo2.html */,
+			);
+			path = LiveQuiz;
 			sourceTree = "<group>";
 		};
 		C16AEDF44CBE23C9E9FDABBA /* Pods */ = {
@@ -6273,6 +6273,7 @@
 		EBC0A2A71CA924AE00F75E7E /* GQapp */ = {
 			isa = PBXGroup;
 			children = (
+				A9E8763B208048F500480C81 /* LiveQuiz */,
 				A9762882206C89BB007C79D1 /* Purchase */,
 				EBA21DD31DF067A0004E63C5 /* GQapp.entitlements */,
 				EB8C1C251F21944B00A07863 /* 滚球模块 */,
@@ -6600,7 +6601,6 @@
 		EBF3AB141F21CD3100C2341A /* 本地h5文件 */ = {
 			isa = PBXGroup;
 			children = (
-				A94D6863207EF98B002F4310 /* LiveQuiz */,
 				EBF3AB151F21CD3100C2341A /* img */,
 				EBF3AB521F21CD3100C2341A /* jshtml-App */,
 			);
@@ -6978,6 +6978,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A9E8763A2080409800480C81 /* PBXTargetDependency */,
 			);
 			name = newGQapp;
 			productName = GQapp;
@@ -7141,6 +7142,7 @@
 				7DB269BB1EC1DCDB00342D72 /* loginBtn@2x.png in Resources */,
 				EB9213161DFE964A0020B39F /* bang1@2x.png in Resources */,
 				EBD80D761EDFF60500BE98E7 /* 4.png in Resources */,
+				A9E8763F208048F600480C81 /* jssdkdemo2.html in Resources */,
 				EB3A62431ED590DE00CC8A47 /* yajun@2x.png in Resources */,
 				EB542DD01F7210F600C051E8 /* accountUser1@2x.png in Resources */,
 				EBF3AB971F21CD3100C2341A /* up.png in Resources */,
@@ -7658,7 +7660,7 @@
 				EBF3AB7C1F21CD3100C2341A /* jb-2.png in Resources */,
 				EB9213421DFE964A0020B39F /* peiLvSet0_0@2x.png in Resources */,
 				EB65306A1EBC70990062BA4D /* userBg@2x.png in Resources */,
-				A94D6867207EF98B002F4310 /* gqjssdk.js in Resources */,
+				A9E8763E208048F600480C81 /* gqjssdk.js in Resources */,
 				EB9212911DFE8EFE0020B39F /* shengCirle2.png in Resources */,
 				EBF2232D1F8E32F800A1E67B /* userBg1@2x.png in Resources */,
 				EB2E1D911CEB399700726748 /* Icon-120.png in Resources */,
@@ -7863,6 +7865,7 @@
 				"${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/zh-Hans.lproj",
 				"${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/Emoji.plist",
 				"${PODS_ROOT}/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_7_3_stable/RCConfig.plist",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -7871,6 +7874,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Emoji.plist",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCConfig.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -8256,6 +8260,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A9E8763A2080409800480C81 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = A9E876392080409800480C81 /* PBXContainerItemProxy */;
+		};
 		EBC0A2C01CA924AE00F75E7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EBC0A2A41CA924AE00F75E7E /* newGQapp */;
@@ -8406,7 +8415,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GQapp/ThirdPart",
-					"$(PROJECT_DIR)/GQapp/ThirdPart/UMessage_Sdk_1.3.0",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -8487,7 +8495,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GQapp/ThirdPart",
-					"$(PROJECT_DIR)/GQapp/ThirdPart/UMessage_Sdk_1.3.0",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -8685,7 +8692,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GQapp/ThirdPart",
-					"$(PROJECT_DIR)/GQapp/ThirdPart/UMessage_Sdk_1.3.0",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

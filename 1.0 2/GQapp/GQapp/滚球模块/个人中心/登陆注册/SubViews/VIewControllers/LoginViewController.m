@@ -458,11 +458,14 @@
 //                NSLog(@"[XGPush Demo]register wrongBlock");
 //                
 //            }];
-            [UMessage setUniqueID:[NSString stringWithFormat:@"GQ%lu",(long)model.idId]];
-            [UMessage setAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
-                
-                NSLog(@"");
-            }];
+            
+#warning 推送代码
+            
+//            [UMessage setUniqueID:[NSString stringWithFormat:@"GQ%lu",(long)model.idId]];
+//            [UMessage setAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+//
+//                NSLog(@"");
+//            }];
 
             [_prograssHud hide:YES afterDelay:1];
             [self performSelector:@selector(dismiss) withObject:nil afterDelay:1];
