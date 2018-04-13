@@ -67,6 +67,9 @@
 		A9E8764320807F9700480C81 /* CouponListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8764220807F9700480C81 /* CouponListViewController.m */; };
 		A9E87647208083AE00480C81 /* CouponListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E87646208083AE00480C81 /* CouponListTableViewCell.m */; };
 		A9E8764A20809A9000480C81 /* CouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8764920809A9000480C81 /* CouponModel.m */; };
+		A9E876532080BBE100480C81 /* LiveQuizWithDrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E876522080BBE100480C81 /* LiveQuizWithDrawalViewController.m */; };
+		A9E876572080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E876562080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.m */; };
+		A9E8765B2080C26700480C81 /* WithdrawalView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8765A2080C26700480C81 /* WithdrawalView.m */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
 		EB076A6D1EC321A000940D64 /* attentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6B1EC321A000940D64 /* attentionNew@2x.png */; };
 		EB076A6E1EC321A000940D64 /* noAttentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6C1EC321A000940D64 /* noAttentionNew@2x.png */; };
@@ -1168,6 +1171,12 @@
 		A9E87646208083AE00480C81 /* CouponListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponListTableViewCell.m; sourceTree = "<group>"; };
 		A9E8764820809A9000480C81 /* CouponModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponModel.h; sourceTree = "<group>"; };
 		A9E8764920809A9000480C81 /* CouponModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponModel.m; sourceTree = "<group>"; };
+		A9E876512080BBE100480C81 /* LiveQuizWithDrawalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveQuizWithDrawalViewController.h; sourceTree = "<group>"; };
+		A9E876522080BBE100480C81 /* LiveQuizWithDrawalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizWithDrawalViewController.m; sourceTree = "<group>"; };
+		A9E876552080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveQuizWithdrawalTableViewCell.h; sourceTree = "<group>"; };
+		A9E876562080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizWithdrawalTableViewCell.m; sourceTree = "<group>"; };
+		A9E876592080C26700480C81 /* WithdrawalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalView.h; sourceTree = "<group>"; };
+		A9E8765A2080C26700480C81 /* WithdrawalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalView.m; sourceTree = "<group>"; };
 		C17D0DBC39E419D60F185125 /* Pods-newGQapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.release.xcconfig"; sourceTree = "<group>"; };
 		EB041C101F177BB100E80C97 /* share03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share03.png; sourceTree = "<group>"; };
 		EB076A6B1EC321A000940D64 /* attentionNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attentionNew@2x.png"; sourceTree = "<group>"; };
@@ -2626,8 +2635,11 @@
 		A94D686B207EFA3C002F4310 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				A9E876582080C25000480C81 /* view */,
 				A9E87645208083AE00480C81 /* CouponListTableViewCell.h */,
 				A9E87646208083AE00480C81 /* CouponListTableViewCell.m */,
+				A9E876552080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.h */,
+				A9E876562080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2644,6 +2656,8 @@
 			children = (
 				A9E8764120807F9700480C81 /* CouponListViewController.h */,
 				A9E8764220807F9700480C81 /* CouponListViewController.m */,
+				A9E876512080BBE100480C81 /* LiveQuizWithDrawalViewController.h */,
+				A9E876522080BBE100480C81 /* LiveQuizWithDrawalViewController.m */,
 			);
 			path = VIewControllers;
 			sourceTree = "<group>";
@@ -2756,6 +2770,15 @@
 				A94B67792071E42300E0748F /* LiveListTableViewCell.m */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		A9E876582080C25000480C81 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				A9E876592080C26700480C81 /* WithdrawalView.h */,
+				A9E8765A2080C26700480C81 /* WithdrawalView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		C16AEDF44CBE23C9E9FDABBA /* Pods */ = {
@@ -7888,6 +7911,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB8C1EBB1F21944C00A07863 /* TodayHotSpotsTwoCell.m in Sources */,
+				A9E8765B2080C26700480C81 /* WithdrawalView.m in Sources */,
 				EB2319DC1F7CDB4800003F3C /* PeilvViewOfPlyc.m in Sources */,
 				EB6BDA4E1F39A57A00C9EA73 /* BaolengZhishuCell.m in Sources */,
 				EB8C1E891F21944C00A07863 /* JsbfValue.m in Sources */,
@@ -8078,6 +8102,7 @@
 				EB8C1FC11F219A8C00A07863 /* Methods.m in Sources */,
 				EB7684321F3AF5800054A705 /* BaolengMatchModel.m in Sources */,
 				EB8C1E401F21944C00A07863 /* FeedbackVC.m in Sources */,
+				A9E876572080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.m in Sources */,
 				EB8C1FB61F219A8C00A07863 /* DCTabBarController.m in Sources */,
 				EB8C20061F219D7100A07863 /* UIColor+HEX.m in Sources */,
 				EB6149E51F3874160098C2DE /* TongPeiDetailVC.m in Sources */,
@@ -8091,6 +8116,7 @@
 				EB8C20291F21A10C00A07863 /* UserTongjiView.m in Sources */,
 				EB8C1E951F21944C00A07863 /* SelectedDateTitleView.m in Sources */,
 				EB95FEAE1F4C15B400D29161 /* UserTongjiAllModel.m in Sources */,
+				A9E876532080BBE100480C81 /* LiveQuizWithDrawalViewController.m in Sources */,
 				EB8C1E681F21944C00A07863 /* TuijiandatingModel.m in Sources */,
 				EB9419321F5D7ADC002660E4 /* FenXiHeaderBottomView.m in Sources */,
 				84BA634C1FC6875100A65360 /* UIAlertController+askForUser.m in Sources */,

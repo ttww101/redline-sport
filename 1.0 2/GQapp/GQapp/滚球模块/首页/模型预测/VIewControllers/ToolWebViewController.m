@@ -13,6 +13,7 @@
 #import "AppleIAPService.h"
 #import <UShareUI/UShareUI.h>
 #import "CouponListViewController.h"
+#import "LiveQuizWithDrawalViewController.h"
 
 
 @interface ToolWebViewController () <UIWebViewDelegate>
@@ -247,7 +248,8 @@
             } else if (type == 3) {
                 
             } else if (type == 4) {
-                
+                LiveQuizWithDrawalViewController *control = [[LiveQuizWithDrawalViewController alloc]init];
+                [self.navigationController pushViewController:control animated:YES];
             } else if (type == 5) {
                 CouponListViewController *control = [[CouponListViewController alloc]init];
                 [self.navigationController pushViewController:control animated:YES];
