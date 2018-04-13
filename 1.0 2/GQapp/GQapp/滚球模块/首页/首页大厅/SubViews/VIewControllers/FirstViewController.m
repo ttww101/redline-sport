@@ -1941,6 +1941,7 @@
     WebModel *model = [[WebModel alloc]init];
     model.title = @"直播答题";
     model.webUrl = self.href;
+    model.hideNavigationBar = YES;
     ToolWebViewController *controller = [[ToolWebViewController alloc]init];
     controller.model = model;
     [self.navigationController pushViewController:controller animated:YES];
