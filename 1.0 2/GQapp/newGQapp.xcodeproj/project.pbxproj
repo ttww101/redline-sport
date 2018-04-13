@@ -64,6 +64,9 @@
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
 		A9E876372080409800480C81 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
 		A9E876382080409800480C81 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A9E8764320807F9700480C81 /* CouponListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8764220807F9700480C81 /* CouponListViewController.m */; };
+		A9E87647208083AE00480C81 /* CouponListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E87646208083AE00480C81 /* CouponListTableViewCell.m */; };
+		A9E8764A20809A9000480C81 /* CouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8764920809A9000480C81 /* CouponModel.m */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
 		EB076A6D1EC321A000940D64 /* attentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6B1EC321A000940D64 /* attentionNew@2x.png */; };
 		EB076A6E1EC321A000940D64 /* noAttentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6C1EC321A000940D64 /* noAttentionNew@2x.png */; };
@@ -1159,6 +1162,12 @@
 		A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPurchaseModel.m; sourceTree = "<group>"; };
 		A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchListViewModel.h; sourceTree = "<group>"; };
 		A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchListViewModel.m; sourceTree = "<group>"; };
+		A9E8764120807F9700480C81 /* CouponListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponListViewController.h; sourceTree = "<group>"; };
+		A9E8764220807F9700480C81 /* CouponListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponListViewController.m; sourceTree = "<group>"; };
+		A9E87645208083AE00480C81 /* CouponListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponListTableViewCell.h; sourceTree = "<group>"; };
+		A9E87646208083AE00480C81 /* CouponListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponListTableViewCell.m; sourceTree = "<group>"; };
+		A9E8764820809A9000480C81 /* CouponModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponModel.h; sourceTree = "<group>"; };
+		A9E8764920809A9000480C81 /* CouponModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CouponModel.m; sourceTree = "<group>"; };
 		C17D0DBC39E419D60F185125 /* Pods-newGQapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newGQapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp.release.xcconfig"; sourceTree = "<group>"; };
 		EB041C101F177BB100E80C97 /* share03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share03.png; sourceTree = "<group>"; };
 		EB076A6B1EC321A000940D64 /* attentionNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attentionNew@2x.png"; sourceTree = "<group>"; };
@@ -2608,6 +2617,8 @@
 		A94D686A207EFA3C002F4310 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A9E8764820809A9000480C81 /* CouponModel.h */,
+				A9E8764920809A9000480C81 /* CouponModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2615,6 +2626,8 @@
 		A94D686B207EFA3C002F4310 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				A9E87645208083AE00480C81 /* CouponListTableViewCell.h */,
+				A9E87646208083AE00480C81 /* CouponListTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2629,6 +2642,8 @@
 		A94D686D207EFA3D002F4310 /* VIewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A9E8764120807F9700480C81 /* CouponListViewController.h */,
+				A9E8764220807F9700480C81 /* CouponListViewController.m */,
 			);
 			path = VIewControllers;
 			sourceTree = "<group>";
@@ -8135,6 +8150,7 @@
 				EB8C1E7D1F21944C00A07863 /* RecommandListModel.m in Sources */,
 				EB8C20031F219D7100A07863 /* NSAttributedString+RichText.m in Sources */,
 				A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */,
+				A9E87647208083AE00480C81 /* CouponListTableViewCell.m in Sources */,
 				EB5BCF511F4186A800EF32E6 /* JSPLDownCell.m in Sources */,
 				EB8C1FC91F219A8C00A07863 /* HttpString.m in Sources */,
 				EB8C1FD11F219A8C00A07863 /* WebViewJavascriptBridge.m in Sources */,
@@ -8156,6 +8172,7 @@
 				EB8C1E511F21944C00A07863 /* SignatureVC.m in Sources */,
 				EB8C1FC61F219A8C00A07863 /* ViewPagerController.m in Sources */,
 				EB564C5A1F4D73DE00F4C947 /* PanwangCollectCell.m in Sources */,
+				A9E8764A20809A9000480C81 /* CouponModel.m in Sources */,
 				EB8C1E421F21944C00A07863 /* ChangePassWordVC.m in Sources */,
 				EB8C1E971F21944C00A07863 /* SelecterMatchView.m in Sources */,
 				EB8C1EB71F21944C00A07863 /* firstHotInfoCycleView.m in Sources */,
@@ -8193,6 +8210,7 @@
 				EB8C202F1F21A44D00A07863 /* NewZhiShuWebVC.m in Sources */,
 				EB518D0E1F7B84E100D548BC /* RightSlidetabletableViewCell.m in Sources */,
 				EB3105D81F457F52009E6AE9 /* RoundUserView.m in Sources */,
+				A9E8764320807F9700480C81 /* CouponListViewController.m in Sources */,
 				EB8C1E5A1F21944C00A07863 /* ForgetPswViewController.m in Sources */,
 				A91C6DF8207C4D240035DFC0 /* MineViewController.m in Sources */,
 				EB8C20041F219D7100A07863 /* NSString+Regular.m in Sources */,

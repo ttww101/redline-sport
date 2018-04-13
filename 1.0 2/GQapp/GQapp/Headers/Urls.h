@@ -186,14 +186,12 @@
 #define url_quizoneQuiz @"/quiz/oneQuiz"
 
 
-
+#pragma mark -   新加接口
+// 优惠券列表
+#define url_couponlist @"/couponlist"
 
 // 直播答题接口
 #define url_liveQuiz @"/activity_entry"
-
-
-
-
 
 // 苹果内购验证
 

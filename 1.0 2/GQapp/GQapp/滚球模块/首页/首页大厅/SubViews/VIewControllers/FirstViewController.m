@@ -1938,6 +1938,11 @@
 }
 
 - (void)liveQuziAction:(UITapGestureRecognizer *)tap {
+    
+    CouponListViewController *control = [[CouponListViewController alloc]init];
+    [self.navigationController pushViewController:control animated:YES];
+    
+    return;
     WebModel *model = [[WebModel alloc]init];
     model.title = @"直播答题";
     model.webUrl = self.href;

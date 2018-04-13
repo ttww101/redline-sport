@@ -12,6 +12,7 @@
 #import "TokenModel.h"
 #import "AppleIAPService.h"
 #import <UShareUI/UShareUI.h>
+#import "CouponListViewController.h"
 
 
 @interface ToolWebViewController () <UIWebViewDelegate>
@@ -38,6 +39,11 @@
     [self configUI];
     [self loadBradge];
     [self loadData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -243,7 +249,8 @@
             } else if (type == 4) {
                 
             } else if (type == 5) {
-                
+                CouponListViewController *control = [[CouponListViewController alloc]init];
+                [self.navigationController pushViewController:control animated:YES];
             }
             responseCallback(@"Response from testObjcCallback");
         }];
@@ -266,9 +273,9 @@
         }];
         
         [self.bridge registerHandler:@"txtCopy" handler:^(id data, WVJBResponseCallback responseCallback) {
-            NSLog(@"11323");
             UIPasteboard *paste = [UIPasteboard generalPasteboard];
             paste.string = data;
+            [SVProgressHUD showSuccessWithStatus:@"粘贴成功"];
         }];
         
         [self.bridge registerHandler:@"getState" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -424,6 +431,7 @@
         _webView.backgroundColor = [UIColor whiteColor];
         _webView.scrollView.showsVerticalScrollIndicator = NO;
         _webView.scrollView.showsHorizontalScrollIndicator = NO;
+        _webView.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _webView;
 }
