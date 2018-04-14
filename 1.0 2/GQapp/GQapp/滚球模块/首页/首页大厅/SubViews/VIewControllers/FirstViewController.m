@@ -326,11 +326,7 @@
     [self.tableView.mj_header beginRefreshing];
     
     [self.view addSubview:self.liveQuizImageView];
-    [self.liveQuizImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo (self.view.mas_right).offset(-5);
-        make.bottom.equalTo(self.view.mas_bottom).offset(- (Height / 3));
-        make.size.mas_equalTo(CGSizeMake(50, 50));
-    }];
+
 }
 
 - (void)setTableViewContentOffsetZero
@@ -1910,7 +1906,88 @@
 
 #pragma mark --------- 直播答题
 
-#pragma mark - Events
+#pragma mark - Private Method
+
+/**
+ 
+ *  处理拖动手势
+ 
+ *
+ 
+ *  @param recognizer 拖动手势识别器对象实例
+ 
+ */
+
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+    //视图前置操作
+    
+    [recognizer.view.superview bringSubviewToFront:recognizer.view];
+    CGPoint center = recognizer.view.center;
+    CGFloat cornerRadius = recognizer.view.frame.size.width / 2;
+    CGPoint translation = [recognizer translationInView:self.view];
+    
+    CGFloat centerY = center.y + translation.y;
+    CGFloat centerX = center.x + translation.x;
+    // 下边界
+    if (centerY > self.view.height - self.navigationController.tabBarController.tabBar.height -  recognizer.view.frame.size.width / 2) {
+        centerY = self.view.height - self.navigationController.tabBarController.tabBar.height -  recognizer.view.frame.size.width / 2;
+    }
+    // 上边界
+    if (centerY < cornerRadius) {
+        centerY = cornerRadius;
+    }
+    // 左边界
+    if (centerX < cornerRadius) {
+        centerX = cornerRadius;
+    }
+    // 右边界
+    if (centerX > Width  - cornerRadius) {
+        centerX = Width  - cornerRadius;
+    }
+    
+    recognizer.view.center = CGPointMake(centerX, centerY);
+    [recognizer setTranslation:CGPointZero inView:self.view];
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+
+        //计算速度向量的长度，当他小于200时，滑行会很短
+
+//        CGPoint velocity = [recognizer velocityInView:self.view];
+//        CGFloat magnitude = sqrtf((velocity.x * velocity.x) + (velocity.y * velocity.y));
+//        CGFloat slideMult = magnitude / 200;
+
+        //NSLog(@"magnitude: %f, slideMult: %f", magnitude, slideMult); //e.g. 397.973175, slideMult: 1.989866
+
+        //基于速度和速度因素计算一个终点
+
+//        float slideFactor = 0.1 * slideMult;
+
+//        CGPoint finalPoint = CGPointMake(center.x + (velocity.x * slideFactor),
+//
+//                                         center.y + (velocity.y * slideFactor));
+
+        //限制最小［cornerRadius］和最大边界值［self.view.bounds.size.width - cornerRadius］，以免拖动出屏幕界限
+
+//        finalPoint.x = MIN(MAX(finalPoint.x, cornerRadius), self.view.bounds.size.width - cornerRadius - 5);
+//        finalPoint.y = MIN(MAX(finalPoint.y, cornerRadius), self.view.bounds.size.height - cornerRadius - self.navigationController.tabBarController.tabBar.height);
+
+        //使用 UIView 动画使 view 滑行到终点
+        
+        if (centerX > recognizer.view.superview.width / 2) {
+            centerX = recognizer.view.superview.width - cornerRadius - 5;
+        } else {
+            centerX = cornerRadius + 5;
+        }
+        
+        CGPoint centerPoint = CGPointMake(centerX, centerY);
+        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            recognizer.view.center = centerPoint;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    
+}
 
 - (void)loadLiveData {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
@@ -1937,8 +2014,10 @@
     }];
 }
 
+#pragma mark - Events
+
 - (void)liveQuziAction:(UITapGestureRecognizer *)tap {
-    
+
     WebModel *model = [[WebModel alloc]init];
     model.title = @"直播答题";
     model.webUrl = self.href;
@@ -1954,12 +2033,15 @@
 - (UIImageView *)liveQuizImageView {
     if (_liveQuizImageView == nil) {
         _liveQuizImageView = [UIImageView new];
+        _liveQuizImageView.frame = CGRectMake(Width - 55, 2 * (Height / 3), 50, 50);
         _liveQuizImageView.contentMode = UIViewContentModeScaleAspectFill;
         _liveQuizImageView.clipsToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(liveQuziAction:)];
         [_liveQuizImageView addGestureRecognizer:tap];
         _liveQuizImageView.userInteractionEnabled = YES;
         _liveQuizImageView.hidden = YES;
+        UIPanGestureRecognizer *panTouch = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+        [_liveQuizImageView addGestureRecognizer:panTouch];
     }
     return _liveQuizImageView;
 }

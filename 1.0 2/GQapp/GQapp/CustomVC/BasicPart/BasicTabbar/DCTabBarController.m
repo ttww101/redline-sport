@@ -75,6 +75,8 @@
     if ([Methods login]) {
         [self creatRefreshUnreadCountTimer];
     }
+
+    
     // Do any additional setup after loading the view.
 }
 - (void)updateUnreadCount:(NSNotification *)notification
