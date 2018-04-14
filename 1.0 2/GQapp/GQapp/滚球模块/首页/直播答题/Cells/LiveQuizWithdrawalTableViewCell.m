@@ -52,7 +52,10 @@ static NSString *identifier = @"listCell";
 }
 
 - (void)refreshContentData:(id)model {
-   
+    WithdrawalModel *data = (WithdrawalModel *)model;
+    self.timeLabel.text = [Methods formatMMDDWithStamp:data.created];
+    self.vsLabel.text = data.item_name;
+    self.addMoneyLabel.text = [NSString stringWithFormat:@"+%@元",data.amount];
 }
 
 #pragma mark - Config UI

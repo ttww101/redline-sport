@@ -190,6 +190,9 @@
 // 优惠券列表
 #define url_couponlist @"/couponlist"
 
+// 活动提成列表
+#define url_reward_list @"/reward_list"
+
 // 直播答题接口
 #define url_liveQuiz @"/activity_entry"
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WithdrawalModel.h"
 
 @interface LiveQuizWithdrawalTableViewCell : UITableViewCell
 

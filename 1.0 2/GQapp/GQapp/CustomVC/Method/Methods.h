@@ -124,6 +124,8 @@ typedef NS_ENUM(NSInteger, weekType)
 
 + (NSString *)formatHHSSStamp:(NSUInteger)timeStamp;
 
++ (NSString *)formatMMDDWithStamp:(NSUInteger)timeStamp;
+
 
 + (NSInteger)amountWithProductId:(NSString *)productId;
 

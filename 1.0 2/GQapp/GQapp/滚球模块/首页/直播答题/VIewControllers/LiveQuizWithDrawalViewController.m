@@ -9,10 +9,17 @@
 
 #import "LiveQuizWithDrawalViewController.h"
 #import "WithdrawalView.h"
+#import <YYModel/YYModel.h>
 
 @interface LiveQuizWithDrawalViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) BasicTableView *tableView;
+
+@property (nonatomic , strong) WithdrawaListModel *listModel;
+
+@property (nonatomic , strong) WithdrawalView *withdradalView;
+
+
 
 @end
 
@@ -41,7 +48,7 @@
         make.edges.equalTo(self.view);
     }];
     adjustsScrollViewInsets_NO(self.tableView, self);
-    self.tableView.tableHeaderView = [[WithdrawalView alloc]init];
+    self.tableView.tableHeaderView = self.withdradalView;
 }
 
 #pragma mark - Load Data
@@ -49,13 +56,17 @@
 - (void)loadData {
     [LodingAnimateView showLodingView];
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_couponlist]  Start:^(id requestOrignal) {
+    [parameter setObject:@"0" forKey:@"limitStart"];
+    [parameter setObject:@"20" forKey:@"limitNum"];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_reward_list]  Start:^(id requestOrignal) {
         
     } End:^(id responseOrignal) {
         
     } Success:^(id responseResult, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
         if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
+            _listModel = [WithdrawaListModel yy_modelWithDictionary:responseOrignal[@"data"]];
+            [self.withdradalView setcontentWithData:_listModel];
             [self.tableView reloadData];
         } else {
             [SVProgressHUD showErrorWithStatus:responseResult];
@@ -70,12 +81,12 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return _listModel.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LiveQuizWithdrawalTableViewCell *cell = [LiveQuizWithdrawalTableViewCell cellForTableView:tableView];
-//    [cell refreshContentData:_listModel.data[indexPath.row]];
+    [cell refreshContentData:_listModel.items[indexPath.row]];
     return cell;
 }
 
@@ -106,6 +117,13 @@
         _tableView.emptyDataSetDelegate = self;
     }
     return _tableView;
+}
+
+- (WithdrawalView *)withdradalView {
+    if (_withdradalView == nil) {
+        _withdradalView = [[WithdrawalView alloc]init];
+    }
+    return _withdradalView;
 }
 
 

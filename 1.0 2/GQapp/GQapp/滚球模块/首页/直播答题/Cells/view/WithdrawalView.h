@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WithdrawalModel.h"
 
 @interface WithdrawalView : UIView
+
+- (void)setcontentWithData:(WithdrawaListModel *)model;
 
 @end

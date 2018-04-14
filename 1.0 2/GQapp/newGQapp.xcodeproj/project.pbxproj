@@ -42,6 +42,8 @@
 		84BA634C1FC6875100A65360 /* UIAlertController+askForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */; };
 		A91C6DF8207C4D240035DFC0 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* MineViewController.m */; };
 		A91C6DFB207C5EE70035DFC0 /* TuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */; };
+		A9317BE22081A5D40094500A /* DIN-Bold.TTF in Resources */ = {isa = PBXBuildFile; fileRef = A9317BE02081A5D30094500A /* DIN-Bold.TTF */; };
+		A9317BE52081BACB0094500A /* WithdrawalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9317BE42081BACB0094500A /* WithdrawalModel.m */; };
 		A93A4A7420731228007CED8F /* WebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A93A4A7320731228007CED8F /* WebModel.m */; };
 		A941D527206E07E0008CE14F /* ModelPredictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D526206E07E0008CE14F /* ModelPredictionViewController.m */; };
 		A941D52A206E1233008CE14F /* UniversaListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D529206E1233008CE14F /* UniversaListCell.m */; };
@@ -1127,6 +1129,9 @@
 		A91C6DF7207C4D240035DFC0 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianDatingCell.m; sourceTree = "<group>"; };
 		A91C6DFA207C5EE70035DFC0 /* TuijianDatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianDatingCell.h; sourceTree = "<group>"; };
+		A9317BE02081A5D30094500A /* DIN-Bold.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DIN-Bold.TTF"; sourceTree = "<group>"; };
+		A9317BE32081BACB0094500A /* WithdrawalModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalModel.h; sourceTree = "<group>"; };
+		A9317BE42081BACB0094500A /* WithdrawalModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalModel.m; sourceTree = "<group>"; };
 		A93A4A7220731228007CED8F /* WebModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebModel.h; sourceTree = "<group>"; };
 		A93A4A7320731228007CED8F /* WebModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebModel.m; sourceTree = "<group>"; };
 		A941D525206E07E0008CE14F /* ModelPredictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelPredictionViewController.h; sourceTree = "<group>"; };
@@ -2628,6 +2633,8 @@
 			children = (
 				A9E8764820809A9000480C81 /* CouponModel.h */,
 				A9E8764920809A9000480C81 /* CouponModel.m */,
+				A9317BE32081BACB0094500A /* WithdrawalModel.h */,
+				A9317BE42081BACB0094500A /* WithdrawalModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6341,6 +6348,7 @@
 		EBC0A2DB1CA9276D00F75E7E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A9317BE02081A5D30094500A /* DIN-Bold.TTF */,
 				EBC0A2AC1CA924AE00F75E7E /* AppDelegate.m */,
 				EBC0A2AB1CA924AE00F75E7E /* AppDelegate.h */,
 				EBC0A2B11CA924AE00F75E7E /* Main.storyboard */,
@@ -7239,6 +7247,7 @@
 				EB9419891F5D7B26002660E4 /* search1@2x.png in Resources */,
 				EB69A5EE1F5EB901004F3D43 /* sound_status.wav in Resources */,
 				EB92137E1DFE964A0020B39F /* wangji.png in Resources */,
+				A9317BE22081A5D40094500A /* DIN-Bold.TTF in Resources */,
 				EBF3AB651F21CD3100C2341A /* bf-1.png in Resources */,
 				EB9419941F5D7B26002660E4 /* tuijianDTPeilvSelected2@2x.png in Resources */,
 				EB92135E1DFE964A0020B39F /* smablack2.png in Resources */,
@@ -8105,6 +8114,7 @@
 				A9E876572080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.m in Sources */,
 				EB8C1FB61F219A8C00A07863 /* DCTabBarController.m in Sources */,
 				EB8C20061F219D7100A07863 /* UIColor+HEX.m in Sources */,
+				A9317BE52081BACB0094500A /* WithdrawalModel.m in Sources */,
 				EB6149E51F3874160098C2DE /* TongPeiDetailVC.m in Sources */,
 				EB6BDA631F39D65400C9EA73 /* BaolengDTTitleView.m in Sources */,
 				EB6BDA421F398F3F00C9EA73 /* TongpeiHistoryCell.m in Sources */,

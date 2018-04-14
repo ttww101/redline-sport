@@ -43,6 +43,8 @@
  (1242 2208 607 1104) 6+
  */
 
+#define FONT_DIN_Bold_SIZE(s)                         [UIFont fontWithName:@"DIN-Bold" size:s]
+
 
 #define font7 [UIFont systemFontOfSize:(7*Scale_Ratio)]
 #define font8 [UIFont systemFontOfSize:(8*Scale_Ratio)]

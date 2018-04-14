@@ -1434,6 +1434,15 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     return timeText;
 }
 
++ (NSString *)formatMMDDWithStamp:(NSUInteger)timeStamp {
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    [stampFormatter setDateFormat:@"MM-dd HH:mm"];
+    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+    NSString *timeText = [stampFormatter stringFromDate:stampDate];
+    return timeText;
+}
+
 + (NSInteger)amountWithProductId:(NSString *)productId {
     NSInteger amount = 0;
     if ([productId isEqualToString:@"com.Gunqiu.GQapp8"]) {
