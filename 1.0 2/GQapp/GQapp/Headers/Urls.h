@@ -196,12 +196,14 @@
 // 直播答题接口
 #define url_liveQuiz @"/activity_entry"
 
+// 模型支付接口
+#define url_modelPay @"/pay/modelPay/new"
+
 // 苹果内购验证
 
 #define url_purchase @"/pay/applepay/model" // 模型
 
 #define url_purchase_recommend @"/payweb/apple/recommend" // 推荐
-
 
 #define url_verifyPayment @"/applepay/verifyPayment"
 

@@ -58,6 +58,13 @@
 		A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B677C2071FC0D00E0748F /* ToolWebViewController.m */; };
 		A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* LodingAnimateView.m */; };
 		A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
+		A96C141D2084875500284E4B /* XHPayWxReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14132084875400284E4B /* XHPayWxReq.m */; };
+		A96C141E2084875500284E4B /* XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14162084875400284E4B /* XHPayKit.m */; };
+		A96C141F2084875500284E4B /* NSDictionary+XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14172084875400284E4B /* NSDictionary+XHPayKit.m */; };
+		A96C14202084875500284E4B /* XHPayKitConst.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14182084875400284E4B /* XHPayKitConst.m */; };
+		A96C14212084875500284E4B /* NSString+XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14192084875400284E4B /* NSString+XHPayKit.m */; };
+		A96C1425208492D200284E4B /* SelectPayMentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C1424208492D200284E4B /* SelectPayMentView.m */; };
+		A96C14282084AA5400284E4B /* OptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14272084AA5400284E4B /* OptionView.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
@@ -1159,6 +1166,20 @@
 		A94B67812072003A00E0748F /* LodingAnimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LodingAnimateView.m; sourceTree = "<group>"; };
 		A94B67822072003A00E0748F /* LodingAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodingAnimateView.h; sourceTree = "<group>"; };
 		A94D70C3207F43C0002F4310 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+XHPayKit.h"; sourceTree = "<group>"; };
+		A96C14132084875400284E4B /* XHPayWxReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPayWxReq.m; sourceTree = "<group>"; };
+		A96C14142084875400284E4B /* NSString+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XHPayKit.h"; sourceTree = "<group>"; };
+		A96C14152084875400284E4B /* XHPayKitConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPayKitConst.h; sourceTree = "<group>"; };
+		A96C14162084875400284E4B /* XHPayKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPayKit.m; sourceTree = "<group>"; };
+		A96C14172084875400284E4B /* NSDictionary+XHPayKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+XHPayKit.m"; sourceTree = "<group>"; };
+		A96C14182084875400284E4B /* XHPayKitConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPayKitConst.m; sourceTree = "<group>"; };
+		A96C14192084875400284E4B /* NSString+XHPayKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XHPayKit.m"; sourceTree = "<group>"; };
+		A96C141A2084875400284E4B /* XHPayWxReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPayWxReq.h; sourceTree = "<group>"; };
+		A96C141B2084875400284E4B /* XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPayKit.h; sourceTree = "<group>"; };
+		A96C1423208492D200284E4B /* SelectPayMentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectPayMentView.h; sourceTree = "<group>"; };
+		A96C1424208492D200284E4B /* SelectPayMentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPayMentView.m; sourceTree = "<group>"; };
+		A96C14262084AA5400284E4B /* OptionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionView.h; sourceTree = "<group>"; };
+		A96C14272084AA5400284E4B /* OptionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OptionView.m; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -2672,6 +2693,7 @@
 		A94D6EA9207F4115002F4310 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				A96C14112084875400284E4B /* XHPayKit */,
 				A94D70C3207F43C0002F4310 /* Charts.xcodeproj */,
 			);
 			path = ThirdPart;
@@ -2684,6 +2706,34 @@
 				A94D70CB207F43C0002F4310 /* ChartsTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A96C14112084875400284E4B /* XHPayKit */ = {
+			isa = PBXGroup;
+			children = (
+				A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */,
+				A96C14132084875400284E4B /* XHPayWxReq.m */,
+				A96C14142084875400284E4B /* NSString+XHPayKit.h */,
+				A96C14152084875400284E4B /* XHPayKitConst.h */,
+				A96C14162084875400284E4B /* XHPayKit.m */,
+				A96C14172084875400284E4B /* NSDictionary+XHPayKit.m */,
+				A96C14182084875400284E4B /* XHPayKitConst.m */,
+				A96C14192084875400284E4B /* NSString+XHPayKit.m */,
+				A96C141A2084875400284E4B /* XHPayWxReq.h */,
+				A96C141B2084875400284E4B /* XHPayKit.h */,
+			);
+			path = XHPayKit;
+			sourceTree = "<group>";
+		};
+		A96C1422208492BE00284E4B /* SelectPayMent */ = {
+			isa = PBXGroup;
+			children = (
+				A96C1423208492D200284E4B /* SelectPayMentView.h */,
+				A96C1424208492D200284E4B /* SelectPayMentView.m */,
+				A96C14262084AA5400284E4B /* OptionView.h */,
+				A96C14272084AA5400284E4B /* OptionView.m */,
+			);
+			path = SelectPayMent;
 			sourceTree = "<group>";
 		};
 		A9762882206C89BB007C79D1 /* Purchase */ = {
@@ -6430,6 +6480,7 @@
 		EBC0A3851CA92AD700F75E7E /* CustomVC */ = {
 			isa = PBXGroup;
 			children = (
+				A96C1422208492BE00284E4B /* SelectPayMent */,
 				EB75ED931F3D4F5100B6046C /* BasicContentView */,
 				EB8C20081F219DD100A07863 /* ShowImages */,
 				EB8C1F5E1F219A8C00A07863 /* BasicPart */,
@@ -7946,6 +7997,7 @@
 				EB8C1FCF1F219A8C00A07863 /* WKWebViewController.m in Sources */,
 				EB8C1EA61F21944C00A07863 /* BifenSetingViewController.m in Sources */,
 				EBE92BEA1F5434B7004375E7 /* DataModelView.m in Sources */,
+				A96C14212084875500284E4B /* NSString+XHPayKit.m in Sources */,
 				EB8C1EB01F21944C00A07863 /* Record_OneModel.m in Sources */,
 				EB8C1E9C1F21944C00A07863 /* SaiguoViewController.m in Sources */,
 				EB8C1E691F21944C00A07863 /* TuijianShaixuanItemsModel.m in Sources */,
@@ -7972,6 +8024,7 @@
 				EB8C1EA81F21944C00A07863 /* JiaoYiModel.m in Sources */,
 				EB95FEC91F4C2F8600D29161 /* SymbolsValueFormatter.m in Sources */,
 				EB8C1EB21F21944C00A07863 /* JiXianVC.m in Sources */,
+				A96C14202084875500284E4B /* XHPayKitConst.m in Sources */,
 				EB5BCF4B1F4142C400EF32E6 /* JiShiPLFirstModel.m in Sources */,
 				EB75EDC01F3D886E00B6046C /* liveLineupModel.m in Sources */,
 				EB75EDA81F3D4FCE00B6046C /* PeiLvDetailModel.m in Sources */,
@@ -8028,6 +8081,7 @@
 				EBC6E4351F418C34005D1188 /* BisaiTongjiCell.m in Sources */,
 				EB6149EB1F387FC60098C2DE /* TongpeiDetailModel.m in Sources */,
 				EB8C1E6D1F21944C00A07863 /* UserViewOfTuijianCell.m in Sources */,
+				A96C141E2084875500284E4B /* XHPayKit.m in Sources */,
 				EB6BDA541F39C19900C9EA73 /* BaolengDetailVC.m in Sources */,
 				EBC0A2AD1CA924AE00F75E7E /* AppDelegate.m in Sources */,
 				EB9DA4F31F4EC75A00DE7FB9 /* TuijianDatingTable.m in Sources */,
@@ -8044,6 +8098,7 @@
 				EBAF52221F46A046006905E9 /* UserTableView.m in Sources */,
 				EB8C20211F21A0AA00A07863 /* GoodsclassModel.m in Sources */,
 				EB8C1E5D1F21944C00A07863 /* ChangePhoneNumVC.m in Sources */,
+				A96C141F2084875500284E4B /* NSDictionary+XHPayKit.m in Sources */,
 				EB5BCF541F4186B200EF32E6 /* JSPLDownMode.m in Sources */,
 				A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */,
 				EB8C1EA11F21944C00A07863 /* DSCollectionViewIndex.m in Sources */,
@@ -8194,6 +8249,7 @@
 				EB8C1ECD1F21944C00A07863 /* UIView+SDExtension.m in Sources */,
 				EB3105D21F453342009E6AE9 /* BangUserVC.m in Sources */,
 				EB4CE2441F67F50300DA2D6A /* LoadHtmlStringVC.m in Sources */,
+				A96C14282084AA5400284E4B /* OptionView.m in Sources */,
 				EB8C1E9B1F21944C00A07863 /* SaichengViewController.m in Sources */,
 				EB8C1EA01F21944C00A07863 /* AllSelectedView.m in Sources */,
 				EB8C1E711F21944C00A07863 /* TuijianDetailCommentCell.m in Sources */,
@@ -8213,6 +8269,7 @@
 				EB8C1E971F21944C00A07863 /* SelecterMatchView.m in Sources */,
 				EB8C1EB71F21944C00A07863 /* firstHotInfoCycleView.m in Sources */,
 				EB8C1E721F21944C00A07863 /* TuijianDetailHeaderView.m in Sources */,
+				A96C141D2084875500284E4B /* XHPayWxReq.m in Sources */,
 				EB8C1E801F21944C00A07863 /* NewQBTableViewCell.m in Sources */,
 				EB6BDA571F39C48400C9EA73 /* BaolengDTHeaderView.m in Sources */,
 				EB8C1E591F21944C00A07863 /* ToAnalystsVC.m in Sources */,
@@ -8243,6 +8300,7 @@
 				EB8C1FC21F219A8C00A07863 /* NSFileHandle+Utility.m in Sources */,
 				EB467B581F42FC2700C7299E /* TechtwoModel.m in Sources */,
 				EB8C1E8B1F21944C00A07863 /* LiveScoreModel.m in Sources */,
+				A96C1425208492D200284E4B /* SelectPayMentView.m in Sources */,
 				EB8C202F1F21A44D00A07863 /* NewZhiShuWebVC.m in Sources */,
 				EB518D0E1F7B84E100D548BC /* RightSlidetabletableViewCell.m in Sources */,
 				EB3105D81F457F52009E6AE9 /* RoundUserView.m in Sources */,

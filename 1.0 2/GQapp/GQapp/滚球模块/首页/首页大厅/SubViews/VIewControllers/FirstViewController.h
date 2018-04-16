@@ -11,8 +11,6 @@
 #import "ToolWebViewController.h"
 #import "WebModel.h"
 
-
-
 @interface FirstViewController : BasicViewController
 
 @end

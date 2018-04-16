@@ -24,6 +24,7 @@
 #import <Bugly/Bugly.h>
 #import "TuijianDetailVC.h"
 #import "AppleIAPService.h"
+#import "XHPayKit.h"
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -712,9 +713,22 @@
         BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
         if (!result) {
             // 其他如支付等SDK的回调
+            return [[XHPayKit defaultManager] handleOpenURL:url];
         }
         return result;
+}
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_9_0
+/** iOS9及以后 */
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    BOOL result = [[XHPayKit defaultManager] handleOpenURL:url];
+    if (!result) {//这里处理其他SDK(例如QQ登录,微博登录等)
+        
     }
+    return result;
+}
+#endif
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -2017,7 +2017,6 @@
 #pragma mark - Events
 
 - (void)liveQuziAction:(UITapGestureRecognizer *)tap {
-
     WebModel *model = [[WebModel alloc]init];
     model.title = @"直播答题";
     model.webUrl = self.href;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WebModel.h"
+#import "SelectPayMentView.h"
 
 @interface ToolWebViewController : UIViewController
 
