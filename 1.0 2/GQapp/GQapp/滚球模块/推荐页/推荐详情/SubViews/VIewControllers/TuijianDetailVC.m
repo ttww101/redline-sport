@@ -448,7 +448,11 @@
         return;
     }
     
-    sender.userInteractionEnabled = false;
+    MBProgressHUD *hud = [[MBProgressHUD alloc]init];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    [self.view addSubview:hud];
+    [hud show:YES];
     
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
     [parameter setObject:@(_modelId) forKey:@"outerId"];
@@ -458,7 +462,6 @@
 
     } Success:^(id responseResult, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
-        sender.userInteractionEnabled = YES;
         NSDictionary *dic = (NSDictionary *)responseOrignal;
         if (dic) {
             NSDictionary *dataDic = dic[@"data"];
@@ -467,7 +470,7 @@
             NSInteger amount = [Methods amountWithProductId:productID];
             amount = amount * 100;
             [[AppleIAPService sharedInstance]purchase:@{@"product_id":productID, @"orderID":_orderId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
-                
+                [hud hide:YES];
                 if (error) {
                     NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
                     [SVProgressHUD showErrorWithStatus:errMse];
@@ -475,29 +478,16 @@
                      [self paySuccess];
                 }
             }];
+        } else {
+            [hud hide:YES];
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
-        sender.userInteractionEnabled = YES;
+        [hud hide:YES];
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
 }
 
-/*
-- (void)WXPay{
-    
-    PayReq *req   = [[PayReq alloc] init];
-    req.openID = [[NSUserDefaults standardUserDefaults] objectForKey:@"payAppID"];;
-    req.nonceStr  = [[NSUserDefaults standardUserDefaults] objectForKey:@"paynonce_str"];;
-    req.package   = [[NSUserDefaults standardUserDefaults] objectForKey:@"paypackage"];
-    req.partnerId = [[NSUserDefaults standardUserDefaults] objectForKey:@"paymch_id"];;
-    req.prepayId  = [[NSUserDefaults standardUserDefaults] objectForKey:@"payprepay_id"];;
-    req.sign = [[NSUserDefaults standardUserDefaults] objectForKey:@"paysign"];
-    NSString * stamp = [[NSUserDefaults standardUserDefaults] objectForKey:@"paytime"];
-    req.timeStamp = stamp.intValue;
-    [WXApi sendReq:req];
-}
- */
 -(void)zhucetongzhi{
    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alitongzhi:) name:@"alitongzhi" object:nil];
     

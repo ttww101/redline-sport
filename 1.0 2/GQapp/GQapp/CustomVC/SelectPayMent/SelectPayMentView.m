@@ -204,8 +204,13 @@
 }
 
 - (void)confirmAction:(UIButton *)sender {
-    self.didSelectType(self.recordBtn.tag);
-    [self closeAction];
+    if (self.recordBtn) {
+        self.didSelectType(self.recordBtn.tag);
+        [self closeAction];
+    } else{
+        [SVProgressHUD showErrorWithStatus:@"请选择支付方式"];
+    }
+    
 }
 
 #pragma mark - Lazy Load
@@ -275,6 +280,7 @@
         [_confirmBtn setBackgroundImage:[UIImage imageNamed:@"bgselect"] forState:UIControlStateSelected];
         [_confirmBtn addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
         [_confirmBtn addTarget:self action:@selector(confirmAction:) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return _confirmBtn;
 }

@@ -45,7 +45,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -186,25 +186,25 @@
      amount = amount * 100;
      NSString *statusCode = dic[@"code"];
      
-     if ([statusCode isEqualToString:@"200"]) {
-     [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
-     [hud hide:YES];
-     if (error) {
-     NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-     [SVProgressHUD showErrorWithStatus:errMse];
-     } else{
-     [SVProgressHUD showSuccessWithStatus:@"购买成功"];
-     [self.navigationController popViewControllerAnimated:YES];
-     }
-     }];
-     } else {
-     [SVProgressHUD showErrorWithStatus:dic[@"msg"]];
-     [hud hide:YES];
-     }
+         if ([statusCode isEqualToString:@"200"]) {
+             [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
+                 [hud hide:YES];
+                 if (error) {
+                     NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+                     [SVProgressHUD showErrorWithStatus:errMse];
+                 } else{
+                     [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+                     [self.navigationController popViewControllerAnimated:YES];
+                 }
+             }];
+         } else {
+             [SVProgressHUD showErrorWithStatus:dic[@"msg"]];
+             [hud hide:YES];
+         }
      } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-     [hud hide:YES];
-     [LodingAnimateView dissMissLoadingView];
-     [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+         [hud hide:YES];
+         [LodingAnimateView dissMissLoadingView];
+         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
      }];
 }
 
