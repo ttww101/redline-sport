@@ -71,15 +71,19 @@
 				<string>tencent1105366123</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.Gunqiu.GQapp</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>DIN-Bold.TTF</string>
-	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>
@@ -114,6 +118,7 @@
 		<string>mqzoneopensdkapi</string>
 		<string>mqqbrowser</string>
 		<string>mttbrowser</string>
+		<string>alipay</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -144,6 +149,10 @@
 	<string>访问相册</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>访问提醒事项</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>DIN-Bold.TTF</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

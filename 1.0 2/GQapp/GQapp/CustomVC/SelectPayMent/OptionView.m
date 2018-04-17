@@ -69,7 +69,8 @@ NSString *const PayMentType = @"PayMentType";
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(-0.5);
         make.left.equalTo(self.titleLabel.mas_left);
-        make.size.mas_equalTo(CGSizeMake(self.width, 0.5));
+        make.right.equalTo(self.mas_right);
+        make.height.mas_equalTo(0.5);
     }];
     
     [self addSubview:self.selectBtn];

@@ -199,6 +199,10 @@
 // 模型支付接口
 #define url_modelPay @"/pay/modelPay/new"
 
+#define url_modelPay_ali @"/pay/alipay/model"
+
+#define url_modelPay_coupon @"/pay/couponpay/model"
+
 // 苹果内购验证
 
 #define url_purchase @"/pay/applepay/model" // 模型

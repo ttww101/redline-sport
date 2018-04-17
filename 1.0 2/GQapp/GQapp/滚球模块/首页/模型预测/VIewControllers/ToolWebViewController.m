@@ -139,6 +139,10 @@
                 NSLog(@"支付结果:\n%@",resultDict);
                 NSInteger code = [resultDict[@"errCode"] integerValue];
                 if(code == 0){//支付成功
+                    [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [SVProgressHUD showSuccessWithStatus:@"购买失败"];
                 }
             }];
         }
@@ -150,6 +154,35 @@
 
 - (void)alibuyWithData:(NSDictionary *)data {
     
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    [parameter setObject:data[@"type"] forKey:@"modelType"];
+    [parameter setObject:data[@"serviceType"] forKey:@"serviceType"];
+    [parameter setObject:@"IOS" forKey:@"resource"];
+    [parameter setObject:PARAM_IS_NIL_ERROR(data[@"scheduleId"]) forKey:@"matchId"];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_modelPay_ali] Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        NSDictionary *resultDic = (NSDictionary *)responseOrignal;
+        if ([resultDic[@"code"] isEqualToString:@"200"]) {
+            NSString *orderSign = resultDic[@"data"];
+            [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"com.Gunqiu.GQapp" completed:^(NSDictionary *resultDict) {
+                NSLog(@"支付结果:\n%@",resultDict);
+                NSInteger status = [resultDict[@"resultStatus"] integerValue];
+                if(status == 9000){
+                    [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [SVProgressHUD showSuccessWithStatus:@"购买失败"];
+                }
+            }];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        [SVProgressHUD showErrorWithStatus:errorDict];
+    }];
 }
 
 - (void)appleBuyWithData:(NSDictionary *)data {
@@ -203,7 +236,26 @@
 }
 
 - (void)couponBuyWithData:(NSDictionary *)data {
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    [parameter setObject:data[@"type"] forKey:@"modelType"];
+    [parameter setObject:data[@"serviceType"] forKey:@"serviceType"];
+    [parameter setObject:@"IOS" forKey:@"resource"];
+    [parameter setObject:PARAM_IS_NIL_ERROR(data[@"scheduleId"]) forKey:@"matchId"];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_modelPay_coupon] Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        NSDictionary *resultDic = (NSDictionary *)responseOrignal;
+        if ([resultDic[@"code"] isEqualToString:@"200"]) {
+            NSString *orderSign = resultDic[@"data"];
     
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        [SVProgressHUD showErrorWithStatus:errorDict];
+    }];
 }
 
 #pragma mark - Private
@@ -233,16 +285,26 @@
         
         // 内购方法   type 1胜平负 2亚盘 3大小球   serviceType 1单场 2 188元7天
         [self.bridge registerHandler:_model.registerActionName handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            NSArray *array = @[
-                               @{PayMentLeftIcon:@"appicon", PayMentTitle:@"Apple Pay", PayMentType:@(payMentTypeApplePurchase)},
-                               @{PayMentLeftIcon:@"wxicon", PayMentTitle:@"微信支付", PayMentType:@(payMentTypeWx)},
-                               @{PayMentLeftIcon:@"aliicon", PayMentTitle:@"支付宝支付", PayMentType:@(payMentTypeAli)},
-                               @{PayMentLeftIcon:@"coupon", PayMentTitle:@"优惠券支付", PayMentType:@(payMentTypeCoupon)}
-                               ];
+            NSString *matchID = data[@"scheduleId"];
+            NSArray *array = nil;
+            if (matchID) {
+                array = @[
+                          @{PayMentLeftIcon:@"appicon", PayMentTitle:@"Apple Pay", PayMentType:@(payMentTypeApplePurchase)},
+                          @{PayMentLeftIcon:@"wxicon", PayMentTitle:@"微信支付", PayMentType:@(payMentTypeWx)},
+                          @{PayMentLeftIcon:@"aliicon", PayMentTitle:@"支付宝支付", PayMentType:@(payMentTypeAli)},
+                          @{PayMentLeftIcon:@"coupon", PayMentTitle:@"优惠券支付", PayMentType:@(payMentTypeCoupon)}
+                          ];
+            } else {
+                array = @[
+                          @{PayMentLeftIcon:@"appicon", PayMentTitle:@"Apple Pay", PayMentType:@(payMentTypeApplePurchase)},
+                          @{PayMentLeftIcon:@"wxicon", PayMentTitle:@"微信支付", PayMentType:@(payMentTypeWx)},
+                          @{PayMentLeftIcon:@"aliicon", PayMentTitle:@"支付宝支付", PayMentType:@(payMentTypeAli)}
+                          ];
+            }
+           
             
             __weak ToolWebViewController *weakSelf = self;
-            [SelectPayMentView showPaymentInfo:@"￥ 123" options:array  animations:YES selectOption:^(payMentType type) {
+            [SelectPayMentView showPaymentInfo:PARAM_IS_NIL_ERROR(data[@"amount"]) options:array  animations:YES selectOption:^(payMentType type) {
                 switch (type) {
                     case payMentTypeApplePurchase: {
                         [weakSelf appleBuyWithData:data];
