@@ -14,6 +14,8 @@ UIKIT_EXTERN NSString *const PayMentTitle;
 
 UIKIT_EXTERN NSString *const PayMentType;
 
+UIKIT_EXTERN NSString *const CouponCount;
+
 @protocol OptionViewDelegate;
 
 @interface OptionView : UIView

@@ -308,8 +308,9 @@
         _webView.scrollView.showsHorizontalScrollIndicator = NO;
         _webView.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
         _webView.scrollView.scrollEnabled = false;
-        [_webView setMediaPlaybackRequiresUserAction:NO];
-        [_webView setMediaPlaybackAllowsAirPlay:false];
+//        _webView.scrollView.bounces = false;
+//        [_webView setMediaPlaybackRequiresUserAction:NO];
+//        [_webView setMediaPlaybackAllowsAirPlay:false];
     }
     return _webView;
 }

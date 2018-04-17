@@ -153,7 +153,7 @@
 }
 
 - (void)alibuyWithData:(NSDictionary *)data {
-    
+    [LodingAnimateView showLodingView];
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
     [parameter setObject:data[@"type"] forKey:@"modelType"];
     [parameter setObject:data[@"serviceType"] forKey:@"serviceType"];
@@ -236,6 +236,11 @@
 }
 
 - (void)couponBuyWithData:(NSDictionary *)data {
+    if (!([data[@"couponCount"] integerValue] > 0)) {
+        [SVProgressHUD showErrorWithStatus:@"您暂时还未拥有优惠券"];
+        return;
+    }
+    [LodingAnimateView dissMissLoadingView];
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
     [parameter setObject:data[@"type"] forKey:@"modelType"];
     [parameter setObject:data[@"serviceType"] forKey:@"serviceType"];
@@ -249,8 +254,10 @@
         [LodingAnimateView dissMissLoadingView];
         NSDictionary *resultDic = (NSDictionary *)responseOrignal;
         if ([resultDic[@"code"] isEqualToString:@"200"]) {
-            NSString *orderSign = resultDic[@"data"];
-    
+            [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [SVProgressHUD showSuccessWithStatus:@"购买失败"];
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [LodingAnimateView dissMissLoadingView];
@@ -292,7 +299,7 @@
                           @{PayMentLeftIcon:@"appicon", PayMentTitle:@"Apple Pay", PayMentType:@(payMentTypeApplePurchase)},
                           @{PayMentLeftIcon:@"wxicon", PayMentTitle:@"微信支付", PayMentType:@(payMentTypeWx)},
                           @{PayMentLeftIcon:@"aliicon", PayMentTitle:@"支付宝支付", PayMentType:@(payMentTypeAli)},
-                          @{PayMentLeftIcon:@"coupon", PayMentTitle:@"优惠券支付", PayMentType:@(payMentTypeCoupon)}
+                          @{PayMentLeftIcon:@"coupon", PayMentTitle:@"优惠券支付", PayMentType:@(payMentTypeCoupon), CouponCount:PARAM_IS_NIL_ERROR(data[@"couponCount"])}
                           ];
             } else {
                 array = @[
@@ -302,9 +309,8 @@
                           ];
             }
            
-            
             __weak ToolWebViewController *weakSelf = self;
-            [SelectPayMentView showPaymentInfo:PARAM_IS_NIL_ERROR(data[@"amount"]) options:array  animations:YES selectOption:^(payMentType type) {
+            [SelectPayMentView showPaymentInfo:[NSString stringWithFormat:@"￥%@",PARAM_IS_NIL_ERROR(data[@"amount"])] options:array  animations:YES selectOption:^(payMentType type) {
                 switch (type) {
                     case payMentTypeApplePurchase: {
                         [weakSelf appleBuyWithData:data];

@@ -14,6 +14,8 @@ NSString *const PayMentTitle = @"PayMentTitle";
 
 NSString *const PayMentType = @"PayMentType";
 
+NSString *const CouponCount = @"CouponCount";
+
 @interface OptionView ()
 
 @property (nonatomic , copy) NSDictionary *dic;
@@ -23,6 +25,8 @@ NSString *const PayMentType = @"PayMentType";
 @property (nonatomic, strong) UIView *lineView;
 
 @property (nonatomic, strong) UILabel *titleLabel;
+
+@property (nonatomic, strong) UILabel *couponCountLabel;
 
 @property (nonatomic , strong) UIButton *selectBtn;
 
@@ -79,11 +83,28 @@ NSString *const PayMentType = @"PayMentType";
         make.right.equalTo(self.mas_right).offset(-15);
         make.size.mas_equalTo(CGSizeMake(19, 19));
     }];
+    
+    [self addSubview:self.couponCountLabel];
+    [self.couponCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.titleLabel.mas_right).offset(5);
+        make.centerY.equalTo(self.mas_centerY);
+    }];
 }
 
 - (void)setData {
     self.leftIcon.image = [UIImage imageNamed:_dic[PayMentLeftIcon]];
     self.titleLabel.text = _dic[PayMentTitle];
+    NSString *text = _dic[CouponCount];
+    if (text) {
+        self.couponCountLabel.hidden = false;
+        NSString *attText = [NSString stringWithFormat:@"(剩%@张)",text];
+        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithString:attText];
+        [attStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.f] range:[attText rangeOfString:attText]];
+        [attStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0x323232) range:[attText rangeOfString:@"(剩"]];
+        [attStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0xDB2D21) range:[attText rangeOfString:[NSString stringWithFormat:@"%@",text]]];
+        [attStr addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0x323232) range:[attText rangeOfString:@"张)"]];
+        self.couponCountLabel.attributedText = attStr;
+    }
 }
 
 #pragma mark - Events
@@ -120,6 +141,14 @@ NSString *const PayMentType = @"PayMentType";
         _titleLabel.textColor = UIColorFromRGBWithOX(0x323232);
     }
     return _titleLabel;
+}
+
+- (UILabel *)couponCountLabel {
+    if (_couponCountLabel == nil) {
+        _couponCountLabel = [UILabel new];
+        _couponCountLabel.hidden = YES;
+    }
+    return _couponCountLabel;
 }
 
 - (UIButton *)selectBtn {
