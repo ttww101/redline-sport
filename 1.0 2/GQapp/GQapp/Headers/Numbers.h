@@ -45,6 +45,8 @@
 // 为空时的占位
 #define PARAM_IS_NIL_ERROR(param) ((param == nil || [param isKindOfClass:[NSNull class]]) ? @"" : param)
 
+#define ScreenRatio (Width / 375.f)
+
 #define PADDING_OF_LEFT_STEP_LINE 21
 #define PADDING_OF_LEFT_RIGHT 15
 #define WIDTH_OF_PROCESS_LABLE (300 *[UIScreen mainScreen].bounds.size.width / 375)

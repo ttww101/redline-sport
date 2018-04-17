@@ -8,7 +8,7 @@
 
 #import "BasicViewController.h"
 #import "ArchiveFile.h"
-#import "ToolWebViewController.h"
+#import "LiveQuizViewController.h"
 #import "WebModel.h"
 
 @interface FirstViewController : BasicViewController

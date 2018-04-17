@@ -69,6 +69,9 @@
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
+		A9D37AA42085C2FF009BA927 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D37AA32085C2FF009BA927 /* 00.png */; };
+		A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AA62085C382009BA927 /* LiveQuizViewController.m */; };
+		A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */; };
 		A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
 		A9E876372080409800480C81 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
@@ -1187,6 +1190,11 @@
 		A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewofMyBuyTuijian.m; sourceTree = "<group>"; };
 		A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBuyTuijianVC.m; sourceTree = "<group>"; };
 		A98C9693207B7F4A00C308AE /* MyBuyTuijianVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBuyTuijianVC.h; sourceTree = "<group>"; };
+		A9D37AA32085C2FF009BA927 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
+		A9D37AA52085C382009BA927 /* LiveQuizViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveQuizViewController.h; sourceTree = "<group>"; };
+		A9D37AA62085C382009BA927 /* LiveQuizViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizViewController.m; sourceTree = "<group>"; };
+		A9D37AA92085D371009BA927 /* LiveQuizAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveQuizAlertView.h; sourceTree = "<group>"; };
+		A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizAlertView.m; sourceTree = "<group>"; };
 		A9DD3B58207C7FF5007BDFBC /* MyPurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPurchaseModel.h; sourceTree = "<group>"; };
 		A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPurchaseModel.m; sourceTree = "<group>"; };
 		A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchListViewModel.h; sourceTree = "<group>"; };
@@ -2597,6 +2605,7 @@
 		A941D522206E07A2008CE14F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				A9D37AA82085D312009BA927 /* View */,
 				A941D528206E1233008CE14F /* UniversaListCell.h */,
 				A941D529206E1233008CE14F /* UniversaListCell.m */,
 				A941D52F206E1C23008CE14F /* NullTableViewCell.h */,
@@ -2686,6 +2695,8 @@
 				A9E8764220807F9700480C81 /* CouponListViewController.m */,
 				A9E876512080BBE100480C81 /* LiveQuizWithDrawalViewController.h */,
 				A9E876522080BBE100480C81 /* LiveQuizWithDrawalViewController.m */,
+				A9D37AA52085C382009BA927 /* LiveQuizViewController.h */,
+				A9D37AA62085C382009BA927 /* LiveQuizViewController.m */,
 			);
 			path = VIewControllers;
 			sourceTree = "<group>";
@@ -2780,6 +2791,22 @@
 			path = VIewControllers;
 			sourceTree = "<group>";
 		};
+		A9D37AA12085C2F7009BA927 /* LiveQuiz */ = {
+			isa = PBXGroup;
+			children = (
+				A9D37AA32085C2FF009BA927 /* 00.png */,
+			);
+			name = LiveQuiz;
+			path = GQapp/Image/LiveQuiz;
+			sourceTree = SOURCE_ROOT;
+		};
+		A9D37AA82085D312009BA927 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A9E60CE72071C92E002BF207 /* 动画 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2834,6 +2861,8 @@
 			children = (
 				A9E876592080C26700480C81 /* WithdrawalView.h */,
 				A9E8765A2080C26700480C81 /* WithdrawalView.m */,
+				A9D37AA92085D371009BA927 /* LiveQuizAlertView.h */,
+				A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -6425,6 +6454,7 @@
 		EBC0A2DD1CA92AD700F75E7E /* commen */ = {
 			isa = PBXGroup;
 			children = (
+				A9D37AA12085C2F7009BA927 /* LiveQuiz */,
 				EB92129B1DFE91890020B39F /* login */,
 				EB142D0C1DF9696F002C57B0 /* mine */,
 				EB142D051DF950CF002C57B0 /* qingbao */,
@@ -7698,6 +7728,7 @@
 				EB94198A1F5D7B26002660E4 /* shaixuanBifen1@2x.png in Resources */,
 				EB2E1D871CEB205A00726748 /* Icon-Small-50@2x.png in Resources */,
 				EBF3ABA71F21CD3100C2341A /* zhibo.js in Resources */,
+				A9D37AA42085C2FF009BA927 /* 00.png in Resources */,
 				EB2E1D8B1CEB205A00726748 /* Icon.png in Resources */,
 				EB9213771DFE964A0020B39F /* tuijianDTDashang@2x.png in Resources */,
 				EB7790181F0F854000947E1A /* registerBtn.png in Resources */,
@@ -7989,6 +8020,7 @@
 				EB8C1EB31F21944C00A07863 /* PanwangCell.m in Sources */,
 				EBC6E43E1F41BCB1005D1188 /* BisaiTJHeaderView.m in Sources */,
 				EB6B4C901F284E45004DF8ED /* BuyRecordsVC.m in Sources */,
+				A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */,
 				EB8C1E7E1F21944C00A07863 /* BangDanTableView.m in Sources */,
 				EB8C1EBF1F21944C00A07863 /* NewslistModel.m in Sources */,
 				EB94192F1F5D7ACF002660E4 /* SelectedDTitleView.m in Sources */,
@@ -8059,6 +8091,7 @@
 				EB2319DF1F7CFB3900003F3C /* YpasCell.m in Sources */,
 				A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */,
 				EB5A469B1F2735D20093962B /* BuyViewofTuijianView.m in Sources */,
+				A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */,
 				EB8C1E621F21944C00A07863 /* NavigationModel.m in Sources */,
 				EBFA65A91F8F700100C4BE6A /* YpasTwoCell.m in Sources */,
 				A941D52E206E171B008CE14F /* ModelPredictionViewModel.m in Sources */,
