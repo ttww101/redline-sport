@@ -19,23 +19,28 @@
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
+@property (nonatomic, assign) BOOL showLoding;
+
 @end
 
 @implementation LiveQuizViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.showLoding = YES;
+    [self configUI];
+    [self loadBradge];
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (_webView) {
-        _webView = nil;
-        [_webView removeFromSuperview];
-    }
-    [self configUI];
-    [self loadBradge];
-    [self loadData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.showLoding = false;
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -267,18 +272,24 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [LodingAnimateView showLodingView];
+    if (self.showLoding) {
+        [LodingAnimateView showLodingView];
+    }
+    
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [LodingAnimateView dissMissLoadingView];
-    
+    if (self.showLoding) {
+        [LodingAnimateView dissMissLoadingView];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [SVProgressHUD showErrorWithStatus:@"加载失败"];
-    [LodingAnimateView dissMissLoadingView];
+    if (self.showLoding) {
+        [LodingAnimateView dissMissLoadingView];
+    }
 }
 
 #pragma mark - PrivateMethod
@@ -309,7 +320,7 @@
         _webView.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
         _webView.scrollView.scrollEnabled = false;
 //        _webView.scrollView.bounces = false;
-//        [_webView setMediaPlaybackRequiresUserAction:NO];
+        [_webView setMediaPlaybackRequiresUserAction:NO];
 //        [_webView setMediaPlaybackAllowsAirPlay:false];
     }
     return _webView;
