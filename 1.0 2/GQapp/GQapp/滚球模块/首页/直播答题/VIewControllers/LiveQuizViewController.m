@@ -19,12 +19,15 @@
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
+@property (nonatomic , assign) BOOL showLoding;
+
 @end
 
 @implementation LiveQuizViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.showLoding = YES;
     [self configUI];
     [self loadBradge];
     [self loadData];
@@ -264,6 +267,7 @@
                 [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
                     
                 }];
+                self.showLoding = false;
                 [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
                 [self.navigationController popViewControllerAnimated:YES];
             }
@@ -282,6 +286,7 @@
                     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
                         
                     }];
+                    self.showLoding = false;
                     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
@@ -343,18 +348,27 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [LodingAnimateView showLodingView];
+    if (self.showLoding) {
+        [LodingAnimateView showLodingView];
+    }
+    
     
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [LodingAnimateView dissMissLoadingView];
+    if (self.showLoding) {
+        [LodingAnimateView dissMissLoadingView];
+    }
+    
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [SVProgressHUD showErrorWithStatus:@"加载失败"];
-      [LodingAnimateView dissMissLoadingView];
+    if (self.showLoding) {
+        [LodingAnimateView dissMissLoadingView];
+    }
+    
 }
 
 #pragma mark - PrivateMethod

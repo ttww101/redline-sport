@@ -67,6 +67,7 @@
 		A96C14282084AA5400284E4B /* OptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14272084AA5400284E4B /* OptionView.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
+		A988D78D208849EC0023D9E2 /* AppManger.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78C208849EC0023D9E2 /* AppManger.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
 		A9D37AA42085C2FF009BA927 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D37AA32085C2FF009BA927 /* 00.png */; };
@@ -1186,6 +1187,8 @@
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
+		A988D78B208849EC0023D9E2 /* AppManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppManger.h; sourceTree = "<group>"; };
+		A988D78C208849EC0023D9E2 /* AppManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppManger.m; sourceTree = "<group>"; };
 		A98C968F207B7F4A00C308AE /* UserViewofMyBuyTuijian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewofMyBuyTuijian.h; sourceTree = "<group>"; };
 		A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewofMyBuyTuijian.m; sourceTree = "<group>"; };
 		A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBuyTuijianVC.m; sourceTree = "<group>"; };
@@ -2754,6 +2757,15 @@
 				A9762884206C89EB007C79D1 /* AppleIAPService.m */,
 			);
 			path = Purchase;
+			sourceTree = "<group>";
+		};
+		A988D78A208846800023D9E2 /* AppManger */ = {
+			isa = PBXGroup;
+			children = (
+				A988D78B208849EC0023D9E2 /* AppManger.h */,
+				A988D78C208849EC0023D9E2 /* AppManger.m */,
+			);
+			path = AppManger;
 			sourceTree = "<group>";
 		};
 		A98C968C207B7F4A00C308AE /* 我的购买 */ = {
@@ -6384,6 +6396,7 @@
 		EBC0A2A71CA924AE00F75E7E /* GQapp */ = {
 			isa = PBXGroup;
 			children = (
+				A988D78A208846800023D9E2 /* AppManger */,
 				A9762882206C89BB007C79D1 /* Purchase */,
 				EBA21DD31DF067A0004E63C5 /* GQapp.entitlements */,
 				EB8C1C251F21944B00A07863 /* 滚球模块 */,
@@ -8278,6 +8291,7 @@
 				EB5BCF511F4186A800EF32E6 /* JSPLDownCell.m in Sources */,
 				EB8C1FC91F219A8C00A07863 /* HttpString.m in Sources */,
 				EB8C1FD11F219A8C00A07863 /* WebViewJavascriptBridge.m in Sources */,
+				A988D78D208849EC0023D9E2 /* AppManger.m in Sources */,
 				EB8C1E501F21944C00A07863 /* MyProfileVC.m in Sources */,
 				EB8C1ECD1F21944C00A07863 /* UIView+SDExtension.m in Sources */,
 				EB3105D21F453342009E6AE9 /* BangUserVC.m in Sources */,
