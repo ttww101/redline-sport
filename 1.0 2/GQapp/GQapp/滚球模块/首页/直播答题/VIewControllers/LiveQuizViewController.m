@@ -19,32 +19,53 @@
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
-@property (nonatomic, assign) BOOL showLoding;
-
 @end
 
 @implementation LiveQuizViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.showLoding = YES;
     [self configUI];
     [self loadBradge];
     [self loadData];
+    
+    __block __weak id gpsObserver;
+    gpsObserver = [[NSNotificationCenter defaultCenter]addObserverForName:@"userLoginNotification" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [self userLogin];
+        [[NSNotificationCenter defaultCenter] removeObserver:gpsObserver];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.showLoding = false;
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+#pragma mark - notification
+
+- (void)userLogin {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (_webView) {
+            _webView = nil;
+            [_webView removeFromSuperview];
+        }
+        [self configUI];
+        [self loadBradge];
+        [self loadData];
+    });
 }
 
 #pragma mark - Config UI
@@ -56,8 +77,6 @@
     }];
     self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
-    
-    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     
 }
 
@@ -85,12 +104,10 @@
 #pragma mark - Private
 
 - (void)loadBradge {
-    
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
     [self.bridge setWebViewDelegate:self];
     NSString *token = [Methods getTokenModel].token;
     
-   
     /**/
     if ([_model.title isEqualToString:@"直播答题"]) {
         NSString *jsonToken = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(token)}];
@@ -102,6 +119,7 @@
         }];
         
         [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
+            
             NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
             NSError *err;
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
@@ -190,14 +208,6 @@
             
         }];
         
-        
-        [self.bridge registerHandler:@"getToken" handler:^(id data, WVJBResponseCallback responseCallback) {
-            [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                
-            }];
-            responseCallback(jsonParameter);
-        }];
-        
         // 1 登陆 3不满10元提现 4满10元提现 5我的优惠券列表
         [self.bridge registerHandler:@"open" handler:^(id data, WVJBResponseCallback responseCallback) {
             NSInteger type = [data integerValue];
@@ -248,23 +258,84 @@
         
         //  0  原生可以退出    1  原生不可退出
         [self.bridge registerHandler:@"back" handler:^(id data, WVJBResponseCallback responseCallback) {
+            if ([data integerValue] == 0) {
+                NSString *jsonUrlPath = [self getJSONMessage:@{@"imagePath":@"1"}];
+                NSString *jsonParameter = [self getJSONMessage:@{@"id":@"back", @"val":jsonUrlPath}];
+                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                    
+                }];
+                [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            responseCallback(@"Response from testObjcCallback");
+        }];
+        
+        [self.bridge registerHandler:@"dialog" handler:^(id data, WVJBResponseCallback responseCallback) {
             NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
             NSError *err;
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                 options:NSJSONReadingMutableContainers
                                                                   error:&err];
-            if ([dic[@"type"] integerValue] == 0) {
-                [self.navigationController popViewControllerAnimated:YES];
-            } else {
-
-                [LiveQuizAlertView showPaymentInfo:dic[@"text"] animations:YES selectOption:^(id selectAction) {
-                    if (selectAction) {
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                }];
-            }
-            responseCallback(@"Response from testObjcCallback");
+            [LiveQuizAlertView showPaymentInfo:dic animations:YES selectOption:^(id selectAction) {
+                if (selectAction) {
+                    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"dialogSuccess", @"val":@(1)}];
+                    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                        
+                    }];
+                    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }];
         }];
+        
+        [self.bridge registerHandler:@"toast" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *err;
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                options:NSJSONReadingMutableContainers
+                                                                  error:&err];
+            [SVProgressHUD showSuccessWithStatus:dic[@"text"]];
+            [SVProgressHUD dismissWithDelay:[dic[@"time"] integerValue] / 1000];
+        }];
+        
+        
+        [self.bridge registerHandler:@"getToken" handler:^(id data, WVJBResponseCallback responseCallback) {
+            [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                
+            }];
+            responseCallback(jsonParameter);
+        }];
+        
+        [self.bridge registerHandler:@"getResource" handler:^(id data, WVJBResponseCallback responseCallback) {
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"00" ofType:@"png"];
+            NSURL *urlPath = [NSURL fileURLWithPath:path];
+            NSString *jsonUrlPath = [self getJSONMessage:@{@"imagePath":urlPath.absoluteString}];
+            NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getResource", @"val":jsonUrlPath}];
+            [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+            }];
+        }];
+        
+        [self.bridge registerHandler:@"info" handler:^(id data, WVJBResponseCallback responseCallback) {
+             NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+            NSString *sysVersion = [UIDevice currentDevice].systemVersion;
+            NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+            NSDictionary *infoDic = @{
+                                      @"platform":@"1",
+                                      @"visit":@(1),
+                                      @"version":version,
+                                      @"resource":@"iOS",
+                                      @"sysVersion":sysVersion,
+                                      @"uuid":idfv,
+                                      @"deviceType":[Methods iphoneType]
+                                      };
+            
+            NSString *jsonInfo = [self getJSONMessage:infoDic];
+            NSString *jsonParameter = [self getJSONMessage:@{@"id":@"info", @"val":jsonInfo}];
+            [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                
+            }];
+        }];
+        
     }
 }
 
@@ -272,24 +343,18 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    if (self.showLoding) {
-        [LodingAnimateView showLodingView];
-    }
+    [LodingAnimateView showLodingView];
     
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    if (self.showLoding) {
-        [LodingAnimateView dissMissLoadingView];
-    }
+    [LodingAnimateView dissMissLoadingView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [SVProgressHUD showErrorWithStatus:@"加载失败"];
-    if (self.showLoding) {
-        [LodingAnimateView dissMissLoadingView];
-    }
+      [LodingAnimateView dissMissLoadingView];
 }
 
 #pragma mark - PrivateMethod
@@ -319,9 +384,7 @@
         _webView.scrollView.showsHorizontalScrollIndicator = NO;
         _webView.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
         _webView.scrollView.scrollEnabled = false;
-//        _webView.scrollView.bounces = false;
         [_webView setMediaPlaybackRequiresUserAction:NO];
-//        [_webView setMediaPlaybackAllowsAirPlay:false];
     }
     return _webView;
 }

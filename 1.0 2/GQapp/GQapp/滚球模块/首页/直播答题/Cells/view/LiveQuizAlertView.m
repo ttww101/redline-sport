@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) UIView *bgView;
 
-@property (nonatomic , copy) NSString *information;
+@property (nonatomic , copy) NSDictionary *information;
 
 @property (nonatomic , copy) didSelectAction action;
 
@@ -65,7 +65,7 @@
 #pragma mark - Config UI
 
 - (void)configUI {
-    [self scheduledGCDTimer];
+//    [self scheduledGCDTimer];
     [self addSubview:self.contentView];
     self.contentView.frame = self.bounds;
     self.contentView.transform = CGAffineTransformMakeScale(0.01, 0.01);
@@ -80,7 +80,7 @@
         make.height.mas_equalTo(bgHeight);
     }];
     
-    self.titleLabel.text = self.information;
+    self.titleLabel.text = PARAM_IS_NIL_ERROR(_information[@"text"]);
     [self.bgView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgView.mas_top).offset(30 * ScreenRatio);
@@ -94,6 +94,7 @@
         make.centerX.equalTo(self.bgView.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(240 * ScreenRatio, 48 * ScreenRatio));
     }];
+    [self.statedHereBtn setTitle:PARAM_IS_NIL_ERROR(_information[@"button1"] ) forState:UIControlStateNormal];
     
     [self.bgView addSubview:self.leaveBtn];
     [self.leaveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -101,6 +102,7 @@
         make.centerX.equalTo(self.bgView.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(240 * ScreenRatio, 48 * ScreenRatio));
     }];
+    [self.leaveBtn setTitle:PARAM_IS_NIL_ERROR(_information[@"button2"]) forState:UIControlStateNormal];
 }
 
 #pragma mark - Private Method
@@ -178,8 +180,8 @@
 #pragma mark - Events
 
 - (void)closeAction:(UIButton *)sender  {
+    self.action(@"close");
     [self hideAnimationWithDelegate:YES];
-    self.action(0);
 }
 
 - (void)statedHereAction:(UIButton *)sender {

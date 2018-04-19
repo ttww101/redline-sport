@@ -445,6 +445,7 @@
             NSLog(@"refreshTokentime        - %f",[[NSUserDefaults standardUserDefaults] doubleForKey:@"refreshTokentime"]);
             NSLog(@"OutOfRefreshTokenTime   - %f",[[NSUserDefaults standardUserDefaults] doubleForKey:@"OutOfRefreshTokenTime"]);
             
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"userLoginNotification" object:nil userInfo:nil];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationOpenMainTableBarTimer object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"open",@"timer", nil]];
             [self connectRongyunWithUserModel:model];
@@ -558,7 +559,9 @@
 //
 
             
+//            [[NSNotificationCenter defaultCenter]postNotificationName:@"userLoginNotification" object:nil userInfo:nil];
 
+            
             
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationOpenMainTableBarTimer object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"open",@"timer", nil]];
             [_prograssHud hide:YES afterDelay:1];
@@ -657,8 +660,7 @@
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
 
-                
-
+            
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:NotificationOpenMainTableBarTimer object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"open",@"timer", nil]];
                 

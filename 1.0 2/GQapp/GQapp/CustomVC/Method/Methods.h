@@ -129,4 +129,11 @@ typedef NS_ENUM(NSInteger, weekType)
 
 + (NSInteger)amountWithProductId:(NSString *)productId;
 
+/**
+ 获取设备型号
+
+ @return 设备型号
+ */
++ (NSString*)iphoneType;
+
 @end
