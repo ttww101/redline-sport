@@ -8,6 +8,9 @@
 
 #import "AppManger.h"
 #import "WebViewJavascriptBridge.h"
+#import "WebModel.h"
+#import "ToolWebViewController.h"
+#import "DCTabBarController.h"
 
 
 @interface AppManger ()
@@ -16,7 +19,7 @@
 
 @property (nonatomic , strong) WebViewJavascriptBridge *bridge;
 
-
+@property (nonatomic , copy) GQJSHandler gqHandler;
 
 @end
 
@@ -35,12 +38,14 @@
     
 }
 
-- (UIWebView *)registerJSTool {
+- (UIWebView *)registerJSTool:(GQJSHandler)jsHandle {
     if (!_webView) {
         _webView = [[UIWebView alloc]init];
     }
+    if (jsHandle) {
+        self.gqHandler = jsHandle;
+    }
     [self initJavaScriptObservers];
-    
     return _webView;
 }
 
@@ -78,6 +83,186 @@
         [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
             
         }];
+    }];
+    
+    //  H5跳转
+    [self.bridge registerHandler:@"openH5" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        WebModel *webModel = [[WebModel alloc]init];
+        webModel.title = dic[@"title"];
+        webModel.webUrl =  dic[@"url"];
+        webModel.hideNavigationBar = false;
+        ToolWebViewController *control = [[ToolWebViewController alloc]init];
+        control.model = webModel;
+        [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+        return ;
+    }];
+    
+    // 复制事件
+    [self.bridge registerHandler:@"txtCopy" handler:^(id data, WVJBResponseCallback responseCallback) {
+        UIPasteboard *paste = [UIPasteboard generalPasteboard];
+        paste.string = data;
+        [SVProgressHUD showSuccessWithStatus:@"复制成功"];
+    }];
+    
+    // 获取状态
+    [self.bridge registerHandler:@"getState" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"11323");
+        responseCallback(@"Response from testObjcCallback");
+    }];
+    
+    //  0  原生可以退出    1  原生不可退出
+    [self.bridge registerHandler:@"back" handler:^(id data, WVJBResponseCallback responseCallback) {
+        self.gqHandler(data, ^(id responseData) {
+            
+        });
+        responseCallback(@"Response from testObjcCallback");
+    }];
+    
+    // 输出
+    [self.bridge registerHandler:@"dialog" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"dialogSuccess", @"val":@(1)}];
+        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        }];
+    }];
+    
+    // 弹出框
+    [self.bridge registerHandler:@"toast" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        [SVProgressHUD showSuccessWithStatus:dic[@"text"]];
+        [SVProgressHUD dismissWithDelay:[dic[@"time"] integerValue] / 1000];
+    }];
+    
+    // 读取本地资源
+    [self.bridge registerHandler:@"getResource" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"00" ofType:@"png"];
+        NSURL *urlPath = [NSURL fileURLWithPath:path];
+        NSString *jsonUrlPath = [self getJSONMessage:@{@"imagePath":urlPath.absoluteString}];
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getResource", @"val":jsonUrlPath}];
+        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        }];
+    }];
+    
+    // 1 登陆 3不满10元提现 4满10元提现 5我的优惠券列表 调用原生的方式
+    [self.bridge registerHandler:@"open" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSInteger type = [data integerValue];
+        if (type == 1) {
+            if (![Methods login]) {
+                [Methods toLogin];
+                return;
+            }
+        } else if (type == 3) {
+            
+        } else if (type == 4) {
+           
+        } else if (type == 5) {
+
+        }
+        responseCallback(@"Response from testObjcCallback");
+    }];
+    
+    // 分享事件
+    [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
+        
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        NSString *title = dic[@"title"];
+        NSString *picurl = dic[@"picurl"];
+        NSString *des = dic[@"des"];
+        NSString *linkurl = dic[@"linkurl"];
+        
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            
+            switch (platformType) {
+                case UMSocialPlatformType_Sina: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Sina]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装新浪客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_WechatSession: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatSession]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_WechatTimeLine: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatTimeLine]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_QQ: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_QQ]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_Qzone: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Qzone]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                    
+                    
+                default:
+                    break;
+            }
+            
+            
+            //创建分享消息对象
+            UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+            //创建网页内容对象
+            UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:des thumImage:picurl];
+            //设置网页地址
+            shareObject.webpageUrl = linkurl;
+            //分享消息对象设置分享内容对象
+            messageObject.shareObject = shareObject;
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareFailed", @"val":@(platformType)}];
+                    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                        
+                    }];
+                }else{
+                    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareSuccess", @"val":@(platformType)}];
+                    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                        
+                    }];
+                }
+            }];
+        }];
+        
+        return;
+        
+    }];
+    
+    [self.bridge registerHandler:@"toLogin" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"11323");
+        responseCallback(@"Response from testObjcCallback");
     }];
 }
 

@@ -68,6 +68,7 @@
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A988D78D208849EC0023D9E2 /* AppManger.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78C208849EC0023D9E2 /* AppManger.m */; };
+		A988D790208870CA0023D9E2 /* JSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78F208870CA0023D9E2 /* JSModel.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
 		A9D37AA42085C2FF009BA927 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D37AA32085C2FF009BA927 /* 00.png */; };
@@ -1189,6 +1190,8 @@
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
 		A988D78B208849EC0023D9E2 /* AppManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppManger.h; sourceTree = "<group>"; };
 		A988D78C208849EC0023D9E2 /* AppManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppManger.m; sourceTree = "<group>"; };
+		A988D78E208870CA0023D9E2 /* JSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSModel.h; sourceTree = "<group>"; };
+		A988D78F208870CA0023D9E2 /* JSModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSModel.m; sourceTree = "<group>"; };
 		A98C968F207B7F4A00C308AE /* UserViewofMyBuyTuijian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewofMyBuyTuijian.h; sourceTree = "<group>"; };
 		A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewofMyBuyTuijian.m; sourceTree = "<group>"; };
 		A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBuyTuijianVC.m; sourceTree = "<group>"; };
@@ -2764,6 +2767,8 @@
 			children = (
 				A988D78B208849EC0023D9E2 /* AppManger.h */,
 				A988D78C208849EC0023D9E2 /* AppManger.m */,
+				A988D78E208870CA0023D9E2 /* JSModel.h */,
+				A988D78F208870CA0023D9E2 /* JSModel.m */,
 			);
 			path = AppManger;
 			sourceTree = "<group>";
@@ -8336,6 +8341,7 @@
 				EB8C1EA71F21944C00A07863 /* JiaoYiNewCell.m in Sources */,
 				A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */,
 				EB8C1E461F21944C00A07863 /* FansModel.m in Sources */,
+				A988D790208870CA0023D9E2 /* JSModel.m in Sources */,
 				EB8C1FBF1F219A8C00A07863 /* TitleIndexView.m in Sources */,
 				EB6149E21F385D760098C2DE /* TongPeiTJModel.m in Sources */,
 				EB518D251F7B950C00D548BC /* PeilvYichangVC.m in Sources */,
