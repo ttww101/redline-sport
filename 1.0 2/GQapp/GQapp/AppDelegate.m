@@ -25,6 +25,7 @@
 #import "TuijianDetailVC.h"
 #import "AppleIAPService.h"
 #import "XHPayKit.h"
+#import <UMPush/UMessage.h>
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -88,8 +89,7 @@
     [self setUpBugly];
     [self svPreferrenceConf];
 //    [self setupXGpush:application WithOptions:launchOptions];
-#warning 推送代码
-//    [self setupUPushWith:application WithOptions:launchOptions];
+    [self setupUPushWith:application WithOptions:launchOptions];
 //    [self setUpRongIMKit];
 //    [self setUpMessageSound];
    // [self setUpFPS];
@@ -570,42 +570,139 @@
 //友盟推送
 
 
-//- (void)setupUPushWith:(UIApplication *)application WithOptions:(NSDictionary *)launchOptions
-//{
-//    //设置 AppKey 及 LaunchOptions
+- (void)setupUPushWith:(UIApplication *)application WithOptions:(NSDictionary *)launchOptions
+{
+    
+    
+    // Push功能配置
+    UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
+    entity.types = UMessageAuthorizationOptionBadge|UMessageAuthorizationOptionAlert|UMessageAuthorizationOptionSound;
+    //如果你期望使用交互式(只有iOS 8.0及以上有)的通知，请参考下面注释部分的初始化代码
+    if (([[[UIDevice currentDevice] systemVersion]intValue]>=8)&&([[[UIDevice currentDevice] systemVersion]intValue]<10)) {
+        UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
+        action1.identifier = @"action1_identifier";
+        action1.title=@"打开应用";
+        action1.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
+        UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
+        action2.identifier = @"action2_identifier";
+        action2.title=@"忽略";
+        action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
+        action2.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
+        action2.destructive = YES;
+        UIMutableUserNotificationCategory *actionCategory1 = [[UIMutableUserNotificationCategory alloc] init];
+        actionCategory1.identifier = @"category1";//这组动作的唯一标示
+        [actionCategory1 setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
+        NSSet *categories = [NSSet setWithObjects:actionCategory1, nil];
+        entity.categories=categories;
+    }
+    //如果要在iOS10显示交互式的通知，必须注意实现以下代码
+    if ([[[UIDevice currentDevice] systemVersion]intValue]>=10) {
+        UNNotificationAction *action1_ios10 = [UNNotificationAction actionWithIdentifier:@"action1_identifier" title:@"打开应用" options:UNNotificationActionOptionForeground];
+        UNNotificationAction *action2_ios10 = [UNNotificationAction actionWithIdentifier:@"action2_identifier" title:@"忽略" options:UNNotificationActionOptionForeground];
+        //UNNotificationCategoryOptionNone
+        //UNNotificationCategoryOptionCustomDismissAction  清除通知被触发会走通知的代理方法
+        //UNNotificationCategoryOptionAllowInCarPlay       适用于行车模式
+        UNNotificationCategory *category1_ios10 = [UNNotificationCategory categoryWithIdentifier:@"category1" actions:@[action1_ios10,action2_ios10]   intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+        NSSet *categories = [NSSet setWithObjects:category1_ios10, nil];
+        entity.categories=categories;
+    }
+    [UNUserNotificationCenter currentNotificationCenter].delegate=self;
+    [UMessage registerForRemoteNotificationsWithLaunchOptions:launchOptions Entity:entity completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+        }else{
+        }
+    }];
+    
+    //设置 AppKey 及 LaunchOptions
 //    [UMessage startWithAppkey:UPushAppKey launchOptions:launchOptions];
-//    
+//
 //    //1.3.0版本开始简化初始化过程。如不需要交互式的通知，下面用下面一句话注册通知即可。
 //    [UMessage registerForRemoteNotifications];
-//    
+//
 //    [UMessage setLogEnabled:YES];
-//    
+//
 //    [UMessage setBadgeClear:YES];
 //    [UMessage setAutoAlert:NO];
-////    + (void)setLogEnabled:(BOOL)value;
-////    
-////    /** 设置是否允许SDK自动清空角标（默认开启）
-////     @param value 是否开启角标清空
-////     */
-////    + (void)setBadgeClear:(BOOL)value;
-////    
-////    /** 设置是否允许SDK当应用在前台运行收到Push时弹出Alert框（默认开启）
-////     @warning 建议不要关闭，否则会丢失程序在前台收到的Push的点击统计,如果定制了 Alert，可以使用`sendClickReportForRemoteNotification`补发 log
-////     @param value 是否开启弹出框
-////     */
-////    + (void)setAutoAlert:(BOOL)value;
+//    + (void)setLogEnabled:(BOOL)value;
 //
-//}
+//    /** 设置是否允许SDK自动清空角标（默认开启）
+//     @param value 是否开启角标清空
+//     */
+//    + (void)setBadgeClear:(BOOL)value;
+//
+//    /** 设置是否允许SDK当应用在前台运行收到Push时弹出Alert框（默认开启）
+//     @warning 建议不要关闭，否则会丢失程序在前台收到的Push的点击统计,如果定制了 Alert，可以使用`sendClickReportForRemoteNotification`补发 log
+//     @param value 是否开启弹出框
+//     */
+//    + (void)setAutoAlert:(BOOL)value;
 
-    
-#warning 友盟统计
+}
+
 //友盟统计
 - (void)setupUM
 {
     [UMConfigure initWithAppkey:UMAppkey channel:@"App Store"];
-//    [UMConfigure setLogEnabled:YES]; // 上线时必须关掉
+    [UMConfigure setLogEnabled:YES]; // 上线时必须关掉
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [UMessage setAutoAlert:NO];
+    if([[[UIDevice currentDevice] systemVersion]intValue] < 10){
+        [UMessage didReceiveRemoteNotification:userInfo];
+    }
+    completionHandler(UIBackgroundFetchResultNewData);
+    [UMessage didReceiveRemoteNotification:userInfo];
 
 }
+
+//iOS10新增：处理前台收到通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        [UMessage setAutoAlert:NO];
+        //应用处于前台时的远程推送接受
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+    }else{
+       
+    }
+    _successGetPushInfo = YES;
+    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
+    completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+}
+
+//iOS10新增：处理后台点击通知的代理方法
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于后台时的远程推送接受
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+    }else{
+        
+    }
+    _successGetPushInfo = YES;
+    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
+}
+
+- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
+{
+
+    [UMessage didReceiveRemoteNotification:userInfo];
+
+    _successGetPushInfo = YES;
+    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
+
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"%@",[[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                  stringByReplacingOccurrencesOfString: @">" withString: @""]
+                 stringByReplacingOccurrencesOfString: @" " withString: @""]);
+}
+
 
 #pragma mark -- tecent Bugly
 - (void)setUpBugly {
@@ -636,51 +733,6 @@
 //    }];
 #endif
 }
-
-#warning 推送代码
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-//{
-//
-//    [UMessage didReceiveRemoteNotification:userInfo];
-//
-//    /*
-//     点击推送打开app时,是先进的applicationWillEnterForeground方法,
-//     然后进该方法,获取推送消息
-//     最后进applicationDidBecomeActive
-//     */
-//    //推送反馈(app运行时)
-//    _successGetPushInfo = YES;
-//
-////    [XGPush handleReceiveNotification:userInfo];
-//    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
-//    NSLog(@"userInfo**************************************************%@",userInfo);
-//
-//}
-//- (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
-//{
-//
-//    [UMessage didReceiveRemoteNotification:userInfo];
-//
-//    /*
-//     点击推送打开app时,是先进的applicationWillEnterForeground方法,
-//     然后进该方法,获取推送消息
-//     最后进applicationDidBecomeActive
-//     */
-//    //推送反馈(app运行时)
-//    _successGetPushInfo = YES;
-////    [XGPush handleReceiveNotification:userInfo];
-//    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
-//    NSLog(@"userInfo**************************************************%@",userInfo);
-//
-//}
-//
-//- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-//{
-////    本地推送
-//    NSLog(@"%@",notification.userInfo);
-//
-//
-//}
 
 //友盟分享和第三方登录
 - (void)setUMShare {
@@ -763,12 +815,6 @@
 
 
     
-    
-    
-    
-    
-    
-    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -780,7 +826,6 @@
 //        if ([[NSUserDefaults standardUserDefaults] doubleForKey:@"refreshTokentime"] != 0) {
         
             if ([[NSUserDefaults standardUserDefaults] doubleForKey:@"refreshTokentime"] < [[NSDate date] timeIntervalSince1970] * 1000) {
-                
                 [APPDELEGATE.customTabbar loadUreadNotificationNum];
             }
 //        }
@@ -818,8 +863,6 @@
                 
             }
         }
-
-    
     
     if (self.customTabbar.selectedIndex ==1) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationTogetAllJishibifen" object:nil];

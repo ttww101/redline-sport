@@ -8,6 +8,10 @@
 
 #import "JSModel.h"
 
+NSString *const WithDrawal = @"WithDrawal";
+
+NSString *const Coupon = @"Coupon";
+
 @implementation JSModel
 
 @end

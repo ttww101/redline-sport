@@ -91,7 +91,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CouponModel *model = _listModel.data[indexPath.row];
     
 }
 

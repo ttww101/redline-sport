@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSModel.h"
+#import "WebViewJavascriptBridge.h"
 
 typedef void (^GQJSResponseCallback)(id responseData);
 typedef void (^GQJSHandler)(id data, GQJSResponseCallback responseCallback);
@@ -17,6 +19,6 @@ typedef void (^GQJSHandler)(id data, GQJSResponseCallback responseCallback);
 
 - (void)initialize;
 
-- (UIWebView *)registerJSTool:(GQJSHandler)jsHandle;
+- (WebViewJavascriptBridge *)registerJSTool:(UIWebView *)webView hannle:(GQJSHandler)jsHandle;
 
 @end

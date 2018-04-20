@@ -63,8 +63,8 @@
     
     UINavigationController *nav = [[UINavigationController alloc] init];
     CGRect rectNav = nav.navigationBar.frame;
-    NSLog(@"nav width - %f", rectNav.size.width); // 宽度
-    NSLog(@"nav height - %f", rectNav.size.height);   // 高度
+//    NSLog(@"nav width - %f", rectNav.size.width); // 宽度
+//    NSLog(@"nav height - %f", rectNav.size.height);   // 高度
     
     self.height_myStateBar = rectStatus.size.height;
     self.height_myNavigationBar = rectStatus.size.height + rectNav.size.height;

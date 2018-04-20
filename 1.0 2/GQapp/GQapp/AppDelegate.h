@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "DCTabBarController.h"
 #import "WebDetailViewController.h"
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import <UserNotifications/UserNotifications.h>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
 //@property (nonatomic, strong)WebDetailViewController *webDetailVC;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) DCTabBarController *customTabbar;

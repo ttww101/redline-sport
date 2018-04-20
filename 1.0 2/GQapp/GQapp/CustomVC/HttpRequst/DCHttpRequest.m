@@ -261,8 +261,8 @@ static AFHTTPRequestOperationManager *_afnetManager;
         [SVProgressHUD setMinimumDismissTimeInterval:1.5];
         [SVProgressHUD setCornerRadius:6];
         start(parameters);
-        NSLog(@"pathUrl---\n%@",pathUrl);
-        NSLog(@"parameters---\n%@",parameters);
+//        NSLog(@"pathUrl---\n%@",pathUrl);
+//        NSLog(@"parameters---\n%@",parameters);
         
         NSMutableString *str = [NSMutableString stringWithFormat:@"%@?",pathUrl];
         [parameters.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -272,7 +272,7 @@ static AFHTTPRequestOperationManager *_afnetManager;
             
         }];
         
-        NSLog(@"%@",str);
+//        NSLog(@"%@",str);
 
 //        [_afnetManager.reachabilityManager startMonitoring];
 //        [_afnetManager.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
@@ -321,7 +321,7 @@ static AFHTTPRequestOperationManager *_afnetManager;
 
     }
     [_afnetManager GET:pathUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@\n返回数据%@",operation.request,operation.responseString);
+//        NSLog(@"%@\n返回数据%@",operation.request,operation.responseString);
  
         if (end) {
             end(operation.responseObject);
@@ -698,26 +698,6 @@ static AFHTTPRequestOperationManager *_afnetManager;
     return responseString;
     return nil;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

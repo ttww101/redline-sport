@@ -14,7 +14,6 @@ static CGFloat cell_Height = 5;
 
 static NSString *identifier = @"nullCell";
 
-static CGFloat imageHeight = 40;
 
 + (NullTableViewCell *)cellForTableView:(UITableView *)tableView {
     NullTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];

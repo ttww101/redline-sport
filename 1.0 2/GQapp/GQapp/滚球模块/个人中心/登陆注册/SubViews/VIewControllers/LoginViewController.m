@@ -15,6 +15,7 @@
 //#import "UMSocialQQHandler.h"
 //#import "UMSocial.h"
 #import "BangUserVC.h"
+#import <UMPush/UMessage.h>
 
 @interface LoginViewController ()<UITextFieldDelegate>
 {
@@ -446,6 +447,10 @@
             NSLog(@"OutOfRefreshTokenTime   - %f",[[NSUserDefaults standardUserDefaults] doubleForKey:@"OutOfRefreshTokenTime"]);
             
             [[NSNotificationCenter defaultCenter]postNotificationName:@"userLoginNotification" object:nil userInfo:nil];
+            
+            [UMessage addAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+                
+            }];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationOpenMainTableBarTimer object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"open",@"timer", nil]];
             [self connectRongyunWithUserModel:model];
@@ -460,13 +465,6 @@
 //                
 //            }];
             
-#warning 推送代码
-            
-//            [UMessage setUniqueID:[NSString stringWithFormat:@"GQ%lu",(long)model.idId]];
-//            [UMessage setAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
-//
-//                NSLog(@"");
-//            }];
 
             [_prograssHud hide:YES afterDelay:1];
             [self performSelector:@selector(dismiss) withObject:nil afterDelay:1];

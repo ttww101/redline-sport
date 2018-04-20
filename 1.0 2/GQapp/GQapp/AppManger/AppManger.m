@@ -7,10 +7,10 @@
 //
 
 #import "AppManger.h"
-#import "WebViewJavascriptBridge.h"
 #import "WebModel.h"
 #import "ToolWebViewController.h"
 #import "DCTabBarController.h"
+#import <YYModel/YYModel.h>
 
 
 @interface AppManger ()
@@ -38,15 +38,15 @@
     
 }
 
-- (UIWebView *)registerJSTool:(GQJSHandler)jsHandle {
-    if (!_webView) {
-        _webView = [[UIWebView alloc]init];
+- (WebViewJavascriptBridge *)registerJSTool:(UIWebView *)webView hannle:(GQJSHandler)jsHandle {
+    if (webView) {
+        self.webView = webView;
     }
     if (jsHandle) {
         self.gqHandler = jsHandle;
     }
     [self initJavaScriptObservers];
-    return _webView;
+    return self.bridge;
 }
 
 - (void)initJavaScriptObservers {
@@ -117,17 +117,32 @@
     
     //  0  原生可以退出    1  原生不可退出
     [self.bridge registerHandler:@"back" handler:^(id data, WVJBResponseCallback responseCallback) {
-        self.gqHandler(data, ^(id responseData) {
-            
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"back:",
+                                                            @"parameterData":data}];
+        self.gqHandler(model, ^(id responseData) {
+            NSString *jsonUrlPath = [self getJSONMessage:@{@"imagePath":responseData}];
+            NSString *jsonParameter = [self getJSONMessage:@{@"id":@"back", @"val":jsonUrlPath}];
+            [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                
+            }];
         });
         responseCallback(@"Response from testObjcCallback");
     }];
     
     // 输出
     [self.bridge registerHandler:@"dialog" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"dialogSuccess", @"val":@(1)}];
-        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-        }];
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"dialog:",
+                                                            @"parameterData":data}];
+        self.gqHandler(model, ^(id responseData) {
+            NSString *jsonUrlPath = [self getJSONMessage:@{@"imagePath":responseData}];
+            NSString *jsonParameter = [self getJSONMessage:@{@"id":@"back", @"val":jsonUrlPath}];
+            [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                
+            }];
+        });
+        
     }];
     
     // 弹出框
@@ -154,18 +169,29 @@
     // 1 登陆 3不满10元提现 4满10元提现 5我的优惠券列表 调用原生的方式
     [self.bridge registerHandler:@"open" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSInteger type = [data integerValue];
+        NSString *className = nil;
         if (type == 1) {
             if (![Methods login]) {
                 [Methods toLogin];
                 return;
             }
+        } else if (type == 2) {
+            
         } else if (type == 3) {
             
         } else if (type == 4) {
-           
+            className = @"LiveQuizWithDrawalViewController";
         } else if (type == 5) {
-
+            className = @"CouponListViewController";
         }
+        
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"open:",
+                                                            @"parameterData":className}];
+        self.gqHandler(model, ^(id responseData) {
+            
+        });
+        
         responseCallback(@"Response from testObjcCallback");
     }];
     
@@ -241,7 +267,7 @@
             //分享消息对象设置分享内容对象
             messageObject.shareObject = shareObject;
             //调用分享接口
-            [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+            [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:APPDELEGATE.customTabbar completion:^(id data, NSError *error) {
                 if (error) {
                     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareFailed", @"val":@(platformType)}];
                     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {

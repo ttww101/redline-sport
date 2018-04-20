@@ -10,6 +10,8 @@
 #import "MBProgressHUD.h"
 #import "DCHttpRequest.h"
 #import "JKCountDownButton.h"
+#import <UMPush/UMessage.h>
+
 #define colorBtn ColorWithRGBA(253, 186, 49, 1)
 @interface RegisterViewController ()<UITextFieldDelegate>
 {
@@ -451,13 +453,9 @@
 //                
 //            }];
             
-            
-# warning 推送代码
-//            [UMessage setUniqueID:[NSString stringWithFormat:@"GQ%lu",(long)model.idId]];
-//            [UMessage setAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
-//
-//            }];
-
+            [UMessage addAlias:[NSString stringWithFormat:@"GQ%lu",(long)model.idId] type:@"GUN_QIU" response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {
+                
+            }];
 
             [self performSelector:@selector(dismissPresent) withObject:nil afterDelay:1];
         }else{

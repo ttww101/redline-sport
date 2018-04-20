@@ -7,6 +7,8 @@
 //
 
 #import "WithdrawalView.h"
+#import "WebModel.h"
+#import "ToolWebViewController.h"
 
 @interface WithdrawalView ()
 
@@ -106,7 +108,13 @@
 #pragma mark - Events
 
 - (void)withdrawalAction:(UIButton *)sender {
-    
+    WebModel *webModel = [[WebModel alloc]init];
+    webModel.title = @"提现";
+    webModel.webUrl =  @"http://www.gunqiu.com/help/tikuan.html";
+    webModel.hideNavigationBar = false;
+    ToolWebViewController *control = [[ToolWebViewController alloc]init];
+    control.model = webModel;
+    [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
 }
 
 #pragma mark - Lazy Load

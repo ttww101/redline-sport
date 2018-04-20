@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+UIKIT_EXTERN NSString *const WithDrawal; // 提现
+
+UIKIT_EXTERN NSString *const Coupon; // 提现
+
+
+
 @interface JSModel : NSObject
 
 @property (nonatomic , copy) NSString *methdName;
+
+@property (nonatomic, strong) id parameterData;
 
 @end

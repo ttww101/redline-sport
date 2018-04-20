@@ -1628,7 +1628,7 @@ NSLog(@"返回的数据333=%ld",_event.count);
     }
     NSDictionary*TongJiDic=[self dictionaryWithJsonString:ddd];
     
-    TongJiModel*tongjimdel=DataArray[3];
+//    TongJiModel*tongjimdel=DataArray[3];
     if (ddd.length>0) {
     
         NSMutableArray *arrEvent = [[NSMutableArray alloc] initWithArray:[LiveEventMedel arrayOfEntitiesFromArray:[TongJiDic objectForKey:@"event"]]];

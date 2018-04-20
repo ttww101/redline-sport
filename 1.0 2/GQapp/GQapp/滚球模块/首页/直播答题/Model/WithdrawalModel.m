@@ -15,7 +15,7 @@
 @implementation WithdrawaListModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"items" : NSClassFromString(@"WithdrawaListModel") };
+    return @{@"items" : NSClassFromString(@"WithdrawalModel") };
 }
 
 @end
