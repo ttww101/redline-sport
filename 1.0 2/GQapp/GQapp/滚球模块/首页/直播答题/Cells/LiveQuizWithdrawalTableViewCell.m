@@ -55,7 +55,7 @@ static NSString *identifier = @"listCell";
     WithdrawalModel *data = (WithdrawalModel *)model;
     self.timeLabel.text = [Methods formatMMDDWithStamp:data.created];
     self.vsLabel.text = data.item_name;
-    self.addMoneyLabel.text = [NSString stringWithFormat:@"+%@元",data.amount];
+    self.addMoneyLabel.text = [NSString stringWithFormat:@"+%@元", [Methods amountFormater:data.amount]];
 }
 
 #pragma mark - Config UI

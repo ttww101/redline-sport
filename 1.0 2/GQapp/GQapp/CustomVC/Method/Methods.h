@@ -136,4 +136,6 @@ typedef NS_ENUM(NSInteger, weekType)
  */
 + (NSString*)iphoneType;
 
++ (NSString *)amountFormater:(NSString *)amount;
+
 @end

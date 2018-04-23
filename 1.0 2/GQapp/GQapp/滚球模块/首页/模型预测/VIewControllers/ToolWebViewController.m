@@ -16,6 +16,7 @@
 #import "LiveQuizWithDrawalViewController.h"
 #import "XHPayKit.h"
 #import "ArchiveFile.h"
+#import "AppManger.h"
 
 
 @interface ToolWebViewController () <UIWebViewDelegate>
@@ -24,13 +25,14 @@
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
+@property (nonatomic , copy) GQJSResponseCallback callBack;
+
 @end
 
 @implementation ToolWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -40,13 +42,32 @@
         [_webView removeFromSuperview];
     }
     [self configUI];
-    [self loadBradge];
+    [self loadBradgeHandler];
     [self loadData];
+}
+
+- (void)loadBradgeHandler {
+    __weak ToolWebViewController *weakSelf = self;
+    WebViewJavascriptBridge *bridge = [[AppManger shareInstance]registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
+        if (responseCallback) {
+            weakSelf.callBack = responseCallback;
+        }
+        JSModel *model = (JSModel *)data;
+        NSString *actionString = model.methdName;
+        SEL action = NSSelectorFromString(actionString);
+        if ([self respondsToSelector:action]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [weakSelf performSelector:action withObject:model.parameterData];
+#pragma clang diagnostic pop
+        }
+    }];
+    
+    [bridge setWebViewDelegate:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +106,18 @@
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
 
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
+    
+    if (_model.showBuyBtn) {
+        UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [buyBtn setTitle:@"开通服务" forState:UIControlStateNormal];
+        [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        buyBtn.frame = CGRectMake(0, 0, 60, 44);
+        buyBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
+        [buyBtn addTarget:self action:@selector(buyAction) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buyBtn];
+        self.navigationItem.rightBarButtonItem = rightItem;
+    }
+    
 
 }
 
@@ -105,6 +138,96 @@
     [SVProgressHUD showErrorWithStatus:@"加载失败"];
     [LodingAnimateView dissMissLoadingView];
     
+}
+
+#pragma mark - Events
+
+- (void)buyAction {
+    WebModel *model = [[WebModel alloc]init];
+    model.title = @"服务介绍";
+    //            model.webUrl = [NSString stringWithFormat:@"%@/mx/spfmode-pay.html", APPDELEGATE.url_jsonHeader];
+    model.webUrl = [NSString stringWithFormat:@"%@:81/ios/spfmode-pay.html", APPDELEGATE.url_jsonHeader];
+    ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
+    webControl.model = model;
+    [self.navigationController pushViewController:webControl animated:YES];
+}
+
+- (void)payAction:(id)data {
+    NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
+    if (!(dataArray.count > 0)) {
+        [self appleBuyWithData:data];
+        return;
+    }
+    
+    NSString *matchID = data[@"scheduleId"];
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSInteger i = 0; i < dataArray.count; i ++) {
+        NSDictionary *typeDic = dataArray[i];
+        NSInteger type = [typeDic[@"type"] integerValue];
+        NSString *text = typeDic[@"text"];
+        NSString *icon = nil;
+        switch (type) {
+            case 0: {
+                icon = @"appicon";
+            }
+                break;
+            case 1: {
+                icon = @"wxicon";
+            }
+                break;
+                
+            case 2: {
+                icon = @"aliicon";
+            }
+                break;
+                
+            case 3: {
+                icon = @"coupon";
+            }
+                break;
+                
+            default:
+                break;
+        }
+        if (matchID && type == 3) {
+            [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
+        } else {
+            [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
+        }
+        
+    }
+    
+    if (!matchID) {
+        [array removeLastObject];
+    }
+    
+    __weak ToolWebViewController *weakSelf = self;
+    [SelectPayMentView showPaymentInfo:[NSString stringWithFormat:@"￥%@",PARAM_IS_NIL_ERROR(data[@"amount"])] options:array  animations:YES selectOption:^(payMentType type) {
+        switch (type) {
+            case payMentTypeApplePurchase: {
+                [weakSelf appleBuyWithData:data];
+            }
+                break;
+                
+            case payMentTypeWx: {
+                [weakSelf tencentBuyWithData:data];
+            }
+                break;
+                
+            case payMentTypeAli: {
+                [weakSelf alibuyWithData:data];
+            }
+                break;
+                
+            case payMentTypeCoupon: {
+                [weakSelf couponBuyWithData:data];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }];
 }
 
 #pragma mark - Buy Type
@@ -263,169 +386,6 @@
         [LodingAnimateView dissMissLoadingView];
         [SVProgressHUD showErrorWithStatus:errorDict];
     }];
-}
-
-#pragma mark - Private
-
-- (void)loadBradge {
-    
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
-    [self.bridge setWebViewDelegate:self];
-    NSString *token = [Methods getTokenModel].token;
-    
-    if ([_model.title isEqualToString:@"胜平负"] || [_model.title isEqualToString:@"亚盘"] || [_model.title isEqualToString:@"大小球"]) {
-        [self.bridge callHandler:_model.callHandleActionName data:token responseCallback:^(id responseData) {
-            NSLog(@"%@",responseData);
-        }];
-        
-        
-        [self.bridge registerHandler:@"toPage" handler:^(id data, WVJBResponseCallback responseCallback) {
-            [self responseRegisterAction:data];
-            responseCallback(@"Response from testObjcCallback");
-        }];
-    }
-    
-    if (_model.parameter) {
-        [self.bridge callHandler:_model.callHandleActionName data:_model.parameter responseCallback:^(id responseData) {
-        
-        }];
-        
-        // 内购方法   type 1胜平负 2亚盘 3大小球   serviceType 1单场 2 188元7天
-        [self.bridge registerHandler:_model.registerActionName handler:^(id data, WVJBResponseCallback responseCallback) {
-            
-            NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
-            if (!(dataArray.count > 0)) {
-                [self appleBuyWithData:data];
-                return;
-            }
-            
-            NSString *matchID = data[@"scheduleId"];
-            NSMutableArray *array = [NSMutableArray new];
-            for (NSInteger i = 0; i < dataArray.count; i ++) {
-                NSDictionary *typeDic = dataArray[i];
-                NSInteger type = [typeDic[@"type"] integerValue];
-                NSString *text = typeDic[@"text"];
-                NSString *icon = nil;
-                switch (type) {
-                    case 0: {
-                        icon = @"appicon";
-                    }
-                        break;
-                    case 1: {
-                        icon = @"wxicon";
-                    }
-                        break;
-                        
-                    case 2: {
-                        icon = @"aliicon";
-                    }
-                        break;
-                        
-                    case 3: {
-                        icon = @"coupon";
-                    }
-                        break;
-                        
-                    default:
-                        break;
-                }
-                if (matchID && type == 3) {
-                     [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
-                } else {
-                     [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
-                }
-               
-            }
-            
-            if (!matchID) {
-                [array removeLastObject];
-            }
-           
-            __weak ToolWebViewController *weakSelf = self;
-            [SelectPayMentView showPaymentInfo:[NSString stringWithFormat:@"￥%@",PARAM_IS_NIL_ERROR(data[@"amount"])] options:array  animations:YES selectOption:^(payMentType type) {
-                switch (type) {
-                    case payMentTypeApplePurchase: {
-                        [weakSelf appleBuyWithData:data];
-                    }
-                        break;
-                        
-                    case payMentTypeWx: {
-                        [weakSelf tencentBuyWithData:data];
-                    }
-                        break;
-                        
-                    case payMentTypeAli: {
-                        [weakSelf alibuyWithData:data];
-                    }
-                        break;
-                        
-                    case payMentTypeCoupon: {
-                        [weakSelf couponBuyWithData:data];
-                    }
-                        break;
-                        
-                    default:
-                        break;
-                }
-            }];
-        }];
-        
-        [self.bridge registerHandler:@"toPage" handler:^(id data, WVJBResponseCallback responseCallback) {
-            [self responseRegisterAction:data];
-            responseCallback(@"Response from testObjcCallback");
-        }];
-        
-        [self.bridge registerHandler:@"toProtocol" handler:^(id data, WVJBResponseCallback responseCallback) {
-            WebModel *webModel = [[WebModel alloc]init];
-            webModel.title = @"滚球增值服务协议";
-            webModel.webUrl = data[@"url"];
-            ToolWebViewController *control = [[ToolWebViewController alloc]init];
-            control.model = webModel;
-            [self.navigationController pushViewController:control animated:YES];
-        }];
-    }
-}
-
-// 0 大小球开通服务，  1 单场解密， 2 历史记录， 3 值投赛事， 4 最高连红， 5 值投赛事详情， 6 历史记录详情
-- (void)responseRegisterAction:(id)data {
-    NSString *weakToken = [Methods getTokenModel].token;
-    NSDictionary *dic = (NSDictionary *)data;
-    WebModel *webModel = [[WebModel alloc]init];
-    webModel.title = dic[@"name"];
-    NSString *url = dic[@"url"];
-//    webModel.webUrl = [NSString stringWithFormat:@"%@/mx/%@", APPDELEGATE.url_jsonHeader ,url];
-    webModel.webUrl = [NSString stringWithFormat:@"%@:81/ios/%@", APPDELEGATE.url_jsonHeader ,url];
-    webModel.callHandleActionName = dic[@"model"];
-    webModel.registerActionName = @"payAction";
-    NSMutableDictionary *parametr = [[NSMutableDictionary alloc]init];
-    [parametr setObject:weakToken forKey:@"token"];
-    if ([dic[@"type"] isEqualToString:@"0"]) {
-        
-    } else if ([dic[@"type"] isEqualToString:@"1"]) {
-        [parametr setObject:dic[@"homeTeam"] forKey:@"homeTeam"];
-        [parametr setObject:dic[@"guestTeam"] forKey:@"guestTeam"];
-        [parametr setObject:dic[@"scheduleId"] forKey:@"scheduleId"];
-    } else if ([dic[@"type"] isEqualToString:@"2"]) {
-        
-    } else if ([dic[@"type"] isEqualToString:@"3"]) {
-        
-    } else if ([dic[@"type"] isEqualToString:@"4"]) {
-        [parametr setObject:dic[@"count"] forKey:@"count"];
-    } else if ([dic[@"type"] isEqualToString:@"5"]) {
-        [parametr setObject:dic[@"id"] forKey:@"id"];
-    }  else if ([dic[@"type"] isEqualToString:@"6"]) {
-        [parametr setObject:dic[@"week"] forKey:@"week"];
-        [parametr setObject:dic[@"id"] forKey:@"id"];
-    }
-    webModel.parameter = parametr;
-    ToolWebViewController *control = [[ToolWebViewController alloc]init];
-    control.model = webModel;
-    [self.navigationController pushViewController:control animated:YES];
-}
-
-- (void)refreshAction:(UIButton *)sender {
-    [self loadBradge];
-    [self loadData];
 }
 
 #pragma mark - Lazy Load

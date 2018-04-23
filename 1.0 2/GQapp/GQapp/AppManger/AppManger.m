@@ -290,6 +290,19 @@
         NSLog(@"11323");
         responseCallback(@"Response from testObjcCallback");
     }];
+    
+    [self.bridge registerHandler:@"payAction" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"payAction:",
+                                                            @"parameterData":dic}];
+        self.gqHandler(model, ^(id responseData) {
+        });
+    }];
 }
 
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {

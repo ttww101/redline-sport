@@ -2731,16 +2731,16 @@
 		A96C14112084875400284E4B /* XHPayKit */ = {
 			isa = PBXGroup;
 			children = (
-				A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */,
-				A96C14132084875400284E4B /* XHPayWxReq.m */,
-				A96C14142084875400284E4B /* NSString+XHPayKit.h */,
 				A96C14152084875400284E4B /* XHPayKitConst.h */,
-				A96C14162084875400284E4B /* XHPayKit.m */,
+				A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */,
 				A96C14172084875400284E4B /* NSDictionary+XHPayKit.m */,
-				A96C14182084875400284E4B /* XHPayKitConst.m */,
+				A96C14142084875400284E4B /* NSString+XHPayKit.h */,
 				A96C14192084875400284E4B /* NSString+XHPayKit.m */,
+				A96C14182084875400284E4B /* XHPayKitConst.m */,
 				A96C141A2084875400284E4B /* XHPayWxReq.h */,
+				A96C14132084875400284E4B /* XHPayWxReq.m */,
 				A96C141B2084875400284E4B /* XHPayKit.h */,
+				A96C14162084875400284E4B /* XHPayKit.m */,
 			);
 			path = XHPayKit;
 			sourceTree = "<group>";
@@ -6406,6 +6406,7 @@
 		EBC0A2A71CA924AE00F75E7E /* GQapp */ = {
 			isa = PBXGroup;
 			children = (
+				A94D6EA9207F4115002F4310 /* ThirdPart */,
 				A988D78A208846800023D9E2 /* AppManger */,
 				A9762882206C89BB007C79D1 /* Purchase */,
 				EBA21DD31DF067A0004E63C5 /* GQapp.entitlements */,
@@ -6518,7 +6519,6 @@
 		EBC0A37F1CA92AD700F75E7E /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				A94D6EA9207F4115002F4310 /* ThirdPart */,
 				EBDA62B61F1F6A580022E27C /* ZLSingleton.h */,
 				EBC0A3801CA92AD700F75E7E /* Contents.h */,
 				EB0DB91C1CFE8303008FA518 /* ThirdPartKey.h */,

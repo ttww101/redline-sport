@@ -1609,6 +1609,12 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     return platform;
 }
 
++ (NSString *)amountFormater:(NSString *)amount {
+    NSInteger value = [amount integerValue];
+    value = value / 100.f;
+    return [NSString stringWithFormat:@"%zi",value];
+}
+
 
 
 @end

@@ -43,10 +43,10 @@
 #pragma mark - Open Method
 
 - (void)setcontentWithData:(WithdrawaListModel *)model {
-    NSString *text = [NSString stringWithFormat:@"%@元",PARAM_IS_NIL_ERROR(model.total_reward_amount)];
+    NSString *text = [NSString stringWithFormat:@"%@元",PARAM_IS_NIL_ERROR([Methods amountFormater:model.total_reward_amount])];
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:text];
     [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0xDB2D21) range:NSMakeRange(0, text.length)];
-    [att addAttribute:NSFontAttributeName value:FONT_DIN_Bold_SIZE(60.f) range:[text rangeOfString:PARAM_IS_NIL_ERROR(model.total_reward_amount)]];
+    [att addAttribute:NSFontAttributeName value:FONT_DIN_Bold_SIZE(60.f) range:[text rangeOfString:PARAM_IS_NIL_ERROR([Methods amountFormater:model.total_reward_amount])]];
     [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13.f] range:[text rangeOfString:@"元"]];
     _amountLabel.attributedText = att;
     if (model.is_allow) {

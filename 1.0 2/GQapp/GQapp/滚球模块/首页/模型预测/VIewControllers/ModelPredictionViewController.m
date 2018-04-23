@@ -105,6 +105,7 @@
             
             model.callHandleActionName = @"spfmode";
             model.registerActionName = @"toPage";
+            model.showBuyBtn = YES;
             ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
             webControl.model = model;
             [self.navigationController pushViewController:webControl animated:YES];
@@ -118,6 +119,7 @@
             model.webUrl = [NSString stringWithFormat:@"%@:81/ios/yamode.html", APPDELEGATE.url_jsonHeader];
             model.callHandleActionName = @"yamode";
             model.registerActionName = @"toPage";
+            model.showBuyBtn = YES;
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
             webDetailVC.model = model;
             [self.navigationController pushViewController:webDetailVC animated:YES];
@@ -132,6 +134,7 @@
             model.webUrl = [NSString stringWithFormat:@"%@:81/ios/dxmode.html", APPDELEGATE.url_jsonHeader];
             model.callHandleActionName = @"dxmode";
             model.registerActionName = @"toPage";
+            model.showBuyBtn = YES;
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
             webDetailVC.model = model;
             [self.navigationController pushViewController:webDetailVC animated:YES];

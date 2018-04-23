@@ -46,8 +46,10 @@
 @property (nonatomic , copy) NSString *callHandleActionName;
 
 /**
- 注册JS调用原生 事件
+
  */
 @property (nonatomic , assign) BOOL hideNavigationBar;
+
+@property (nonatomic , assign) BOOL showBuyBtn;
 
 @end
