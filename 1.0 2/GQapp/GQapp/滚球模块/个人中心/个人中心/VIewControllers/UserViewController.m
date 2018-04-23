@@ -663,8 +663,8 @@
     _nav.labTitle.text = @"个人中心";
     [_nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateNormal];
     [_nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateHighlighted];
-    [_nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    [_nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
+    [_nav.btnRight setBackgroundImage:[UIImage imageNamed:@"usercentershare"] forState:UIControlStateNormal];
+    [_nav.btnRight setBackgroundImage:[UIImage imageNamed:@"usercentershare"] forState:UIControlStateHighlighted];
     [self.view addSubview:_nav];
     
 }
@@ -689,9 +689,73 @@
         [self.navigationController popViewControllerAnimated:YES];
         
     }else if(index == 2){
-        //right
-        
-        
+    
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            
+            switch (platformType) {
+                case UMSocialPlatformType_Sina: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Sina]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装新浪客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_WechatSession: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatSession]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_WechatTimeLine: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatTimeLine]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_QQ: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_QQ]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_Qzone: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Qzone]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                    
+                    
+                default:
+                    break;
+            }
+            
+            //创建分享消息对象
+            UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+            //创建网页内容对象
+            UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:[NSString stringWithFormat:@"分析师%@详情",_userModel.nickname] descr:@"滚球体育】— 知道更多，赢得更多!通过大数据分析技术及独有的数据算法，帮助彩民提供全方位的竞彩足球比分直播、情报资讯、足彩大数据分析、竞彩投注方案和投注分析等服务。" thumImage:@"http://mobile.gunqiu.com/share/v2.2/img/applogo.png"];
+            //设置网页地址
+            shareObject.webpageUrl = [NSString stringWithFormat:@"http://mobile.gunqiu.com/share/v2.2/chengji.html?id=%zi",_userId];
+            //分享消息对象设置分享内容对象
+            messageObject.shareObject = shareObject;
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:APPDELEGATE.customTabbar completion:^(id data, NSError *error) {
+                if (error) {
+                   
+                }else{
+                    [SVProgressHUD showSuccessWithStatus:@"分享成功"];
+                }
+            }];
+        }];
     }
 }
 

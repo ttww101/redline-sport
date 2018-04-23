@@ -1226,7 +1226,6 @@
             req.package = dataDic[@"package"];
             req.sign = dataDic[@"sign"];//签名
             [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
-                NSLog(@"支付结果:\n%@",resultDict);
                 NSInteger code = [resultDict[@"errCode"] integerValue];
                 if(code == 0){//支付成功
                     [self paySuccess];
@@ -1257,7 +1256,6 @@
         if ([resultDic[@"code"] isEqualToString:@"200"]) {
             NSString *orderSign = resultDic[@"data"];
             [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"com.Gunqiu.GQapp" completed:^(NSDictionary *resultDict) {
-                NSLog(@"支付结果:\n%@",resultDict);
                 NSInteger status = [resultDict[@"resultStatus"] integerValue];
                 if(status == 9000){
                     [self paySuccess];
