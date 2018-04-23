@@ -26,6 +26,7 @@
 #import "AppleIAPService.h"
 #import "XHPayKit.h"
 #import <UMPush/UMessage.h>
+#import "AppConfig.h"
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -109,6 +110,8 @@
     [self getScreenShot];
     [self initRootViewCotroller];
 //    [self loadrefreshtoken];
+    [[AppConfig shareInstance] initialize];
+    
     
     return YES;
 }
@@ -458,7 +461,7 @@
     //上线的时候关闭--wt
     APPDELEGATE.url_Server = @"http://mobiledev.gunqiu.com:81/interface";
     APPDELEGATE.url_jsonHeader = @"http://mobiledev.gunqiu.com";
-    APPDELEGATE.url_ip = @"http://10.0.80.95";
+    APPDELEGATE.url_ip = @"http://10.0.80.100";
     APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
     APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
     APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com:8892";

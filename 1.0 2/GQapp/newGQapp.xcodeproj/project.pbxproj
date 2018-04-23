@@ -75,6 +75,7 @@
 		A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AA62085C382009BA927 /* LiveQuizViewController.m */; };
 		A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */; };
 		A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */; };
+		A9E1B5FF2089F18400A37328 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E1B5FE2089F18300A37328 /* AppConfig.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
 		A9E876372080409800480C81 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
 		A9E876382080409800480C81 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1203,6 +1204,8 @@
 		A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizAlertView.m; sourceTree = "<group>"; };
 		A9DD3B58207C7FF5007BDFBC /* MyPurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPurchaseModel.h; sourceTree = "<group>"; };
 		A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPurchaseModel.m; sourceTree = "<group>"; };
+		A9E1B5FD2089F18300A37328 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
+		A9E1B5FE2089F18300A37328 /* AppConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		A9E60CED2071CC7E002BF207 /* MatchListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchListViewModel.h; sourceTree = "<group>"; };
 		A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchListViewModel.m; sourceTree = "<group>"; };
 		A9E8764120807F9700480C81 /* CouponListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CouponListViewController.h; sourceTree = "<group>"; };
@@ -2769,6 +2772,8 @@
 				A988D78C208849EC0023D9E2 /* AppManger.m */,
 				A988D78E208870CA0023D9E2 /* JSModel.h */,
 				A988D78F208870CA0023D9E2 /* JSModel.m */,
+				A9E1B5FD2089F18300A37328 /* AppConfig.h */,
+				A9E1B5FE2089F18300A37328 /* AppConfig.m */,
 			);
 			path = AppManger;
 			sourceTree = "<group>";
@@ -8225,6 +8230,7 @@
 				EB6BDA631F39D65400C9EA73 /* BaolengDTTitleView.m in Sources */,
 				EB6BDA421F398F3F00C9EA73 /* TongpeiHistoryCell.m in Sources */,
 				EB8C1E901F21944C00A07863 /* DCPlaySound.m in Sources */,
+				A9E1B5FF2089F18400A37328 /* AppConfig.m in Sources */,
 				EB8C1E8D1F21944C00A07863 /* QiciModel.m in Sources */,
 				EB75EDB21F3D4FEA00B6046C /* DoubleBattleVC.m in Sources */,
 				EB274D441F4AF1B500CB6840 /* UserTongjiGoodPlayCell.m in Sources */,

@@ -261,8 +261,8 @@ static AFHTTPRequestOperationManager *_afnetManager;
         [SVProgressHUD setMinimumDismissTimeInterval:1.5];
         [SVProgressHUD setCornerRadius:6];
         start(parameters);
-//        NSLog(@"pathUrl---\n%@",pathUrl);
-//        NSLog(@"parameters---\n%@",parameters);
+        NSLog(@"pathUrl---\n%@",pathUrl);
+        NSLog(@"parameters---\n%@",parameters);
         
         NSMutableString *str = [NSMutableString stringWithFormat:@"%@?",pathUrl];
         [parameters.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

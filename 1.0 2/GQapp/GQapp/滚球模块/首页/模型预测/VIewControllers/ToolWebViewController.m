@@ -15,6 +15,7 @@
 #import "CouponListViewController.h"
 #import "LiveQuizWithDrawalViewController.h"
 #import "XHPayKit.h"
+#import "ArchiveFile.h"
 
 
 @interface ToolWebViewController () <UIWebViewDelegate>
@@ -125,16 +126,15 @@
         if ([resultDic[@"code"] isEqualToString:@"200"]) {
             NSDictionary *dataDic = resultDic[@"data"];
             XHPayWxReq *req = [[XHPayWxReq alloc] init];
-            req.openID = dataDic[@"appid"];//微信开放平台审核通过的应用APPID
-            req.partnerId = dataDic[@"partnerid"];//商户号
-            req.prepayId = dataDic[@"prepayid"];//交易会话ID
-            req.nonceStr = dataDic[@"noncestr"];//随机串，防重发
+            req.openID = dataDic[@"appid"];
+            req.partnerId = dataDic[@"partnerid"];
+            req.prepayId = dataDic[@"prepayid"];
+            req.nonceStr = dataDic[@"noncestr"];
             NSUInteger timStamp = [dataDic[@"timestamp"] integerValue];
             req.timeStamp = timStamp;//时间戳，防重发
-            req.package = dataDic[@"package"];// 扩展字段,暂填写固定值Sign=WXPay
+            req.package = dataDic[@"package"];
             req.sign = dataDic[@"sign"];//签名
             
-            //传入订单模型,拉起微信支付
             [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
                 NSLog(@"支付结果:\n%@",resultDict);
                 NSInteger code = [resultDict[@"errCode"] integerValue];
@@ -292,21 +292,53 @@
         
         // 内购方法   type 1胜平负 2亚盘 3大小球   serviceType 1单场 2 188元7天
         [self.bridge registerHandler:_model.registerActionName handler:^(id data, WVJBResponseCallback responseCallback) {
+            
+            NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
+            if (!(dataArray.count > 0)) {
+                [self appleBuyWithData:data];
+                return;
+            }
+            
             NSString *matchID = data[@"scheduleId"];
-            NSArray *array = nil;
-            if (matchID) {
-                array = @[
-                          @{PayMentLeftIcon:@"appicon", PayMentTitle:@"Apple Pay", PayMentType:@(payMentTypeApplePurchase)},
-                          @{PayMentLeftIcon:@"wxicon", PayMentTitle:@"微信支付", PayMentType:@(payMentTypeWx)},
-                          @{PayMentLeftIcon:@"aliicon", PayMentTitle:@"支付宝支付", PayMentType:@(payMentTypeAli)},
-                          @{PayMentLeftIcon:@"coupon", PayMentTitle:@"优惠券支付", PayMentType:@(payMentTypeCoupon), CouponCount:PARAM_IS_NIL_ERROR(data[@"couponCount"])}
-                          ];
-            } else {
-                array = @[
-                          @{PayMentLeftIcon:@"appicon", PayMentTitle:@"Apple Pay", PayMentType:@(payMentTypeApplePurchase)},
-                          @{PayMentLeftIcon:@"wxicon", PayMentTitle:@"微信支付", PayMentType:@(payMentTypeWx)},
-                          @{PayMentLeftIcon:@"aliicon", PayMentTitle:@"支付宝支付", PayMentType:@(payMentTypeAli)}
-                          ];
+            NSMutableArray *array = [NSMutableArray new];
+            for (NSInteger i = 0; i < dataArray.count; i ++) {
+                NSDictionary *typeDic = dataArray[i];
+                NSInteger type = [typeDic[@"type"] integerValue];
+                NSString *text = typeDic[@"text"];
+                NSString *icon = nil;
+                switch (type) {
+                    case 0: {
+                        icon = @"appicon";
+                    }
+                        break;
+                    case 1: {
+                        icon = @"wxicon";
+                    }
+                        break;
+                        
+                    case 2: {
+                        icon = @"aliicon";
+                    }
+                        break;
+                        
+                    case 3: {
+                        icon = @"coupon";
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                if (matchID && type == 3) {
+                     [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
+                } else {
+                     [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
+                }
+               
+            }
+            
+            if (!matchID) {
+                [array removeLastObject];
             }
            
             __weak ToolWebViewController *weakSelf = self;

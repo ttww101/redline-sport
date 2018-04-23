@@ -14,6 +14,10 @@
 #import "TuijianDetailHeaderView.h"
 #import "TuijianDTViewController.h"
 #import "AppleIAPService.h"
+#import "SelectPayMentView.h"
+#import "ArchiveFile.h"
+#import "XHPayKit.h"
+
 @interface TuijianDetailVC ()<UITextViewDelegate>
 @property (nonatomic, strong) TuijianDetailTableView *tableView;
 @property (nonatomic, strong) UITextView *textView;
@@ -447,45 +451,14 @@
         [Methods toLogin];
         return;
     }
-    
-    MBProgressHUD *hud = [[MBProgressHUD alloc]init];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-    [self.view addSubview:hud];
-    [hud show:YES];
-    
-    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-    [parameter setObject:@(_modelId) forKey:@"outerId"];
-    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase_recommend] ArrayFile:nil Start:^(id requestOrignal) {
-        [LodingAnimateView showLodingView];
-    } End:^(id responseOrignal) {
-
-    } Success:^(id responseResult, id responseOrignal) {
-        [LodingAnimateView dissMissLoadingView];
-        NSDictionary *dic = (NSDictionary *)responseOrignal;
-        if (dic) {
-            NSDictionary *dataDic = dic[@"data"];
-            NSString *productID = dataDic[@"productId"];
-            _orderId = dataDic[@"orderId"];
-            NSInteger amount = [Methods amountWithProductId:productID];
-            amount = amount * 100;
-            [[AppleIAPService sharedInstance]purchase:@{@"product_id":productID, @"orderID":_orderId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
-                [hud hide:YES];
-                if (error) {
-                    NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-                    [SVProgressHUD showErrorWithStatus:errMse];
-                } else{
-                     [self paySuccess];
-                }
-            }];
-        } else {
-            [hud hide:YES];
-        }
-    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        [LodingAnimateView dissMissLoadingView];
-        [hud hide:YES];
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-    }];
+    NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
+    if (dataArray.count > 0) {
+        [self buyActionWithOption:dataArray];
+    } else {
+        [self appleBuyWithData];
+        
+    }
+   
 }
 
 -(void)zhucetongzhi{
@@ -595,7 +568,6 @@
         
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
-            
             self.payView.hidden = YES;
             self.bottomView.hidden= NO;
             self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49);
@@ -1164,14 +1136,182 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark ------------
+
+- (void)buyActionWithOption:(NSMutableArray *)dataArray {
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSInteger i = 0; i < dataArray.count; i ++) {
+        NSDictionary *typeDic = dataArray[i];
+        NSInteger type = [typeDic[@"type"] integerValue];
+        NSString *text = typeDic[@"text"];
+        NSString *icon = nil;
+        switch (type) {
+            case 0: {
+                icon = @"appicon";
+            }
+                break;
+            case 1: {
+                icon = @"wxicon";
+            }
+                break;
+                
+            case 2: {
+                icon = @"aliicon";
+            }
+                break;
+                
+            case 3: {
+                icon = @"coupon";
+            }
+                break;
+                
+            default:
+                break;
+        }
+        [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
+    }
+    [array removeLastObject];
+   
+    __weak TuijianDetailVC *weakSelf = self;
+    [SelectPayMentView showPaymentInfo:[NSString stringWithFormat:@"￥%@",PARAM_IS_NIL_ERROR(@"18")] options:array  animations:YES selectOption:^(payMentType type) {
+        switch (type) {
+            case payMentTypeApplePurchase: {
+                [weakSelf appleBuyWithData];
+            }
+                break;
+                
+            case payMentTypeWx: {
+                [weakSelf tencentBuyWithData];
+            }
+                break;
+                
+            case payMentTypeAli: {
+                [weakSelf alibuyWithData];
+            }
+                break;
+                
+            case payMentTypeCoupon: {
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }];
+    
+}
+
+- (void)tencentBuyWithData {
+    [LodingAnimateView showLodingView];
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    [parameter setObject:@(_modelId) forKey:@"outerId"];
+    [parameter setObject:@"1" forKey:@"oType"];
+    [parameter setObject:@"IOS" forKey:@"resource"];
+    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_appPayW] ArrayFile:nil Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        NSDictionary *resultDic = (NSDictionary *)responseOrignal;
+        if ([resultDic[@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dataDic = resultDic[@"data"];
+            XHPayWxReq *req = [[XHPayWxReq alloc] init];
+            req.openID = dataDic[@"appid"];
+            req.partnerId = dataDic[@"partnerid"];
+            req.prepayId = dataDic[@"prepayid"];
+            req.nonceStr = dataDic[@"noncestr"];
+            NSUInteger timStamp = [dataDic[@"timestamp"] integerValue];
+            req.timeStamp = timStamp;//时间戳，防重发
+            req.package = dataDic[@"package"];
+            req.sign = dataDic[@"sign"];//签名
+            [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
+                NSLog(@"支付结果:\n%@",resultDict);
+                NSInteger code = [resultDict[@"errCode"] integerValue];
+                if(code == 0){//支付成功
+                    [self paySuccess];
+                } else {
+                    [SVProgressHUD showSuccessWithStatus:@"购买失败"];
+                }
+            }];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        [SVProgressHUD showErrorWithStatus:errorDict];
+    }];
+}
+
+- (void)alibuyWithData {
+    [LodingAnimateView dissMissLoadingView];
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    [parameter setObject:@(_modelId) forKey:@"outerId"];
+    [parameter setObject:@"1" forKey:@"oType"];
+    [parameter setObject:@"IOS" forKey:@"resource"];
+    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_appPayA] ArrayFile:nil Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        NSDictionary *resultDic = (NSDictionary *)responseOrignal;
+        if ([resultDic[@"code"] isEqualToString:@"200"]) {
+            NSString *orderSign = resultDic[@"data"];
+            [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"com.Gunqiu.GQapp" completed:^(NSDictionary *resultDict) {
+                NSLog(@"支付结果:\n%@",resultDict);
+                NSInteger status = [resultDict[@"resultStatus"] integerValue];
+                if(status == 9000){
+                    [self paySuccess];
+                } else {
+                    [SVProgressHUD showSuccessWithStatus:@"购买失败"];
+                }
+            }];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        [SVProgressHUD showErrorWithStatus:errorDict];
+    }];
+}
+
+- (void)appleBuyWithData {
+    MBProgressHUD *hud = [[MBProgressHUD alloc]init];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    [self.view addSubview:hud];
+    [hud show:YES];
+    
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    [parameter setObject:@(_modelId) forKey:@"outerId"];
+    [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase_recommend] ArrayFile:nil Start:^(id requestOrignal) {
+        [LodingAnimateView showLodingView];
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        NSDictionary *dic = (NSDictionary *)responseOrignal;
+        if (dic) {
+            NSDictionary *dataDic = dic[@"data"];
+            NSString *productID = dataDic[@"productId"];
+            _orderId = dataDic[@"orderId"];
+            NSInteger amount = [Methods amountWithProductId:productID];
+            amount = amount * 100;
+            [[AppleIAPService sharedInstance]purchase:@{@"product_id":productID, @"orderID":_orderId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
+                [hud hide:YES];
+                if (error) {
+                    NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+                    [SVProgressHUD showErrorWithStatus:errMse];
+                } else{
+                    [self paySuccess];
+                }
+            }];
+        } else {
+            [hud hide:YES];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [LodingAnimateView dissMissLoadingView];
+        [hud hide:YES];
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+    }];
+}
+
 
 @end

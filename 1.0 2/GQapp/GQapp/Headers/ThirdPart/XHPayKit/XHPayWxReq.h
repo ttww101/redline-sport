@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 
 //以下参数详细介绍见
-//微信官方文档:https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12&index=2
+//官方文档:https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12&index=2
 
-//发起微信支付的消息模型
+//发起支付的消息模型
 @interface XHPayWxReq : NSObject
-/** 微信开放平台审核通过的应用APPID*/
+/** 开放平台审核通过的应用APPID*/
 @property (nonatomic, copy) NSString* openID;
-/** 微信支付分配的商户号 */
+/** 支付分配的商户号 */
 @property (nonatomic, copy) NSString *partnerId;
-/** 微信返回的支付交易会话ID */
+/** 返回的支付交易会话ID */
 @property (nonatomic, copy) NSString *prepayId;
 /** 随机串，防重发 */
 @property (nonatomic, copy) NSString *nonceStr;

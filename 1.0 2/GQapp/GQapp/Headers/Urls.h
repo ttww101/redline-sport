@@ -203,6 +203,9 @@
 
 #define url_modelPay_coupon @"/pay/couponpay/model"
 
+// 公共配置类
+#define url_ConfigjSon @"/initx.json"
+
 // 苹果内购验证
 
 #define url_purchase @"/pay/applepay/model" // 模型
@@ -214,7 +217,10 @@
 
 
 //支付
-#define url_appPay @"/pay/appPay"
+#define url_appPayW @"/pay/appPay"
+
+#define url_appPayA @"/pay/app/alipay"
+
 
 //支付回调
 #define url_appPaySuccess @"/order/newsPaySuccess"
@@ -422,6 +428,9 @@
 #define BANGDAN_API_HTML @"http://www.gunqiu.com/help/v1.8.0/phb.html"
 
 #define In_App_Purchase_Path [NSString stringWithFormat:@"%@/purchase.data",[ArchiveFile LibraryDirectory]]
+
+#define Buy_Type_Path [NSString stringWithFormat:@"%@/buytype.data",[ArchiveFile LibraryDirectory]]
+
 
 #endif
 
