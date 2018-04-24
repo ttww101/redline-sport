@@ -645,7 +645,7 @@
 - (void)setupUM
 {
     [UMConfigure initWithAppkey:UMAppkey channel:@"App Store"];
-    [UMConfigure setLogEnabled:YES]; // 上线时必须关掉
+//    [UMConfigure setLogEnabled:YES]; // 上线时必须关掉
     
 }
 

@@ -1609,12 +1609,25 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     return platform;
 }
 
-+ (NSString *)amountFormater:(NSString *)amount {
-    NSInteger value = [amount integerValue];
-    value = value / 100.f;
-    return [NSString stringWithFormat:@"%zi",value];
++ (NSString *)amountFormater:(NSString *)amountValue {
+    NSInteger value = [amountValue integerValue];
+    CGFloat floatValue = value / 100.f;
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    NSString *amount = [formatter stringFromNumber:[NSNumber numberWithDouble:floatValue]];
+    NSInteger point = [amount rangeOfString:@"."].location;
+    if (point == NSNotFound) {
+        amount = [amount stringByAppendingString:@".00"];
+    }
+    if (point != NSNotFound) {
+        NSString *afterPoint = [amount substringFromIndex:point];
+        if (afterPoint.length == 2) {
+            amount = [amount stringByAppendingString:@"0"];
+        }
+    }
+    return amount;
 }
-
 
 // 获取当前跟视图
 + (UIViewController *)help_getCurrentVC

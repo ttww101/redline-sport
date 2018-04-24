@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, weekType)
  */
 + (NSString*)iphoneType;
 
-+ (NSString *)amountFormater:(NSString *)amount;
++ (NSString *)amountFormater:(NSString *)amountValue;
 
 // 获取当前视图
 + (UIViewController *)help_getCurrentVC;
