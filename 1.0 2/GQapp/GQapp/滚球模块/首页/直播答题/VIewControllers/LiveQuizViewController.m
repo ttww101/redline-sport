@@ -25,6 +25,9 @@
 
 @property (nonatomic , assign) BOOL showLoding;
 
+@property (nonatomic , strong) AppManger *manger;
+
+
 @end
 
 @implementation LiveQuizViewController
@@ -115,10 +118,11 @@
 
 - (void)loadBradgeHandler {
     __weak LiveQuizViewController *weakSelf = self;
-    self.bridge = [[AppManger shareInstance]registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
-       if (responseCallback) {
-           weakSelf.callBack = responseCallback;
-       }
+    
+    self.bridge = [self.manger registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
+        if (responseCallback) {
+            weakSelf.callBack = responseCallback;
+        }
         JSModel *model = (JSModel *)data;
         NSString *actionString = model.methdName;
         SEL action = NSSelectorFromString(actionString);
@@ -216,6 +220,13 @@
         [_webView setScalesPageToFit:YES];
     }
     return _webView;
+}
+
+- (AppManger *)manger {
+    if (_manger == nil) {
+        _manger = [[AppManger alloc]init];
+    }
+    return _manger;
 }
 
 @end
