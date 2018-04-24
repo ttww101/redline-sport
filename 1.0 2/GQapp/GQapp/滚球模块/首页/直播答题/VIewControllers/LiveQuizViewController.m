@@ -115,7 +115,7 @@
 
 - (void)loadBradgeHandler {
     __weak LiveQuizViewController *weakSelf = self;
-   WebViewJavascriptBridge *bridge = [[AppManger shareInstance]registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
+    self.bridge = [[AppManger shareInstance]registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
        if (responseCallback) {
            weakSelf.callBack = responseCallback;
        }
@@ -131,7 +131,7 @@
         }
     }];
     
-    [bridge setWebViewDelegate:self];
+    [self.bridge setWebViewDelegate:self];
 }
 
 #pragma mark - UIWebViewDelegate
