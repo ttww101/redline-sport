@@ -27,6 +27,8 @@
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 
+@property (nonatomic , copy) NSString *recordUrl;
+
 @end
 
 @implementation ToolWebViewController
@@ -145,11 +147,20 @@
 - (void)buyAction {
     WebModel *model = [[WebModel alloc]init];
     model.title = @"服务介绍";
-    //            model.webUrl = [NSString stringWithFormat:@"%@/mx/spfmode-pay.html", APPDELEGATE.url_jsonHeader];
-    model.webUrl = [NSString stringWithFormat:@"%@:81/ios/spfmode-pay.html", APPDELEGATE.url_jsonHeader];
+    if (self.recordUrl) {
+        model.webUrl = self.recordUrl;
+    } else {
+        //            model.webUrl = [NSString stringWithFormat:@"%@/mx/spfmode-pay.html", APPDELEGATE.url_jsonHeader];
+        model.webUrl = [NSString stringWithFormat:@"%@:81/ios/spfmode-pay.html", APPDELEGATE.url_jsonHeader];
+    }
+    
     ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
     webControl.model = model;
     [self.navigationController pushViewController:webControl animated:YES];
+}
+
+- (void)currentPageUrl:(id)data {
+    self.recordUrl = data;
 }
 
 - (void)payAction:(id)data {
@@ -190,7 +201,7 @@
                 break;
         }
         if (matchID && type == 3) {
-            [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
+            [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type), CouponCount:data[@"couponCount"]}];
         } else {
             [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
         }

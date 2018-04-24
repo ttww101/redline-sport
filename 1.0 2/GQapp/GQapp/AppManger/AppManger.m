@@ -55,6 +55,15 @@
     NSString *jsonToken = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(token)}];
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(jsonToken)}];
     
+    // 获取当前页面链接
+    [self.bridge registerHandler:@"currentPageUrl" handler:^(id data, WVJBResponseCallback responseCallback) {
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"currentPageUrl:",
+                                                            @"parameterData":data}];
+        self.gqHandler(model, ^(id responseData) {
+        });
+    }];
+    
     // 注册token
     [self.bridge registerHandler:@"getToken" handler:^(id data, WVJBResponseCallback responseCallback) {
         [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
@@ -303,6 +312,7 @@
         self.gqHandler(model, ^(id responseData) {
         });
     }];
+    
 }
 
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {
