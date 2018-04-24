@@ -138,4 +138,7 @@ typedef NS_ENUM(NSInteger, weekType)
 
 + (NSString *)amountFormater:(NSString *)amount;
 
+// 获取当前视图
++ (UIViewController *)help_getCurrentVC;
+
 @end
