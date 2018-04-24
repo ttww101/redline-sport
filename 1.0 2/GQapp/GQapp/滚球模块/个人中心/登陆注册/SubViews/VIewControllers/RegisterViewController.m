@@ -432,7 +432,7 @@
             
             
             [[NSUserDefaults standardUserDefaults] setObject:tokenModel.token forKey:@"token"];
-            [[NSUserDefaults standardUserDefaults] setObject:tokenModel.refreshToken forKey:@"refreshToken"];
+            [[NSUserDefaults standardUserDefaults] setObject:PARAM_IS_NIL_ERROR(tokenModel.refreshToken) forKey:@"refreshToken"];
             [[NSUserDefaults standardUserDefaults] setDouble:([[responseOrignal objectForKey:@"time"] doubleValue] + RequestRefreshTokenTime) forKey:@"refreshTokentime"];
             [Methods updateTokentModel:tokenModel];
             [Methods updateUsetModel:model];

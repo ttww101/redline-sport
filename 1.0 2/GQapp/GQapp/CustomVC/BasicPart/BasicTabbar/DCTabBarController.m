@@ -202,7 +202,7 @@
         refreshToken = @"";
     }
     
-    [parameter setObject:[Methods getTokenModel].refreshToken forKey:@"refreshToken"]; //refreshToken
+    [parameter setObject:refreshToken forKey:@"refreshToken"]; //refreshToken
     
     
     

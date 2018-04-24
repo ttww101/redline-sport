@@ -100,8 +100,8 @@
         case 0: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"胜平负";
-//            model.webUrl = [NSString stringWithFormat:@"%@/mx/spfmode.html", APPDELEGATE.url_jsonHeader];
-             model.webUrl = [NSString stringWithFormat:@"%@:81/ios/spfmode.html", APPDELEGATE.url_jsonHeader];
+            model.webUrl = [NSString stringWithFormat:@"%@/mx2/spfmode.html", APPDELEGATE.url_jsonHeader];
+//             model.webUrl = [NSString stringWithFormat:@"%@:81/ios/spfmode.html", APPDELEGATE.url_jsonHeader];
             
             model.callHandleActionName = @"spfmode";
             model.registerActionName = @"toPage";
@@ -115,8 +115,8 @@
         case 1: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"亚盘";
-//            model.webUrl = [NSString stringWithFormat:@"%@/mx/yamode.html", APPDELEGATE.url_jsonHeader];
-            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/yamode.html", APPDELEGATE.url_jsonHeader];
+            model.webUrl = [NSString stringWithFormat:@"%@/mx2/yamode.html", APPDELEGATE.url_jsonHeader];
+//            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/yamode.html", APPDELEGATE.url_jsonHeader];
             model.callHandleActionName = @"yamode";
             model.registerActionName = @"toPage";
             model.showBuyBtn = YES;
@@ -130,8 +130,8 @@
         case 2: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"大小球";
-//            model.webUrl = [NSString stringWithFormat:@"%@/mx/dxmode.html", APPDELEGATE.url_jsonHeader];
-            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/dxmode.html", APPDELEGATE.url_jsonHeader];
+            model.webUrl = [NSString stringWithFormat:@"%@/mx2/dxmode.html", APPDELEGATE.url_jsonHeader];
+//            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/dxmode.html", APPDELEGATE.url_jsonHeader];
             model.callHandleActionName = @"dxmode";
             model.registerActionName = @"toPage";
             model.showBuyBtn = YES;
