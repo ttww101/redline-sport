@@ -31,10 +31,31 @@
             
         } Success:^(id responseResult, id responseOrignal) {
             NSMutableArray *array = responseOrignal[@"pay"];
+            NSMutableArray *tabBarArray = responseOrignal[@"tabBar"];
             if (array.count == 0) {
                 [ArchiveFile clearCachesWithFilePath:Buy_Type_Path];
             } else {
                 [ArchiveFile saveDataWithPath:Buy_Type_Path data:array];
+            }
+            if (tabBarArray.count == 0) {
+                [ArchiveFile clearCachesWithFilePath:TableConfig];
+            } else {
+                [tabBarArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSString *imageUrl = obj[@"defaultImage"];
+                    NSString *selectImageUrl = obj[@"selectImage"];
+                    [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                        
+                    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                        
+                    }];
+                    [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:selectImageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                        
+                    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                       
+                    }];
+                    
+                }];
+                [ArchiveFile saveDataWithPath:TableConfig data:tabBarArray];
             }
         } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
            

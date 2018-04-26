@@ -65,6 +65,8 @@
 		A96C14212084875500284E4B /* NSString+XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14192084875400284E4B /* NSString+XHPayKit.m */; };
 		A96C1425208492D200284E4B /* SelectPayMentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C1424208492D200284E4B /* SelectPayMentView.m */; };
 		A96C14282084AA5400284E4B /* OptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14272084AA5400284E4B /* OptionView.m */; };
+		A96F452C2091699700A6FF76 /* GQTbableConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A96F452B2091699700A6FF76 /* GQTbableConfig.m */; };
+		A96F45322091D6AF00A6FF76 /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96F45312091D6AF00A6FF76 /* BaseWebViewController.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A988D78D208849EC0023D9E2 /* AppManger.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78C208849EC0023D9E2 /* AppManger.m */; };
@@ -1186,6 +1188,10 @@
 		A96C1424208492D200284E4B /* SelectPayMentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectPayMentView.m; sourceTree = "<group>"; };
 		A96C14262084AA5400284E4B /* OptionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OptionView.h; sourceTree = "<group>"; };
 		A96C14272084AA5400284E4B /* OptionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OptionView.m; sourceTree = "<group>"; };
+		A96F452A2091699700A6FF76 /* GQTbableConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQTbableConfig.h; sourceTree = "<group>"; };
+		A96F452B2091699700A6FF76 /* GQTbableConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQTbableConfig.m; sourceTree = "<group>"; };
+		A96F45302091D6AF00A6FF76 /* BaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
+		A96F45312091D6AF00A6FF76 /* BaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -6061,6 +6067,8 @@
 			children = (
 				EB8C1F691F219A8C00A07863 /* DCTabBarController.h */,
 				EB8C1F6A1F219A8C00A07863 /* DCTabBarController.m */,
+				A96F452A2091699700A6FF76 /* GQTbableConfig.h */,
+				A96F452B2091699700A6FF76 /* GQTbableConfig.m */,
 			);
 			path = BasicTabbar;
 			sourceTree = "<group>";
@@ -6183,6 +6191,8 @@
 				EB8C1FA21F219A8C00A07863 /* refreshweb@2x.png */,
 				EB8C1FA31F219A8C00A07863 /* WebVC.h */,
 				EB8C1FA41F219A8C00A07863 /* WebVC.m */,
+				A96F45302091D6AF00A6FF76 /* BaseWebViewController.h */,
+				A96F45312091D6AF00A6FF76 /* BaseWebViewController.m */,
 				EB8C1FA51F219A8C00A07863 /* WKWebViewController.h */,
 				EB8C1FA61F219A8C00A07863 /* WKWebViewController.m */,
 			);
@@ -8158,6 +8168,7 @@
 				EB5BCF541F4186B200EF32E6 /* JSPLDownMode.m in Sources */,
 				A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */,
 				EB8C1EA11F21944C00A07863 /* DSCollectionViewIndex.m in Sources */,
+				A96F45322091D6AF00A6FF76 /* BaseWebViewController.m in Sources */,
 				EB8C1EAE1F21944C00A07863 /* BettingVC.m in Sources */,
 				EB6BDA3F1F398B6300C9EA73 /* TongPeiPeiLvDTVC.m in Sources */,
 				A941D531206E1C23008CE14F /* NullTableViewCell.m in Sources */,
@@ -8371,6 +8382,7 @@
 				EB8C1FE81F219C3D00A07863 /* RongYongGroupChatingVC.m in Sources */,
 				EB69036A1F69110400FF5D3F /* TokenModel.m in Sources */,
 				EB518D3F1F7BDF4F00D548BC /* YapanZhoushouVC.m in Sources */,
+				A96F452C2091699700A6FF76 /* GQTbableConfig.m in Sources */,
 				EB82F1571F2AD21D000524A0 /* UIColor+Define.m in Sources */,
 				EB8C1FC81F219A8C00A07863 /* DependetNetMethods.m in Sources */,
 				EBFA65AF1F8F8C8E00C4BE6A /* PeilvViewofYapsCell.m in Sources */,

@@ -16,6 +16,23 @@
 #import "MineViewController.h"
 #import "UITabBar+badge.h"
 #import "DCNavViewController.h"
+#import "BaseWebViewController.h"
+
+
+NSString *const GQTableBarControllerName = @"GQTableBarControllerName";
+
+NSString *const GQTabBarItemTitle = @"GQTabBarItemTitle";
+
+NSString *const GQTabBarItemImage = @"GQTabBarItemImage";
+
+NSString *const GQTabBarItemSelectedImage = @"GQTabBarItemSelectedImage";
+
+NSString *const GQTabBarItemLoadH5 = @"GQTabBarItemLoadH5";
+
+NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
+
+
+
 @interface DCTabBarController ()<UIGestureRecognizerDelegate>
 {
     DCNavViewController *_firstNav;
@@ -26,28 +43,20 @@
 }
 
 @property (strong, nonatomic)NSTimer *refreshUnreadCountTimer;
+
+@property (nonatomic, copy) NSArray *tableBarItemArray;
+
+
 @end
 
 @implementation DCTabBarController
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [self.selectedViewController beginAppearanceTransition: YES animated: animated];
-//}
-//
-//-(void) viewDidAppear:(BOOL)animated
-//{
-//    [self.selectedViewController endAppearanceTransition];
-//}
-//
-//-(void) viewWillDisappear:(BOOL)animated
-//{
-//    [self.selectedViewController beginAppearanceTransition: NO animated: animated];
-//}
-//
-//-(void) viewDidDisappear:(BOOL)animated
-//{
-//    [self.selectedViewController endAppearanceTransition];
-//}
+
+- (instancetype)initWithItemArray:(NSArray *)itemArray {
+    if (self) {
+        _tableBarItemArray = [itemArray copy];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
      [super viewDidLoad];
@@ -280,60 +289,62 @@
 
 - (void)setupTabbarItems
 {
-    UIEdgeInsets insets = UIEdgeInsetsMake(Zero, Zero, Zero, Zero);
-    FirstViewController *FirstVC = [[FirstViewController alloc] init];
-    _firstNav = [[DCNavViewController alloc] initWithRootViewController:FirstVC];
-    _firstNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[[UIImage imageNamed:@"shouye"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"shouye-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    _firstNav.tabBarItem.imageInsets  = insets;
-    _firstNav.interactivePopGestureRecognizer.delegate =self;
-    BifenViewController *bifenVC = [[BifenViewController alloc] init];
-    _secondNav = [[DCNavViewController alloc] initWithRootViewController:bifenVC];
-    _secondNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"比分" image:[[UIImage imageNamed:@"bifen"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"bifen-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    _secondNav.tabBarItem.imageInsets = insets;
-    _secondNav.interactivePopGestureRecognizer.delegate = self;
     
-    
-//    ThirdViewController *ThirdVC = [[ThirdViewController alloc] init];
-//    BaoliaoViewController *baoliaoVC = [[BaoliaoViewController alloc] init];
-    
-     NewQingBaoViewController *baoliaoVC = [[NewQingBaoViewController alloc] init];
-
-//    baoliaoVC.typedVC = typedVCBaoliao;
-    _thirdNav = [[DCNavViewController alloc] initWithRootViewController:baoliaoVC];
-    _thirdNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"情报" image:[[UIImage imageNamed:@"qingbao"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"qingbao-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    _thirdNav.tabBarItem.imageInsets = insets;
-    _thirdNav.interactivePopGestureRecognizer.delegate = self;
-//    ForthViewController *ForthVC = [[ForthViewController alloc] init];
-    TuijianDTViewController *tuijianVC = [[TuijianDTViewController alloc] init];
-    _forthNav = [[DCNavViewController alloc] initWithRootViewController:tuijianVC];
-    _forthNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"推荐" image:[[UIImage imageNamed:@"tuijian"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"tuijian-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-//    图片的偏移量
-    _forthNav.tabBarItem.imageInsets = insets;
-    _forthNav.interactivePopGestureRecognizer.delegate = self;
-    //角标
-//    _forthNav.tabBarItem.badgeValue = @"1";
-    //单个设置title的默认和选中的颜色 优先级高
-//    [_forthNav.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor],NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
-//    [_forthNav.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor yellowColor],NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
-
-    //
-    MineViewController *mineVC = [[MineViewController alloc] init];
-    _mineNav = [[DCNavViewController alloc] initWithRootViewController:mineVC];
-    _mineNav.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的" image:[[UIImage imageNamed:@"wode"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:@"wode-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    _mineNav.tabBarItem.imageInsets  = insets;
-//    _mineNav.tabBarItem.badgeValue = @".";
-    _mineNav.interactivePopGestureRecognizer.delegate = self;
-    
-    //选中时的title的颜色,全部设置,优先级低
     self.tabBar.tintColor = redcolor;
-    //背景图片,像素为 x * 98 (名字@2x)  需要的像素是 49
-//    self.tabBar.backgroundImage = [UIImage imageNamed:@"white"];
-    //选中的那个item的背景图片 根据机型的不同,需要的大小而不同,高都是 49 ,宽度要计算,准备多张,
-    
-//    self.tabBar.selectionIndicatorImage = [UIImage imageNamed:@"8049"];
     self.tabBar.barTintColor = [UIColor whiteColor];
-    self.viewControllers = [NSArray arrayWithObjects:_firstNav,_secondNav,_thirdNav,_forthNav,_mineNav,nil];
+    [_tableBarItemArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary *dic = (NSDictionary *)obj;
+        BOOL loadH5 = [dic[GQTabBarItemLoadH5] integerValue];
+        if (loadH5) {
+            [self addChildWebControllerWithVcStr:dic[GQTableBarControllerName] imageName:dic[GQTabBarItemImage] selectedImage:dic[GQTabBarItemSelectedImage] title:dic[GQTabBarItemTitle] tag:idx webModel:dic[GQTabBarItemWbebModel]];
+        } else {
+            [self addChildControllerWithVcStr:dic[GQTableBarControllerName] imageName:dic[GQTabBarItemImage] selectedImage:dic[GQTabBarItemSelectedImage] title:dic[GQTabBarItemTitle] tag:idx];
+        }
+       
+    }];
+    
 }
+
+- (void)addChildControllerWithVcStr:(NSString *)vcStr
+                          imageName:(UIImage *)defaultImage
+                      selectedImage:(UIImage *)selectedImage
+                              title:(NSString *)title
+                                tag:(NSInteger)tag {
+    UIEdgeInsets insets = UIEdgeInsetsMake(Zero, Zero, Zero, Zero);
+    Class targetClass = NSClassFromString(vcStr);
+    UIViewController *target = [[targetClass alloc]init];
+    target.title = title;
+    target.tabBarItem.image = defaultImage;
+    target.tabBarItem.selectedImage = selectedImage;
+    DCNavViewController *nav = [[DCNavViewController alloc] initWithRootViewController:target];
+    nav.interactivePopGestureRecognizer.delegate = self;
+    nav.tabBarItem.imageInsets = insets;
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:redcolor} forState:UIControlStateSelected];
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
+    [self addChildViewController:nav];
+}
+
+- (void)addChildWebControllerWithVcStr:(NSString *)vcStr
+                          imageName:(UIImage *)defaultImage
+                      selectedImage:(UIImage *)selectedImage
+                              title:(NSString *)title
+                                tag:(NSInteger)tag
+                              webModel:(WebModel *)model {
+    UIEdgeInsets insets = UIEdgeInsetsMake(Zero, Zero, Zero, Zero);
+    Class targetClass = NSClassFromString(vcStr);
+    BaseWebViewController *target = [[targetClass alloc]init];
+    target.title = title;
+    target.model = model;
+    target.tabBarItem.image = defaultImage;
+    target.tabBarItem.selectedImage = selectedImage;
+    DCNavViewController *nav = [[DCNavViewController alloc] initWithRootViewController:target];
+    nav.interactivePopGestureRecognizer.delegate = self;
+    nav.tabBarItem.imageInsets = insets;
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:redcolor} forState:UIControlStateSelected];
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
+    [self addChildViewController:nav];
+}
+
 
 - (void)setupTabBarStyle
 {
@@ -420,29 +431,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

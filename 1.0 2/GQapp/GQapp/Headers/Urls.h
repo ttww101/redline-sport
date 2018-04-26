@@ -431,6 +431,8 @@
 
 #define Buy_Type_Path [NSString stringWithFormat:@"%@/buytype.data",[ArchiveFile LibraryDirectory]]
 
+#define TableConfig [NSString stringWithFormat:@"%@/tableConfig.data",[ArchiveFile LibraryDirectory]]
+
 
 #endif
 
