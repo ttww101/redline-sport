@@ -299,8 +299,7 @@
     [self.view addSubview:self.tableView];
     //    [self.view addSubview:self.btnEuro];
     
-    //推送跳转新闻页
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToNewsWeb:) name:NotificationpushToNewsWeb object:nil];
+   
     
     //  启动程序的时候收到推送信息
     NSData *launchOptionPushInfoData =[[NSUserDefaults standardUserDefaults] objectForKey:@"launchOptionPushInfo"];
@@ -1785,88 +1784,6 @@
     }
     
     
-}
-//通知跳转页面
-- (void)pushToNewsWeb:(NSNotification *)nofication
-{
-    
-    
-    NSDictionary *pushInfo = nofication.userInfo;
-    
-    if ([pushInfo objectForKey:@"catalog"]== nil) {
-        
-    }else{
-        NSInteger eventID = [[pushInfo objectForKey:@"catalog"]integerValue];
-        switch (eventID) {
-            case 0://首页
-            {
-                
-            }
-                break;
-            case 2://推荐
-            {
-                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:3 toItemIndex:0];
-            }
-                
-                break;
-            case 1://情报
-            {
-                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
-            }
-                break;
-            case 3://新闻呢
-                //跳转网页
-            {
-                WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
-                webDetailVC.urlTitle = [pushInfo objectForKey:@"title"];
-                webDetailVC.url = [pushInfo objectForKey:@"url"];
-                webDetailVC.urlId = [pushInfo objectForKey:@"targetid"];
-                webDetailVC.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-            }
-                
-                break;
-            case 4://直播
-            {
-                [ self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:4 toItemIndex:0];
-            }
-                
-                break;
-            case 5://推荐详情
-            {
-                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
-                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
-                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellDanchang;
-                tuijianDT.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
-            }
-                
-                break;
-            case 6://推荐详情 串关
-            {
-                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
-                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
-                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellChuanGuan;
-                tuijianDT.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
-            }
-                
-                break;
-            case 7://推荐详情 足彩
-            {
-                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
-                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
-                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellZucai;
-                tuijianDT.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
-            }
-                
-                break;
-                
-            default:
-                break;
-        }
-    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{

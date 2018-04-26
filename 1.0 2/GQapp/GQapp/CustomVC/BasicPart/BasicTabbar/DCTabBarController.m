@@ -18,6 +18,8 @@
 #import "DCNavViewController.h"
 #import "BaseWebViewController.h"
 
+#import "TuijianDetailVC.h"
+
 
 NSString *const GQTableBarControllerName = @"GQTableBarControllerName";
 
@@ -46,6 +48,9 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 
 @property (nonatomic, copy) NSArray *tableBarItemArray;
 
+//是否正在请求跳转分析页的接口
+@property (nonatomic, assign) BOOL isToFenxi;
+
 
 @end
 
@@ -61,6 +66,10 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 - (void)viewDidLoad {
      [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openOrCloseRefreshUnreadCountTimer:) name:NotificationOpenMainTableBarTimer object:nil];
+    
+    //推送跳转新闻页
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToNewsWeb:) name:NotificationpushToNewsWeb object:nil];
+    
 
     
     // 状态栏(statusbar)
@@ -88,6 +97,11 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     
     // Do any additional setup after loading the view.
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 - (void)updateUnreadCount:(NSNotification *)notification
 {
     NSNumber *unreadNumber = [notification.userInfo objectForKey:@"unreadCount"];
@@ -431,5 +445,139 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//通知跳转页面
+- (void)pushToNewsWeb:(NSNotification *)nofication
+{
+    
+    
+    NSDictionary *pushInfo = nofication.userInfo;
+    
+    if ([pushInfo objectForKey:@"catalog"]== nil) {
+        
+    }else{
+        NSInteger eventID = [[pushInfo objectForKey:@"catalog"]integerValue];
+        switch (eventID) {
+            case 0://首页
+            {
+                
+            }
+                break;
+            case 2://推荐
+            {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:3 toItemIndex:0];
+            }
+                
+                break;
+            case 1://情报
+            {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
+            }
+                break;
+            case 3://新闻呢
+                //跳转网页
+            {
+                WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
+                webDetailVC.urlTitle = [pushInfo objectForKey:@"title"];
+                webDetailVC.url = [pushInfo objectForKey:@"url"];
+                webDetailVC.urlId = [pushInfo objectForKey:@"targetid"];
+                webDetailVC.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            }
+                
+                break;
+            case 4://直播
+            {
+                [ self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:4 toItemIndex:0];
+            }
+                
+                break;
+            case 5://推荐详情
+            {
+                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
+                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
+                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellDanchang;
+                tuijianDT.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
+            }
+                
+                break;
+            case 6://推荐详情 串关
+            {
+                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
+                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
+                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellChuanGuan;
+                tuijianDT.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
+            }
+                
+                break;
+            case 7://推荐详情 足彩
+            {
+                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
+                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
+                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellZucai;
+                tuijianDT.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
+            }
+                
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+//loop 跳转分析页
+- (void)toFenxiWithMatchId:(NSString *)idID toPageindex:(NSInteger)pageIndex toItemIndex:(NSInteger)itemIndex;
+{
+    //index 1 基本面 2 情报面 3 推荐
+    
+    if (!_isToFenxi == YES) {
+        _isToFenxi = YES;
+        
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+        if (idID== nil) {
+            idID = @"";
+        }
+        [parameter setObject:@"3" forKey:@"flag"];
+        [parameter setObject:idID forKey:@"sid"];
+        [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveScores] Start:^(id requestOrignal) {
+            
+        } End:^(id responseOrignal) {
+            
+        } Success:^(id responseResult, id responseOrignal) {
+            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+                
+                LiveScoreModel *model = [LiveScoreModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
+                //从首页跳转分析页的时候不用反转
+                model.neutrality = NO;
+                FenxiPageVC *fenxiVC = [[FenxiPageVC alloc] init];
+                fenxiVC.model = model;
+                
+                fenxiVC.segIndex = itemIndex;
+                fenxiVC.currentIndex = pageIndex;
+                
+                fenxiVC.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:fenxiVC animated:YES];
+                
+            }
+            _isToFenxi = NO;
+            
+            
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+            _isToFenxi = NO;
+            
+        }];
+
+    }else{
+        
+        
+    }
+    
+    
+}
+
 
 @end
