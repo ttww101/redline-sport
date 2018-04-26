@@ -194,7 +194,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
             //            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
         }
         
-    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+    } Failure:^(NSError *error, NSString *errorDict, id do) {
         //        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
     
