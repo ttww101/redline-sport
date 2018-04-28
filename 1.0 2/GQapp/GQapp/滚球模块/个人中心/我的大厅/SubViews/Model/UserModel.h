@@ -58,4 +58,7 @@
 //是否达到每日推荐上限
 @property (nonatomic, assign) BOOL reachLimit;
 
+// 金币数量
+@property (nonatomic , copy) NSNumber *coin;
+
 @end

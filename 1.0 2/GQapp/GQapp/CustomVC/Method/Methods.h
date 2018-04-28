@@ -73,6 +73,8 @@ typedef NS_ENUM(NSInteger, weekType)
 + (void)updateUsetModel:(UserModel *)model;
 + (void)updateTokentModel:(TokenModel *)model;
 
++(void)clearUserModel;
+
 //判断是否登录
 + (BOOL)login;
 //登录

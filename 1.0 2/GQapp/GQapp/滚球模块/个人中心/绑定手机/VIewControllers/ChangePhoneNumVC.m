@@ -309,18 +309,18 @@
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
     self.txtNewNum.text = [self.txtNewNum.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (isNUll(self.txtNewNum.text )|| isNUll(self.txtOldNum.text) ) {
+    if (isNUll(self.txtNewNum.text )) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"应填项不能为空"];
         return;
     }
     
     
-    if (self.txtOldNum.text.length != 11 || ![Methods isMobileNumber:self.txtOldNum.text]) {
-        
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"旧手机号有误"];
-
-        return;
-    }
+//    if (self.txtOldNum.text.length != 11 || ![Methods isMobileNumber:self.txtOldNum.text]) {
+//        
+//        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"旧手机号有误"];
+//
+//        return;
+//    }
 
     if (self.txtNewNum.text.length != 11 || ![Methods isMobileNumber:self.txtNewNum.text]) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"新手机号有误"];

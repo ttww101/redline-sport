@@ -119,8 +119,6 @@
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buyBtn];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
-    
-
 }
 
 #pragma mark - UIWebViewDelegate
@@ -142,6 +140,14 @@
     
 }
 
+#pragma mark - JSHandle
+
+- (void)back:(id)parameter {
+    if ([parameter integerValue] == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark - Events
 
 - (void)buyAction {
@@ -158,6 +164,8 @@
     webControl.model = model;
     [self.navigationController pushViewController:webControl animated:YES];
 }
+
+
 
 - (void)currentPageUrl:(id)data {
     self.recordUrl = data;

@@ -1005,6 +1005,7 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     UserModel *model = [NSKeyedUnarchiver unarchiveObjectWithFile:[documentsPath stringByAppendingPathComponent:@"user.plist"]];
     return model;
 }
+
 + (void)updateUsetModel:(UserModel *)model
 {
     NSArray *documents = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

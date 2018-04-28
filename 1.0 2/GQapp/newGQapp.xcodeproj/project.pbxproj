@@ -73,6 +73,12 @@
 		A988D790208870CA0023D9E2 /* JSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78F208870CA0023D9E2 /* JSModel.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
+		A9B5228B20930C20001DF9B9 /* GQMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228A20930C20001DF9B9 /* GQMineViewController.m */; };
+		A9B5228F2093139A001DF9B9 /* GQMineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228E2093139A001DF9B9 /* GQMineModel.m */; };
+		A9B522922093150D001DF9B9 /* GQMineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B522912093150D001DF9B9 /* GQMineViewModel.m */; };
+		A9B52295209321A9001DF9B9 /* GQMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B52294209321A9001DF9B9 /* GQMineTableViewCell.m */; };
+		A9B5229820932D0E001DF9B9 /* GQMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5229720932D0E001DF9B9 /* GQMineHeaderView.m */; };
+		A9B5229B20933A8E001DF9B9 /* HeaderAmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5229A20933A8E001DF9B9 /* HeaderAmountView.m */; };
 		A9D37AA42085C2FF009BA927 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D37AA32085C2FF009BA927 /* 00.png */; };
 		A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AA62085C382009BA927 /* LiveQuizViewController.m */; };
 		A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */; };
@@ -1203,6 +1209,18 @@
 		A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewofMyBuyTuijian.m; sourceTree = "<group>"; };
 		A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBuyTuijianVC.m; sourceTree = "<group>"; };
 		A98C9693207B7F4A00C308AE /* MyBuyTuijianVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBuyTuijianVC.h; sourceTree = "<group>"; };
+		A9B5228920930C20001DF9B9 /* GQMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineViewController.h; sourceTree = "<group>"; };
+		A9B5228A20930C20001DF9B9 /* GQMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineViewController.m; sourceTree = "<group>"; };
+		A9B5228D2093139A001DF9B9 /* GQMineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineModel.h; sourceTree = "<group>"; };
+		A9B5228E2093139A001DF9B9 /* GQMineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineModel.m; sourceTree = "<group>"; };
+		A9B522902093150D001DF9B9 /* GQMineViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineViewModel.h; sourceTree = "<group>"; };
+		A9B522912093150D001DF9B9 /* GQMineViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineViewModel.m; sourceTree = "<group>"; };
+		A9B52293209321A9001DF9B9 /* GQMineTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineTableViewCell.h; sourceTree = "<group>"; };
+		A9B52294209321A9001DF9B9 /* GQMineTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineTableViewCell.m; sourceTree = "<group>"; };
+		A9B5229620932D0E001DF9B9 /* GQMineHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineHeaderView.h; sourceTree = "<group>"; };
+		A9B5229720932D0E001DF9B9 /* GQMineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineHeaderView.m; sourceTree = "<group>"; };
+		A9B5229920933A8E001DF9B9 /* HeaderAmountView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderAmountView.h; sourceTree = "<group>"; };
+		A9B5229A20933A8E001DF9B9 /* HeaderAmountView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderAmountView.m; sourceTree = "<group>"; };
 		A9D37AA32085C2FF009BA927 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
 		A9D37AA52085C382009BA927 /* LiveQuizViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveQuizViewController.h; sourceTree = "<group>"; };
 		A9D37AA62085C382009BA927 /* LiveQuizViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizViewController.m; sourceTree = "<group>"; };
@@ -4013,6 +4031,8 @@
 			children = (
 				EB8C1C691F21944B00A07863 /* UsersCell.h */,
 				EB8C1C6A1F21944B00A07863 /* UsersCell.m */,
+				A9B52293209321A9001DF9B9 /* GQMineTableViewCell.h */,
+				A9B52294209321A9001DF9B9 /* GQMineTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4024,6 +4044,10 @@
 				EB6903691F69110400FF5D3F /* TokenModel.m */,
 				EB8C1C6C1F21944B00A07863 /* UserModel.h */,
 				EB8C1C6D1F21944B00A07863 /* UserModel.m */,
+				A9B5228D2093139A001DF9B9 /* GQMineModel.h */,
+				A9B5228E2093139A001DF9B9 /* GQMineModel.m */,
+				A9B522902093150D001DF9B9 /* GQMineViewModel.h */,
+				A9B522912093150D001DF9B9 /* GQMineViewModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4033,6 +4057,10 @@
 			children = (
 				EB8C1C6F1F21944B00A07863 /* UserTuiianView.h */,
 				EB8C1C701F21944B00A07863 /* UserTuiianView.m */,
+				A9B5229620932D0E001DF9B9 /* GQMineHeaderView.h */,
+				A9B5229720932D0E001DF9B9 /* GQMineHeaderView.m */,
+				A9B5229920933A8E001DF9B9 /* HeaderAmountView.h */,
+				A9B5229A20933A8E001DF9B9 /* HeaderAmountView.m */,
 			);
 			path = OtherView;
 			sourceTree = "<group>";
@@ -4049,6 +4077,8 @@
 			children = (
 				A91C6DF7207C4D240035DFC0 /* MineViewController.h */,
 				A91C6DF6207C4D240035DFC0 /* MineViewController.m */,
+				A9B5228920930C20001DF9B9 /* GQMineViewController.h */,
+				A9B5228A20930C20001DF9B9 /* GQMineViewController.m */,
 			);
 			path = VIewControllers;
 			sourceTree = "<group>";
@@ -8063,6 +8093,7 @@
 				EB8C1EA61F21944C00A07863 /* BifenSetingViewController.m in Sources */,
 				EBE92BEA1F5434B7004375E7 /* DataModelView.m in Sources */,
 				A96C14212084875500284E4B /* NSString+XHPayKit.m in Sources */,
+				A9B5228B20930C20001DF9B9 /* GQMineViewController.m in Sources */,
 				EB8C1EB01F21944C00A07863 /* Record_OneModel.m in Sources */,
 				EB8C1E9C1F21944C00A07863 /* SaiguoViewController.m in Sources */,
 				EB8C1E691F21944C00A07863 /* TuijianShaixuanItemsModel.m in Sources */,
@@ -8078,6 +8109,7 @@
 				EB8C20231F21A0AA00A07863 /* StatisticsSectionTwoModel.m in Sources */,
 				EB8C1EC11F21944C00A07863 /* RollInfoModel.m in Sources */,
 				EB8C1FB91F219A8C00A07863 /* DCScrollVIew.m in Sources */,
+				A9B5229B20933A8E001DF9B9 /* HeaderAmountView.m in Sources */,
 				EB5A46981F26F1760093962B /* PictureView.m in Sources */,
 				EB8C1FD31F219A8C00A07863 /* WebViewJavascriptBridgeBase.m in Sources */,
 				EB518D391F7BD09900D548BC /* PlycSelectedView.m in Sources */,
@@ -8177,6 +8209,7 @@
 				EB8C20221F21A0AA00A07863 /* StatisticsModel.m in Sources */,
 				EB8C1E6C1F21944C00A07863 /* TeamViewofTuijianCell.m in Sources */,
 				EB8C1EC71F21944C00A07863 /* TAAbstractDotView.m in Sources */,
+				A9B5228F2093139A001DF9B9 /* GQMineModel.m in Sources */,
 				EB5BCF4A1F4142C400EF32E6 /* JiShiPeiLvDetailModel.m in Sources */,
 				EB6149E81F387F940098C2DE /* TongpeiDetailCell.m in Sources */,
 				EB42A2471F14DAEB00413207 /* UIImage+ScreenPic.m in Sources */,
@@ -8298,6 +8331,7 @@
 				EB8C1EBD1F21944C00A07863 /* FocusModel.m in Sources */,
 				EB8C1E431F21944C00A07863 /* AnQuanCenterVC.m in Sources */,
 				EB8EA72D1F626C7500689C16 /* SelectedSaiGuoTitleView.m in Sources */,
+				A9B5229820932D0E001DF9B9 /* GQMineHeaderView.m in Sources */,
 				843C413D1FB54FB9000AB5A0 /* TongJiModel.m in Sources */,
 				EB8C1E861F21944C00A07863 /* NewZhiBoWebView.m in Sources */,
 				EB8C1EBE1F21944C00A07863 /* MostModel.m in Sources */,
@@ -8347,6 +8381,7 @@
 				EB8C1E561F21944C00A07863 /* NoticeViewController.m in Sources */,
 				EB542DC31F7210E000C051E8 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				EB8C1EB11F21944C00A07863 /* JiXianTableView.m in Sources */,
+				A9B52295209321A9001DF9B9 /* GQMineTableViewCell.m in Sources */,
 				EB8C1E581F21944C00A07863 /* SuccessfulView.m in Sources */,
 				EB8C1FC51F219A8C00A07863 /* DCPageViewController.m in Sources */,
 				EB6BDA331F395B1600C9EA73 /* TongpeiDTTitileView.m in Sources */,
@@ -8371,6 +8406,7 @@
 				EB467B581F42FC2700C7299E /* TechtwoModel.m in Sources */,
 				EB8C1E8B1F21944C00A07863 /* LiveScoreModel.m in Sources */,
 				A96C1425208492D200284E4B /* SelectPayMentView.m in Sources */,
+				A9B522922093150D001DF9B9 /* GQMineViewModel.m in Sources */,
 				EB8C202F1F21A44D00A07863 /* NewZhiShuWebVC.m in Sources */,
 				EB518D0E1F7B84E100D548BC /* RightSlidetabletableViewCell.m in Sources */,
 				EB3105D81F457F52009E6AE9 /* RoundUserView.m in Sources */,

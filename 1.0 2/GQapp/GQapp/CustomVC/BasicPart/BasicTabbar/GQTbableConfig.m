@@ -30,6 +30,7 @@
 
 - (NSArray *)tableBarItemArray {
     NSMutableArray *array = [ArchiveFile getDataWithPath:TableConfig];
+    return [self loadLocalTableBarConfig];
     if (array.count > 0) {
         return [self loadServerTableBarConfigWithArray:array];
     } else {
@@ -83,7 +84,7 @@
     NSDictionary *secondTabBarItemsAttributes = [self tableBarItemControllerName:@"BifenViewController" title:@"比分" defaultImage:@"bifen" selectImage:@"bifen-1"];
     NSDictionary *fifthTabBarItemsAttributes = [self tableBarItemControllerName:@"NewQingBaoViewController" title:@"情报" defaultImage:@"qingbao" selectImage:@"qingbao-1"];
     NSDictionary *thirdTabBarItemsAttributes = [self tableBarItemControllerName:@"TuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
-    NSDictionary *fourthTabBarItemsAttributes = [self tableBarItemControllerName:@"MineViewController" title:@"我的" defaultImage:@"wode" selectImage:@"wode-1"];
+    NSDictionary *fourthTabBarItemsAttributes = [self tableBarItemControllerName:@"GQMineViewController" title:@"我的" defaultImage:@"wode" selectImage:@"wode-1"];
     NSArray *array = @[firstTabBarItemsAttributes, secondTabBarItemsAttributes, fifthTabBarItemsAttributes, thirdTabBarItemsAttributes, fourthTabBarItemsAttributes];
     return array;
 }
