@@ -46,9 +46,48 @@
 - (void)setPriceList:(NSArray *)priceList
 {
     _priceList = priceList;
-//    [self setUpPriceBtns];
+    [self setUpPriceBtns];
 
 }
+
+- (void)setUpPriceBtns {
+    
+    CGFloat btnwidth = (Width - 30 -(_priceList.count-1)*5)/_priceList.count;
+    
+    for (int i = 0 ; i < _priceList.count; i++) {
+        PriceListModel *mode = [_priceList objectAtIndex:i];
+        UIButton *btnPrices = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnPrices.frame = CGRectMake(15+5*i + btnwidth*i , self.labPrice.bottom + 10,btnwidth, 30);
+        btnPrices.tag = i;
+        //            _btnPrices.titleLabel.text = [NSString stringWithFormat:@"%@",priceArr[i]];
+        [btnPrices setTitle:mode.desc forState:UIControlStateNormal];
+        //            _btnPrices = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnPrices.titleLabel.font = font13;
+        btnPrices.tag = i;
+        [btnPrices setTitleColor:redcolor forState:UIControlStateSelected];
+        [btnPrices setTitleColor:color27 forState:UIControlStateNormal];
+        [btnPrices setBackgroundImage:[UIImage imageNamed:@"white"] forState:UIControlStateHighlighted];
+        [btnPrices setBackgroundImage:[UIImage imageNamed:@"white"] forState:UIControlStateNormal];
+        if (i == 0) {
+            
+            [btnPrices setTitleColor:redcolor forState:UIControlStateNormal];
+            btnPrices.layer.borderColor = redcolor.CGColor;
+        }else{
+            
+            btnPrices.layer.borderColor = grayColor2.CGColor;
+        }
+        btnPrices.layer.borderWidth = 0.6;
+        btnPrices.selected = NO;
+        btnPrices.layer.cornerRadius = 3;
+        [btnPrices addTarget:self action:@selector(priceBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
+        btnPrices.layer.masksToBounds = YES;
+        [_basicView addSubview:btnPrices];
+        [self.priceBtnsArr addObject:btnPrices];
+    }
+    
+    
+}
+
 - (UIView *)basicView
 {
     if (!_basicView) {

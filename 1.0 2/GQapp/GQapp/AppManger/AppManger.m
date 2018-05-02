@@ -300,6 +300,7 @@
         responseCallback(@"Response from testObjcCallback");
     }];
     
+    
     [self.bridge registerHandler:@"payAction" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -310,6 +311,34 @@
                                                             @"methdName":@"payAction:",
                                                             @"parameterData":dic}];
         self.gqHandler(model, ^(id responseData) {
+        });
+    }];
+    
+    [self.bridge registerHandler:@"openNative" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"openNative:",
+                                                            @"parameterData":dic}];
+        self.gqHandler(model, ^(id responseData) {
+            
+        });
+    }];
+    
+    [self.bridge registerHandler:@"pay" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"pay:",
+                                                            @"parameterData":dic}];
+        self.gqHandler(model, ^(id responseData) {
+            
         });
     }];
     

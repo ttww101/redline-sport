@@ -148,6 +148,14 @@
     }
 }
 
+- (void)openNative:(id)data {
+    
+}
+
+- (void)pay:(id)data {
+    
+}
+
 #pragma mark - Events
 
 - (void)buyAction {
