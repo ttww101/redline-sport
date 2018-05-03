@@ -79,6 +79,8 @@
 		A9B52295209321A9001DF9B9 /* GQMineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B52294209321A9001DF9B9 /* GQMineTableViewCell.m */; };
 		A9B5229820932D0E001DF9B9 /* GQMineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5229720932D0E001DF9B9 /* GQMineHeaderView.m */; };
 		A9B5229B20933A8E001DF9B9 /* HeaderAmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5229A20933A8E001DF9B9 /* HeaderAmountView.m */; };
+		A9C3BC46209ABE96001674D2 /* PayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C3BC45209ABE96001674D2 /* PayModel.m */; };
+		A9C3BC49209B05BF001674D2 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C3BC48209B05BF001674D2 /* StartViewController.m */; };
 		A9D37AA42085C2FF009BA927 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D37AA32085C2FF009BA927 /* 00.png */; };
 		A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AA62085C382009BA927 /* LiveQuizViewController.m */; };
 		A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */; };
@@ -1221,6 +1223,10 @@
 		A9B5229720932D0E001DF9B9 /* GQMineHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineHeaderView.m; sourceTree = "<group>"; };
 		A9B5229920933A8E001DF9B9 /* HeaderAmountView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderAmountView.h; sourceTree = "<group>"; };
 		A9B5229A20933A8E001DF9B9 /* HeaderAmountView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderAmountView.m; sourceTree = "<group>"; };
+		A9C3BC44209ABE96001674D2 /* PayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayModel.h; sourceTree = "<group>"; };
+		A9C3BC45209ABE96001674D2 /* PayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayModel.m; sourceTree = "<group>"; };
+		A9C3BC47209B05BE001674D2 /* StartViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
+		A9C3BC48209B05BF001674D2 /* StartViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		A9D37AA32085C2FF009BA927 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
 		A9D37AA52085C382009BA927 /* LiveQuizViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveQuizViewController.h; sourceTree = "<group>"; };
 		A9D37AA62085C382009BA927 /* LiveQuizViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizViewController.m; sourceTree = "<group>"; };
@@ -2665,6 +2671,8 @@
 			children = (
 				A93A4A7220731228007CED8F /* WebModel.h */,
 				A93A4A7320731228007CED8F /* WebModel.m */,
+				A9C3BC44209ABE96001674D2 /* PayModel.h */,
+				A9C3BC45209ABE96001674D2 /* PayModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6097,6 +6105,8 @@
 			children = (
 				EB8C1F691F219A8C00A07863 /* DCTabBarController.h */,
 				EB8C1F6A1F219A8C00A07863 /* DCTabBarController.m */,
+				A9C3BC47209B05BE001674D2 /* StartViewController.h */,
+				A9C3BC48209B05BF001674D2 /* StartViewController.m */,
 				A96F452A2091699700A6FF76 /* GQTbableConfig.h */,
 				A96F452B2091699700A6FF76 /* GQTbableConfig.m */,
 			);
@@ -8114,6 +8124,7 @@
 				EB8C1FD31F219A8C00A07863 /* WebViewJavascriptBridgeBase.m in Sources */,
 				EB518D391F7BD09900D548BC /* PlycSelectedView.m in Sources */,
 				EB8C1E411F21944C00A07863 /* SettingVC.m in Sources */,
+				A9C3BC46209ABE96001674D2 /* PayModel.m in Sources */,
 				EB6149D91F3844D10098C2DE /* TongPeiTongjiTable.m in Sources */,
 				EB8C1FB41F219A8C00A07863 /* BasicModel.m in Sources */,
 				EB2319D31F7C894A00003F3C /* PlycCell.m in Sources */,
@@ -8419,6 +8430,7 @@
 				EB69036A1F69110400FF5D3F /* TokenModel.m in Sources */,
 				EB518D3F1F7BDF4F00D548BC /* YapanZhoushouVC.m in Sources */,
 				A96F452C2091699700A6FF76 /* GQTbableConfig.m in Sources */,
+				A9C3BC49209B05BF001674D2 /* StartViewController.m in Sources */,
 				EB82F1571F2AD21D000524A0 /* UIColor+Define.m in Sources */,
 				EB8C1FC81F219A8C00A07863 /* DependetNetMethods.m in Sources */,
 				EBFA65AF1F8F8C8E00C4BE6A /* PeilvViewofYapsCell.m in Sources */,

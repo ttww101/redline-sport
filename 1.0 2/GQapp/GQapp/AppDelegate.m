@@ -28,6 +28,9 @@
 #import <UMPush/UMessage.h>
 #import "AppConfig.h"
 #import "GQTbableConfig.h"
+#import "ArchiveFile.h"
+#import "StartViewController.h"
+#define Config_Version @"configVersion"
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -81,6 +84,11 @@
         
     // 根视图 默认是透明的,也就是黑色的
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    StartViewController *launchControl = [[StartViewController alloc]init];
+    self.window.rootViewController = launchControl;
+    [self.window makeKeyAndVisible];
+    
     [self isFirstLaunched];
     [self resumePuchase];  // 遗留在本地的内购验证
     //根据AppStore版本更新,在firstViewController里面实现
@@ -108,14 +116,79 @@
 
 //    [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone categories:nil]];//注册本地推送
 //    [self initLocalNotification];
+    
     [self getScreenShot];
-    [self initRootViewCotroller];
+    
+    [self loadConfig];
+
 //    [self loadrefreshtoken];
-    [[AppConfig shareInstance] initialize];
-    
-    
+
     return YES;
 }
+
+
+- (void)loadConfig {
+    NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
+    NSInteger configVerson = [[NSUserDefaults standardUserDefaults]integerForKey:Config_Version];
+    [parameter setObject:@"1" forKey:@"platform"];
+    [parameter setObject:@(configVerson) forKey:Config_Version];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_ConfigjSon] Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        NSMutableArray *array = responseOrignal[@"pay"];
+        NSMutableArray *tabBarArray = responseOrignal[@"tabBar"];
+        NSUInteger ver = [responseOrignal[@"ver"] integerValue];
+        if (ver > configVerson) {
+            [[NSUserDefaults standardUserDefaults]setInteger:ver forKey:Config_Version];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            // 配置支付
+            if (array) {
+                if (array.count == 0) {
+                    [ArchiveFile clearCachesWithFilePath:Buy_Type_Path];
+                } else {
+                    [ArchiveFile saveDataWithPath:Buy_Type_Path data:array];
+                }
+            }
+            
+            // 配置tableBar
+            if (tabBarArray) {
+                if (tabBarArray.count == 0) {
+                    [ArchiveFile clearCachesWithFilePath:TableConfig];
+                    [self initRootViewCotroller];
+                } else {
+                    [tabBarArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        NSString *imageUrl = obj[@"defaultImage"];
+                        NSString *selectImageUrl = obj[@"selectImage"];
+                        [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                            
+                        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                        }];
+                        [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:selectImageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                            
+                        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                            
+                        }];
+                        
+                    }];
+                    [ArchiveFile saveDataWithPath:TableConfig data:tabBarArray];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self initRootViewCotroller];
+                    });
+                }
+            } else {
+                [self initRootViewCotroller];
+            }
+        } else {
+            [self initRootViewCotroller];
+        }
+        
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [self initRootViewCotroller];
+    }];
+}
+
 
 #pragma mark - setUpMessageSound -
 - (void)setUpMessageSound {
@@ -267,9 +340,6 @@
     //第二天打开app的时候重新初始化根视图
     NSString *currentLocalDay = [Methods getDateByStyle:DateFormatter withDate:[NSDate date]];
     [[NSUserDefaults standardUserDefaults] setObject:currentLocalDay forKey:@"currentLocalDay"];
-    
-    
-    
     
 }
 
