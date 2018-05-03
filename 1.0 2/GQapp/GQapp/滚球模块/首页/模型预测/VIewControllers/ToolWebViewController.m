@@ -149,11 +149,69 @@
 }
 
 - (void)openNative:(id)data {
-    
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dataDic = (NSDictionary *)data;
+        NSString *className = dataDic[@"n"];
+        if ([self containsClassName:className]) {
+            UIViewController *controller =[self indexWithClassName:className];
+            if (controller) {
+                [self.navigationController popToViewController:controller animated:YES];
+            } else {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            
+        } else {
+            Class targetCalss = NSClassFromString(className);
+            id target = [[targetCalss alloc] init];
+            if (target == nil) {
+                [SVProgressHUD showErrorWithStatus:@"暂时不能打开"];
+                return;
+            } else {
+                [self.navigationController pushViewController:target animated:YES];
+            }
+        }
+    }
 }
 
 - (void)pay:(id)data {
-    
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dataDic = (NSDictionary *)data;
+        NSDictionary *parameter = dataDic[@"data"];
+        NSString *type = dataDic[@"type"];
+        if ([type isEqualToString:@"wx"]) {
+            XHPayWxReq *req = [[XHPayWxReq alloc] init];
+            req.openID = parameter[@"appid"];
+            req.partnerId = parameter[@"partnerid"];
+            req.prepayId = parameter[@"prepayid"];
+            req.nonceStr = parameter[@"noncestr"];
+            NSUInteger timStamp = [parameter[@"timestamp"] integerValue];
+            req.timeStamp = timStamp;//时间戳，防重发
+            req.package = parameter[@"package"];
+            req.sign = parameter[@"sign"];//签名
+            [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
+                NSInteger code = [resultDict[@"errCode"] integerValue];
+                if(code == 0){//支付成功
+                    self.callBack(@"1");
+                } else {
+                    self.callBack(@"0");
+                }
+            }];
+        } else if ([type isEqualToString:@"ali"]) {
+            NSString *orderSign = dataDic[@"data"];
+            [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"com.Gunqiu.GQapp" completed:^(NSDictionary *resultDict) {
+                NSInteger status = [resultDict[@"resultStatus"] integerValue];
+                if(status == 9000){
+                    self.callBack(@"1");
+                } else {
+                    self.callBack(@"0");
+                }
+            }];
+        } else if ([type isEqualToString:@"apple"]) {
+            
+        }
+    } else {
+        [SVProgressHUD showErrorWithStatus:@"数据类型报错"];
+    }
 }
 
 #pragma mark - Events
@@ -411,6 +469,32 @@
         [LodingAnimateView dissMissLoadingView];
         [SVProgressHUD showErrorWithStatus:errorDict];
     }];
+}
+
+- (BOOL)containsClassName:(NSString *)className {
+    NSArray *classArray = self.navigationController.viewControllers;
+    Class targetClass = NSClassFromString(className);
+    for (UIViewController *control in classArray) {
+        if (control.class == targetClass) {
+            return YES;
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
+
+- (id)indexWithClassName:(NSString *)className {
+    NSArray *classArray = self.navigationController.viewControllers;
+    Class targetClass = NSClassFromString(className);
+    for (NSInteger i = 0; i < classArray.count; i++) {
+        UIViewController *control = classArray[i];
+        if (control.class == targetClass) {
+            return control;
+        }
+        
+    }
+    return nil;
 }
 
 #pragma mark - Lazy Load

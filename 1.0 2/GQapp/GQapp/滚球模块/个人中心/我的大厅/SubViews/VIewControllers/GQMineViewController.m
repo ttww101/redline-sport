@@ -75,6 +75,16 @@
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(0, 0, self.tabBarController.tabBar.height, 0));
     }];
     adjustsScrollViewInsets_NO(self.tableView, self);
+    [self setupHeader];
+}
+
+- (void)setupHeader
+{
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+    header.stateLabel.font = font13;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    
 }
 
 #pragma mark - Load Data
@@ -89,7 +99,7 @@
         [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_userinfo] Start:^(id requestOrignal) {
             
         } End:^(id responseOrignal) {
-            
+            [self.tableView.mj_header endRefreshing];
         } Success:^(id responseResult, id responseOrignal) {
             if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
                 _userModel = [UserModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];

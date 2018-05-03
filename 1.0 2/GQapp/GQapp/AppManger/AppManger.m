@@ -11,6 +11,7 @@
 #import "ToolWebViewController.h"
 #import "DCTabBarController.h"
 #import <YYModel/YYModel.h>
+#import "ArchiveFile.h"
 
 
 @interface AppManger ()
@@ -74,6 +75,12 @@
     
     // 注册设备信息
     [self.bridge registerHandler:@"info" handler:^(id data, WVJBResponseCallback responseCallback) {
+        UserModel *model =[Methods getUserModel];
+        NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
+        NSInteger weatherShowThirdPay = 0;
+        if (dataArray.count > 0) {
+            weatherShowThirdPay = 1;
+        }
         NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
         NSString *sysVersion = [UIDevice currentDevice].systemVersion;
         NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
@@ -84,7 +91,9 @@
                                   @"resource":@"iOS",
                                   @"sysVersion":sysVersion,
                                   @"uuid":idfv,
-                                  @"deviceType":[Methods iphoneType]
+                                  @"deviceType":[Methods iphoneType],
+                                  @"userId": @(model.idId),
+                                  @"thirdPay":@(weatherShowThirdPay)
                                   };
         
         NSString *jsonInfo = [self getJSONMessage:infoDic];
@@ -328,6 +337,7 @@
         });
     }];
     
+    
     [self.bridge registerHandler:@"pay" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -338,7 +348,17 @@
                                                             @"methdName":@"pay:",
                                                             @"parameterData":dic}];
         self.gqHandler(model, ^(id responseData) {
-            
+            if ([responseData integerValue] == 1) {
+                NSString *jsonParameter = [self getJSONMessage:@{@"id":@"paySuccess", @"val":@(1)}];
+                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                    
+                }];
+            } else {
+                NSString *jsonParameter = [self getJSONMessage:@{@"id":@"payFailed", @"val":@(0)}];
+                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                    
+                }];
+            }
         });
     }];
     
