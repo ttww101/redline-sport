@@ -216,6 +216,14 @@
 // 申请分析师
 - (void)toapplyAnalasis
 {
+    
+    
+    
+    FabuTuijianSelectedItemVC *jinCai = [[FabuTuijianSelectedItemVC alloc] init];
+    jinCai.hidesBottomBarWhenPushed = YES;
+    [APPDELEGATE.customTabbar pushToViewController:jinCai animated:YES];
+    return;
+    
     UserModel *user = [Methods getUserModel];
 //    user.analyst   = 3;
 

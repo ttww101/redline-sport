@@ -158,7 +158,7 @@
 //增加爆料
 #define url_addinfo @"/info/add"
 //增加推荐
-#define url_addrecommend @"/recommend/add"
+#define url_addrecommend @"/pc/recommend/publish"
 //爆料首页
 #define url_listInfo @"/info/listIndex"
 //推荐首页

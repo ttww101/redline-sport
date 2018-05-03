@@ -20,6 +20,7 @@
 
 #import "TitleIndexView.h"
 #import "FaBuSucceedVCViewController.h"
+#import "ToAnalystsVC.h"
 
 @interface RelRecNewVC ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SelectedViewOfFabuTuijianDelegate,ZhumaViewOfFabuTuijianDelegate,TitleIndexViewDelegate>
 
@@ -86,6 +87,12 @@
 //@property (nonatomic, strong)UIView *viewTwo;
 //@property (nonatomic, strong)UIView *viewThree;
 
+@property (nonatomic , strong) UserModel *user_Model;
+
+@property (nonatomic , strong) UISwitch *switchBtn;
+
+
+
 
 @end
 
@@ -95,6 +102,12 @@
     self.navigationController.navigationBarHidden = YES;
     [super viewWillAppear:animated];
     [[UMStatisticsMgr sharedInstance] viewStaticsBeginWithMarkStr:@"RelRecNewVC"] ;
+    
+    [[DependetNetMethods sharedInstance] loadUserInfocompletion:^(UserModel *userback) {
+        _user_Model = userback;
+    } errorMessage:^(NSString *msg) {
+        
+    }];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle
@@ -490,19 +503,18 @@
         return;
     }
     
-    if (text == nil || [text isEqualToString:@""]) {
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐理由最少30个字"];
-        return;
-    }
-    if (text.length < 30 ) {
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐理由最少30个字"];
-        return;
+    if (_user_Model.analyst == 1 && self.switchBtn.isOn) {
+        if (text == nil || [text isEqualToString:@""]) {
+            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐理由最少30个字"];
+            return;
+        }
+        if (text.length < 30 ) {
+            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐理由最少30个字"];
+            return;
+        }
     }
     
-//    if ([_choiceMultiple floatValue]<1.6) {
-//        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于1.6"];
-//        return;
-//    }
+    
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
@@ -1289,10 +1301,79 @@
         textViewTitle.textColor = color33;
 //        textViewTitle.font = font12;
         textViewTitle.font = [UIFont boldSystemFontOfSize:13];
-        textViewTitle.text = @"推荐理由";
+        textViewTitle.text = @"编辑推荐内容";
         [_ViewTextTitle addSubview:textViewTitle];
+        
+        UISwitch *textSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(Width - 66, 0, 0, 0)];
+        self.switchBtn = textSwitch;
+        textSwitch.onTintColor = redcolor;
+        [textSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];   // 开关事件切换通知
+        textSwitch.transform = CGAffineTransformMakeScale( 0.7, 0.7);//缩放
+        textSwitch.on = false;
+        self.textViewPlaceholder.text = @"有价值的深度分析内容将会被推送到推荐大厅";
+        self.textView.userInteractionEnabled = false;
+        
+        [_ViewTextTitle addSubview:textSwitch];
     }
     return _ViewTextTitle;
+}
+
+-(void)switchAction:(id)sender {
+    UISwitch *switchButton = (UISwitch*)sender;
+    if (_user_Model.analyst == 1) {
+        BOOL isButtonOn = [switchButton isOn];
+        if (isButtonOn) {
+            self.textViewPlaceholder.text = @"推荐内容需原创，请提供详细分析或盘赔解读，涉及广告、抄袭等违规或过于简单将取消分析师资格哦！";
+            self.textView.userInteractionEnabled = YES;
+        }else {
+            self.textViewPlaceholder.text = @"有价值的深度分析内容将会被推送到推荐大厅";
+            self.textView.userInteractionEnabled = false;
+            self.textView.text = nil;
+            self.textViewPlaceholder.hidden = false;
+        }
+    } else {
+        switchButton.on = false;
+        [self toapplyAnalasis];
+    }
+    
+}
+
+// 申请分析师
+- (void)toapplyAnalasis
+{
+    
+    UserModel *user = [Methods getUserModel];
+    
+    
+    
+    
+    NSString *strTitle = @"您尚未认证分析师";
+    NSString *str_content = @"申请分析师";
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:strTitle];
+    [hogan addAttribute:NSFontAttributeName value:font16 range:NSMakeRange(0, [[hogan string] length])];
+    [hogan addAttribute:NSForegroundColorAttributeName value:color33 range:NSMakeRange(0, [[hogan string] length])];
+    [alertController setValue:hogan forKey:@"attributedTitle"];
+    
+    UIAlertAction *alertOne = [UIAlertAction actionWithTitle:str_content style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ToAnalystsVC *analysts = [[ToAnalystsVC alloc] init];
+        analysts.hidesBottomBarWhenPushed = YES;
+        analysts.type = user.analyst;
+        analysts.model = user;
+        [APPDELEGATE.customTabbar pushToViewController:analysts animated:YES];
+        
+    }];
+    
+    [alertOne setValue:redcolor forKey:@"_titleTextColor"];
+    UIAlertAction *alertTwo = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    [alertTwo setValue:color33 forKey:@"_titleTextColor"];
+    [alertController addAction:alertTwo];
+    [alertController addAction:alertOne];
+    
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 //- (UIView *)viewDescribe
@@ -1340,6 +1421,7 @@
     return _textView;
 }
 
+// 推荐内容需原创，请提供详细分析或盘赔解读，涉及广告、抄袭等违规或过于简单将取消分析师资格哦！
 - (UILabel *)textViewPlaceholder
 {
     if (!_textViewPlaceholder) {
@@ -1957,10 +2039,8 @@
     [parameter setObject:contentStr forKey:@"contentInfo"];
     [parameter setObject:@(_projectPrice) forKey:@"amount"];
     //\ufffc 富文本里面的占位符，此处只需要纯文本，所以去除
-    [parameter setObject:[_textView.text stringByReplacingOccurrencesOfString:@"\ufffc" withString:@""]  forKey:@"content"];
-    
+    [parameter setObject:PARAM_IS_NIL_ERROR([_textView.text stringByReplacingOccurrencesOfString:@"\ufffc" withString:@""])  forKey:@"content"];
     [parameter setObject:@(1) forKey:@"ignore"];
-    [parameter setObject:[NSString stringWithFormat:@"   "] forKey:@"company"];
     [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, url_addrecommend] ArrayFile:nil Start:^(id requestOrignal) {
         
         
