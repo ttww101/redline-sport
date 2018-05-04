@@ -35,14 +35,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (_webView) {
-        _webView = nil;
-        [_webView removeFromSuperview];
-    }
+//    if (_webView) {
+//        _webView = nil;
+//        [_webView removeFromSuperview];
+//    }
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
@@ -227,7 +228,7 @@
                 }
             }];
         } else if ([type isEqualToString:@"apple"]) {
-            
+            [self appleBuyWithData:parameter];
         }
     } else {
         [SVProgressHUD showErrorWithStatus:@"数据类型报错"];
@@ -416,6 +417,26 @@
      hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
      [self.view addSubview:hud];
      [hud show:YES];
+    
+    NSDictionary *dic = data;
+    NSNumber *ordeId = dic[@"orderId"];
+    NSString *productId = dic[@"productId"];
+    NSInteger amount = [Methods amountWithProductId:productId];
+    amount = amount * 100;
+    
+    [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
+        [hud hide:YES];
+        if (error) {
+            NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
+            [SVProgressHUD showErrorWithStatus:errMse];
+        } else{
+            [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+    
+    return;
+    
      
      NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
      [parameter setObject:data[@"type"] forKey:@"modelType"];
@@ -434,10 +455,9 @@
      NSDictionary *dataDic = dic[@"data"];
      NSString *ordeId = dataDic[@"orderId"];
      NSString *productId = data[@"productID"];
-     NSInteger amount = [Methods amountWithProductId:productId];
-     amount = amount * 100;
+     NSInteger amount = [data[@"amount"] integerValue];
+    
      NSString *statusCode = dic[@"code"];
-     
          if ([statusCode isEqualToString:@"200"]) {
              [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
                  [hud hide:YES];
