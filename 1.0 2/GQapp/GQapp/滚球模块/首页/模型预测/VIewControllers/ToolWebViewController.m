@@ -434,50 +434,6 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];
-    
-    return;
-    
-     
-     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-     [parameter setObject:data[@"type"] forKey:@"modelType"];
-     [parameter setObject:data[@"serviceType"] forKey:@"serviceType"];
-     [parameter setObject:@"IOS" forKey:@"resource"];
-     [parameter setObject:PARAM_IS_NIL_ERROR(data[@"scheduleId"]) forKey:@"matchId"];
-     
-     [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_purchase] ArrayFile:nil Start:^(id requestOrignal) {
-     [LodingAnimateView showLodingView];
-     } End:^(id responseOrignal) {
-     
-     } Success:^(id responseResult, id responseOrignal) {
-     [LodingAnimateView dissMissLoadingView];
-     
-     NSDictionary *dic = (NSDictionary *)responseOrignal;
-     NSDictionary *dataDic = dic[@"data"];
-     NSString *ordeId = dataDic[@"orderId"];
-     NSString *productId = data[@"productID"];
-     NSInteger amount = [data[@"amount"] integerValue];
-    
-     NSString *statusCode = dic[@"code"];
-         if ([statusCode isEqualToString:@"200"]) {
-             [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
-                 [hud hide:YES];
-                 if (error) {
-                     NSString *errMse = error.userInfo[@"NSLocalizedDescription"];
-                     [SVProgressHUD showErrorWithStatus:errMse];
-                 } else{
-                     [SVProgressHUD showSuccessWithStatus:@"购买成功"];
-                     [self.navigationController popViewControllerAnimated:YES];
-                 }
-             }];
-         } else {
-             [SVProgressHUD showErrorWithStatus:dic[@"msg"]];
-             [hud hide:YES];
-         }
-     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-         [hud hide:YES];
-         [LodingAnimateView dissMissLoadingView];
-         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-     }];
 }
 
 - (void)couponBuyWithData:(NSDictionary *)data {

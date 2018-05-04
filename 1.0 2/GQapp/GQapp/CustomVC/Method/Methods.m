@@ -1447,21 +1447,21 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
 
 + (NSInteger)amountWithProductId:(NSString *)productId {
     NSInteger amount = 0;
-    if ([productId isEqualToString:@"com.Gunqiu.GQapp8"]) {
+    if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian8"]) {
         amount = 8;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp18"]) {
+    } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian18"]) {
         amount = 18;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp28"]) {
+    } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian28"]) {
         amount = 28;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp38"]) {
+    } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian38"]) {
         amount = 38;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp68"]) {
+    } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian68"]) {
         amount = 68;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp88"]) {
+    } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian88"]) {
         amount = 88;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp188"]) {
+    } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian188"]) {
         amount = 188;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp.moxing18"]) {
+    } else if ([productId isEqualToString:@"com.Gunqiu.GQapp.mx18"]) {
         amount = 18;
     } else if ([productId isEqualToString:@"com.Gunqiu.GQapp.moxing188"]) {
         amount = 188;
@@ -1470,7 +1470,6 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     }
     return amount;
 }
-
 + (NSString*)iphoneType {
     
     
