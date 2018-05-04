@@ -119,6 +119,7 @@
             [self.tableView reloadData];
         }];
     } else {
+        [self.tableView.mj_header endRefreshing];
         self.headerView.model = nil;
         self.tableView.tableHeaderView = self.headerView;
         [self.tableView reloadData];

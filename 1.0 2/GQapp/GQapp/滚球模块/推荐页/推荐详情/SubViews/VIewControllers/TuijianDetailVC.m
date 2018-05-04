@@ -17,6 +17,9 @@
 #import "SelectPayMentView.h"
 #import "ArchiveFile.h"
 #import "XHPayKit.h"
+#import "ToolWebViewController.h"
+#import "WebModel.h"
+#import "NSString+XHPayKit.h"
 
 @interface TuijianDetailVC ()<UITextViewDelegate>
 @property (nonatomic, strong) TuijianDetailTableView *tableView;
@@ -73,9 +76,9 @@
     [super viewWillAppear:animated];
     [[UMStatisticsMgr sharedInstance] viewStaticsBeginWithMarkStr:@"TuijianDetailVC"];
     self.navigationController.navigationBarHidden = YES;
+    [self viewdatanew];
+    [self zhucetongzhi];
     [self.tableView reloadData];
-    
-    
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
 
@@ -86,8 +89,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self viewdatanew];
-    [self zhucetongzhi];
+   
 }
 -(void)viewdatanew{
     // Do any additional setup after loading the view.
@@ -451,6 +453,20 @@
         [Methods toLogin];
         return;
     }
+    
+    WebModel *model = [[WebModel alloc]init];
+    model.title = @"购买";
+    NSString *amount = [NSString stringWithFormat:@"%ld",_model.amount];
+    NSString *name = [NSString stringWithFormat:@"%@vs%@",_model.guestTeam, _model.homeTeam];
+    name = [name xh_URLEncodedString];
+    NSString *parameterPath = [NSString stringWithFormat:@"type=%@&name=%@&amount=%@&id=%@",@"1", name, amount, [NSString stringWithFormat:@"%zi",_modelId]];
+    NSString *url = [NSString stringWithFormat:@"%@:81/appH5/pay-for.html?%@", APPDELEGATE.url_jsonHeader, parameterPath];
+    model.webUrl = url;
+    ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+    webDetailVC.model = model;
+    [self.navigationController pushViewController:webDetailVC animated:YES];
+    
+    return;
     NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
     if (dataArray.count > 0) {
         [self buyActionWithOption:dataArray];
@@ -554,12 +570,10 @@
 
 //   NSString*mid= [[NSUserDefaults standardUserDefaults]objectForKey:@"paymodelId"];
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-    
     [parameter setObject:@(_modelId) forKey:@"outerId"];
 //    [parameter setObject:[NSString stringWithFormat:@"%ld",self.model.user_id] forKey:@"userId"];
     [parameter setObject:@"1" forKey:@"oType"];
 //    [parameter setObject:@"IOS" forKey:@"resource"];
-    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"解锁中..."];
 //    NSString *path = @"http://10.0.80.51:8081/rollball-interface";
     // APPDELEGATE.url_Server
     [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_appPaySuccess]  ArrayFile:nil Start:^(id requestOrignal) {
@@ -582,7 +596,7 @@
         }
         
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        [SVProgressHUD showErrorWithStatus:@"加载失败"];
+        NSLog(@"11");
     }];
 
     

@@ -100,11 +100,7 @@
         case 0: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"胜平负";
-            model.webUrl = [NSString stringWithFormat:@"%@/mx2/cpspfmode.html", APPDELEGATE.url_jsonHeader];
-//             model.webUrl = [NSString stringWithFormat:@"%@:81/ios/spfmode.html", APPDELEGATE.url_jsonHeader];
-            
-            model.callHandleActionName = @"spfmode";
-            model.registerActionName = @"toPage";
+            model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/cpspfmode.html", APPDELEGATE.url_jsonHeader];
             model.showBuyBtn = YES;
             ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
             webControl.model = model;
@@ -115,10 +111,7 @@
         case 1: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"亚盘";
-            model.webUrl = [NSString stringWithFormat:@"%@/mx2/cpyamode.html", APPDELEGATE.url_jsonHeader];
-//            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/yamode.html", APPDELEGATE.url_jsonHeader];
-            model.callHandleActionName = @"yamode";
-            model.registerActionName = @"toPage";
+            model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/cpyamode.html", APPDELEGATE.url_jsonHeader];
             model.showBuyBtn = YES;
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
             webDetailVC.model = model;
@@ -130,10 +123,7 @@
         case 2: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"大小球";
-            model.webUrl = [NSString stringWithFormat:@"%@/mx2/dxmode.html", APPDELEGATE.url_jsonHeader];
-//            model.webUrl = [NSString stringWithFormat:@"%@:81/ios/dxmode.html", APPDELEGATE.url_jsonHeader];
-            model.callHandleActionName = @"dxmode";
-            model.registerActionName = @"toPage";
+            model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/dxmode.html", APPDELEGATE.url_jsonHeader];
             model.showBuyBtn = YES;
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
             webDetailVC.model = model;

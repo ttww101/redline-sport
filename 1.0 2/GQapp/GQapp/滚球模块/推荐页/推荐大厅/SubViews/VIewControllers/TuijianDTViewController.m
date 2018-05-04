@@ -186,30 +186,18 @@
 //    battleVC.hidesBottomBarWhenPushed = YES;
 //    [APPDELEGATE.customTabbar pushToViewController:battleVC animated:YES];
 
-    if (_btnFabu.selected == YES) {
-        return;
-    }
-    
-    _btnFabu.selected = YES;
+//    if (_btnFabu.selected == YES) {
+//        return;
+//    }
+//    
+//    _btnFabu.selected = YES;
     
     if (![Methods login]) {
         [Methods toLogin];
         return;
     }
     
-    [[DependetNetMethods sharedInstance] loadUserInfocompletion:^(UserModel *userback) {
-        _btnFabu.selected = NO;
-        [self toapplyAnalasis];
-    } errorMessage:^(NSString *msg) {
-        _btnFabu.selected = NO;
-
-        [self toapplyAnalasis];
-
-    }];
-    
-    
-    
-    
+    [self toapplyAnalasis];
     
 }
 
@@ -222,64 +210,9 @@
     FabuTuijianSelectedItemVC *jinCai = [[FabuTuijianSelectedItemVC alloc] init];
     jinCai.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:jinCai animated:YES];
-    return;
-    
-    UserModel *user = [Methods getUserModel];
-//    user.analyst   = 3;
-
-    if (user.analyst == 1) {
-        
-        if (user.reachLimit == YES) {
-            
-            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"周一~周五每天不超过5个方案，周六~周日每天不超过10个方案"];
-            return;
-        }
-        
-        
-        FabuTuijianSelectedItemVC *jinCai = [[FabuTuijianSelectedItemVC alloc] init];
-        jinCai.hidesBottomBarWhenPushed = YES;
-        [APPDELEGATE.customTabbar pushToViewController:jinCai animated:YES];
-        return;
-    }
-//    user.analyst   = 1;
-    NSString *strTitle = @"您尚未认证分析师";
-    NSString *str_content = @"申请分析师";
-    
-//    if (user.analyst == 1) {
-//        strTitle = @"您的分析师认证资料未完善，请完善后再发推荐";
-//        str_content = @"立即完善";
-//    }
-
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
     
-    NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:strTitle];
-    [hogan addAttribute:NSFontAttributeName value:font16 range:NSMakeRange(0, [[hogan string] length])];
-    [hogan addAttribute:NSForegroundColorAttributeName value:color33 range:NSMakeRange(0, [[hogan string] length])];
-    [alertController setValue:hogan forKey:@"attributedTitle"];
-    
-    UIAlertAction *alertOne = [UIAlertAction actionWithTitle:str_content style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ToAnalystsVC *analysts = [[ToAnalystsVC alloc] init];
-        analysts.hidesBottomBarWhenPushed = YES;
-        analysts.type = user.analyst;
-        
-//                analysts.type = 1;
-        
-        
-        analysts.model = user;
-        [APPDELEGATE.customTabbar pushToViewController:analysts animated:YES];
-        
-    }];
-    
-    [alertOne setValue:redcolor forKey:@"_titleTextColor"];
-    UIAlertAction *alertTwo = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-    [alertTwo setValue:color33 forKey:@"_titleTextColor"];
-    [alertController addAction:alertTwo];
-    [alertController addAction:alertOne];
-    
-    
-    [self presentViewController:alertController animated:YES completion:nil];
+  
 
 }
 - (void)search:(UIButton*)btn
