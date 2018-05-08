@@ -99,7 +99,7 @@
 - (TuijianSelectedItemView *)selectedView
 {
     if (!_selectedView) {
-        _selectedView = [[TuijianSelectedItemView alloc] initWithFrame:CGRectMake(0 ,APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar - APPDELEGATE.customTabbar.height_myTabBar)];
+        _selectedView = [[TuijianSelectedItemView alloc] initWithFrame:CGRectMake(0 ,0, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar)];
         _selectedView.arrSaishi = [NSArray array];
         _selectedView.hidden = YES;
         _selectedView.alpha = 0;
@@ -277,62 +277,6 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
-    if (section == 0) {
-        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 120)];
-        header.backgroundColor = colorTableViewBackgroundColor;
-        UIView *viewbg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 110)];
-        viewbg.backgroundColor = [UIColor whiteColor];
-        [header addSubview:viewbg];
-        
-        NSArray *arrStr = @[@"专家榜",@"盈利榜",@"连红榜",@"人气榜"];
-        CGFloat widthBtn = Width/4;
-        
-        for (int i = 0; i < arrStr.count ; i ++ ) {
-            UIButton *upBtn = [[UIButton alloc] initWithFrame:CGRectMake(widthBtn*i,0, widthBtn, 110)];
-            [upBtn setBackgroundImage:[UIImage imageNamed:@"f5f5f5"] forState:UIControlStateHighlighted];
-            
-            [upBtn setBackgroundImage:nil forState:UIControlStateNormal];
-            upBtn.tag = i;
-            upBtn.userInteractionEnabled = YES;
-            [upBtn addTarget:self action:@selector(btnClickbangDan:) forControlEvents:UIControlEventTouchUpInside];
-            [viewbg addSubview:upBtn];
-            
-            
-            UIImageView *imageV = [[UIImageView alloc] init];
-            imageV.frame = CGRectMake(0, 20, 50, 50);
-            imageV.center = CGPointMake(upBtn.width/2, imageV.center.y);
-            
-//            if (i == 1) {
-//                
-//                [imageV setImage:[UIImage imageNamed:@"bangjingcai"] ];
-//
-//            }else{
-            
-                [imageV setImage:[UIImage imageNamed:[NSString stringWithFormat:@"bang%d",i]] ];
-
-           // }
-            imageV.tag = i;
-            imageV.userInteractionEnabled = NO;
-            //            [btn addTarget:self action:@selector(btnClickbangDan:) forControlEvents:UIControlEventTouchUpInside];
-            [upBtn addSubview:imageV];
-            UILabel *lab = [[UILabel alloc] init];
-            lab.frame = CGRectMake(0, imageV.bottom, Width/5, 30);
-            lab.textAlignment = NSTextAlignmentCenter;
-            lab.center = CGPointMake(imageV.center.x, lab.center.y);
-            lab.tag = i;
-            [lab setText:arrStr[i]];
-            lab.font = font11;
-            [lab setTextColor:color33 ];
-            //            [lab addTarget:self action:@selector(btnClickbangDan:) forControlEvents:UIControlEventTouchUpInside];
-            lab.userInteractionEnabled = NO;
-            [upBtn addSubview:lab];
-            
-        }
-        
-        return header;
-        
-    }
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 44 + 10)];
     header.backgroundColor = colorTableViewBackgroundColor;
     [header addSubview:self.titleView];
@@ -381,9 +325,6 @@
 
 - (CGFloat )tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 120;
-    }
     return 54;
 }
 - (void)tapTuijianSelectedItemTitleViewAtindex:(NSInteger)index
@@ -417,35 +358,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    switch (section) {
-        case 0:
-            return 0;
-            break;
-        case 1:
-        {
-            //            if (_arrData.count == 0) {
-            //                return 1;
-            //            }
-            return _arrData.count;
-            
-        }
-            break;
-            
-        default:
-            break;
-    }
-    return 0;
+    return _arrData.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return [UITableViewCell new];
-    }
     if (_arrData.count<=0) {
         return [UITableViewCell new];
     }
@@ -473,9 +394,6 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return 0;
-    }
     
     if (_arrData.count<=0) {
         return 0;

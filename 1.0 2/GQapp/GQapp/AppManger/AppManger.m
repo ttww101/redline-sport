@@ -113,7 +113,8 @@
         WebModel *webModel = [[WebModel alloc]init];
         webModel.title = dic[@"title"];
         webModel.webUrl =  dic[@"url"];
-        webModel.hideNavigationBar = false;
+        webModel.parameter = dic[@"nav"];
+        webModel.hideNavigationBar = dic[@"nav_hidden"];
         ToolWebViewController *control = [[ToolWebViewController alloc]init];
         control.model = webModel;
         [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
@@ -337,6 +338,8 @@
         });
     }];
     
+
+    
     
     [self.bridge registerHandler:@"pay" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
@@ -361,7 +364,6 @@
             }
         });
     }];
-    
 }
 
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {

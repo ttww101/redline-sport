@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, typeListNum)
     typeListTwo = 2,//人气榜
     typeListThree = 3,//明灯榜
     typeListFore = 4,//连红榜
-    typeListFive = 5,//连红榜
+    typeListFive = 5,//盈利榜
 };
 
 

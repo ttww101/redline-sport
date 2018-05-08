@@ -17,6 +17,7 @@
 #import "XHPayKit.h"
 #import "ArchiveFile.h"
 #import "AppManger.h"
+#import "NavImageView.h"
 
 
 @interface ToolWebViewController () <UIWebViewDelegate>
@@ -28,6 +29,9 @@
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 
 @property (nonatomic , copy) NSString *recordUrl;
+
+@property (nonatomic , assign) BOOL isToFenxi;
+
 
 @end
 
@@ -120,6 +124,50 @@
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buyBtn];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
+    
+    if (self.navigationController.navigationBarHidden) {
+        
+    } else {
+        if ([_model.parameter isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dataDic = _model.parameter;
+            NSDictionary *navDic = dataDic[@"nav"];
+            NSArray *leftArray = navDic[@"left"];
+            NSArray *rightArray = navDic[@"right"];
+            if (leftArray.count > 0) {
+                NSMutableArray *leftItemsArray = [NSMutableArray new];
+                for (NSInteger i = 0; i < leftArray.count; i ++) {
+                    NSDictionary *dic = leftArray[i];
+                    NavImageView *imageV = [[NavImageView alloc]init];
+                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
+                    imageV.userInteractionEnabled = YES;
+                    imageV.Parameter = dic;
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
+                    [imageV addGestureRecognizer:tap];
+                    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:imageV];
+                    [leftItemsArray addObject:item];
+                }
+                self.navigationItem.leftBarButtonItems = [leftItemsArray copy];
+            }
+            
+            if (rightArray.count > 0) {
+                NSMutableArray *rightItemsArray = [NSMutableArray new];
+                for (NSInteger i = 0; i < rightArray.count; i ++) {
+                    NSDictionary *dic = rightArray[i];
+                    NavImageView *imageV = [[NavImageView alloc]init];
+                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
+                    imageV.userInteractionEnabled = YES;
+                    imageV.Parameter = dic;
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
+                    [imageV addGestureRecognizer:tap];
+                    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:imageV];
+                    [rightItemsArray addObject:item];
+                }
+                self.navigationItem.rightBarButtonItems = rightItemsArray;
+            }
+        }
+    }
 }
 
 #pragma mark - UIWebViewDelegate
@@ -141,6 +189,76 @@
     
 }
 
+#pragma mark - Private Method
+
+- (void)openH5:(id)data {
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dic = (NSDictionary *)data;
+        WebModel *webModel = [[WebModel alloc]init];
+        webModel.title = dic[@"title"];
+        webModel.webUrl =  dic[@"url"];
+        webModel.hideNavigationBar = false;
+        ToolWebViewController *control = [[ToolWebViewController alloc]init];
+        control.model = webModel;
+        [self.navigationController pushViewController:control animated:YES];
+    }
+}
+
+- (void)pushToMatchDetail:(NSDictionary *)parameter {
+    NSDictionary *v = parameter[@"v"];
+    [self toFenxiWithMatchId:v[@"id"] toPageindex:[v[@"linkType"] integerValue] toItemIndex:[v[@"currentIndex"] integerValue]];
+    
+}
+//loop 跳转分析页
+- (void)toFenxiWithMatchId:(NSString *)idID toPageindex:(NSInteger)pageIndex toItemIndex:(NSInteger)itemIndex;
+{
+    //index 1 基本面 2 情报面 3 推荐
+    
+    if (!_isToFenxi == YES) {
+        _isToFenxi = YES;
+        
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+        if (idID== nil) {
+            idID = @"";
+        }
+        [parameter setObject:@"3" forKey:@"flag"];
+        [parameter setObject:idID forKey:@"sid"];
+        [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveScores] Start:^(id requestOrignal) {
+            
+        } End:^(id responseOrignal) {
+            
+        } Success:^(id responseResult, id responseOrignal) {
+            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+                
+                LiveScoreModel *model = [LiveScoreModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
+                //从首页跳转分析页的时候不用反转
+                model.neutrality = NO;
+                FenxiPageVC *fenxiVC = [[FenxiPageVC alloc] init];
+                fenxiVC.model = model;
+                
+                fenxiVC.segIndex = itemIndex;
+                fenxiVC.currentIndex = pageIndex;
+                
+                fenxiVC.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:fenxiVC animated:YES];
+                
+            }
+            _isToFenxi = NO;
+            
+            
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+            _isToFenxi = NO;
+            
+        }];
+        
+    }else{
+        
+        
+    }
+    
+    
+}
+
 #pragma mark - JSHandle
 
 - (void)back:(id)parameter {
@@ -153,6 +271,12 @@
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dataDic = (NSDictionary *)data;
         NSString *className = dataDic[@"n"];
+        
+        if ([className isEqualToString:@"FenxiPageVC"]) {
+            [self pushToMatchDetail:dataDic];
+            return;
+        }
+        
         if ([self containsClassName:className]) {
             UIViewController *controller =[self indexWithClassName:className];
             if (controller) {
@@ -236,6 +360,29 @@
 }
 
 #pragma mark - Events
+
+- (void)tableBarAction:(UITapGestureRecognizer *)tap {
+    NavImageView *imageView = (NavImageView *)tap.view;
+    if ([imageView.Parameter isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dic = (NSDictionary *)imageView.Parameter;
+        SEL selecter = NSSelectorFromString(dic[@"func"]);
+        if ([self respondsToSelector:selecter]) {
+            NSDictionary *data = nil;
+            if ([dic[@"func"] isEqualToString:@"openNative:"]) {
+                data = dic[@"vars"];
+            }
+            
+            if ([dic[@"func"] isEqualToString:@"openH5:"]) {
+                data = dic[@"vars"];
+                
+            }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [self performSelector:selecter withObject:data];
+#pragma clang diagnostic pop
+        }
+    }
+}
 
 - (void)buyAction {
     WebModel *model = [[WebModel alloc]init];
@@ -421,8 +568,7 @@
     NSDictionary *dic = data;
     NSNumber *ordeId = dic[@"orderId"];
     NSString *productId = dic[@"productId"];
-    NSInteger amount = [Methods amountWithProductId:productId];
-    amount = amount * 100;
+    NSInteger amount = [dic[@"amount"] integerValue];
     
     [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
         [hud hide:YES];
