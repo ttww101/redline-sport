@@ -137,6 +137,7 @@
                 NSMutableArray *leftItemsArray = [NSMutableArray new];
                 for (NSInteger i = 0; i < leftArray.count; i ++) {
                     NSDictionary *dic = leftArray[i];
+                    [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
                     NavImageView *imageV = [[NavImageView alloc]init];
                     imageV.frame = CGRectMake(i * 22, 0, 22, 22);
                     [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
@@ -154,6 +155,7 @@
                 NSMutableArray *rightItemsArray = [NSMutableArray new];
                 for (NSInteger i = 0; i < rightArray.count; i ++) {
                     NSDictionary *dic = rightArray[i];
+                    [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
                     NavImageView *imageV = [[NavImageView alloc]init];
                     imageV.frame = CGRectMake(i * 22, 0, 22, 22);
                     [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
