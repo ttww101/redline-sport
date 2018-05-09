@@ -41,7 +41,7 @@
 - (void)setNavView{
     NavView *nav = [[NavView alloc] init];
     nav.delegate = self;
-    nav.labTitle.text = @"我的资料";
+    nav.labTitle.text = @"个人信息";
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateNormal];
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateHighlighted];
 //    [nav.btnRight setTitle:@"确认 " forState:UIControlStateNormal];
@@ -71,6 +71,8 @@
         _tableView.backgroundColor = colorTableViewBackgroundColor;
         _tableView.delegate =self;
         _tableView.dataSource = self;
+        _tableView.sectionFooterHeight = 10;
+        _tableView.sectionHeaderHeight = 0;
     }
     return _tableView;
 }
@@ -155,11 +157,11 @@
             break;
         case 2:{ // 3
             
-            labName.text = @"个人签名";
+            labName.text = @"个人简介";
             if (_model.userinfo.length > 0) {
                 labStr.text = _model.userinfo;
             }else{
-                labStr.text = @"设置个性签名，让大家认识你";
+                labStr.text = @"设置个性简介，让大家认识你";
             }
             
             labStr.x = labStr.x - 15;

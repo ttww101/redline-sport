@@ -42,6 +42,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = colorTableViewBackgroundColor;
     [self setNavView];
+    self.navigationItem.title = @"实名认证";
     [self.view addSubview:self.bkView];
     [self.view addSubview:self.succView];
     _model = [Methods getUserModel];
@@ -61,8 +62,28 @@
     }
     
     [self setAotView];
+    
+    
+    
+    
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn setTitle:@"提交认证" forState:UIControlStateNormal];
+//    btn.titleLabel.font = font14;
+//    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [btn addTarget:self action:@selector(sureBtnCilck) forControlEvents:UIControlEventTouchUpInside];
+//    btn.frame = CGRectMake(0, 0, 44, 44);
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+//    self.navigationItem.rightBarButtonItem = item;
+    
+    
     // Do any additional setup after loading the view.
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];

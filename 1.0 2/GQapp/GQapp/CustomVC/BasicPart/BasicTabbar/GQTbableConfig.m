@@ -102,7 +102,7 @@
     
     NSDictionary *thirdTabBarItemsAttributes = @{
                                                  GQTableBarControllerName : @"BaseWebViewController",
-                                                 GQTabBarItemTitle : @"推荐",
+                                                 GQTabBarItemTitle : @"滚球App推荐首页",
                                                  GQTabBarItemImage : [[UIImage imageNamed:@"tuijian"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
                                                  GQTabBarItemSelectedImage : [[UIImage imageNamed:@"tuijian-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
                                                  GQTabBarItemWbebModel : model,

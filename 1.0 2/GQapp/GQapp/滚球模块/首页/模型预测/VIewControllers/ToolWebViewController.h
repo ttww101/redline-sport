@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "WebModel.h"
 #import "SelectPayMentView.h"
+#import "BasicViewController.h"
 
-@interface ToolWebViewController : UIViewController
+
+@interface ToolWebViewController : BasicViewController
 
 @property (nonatomic, copy) NSString *webTitle;
 

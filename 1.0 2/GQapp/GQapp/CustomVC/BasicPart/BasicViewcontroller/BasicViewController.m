@@ -37,8 +37,8 @@
     
     //设置之后，当隐藏导航栏的时候状态栏不会占用高度，否则状态栏会占用20的高度
     // 不要用 self.topLayoutGuide.length  这个高度来设置view 的 Y值，否则会把状态栏的高度调出来，下面的这两个设置就没用了
-    self.extendedLayoutIncludesOpaqueBars = YES;
-    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
+//    self.extendedLayoutIncludesOpaqueBars = YES;
+//    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
     
     
     //    去掉导航栏下面那条黑线，有的页面需要用到

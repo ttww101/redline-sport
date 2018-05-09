@@ -9,6 +9,7 @@
 #import "SettingVC.h"
 #import "FeedbackVC.h"
 #import "PushSettingVC.h"
+#import "AnQuanCenterVC.h"
 @interface SettingVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISwitch *switchBtn;
@@ -106,7 +107,7 @@
     switch (section) {
         case 0:
         {
-            return 2;
+            return 3;
         }
             break;
         case 1:
@@ -237,12 +238,17 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    lab.text = @"推送设置";
-//                    viewline.backgroundColor = [UIColor clearColor];
+                   lab.text = @"账户与安全";
                 }
                     break;
                 case 1:
                 {
+                     lab.text = @"推送设置";
+
+                }
+                    break;
+                    
+                case 2: {
                     lab.text = @"清除缓存";
                     
                     UILabel *sizeLab = [[UILabel alloc] init]; //WithFrame:CGRectMake(Width - 15 - 7 - 7 - 40, 14.5, 40, 14)
@@ -254,11 +260,7 @@
                         make.centerY.equalTo(cell.contentView);
                         make.trailing.equalTo(imageMore.mas_leading).offset(-15);
                     }];
-
-//                    viewline.backgroundColor = [UIColor clearColor];
-
                 }
-                    break;
 
                 default:
                     break;
@@ -412,6 +414,22 @@
         switch (indexPath.row) {
             case 0:
             {
+               // 安全中心
+                if(![Methods login]) {
+                    
+                    [Methods toLogin];
+                    return;
+                }
+                UserModel *model = [Methods getUserModel];
+                AnQuanCenterVC *anquanVc = [[AnQuanCenterVC alloc] init];
+                anquanVc.hidesBottomBarWhenPushed = YES;
+                anquanVc.model = model;
+                [APPDELEGATE.customTabbar pushToViewController:anquanVc animated:YES];
+                
+            }
+                break;
+            case 1:
+            {
                 if (![Methods login]) {
                     [Methods toLogin];
                     return;
@@ -420,15 +438,13 @@
                 PushSettingVC *pushSetVC = [[PushSettingVC alloc] init];
                 pushSetVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:pushSetVC animated:YES];
-                
             }
                 break;
-            case 1:
-            {
-//                缓存
+                
+            case 2: {
+                //                缓存
                 [self putBuffer];
             }
-                break;
 
             default:
                 break;

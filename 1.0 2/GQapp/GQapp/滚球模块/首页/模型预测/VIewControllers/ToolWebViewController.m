@@ -44,10 +44,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    if (_webView) {
-//        _webView = nil;
-//        [_webView removeFromSuperview];
-//    }
+    if (_webView) {
+        [_webView removeFromSuperview];
+        _webView = nil;
+    }
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
@@ -153,6 +153,7 @@
             
             if (rightArray.count > 0) {
                 NSMutableArray *rightItemsArray = [NSMutableArray new];
+                rightArray = [[rightArray reverseObjectEnumerator] allObjects];
                 for (NSInteger i = 0; i < rightArray.count; i ++) {
                     NSDictionary *dic = rightArray[i];
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];

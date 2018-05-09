@@ -114,7 +114,7 @@
         webModel.title = dic[@"title"];
         webModel.webUrl =  dic[@"url"];
         webModel.parameter = dic[@"nav"];
-        webModel.hideNavigationBar = dic[@"nav_hidden"];
+        webModel.hideNavigationBar = [dic[@"nav_hidden"] integerValue];
         ToolWebViewController *control = [[ToolWebViewController alloc]init];
         control.model = webModel;
         [APPDELEGATE.customTabbar pushToViewController:control animated:YES];

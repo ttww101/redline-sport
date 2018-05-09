@@ -129,6 +129,7 @@
             
             if (rightArray.count > 0) {
                 NSMutableArray *rightItemsArray = [NSMutableArray new];
+                rightArray = [[rightArray reverseObjectEnumerator] allObjects];
                 for (NSInteger i = 0; i < rightArray.count; i ++) {
                     NSDictionary *dic = rightArray[i];
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];

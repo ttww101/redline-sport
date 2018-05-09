@@ -14,7 +14,7 @@
 #define UIColorFromRGBWithOX(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 //默认红色
-#define redcolor UIColorFromRGBWithOX(0xea4335)
+#define redcolor UIColorFromRGBWithOX(0xdb2c21)
 #define yellowcolor UIColorFromRGBWithOX(0xfbbc05)
 #define bluecolor UIColorFromRGBWithOX(0x4285f4)
 #define greencolor UIColorFromRGBWithOX(0x34a853)

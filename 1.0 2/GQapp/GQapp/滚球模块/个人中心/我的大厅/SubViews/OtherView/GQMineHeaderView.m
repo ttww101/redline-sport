@@ -191,6 +191,10 @@ static CGFloat imageHeight = 50;
 
 }
 
+- (void)personInfoAction {
+    [self avatarClick];
+}
+
 - (void)controlAction {
     if (![Methods login]) {
         [Methods toLogin];
@@ -271,6 +275,9 @@ static CGFloat imageHeight = 50;
         _rightArrorImageView = [UIImageView new];
         _rightArrorImageView.contentMode = UIViewContentModeScaleAspectFill;
         _rightArrorImageView.image = [UIImage imageNamed:@"goto"];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(personInfoAction)];
+        [_rightArrorImageView addGestureRecognizer:tap];
+        _rightArrorImageView.userInteractionEnabled = YES;
     }
     return _rightArrorImageView;
 }
