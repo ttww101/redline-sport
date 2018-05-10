@@ -118,7 +118,7 @@
         UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [buyBtn setTitle:@"开通服务" forState:UIControlStateNormal];
         [buyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        buyBtn.frame = CGRectMake(0, 0, 60, 44);
+        buyBtn.frame = CGRectMake(0, 0, 70, 44);
         buyBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
         [buyBtn addTarget:self action:@selector(buyAction) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buyBtn];

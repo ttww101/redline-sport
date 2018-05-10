@@ -510,7 +510,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceTokenStr"];
     
 //    正式环境
-    APPDELEGATE.url_Server = @"http://mobile.gunqiu.com/interface/v2.3";
+    APPDELEGATE.url_Server = @"http://mobile.gunqiu.com/interface/v3.0";
     APPDELEGATE.url_jsonHeader = @"http://mobile.gunqiu.com";
     APPDELEGATE.url_ServerWWW = @"http://www.gunqiu.com";
     APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";

@@ -84,7 +84,7 @@
     NSDictionary *secondTabBarItemsAttributes = [self tableBarItemControllerName:@"BifenViewController" title:@"比分" defaultImage:@"bifen" selectImage:@"bifen-1"];
     NSDictionary *fifthTabBarItemsAttributes = [self tableBarItemControllerName:@"NewQingBaoViewController" title:@"情报" defaultImage:@"qingbao" selectImage:@"qingbao-1"];
     WebModel *model = [[WebModel alloc]init];
-    model.title = @"推荐";
+    model.title = @"滚球App推荐首页";
     model.webUrl = [NSString stringWithFormat:@"%@/appH5/tuijianIndex.html", APPDELEGATE.url_ip];;
     model.hideNavigationBar = false;
     
@@ -93,8 +93,8 @@
                            ];
     
     NSArray *rightArray = @[
-                            @{@"vars":@{@"n":@"FabuTuijianSelectedItemVC", @"v":@{}}, @"icon":@"publish", @"func":@"openNative:"},
-                            @{@"vars":@{@"n":@"SearchViewController", @"v":@{}}, @"icon":@"search", @"func":@"openNative:"}
+                           @{@"vars":@{@"n":@"SearchViewController", @"v":@{}}, @"icon":@"search", @"func":@"openNative:"},
+                           @{@"vars":@{@"n":@"FabuTuijianSelectedItemVC", @"v":@{}}, @"icon":@"publish", @"func":@"openNative:"}
                             ];
 
     NSDictionary *nav = @{@"nav":@{@"left":leftArray, @"right":rightArray}};
@@ -102,7 +102,7 @@
     
     NSDictionary *thirdTabBarItemsAttributes = @{
                                                  GQTableBarControllerName : @"BaseWebViewController",
-                                                 GQTabBarItemTitle : @"滚球App推荐首页",
+                                                 GQTabBarItemTitle : @"推荐",
                                                  GQTabBarItemImage : [[UIImage imageNamed:@"tuijian"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
                                                  GQTabBarItemSelectedImage : [[UIImage imageNamed:@"tuijian-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
                                                  GQTabBarItemWbebModel : model,
