@@ -393,7 +393,7 @@
     if (self.recordUrl) {
         model.webUrl = self.recordUrl;
     } else {
-          model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/%@", APPDELEGATE.url_jsonHeader, _model.modelType];
+          model.webUrl = [NSString stringWithFormat:@"%@/appH5/%@", APPDELEGATE.url_ip, _model.modelType];
     }
     
     ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
@@ -403,7 +403,7 @@
 
 
 
-- (void)currentPageUrl:(id)data {
+- (void)currentPage:(id)data {
     self.recordUrl = data;
 }
 

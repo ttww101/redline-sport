@@ -57,9 +57,9 @@
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(jsonToken)}];
     
     // 获取当前页面链接
-    [self.bridge registerHandler:@"currentPageUrl" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [self.bridge registerHandler:@"currentPage" handler:^(id data, WVJBResponseCallback responseCallback) {
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
-                                                            @"methdName":@"currentPageUrl:",
+                                                            @"methdName":@"currentPage:",
                                                             @"parameterData":data}];
         self.gqHandler(model, ^(id responseData) {
         });

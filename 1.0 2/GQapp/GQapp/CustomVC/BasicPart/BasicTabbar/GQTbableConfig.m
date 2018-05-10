@@ -85,7 +85,7 @@
     NSDictionary *fifthTabBarItemsAttributes = [self tableBarItemControllerName:@"NewQingBaoViewController" title:@"情报" defaultImage:@"qingbao" selectImage:@"qingbao-1"];
     WebModel *model = [[WebModel alloc]init];
     model.title = @"推荐";
-    model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/tuijianIndex.html", APPDELEGATE.url_jsonHeader];;
+    model.webUrl = [NSString stringWithFormat:@"%@/appH5/tuijianIndex.html", APPDELEGATE.url_ip];;
     model.hideNavigationBar = false;
     
     NSArray *leftArray = @[

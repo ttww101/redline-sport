@@ -118,7 +118,7 @@
 - (void)myIncomeAction {
     WebModel *model = [[WebModel alloc]init];
     model.title = @"我的收入";
-    model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/my-earnings.html", APPDELEGATE.url_jsonHeader];
+    model.webUrl = [NSString stringWithFormat:@"%@/appH5/my-earnings.html", APPDELEGATE.url_ip];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
     [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
@@ -127,7 +127,7 @@
 - (void)buyAction {
     WebModel *model = [[WebModel alloc]init];
     model.title = @"购买金币";
-    model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/buy-gold.html", APPDELEGATE.url_jsonHeader];
+    model.webUrl = [NSString stringWithFormat:@"%@/appH5/buy-gold.html", APPDELEGATE.url_ip];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
     [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
@@ -136,7 +136,7 @@
 - (void)myGold {
     WebModel *model = [[WebModel alloc]init];
     model.title = @"我的金币";
-    model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/my-gold.html", APPDELEGATE.url_jsonHeader];
+    model.webUrl = [NSString stringWithFormat:@"%@/appH5/my-gold.html", APPDELEGATE.url_ip];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
     [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];

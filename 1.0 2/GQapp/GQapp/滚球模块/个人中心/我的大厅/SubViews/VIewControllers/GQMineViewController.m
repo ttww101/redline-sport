@@ -158,7 +158,7 @@
             if (indexPath.row == 0) {
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"滚球服务";
-                model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/gunqiu-service.html", APPDELEGATE.url_jsonHeader];
+                model.webUrl = [NSString stringWithFormat:@"%@/appH5/gunqiu-service.html", APPDELEGATE.url_ip];
                 ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
                  webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
@@ -169,7 +169,7 @@
                 }
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"账户明细";
-                 model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/account-details.html", APPDELEGATE.url_jsonHeader];
+                 model.webUrl = [NSString stringWithFormat:@"%@/appH5/account-details.html", APPDELEGATE.url_ip];
                 ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
@@ -239,7 +239,7 @@
             if (indexPath.row == 0) {
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"邀请好友";
-                model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/invite-friends.html", APPDELEGATE.url_jsonHeader];
+                model.webUrl = [NSString stringWithFormat:@"%@/appH5/invite-friends.html", APPDELEGATE.url_ip];
                 ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];

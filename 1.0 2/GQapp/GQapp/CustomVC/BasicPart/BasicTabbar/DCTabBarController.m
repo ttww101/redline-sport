@@ -19,6 +19,7 @@
 #import "BaseWebViewController.h"
 
 #import "TuijianDetailVC.h"
+#import "ToolWebViewController.h"
 
 
 NSString *const GQTableBarControllerName = @"GQTableBarControllerName";
@@ -460,7 +461,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
         switch (eventID) {
             case 0://首页
             {
-                
+                self.tabBarController.selectedIndex = 0;
             }
                 break;
             case 2://推荐
@@ -492,37 +493,106 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
             }
                 
                 break;
-            case 5://推荐详情
+                
+                
+                
+            case 5:
             {
-                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
-                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
-                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellDanchang;
-                tuijianDT.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"";
+                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/message.html?index=0", APPDELEGATE.url_ip];
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                
+            case 6: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"胜平负";
+                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/spfmode.html", APPDELEGATE.url_ip];
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                break;
+                
+            case 7: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"亚盘";
+                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/yamode.html", APPDELEGATE.url_ip];;
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                break;
+                
+            case 8: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"大小球";
+                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/dxmode.html", APPDELEGATE.url_ip];;
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                break;
+                
+            case 12: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"胜平负";
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpspfmode.html", APPDELEGATE.url_ip];
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                break;
+                
+            case 13: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"亚盘";
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpyamode.html", APPDELEGATE.url_ip];
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                break;
+                
+                
+            case 14: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"";
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=2", APPDELEGATE.url_ip];
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                break;
+                
+            case 15: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"";
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=1", APPDELEGATE.url_ip];
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+            }
+                break;
+                
+                
+            case 9: {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
+            }
+                break;
+                
+            case 10: {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:1 toItemIndex:0];
             }
                 
                 break;
-            case 6://推荐详情 串关
-            {
-                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
-                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
-                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellChuanGuan;
-                tuijianDT.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
+                
+            case 11: {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
             }
-                
                 break;
-            case 7://推荐详情 足彩
-            {
-                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
-                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
-                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellZucai;
-                tuijianDT.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
-            }
-                
-                break;
-                
             default:
                 break;
         }
@@ -558,9 +628,10 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 
                 fenxiVC.segIndex = itemIndex;
                 fenxiVC.currentIndex = pageIndex;
+
+                UIViewController *currentControl = [Methods help_getCurrentVC];
+                [currentControl.navigationController pushViewController:fenxiVC animated:YES];
                 
-                fenxiVC.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:fenxiVC animated:YES];
                 
             }
             _isToFenxi = NO;
