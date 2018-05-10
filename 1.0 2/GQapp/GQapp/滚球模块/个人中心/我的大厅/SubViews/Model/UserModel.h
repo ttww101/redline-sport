@@ -58,7 +58,11 @@
 //是否达到每日推荐上限
 @property (nonatomic, assign) BOOL reachLimit;
 
+@property (nonatomic , assign) NSInteger analysttype;
+
 // 金币数量
 @property (nonatomic , copy) NSNumber *coin;
+
+@property (nonatomic , copy) NSDictionary *userDetail;
 
 @end

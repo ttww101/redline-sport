@@ -23,6 +23,8 @@
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
 
+@property (nonatomic, strong) UIImageView *levealImageView;
+
 @property (nonatomic, strong) UILabel *nameLabel;
 
 @property (nonatomic, strong) UIImageView *rightArrorImageView;
@@ -57,7 +59,16 @@ static CGFloat imageHeight = 50;
     _model = model;
     if (_model) {
         [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_model.pic] placeholderImage:[UIImage imageNamed:@"defaultPic"]];
-        self.nameLabel.text = _model.nickname;
+        NSDictionary *dic = _model.userDetail;
+        NSString *text = [NSString stringWithFormat:@"%@| %@", _model.nickname ,dic[@"levelName"]];
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:text];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.f] range:[text rangeOfString:_model.nickname]];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.f] range:[text rangeOfString:dic[@"levelName"]]];
+        _nameLabel.attributedText = att;
+        
+        NSString *imageName = [Methods getPersonLeavelImageName:_model.analysttype];
+        self.levealImageView.image = [UIImage imageNamed:imageName];
+        
         if (_model.analyst == 1) {
             self.applyBtn.hidden = YES;
         } else {
@@ -110,6 +121,13 @@ static CGFloat imageHeight = 50;
         make.top.equalTo(self.bgImageView.mas_top).offset(60);
         make.left.equalTo(self.bgImageView.mas_left).offset(15);
         make.size.mas_equalTo(CGSizeMake(imageHeight, imageHeight));
+    }];
+    
+    [self.bgImageView addSubview:self.levealImageView];
+    [self.levealImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.bgImageView.mas_top).offset(95);
+        make.left.equalTo(self.bgImageView.mas_left).offset(45);
+        make.size.mas_equalTo(CGSizeMake(16, 16));
     }];
     
     [self.bgImageView addSubview:self.nameLabel];
@@ -307,6 +325,13 @@ static CGFloat imageHeight = 50;
         _control.hidden = YES;
     }
     return _control;
+}
+
+- (UIImageView *)levealImageView {
+    if (_levealImageView == nil) {
+        _levealImageView = [UIImageView new];
+    }
+    return _levealImageView;
 }
 
 @end

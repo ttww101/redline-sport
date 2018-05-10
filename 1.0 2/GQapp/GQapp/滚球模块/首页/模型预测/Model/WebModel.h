@@ -52,4 +52,8 @@
 
 @property (nonatomic , assign) BOOL showBuyBtn;
 
+// 模型链接
+@property (nonatomic , copy) NSString *modelType;
+
+
 @end

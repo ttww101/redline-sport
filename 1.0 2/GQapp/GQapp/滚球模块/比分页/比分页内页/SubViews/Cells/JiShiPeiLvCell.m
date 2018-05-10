@@ -239,18 +239,22 @@
             _homeOdds.backgroundColor=[UIColor clearColor];
             _homeOdds.textColor=[UIColor blackColor];
         }
-        if ([jsplArr[14] intValue]==2) {
-            
-            _awayOdds.backgroundColor=[UIColor greenColor];
-            _awayOdds.textColor=[UIColor whiteColor];
-        }else if([jsplArr[14] intValue]==1){
-            _awayOdds.backgroundColor=[UIColor redColor];
-            _awayOdds.textColor=[UIColor whiteColor];
-        }else{
-            _awayOdds.backgroundColor=[UIColor clearColor];
-            _awayOdds.textColor=[UIColor blackColor];
-
+        
+        if (jsplArr.count - 1 >= 14) {
+            if ([jsplArr[14] intValue]==2) {
+                _awayOdds.backgroundColor=[UIColor greenColor];
+                _awayOdds.textColor=[UIColor whiteColor];
+            }else if([jsplArr[14] intValue]==1){
+                _awayOdds.backgroundColor=[UIColor redColor];
+                _awayOdds.textColor=[UIColor whiteColor];
+            }else{
+                _awayOdds.backgroundColor=[UIColor clearColor];
+                _awayOdds.textColor=[UIColor blackColor];
+                
+            }
         }
+        
+        
 //        [NSThread sleepForTimeInterval:3];
 //        _timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timerChangeData) userInfo:nil repeats:NO];
 //        [_timer fire];
@@ -468,17 +472,21 @@
             _homeOdds.backgroundColor=[UIColor clearColor];
             _homeOdds.textColor=[UIColor blackColor];
         }
-        if ([jsplTwoArr[14] integerValue]==1) {
-            
-            _awayOdds.backgroundColor=[UIColor greenColor];
-            _awayOdds.textColor=[UIColor whiteColor];
-        }else if([jsplTwoArr[14] integerValue]==2){
-            _awayOdds.backgroundColor=[UIColor redColor];
-            _awayOdds.textColor=[UIColor whiteColor];
-        }else{
-            _awayOdds.backgroundColor=[UIColor clearColor];
-            _awayOdds.textColor=[UIColor redColor];
+        
+        if (jsplTwoArr.count - 1 >= 14) {
+            if ([jsplTwoArr[14] integerValue]==1) {
+                
+                _awayOdds.backgroundColor=[UIColor greenColor];
+                _awayOdds.textColor=[UIColor whiteColor];
+            }else if([jsplTwoArr[14] integerValue]==2){
+                _awayOdds.backgroundColor=[UIColor redColor];
+                _awayOdds.textColor=[UIColor whiteColor];
+            }else{
+                _awayOdds.backgroundColor=[UIColor clearColor];
+                _awayOdds.textColor=[UIColor redColor];
+            }
         }
+        
 //        [NSThread sleepForTimeInterval:3];
 //                _timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(timerChangeData) userInfo:nil repeats:NO];
 //                [_timer fire];

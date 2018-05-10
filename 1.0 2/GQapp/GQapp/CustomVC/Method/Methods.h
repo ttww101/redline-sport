@@ -143,4 +143,6 @@ typedef NS_ENUM(NSInteger, weekType)
 // 获取当前视图
 + (UIViewController *)help_getCurrentVC;
 
++ (NSString *)getPersonLeavelImageName:(NSInteger)leavel;
+
 @end

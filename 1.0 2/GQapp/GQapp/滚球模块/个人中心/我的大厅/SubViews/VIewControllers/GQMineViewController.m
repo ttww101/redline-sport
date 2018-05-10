@@ -124,7 +124,6 @@
         self.tableView.tableHeaderView = self.headerView;
         [self.tableView reloadData];
     }
-    
 }
 
 #pragma mark - UITableViewDataSource

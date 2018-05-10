@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UITextField *checkTextF;
 @property (nonatomic, strong) UITextField *pswTextF;
 @property (nonatomic, strong) UITextField *userTextF;
+@property (nonatomic, strong) UITextField *invTextF; // 邀请码
 @property (nonatomic, strong) JKCountDownButton *checkBtn;
 @property (nonatomic, strong) MBProgressHUD *prograssHud;
 @property (nonatomic, strong)UIButton *btnJIZhu;
@@ -153,7 +154,7 @@
     [self.view  addSubview:lineView];
     
     
-    UIView *registerView = [[UIView alloc] initWithFrame:CGRectMake(0, lineView.bottom, Width, textHeight*4)];
+    UIView *registerView = [[UIView alloc] initWithFrame:CGRectMake(0, lineView.bottom, Width, textHeight*5)];
     registerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:registerView];
 //手机号
@@ -172,7 +173,7 @@
     _telTextF.clearButtonMode = UITextFieldViewModeWhileEditing;
     [registerView addSubview:_telTextF];
     //横线
-    for (int i = 0; i<3; i++) {
+    for (int i = 0; i<4; i++) {
         UIView *viewH = [[UIView alloc] initWithFrame:CGRectMake(0, textHeight*(i+1) - 0.5, registerView.bounds.size.width, 0.5)];
         viewH.backgroundColor = colorDD;
         [registerView addSubview:viewH];
@@ -224,6 +225,21 @@
     _pswTextF.keyboardType = UIKeyboardTypeDefault;
     [registerView addSubview:_pswTextF];
     
+    
+    //邀请码
+    _invTextF = [[UITextField alloc] initWithFrame:CGRectMake(_telTextF.frame.origin.x, _telTextF.frame.origin.y + textHeight*4, _telTextF.bounds.size.width, _telTextF.bounds.size.height)];
+    //    _pswTextF.borderStyle = UITextBorderStyleRoundedRect;
+    _invTextF.font = font14;
+    _invTextF.placeholder = @"请输入邀请码(选填)";
+    _invTextF.secureTextEntry = YES;
+    _invTextF.delegate = self;
+    _invTextF.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _invTextF.clearsOnBeginEditing = YES;
+    _invTextF.keyboardType = UIKeyboardTypeNumberPad;
+    [registerView addSubview:_invTextF];
+    
+    
+  
     
     //    忘记密码
     _btnJIZhu = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -353,6 +369,7 @@
     _checkTextF.text = [_checkTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     _userTextF.text = [_userTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     _pswTextF.text= [_pswTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    _invTextF.text = [_pswTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [SVProgressHUD setMinimumDismissTimeInterval:1.5];
 
     
@@ -374,6 +391,12 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入6~16个字符密码"];
         return;
     }
+    
+    if (_invTextF.text && _invTextF.text.length < 3) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入3~15位邀请码"];
+        return;
+    }
+    
     if (!self.btnJIZhu.selected) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请先同意用户协议"];
         return;
@@ -403,6 +426,7 @@
     [dictPatameter setObject:@"1" forKey:@"platform"];
     [dictPatameter setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceTokenStr"] forKey:@"uuid"];
     [dictPatameter setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceTokenStr"] forKey:@"token"];
+    [dictPatameter setObject:PARAM_IS_NIL_ERROR(_invTextF.text) forKey:@"invitationCode"];
 
     [[DCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:dictPatameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_loginAndRegister] ArrayFile:nil Start:^(id requestOrignal) {
         if (!_prograssHud) {
@@ -487,7 +511,10 @@
     }else if(textField == _pswTextF){
         img = [_arrImgView objectAtIndex:3];
         img.image = [UIImage imageNamed:@"register3_1"];
-    }else{
+    } else if (textField == _invTextF) {
+        img = [_arrImgView objectAtIndex:4];
+        img.image = [UIImage imageNamed:@"register0_4"];
+    } else {
         img = [_arrImgView objectAtIndex:0];
         img.image = [UIImage imageNamed:@"register0_1"];
     }
@@ -565,6 +592,8 @@
 //    else{
 //            return NO;
 //        }
+    } else if (_invTextF == textField) {
+        
     }
     return YES;
 }

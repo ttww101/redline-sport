@@ -1041,7 +1041,6 @@ typedef NS_ENUM(NSInteger,zhiboSegMenttype)
                     }
                     
                     if (_LetGoalStep2Arr.count > 0) {
-                        
                         jiShiPeiLvCell.jsplArr = _LetGoalStep2Arr[indexPath.row - 1];
                     }
                     jiShiPeiLvCell.selectionStyle = UITableViewCellSelectionStyleNone;

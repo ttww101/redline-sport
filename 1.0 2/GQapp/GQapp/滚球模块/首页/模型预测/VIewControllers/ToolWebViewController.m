@@ -393,7 +393,7 @@
     if (self.recordUrl) {
         model.webUrl = self.recordUrl;
     } else {
-          model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/spfmode-pay.html", APPDELEGATE.url_jsonHeader];
+          model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/%@", APPDELEGATE.url_jsonHeader, _model.modelType];
     }
     
     ToolWebViewController *webControl = [[ToolWebViewController alloc]init];

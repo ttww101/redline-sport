@@ -1673,6 +1673,28 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     return result;
 }
 
++ (NSString *)getPersonLeavelImageName:(NSInteger)leavel {
+    NSString *imageName = @"";
+    if (leavel == 0) {
+        imageName = @"";
+    } else if (leavel == 1) {
+        imageName = @"leavel0";
+    } else if (leavel == 2) {
+        imageName = @"leavel1";
+    } else if (leavel == 3) {
+        imageName = @"leavel2";
+    } else if (leavel == 4) {
+        imageName = @"leavel3";
+    } else if (leavel == 5) {
+        imageName = @"leavel4";
+    } else if (leavel == 6) {
+        imageName = @"leavel5";
+    } else if (leavel == 7) {
+        imageName = @"leavel6";
+    }
+    return imageName;
+}
+
 
 @end
 

@@ -103,6 +103,7 @@
             model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/cpspfmode.html", APPDELEGATE.url_jsonHeader];
             model.showBuyBtn = YES;
             ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
+            model.modelType = @"cpspfmode-pay.html";
             webControl.model = model;
             [self.navigationController pushViewController:webControl animated:YES];
         }
@@ -115,6 +116,7 @@
             model.showBuyBtn = YES;
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
             webDetailVC.model = model;
+            model.modelType = @"cpyamodel-pay.html";
             [self.navigationController pushViewController:webDetailVC animated:YES];
             
         }
@@ -125,10 +127,10 @@
             model.title = @"大小球";
             model.webUrl = [NSString stringWithFormat:@"%@:81/appH5/dxmode.html", APPDELEGATE.url_jsonHeader];
             model.showBuyBtn = YES;
+            model.modelType = @"dxmode-pay.html";
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
             webDetailVC.model = model;
             [self.navigationController pushViewController:webDetailVC animated:YES];
-            
         }
             break;
             
