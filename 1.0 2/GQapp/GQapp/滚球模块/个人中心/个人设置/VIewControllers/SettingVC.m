@@ -10,6 +10,7 @@
 #import "FeedbackVC.h"
 #import "PushSettingVC.h"
 #import "AnQuanCenterVC.h"
+#import "ArchiveFile.h"
 @interface SettingVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISwitch *switchBtn;
@@ -507,10 +508,10 @@
         tokenModel.token = @"";
         tokenModel.refreshToken = @"";
         [Methods updateTokentModel:tokenModel];
-        
         [[NSUserDefaults standardUserDefaults] setDouble:[@"0" doubleValue] forKey:@"refreshTokentime"];
         [[NSUserDefaults standardUserDefaults] setDouble:[@"0" doubleValue] forKey:@"OutOfRefreshTokenTime"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        [ArchiveFile clearCachesWithFilePath:TableConfig];
         
     }];
     

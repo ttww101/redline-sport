@@ -162,7 +162,9 @@
     [super viewWillDisappear:animated];
     //    _timerOn = NO;
     //    [self.timer setFireDate:[NSDate distantFuture]];
-    dispatch_source_cancel(self.timer);
+    if (self.timer) {
+         dispatch_source_cancel(self.timer);
+    }
 }
 
 

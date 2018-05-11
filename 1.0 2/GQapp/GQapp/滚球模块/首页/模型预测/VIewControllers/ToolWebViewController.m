@@ -44,6 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     if (_webView) {
         [_webView removeFromSuperview];
         _webView = nil;
@@ -88,6 +89,10 @@
     if (_model) {
         self.urlPath = _model.webUrl;
         self.html5Url = _model.htmlUrl;
+        if (_recordUrl) {
+            self.urlPath = _recordUrl;
+            self.html5Url = _recordUrl;
+        }
     }
 
     if (self.urlPath != nil) {
@@ -391,7 +396,15 @@
     WebModel *model = [[WebModel alloc]init];
     model.title = @"服务介绍";
     if (self.recordUrl) {
-        model.webUrl = self.recordUrl;
+        if ([_recordUrl containsString:@"appH5/"]) {
+            NSArray *array = [_recordUrl componentsSeparatedByString:@"appH5/"];
+            NSString *htmlStr = [array lastObject];
+            NSArray *modelArray = [htmlStr componentsSeparatedByString:@"."];
+            NSString *modelStr = [modelArray firstObject];
+            NSString *url= [NSString stringWithFormat:@"%@/appH5/%@-pay.html", APPDELEGATE.url_ip,modelStr];
+            model.webUrl = url;
+        }
+
     } else {
           model.webUrl = [NSString stringWithFormat:@"%@/appH5/%@", APPDELEGATE.url_ip, _model.modelType];
     }

@@ -132,6 +132,8 @@
             imgPic.layer.cornerRadius = 25;
             imgPic.layer.masksToBounds = YES;
             imgPic.image = [UIImage imageNamed:@"defaultPic"];
+            imgPic.layer.borderWidth = 0.5f;
+            imgPic.layer.borderColor = [UIColor whiteColor].CGColor;
             [cell.contentView addSubview:imgPic];
             labName.text = @"我的头像";
             labStr.text = @"";

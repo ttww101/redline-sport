@@ -71,9 +71,7 @@
     self.view.backgroundColor = UIColorFromRGBWithOX(0xebebeb);
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(0, 0, self.tabBarController.tabBar.height, 0));
-    }];
+    self.tableView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.tabBarController.tabBar.height);
     adjustsScrollViewInsets_NO(self.tableView, self);
     [self setupHeader];
 }
@@ -112,6 +110,9 @@
                 GQMineModel *modelFollow = array[1];
                 modelFollow.rightContent = [NSString stringWithFormat:@"%zi",_userModel.followerCount];
                 [self.tableView reloadData];
+                if (_userModel == nil) {
+                    self.headerView.height = 183;
+                }
             }else{
                 [self.tableView reloadData];
             }
@@ -122,6 +123,9 @@
         [self.tableView.mj_header endRefreshing];
         self.headerView.model = nil;
         self.tableView.tableHeaderView = self.headerView;
+        if (_userModel == nil) {
+            self.headerView.height = 183;
+        }
         [self.tableView reloadData];
     }
 }
@@ -155,6 +159,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0:{
+            
+            if(![Methods login]) {
+                [Methods toLogin];
+                return;
+            }
             if (indexPath.row == 0) {
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"滚球服务";
@@ -163,10 +172,7 @@
                  webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
             } else if (indexPath.row == 1) {
-                if(![Methods login]) {
-                    [Methods toLogin];
-                    return;
-                }
+                
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"账户明细";
                  model.webUrl = [NSString stringWithFormat:@"%@/appH5/account-details.html", APPDELEGATE.url_ip];
@@ -175,11 +181,6 @@
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
                 
             } else if (indexPath.row == 2) {
-                if(![Methods login]) {
-                    
-                    [Methods toLogin];
-                    return;
-                }
                 MyBuyTuijianVC *myBuy = [[MyBuyTuijianVC alloc] init];
                 myBuy.userId = _userModel.idId;
                 myBuy.hidesBottomBarWhenPushed = YES;

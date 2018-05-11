@@ -29,7 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +41,7 @@
         [_webView removeFromSuperview];
         _webView = nil;
     }
-   [self configUI];
+    [self configUI];
     [self loadBradgeHandler];
     [self loadData];
 }
@@ -92,9 +91,7 @@
 - (void)configUI {
     if (!_webView) {
         [self.view addSubview:self.webView];
-        [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(0, 0, self.tabBarController.tabBar.height, 0));
-        }];
+        self.webView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.tabBarController.tabBar.height);
     }
    
     self.navigationItem.title = _model.title;
@@ -115,7 +112,7 @@
                     NSDictionary *dic = leftArray[i];
                     NavImageView *imageV = [[NavImageView alloc]init];
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
-                    [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
+                   [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
                     imageV.frame = CGRectMake(i * 22, 0, 22, 22);
                     imageV.userInteractionEnabled = YES;
                     imageV.Parameter = dic;
@@ -135,7 +132,7 @@
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
                     NavImageView *imageV = [[NavImageView alloc]init];
                     imageV.frame = CGRectMake(i * 22, 0, 22, 22);
-                    [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
+                   [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
                     imageV.userInteractionEnabled = YES;
                     imageV.Parameter = dic;
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
