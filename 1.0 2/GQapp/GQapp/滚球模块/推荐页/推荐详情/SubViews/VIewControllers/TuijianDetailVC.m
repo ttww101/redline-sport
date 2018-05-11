@@ -462,6 +462,7 @@
     NSString *parameterPath = [NSString stringWithFormat:@"type=%@&name=%@&amount=%@&id=%@",@"1", name, amount, [NSString stringWithFormat:@"%zi",_modelId]];
     NSString *url = [NSString stringWithFormat:@"%@/appH5/pay-for.html?%@", APPDELEGATE.url_ip, parameterPath];
     model.webUrl = url;
+    model.hideNavigationBar = YES;
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
     [self.navigationController pushViewController:webDetailVC animated:YES];

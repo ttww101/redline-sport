@@ -44,6 +44,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
+    
     if (_webView) {
         [_webView removeFromSuperview];
         _webView = nil;
@@ -121,8 +123,6 @@
     }];
     self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
-
-    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     
     if (_model.showBuyBtn) {
         UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
