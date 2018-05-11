@@ -71,7 +71,7 @@
     _searchBar.barTintColor = redcolor;
     //光标颜色
     _searchBar.tintColor = [UIColor blackColor];
-    _searchBar.backgroundImage = [UIImage imageNamed:@"red"];
+//    _searchBar.backgroundImage = [UIImage imageNamed:@"red"];
     
     // 设置搜索栏下部背景图片
     _searchBar.scopeBarBackgroundImage = [UIImage imageNamed:@"white"];

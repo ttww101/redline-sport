@@ -369,7 +369,7 @@
     _checkTextF.text = [_checkTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     _userTextF.text = [_userTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     _pswTextF.text= [_pswTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    _invTextF.text = [_pswTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    _invTextF.text = [_invTextF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [SVProgressHUD setMinimumDismissTimeInterval:1.5];
 
     
@@ -392,7 +392,7 @@
         return;
     }
     
-    if (_invTextF.text && _invTextF.text.length < 3) {
+    if (_invTextF.text && _invTextF.text.length < 3 ) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入3~15位邀请码"];
         return;
     }
@@ -593,7 +593,13 @@
 //            return NO;
 //        }
     } else if (_invTextF == textField) {
-        
+        if ([toBeString length]>15) {
+            textField.text = [toBeString substringToIndex:15];
+            return NO;
+        }
+        else{
+            return YES;
+        }
     }
     return YES;
 }

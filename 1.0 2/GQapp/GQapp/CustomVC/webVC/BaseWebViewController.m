@@ -37,6 +37,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     if (_webView) {
         [_webView removeFromSuperview];
         _webView = nil;
@@ -44,11 +45,12 @@
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
+    
 }
 
 - (void)loadBradgeHandler {
     __weak BaseWebViewController *weakSelf = self;
-    WebViewJavascriptBridge *bridge = [[AppManger shareInstance]registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
+    self.bridge = [[AppManger shareInstance]registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
         if (responseCallback) {
             weakSelf.callBack = responseCallback;
         }
@@ -63,7 +65,7 @@
         }
     }];
     
-    [bridge setWebViewDelegate:self];
+    [self.bridge setWebViewDelegate:self];
 }
 
 #pragma mark - Load Data
@@ -91,16 +93,17 @@
 - (void)configUI {
     if (!_webView) {
         [self.view addSubview:self.webView];
-        self.webView.frame = CGRectMake(0, 0, self.view.width, self.view.height - self.tabBarController.tabBar.height);
+       
     }
    
     self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
-    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     
     if (self.navigationController.navigationBarHidden) {
-        
+         self.webView.frame = CGRectMake(0, 0, self.view.width, Height - 49);
     } else {
+        self.webView.frame = CGRectMake(0, 0, self.view.width, Height - 49 - 64);
+        
         if ([_model.parameter isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dataDic = _model.parameter;
             NSDictionary *navDic = dataDic[@"nav"];

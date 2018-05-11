@@ -8,7 +8,7 @@
 
 #import "DCNavViewController.h"
 
-@interface DCNavViewController ()<UIGestureRecognizerDelegate>
+@interface DCNavViewController ()<UIGestureRecognizerDelegate, UINavigationBarDelegate>
 
 @end
 
@@ -35,6 +35,41 @@
     
     [self configNavigation];
 }
+
+
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
+    BOOL shouldPop = YES;
+    
+    // 已修改（标记1）
+    NSUInteger count = self.viewControllers.count;
+    NSUInteger itemsCount = navigationBar.items.count;
+    if(count < itemsCount){
+        return shouldPop;
+    }
+    
+    // 通过点击返回键和直接调用popViewController，得到的topViewController不同
+    UIViewController *vc = self.topViewController;
+    if([vc respondsToSelector:@selector(shouldPopOnBackButtonPress)]){
+        shouldPop = [vc performSelector:@selector(shouldPopOnBackButtonPress)];
+    }
+    if(shouldPop == NO){
+        // 返回NO后，返回按钮中的 < 会置灰（文字恢复为黑色）通过设置NavigationBarHidden属性使它恢复
+        [self setNavigationBarHidden:YES];
+        [self setNavigationBarHidden:NO];
+    }else{
+        // 不能直接调用pop,如果是通过popViewController调起,会造成循环调用此方法
+        // 如果是通过调用[navigationController popViewControllerAnimated:]导致的shouldPop delegate被调用,
+        // 此时已经完成了viewController的pop, viewControllers.count 会比 navigationBar.items.count小1
+        // 这种情况就不必再次调用popViewController，否则会导致循环
+        if(count >= itemsCount){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self popViewControllerAnimated: YES];
+            });
+        }
+    }
+    return shouldPop;
+}
+
 //  防止导航控制器只有一个rootViewcontroller时触发手势
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     //解决与左滑手势冲突

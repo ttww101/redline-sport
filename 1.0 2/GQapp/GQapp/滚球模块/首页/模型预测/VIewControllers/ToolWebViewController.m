@@ -19,7 +19,6 @@
 #import "AppManger.h"
 #import "NavImageView.h"
 
-
 @interface ToolWebViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
@@ -81,6 +80,12 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+       
+    }
 }
 
 #pragma mark - Load Data
