@@ -108,8 +108,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     //角标
     _forthNav.tabBarItem.badgeValue = unreadNumber.integerValue>Zero? unreadNumber.stringValue :nil;
 }
-- (void)openOrCloseRefreshUnreadCountTimer:(NSNotification *)notification
-{
+- (void)openOrCloseRefreshUnreadCountTimer:(NSNotification *)notification{
     if ([[notification.userInfo objectForKey:@"timer"] isEqualToString:@"open"])
     {
         [self creatRefreshUnreadCountTimer];
@@ -503,13 +502,16 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/message.html?index=0", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
+                webModel.hideNavigationBar = YES;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
+                break;
                 
             case 6: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"胜平负";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/spfmode.html", APPDELEGATE.url_ip];
+                webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
@@ -520,6 +522,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"亚盘";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/yamode.html", APPDELEGATE.url_ip];;
+                webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
@@ -529,7 +532,8 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
             case 8: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"大小球";
-                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/dxmode.html", APPDELEGATE.url_ip];;
+                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/dxmode.html", APPDELEGATE.url_ip];
+                webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
@@ -540,6 +544,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"胜平负";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpspfmode.html", APPDELEGATE.url_ip];
+                webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
@@ -550,6 +555,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"亚盘";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpyamode.html", APPDELEGATE.url_ip];
+                webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
@@ -561,6 +567,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=2", APPDELEGATE.url_ip];
+                webModel.hideNavigationBar = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
@@ -570,6 +577,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
             case 15: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"";
+                webModel.hideNavigationBar = YES;
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=1", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
@@ -584,13 +592,13 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 break;
                 
             case 10: {
-                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:1 toItemIndex:0];
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:0 toItemIndex:0];
             }
                 
                 break;
                 
             case 11: {
-                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:1 toItemIndex:0];
             }
                 break;
             default:
