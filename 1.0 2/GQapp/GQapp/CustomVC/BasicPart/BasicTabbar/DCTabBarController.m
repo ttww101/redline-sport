@@ -94,7 +94,6 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     if ([Methods login]) {
         [self creatRefreshUnreadCountTimer];
     }
-
     
     // Do any additional setup after loading the view.
 }
@@ -453,6 +452,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     
     
     NSDictionary *pushInfo = nofication.userInfo;
+     UIViewController *currentControl = [Methods help_getCurrentVC];
     
     if ([pushInfo objectForKey:@"catalog"]== nil) {
         
@@ -483,7 +483,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webDetailVC.url = [pushInfo objectForKey:@"url"];
                 webDetailVC.urlId = [pushInfo objectForKey:@"targetid"];
                 webDetailVC.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+                [currentControl.navigationController pushViewController:webDetailVC animated:YES];
             }
                 
                 break;
@@ -503,7 +503,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/message.html?index=0", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 
             case 6: {
@@ -512,7 +512,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/spfmode.html", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
@@ -522,7 +522,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/yamode.html", APPDELEGATE.url_ip];;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
@@ -532,7 +532,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/dxmode.html", APPDELEGATE.url_ip];;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
@@ -542,7 +542,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpspfmode.html", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
@@ -552,7 +552,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpyamode.html", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
@@ -563,7 +563,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=2", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
@@ -573,7 +573,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=1", APPDELEGATE.url_ip];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
-                [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
