@@ -100,17 +100,17 @@
     NSDictionary *nav = @{@"nav":@{@"left":leftArray, @"right":rightArray}};
     model.parameter = nav;
     
-    NSDictionary *thirdTabBarItemsAttributes = @{
-                                                 GQTableBarControllerName : @"BaseWebViewController",
-                                                 GQTabBarItemTitle : @"推荐",
-                                                 GQTabBarItemImage : [[UIImage imageNamed:@"tuijian"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-                                                 GQTabBarItemSelectedImage : [[UIImage imageNamed:@"tuijian-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-                                                 GQTabBarItemWbebModel : model,
-                                                 GQTabBarItemLoadH5 : @(1)
-                                                 };
+//    NSDictionary *thirdTabBarItemsAttributes = @{
+//                                                 GQTableBarControllerName : @"BaseWebViewController",
+//                                                 GQTabBarItemTitle : @"推荐",
+//                                                 GQTabBarItemImage : [[UIImage imageNamed:@"tuijian"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+//                                                 GQTabBarItemSelectedImage : [[UIImage imageNamed:@"tuijian-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+//                                                 GQTabBarItemWbebModel : model,
+//                                                 GQTabBarItemLoadH5 : @(1)
+//                                                 };
   
   
-//    [self tableBarItemControllerName:@"TuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
+  NSDictionary *thirdTabBarItemsAttributes = [self tableBarItemControllerName:@"TuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
     NSDictionary *fourthTabBarItemsAttributes = [self tableBarItemControllerName:@"GQMineViewController" title:@"我的" defaultImage:@"wode" selectImage:@"wode-1"];
     NSArray *array = @[firstTabBarItemsAttributes, secondTabBarItemsAttributes, fifthTabBarItemsAttributes, thirdTabBarItemsAttributes, fourthTabBarItemsAttributes];
     return array;

@@ -511,8 +511,7 @@
         [[NSUserDefaults standardUserDefaults] setDouble:[@"0" doubleValue] forKey:@"refreshTokentime"];
         [[NSUserDefaults standardUserDefaults] setDouble:[@"0" doubleValue] forKey:@"OutOfRefreshTokenTime"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [ArchiveFile clearCachesWithFilePath:TableConfig];
-        
+
     }];
     
     [alertOne setValue:color33 forKey:@"_titleTextColor"];

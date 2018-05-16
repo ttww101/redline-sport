@@ -306,7 +306,10 @@
     }];
     
     [self.bridge registerHandler:@"toLogin" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"11323");
+        if (![Methods login]) {
+            [Methods toLogin];
+            return;
+        }
         responseCallback(@"Response from testObjcCallback");
     }];
     
