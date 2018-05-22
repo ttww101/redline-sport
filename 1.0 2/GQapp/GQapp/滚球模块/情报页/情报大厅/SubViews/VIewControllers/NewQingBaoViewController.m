@@ -11,6 +11,8 @@
 #import "FenxiPageVC.h"
 #import "LiveScoreModel.h"
 #import "QBNavigationVC.h"
+#import "WebModel.h"
+#import "ToolWebViewController.h"
 
 #define aCell @"cellNewQingBaoViewController"
 
@@ -54,6 +56,7 @@
 
     
        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableViewContentOffsetZero) name:NotificationsetThirdTableViewContentOffsetZero object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tapActivityAction:) name:@"tableBarActivity" object:nil];
     
 
     // Do any additional setup after loading the view.
@@ -64,6 +67,24 @@
     [super viewWillDisappear:animated];
     [[UMStatisticsMgr sharedInstance] viewStaticsEndWithMarkStr:@"NewQingBaoViewController"];
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+#pragma mark - nofitication
+
+- (void)tapActivityAction:(NSNotification *)nofitication {
+    NSDictionary *dic = nofitication.object;
+    WebModel *model = [[WebModel alloc]init];
+    model.title = PARAM_IS_NIL_ERROR(dic[@"title"]);
+    model.webUrl = PARAM_IS_NIL_ERROR(dic[@"url"]);
+    model.hideNavigationBar = false;
+    ToolWebViewController *controller = [[ToolWebViewController alloc]init];
+    controller.model = model;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 - (void)setTableViewContentOffsetZero{
     
     [self.tableView setContentOffset:CGPointZero animated:YES];

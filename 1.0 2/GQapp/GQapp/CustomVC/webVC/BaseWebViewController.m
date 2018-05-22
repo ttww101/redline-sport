@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tapActivityAction:) name:@"tableBarActivity" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,6 +47,23 @@
     [self loadBradgeHandler];
     [self loadData];
     
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+#pragma mark - nofitication
+
+- (void)tapActivityAction:(NSNotification *)nofitication {
+    NSDictionary *dic = nofitication.object;
+    WebModel *model = [[WebModel alloc]init];
+    model.title = PARAM_IS_NIL_ERROR(dic[@"title"]);
+    model.webUrl = PARAM_IS_NIL_ERROR(dic[@"url"]);
+    model.hideNavigationBar = false;
+    ToolWebViewController *controller = [[ToolWebViewController alloc]init];
+    controller.model = model;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)loadBradgeHandler {

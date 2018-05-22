@@ -20,6 +20,7 @@
 
 #import "TuijianDetailVC.h"
 #import "ToolWebViewController.h"
+#import <AFNetworking/AFNetworking.h>
 
 
 NSString *const GQTableBarControllerName = @"GQTableBarControllerName";
@@ -49,11 +50,21 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 
 @property (nonatomic, copy) NSArray *tableBarItemArray;
 
+@property (nonatomic , strong) UIView *recordView;
+
+@property (nonatomic , copy) NSDictionary *activityDic;
+
+@property (nonatomic , strong)  UIWindow *activityWindow;
+
+
 //是否正在请求跳转分析页的接口
 @property (nonatomic, assign) BOOL isToFenxi;
 
 
+
 @end
+
+static CGFloat imageHeight = 60.f;
 
 @implementation DCTabBarController
 
@@ -95,11 +106,45 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
         [self creatRefreshUnreadCountTimer];
     }
     
-    // Do any additional setup after loading the view.
+    
+     [self configActivityEntrance]; //  配置活动入口
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+#pragma mark - Config Activity
+
+- (void)configActivityEntrance {
+    NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
+    for (NSDictionary *dic in activityArray) {
+        if (dic[@"main"]) {
+            NSDictionary *itemDic = dic[@"main"];
+            self.activityDic = itemDic;
+            CGFloat windowWidth = Width / 5;
+            UIView *recoverView = [[UIView alloc]initWithFrame:CGRectMake(windowWidth * 2, -11, windowWidth, imageHeight)];
+            recoverView.clipsToBounds = YES;
+            recoverView.backgroundColor = [UIColor whiteColor];
+            UIImageView *activityView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, windowWidth, imageHeight)];
+            activityView.contentMode = UIViewContentModeScaleAspectFill;
+            activityView.clipsToBounds = YES;
+            [activityView sd_setImageWithURL:[NSURL URLWithString:PARAM_IS_NIL_ERROR(itemDic[@"icon"])] placeholderImage:nil];
+            activityView.userInteractionEnabled = YES;
+            [recoverView addSubview:activityView];
+            [self.tabBar addSubview:recoverView];
+            [recoverView bringSubviewToFront:self.tabBar];
+            self.recordView = recoverView;
+            DCNavViewController *nav = [self.childViewControllers objectAtIndex:2];
+            nav.tabBarItem.title = @"";
+            nav.tabBarItem.image = nil;
+            nav.tabBarItem.selectedImage = nil;
+            break;
+        } else {
+            [self.recordView removeFromSuperview];
+            self.recordView = nil;
+        }
+    }
 }
 
 - (void)updateUnreadCount:(NSNotification *)notification
@@ -366,11 +411,9 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 
 //主页面切换的动画效果
 #pragma mark -- UITabBarControllerDelegate
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
     if (self.selectedIndex == [self.viewControllers indexOfObject:viewController]) {
-        
         switch (tabBarController.selectedIndex) {
             case 0:
             {
@@ -414,12 +457,17 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     [animation setDuration:0.25];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [self.view.window.layer addAnimation:animation forKey:@"fadeTransition"];
+    
     return YES;
 }
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
 
-    
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    if (!(item.title.length > 0)) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"tableBarActivity" object:self.activityDic];
+    }
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 }
 - (void)pushToViewController:(UIViewController *__nonnull)viewController animated:(BOOL)animated {
     if([self.selectedViewController isKindOfClass:[UINavigationController class]]) {

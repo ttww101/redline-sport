@@ -120,6 +120,7 @@
     [self getScreenShot];
     
     [self loadConfig];
+    [[AppConfig shareInstance]initialize];
 
 //    [self loadrefreshtoken];
 
