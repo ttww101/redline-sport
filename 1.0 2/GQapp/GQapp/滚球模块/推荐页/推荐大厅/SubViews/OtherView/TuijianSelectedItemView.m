@@ -55,12 +55,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         _play = 0;
-        _state = 1;
+        _state = 0;
         _list = 0;
         _currentIndex = 0;
         _arrPlay = @[@"全部玩法",@"胜平负",@"让球",@"大小球"];
         
-        _arrState = @[@"全部状态",@"未完场",@"已完场",];
+        _arrState = @[@"全部状态",@"未开赛",@"已完场", @"比赛中",];
         
         _arrList = @[@"最近发布",@"按胜率",@"按盈利率",@"按人气",@"最近开赛"];
         
