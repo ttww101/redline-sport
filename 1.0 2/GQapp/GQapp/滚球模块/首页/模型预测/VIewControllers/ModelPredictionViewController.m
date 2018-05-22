@@ -91,10 +91,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (![Methods login]) {
-        [Methods toLogin];
-        return;
-    }
     NSInteger idnex = indexPath.row / 2;
     switch (idnex) {
         case 0: {
