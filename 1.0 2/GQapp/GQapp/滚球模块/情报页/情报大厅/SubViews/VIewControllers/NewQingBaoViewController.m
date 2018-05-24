@@ -79,7 +79,7 @@
     WebModel *model = [[WebModel alloc]init];
     model.title = PARAM_IS_NIL_ERROR(dic[@"title"]);
     model.webUrl = PARAM_IS_NIL_ERROR(dic[@"url"]);
-    model.hideNavigationBar = false;
+    model.hideNavigationBar = YES;
     ToolWebViewController *controller = [[ToolWebViewController alloc]init];
     controller.model = model;
     [self.navigationController pushViewController:controller animated:YES];
