@@ -64,7 +64,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 
 @end
 
-static CGFloat imageHeight = 60.f;
+static CGFloat imageHeight = 80.f;
 
 @implementation DCTabBarController
 
