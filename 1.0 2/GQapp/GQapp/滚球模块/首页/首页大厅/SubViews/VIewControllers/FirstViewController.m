@@ -68,6 +68,7 @@
 #import "ModelPredictionViewController.h"
 #import "ToolKitViewController.h"
 #import "LiveViewController.h"
+#import "ToolWebViewController.h"
 
 @interface FirstViewController ()<UITableViewDelegate,UITableViewDataSource,firstHotInfoCycleViewDelegate,FirstPUserlistViewDelegate,VierticalScrollViewDelegate,SDCycleScrollViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,DataModelViewDelegate>
 
@@ -127,8 +128,7 @@
 @property (nonatomic, strong) dispatch_source_t  timer;
 
 @property (nonatomic , strong) UIImageView *liveQuizImageView;
-@property (nonatomic , copy) NSString *href;
-
+@property (nonatomic , copy) NSDictionary *activityDic;
 
 @end
 
@@ -153,8 +153,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self loadLiveData];
     });
-    
-    
+
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -1909,42 +1908,35 @@
 }
 
 - (void)loadLiveData {
-    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
-    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveQuiz] Start:^(id requestOrignal) {
-        
-    } End:^(id responseOrignal) {
-        
-    } Success:^(id responseResult, id responseOrignal) {
-        NSString *code = responseOrignal[@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary *dic = responseOrignal[@"data"];
-            NSString *icon = dic[@"icon"];
-            self.href = dic[@"href"];
-            if (icon) {
-                [self.liveQuizImageView sd_setImageWithURL:[NSURL URLWithString:icon]];
+    NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
+    for (NSDictionary *dic in activityArray) {
+        if (dic[@"home"]) {
+            NSDictionary *itemDic = dic[@"home"];
+            self.activityDic = itemDic;
+            [self.liveQuizImageView sd_setImageWithURL:[NSURL URLWithString:itemDic[@"icon"]]];
+            dispatch_async(dispatch_get_main_queue(), ^{
                 self.liveQuizImageView.hidden = false;
-            } else {
-                self.liveQuizImageView.hidden = YES;
-            }
-            
+            });
+            break;
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 self.liveQuizImageView.hidden = YES;
+            });
         }
-    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        NSLog(@"32323");
-    }];
+    }
 }
 
 #pragma mark - Events
 
 - (void)liveQuziAction:(UITapGestureRecognizer *)tap {
     WebModel *model = [[WebModel alloc]init];
-    model.title = @"直播答题";
-    model.webUrl = self.href;
+    model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
+    model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
     model.hideNavigationBar = YES;
     LiveQuizViewController *controller = [[LiveQuizViewController alloc]init];
     controller.model = model;
     [self.navigationController pushViewController:controller animated:YES];
 }
-
 
 #pragma mark - Lazy Load
 

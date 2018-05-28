@@ -89,6 +89,8 @@
 		A9D37AA42085C2FF009BA927 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = A9D37AA32085C2FF009BA927 /* 00.png */; };
 		A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AA62085C382009BA927 /* LiveQuizViewController.m */; };
 		A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */; };
+		A9D9494020BBAB2E0031B2F5 /* CustmerTableBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9493F20BBAB2E0031B2F5 /* CustmerTableBar.m */; };
+		A9D9494420BBAB4D0031B2F5 /* TabbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9494320BBAB4D0031B2F5 /* TabbarButton.m */; };
 		A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */; };
 		A9E1B5FF2089F18400A37328 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E1B5FE2089F18300A37328 /* AppConfig.m */; };
 		A9E60CEF2071CC7E002BF207 /* MatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* MatchListViewModel.m */; };
@@ -1239,6 +1241,10 @@
 		A9D37AA62085C382009BA927 /* LiveQuizViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizViewController.m; sourceTree = "<group>"; };
 		A9D37AA92085D371009BA927 /* LiveQuizAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveQuizAlertView.h; sourceTree = "<group>"; };
 		A9D37AAA2085D371009BA927 /* LiveQuizAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveQuizAlertView.m; sourceTree = "<group>"; };
+		A9D9493E20BBAB2E0031B2F5 /* CustmerTableBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustmerTableBar.h; sourceTree = "<group>"; };
+		A9D9493F20BBAB2E0031B2F5 /* CustmerTableBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustmerTableBar.m; sourceTree = "<group>"; };
+		A9D9494220BBAB4D0031B2F5 /* TabbarButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabbarButton.h; sourceTree = "<group>"; };
+		A9D9494320BBAB4D0031B2F5 /* TabbarButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabbarButton.m; sourceTree = "<group>"; };
 		A9DD3B58207C7FF5007BDFBC /* MyPurchaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyPurchaseModel.h; sourceTree = "<group>"; };
 		A9DD3B59207C7FF5007BDFBC /* MyPurchaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPurchaseModel.m; sourceTree = "<group>"; };
 		A9E1B5FD2089F18300A37328 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
@@ -6104,6 +6110,10 @@
 			children = (
 				EB8C1F691F219A8C00A07863 /* DCTabBarController.h */,
 				EB8C1F6A1F219A8C00A07863 /* DCTabBarController.m */,
+				A9D9493E20BBAB2E0031B2F5 /* CustmerTableBar.h */,
+				A9D9493F20BBAB2E0031B2F5 /* CustmerTableBar.m */,
+				A9D9494220BBAB4D0031B2F5 /* TabbarButton.h */,
+				A9D9494320BBAB4D0031B2F5 /* TabbarButton.m */,
 				A9C3BC47209B05BE001674D2 /* StartViewController.h */,
 				A9C3BC48209B05BF001674D2 /* StartViewController.m */,
 				A96F452A2091699700A6FF76 /* GQTbableConfig.h */,
@@ -8088,6 +8098,7 @@
 				EB5BCF4E1F4142F900EF32E6 /* HSJFoldHeaderView.m in Sources */,
 				EB9419231F5D7A89002660E4 /* HSDashLineView.m in Sources */,
 				EB75EDBF1F3D886E00B6046C /* LiveEventMedel.m in Sources */,
+				A9D9494420BBAB4D0031B2F5 /* TabbarButton.m in Sources */,
 				EB8C1EE71F21974000A07863 /* RelRecNewVC.m in Sources */,
 				EB8C1EE31F21974000A07863 /* Dan_StringMatchsModel.m in Sources */,
 				EB564C5D1F4D79EE00F4C947 /* PanwangZhishuTable.m in Sources */,
@@ -8095,6 +8106,7 @@
 				EB8C1EB91F21944C00A07863 /* RedDanCycleView.m in Sources */,
 				EB8C1EE61F21974000A07863 /* Dan_StringGuanVC.m in Sources */,
 				EBE92BE71F53C0E8004375E7 /* SucessViewOfSignatureView.m in Sources */,
+				A9D9494020BBAB2E0031B2F5 /* CustmerTableBar.m in Sources */,
 				EB8C1EB31F21944C00A07863 /* PanwangCell.m in Sources */,
 				EBC6E43E1F41BCB1005D1188 /* BisaiTJHeaderView.m in Sources */,
 				EB6B4C901F284E45004DF8ED /* BuyRecordsVC.m in Sources */,

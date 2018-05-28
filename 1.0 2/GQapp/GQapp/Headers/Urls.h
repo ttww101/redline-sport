@@ -194,7 +194,7 @@
 #define url_reward_list @"/reward_list"
 
 // 直播答题接口
-#define url_liveQuiz @"/activity_entry"
+#define url_liveQuiz @"/activity_entry2"
 
 // 模型支付接口
 #define url_modelPay @"/pay/modelPay/new"
@@ -432,6 +432,8 @@
 #define Buy_Type_Path [NSString stringWithFormat:@"%@/buytype.data",[ArchiveFile LibraryDirectory]]
 
 #define TableConfig [NSString stringWithFormat:@"%@/tableConfig.data",[ArchiveFile LibraryDirectory]]
+
+#define Activity_Path [NSString stringWithFormat:@"%@/activity.data",[ArchiveFile LibraryDirectory]]
 
 
 #endif

@@ -399,6 +399,11 @@
 }
 
 - (void)buyAction {
+    if(![Methods login]) {
+        [Methods toLogin];
+        return;
+    }
+    
     WebModel *model = [[WebModel alloc]init];
     model.title = @"服务介绍";
     if (self.recordUrl) {

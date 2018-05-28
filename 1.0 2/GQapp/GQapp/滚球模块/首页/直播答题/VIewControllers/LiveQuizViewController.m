@@ -199,6 +199,78 @@
     }
 }
 
+- (void)openNative:(id)data {
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dataDic = (NSDictionary *)data;
+        NSString *className = dataDic[@"n"];
+    
+        
+        if ([self containsClassName:className]) {
+            UIViewController *controller =[self indexWithClassName:className];
+            if (controller) {
+                [self.navigationController popToViewController:controller animated:YES];
+            } else {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            
+        } else {
+            Class targetCalss = NSClassFromString(className);
+            id target = [[targetCalss alloc] init];
+            if (target == nil) {
+                [SVProgressHUD showErrorWithStatus:@"暂时不能打开"];
+                return;
+            } else {
+                unsigned int outCount = 0;
+                NSMutableArray *keyArray = [NSMutableArray array];
+                objc_property_t *propertys = class_copyPropertyList([targetCalss class], &outCount);
+                for (unsigned int i = 0; i < outCount; i ++) {
+                    objc_property_t property = propertys[i];
+                    NSString * propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+                    [keyArray addObject:propertyName];
+                }
+                free(propertys);
+                
+                NSDictionary *parameterDic = dataDic[@"v"];
+                if (parameterDic.allKeys.count > 0) {
+                    NSArray *array = parameterDic.allKeys;
+                    for (NSInteger i = 0; i < array.count; i++) {
+                        NSString *key = array[i];
+                        if ([keyArray containsObject:key]) {
+                            [target setValue:parameterDic[key] forKey:key];
+                        }
+                    }
+                }
+                [self.navigationController pushViewController:target animated:YES];
+            }
+        }
+    }
+}
+
+- (BOOL)containsClassName:(NSString *)className {
+    NSArray *classArray = self.navigationController.viewControllers;
+    Class targetClass = NSClassFromString(className);
+    for (UIViewController *control in classArray) {
+        if (control.class == targetClass) {
+            return YES;
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
+
+- (id)indexWithClassName:(NSString *)className {
+    NSArray *classArray = self.navigationController.viewControllers;
+    Class targetClass = NSClassFromString(className);
+    for (NSInteger i = 0; i < classArray.count; i++) {
+        UIViewController *control = classArray[i];
+        if (control.class == targetClass) {
+            return control;
+        }
+    }
+    return nil;
+}
+
 #pragma mark - Action
 
 - (BOOL)panAction:(UIGestureRecognizer *)gestureRecognizer
@@ -216,7 +288,6 @@
         _webView.scrollView.showsVerticalScrollIndicator = NO;
         _webView.scrollView.showsHorizontalScrollIndicator = NO;
         _webView.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
-        _webView.scrollView.scrollEnabled = false;
         [_webView setMediaPlaybackRequiresUserAction:NO];
         [_webView setScalesPageToFit:YES];
     }
