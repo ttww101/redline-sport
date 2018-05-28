@@ -231,7 +231,7 @@
     //    _pswTextF.borderStyle = UITextBorderStyleRoundedRect;
     _invTextF.font = font14;
     _invTextF.placeholder = @"请输入邀请码(选填)";
-    _invTextF.secureTextEntry = YES;
+//    _invTextF.secureTextEntry = YES;
     _invTextF.delegate = self;
     _invTextF.clearButtonMode = UITextFieldViewModeWhileEditing;
     _invTextF.clearsOnBeginEditing = YES;
@@ -392,7 +392,7 @@
         return;
     }
     
-    if (_invTextF.text && _invTextF.text.length < 3 ) {
+    if (_invTextF.text.length > 0 && _invTextF.text.length < 3 ) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入3~15位邀请码"];
         return;
     }

@@ -153,8 +153,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self loadLiveData];
     });
-    
-   
+
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -1934,7 +1933,7 @@
     model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
     model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
     model.hideNavigationBar = YES;
-    ToolWebViewController *controller = [[ToolWebViewController alloc]init];
+    LiveQuizViewController *controller = [[LiveQuizViewController alloc]init];
     controller.model = model;
     [self.navigationController pushViewController:controller animated:YES];
 }
