@@ -22,6 +22,7 @@
 #import "ToolWebViewController.h"
 #import <AFNetworking/AFNetworking.h>
 #import "CustmerTableBar.h"
+#import "LotteryWebViewController.h"
 
 
 NSString *const GQTableBarControllerName = @"GQTableBarControllerName";
@@ -129,7 +130,7 @@ static CGFloat imageHeight = 80.f;
             NSDictionary *itemDic = dic[@"main"];
             self.activityDic = itemDic;
             CGFloat windowWidth = Width / 5;
-            UIView *recoverView = [[UIView alloc]initWithFrame:CGRectMake(windowWidth * 2, -11, windowWidth, imageHeight)];
+            UIView *recoverView = [[UIView alloc]initWithFrame:CGRectMake(windowWidth * 2, -21, windowWidth, imageHeight)];
             recoverView.clipsToBounds = YES;
             recoverView.backgroundColor = [UIColor whiteColor];
             UIImageView *activityView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, windowWidth, imageHeight)];
@@ -354,7 +355,6 @@ static CGFloat imageHeight = 80.f;
     self.selectedIndex = to;
     self.tabBar.hidden = NO;
     [self.viewControllers[self.selectedIndex] popToRootViewControllerAnimated:NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"systemnotification" object:nil];
     return YES;
 }
 
@@ -442,9 +442,29 @@ static CGFloat imageHeight = 80.f;
     self.delegate = self;
 }
 
+- (void)p_didSelectCenterTabBarItem
+{
+    if (![self.selectedViewController isKindOfClass:[UINavigationController class]]) {
+        return;
+    }
+    
+    WebModel *model = [[WebModel alloc]init];
+    model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
+    model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
+    model.hideNavigationBar = YES;
+    LotteryWebViewController *controller = [[LotteryWebViewController alloc]init];
+    controller.model = model;
+    [[Methods help_getCurrentVC].navigationController pushViewController:controller animated:YES];
+}
+
 //主页面切换的动画效果
 #pragma mark -- UITabBarControllerDelegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    if ([self.viewControllers indexOfObject:viewController] == 2) {
+        [self p_didSelectCenterTabBarItem];
+        return NO;
+    }
     
     if (self.selectedIndex == [self.viewControllers indexOfObject:viewController]) {
         switch (tabBarController.selectedIndex) {
@@ -455,7 +475,6 @@ static CGFloat imageHeight = 80.f;
                 break;
             case 1:
             {
-//                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationsetSecondTableViewContentOffsetZero object:nil];
                 
             }
                 break;
@@ -494,11 +513,6 @@ static CGFloat imageHeight = 80.f;
     return YES;
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    if (!(item.title.length > 0)) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"tableBarActivity" object:self.activityDic];
-    }
-}
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 }

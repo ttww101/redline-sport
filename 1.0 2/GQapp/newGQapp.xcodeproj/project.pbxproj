@@ -42,6 +42,7 @@
 		84BA634C1FC6875100A65360 /* UIAlertController+askForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */; };
 		A91C6DF8207C4D240035DFC0 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* MineViewController.m */; };
 		A91C6DFB207C5EE70035DFC0 /* TuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */; };
+		A920B9B820BCF02000867100 /* LotteryWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9B720BCF02000867100 /* LotteryWebViewController.m */; };
 		A9317BE22081A5D40094500A /* DIN-Bold.TTF in Resources */ = {isa = PBXBuildFile; fileRef = A9317BE02081A5D30094500A /* DIN-Bold.TTF */; };
 		A9317BE52081BACB0094500A /* WithdrawalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9317BE42081BACB0094500A /* WithdrawalModel.m */; };
 		A93A4A7420731228007CED8F /* WebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A93A4A7320731228007CED8F /* WebModel.m */; };
@@ -1155,6 +1156,8 @@
 		A91C6DF7207C4D240035DFC0 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianDatingCell.m; sourceTree = "<group>"; };
 		A91C6DFA207C5EE70035DFC0 /* TuijianDatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianDatingCell.h; sourceTree = "<group>"; };
+		A920B9B620BCF02000867100 /* LotteryWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LotteryWebViewController.h; sourceTree = "<group>"; };
+		A920B9B720BCF02000867100 /* LotteryWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LotteryWebViewController.m; sourceTree = "<group>"; };
 		A9317BE02081A5D30094500A /* DIN-Bold.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DIN-Bold.TTF"; sourceTree = "<group>"; };
 		A9317BE32081BACB0094500A /* WithdrawalModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalModel.h; sourceTree = "<group>"; };
 		A9317BE42081BACB0094500A /* WithdrawalModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalModel.m; sourceTree = "<group>"; };
@@ -2639,6 +2642,15 @@
 			name = "及时更新";
 			sourceTree = "<group>";
 		};
+		A920B9B420BCEFEF00867100 /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				A920B9B620BCF02000867100 /* LotteryWebViewController.h */,
+				A920B9B720BCF02000867100 /* LotteryWebViewController.m */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
 		A941D520206E076E008CE14F /* 模型预测 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3628,6 +3640,7 @@
 		EB8C1C251F21944B00A07863 /* 滚球模块 */ = {
 			isa = PBXGroup;
 			children = (
+				A920B9B420BCEFEF00867100 /* Activities */,
 				EBF3AB141F21CD3100C2341A /* 本地h5文件 */,
 				EB8C1C261F21944B00A07863 /* 个人中心 */,
 				EB8C1CC61F21944B00A07863 /* 情报页 */,
@@ -8183,6 +8196,7 @@
 				EB8C1E531F21944C00A07863 /* RemindModel.m in Sources */,
 				EB2319DF1F7CFB3900003F3C /* YpasCell.m in Sources */,
 				A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */,
+				A920B9B820BCF02000867100 /* LotteryWebViewController.m in Sources */,
 				EB5A469B1F2735D20093962B /* BuyViewofTuijianView.m in Sources */,
 				A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */,
 				EB8C1E621F21944C00A07863 /* NavigationModel.m in Sources */,
