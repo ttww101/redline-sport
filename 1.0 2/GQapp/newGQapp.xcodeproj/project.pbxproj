@@ -43,6 +43,9 @@
 		A91C6DF8207C4D240035DFC0 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* MineViewController.m */; };
 		A91C6DFB207C5EE70035DFC0 /* TuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */; };
 		A920B9B820BCF02000867100 /* LotteryWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9B720BCF02000867100 /* LotteryWebViewController.m */; };
+		A920B9BB20BD412C00867100 /* ItemControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BA20BD412C00867100 /* ItemControl.m */; };
+		A920B9BD20BD445B00867100 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = A920B9BC20BD445A00867100 /* test.png */; };
+		A920B9C020BD656900867100 /* HeaderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BF20BD656900867100 /* HeaderControl.m */; };
 		A9317BE22081A5D40094500A /* DIN-Bold.TTF in Resources */ = {isa = PBXBuildFile; fileRef = A9317BE02081A5D30094500A /* DIN-Bold.TTF */; };
 		A9317BE52081BACB0094500A /* WithdrawalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9317BE42081BACB0094500A /* WithdrawalModel.m */; };
 		A93A4A7420731228007CED8F /* WebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A93A4A7320731228007CED8F /* WebModel.m */; };
@@ -1158,6 +1161,11 @@
 		A91C6DFA207C5EE70035DFC0 /* TuijianDatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianDatingCell.h; sourceTree = "<group>"; };
 		A920B9B620BCF02000867100 /* LotteryWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LotteryWebViewController.h; sourceTree = "<group>"; };
 		A920B9B720BCF02000867100 /* LotteryWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LotteryWebViewController.m; sourceTree = "<group>"; };
+		A920B9B920BD412C00867100 /* ItemControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemControl.h; sourceTree = "<group>"; };
+		A920B9BA20BD412C00867100 /* ItemControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemControl.m; sourceTree = "<group>"; };
+		A920B9BC20BD445A00867100 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
+		A920B9BE20BD656900867100 /* HeaderControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderControl.h; sourceTree = "<group>"; };
+		A920B9BF20BD656900867100 /* HeaderControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderControl.m; sourceTree = "<group>"; };
 		A9317BE02081A5D30094500A /* DIN-Bold.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DIN-Bold.TTF"; sourceTree = "<group>"; };
 		A9317BE32081BACB0094500A /* WithdrawalModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalModel.h; sourceTree = "<group>"; };
 		A9317BE42081BACB0094500A /* WithdrawalModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalModel.m; sourceTree = "<group>"; };
@@ -4087,6 +4095,11 @@
 				A9B5229720932D0E001DF9B9 /* GQMineHeaderView.m */,
 				A9B5229920933A8E001DF9B9 /* HeaderAmountView.h */,
 				A9B5229A20933A8E001DF9B9 /* HeaderAmountView.m */,
+				A920B9B920BD412C00867100 /* ItemControl.h */,
+				A920B9BA20BD412C00867100 /* ItemControl.m */,
+				A920B9BE20BD656900867100 /* HeaderControl.h */,
+				A920B9BF20BD656900867100 /* HeaderControl.m */,
+				A920B9BC20BD445A00867100 /* test.png */,
 			);
 			path = OtherView;
 			sourceTree = "<group>";
@@ -7859,6 +7872,7 @@
 				EB6530801EBC912A0062BA4D /* 比分页面搜索.png in Resources */,
 				EB65307D1EBC912A0062BA4D /* successful.png in Resources */,
 				EB161CB81F90BCCB00118F60 /* bangjingcai@2x.png in Resources */,
+				A920B9BD20BD445B00867100 /* test.png in Resources */,
 				EB467B521F42F17300C7299E /* bisaiyellowRedCard@2x.png in Resources */,
 				8417DADE1FCBF73A00F111E2 /* fabunewtuijian@2x.png in Resources */,
 				EB9419821F5D7B26002660E4 /* pankousel1@2x.png in Resources */,
@@ -8126,6 +8140,7 @@
 				A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */,
 				EB8C1E7E1F21944C00A07863 /* BangDanTableView.m in Sources */,
 				EB8C1EBF1F21944C00A07863 /* NewslistModel.m in Sources */,
+				A920B9BB20BD412C00867100 /* ItemControl.m in Sources */,
 				EB94192F1F5D7ACF002660E4 /* SelectedDTitleView.m in Sources */,
 				EB8C1EAC1F21944C00A07863 /* TouZhuModel.m in Sources */,
 				EB8C1FB71F219A8C00A07863 /* BasicTableView.m in Sources */,
@@ -8251,6 +8266,7 @@
 				EB8C20221F21A0AA00A07863 /* StatisticsModel.m in Sources */,
 				EB8C1E6C1F21944C00A07863 /* TeamViewofTuijianCell.m in Sources */,
 				EB8C1EC71F21944C00A07863 /* TAAbstractDotView.m in Sources */,
+				A920B9C020BD656900867100 /* HeaderControl.m in Sources */,
 				A9B5228F2093139A001DF9B9 /* GQMineModel.m in Sources */,
 				EB5BCF4A1F4142C400EF32E6 /* JiShiPeiLvDetailModel.m in Sources */,
 				EB6149E81F387F940098C2DE /* TongpeiDetailCell.m in Sources */,

@@ -11,7 +11,8 @@
 #import "ToAnalystsVC.h"
 #import "ToolWebViewController.h"
 #import "MyProfileVC.h"
-
+#import "HeaderControl.h"
+#import "UserTuijianVC.h"
 
 @interface GQMineHeaderView ()
 
@@ -36,6 +37,14 @@
 @property (nonatomic, strong) UILabel *desLabel;
 
 @property (nonatomic, strong) UIControl *control;
+
+@property (nonatomic , strong) HeaderControl *leftControl;
+
+@property (nonatomic , strong) HeaderControl *centerControl;
+
+@property (nonatomic , strong) HeaderControl *rightControl;
+
+@property (nonatomic, assign) CGFloat controlWidth;
 
 
 
@@ -78,6 +87,11 @@ static CGFloat imageHeight = 50;
         _amountView.model = _model;
         self.desLabel.hidden = YES;
         self.control.hidden = YES;
+        
+        self.leftControl.content = [NSString stringWithFormat:@"推荐:%zi",_model.recommendCount];
+        self.centerControl.content = [NSString stringWithFormat:@"关注:%zi",_model.focusCount];
+        self.rightControl.content = [NSString stringWithFormat:@"粉丝:%zi",_model.followerCount];
+        
     } else {
         self.avatarImageView.image = [UIImage imageNamed:@"defaultPic"];
         self.nameLabel.text = @"登陆/注册";
@@ -88,19 +102,29 @@ static CGFloat imageHeight = 50;
             [_amountView removeFromSuperview];
             _amountView = nil;
         }
+        
+        self.leftControl.content = [NSString stringWithFormat:@"推荐:0"];
+        self.centerControl.content = [NSString stringWithFormat:@"关注:0"];
+        self.rightControl.content = [NSString stringWithFormat:@"粉丝:0"];
     }
+    
+    
+    
+    
 }
 
 #pragma mark - Config UI
 
 - (void)configUI {
     self.backgroundColor = UIColorFromRGBWithOX(0xebebeb);
+    self.controlWidth = Width / 3.f;
+    
     [self addSubview:self.bgImageView];
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(0);
         make.right.equalTo(self.mas_right).offset(0);
         make.left.equalTo(self.mas_left).offset(0);
-        make.height.mas_equalTo(173);
+        make.height.mas_equalTo(200);
     }];
     
     [self.bgImageView addSubview:self.titleLabel];
@@ -160,6 +184,10 @@ static CGFloat imageHeight = 50;
         make.left.equalTo(self.nameLabel.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(7);
     }];
+    
+    [self addSubview:self.leftControl];
+    [self addSubview:self.centerControl];
+    [self addSubview:self.rightControl];
 
 }
 
@@ -217,6 +245,42 @@ static CGFloat imageHeight = 50;
     if (![Methods login]) {
         [Methods toLogin];
     }
+}
+
+- (void)leftControlAction {
+    if(![Methods login]) {
+        [Methods toLogin];
+        return;
+    }
+    UserTuijianVC *tuijian = [[UserTuijianVC alloc] init];
+    tuijian.userName = _model.nickname;
+    tuijian.userId = _model.idId;
+    tuijian.hidesBottomBarWhenPushed = YES;
+    [APPDELEGATE.customTabbar pushToViewController:tuijian animated:YES];
+}
+
+- (void)centerControlAction {
+    if(![Methods login]) {
+        [Methods toLogin];
+        return;
+    }
+    FriendsVC *friend = [[FriendsVC alloc] init];
+    friend.userId = _model.idId;
+    friend.selectedIndex = 0;
+    friend.hidesBottomBarWhenPushed = YES;
+    [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
+}
+
+- (void)rightControlAction {
+    if(![Methods login]) {
+        [Methods toLogin];
+        return;
+    }
+    FriendsVC *friend = [[FriendsVC alloc] init];
+    friend.userId = _model.idId;
+    friend.selectedIndex = 1;
+    friend.hidesBottomBarWhenPushed = YES;
+    [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
 }
 
 #pragma mark - Lazy Load
@@ -302,7 +366,7 @@ static CGFloat imageHeight = 50;
 
 - (HeaderAmountView *)amountView {
     if (_amountView == nil) {
-        _amountView = [[HeaderAmountView alloc]initWithFrame:CGRectMake(15, 137, Width - 30, 105)];
+        _amountView = [[HeaderAmountView alloc]initWithFrame:CGRectMake(15, 165, Width - 30, 60)];
     }
     return _amountView;
 }
@@ -333,5 +397,30 @@ static CGFloat imageHeight = 50;
     }
     return _levealImageView;
 }
+
+- (HeaderControl *)leftControl {
+    if (_leftControl == nil) {
+        _leftControl = [[HeaderControl alloc]initWithFrame:CGRectMake(0, 130, self.controlWidth, 30) content:@"推荐:0" showRightLine:false];
+        [_leftControl addTarget:self action:@selector(leftControlAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _leftControl;
+}
+
+- (HeaderControl *)centerControl {
+    if (_centerControl == nil) {
+        _centerControl = [[HeaderControl alloc]initWithFrame:CGRectMake(self.controlWidth, 130, self.controlWidth, 30) content:@"关注:0" showRightLine:false];
+        [_centerControl addTarget:self action:@selector(centerControlAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _centerControl;
+}
+
+- (HeaderControl *)rightControl {
+    if (_rightControl == nil) {
+        _rightControl = [[HeaderControl alloc]initWithFrame:CGRectMake(self.controlWidth * 2, 130, self.controlWidth, 30) content:@"粉丝:0" showRightLine:YES];
+        [_rightControl addTarget:self action:@selector(rightControlAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rightControl;
+}
+
 
 @end

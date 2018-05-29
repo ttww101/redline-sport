@@ -51,7 +51,6 @@
     return YES;
 }
 
-
 - (void)publicDealWithUrl:(NSString *)url {
     NSString *otherUrl = self.activityDic[@"url_match_all"];
     if (otherUrl) {
@@ -61,8 +60,10 @@
             self.statusView.hidden = YES;
         } else {
             [self.navigationController setNavigationBarHidden:YES animated:YES];
-            [self.webView.scrollView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
-            self.statusView.hidden = false;
+            if ([Methods login]) {
+                [self.webView.scrollView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
+                self.statusView.hidden = false;
+            }
         }
     }
 }

@@ -49,9 +49,9 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     if ([Methods login]) {
-        self.headerView.height = 173 + 80;
+        self.headerView.height = 200 + 35;
     } else {
-        self.headerView.height = 183;
+        self.headerView.height = 210;
     }
     
     [self loadData];
@@ -104,14 +104,9 @@
                 [Methods updateUsetModel:_userModel];
                 self.headerView.model = _userModel;
                 self.tableView.tableHeaderView = self.headerView;
-                NSArray *array = _contentArray[2];
-                GQMineModel *modelAttention = array[0];
-                modelAttention.rightContent = [NSString stringWithFormat:@"%zi",_userModel.focusCount];
-                GQMineModel *modelFollow = array[1];
-                modelFollow.rightContent = [NSString stringWithFormat:@"%zi",_userModel.followerCount];
                 [self.tableView reloadData];
                 if (_userModel == nil) {
-                    self.headerView.height = 183;
+                    self.headerView.height = 210;
                 }
             }else{
                 [self.tableView reloadData];
@@ -124,7 +119,7 @@
         self.headerView.model = nil;
         self.tableView.tableHeaderView = self.headerView;
         if (_userModel == nil) {
-            self.headerView.height = 183;
+            self.headerView.height = 210;
         }
         [self.tableView reloadData];
     }
@@ -172,6 +167,12 @@
                  webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
             } else if (indexPath.row == 1) {
+                UserViewController *userVC = [[UserViewController alloc] init];
+                userVC.userId = _userModel.idId;
+                userVC.hidesBottomBarWhenPushed = YES;
+                userVC.Number=1;
+                [APPDELEGATE.customTabbar pushToViewController:userVC animated:YES];
+            } else if (indexPath.row == 2) {
                 
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"账户明细";
@@ -180,7 +181,7 @@
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
                 
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 MyBuyTuijianVC *myBuy = [[MyBuyTuijianVC alloc] init];
                 myBuy.userId = _userModel.idId;
                 myBuy.hidesBottomBarWhenPushed = YES;
@@ -189,54 +190,54 @@
         }
             break;
             
+//        case 1:{
+//            if(![Methods login]) {
+//
+//                [Methods toLogin];
+//                return;
+//            }
+//            if (indexPath.row == 0) {
+//                //                    推荐
+//                UserTuijianVC *tuijian = [[UserTuijianVC alloc] init];
+//                tuijian.userName = _userModel.nickname;
+//                tuijian.userId = _userModel.idId;
+//                tuijian.hidesBottomBarWhenPushed = YES;
+//                [APPDELEGATE.customTabbar pushToViewController:tuijian animated:YES];
+//            } else if (indexPath.row == 1) {
+//                UserViewController *userVC = [[UserViewController alloc] init];
+//                userVC.userId = _userModel.idId;
+//                userVC.hidesBottomBarWhenPushed = YES;
+//                userVC.Number=1;
+//                [APPDELEGATE.customTabbar pushToViewController:userVC animated:YES];
+//            }
+//        }
+//            break;
+//
+//        case 2:{
+//            if(![Methods login]) {
+//
+//                [Methods toLogin];
+//                return;
+//            }
+//            if (indexPath.row == 0) {
+//                // 关注
+//                FriendsVC *friend = [[FriendsVC alloc] init];
+//                friend.userId = _userModel.idId;
+//                friend.selectedIndex = 0;
+//                friend.hidesBottomBarWhenPushed = YES;
+//                [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
+//            } else if (indexPath.row == 1) {
+//                // 粉丝
+//                FriendsVC *friend = [[FriendsVC alloc] init];
+//                friend.userId = _userModel.idId;
+//                friend.selectedIndex = 1;
+//                friend.hidesBottomBarWhenPushed = YES;
+//                [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
+//            }
+//        }
+//            break;
+            
         case 1:{
-            if(![Methods login]) {
-                
-                [Methods toLogin];
-                return;
-            }
-            if (indexPath.row == 0) {
-                //                    推荐
-                UserTuijianVC *tuijian = [[UserTuijianVC alloc] init];
-                tuijian.userName = _userModel.nickname;
-                tuijian.userId = _userModel.idId;
-                tuijian.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:tuijian animated:YES];
-            } else if (indexPath.row == 1) {
-                UserViewController *userVC = [[UserViewController alloc] init];
-                userVC.userId = _userModel.idId;
-                userVC.hidesBottomBarWhenPushed = YES;
-                userVC.Number=1;
-                [APPDELEGATE.customTabbar pushToViewController:userVC animated:YES];
-            }
-        }
-            break;
-            
-        case 2:{
-            if(![Methods login]) {
-                
-                [Methods toLogin];
-                return;
-            }
-            if (indexPath.row == 0) {
-                // 关注
-                FriendsVC *friend = [[FriendsVC alloc] init];
-                friend.userId = _userModel.idId;
-                friend.selectedIndex = 0;
-                friend.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
-            } else if (indexPath.row == 1) {
-                // 粉丝
-                FriendsVC *friend = [[FriendsVC alloc] init];
-                friend.userId = _userModel.idId;
-                friend.selectedIndex = 1;
-                friend.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
-            }
-        }
-            break;
-            
-        case 3:{
             if (indexPath.row == 0) {
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"邀请好友";
@@ -285,7 +286,7 @@
 
 - (GQMineHeaderView *)headerView {
     if (_headerView == nil) {
-        _headerView = [[GQMineHeaderView alloc]initWithFrame:CGRectMake(0, 0, Width, 183)];
+        _headerView = [[GQMineHeaderView alloc]initWithFrame:CGRectMake(0, 0, Width, 210)];
     }
     return _headerView;
 }

@@ -13,8 +13,8 @@
 + (NSArray *)getMineDataArray {
     NSMutableArray *groupArray = [NSMutableArray array];
     
-    NSArray *imageArray1 = @[@"image1", @"image2", @"image3"];
-    NSArray *leftContentArry1 = @[@"滚球服务", @"账户明细", @"购买记录"];
+    NSArray *imageArray1 = @[@"image1", @"image5", @"image2", @"image3"];
+    NSArray *leftContentArry1 = @[@"滚球服务", @"推荐统计", @"账户明细", @"购买记录"];
     NSMutableArray *array1 = [NSMutableArray new];
     for (NSInteger i = 0; i < imageArray1.count; i ++) {
         GQMineModel *model = [[GQMineModel alloc]init];
@@ -25,29 +25,29 @@
     }
     [groupArray addObject:array1];
     
-    NSArray *imageArra2 = @[@"image4", @"image5"];
-    NSArray *leftContentArry2 = @[@"推荐记录", @"推荐统计"];
-    NSMutableArray *array2 = [NSMutableArray new];
-    for (NSInteger i = 0; i < imageArra2.count; i ++) {
-        GQMineModel *model = [[GQMineModel alloc]init];
-        model.leftContent = leftContentArry2[i];
-        model.leftImageName = imageArra2[i];
-        model.rightImageName = @"meRight";
-        [array2 addObject:model];
-    }
-    [groupArray addObject:array2];
+//    NSArray *imageArra2 = @[@"image4", @"image5"];
+//    NSArray *leftContentArry2 = @[@"推荐记录", @"推荐统计"];
+//    NSMutableArray *array2 = [NSMutableArray new];
+//    for (NSInteger i = 0; i < imageArra2.count; i ++) {
+//        GQMineModel *model = [[GQMineModel alloc]init];
+//        model.leftContent = leftContentArry2[i];
+//        model.leftImageName = imageArra2[i];
+//        model.rightImageName = @"meRight";
+//        [array2 addObject:model];
+//    }
+//    [groupArray addObject:array2];
     
-    NSArray *imageArra3 = @[@"image6", @"image7"];
-    NSArray *leftContentArry3 = @[@"我的关注", @"我的粉丝"];
-    NSMutableArray *array3 = [NSMutableArray new];
-    for (NSInteger i = 0; i < imageArra3.count; i ++) {
-        GQMineModel *model = [[GQMineModel alloc]init];
-        model.leftContent = leftContentArry3[i];
-        model.leftImageName = imageArra3[i];
-        model.rightImageName = @"meRight";
-        [array3 addObject:model];
-    }
-    [groupArray addObject:array3];
+//    NSArray *imageArra3 = @[@"image6", @"image7"];
+//    NSArray *leftContentArry3 = @[@"我的关注", @"我的粉丝"];
+//    NSMutableArray *array3 = [NSMutableArray new];
+//    for (NSInteger i = 0; i < imageArra3.count; i ++) {
+//        GQMineModel *model = [[GQMineModel alloc]init];
+//        model.leftContent = leftContentArry3[i];
+//        model.leftImageName = imageArra3[i];
+//        model.rightImageName = @"meRight";
+//        [array3 addObject:model];
+//    }
+//    [groupArray addObject:array3];
     
     NSArray *imageArra4 = @[@"image8", @"image9", @"image10"];
     NSArray *leftContentArry4 = @[@"邀请好友", @"意见反馈", @"更多设置"];
