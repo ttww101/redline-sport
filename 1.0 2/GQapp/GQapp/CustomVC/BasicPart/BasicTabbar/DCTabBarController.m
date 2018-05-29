@@ -21,6 +21,7 @@
 #import "TuijianDetailVC.h"
 #import "ToolWebViewController.h"
 #import <AFNetworking/AFNetworking.h>
+#import "CustmerTableBar.h"
 
 
 NSString *const GQTableBarControllerName = @"GQTableBarControllerName";
@@ -37,7 +38,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 
 
 
-@interface DCTabBarController ()<UIGestureRecognizerDelegate>
+@interface DCTabBarController ()<UIGestureRecognizerDelegate, TabBarDelegate>
 {
     DCNavViewController *_firstNav;
     DCNavViewController *_secondNav;
@@ -55,6 +56,8 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 @property (nonatomic , copy) NSDictionary *activityDic;
 
 @property (nonatomic , strong)  UIWindow *activityWindow;
+
+@property (nonatomic , strong) CustmerTableBar *taBar;
 
 
 //是否正在请求跳转分析页的接口
@@ -105,9 +108,12 @@ static CGFloat imageHeight = 80.f;
     if ([Methods login]) {
         [self creatRefreshUnreadCountTimer];
     }
-    
-    
+
      [self configActivityEntrance]; //  配置活动入口
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)dealloc {
@@ -339,17 +345,31 @@ static CGFloat imageHeight = 80.f;
 //    [alertController addAction:alertTwo];
     [alertController addAction:alertOne];
     
-    
     [self presentViewController:alertController animated:YES completion:nil];
     
 }
 
 
+- (BOOL)tabBar:(CustmerTableBar *)tabBar selectedFrom:(NSInteger)from to:(NSInteger)to {
+    self.selectedIndex = to;
+    self.tabBar.hidden = NO;
+    [self.viewControllers[self.selectedIndex] popToRootViewControllerAnimated:NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"systemnotification" object:nil];
+    return YES;
+}
+
 - (void)setupTabbarItems
 {
     
-    self.tabBar.tintColor = redcolor;
-    self.tabBar.barTintColor = [UIColor whiteColor];
+//    self.tabBar.tintColor = redcolor;
+//    self.tabBar.barTintColor = [UIColor whiteColor];
+    CGRect rect = self.tabBar.bounds; //这里要用bounds来加, 否则会加到下面去.看不见
+   
+    _taBar = [[CustmerTableBar alloc] init]; //设置代理必须改掉前面的类型,不能用UIView
+    _taBar.delegate = self; //设置代理
+    _taBar.frame = rect;
+    
+    NSMutableArray *itemArray = [NSMutableArray new];
     [_tableBarItemArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSDictionary *dic = (NSDictionary *)obj;
         BOOL loadH5 = [dic[GQTabBarItemLoadH5] integerValue];
@@ -358,9 +378,33 @@ static CGFloat imageHeight = 80.f;
         } else {
             [self addChildControllerWithVcStr:dic[GQTableBarControllerName] imageName:dic[GQTabBarItemImage] selectedImage:dic[GQTabBarItemSelectedImage] title:dic[GQTabBarItemTitle] tag:idx];
         }
-       
+        
+        NSDictionary *itemDic = @{
+                              @"image": dic[GQTabBarItemImage],
+                              @"selectedImage": dic[GQTabBarItemSelectedImage],
+                              @"title": dic[GQTabBarItemTitle]
+                              };
+        [itemArray addObject:itemDic];
     }];
+    [self loadTableBarViewWithArray:itemArray];
     
+}
+
+- (void)loadTableBarViewWithArray:(NSMutableArray *)array {
+    [self.tabBar removeAllSubViews];
+    _taBar.itemsArr = [array copy];
+    //添加到系统自带的tabBar上, 这样可以用的的事件方法. 而不必自己去写
+    BOOL weatherAddBarView = NO;
+    for (UIView *view in [self.tabBar subviews]) {
+        if ([view isKindOfClass:[CustmerTableBar class]]) {
+            
+            weatherAddBarView = YES;
+            break;
+        }
+    }
+    if (weatherAddBarView == NO) {
+        [self.tabBar addSubview:_taBar];
+    }
 }
 
 - (void)addChildControllerWithVcStr:(NSString *)vcStr
@@ -368,17 +412,11 @@ static CGFloat imageHeight = 80.f;
                       selectedImage:(UIImage *)selectedImage
                               title:(NSString *)title
                                 tag:(NSInteger)tag {
-    UIEdgeInsets insets = UIEdgeInsetsMake(Zero, Zero, Zero, Zero);
+    
     Class targetClass = NSClassFromString(vcStr);
     UIViewController *target = [[targetClass alloc]init];
-    target.tabBarItem.title = title;
-    target.tabBarItem.image = defaultImage;
-    target.tabBarItem.selectedImage = selectedImage;
     DCNavViewController *nav = [[DCNavViewController alloc] initWithRootViewController:target];
     nav.interactivePopGestureRecognizer.delegate = self;
-    nav.tabBarItem.imageInsets = insets;
-    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:redcolor} forState:UIControlStateSelected];
-    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
     [self addChildViewController:nav];
 }
 
@@ -388,20 +426,15 @@ static CGFloat imageHeight = 80.f;
                               title:(NSString *)title
                                 tag:(NSInteger)tag
                               webModel:(WebModel *)model {
-    UIEdgeInsets insets = UIEdgeInsetsMake(Zero, Zero, Zero, Zero);
     Class targetClass = NSClassFromString(vcStr);
     BaseWebViewController *target = [[targetClass alloc]init];
-    target.tabBarItem.title = title;
     target.model = model;
-    target.tabBarItem.image = defaultImage;
-    target.tabBarItem.selectedImage = selectedImage;
     DCNavViewController *nav = [[DCNavViewController alloc] initWithRootViewController:target];
     nav.interactivePopGestureRecognizer.delegate = self;
-    nav.tabBarItem.imageInsets = insets;
-    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:redcolor} forState:UIControlStateSelected];
-    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
     [self addChildViewController:nav];
 }
+
+
 
 
 - (void)setupTabBarStyle

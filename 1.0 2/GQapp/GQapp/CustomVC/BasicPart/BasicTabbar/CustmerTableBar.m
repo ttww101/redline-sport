@@ -56,6 +56,7 @@
 - (void)clickTabButton:(TabbarButton *)clickBtn {
     
     NSInteger to_tag = clickBtn.tag - TAB_BAR_TAP_BUTTON_BASE_BAG;
+//    return;
     
     if ([self.delegate respondsToSelector:@selector(tabBar:selectedFrom:to:)]) {
         BOOL success = [self.delegate tabBar:self selectedFrom:self.selected to:to_tag];

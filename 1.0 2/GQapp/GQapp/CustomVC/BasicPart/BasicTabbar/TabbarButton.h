@@ -17,6 +17,6 @@
 @property (nonatomic, strong) CALayer* flag;
 
 
-- (void)setTabbarImage:(NSString *)image selectedImage:(NSString *)selectedImage title:(NSString *)titleStr;
+- (void)setTabbarImage:(UIImage *)image selectedImage:(UIImage *)selectedImage title:(NSString *)titleStr;
 
 @end
