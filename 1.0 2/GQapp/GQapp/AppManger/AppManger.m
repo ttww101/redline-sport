@@ -342,7 +342,19 @@
     }];
     
 
-    
+    [self.bridge registerHandler:@"nav" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                           @"methdName":@"nav:",
+                                                           @"parameterData":dic}];
+        self.gqHandler(model, ^(id responseData) {
+            
+        });
+    }];
     
     [self.bridge registerHandler:@"pay" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];

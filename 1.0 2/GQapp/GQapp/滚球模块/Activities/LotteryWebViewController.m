@@ -7,8 +7,13 @@
 //
 
 #import "LotteryWebViewController.h"
+#import "ArchiveFile.h"
 
-@interface LotteryWebViewController ()
+@interface LotteryWebViewController () <UIWebViewDelegate>
+
+@property (nonatomic , strong) NSDictionary *activityDic;
+
+@property (nonatomic , strong) UIView *statusView;
 
 @end
 
@@ -16,12 +21,83 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
+    for (NSDictionary *dic in activityArray) {
+        if (dic[@"main"]) {
+            NSDictionary *itemDic = dic[@"main"];
+            self.activityDic = itemDic;
+        }
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.webView addSubview:self.statusView];
+}
+
+#pragma mark - UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType  == UIWebViewNavigationTypeOther) {
+        NSString *url = request.URL.absoluteString;
+        [self publicDealWithUrl:url];
+    } else if (navigationType == UIWebViewNavigationTypeBackForward){
+        NSString *url = request.URL.absoluteString;
+        [self publicDealWithUrl:url];
+    } else if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSString *url = request.URL.absoluteString;
+        [self publicDealWithUrl:url];
+    }
+    return YES;
+}
+
+
+- (void)publicDealWithUrl:(NSString *)url {
+    NSString *otherUrl = self.activityDic[@"url_match_all"];
+    if (otherUrl) {
+        if ([otherUrl isEqualToString:url] || [url isEqualToString:[NSString stringWithFormat:@"%@index.html",otherUrl]]) {
+            [self configNav];
+            [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+            self.statusView.hidden = YES;
+        } else {
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+            [self.webView.scrollView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
+            self.statusView.hidden = false;
+        }
+    }
+}
+
+#pragma mark - Private Method
+
+- (void)configNav {
+    [self.navigationController setNavigationBarHidden:false animated:false];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"XX"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
+    titleImageView.image = [UIImage imageNamed:@"tuijianDTPeilvSelected2"];
+    self.navigationItem.titleView = titleImageView;
+    
+}
+
+- (void)actionBack {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Lazy Load
+
+- (UIView *)statusView {
+    if (_statusView == nil) {
+        _statusView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, Width, 20)];
+        _statusView.backgroundColor = UIColorFromRGBWithOX(0x1E88D2);
+        _statusView.hidden = YES;
+    }
+    return _statusView;
 }
 
 @end

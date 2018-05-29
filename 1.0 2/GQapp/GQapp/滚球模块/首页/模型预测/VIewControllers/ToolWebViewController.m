@@ -21,8 +21,6 @@
 
 @interface ToolWebViewController () <UIWebViewDelegate>
 
-@property (nonatomic, strong) UIWebView *webView;
-
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
@@ -266,11 +264,8 @@
         }];
         
     }else{
-        
-        
+
     }
-    
-    
 }
 
 #pragma mark - JSHandle
@@ -373,6 +368,55 @@
     }
 }
 
+- (void)nav:(id)data {
+    if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
+        NSDictionary *dataDic = (NSDictionary *)data;
+        BOOL nav_hidden = dataDic[@"nav_hidden"];
+        [self.navigationController setNavigationBarHidden:nav_hidden animated:YES];
+        if (!nav_hidden) {
+            self.navigationItem.title = dataDic[@"title"];
+            NSArray *leftArray = dataDic[@"left"];
+            if (leftArray.count > 0) {
+                NSMutableArray *leftItemsArray = [NSMutableArray new];
+                for (NSInteger i = 0; i < leftArray.count; i ++) {
+                    NSDictionary *dic = leftArray[i];
+                    [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
+                    NavImageView *imageV = [[NavImageView alloc]init];
+                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
+                    imageV.userInteractionEnabled = YES;
+                    imageV.Parameter = dic;
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
+                    [imageV addGestureRecognizer:tap];
+                    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:imageV];
+                    [leftItemsArray addObject:item];
+                }
+                self.navigationItem.leftBarButtonItems = [leftItemsArray copy];
+            }
+            
+            NSArray *rightArray = dataDic[@"right"];
+            if (rightArray.count > 0) {
+                NSMutableArray *rightItemsArray = [NSMutableArray new];
+                rightArray = [[rightArray reverseObjectEnumerator] allObjects];
+                for (NSInteger i = 0; i < rightArray.count; i ++) {
+                    NSDictionary *dic = rightArray[i];
+                    [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
+                    NavImageView *imageV = [[NavImageView alloc]init];
+                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
+                    imageV.userInteractionEnabled = YES;
+                    imageV.Parameter = dic;
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
+                    [imageV addGestureRecognizer:tap];
+                    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:imageV];
+                    [rightItemsArray addObject:item];
+                }
+                self.navigationItem.rightBarButtonItems = rightItemsArray;
+            }
+        }
+    }
+}
+
 #pragma mark - Events
 
 - (void)tableBarAction:(UITapGestureRecognizer *)tap {
@@ -381,15 +425,7 @@
         NSDictionary *dic = (NSDictionary *)imageView.Parameter;
         SEL selecter = NSSelectorFromString(dic[@"func"]);
         if ([self respondsToSelector:selecter]) {
-            NSDictionary *data = nil;
-            if ([dic[@"func"] isEqualToString:@"openNative:"]) {
-                data = dic[@"vars"];
-            }
-            
-            if ([dic[@"func"] isEqualToString:@"openH5:"]) {
-                data = dic[@"vars"];
-                
-            }
+            NSDictionary *data = dic[@"vars"];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self performSelector:selecter withObject:data];

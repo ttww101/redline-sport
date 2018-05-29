@@ -14,6 +14,8 @@
 
 @interface ToolWebViewController : BasicViewController
 
+@property (nonatomic, strong) UIWebView *webView;
+
 @property (nonatomic, copy) NSString *webTitle;
 
 @property (nonatomic, copy) NSString *html5Url;

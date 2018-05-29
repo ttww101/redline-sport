@@ -124,6 +124,10 @@ static CGFloat imageHeight = 80.f;
 #pragma mark - Config Activity
 
 - (void)configActivityEntrance {
+    if (self.recordView) {
+        [self.recordView removeFromSuperview];
+        self.recordView = nil;
+    }
     NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
     for (NSDictionary *dic in activityArray) {
         if (dic[@"main"]) {
@@ -132,7 +136,7 @@ static CGFloat imageHeight = 80.f;
             CGFloat windowWidth = Width / 5;
             UIView *recoverView = [[UIView alloc]initWithFrame:CGRectMake(windowWidth * 2, -21, windowWidth, imageHeight)];
             recoverView.clipsToBounds = YES;
-            recoverView.backgroundColor = [UIColor whiteColor];
+            recoverView.backgroundColor = [UIColor clearColor];
             UIImageView *activityView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, windowWidth, imageHeight)];
             activityView.contentMode = UIViewContentModeScaleAspectFill;
             activityView.clipsToBounds = YES;
@@ -148,8 +152,10 @@ static CGFloat imageHeight = 80.f;
             nav.tabBarItem.selectedImage = nil;
             break;
         } else {
-            [self.recordView removeFromSuperview];
-            self.recordView = nil;
+            if (self.recordView) {
+                [self.recordView removeFromSuperview];
+                self.recordView = nil;
+            }
         }
     }
 }
@@ -461,7 +467,7 @@ static CGFloat imageHeight = 80.f;
 #pragma mark -- UITabBarControllerDelegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
-    if ([self.viewControllers indexOfObject:viewController] == 2) {
+    if ([self.viewControllers indexOfObject:viewController] == 2 && self.recordView) {
         [self p_didSelectCenterTabBarItem];
         return NO;
     }
