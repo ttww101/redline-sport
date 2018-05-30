@@ -55,5 +55,7 @@
 // 模型链接
 @property (nonatomic , copy) NSString *modelType;
 
+@property (nonatomic , assign) BOOL fromTab;
+
 
 @end

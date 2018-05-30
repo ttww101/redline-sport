@@ -74,7 +74,6 @@
 		A96E170220A3E93B0092E763 /* register0_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96E16FE20A3E93A0092E763 /* register0_4@2x.png */; };
 		A96E170320A3E93B0092E763 /* register4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96E16FF20A3E93B0092E763 /* register4@3x.png */; };
 		A96F452C2091699700A6FF76 /* GQTbableConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A96F452B2091699700A6FF76 /* GQTbableConfig.m */; };
-		A96F45322091D6AF00A6FF76 /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96F45312091D6AF00A6FF76 /* BaseWebViewController.m */; };
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A97A2A0A20A0527600A9A83F /* NavImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A2A0920A0527600A9A83F /* NavImageView.m */; };
@@ -1217,8 +1216,6 @@
 		A96E16FF20A3E93B0092E763 /* register4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "register4@3x.png"; sourceTree = "<group>"; };
 		A96F452A2091699700A6FF76 /* GQTbableConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQTbableConfig.h; sourceTree = "<group>"; };
 		A96F452B2091699700A6FF76 /* GQTbableConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQTbableConfig.m; sourceTree = "<group>"; };
-		A96F45302091D6AF00A6FF76 /* BaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
-		A96F45312091D6AF00A6FF76 /* BaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		A9762874206C87A1007C79D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A9762883206C89EB007C79D1 /* AppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
@@ -6271,8 +6268,6 @@
 				EB8C1FA21F219A8C00A07863 /* refreshweb@2x.png */,
 				EB8C1FA31F219A8C00A07863 /* WebVC.h */,
 				EB8C1FA41F219A8C00A07863 /* WebVC.m */,
-				A96F45302091D6AF00A6FF76 /* BaseWebViewController.h */,
-				A96F45312091D6AF00A6FF76 /* BaseWebViewController.m */,
 				A97A2A0820A0527600A9A83F /* NavImageView.h */,
 				A97A2A0920A0527600A9A83F /* NavImageView.m */,
 				EB8C1FA51F219A8C00A07863 /* WKWebViewController.h */,
@@ -8262,7 +8257,6 @@
 				EB5BCF541F4186B200EF32E6 /* JSPLDownMode.m in Sources */,
 				A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */,
 				EB8C1EA11F21944C00A07863 /* DSCollectionViewIndex.m in Sources */,
-				A96F45322091D6AF00A6FF76 /* BaseWebViewController.m in Sources */,
 				EB8C1EAE1F21944C00A07863 /* BettingVC.m in Sources */,
 				EB6BDA3F1F398B6300C9EA73 /* TongPeiPeiLvDTVC.m in Sources */,
 				A941D531206E1C23008CE14F /* NullTableViewCell.m in Sources */,

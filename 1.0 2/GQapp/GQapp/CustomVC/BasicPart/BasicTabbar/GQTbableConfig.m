@@ -53,8 +53,9 @@
                 model.webUrl = obj[@"url"];
                 model.parameter = @{@"nav": obj[@"nav"]};
                 model.hideNavigationBar = [obj[@"nav_hidden"] integerValue];
+                model.fromTab = YES;
                 [dataArray addObject:@{
-                                       GQTableBarControllerName : @"BaseWebViewController",
+                                       GQTableBarControllerName : @"ToolWebViewController",
                                        GQTabBarItemTitle : obj[@"title"],
                                        GQTabBarItemImage : [defaultImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
                                        GQTabBarItemSelectedImage : [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],

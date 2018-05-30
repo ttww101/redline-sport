@@ -16,8 +16,6 @@
 #import "MineViewController.h"
 #import "UITabBar+badge.h"
 #import "DCNavViewController.h"
-#import "BaseWebViewController.h"
-
 #import "TuijianDetailVC.h"
 #import "ToolWebViewController.h"
 #import <AFNetworking/AFNetworking.h>
@@ -433,15 +431,12 @@ static CGFloat imageHeight = 80.f;
                                 tag:(NSInteger)tag
                               webModel:(WebModel *)model {
     Class targetClass = NSClassFromString(vcStr);
-    BaseWebViewController *target = [[targetClass alloc]init];
+    ToolWebViewController *target = [[targetClass alloc]init];
     target.model = model;
     DCNavViewController *nav = [[DCNavViewController alloc] initWithRootViewController:target];
     nav.interactivePopGestureRecognizer.delegate = self;
     [self addChildViewController:nav];
 }
-
-
-
 
 - (void)setupTabBarStyle
 {

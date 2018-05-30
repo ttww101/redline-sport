@@ -36,26 +36,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
-    
-    if (_webView) {
-        [_webView removeFromSuperview];
-        _webView = nil;
-    }
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
+    [self configWebHeight];
+    if (self.bridge) {
+        [self.bridge callHandler:@"onBack"];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)loadBradgeHandler {
     __weak ToolWebViewController *weakSelf = self;
-    WebViewJavascriptBridge *bridge = [[AppManger shareInstance]registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
+    AppManger *manger = [[AppManger alloc]init];
+    WebViewJavascriptBridge *bridge = [manger registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
         if (responseCallback) {
             weakSelf.callBack = responseCallback;
         }
@@ -71,22 +78,9 @@
     }];
     
     [bridge setWebViewDelegate:self];
+    self.bridge = bridge;
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-       
-    }
-}
 
 #pragma mark - Load Data
 
@@ -115,11 +109,16 @@
 
 #pragma mark - Config UI
 
+- (void)configWebHeight {
+    if (self.navigationController.navigationBarHidden) {
+        self.webView.frame = CGRectMake(0, 0, self.view.width, Height - (_model.fromTab ? 49:0));
+    } else {
+        self.webView.frame = CGRectMake(0, 0, self.view.width, Height - 64 - (_model.fromTab ? 49:0));
+    }
+}
+
 - (void)configUI {
     [self.view addSubview:self.webView];
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
     self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
     
@@ -148,8 +147,10 @@
                     NSDictionary *dic = leftArray[i];
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
                     NavImageView *imageV = [[NavImageView alloc]init];
-                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    imageV.frame = CGRectMake(i * 44, 0, 44, 44);
                     [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
+                    imageV.image = [imageV.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+                    imageV.clipsToBounds = YES;
                     imageV.userInteractionEnabled = YES;
                     imageV.Parameter = dic;
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
@@ -167,7 +168,7 @@
                     NSDictionary *dic = rightArray[i];
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
                     NavImageView *imageV = [[NavImageView alloc]init];
-                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    imageV.frame = CGRectMake(i * 44, 0, 44, 44);
                     [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
                     imageV.userInteractionEnabled = YES;
                     imageV.Parameter = dic;
@@ -201,7 +202,13 @@
     
 }
 
-#pragma mark - Private Method
+#pragma mark - JSHandle
+
+- (void)back:(id)parameter {
+    if ([parameter integerValue] == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 - (void)openH5:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
@@ -213,66 +220,6 @@
         ToolWebViewController *control = [[ToolWebViewController alloc]init];
         control.model = webModel;
         [self.navigationController pushViewController:control animated:YES];
-    }
-}
-
-- (void)pushToMatchDetail:(NSDictionary *)parameter {
-    NSDictionary *v = parameter[@"v"];
-    [self toFenxiWithMatchId:v[@"id"] toPageindex:[v[@"linkType"] integerValue] toItemIndex:[v[@"currentIndex"] integerValue]];
-    
-}
-//loop 跳转分析页
-- (void)toFenxiWithMatchId:(NSString *)idID toPageindex:(NSInteger)pageIndex toItemIndex:(NSInteger)itemIndex;
-{
-    //index 1 基本面 2 情报面 3 推荐
-    
-    if (!_isToFenxi == YES) {
-        _isToFenxi = YES;
-        
-        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
-        if (idID== nil) {
-            idID = @"";
-        }
-        [parameter setObject:@"3" forKey:@"flag"];
-        [parameter setObject:idID forKey:@"sid"];
-        [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveScores] Start:^(id requestOrignal) {
-            
-        } End:^(id responseOrignal) {
-            
-        } Success:^(id responseResult, id responseOrignal) {
-            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-                
-                LiveScoreModel *model = [LiveScoreModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
-                //从首页跳转分析页的时候不用反转
-                model.neutrality = NO;
-                FenxiPageVC *fenxiVC = [[FenxiPageVC alloc] init];
-                fenxiVC.model = model;
-                
-                fenxiVC.segIndex = itemIndex;
-                fenxiVC.currentIndex = pageIndex;
-                
-                fenxiVC.hidesBottomBarWhenPushed = YES;
-                [APPDELEGATE.customTabbar pushToViewController:fenxiVC animated:YES];
-                
-            }
-            _isToFenxi = NO;
-            
-            
-        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-            _isToFenxi = NO;
-            
-        }];
-        
-    }else{
-
-    }
-}
-
-#pragma mark - JSHandle
-
-- (void)back:(id)parameter {
-    if ([parameter integerValue] == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -373,6 +320,7 @@
         NSDictionary *dataDic = (NSDictionary *)data;
         BOOL nav_hidden = dataDic[@"nav_hidden"];
         [self.navigationController setNavigationBarHidden:nav_hidden animated:YES];
+        [self configWebHeight];
         if (!nav_hidden) {
             self.navigationItem.title = dataDic[@"title"];
             NSArray *leftArray = dataDic[@"left"];
@@ -382,7 +330,7 @@
                     NSDictionary *dic = leftArray[i];
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
                     NavImageView *imageV = [[NavImageView alloc]init];
-                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    imageV.frame = CGRectMake(i * 44, 0, 44, 44);
                     [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
                     imageV.userInteractionEnabled = YES;
                     imageV.Parameter = dic;
@@ -402,7 +350,7 @@
                     NSDictionary *dic = rightArray[i];
                     [[SDImageCache sharedImageCache]removeImageForKey:dic[@"icon"]];
                     NavImageView *imageV = [[NavImageView alloc]init];
-                    imageV.frame = CGRectMake(i * 22, 0, 22, 22);
+                    imageV.frame = CGRectMake(i * 44, 0, 44, 44);
                     [imageV sd_setImageWithURL:[NSURL URLWithString:dic[@"icon"]] placeholderImage:[UIImage imageNamed:dic[@"icon"]]];
                     imageV.userInteractionEnabled = YES;
                     imageV.Parameter = dic;
@@ -414,6 +362,60 @@
                 self.navigationItem.rightBarButtonItems = rightItemsArray;
             }
         }
+    }
+}
+
+#pragma mark - Private Method
+
+- (void)pushToMatchDetail:(NSDictionary *)parameter {
+    NSDictionary *v = parameter[@"v"];
+    [self toFenxiWithMatchId:v[@"id"] toPageindex:[v[@"linkType"] integerValue] toItemIndex:[v[@"currentIndex"] integerValue]];
+    
+}
+//loop 跳转分析页
+- (void)toFenxiWithMatchId:(NSString *)idID toPageindex:(NSInteger)pageIndex toItemIndex:(NSInteger)itemIndex;
+{
+    //index 1 基本面 2 情报面 3 推荐
+    
+    if (!_isToFenxi == YES) {
+        _isToFenxi = YES;
+        
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+        if (idID== nil) {
+            idID = @"";
+        }
+        [parameter setObject:@"3" forKey:@"flag"];
+        [parameter setObject:idID forKey:@"sid"];
+        [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveScores] Start:^(id requestOrignal) {
+            
+        } End:^(id responseOrignal) {
+            
+        } Success:^(id responseResult, id responseOrignal) {
+            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+                
+                LiveScoreModel *model = [LiveScoreModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
+                //从首页跳转分析页的时候不用反转
+                model.neutrality = NO;
+                FenxiPageVC *fenxiVC = [[FenxiPageVC alloc] init];
+                fenxiVC.model = model;
+                
+                fenxiVC.segIndex = itemIndex;
+                fenxiVC.currentIndex = pageIndex;
+                
+                fenxiVC.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:fenxiVC animated:YES];
+                
+            }
+            _isToFenxi = NO;
+            
+            
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+            _isToFenxi = NO;
+            
+        }];
+        
+    }else{
+
     }
 }
 
@@ -707,7 +709,7 @@
 {
     if (!_webView)
     {
-        _webView = [[UIWebView alloc]init];
+        _webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
         _webView.delegate = self;
         _webView.backgroundColor = [UIColor whiteColor];
         _webView.scrollView.showsVerticalScrollIndicator = NO;
