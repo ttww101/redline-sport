@@ -28,6 +28,8 @@
 #import "FenXiHeaderBottomView.h"
 #import "SRWebSocket.h"
 #import "RecommendedWebView.h"
+#import "ArchiveFile.h"
+#import "ToolWebViewController.h"
 
 @interface FenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate>
 
@@ -72,6 +74,10 @@
 @property (nonatomic, strong) UILabel *labVS;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic,strong)SRWebSocket *webSocket;
+
+@property (nonatomic , strong) UIImageView *liveQuizImageView;
+@property (nonatomic , copy) NSDictionary *activityDic;
+
 @end
 
 @implementation FenxiPageVC
@@ -143,7 +149,7 @@
         //        _btnFabu.hidden = YES;
         _btnFabuTuijian.tag = 2;
         
-        [self.view addSubview:_btnFabuTuijian];
+//        [self.view addSubview:_btnFabuTuijian];
         
         
         _btnFabu = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -158,11 +164,12 @@
         _btnFabu.tag = 1;
         
         
-        [self.view addSubview:_btnFabu];
-        
-        
-        
+//        [self.view addSubview:_btnFabu];
+    
     }
+    
+    
+    [self.view addSubview:self.liveQuizImageView];
     
     
 }
@@ -183,6 +190,10 @@
     }
     
     [self.recommendWeb reloadData];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self loadLiveData];
+    });
 
 }
 - (void)viewDidDisappear:(BOOL)animated
@@ -1121,15 +1132,148 @@
 }
 
 
+#pragma mark - ------
 
-/*
-#pragma mark - Navigation
+/**
+ 
+ *  处理拖动手势
+ 
+ *
+ 
+ *  @param recognizer 拖动手势识别器对象实例
+ 
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+    //视图前置操作
+    
+    [recognizer.view.superview bringSubviewToFront:recognizer.view];
+    CGPoint center = recognizer.view.center;
+    CGFloat cornerRadius = recognizer.view.frame.size.width / 2;
+    CGPoint translation = [recognizer translationInView:self.view];
+    
+    CGFloat centerY = center.y + translation.y;
+    CGFloat centerX = center.x + translation.x;
+    // 下边界
+    if (centerY > self.view.height - self.navigationController.tabBarController.tabBar.height -  recognizer.view.frame.size.width / 2) {
+        centerY = self.view.height - self.navigationController.tabBarController.tabBar.height -  recognizer.view.frame.size.width / 2;
+    }
+    // 上边界
+    if (centerY < cornerRadius) {
+        centerY = cornerRadius;
+    }
+    // 左边界
+    if (centerX < cornerRadius) {
+        centerX = cornerRadius;
+    }
+    // 右边界
+    if (centerX > Width  - cornerRadius) {
+        centerX = Width  - cornerRadius;
+    }
+    
+    recognizer.view.center = CGPointMake(centerX, centerY);
+    [recognizer setTranslation:CGPointZero inView:self.view];
+    
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        
+        if (centerX > recognizer.view.superview.width / 2) {
+            centerX = recognizer.view.superview.width - cornerRadius - 5;
+        } else {
+            centerX = cornerRadius + 5;
+        }
+        
+        CGPoint centerPoint = CGPointMake(centerX, centerY);
+        [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            recognizer.view.center = centerPoint;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    
 }
-*/
+
+- (void)loadLiveData {
+    NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
+    if (activityArray.count > 0) {
+        for (NSDictionary *dic in activityArray) {
+            if (dic[@"matchDetail"]) {
+                NSDictionary *itemDic = dic[@"matchDetail"];
+                self.activityDic = itemDic;
+                [self.liveQuizImageView sd_setImageWithURL:[NSURL URLWithString:itemDic[@"icon"]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.liveQuizImageView.hidden = false;
+                });
+                break;
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    if (self.model.matchstate ==0) {
+                        self.liveQuizImageView.hidden = false;
+                        self.liveQuizImageView.image = [UIImage imageNamed:@"fabunewtuijian"];
+                    } else {
+                        self.liveQuizImageView.hidden = YES;
+                    }
+                    
+                });
+            }
+        }
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.model.matchstate ==0) {
+                self.liveQuizImageView.hidden = false;
+                self.liveQuizImageView.image = [UIImage imageNamed:@"fabunewtuijian"];
+            } else {
+                self.liveQuizImageView.hidden = YES;
+            }
+        });
+    }
+    
+}
+
+#pragma mark - Events
+
+- (void)liveQuziAction:(UITapGestureRecognizer *)tap {
+    if (self.activityDic) {
+        WebModel *model = [[WebModel alloc]init];
+        model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
+        model.hideNavigationBar = YES;
+        ToolWebViewController *controller = [[ToolWebViewController alloc]init];
+        controller.model = model;
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        //发布推荐按钮
+        if (![Methods login]) {
+            [Methods toLogin];
+            return;
+        }
+        
+        [[DependetNetMethods sharedInstance] loadUserInfocompletion:^(UserModel *userback) {
+            [self toapplyAnalasis];
+        } errorMessage:^(NSString *msg) {
+            [self toapplyAnalasis];
+            
+        }];
+    }
+    
+}
+
+#pragma mark - Lazy Load
+
+- (UIImageView *)liveQuizImageView {
+    if (_liveQuizImageView == nil) {
+        _liveQuizImageView = [UIImageView new];
+        _liveQuizImageView.frame = CGRectMake(Width - 80, 4 * (Height / 5), 70, 70);
+        _liveQuizImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _liveQuizImageView.clipsToBounds = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(liveQuziAction:)];
+        [_liveQuizImageView addGestureRecognizer:tap];
+        _liveQuizImageView.userInteractionEnabled = YES;
+        _liveQuizImageView.hidden = YES;
+        UIPanGestureRecognizer *panTouch = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
+        [_liveQuizImageView addGestureRecognizer:panTouch];
+    }
+    return _liveQuizImageView;
+}
 
 @end

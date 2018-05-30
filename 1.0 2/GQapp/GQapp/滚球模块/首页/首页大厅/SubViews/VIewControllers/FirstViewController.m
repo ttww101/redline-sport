@@ -1937,7 +1937,7 @@
 - (UIImageView *)liveQuizImageView {
     if (_liveQuizImageView == nil) {
         _liveQuizImageView = [UIImageView new];
-        _liveQuizImageView.frame = CGRectMake(Width - 55, 2 * (Height / 3), 50, 50);
+        _liveQuizImageView.frame = CGRectMake(Width - 80, 2 * (Height / 3), 70, 70);
         _liveQuizImageView.contentMode = UIViewContentModeScaleAspectFill;
         _liveQuizImageView.clipsToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(liveQuziAction:)];

@@ -29,6 +29,8 @@
 
 @property (nonatomic , assign) BOOL isToFenxi;
 
+@property (nonatomic, assign) BOOL isBack;
+
 
 @end
 
@@ -45,9 +47,16 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     [self configWebHeight];
-    if (self.bridge) {
-        [self.bridge callHandler:@"onBack"];
+    if (self.isBack) {
+        [self.bridge callHandler:@"fireEvent" data:@"back" responseCallback:^(id responseData) {
+            
+        }];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.isBack = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
