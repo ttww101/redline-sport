@@ -107,10 +107,7 @@ static CGFloat imageHeight = 50;
         self.centerControl.content = [NSString stringWithFormat:@"关注:0"];
         self.rightControl.content = [NSString stringWithFormat:@"粉丝:0"];
     }
-    
-    
-    
-    
+
 }
 
 #pragma mark - Config UI

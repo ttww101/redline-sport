@@ -1431,14 +1431,12 @@
         case 1:
         {
             //            网页
-            
-            //跳转网页
-            WebDetailViewController *webDetailVC = [[WebDetailViewController alloc] init];
-            webDetailVC.urlTitle = fmodel.title;
-            webDetailVC.url = fmodel.url2;
-            webDetailVC.urlId = [NSString stringWithFormat:@"%ld",fmodel.idId];
-            webDetailVC.hidesBottomBarWhenPushed = YES;
-            [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            WebModel *webModel = [[WebModel alloc]init];
+            webModel.title = fmodel.title;
+            webModel.webUrl = fmodel.url2;
+            ToolWebViewController *control = [[ToolWebViewController alloc]init];
+            control.model = webModel;
+            [self.navigationController pushViewController:control animated:YES];
             
         }
             break;
@@ -1454,7 +1452,6 @@
         case 3:
         {
             //          更新版本
-            
             
         }
             break;
@@ -1495,8 +1492,6 @@
         default:
             break;
     }
-    
-    
     
 }
 

@@ -598,13 +598,20 @@ static CGFloat imageHeight = 80.f;
                 
             case 5:
             {
-                WebModel *webModel = [[WebModel alloc]init];
-                webModel.title = @"";
-                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/message.html?index=0", APPDELEGATE.url_ip];
-                ToolWebViewController *control = [[ToolWebViewController alloc]init];
-                control.model = webModel;
-                webModel.hideNavigationBar = YES;
-                [currentControl.navigationController pushViewController:control animated:YES];
+                
+                TuijianDetailVC *tuijianDT = [[TuijianDetailVC alloc] init];
+                tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
+                tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellDanchang;
+                tuijianDT.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
+                
+//                WebModel *webModel = [[WebModel alloc]init];
+//                webModel.title = @"";
+//                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/message.html?index=0", APPDELEGATE.url_ip];
+//                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+//                control.model = webModel;
+//                webModel.hideNavigationBar = YES;
+//                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
@@ -638,6 +645,22 @@ static CGFloat imageHeight = 80.f;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
+            }
+                break;
+                
+            case 9: {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
+            }
+                break;
+                
+            case 10: {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:0 toItemIndex:0];
+            }
+                
+                break;
+                
+            case 11: {
+                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:1 toItemIndex:0];
             }
                 break;
                 
@@ -686,22 +709,19 @@ static CGFloat imageHeight = 80.f;
             }
                 break;
                 
-                
-            case 9: {
-                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
+            case 16: {
+                WebModel *webModel = [[WebModel alloc]init];
+                webModel.title = @"爆冷";
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/blmode.html", APPDELEGATE.url_ip];
+                webModel.showBuyBtn = YES;
+                ToolWebViewController *control = [[ToolWebViewController alloc]init];
+                control.model = webModel;
+                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
                 
-            case 10: {
-                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:0 toItemIndex:0];
-            }
                 
-                break;
-                
-            case 11: {
-                [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:1 toItemIndex:0];
-            }
-                break;
+            
             default:
                 break;
         }
