@@ -78,6 +78,7 @@
 		A9762875206C87A1007C79D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9762874206C87A1007C79D1 /* StoreKit.framework */; };
 		A9762885206C89EB007C79D1 /* AppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* AppleIAPService.m */; };
 		A97A2A0A20A0527600A9A83F /* NavImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A2A0920A0527600A9A83F /* NavImageView.m */; };
+		A98632D020BE56800021DAFA /* RecommendedWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98632CF20BE56800021DAFA /* RecommendedWebView.m */; };
 		A988D78D208849EC0023D9E2 /* AppManger.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78C208849EC0023D9E2 /* AppManger.m */; };
 		A988D790208870CA0023D9E2 /* JSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78F208870CA0023D9E2 /* JSModel.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
@@ -1223,6 +1224,8 @@
 		A9762884206C89EB007C79D1 /* AppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleIAPService.m; sourceTree = "<group>"; };
 		A97A2A0820A0527600A9A83F /* NavImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavImageView.h; sourceTree = "<group>"; };
 		A97A2A0920A0527600A9A83F /* NavImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavImageView.m; sourceTree = "<group>"; };
+		A98632CE20BE56800021DAFA /* RecommendedWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendedWebView.h; sourceTree = "<group>"; };
+		A98632CF20BE56800021DAFA /* RecommendedWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendedWebView.m; sourceTree = "<group>"; };
 		A988D78B208849EC0023D9E2 /* AppManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppManger.h; sourceTree = "<group>"; };
 		A988D78C208849EC0023D9E2 /* AppManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppManger.m; sourceTree = "<group>"; };
 		A988D78E208870CA0023D9E2 /* JSModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSModel.h; sourceTree = "<group>"; };
@@ -5293,6 +5296,8 @@
 				EB8C1D671F21944B00A07863 /* NewTuijianHtml.m */,
 				EB8C1D681F21944B00A07863 /* NewZhiBoWebView.h */,
 				EB8C1D691F21944B00A07863 /* NewZhiBoWebView.m */,
+				A98632CE20BE56800021DAFA /* RecommendedWebView.h */,
+				A98632CF20BE56800021DAFA /* RecommendedWebView.m */,
 				EB8C202D1F21A44D00A07863 /* NewZhiShuWebVC.m */,
 				EB8C202E1F21A44D00A07863 /* NewZhiShuWebVC.h */,
 				EB8C20301F21A4EF00A07863 /* BifenDTTable.m */,
@@ -8273,6 +8278,7 @@
 				EB42A2471F14DAEB00413207 /* UIImage+ScreenPic.m in Sources */,
 				EB8C1EC61F21944C00A07863 /* RedDanCell.m in Sources */,
 				EB8C1E841F21944C00A07863 /* NewQingbaoTableView.m in Sources */,
+				A98632D020BE56800021DAFA /* RecommendedWebView.m in Sources */,
 				EB8C200D1F219DD100A07863 /* DC_JZAPhotoVC.m in Sources */,
 				EB6BDA4B1F39A2B000C9EA73 /* TongpeiPeilvChangeTItleView.m in Sources */,
 				EBF439301E9F56A90050AAE8 /* DCImageViewRoundCorner.m in Sources */,

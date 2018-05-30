@@ -27,6 +27,8 @@
 #import "ToAnalystsVC.h"
 #import "FenXiHeaderBottomView.h"
 #import "SRWebSocket.h"
+#import "RecommendedWebView.h"
+
 @interface FenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate>
 
 
@@ -45,6 +47,8 @@
 @property (nonatomic, strong) TuijianDatingTableView *tuiJianTable;
 @property (nonatomic, strong) JiBenWebView *webView;
 @property (nonatomic, strong) NewTuijianHtml *webViewZhiShu;//指数
+@property (nonatomic, strong) RecommendedWebView *recommendWeb;
+
 
 @property (nonatomic, strong) ZhiboTableView *webZhiBo;//直播的页面
 //@property (nonatomic, strong) NewZhiBoWebView *webZhiBo;//直播的页面
@@ -82,6 +86,87 @@
 {
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    _mainTableCanscroll = YES;
+    
+    [[UINavigationBar appearance]setTranslucent:NO];
+    [[UITabBar appearance]setTranslucent:NO];
+    
+    if (!self.currentIndex) {
+        self.currentIndex = 0;
+    }
+    self.view .backgroundColor = [UIColor whiteColor];
+    _isShareQB = 0;
+    
+    _typeNum = 1;
+    [self.scrollMainView setContentOffset:CGPointMake(self.currentIndex * Width,0) animated:NO];
+    [self.titleView updateSelectedIndex:self.currentIndex];
+    //    self.delegate = self;
+    self.headerView.imageRight.hidden = YES;
+    _nav.btnRight.hidden = YES;
+    [self.view addSubview:self.tableView];
+    [self setNavView];
+    [self lodaDataAnalysisQB];
+    [self lodaDataTiDian];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderData:) name:@"NSNotificationupdateHeaderData" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTableViewFrame) name:@"changeTableViewFrame" object:nil];
+    
+    
+    if (self.model.matchstate ==0) {
+        
+        //        UIImage *imageFabu = [UIImage imageNamed:@"fabuJingcai"];
+        
+        //        _btnFabuJingcai = [UIButton buttonWithType:UIButtonTypeCustom];
+        //        _btnFabuJingcai.frame = CGRectMake(Width - 40 - 34, Height - 35 - 40 , 30, 30);
+        //        [_btnFabuJingcai setBackgroundImage:[UIImage imageNamed:@"fabuJingcai"] forState:UIControlStateNormal];
+        //        [_btnFabuJingcai setBackgroundImage:[UIImage imageNamed:@"fabuJingcai"] forState:UIControlStateHighlighted];
+        //
+        //        [_btnFabuJingcai addTarget:self action:@selector(btnFabuCilick:) forControlEvents:UIControlEventTouchUpInside];
+        //        //        _btnFabu.hidden = YES;
+        //        _btnFabuJingcai.tag = 3;
+        //        _btnFabuJingcai.hidden=YES;
+        //
+        //        [self.view addSubview:_btnFabuJingcai];
+        
+        
+        
+        _btnFabuTuijian = [UIButton buttonWithType:UIButtonTypeCustom];
+        _btnFabuTuijian.frame = CGRectMake(Width - 40 - 34, Height - 35 - 40 , 70, 70);
+        [_btnFabuTuijian setBackgroundImage:[UIImage imageNamed:@"fabunewtuijian"] forState:UIControlStateNormal];
+        [_btnFabuTuijian setBackgroundImage:[UIImage imageNamed:@"fabunewtuijian"] forState:UIControlStateHighlighted];
+        
+        [_btnFabuTuijian addTarget:self action:@selector(btnFabuCilick:) forControlEvents:UIControlEventTouchUpInside];
+        //        _btnFabu.hidden = YES;
+        _btnFabuTuijian.tag = 2;
+        
+        [self.view addSubview:_btnFabuTuijian];
+        
+        
+        _btnFabu = [UIButton buttonWithType:UIButtonTypeCustom];
+        _btnFabu.frame = CGRectMake(Width - 40 - 34, Height - 35 - 40 , 40, 40);
+        _btnFabuJingcai.center = _btnFabu.center;
+        _btnFabuTuijian.center = _btnFabu.center;
+        [_btnFabu setBackgroundImage:[UIImage imageNamed:@"addJingcai"] forState:UIControlStateNormal];
+        [_btnFabu setBackgroundImage:[UIImage imageNamed:@"addJingcaiS"] forState:UIControlStateSelected];
+        
+        [_btnFabu addTarget:self action:@selector(btnFabuCilick:) forControlEvents:UIControlEventTouchUpInside];
+        _btnFabu.hidden = YES;
+        _btnFabu.tag = 1;
+        
+        
+        [self.view addSubview:_btnFabu];
+        
+        
+        
+    }
+    
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -96,6 +181,8 @@
     }else{
     
     }
+    
+    [self.recommendWeb reloadData];
 
 }
 - (void)viewDidDisappear:(BOOL)animated
@@ -293,86 +380,6 @@
     }
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    _mainTableCanscroll = YES;
-    
-    [[UINavigationBar appearance]setTranslucent:NO];
-    [[UITabBar appearance]setTranslucent:NO];
-
-    if (!self.currentIndex) {
-        self.currentIndex = 0;
-    }
-    self.view .backgroundColor = [UIColor whiteColor];
-    _isShareQB = 0;
-    
-    _typeNum = 1;
-    [self.scrollMainView setContentOffset:CGPointMake(self.currentIndex * Width,0) animated:NO];
-    [self.titleView updateSelectedIndex:self.currentIndex];
-//    self.delegate = self;
-    self.headerView.imageRight.hidden = YES;
-    _nav.btnRight.hidden = YES;
-    [self.view addSubview:self.tableView];
-    [self setNavView];
-    [self lodaDataAnalysisQB];
-    [self lodaDataTiDian];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderData:) name:@"NSNotificationupdateHeaderData" object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTableViewFrame) name:@"changeTableViewFrame" object:nil];
-    
-    
-    if (self.model.matchstate ==0) {
-        
-//        UIImage *imageFabu = [UIImage imageNamed:@"fabuJingcai"];
-        
-//        _btnFabuJingcai = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _btnFabuJingcai.frame = CGRectMake(Width - 40 - 34, Height - 35 - 40 , 30, 30);
-//        [_btnFabuJingcai setBackgroundImage:[UIImage imageNamed:@"fabuJingcai"] forState:UIControlStateNormal];
-//        [_btnFabuJingcai setBackgroundImage:[UIImage imageNamed:@"fabuJingcai"] forState:UIControlStateHighlighted];
-//        
-//        [_btnFabuJingcai addTarget:self action:@selector(btnFabuCilick:) forControlEvents:UIControlEventTouchUpInside];
-//        //        _btnFabu.hidden = YES;
-//        _btnFabuJingcai.tag = 3;
-//        _btnFabuJingcai.hidden=YES;
-//
-//        [self.view addSubview:_btnFabuJingcai];
-
-        
-        
-        _btnFabuTuijian = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnFabuTuijian.frame = CGRectMake(Width - 40 - 34, Height - 35 - 40 , 70, 70);
-        [_btnFabuTuijian setBackgroundImage:[UIImage imageNamed:@"fabunewtuijian"] forState:UIControlStateNormal];
-        [_btnFabuTuijian setBackgroundImage:[UIImage imageNamed:@"fabunewtuijian"] forState:UIControlStateHighlighted];
-        
-        [_btnFabuTuijian addTarget:self action:@selector(btnFabuCilick:) forControlEvents:UIControlEventTouchUpInside];
-        //        _btnFabu.hidden = YES;
-        _btnFabuTuijian.tag = 2;
-
-        [self.view addSubview:_btnFabuTuijian];
-
-        
-        _btnFabu = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnFabu.frame = CGRectMake(Width - 40 - 34, Height - 35 - 40 , 40, 40);
-        _btnFabuJingcai.center = _btnFabu.center;
-        _btnFabuTuijian.center = _btnFabu.center;
-        [_btnFabu setBackgroundImage:[UIImage imageNamed:@"addJingcai"] forState:UIControlStateNormal];
-        [_btnFabu setBackgroundImage:[UIImage imageNamed:@"addJingcaiS"] forState:UIControlStateSelected];
-        
-        [_btnFabu addTarget:self action:@selector(btnFabuCilick:) forControlEvents:UIControlEventTouchUpInside];
-               _btnFabu.hidden = YES;
-        _btnFabu.tag = 1;
-        
-        
-        [self.view addSubview:_btnFabu];
-
-        
-        
-    }
-
-    
-}
 - (void)changeTableViewFrame
 {
     self.mainTableCanscroll = YES;
@@ -381,7 +388,9 @@
     self.webViewZhiShu.cellCanScroll = NO;
     self.webZhiBo.cellCanScroll = NO;
     self.NewQBTableView.cellCanScroll = NO;
-    self.tuiJianTable.cellCanScroll = NO;
+    
+//    self.tuiJianTable.cellCanScroll = NO;
+    self.recommendWeb.cellCanScroll = NO;
 
 }
 - (void)updateHeaderData:(NSNotification *)notific
@@ -552,7 +561,9 @@
         [self.scrollMainView addSubview:self.webView];
         [self.scrollMainView addSubview:self.webViewZhiShu];
         [_scrollMainView addSubview:self.NewQBTableView];
-        [_scrollMainView addSubview:self.tuiJianTable];
+        
+//        [_scrollMainView addSubview:self.tuiJianTable];
+        [_scrollMainView addSubview:self.recommendWeb];
 
         [_scrollMainView addSubview:self.webZhiBo];
         [self.webZhiBo addSegMent];
@@ -809,6 +820,18 @@
     }
     return _tuiJianTable;
 }
+
+- (RecommendedWebView *)recommendWeb {
+    if (_recommendWeb == nil) {
+        _recommendWeb = [[RecommendedWebView alloc]initWithFrame:CGRectMake(Width*3, 0, Width, _scrollMainView.height)];
+        WebModel *model = [[WebModel alloc]init];
+        model.webUrl = [NSString stringWithFormat:@"%@/appH5/tuijian-list.html?sid=%zi", APPDELEGATE.url_ip,_model.mid];
+        _recommendWeb.model = model;
+        _recommendWeb.tag = 33;
+    }
+    return _recommendWeb;
+}
+
 - (JiBenWebView *)webView{
     if (!_webView) {
         _webView = [[JiBenWebView alloc] initWithFrame:CGRectMake(0, 0, Width, _scrollMainView.height)];
@@ -937,7 +960,9 @@
                 self.webViewZhiShu.cellCanScroll = YES;
                 self.webZhiBo.cellCanScroll = YES;
                 self.NewQBTableView.cellCanScroll = YES;
-                self.tuiJianTable.cellCanScroll = YES;
+                
+//                self.tuiJianTable.cellCanScroll = YES;
+                self.recommendWeb.cellCanScroll = YES;
                 
             }
         }else{
@@ -1016,9 +1041,6 @@
 
     }];
 }
-
-
-
 
 #pragma mark ----- 请求情报的数据
 - (void)lodaDataAnalysisQB {
