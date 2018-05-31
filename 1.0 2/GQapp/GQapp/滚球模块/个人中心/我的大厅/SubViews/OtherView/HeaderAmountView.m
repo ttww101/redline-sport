@@ -65,20 +65,20 @@
     
     NSArray *itemArray = @[
                            @{
-                               @"icon":@"test",
+                               @"icon":@"income",
                                @"title":@"收入"
                              },
                            @{
-                               @"icon":@"test",
-                               @"title":@"滚球币"
+                               @"icon":@"gold",
+                               @"title":@"金币"
                             },
                            @{
-                               @"icon":@"test",
+                               @"icon":@"gift",
                                @"title":@"红包"
                                
                             },
                            @{
-                               @"icon":@"test",
+                               @"icon":@"Coupons",
                                @"title":@"优惠券"
                             }
                            ];

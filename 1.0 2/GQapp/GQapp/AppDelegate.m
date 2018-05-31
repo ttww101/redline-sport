@@ -113,7 +113,6 @@
     }
     
     
-
 //    [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone categories:nil]];//注册本地推送
 //    [self initLocalNotification];
     
@@ -512,7 +511,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceTokenStr"];
     
 //    正式环境
-//    APPDELEGATE.url_Server = @"http://mobile.gunqiu.com/interface/v3.1";
+//    APPDELEGATE.url_Server = @"http://mobile.gunqiu.com/interface/v3.5";
 //    APPDELEGATE.url_jsonHeader = @"http://mobile.gunqiu.com";
 //    APPDELEGATE.url_ServerWWW = @"http://www.gunqiu.com";
 //    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";

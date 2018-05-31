@@ -33,6 +33,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.webView addSubview:self.statusView];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
 #pragma mark - UIWebViewDelegate
@@ -72,11 +75,16 @@
 
 - (void)configNav {
     [self.navigationController setNavigationBarHidden:false animated:false];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"XX"] style:UIBarButtonItemStylePlain target:self action:@selector(actionBack)];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    btn.frame = CGRectMake(0, 0, 44, 44);
+    [btn addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = leftItem;
     
-    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
-    titleImageView.image = [UIImage imageNamed:@"tuijianDTPeilvSelected2"];
+    UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 18)];
+    titleImageView.image = [UIImage imageNamed:@"navimage"];
     self.navigationItem.titleView = titleImageView;
     
 }

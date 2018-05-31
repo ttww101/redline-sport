@@ -48,7 +48,8 @@
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     [self configWebHeight];
     if (self.isBack) {
-        [self.bridge callHandler:@"fireEvent" data:@"back" responseCallback:^(id responseData) {
+         NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
+        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
             
         }];
     }
@@ -213,6 +214,93 @@
 
 #pragma mark - JSHandle
 
+- (void)webBack {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)webShare:(id)data {
+    if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
+        NSDictionary *dic = (NSDictionary *)data;
+        NSString *title = dic[@"title"];
+        NSString *picurl = dic[@"picurl"];
+        NSString *des = dic[@"des"];
+        NSString *linkurl = dic[@"linkurl"];
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            
+            switch (platformType) {
+                case UMSocialPlatformType_Sina: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Sina]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装新浪客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_WechatSession: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatSession]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_WechatTimeLine: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatTimeLine]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_QQ: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_QQ]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                case UMSocialPlatformType_Qzone: {
+                    if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Qzone]) {
+                        [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
+                        return ;
+                    }
+                }
+                    break;
+                    
+                    
+                    
+                default:
+                    break;
+            }
+            
+            
+            //创建分享消息对象
+            UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+            //创建网页内容对象
+            UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:des thumImage:picurl];
+            //设置网页地址
+            shareObject.webpageUrl = linkurl;
+            //分享消息对象设置分享内容对象
+            messageObject.shareObject = shareObject;
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:[Methods help_getCurrentVC] completion:^(id data, NSError *error) {
+                if (error) {
+                    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareFailed", @"val":@(platformType)}];
+                    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                        
+                    }];
+                }else{
+                    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareSuccess", @"val":@(platformType)}];
+                    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                        
+                    }];
+                }
+            }];
+        }];
+    }
+}
+
 - (void)back:(id)parameter {
     if ([parameter integerValue] == 0) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -327,7 +415,7 @@
 - (void)nav:(id)data {
     if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
         NSDictionary *dataDic = (NSDictionary *)data;
-        BOOL nav_hidden = dataDic[@"nav_hidden"];
+        BOOL nav_hidden = [dataDic[@"nav_hidden"] integerValue];
         [self.navigationController setNavigationBarHidden:nav_hidden animated:YES];
         [self configWebHeight];
         if (!nav_hidden) {
@@ -375,6 +463,20 @@
 }
 
 #pragma mark - Private Method
+
+- (NSString *)getJSONMessage:(NSDictionary *)messageDic {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    //去掉字符串中的空格
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    //去掉字符串中的换行符
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    return mutStr;
+}
 
 - (void)pushToMatchDetail:(NSDictionary *)parameter {
     NSDictionary *v = parameter[@"v"];
@@ -707,7 +809,6 @@
         if (control.class == targetClass) {
             return control;
         }
-        
     }
     return nil;
 }
