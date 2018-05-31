@@ -51,7 +51,7 @@
                 WebModel *model = [[WebModel alloc]init];
                 model.title = obj[@"title"];
                 model.webUrl = obj[@"url"];
-                model.parameter = @{@"nav": obj[@"nav"]};
+                model.parameter = @{@"nav": PARAM_IS_NIL_ERROR(obj[@"nav"])};
                 model.hideNavigationBar = [obj[@"nav_hidden"] integerValue];
                 model.fromTab = YES;
                 [dataArray addObject:@{

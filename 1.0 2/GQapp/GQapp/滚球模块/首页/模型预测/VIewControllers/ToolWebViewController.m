@@ -149,6 +149,9 @@
         if ([_model.parameter isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dataDic = _model.parameter;
             NSDictionary *navDic = dataDic[@"nav"];
+            if (!([navDic isKindOfClass:[NSDictionary class]] && navDic.allKeys.count > 0)) {
+                return;
+            }
             NSArray *leftArray = navDic[@"left"];
             NSArray *rightArray = navDic[@"right"];
             if (leftArray.count > 0) {
