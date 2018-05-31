@@ -91,6 +91,9 @@ static CGFloat imageHeight = 50;
         self.leftControl.content = [NSString stringWithFormat:@"推荐:%zi",_model.recommendCount];
         self.centerControl.content = [NSString stringWithFormat:@"关注:%zi",_model.focusCount];
         self.rightControl.content = [NSString stringWithFormat:@"粉丝:%zi",_model.followerCount];
+        self.leftControl.hidden = false;
+        self.centerControl.hidden = false;
+        self.rightControl.hidden = false;
         
     } else {
         self.avatarImageView.image = [UIImage imageNamed:@"defaultPic"];
@@ -102,10 +105,9 @@ static CGFloat imageHeight = 50;
             [_amountView removeFromSuperview];
             _amountView = nil;
         }
-        
-        self.leftControl.content = [NSString stringWithFormat:@"推荐:0"];
-        self.centerControl.content = [NSString stringWithFormat:@"关注:0"];
-        self.rightControl.content = [NSString stringWithFormat:@"粉丝:0"];
+        self.leftControl.hidden = YES;
+        self.centerControl.hidden = YES;
+        self.rightControl.hidden = YES;
     }
 
 }
