@@ -96,7 +96,8 @@
         case 0: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"胜平负";
-            model.webUrl = [NSString stringWithFormat:@"%@/%@/cpspfmode.html", APPDELEGATE.url_ip,H5_Host];
+//            model.webUrl = [NSString stringWithFormat:@"%@/%@/cpspfmode.html", APPDELEGATE.url_ip,H5_Host];
+            model.webUrl = [NSString stringWithFormat:@"%@/appH5/cpspfmode.html", APPDELEGATE.url_ip];
             model.showBuyBtn = YES;
             ToolWebViewController *webControl = [[ToolWebViewController alloc]init];
             model.modelType = @"cpspfmode-pay.html";
@@ -108,7 +109,8 @@
         case 1: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"亚盘";
-            model.webUrl = [NSString stringWithFormat:@"%@/%@/cpyamode.html", APPDELEGATE.url_ip,H5_Host];
+//            model.webUrl = [NSString stringWithFormat:@"%@/%@/cpyamode.html", APPDELEGATE.url_ip,H5_Host];
+            model.webUrl = [NSString stringWithFormat:@"%@/appH5/cpyamode.html", APPDELEGATE.url_ip];
             model.showBuyBtn = YES;
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
             webDetailVC.model = model;
@@ -121,7 +123,8 @@
         case 2: {
             WebModel *model = [[WebModel alloc]init];
             model.title = @"大小球";
-            model.webUrl = [NSString stringWithFormat:@"%@/%@/dxmode.html", APPDELEGATE.url_ip,H5_Host];
+//            model.webUrl = [NSString stringWithFormat:@"%@/%@/dxmode.html", APPDELEGATE.url_ip,H5_Host];
+            model.webUrl = [NSString stringWithFormat:@"%@/appH5/dxmode.html", APPDELEGATE.url_ip];
             model.showBuyBtn = YES;
             model.modelType = @"dxmode-pay.html";
             ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
