@@ -206,6 +206,9 @@
 // 公共配置类
 #define url_ConfigjSon @"/initx.json"
 
+// h5地址拼接
+#define H5_Host @"appH5/v2"
+
 // 苹果内购验证
 
 #define url_purchase @"/pay/applepay/model" // 模型

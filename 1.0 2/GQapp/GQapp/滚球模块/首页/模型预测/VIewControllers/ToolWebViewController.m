@@ -561,12 +561,12 @@
             NSString *htmlStr = [array lastObject];
             NSArray *modelArray = [htmlStr componentsSeparatedByString:@"."];
             NSString *modelStr = [modelArray firstObject];
-            NSString *url= [NSString stringWithFormat:@"%@/appH5/%@-pay.html", APPDELEGATE.url_ip,modelStr];
+            NSString *url= [NSString stringWithFormat:@"%@/%@/%@-pay.html", APPDELEGATE.url_ip,H5_Host,modelStr];
             model.webUrl = url;
         }
 
     } else {
-          model.webUrl = [NSString stringWithFormat:@"%@/appH5/%@", APPDELEGATE.url_ip, _model.modelType];
+          model.webUrl = [NSString stringWithFormat:@"%@/%@/%@", APPDELEGATE.url_ip, H5_Host,_model.modelType];
     }
     
     ToolWebViewController *webControl = [[ToolWebViewController alloc]init];

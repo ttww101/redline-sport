@@ -217,7 +217,7 @@ static CGFloat imageHeight = 50;
     }
     WebModel *model = [[WebModel alloc]init];
     model.title = @"消息";
-    model.webUrl = [NSString stringWithFormat:@"%@/appH5/message.html", APPDELEGATE.url_ip];
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/message.html", APPDELEGATE.url_ip,H5_Host];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     model.hideNavigationBar = YES;
     webDetailVC.model = model;

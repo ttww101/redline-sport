@@ -836,7 +836,7 @@
     if (_recommendWeb == nil) {
         _recommendWeb = [[RecommendedWebView alloc]initWithFrame:CGRectMake(Width*3, 0, Width, _scrollMainView.height)];
         WebModel *model = [[WebModel alloc]init];
-        model.webUrl = [NSString stringWithFormat:@"%@/appH5/tuijian-list.html?sid=%zi", APPDELEGATE.url_ip,_model.mid];
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/tuijian-list.html?sid=%zi", APPDELEGATE.url_ip, H5_Host,_model.mid];
         _recommendWeb.model = model;
         _recommendWeb.tag = 33;
     }

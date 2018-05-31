@@ -460,7 +460,7 @@
     NSString *name = [NSString stringWithFormat:@"%@vs%@",_model.guestTeam, _model.homeTeam];
     name = [name xh_URLEncodedString];
     NSString *parameterPath = [NSString stringWithFormat:@"type=%@&name=%@&amount=%@&id=%@",@"1", name, amount, [NSString stringWithFormat:@"%zi",_modelId]];
-    NSString *url = [NSString stringWithFormat:@"%@/appH5/pay-for.html?%@", APPDELEGATE.url_ip, parameterPath];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/pay-for.html?%@", APPDELEGATE.url_ip, H5_Host,parameterPath];
     model.webUrl = url;
     model.hideNavigationBar = YES;
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];

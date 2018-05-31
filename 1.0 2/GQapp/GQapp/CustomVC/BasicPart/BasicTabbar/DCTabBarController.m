@@ -612,7 +612,7 @@ static CGFloat imageHeight = 70.f;
             case 6: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"胜平负";
-                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/spfmode.html", APPDELEGATE.url_ip];
+                webModel.webUrl = [NSString stringWithFormat:@"%@/%@/spfmode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
@@ -623,7 +623,7 @@ static CGFloat imageHeight = 70.f;
             case 7: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"亚盘";
-                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/yamode.html", APPDELEGATE.url_ip];;
+                webModel.webUrl = [NSString stringWithFormat:@"%@/%@/yamode.html", APPDELEGATE.url_ip,H5_Host];;
                 webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
@@ -634,7 +634,7 @@ static CGFloat imageHeight = 70.f;
             case 8: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"大小球";
-                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/dxmode.html", APPDELEGATE.url_ip];
+                webModel.webUrl = [NSString stringWithFormat:@"%@/%@/dxmode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
@@ -661,7 +661,7 @@ static CGFloat imageHeight = 70.f;
             case 12: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"胜平负";
-                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpspfmode.html", APPDELEGATE.url_ip];
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/cpspfmode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
@@ -672,7 +672,7 @@ static CGFloat imageHeight = 70.f;
             case 13: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"亚盘";
-                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/cpyamode.html", APPDELEGATE.url_ip];
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/cpyamode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
@@ -684,7 +684,7 @@ static CGFloat imageHeight = 70.f;
             case 14: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"";
-                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=2", APPDELEGATE.url_ip];
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/message.html?index=2", APPDELEGATE.url_ip,H5_Host];
                 webModel.hideNavigationBar = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
@@ -696,7 +696,7 @@ static CGFloat imageHeight = 70.f;
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"";
                 webModel.hideNavigationBar = YES;
-                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/message.html?index=1", APPDELEGATE.url_ip];
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/message.html?index=1", APPDELEGATE.url_ip,H5_Host];
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
@@ -706,7 +706,7 @@ static CGFloat imageHeight = 70.f;
             case 16: {
                 WebModel *webModel = [[WebModel alloc]init];
                 webModel.title = @"爆冷";
-                webModel.webUrl =  [NSString stringWithFormat:@"%@/appH5/blmode.html", APPDELEGATE.url_ip];
+                webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/blmode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ToolWebViewController *control = [[ToolWebViewController alloc]init];
                 control.model = webModel;
