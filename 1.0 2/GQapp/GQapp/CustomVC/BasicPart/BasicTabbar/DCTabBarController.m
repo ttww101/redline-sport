@@ -66,7 +66,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 
 @end
 
-static CGFloat imageHeight = 80.f;
+static CGFloat imageHeight = 70.f;
 
 @implementation DCTabBarController
 
@@ -132,7 +132,7 @@ static CGFloat imageHeight = 80.f;
             NSDictionary *itemDic = dic[@"main"];
             self.activityDic = itemDic;
             CGFloat windowWidth = Width / 5;
-            UIView *recoverView = [[UIView alloc]initWithFrame:CGRectMake(windowWidth * 2, -21, windowWidth, imageHeight)];
+            UIView *recoverView = [[UIView alloc]initWithFrame:CGRectMake(windowWidth * 2, -20, windowWidth, imageHeight)];
             recoverView.clipsToBounds = YES;
             recoverView.backgroundColor = [UIColor clearColor];
             UIImageView *activityView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, windowWidth, imageHeight)];
@@ -362,18 +362,7 @@ static CGFloat imageHeight = 80.f;
     return YES;
 }
 
-- (void)setupTabbarItems
-{
-    
-//    self.tabBar.tintColor = redcolor;
-//    self.tabBar.barTintColor = [UIColor whiteColor];
-    CGRect rect = self.tabBar.bounds; //这里要用bounds来加, 否则会加到下面去.看不见
-   
-    _taBar = [[CustmerTableBar alloc] init]; //设置代理必须改掉前面的类型,不能用UIView
-    _taBar.delegate = self; //设置代理
-    _taBar.frame = rect;
-    
-    NSMutableArray *itemArray = [NSMutableArray new];
+- (void)setupTabbarItems {
     [_tableBarItemArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSDictionary *dic = (NSDictionary *)obj;
         BOOL loadH5 = [dic[GQTabBarItemLoadH5] integerValue];
@@ -383,16 +372,12 @@ static CGFloat imageHeight = 80.f;
             [self addChildControllerWithVcStr:dic[GQTableBarControllerName] imageName:dic[GQTabBarItemImage] selectedImage:dic[GQTabBarItemSelectedImage] title:dic[GQTabBarItemTitle] tag:idx];
         }
         
-        NSDictionary *itemDic = @{
-                              @"image": dic[GQTabBarItemImage],
-                              @"selectedImage": dic[GQTabBarItemSelectedImage],
-                              @"title": dic[GQTabBarItemTitle]
-                              };
-        [itemArray addObject:itemDic];
     }];
-    [self loadTableBarViewWithArray:itemArray];
     
 }
+
+
+//  自定义 tableBar 暂时未用
 
 - (void)loadTableBarViewWithArray:(NSMutableArray *)array {
     [self.tabBar removeAllSubViews];
@@ -416,25 +401,38 @@ static CGFloat imageHeight = 80.f;
                       selectedImage:(UIImage *)selectedImage
                               title:(NSString *)title
                                 tag:(NSInteger)tag {
-    
+    UIEdgeInsets insets = UIEdgeInsetsMake(Zero, Zero, Zero, Zero);
     Class targetClass = NSClassFromString(vcStr);
     UIViewController *target = [[targetClass alloc]init];
+    target.tabBarItem.title = title;
+    target.tabBarItem.image = defaultImage;
+    target.tabBarItem.selectedImage = selectedImage;
     DCNavViewController *nav = [[DCNavViewController alloc] initWithRootViewController:target];
     nav.interactivePopGestureRecognizer.delegate = self;
+    nav.tabBarItem.imageInsets = insets;
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:redcolor} forState:UIControlStateSelected];
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
     [self addChildViewController:nav];
 }
 
 - (void)addChildWebControllerWithVcStr:(NSString *)vcStr
-                          imageName:(UIImage *)defaultImage
-                      selectedImage:(UIImage *)selectedImage
-                              title:(NSString *)title
-                                tag:(NSInteger)tag
+                             imageName:(UIImage *)defaultImage
+                         selectedImage:(UIImage *)selectedImage
+                                 title:(NSString *)title
+                                   tag:(NSInteger)tag
                               webModel:(WebModel *)model {
+    UIEdgeInsets insets = UIEdgeInsetsMake(Zero, Zero, Zero, Zero);
     Class targetClass = NSClassFromString(vcStr);
     ToolWebViewController *target = [[targetClass alloc]init];
+    target.tabBarItem.title = title;
     target.model = model;
+    target.tabBarItem.image = defaultImage;
+    target.tabBarItem.selectedImage = selectedImage;
     DCNavViewController *nav = [[DCNavViewController alloc] initWithRootViewController:target];
     nav.interactivePopGestureRecognizer.delegate = self;
+    nav.tabBarItem.imageInsets = insets;
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:redcolor} forState:UIControlStateSelected];
+    [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
     [self addChildViewController:nav];
 }
 
@@ -449,13 +447,14 @@ static CGFloat imageHeight = 80.f;
         return;
     }
     
+    UINavigationController *nc = (UINavigationController *)self.selectedViewController;
     WebModel *model = [[WebModel alloc]init];
     model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
     model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
     model.hideNavigationBar = YES;
     LotteryWebViewController *controller = [[LotteryWebViewController alloc]init];
     controller.model = model;
-    [[Methods help_getCurrentVC].navigationController pushViewController:controller animated:YES];
+    [nc pushViewController:controller animated:YES];
 }
 
 //主页面切换的动画效果
