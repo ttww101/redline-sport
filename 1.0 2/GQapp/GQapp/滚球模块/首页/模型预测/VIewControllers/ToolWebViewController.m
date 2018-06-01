@@ -333,6 +333,12 @@
             return;
         }
         
+
+        if ([className isEqualToString:@"BifenViewController"]) {
+            [self.tabBarController setSelectedIndex:1];
+            return;
+        }
+        
         if ([self containsClassName:className]) {
             UIViewController *controller =[self indexWithClassName:className];
             if (controller) {

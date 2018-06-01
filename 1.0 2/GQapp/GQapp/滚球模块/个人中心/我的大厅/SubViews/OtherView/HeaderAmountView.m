@@ -195,7 +195,7 @@
 
 - (void)myGold {
     WebModel *model = [[WebModel alloc]init];
-    model.title = @"滚球币";
+    model.title = @"金币";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/my-gold.html", APPDELEGATE.url_ip,H5_Host];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
