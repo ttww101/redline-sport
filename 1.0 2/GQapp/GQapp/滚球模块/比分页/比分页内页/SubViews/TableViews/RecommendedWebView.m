@@ -121,18 +121,18 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [LodingAnimateView showLodingView];
+//    [LodingAnimateView showLodingView];
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [LodingAnimateView dissMissLoadingView];
+//    [LodingAnimateView dissMissLoadingView];
     
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [SVProgressHUD showErrorWithStatus:@"加载失败"];
-    [LodingAnimateView dissMissLoadingView];
+//    [LodingAnimateView dissMissLoadingView];
     
 }
 

@@ -73,11 +73,29 @@
             
             
         } else {
+            [self reloadTableBarImage];
             dataArray = [[self loadLocalTableBarConfig] mutableCopy];
             *stop = YES;
         }
     }];
     return dataArray;
+}
+
+- (void)reloadTableBarImage {
+    NSMutableArray *array = [ArchiveFile getDataWithPath:TableConfig];
+    [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *imageUrl = obj[@"defaultImage"];
+        NSString *selectImageUrl = obj[@"selectImage"];
+        [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        }];
+        [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:selectImageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            
+        }];
+    }];
 }
 
 - (NSArray *)loadLocalTableBarConfig {

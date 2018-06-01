@@ -30,6 +30,7 @@
 #import "RecommendedWebView.h"
 #import "ArchiveFile.h"
 #import "ToolWebViewController.h"
+#import "AnalysisWebview.h"
 
 @interface FenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate>
 
@@ -50,6 +51,7 @@
 @property (nonatomic, strong) JiBenWebView *webView;
 @property (nonatomic, strong) NewTuijianHtml *webViewZhiShu;//指数
 @property (nonatomic, strong) RecommendedWebView *recommendWeb;
+@property (nonatomic , strong) AnalysisWebview *analysisWeb; // 分析
 
 
 @property (nonatomic, strong) ZhiboTableView *webZhiBo;//直播的页面
@@ -189,7 +191,9 @@
     
     }
     
+    [self.analysisWeb reloadData];
     [self.recommendWeb reloadData];
+    
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self loadLiveData];
@@ -395,7 +399,8 @@
 {
     self.mainTableCanscroll = YES;
     
-    self.webView.cellCanScroll = NO;
+//    self.webView.cellCanScroll = NO;
+    self.analysisWeb.cellCanScroll = NO;
     self.webViewZhiShu.cellCanScroll = NO;
     self.webZhiBo.cellCanScroll = NO;
     self.NewQBTableView.cellCanScroll = NO;
@@ -569,7 +574,8 @@
         _scrollMainView.contentSize = CGSizeMake(Width*5, 0);
         _arrTableViews = [NSMutableArray array];
 
-        [self.scrollMainView addSubview:self.webView];
+//        [self.scrollMainView addSubview:self.webView];
+        [self.scrollMainView addSubview:self.analysisWeb];
         [self.scrollMainView addSubview:self.webViewZhiShu];
         [_scrollMainView addSubview:self.NewQBTableView];
         
@@ -843,6 +849,7 @@
     return _recommendWeb;
 }
 
+#warning 111
 - (JiBenWebView *)webView{
     if (!_webView) {
         _webView = [[JiBenWebView alloc] initWithFrame:CGRectMake(0, 0, Width, _scrollMainView.height)];
@@ -854,6 +861,21 @@
     
     return _webView;
 }
+
+- (AnalysisWebview *)analysisWeb {
+    if (_analysisWeb == nil) {
+        _analysisWeb = [[AnalysisWebview alloc]initWithFrame:CGRectMake(0, 0, Width, _scrollMainView.height)];
+        WebModel *model = [[WebModel alloc]init];
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/fenxi.html?sid=%zi", APPDELEGATE.url_ip, H5_Host,_model.mid];
+        _analysisWeb.model = model;
+        _analysisWeb.tag = 30;
+    }
+    return _analysisWeb;
+}
+
+
+
+
 - (NewTuijianHtml *)webViewZhiShu{
     if (!_webViewZhiShu) {
         _webViewZhiShu = [[NewTuijianHtml alloc] initWithFrame:CGRectMake(Width, 0, Width, _scrollMainView.height)];
@@ -967,7 +989,8 @@
             if (self.mainTableCanscroll) {
                 self.mainTableCanscroll = NO;
                 
-                self.webView.cellCanScroll = YES;
+//                self.webView.cellCanScroll = YES;
+                self.analysisWeb.cellCanScroll = YES;
                 self.webViewZhiShu.cellCanScroll = YES;
                 self.webZhiBo.cellCanScroll = YES;
                 self.NewQBTableView.cellCanScroll = YES;

@@ -54,6 +54,7 @@
 		A941D531206E1C23008CE14F /* NullTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D530206E1C23008CE14F /* NullTableViewCell.m */; };
 		A941D534206E22FB008CE14F /* ToolKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D533206E22FB008CE14F /* ToolKitViewController.m */; };
 		A941D537206E236A008CE14F /* ToolKitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D536206E236A008CE14F /* ToolKitViewModel.m */; };
+		A943AAD520C14BA100501299 /* AnalysisWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = A943AAD420C14BA100501299 /* AnalysisWebview.m */; };
 		A94B676E2071D51D00E0748F /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B676D2071D51D00E0748F /* LiveViewController.m */; };
 		A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67722071D5F100E0748F /* LiveListViewController.m */; };
 		A94B67772071E32E00E0748F /* LiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67762071E32E00E0748F /* LiveListModel.m */; };
@@ -1181,6 +1182,8 @@
 		A941D533206E22FB008CE14F /* ToolKitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewController.m; sourceTree = "<group>"; };
 		A941D535206E236A008CE14F /* ToolKitViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolKitViewModel.h; sourceTree = "<group>"; };
 		A941D536206E236A008CE14F /* ToolKitViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewModel.m; sourceTree = "<group>"; };
+		A943AAD320C14BA100501299 /* AnalysisWebview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalysisWebview.h; sourceTree = "<group>"; };
+		A943AAD420C14BA100501299 /* AnalysisWebview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalysisWebview.m; sourceTree = "<group>"; };
 		A94B676C2071D51D00E0748F /* LiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		A94B676D2071D51D00E0748F /* LiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		A94B67712071D5F100E0748F /* LiveListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveListViewController.h; sourceTree = "<group>"; };
@@ -5292,6 +5295,8 @@
 				EB8C1D691F21944B00A07863 /* NewZhiBoWebView.m */,
 				A98632CE20BE56800021DAFA /* RecommendedWebView.h */,
 				A98632CF20BE56800021DAFA /* RecommendedWebView.m */,
+				A943AAD320C14BA100501299 /* AnalysisWebview.h */,
+				A943AAD420C14BA100501299 /* AnalysisWebview.m */,
 				EB8C202D1F21A44D00A07863 /* NewZhiShuWebVC.m */,
 				EB8C202E1F21A44D00A07863 /* NewZhiShuWebVC.h */,
 				EB8C20301F21A4EF00A07863 /* BifenDTTable.m */,
@@ -8121,6 +8126,7 @@
 				EB5BCF4E1F4142F900EF32E6 /* HSJFoldHeaderView.m in Sources */,
 				EB9419231F5D7A89002660E4 /* HSDashLineView.m in Sources */,
 				EB75EDBF1F3D886E00B6046C /* LiveEventMedel.m in Sources */,
+				A943AAD520C14BA100501299 /* AnalysisWebview.m in Sources */,
 				A9D9494420BBAB4D0031B2F5 /* TabbarButton.m in Sources */,
 				EB8C1EE71F21974000A07863 /* RelRecNewVC.m in Sources */,
 				EB8C1EE31F21974000A07863 /* Dan_StringMatchsModel.m in Sources */,
