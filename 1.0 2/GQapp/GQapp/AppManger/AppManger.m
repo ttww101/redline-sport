@@ -67,7 +67,10 @@
     
     // 注册token
     [self.bridge registerHandler:@"getToken" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        NSString *currentToken = [Methods getTokenModel].token;
+        NSString *valueJson = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(currentToken)}];
+        NSString *parameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(valueJson)}];
+        [self.bridge callHandler:@"jsCallBack" data:parameter responseCallback:^(id responseData) {
             
         }];
         responseCallback(jsonParameter);

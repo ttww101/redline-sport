@@ -33,6 +33,9 @@
 
 @property (nonatomic , strong) UIView *toastView;
 
+@property (nonatomic , weak) id observer;
+
+
 
 @end
 
@@ -43,6 +46,9 @@
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
+    if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -50,7 +56,7 @@
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     [self configWebHeight];
     if (self.isBack) {
-         NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
         [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
             
         }];
@@ -71,6 +77,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
+#pragma mark - Notification
+
+- (void)refreshResult {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"payResult", @"val":@""}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        
+    }];
+}
+
+
 - (void)loadBradgeHandler {
     __weak ToolWebViewController *weakSelf = self;
     AppManger *manger = [[AppManger alloc]init];
@@ -81,7 +101,7 @@
         JSModel *model = (JSModel *)data;
         NSString *actionString = model.methdName;
         SEL action = NSSelectorFromString(actionString);
-        if ([self respondsToSelector:action]) {
+        if ([weakSelf respondsToSelector:action]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [weakSelf performSelector:action withObject:model.parameterData];
@@ -388,6 +408,7 @@
         NSDictionary *dataDic = (NSDictionary *)data;
         NSDictionary *parameter = dataDic[@"data"];
         NSString *type = dataDic[@"type"];
+        __weak ToolWebViewController *weakSelf = self;
         if ([type isEqualToString:@"wx"]) {
             XHPayWxReq *req = [[XHPayWxReq alloc] init];
             req.openID = parameter[@"appid"];
@@ -401,9 +422,9 @@
             [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
                 NSInteger code = [resultDict[@"errCode"] integerValue];
                 if(code == 0){//支付成功
-                    self.callBack(@"1");
+//                    weakSelf.callBack(@"1");
                 } else {
-                    self.callBack(@"0");
+//                    weakSelf.callBack(@"0");
                 }
             }];
         } else if ([type isEqualToString:@"ali"]) {
@@ -411,9 +432,9 @@
             [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"com.Gunqiu.GQapp" completed:^(NSDictionary *resultDict) {
                 NSInteger status = [resultDict[@"resultStatus"] integerValue];
                 if(status == 9000){
-                    self.callBack(@"1");
+//                    weakSelf.callBack(@"1");
                 } else {
-                    self.callBack(@"0");
+//                    weakSelf.callBack(@"0");
                 }
             }];
         } else if ([type isEqualToString:@"apple"]) {

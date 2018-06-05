@@ -911,6 +911,9 @@
     
     if ([Methods login]) {      // 用户登出，清除 OutOfRefreshTokenTime / refreshTokentime
         
+        // 支付刷新方法;
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"refreshPayPage" object:nil];
+        
         
 //        if ([[NSUserDefaults standardUserDefaults] doubleForKey:@"refreshTokentime"] != 0) {
         
@@ -923,6 +926,7 @@
 //            
 //            [APPDELEGATE.customTabbar loadUreadNotificationNum];
 //        }
+        
     }
     
     
