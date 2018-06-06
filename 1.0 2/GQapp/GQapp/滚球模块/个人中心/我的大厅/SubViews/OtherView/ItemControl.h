@@ -12,6 +12,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
                     imageName:(NSString *)imageName
-                        title:(NSString *)title;
+                        title:(NSString *)title
+                       amount:(NSString *)amount;
 
 @end

@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong) UIControl *control;
 
+@property (nonatomic , strong) UIButton *rechargeBtn;
+
 @end
 
 @implementation HeaderAmountView
@@ -54,6 +56,47 @@
 //    [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0xDB2D21) range:[text rangeOfString:PARAM_IS_NIL_ERROR(amount)]];
 //    _amauntLabel.attributedText = att;
     
+    
+    NSArray *itemArray = @[
+                           @{
+                               @"icon":@"income",
+                               @"title":@"滚球币"
+                               },
+                           @{
+                               @"icon":@"gold",
+                               @"title":@"红包"
+                               }
+                           ];
+    
+    [self removeAllSubViews];
+    
+    NSString *str = @"";
+    CGFloat itemWidth = self.width / (itemArray.count + 1);
+    for (NSInteger i = 0; i < itemArray.count; i ++) {
+        NSDictionary *dic = itemArray[i];
+        if (i == 0) {
+            NSString *amount = [_model.coin stringValue];
+                if (!amount) {
+                    amount = @"0";
+                }
+            str = amount;
+        } else if (i == 1) {
+            str = [NSString stringWithFormat:@"%@(元)",PARAM_IS_NIL_ERROR(_model.redpackage)];
+        }
+        ItemControl *control  = [[ItemControl alloc]initWithFrame:CGRectMake(i * itemWidth, 0, itemWidth, self.height) imageName:dic[@"icon"] title:dic[@"title"] amount:str];
+        control.tag = i;
+        [control addTarget:self action:@selector(controlAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:control];
+    }
+    
+    [self addSubview:self.rechargeBtn];
+    CGFloat rightSpace = (itemWidth - 66) / 2;
+    [self.rechargeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(-rightSpace);
+        make.size.mas_equalTo(CGSizeMake(66, 38));
+    }];
+    
 }
 
 #pragma mark - Config UI
@@ -62,38 +105,6 @@
     self.backgroundColor = [UIColor whiteColor];
     self.layer.cornerRadius = 5;
     self.layer.masksToBounds = YES;
-    
-    NSArray *itemArray = @[
-                           @{
-                               @"icon":@"income",
-                               @"title":@"收入"
-                             },
-                           @{
-                               @"icon":@"gold",
-                               @"title":@"金币"
-                            },
-                           @{
-                               @"icon":@"gift",
-                               @"title":@"红包"
-                               
-                            },
-                           @{
-                               @"icon":@"Coupons",
-                               @"title":@"优惠券"
-                            }
-                           ];
-    
-    [self removeAllSubViews];
-    
-    CGFloat itemWidth = self.width / itemArray.count;
-    for (NSInteger i = 0; i < itemArray.count; i ++) {
-        NSDictionary *dic = itemArray[i];
-        ItemControl *control = [[ItemControl alloc]initWithFrame:CGRectMake(i * itemWidth, 0, itemWidth, self.height) imageName:dic[@"icon"] title:dic[@"title"]];
-        control.tag = i;
-        [control addTarget:self action:@selector(controlAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:control];
-    }
-    
     
 //    [self addSubview:self.lineView];
 //    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -144,6 +155,7 @@
 //        make.right.equalTo(self.mas_right).offset(-15);
 //        make.size.mas_equalTo(CGSizeMake(7, 14));
 //    }];
+    
 }
 
 #pragma mark - Events
@@ -152,16 +164,16 @@
 - (void)controlAction:(ItemControl *)senter {
     switch (senter.tag) {
         case 0: {
-            [self myIncomeAction];
+            [self myGold];
         }
             break;
             
         case 1:{
-            [self myGold];
+            [self myGift];
         }
             break;
         case 2: {
-            [self myGift];
+            
         }
             break;
             
@@ -195,7 +207,7 @@
 
 - (void)myGold {
     WebModel *model = [[WebModel alloc]init];
-    model.title = @"我的金币";
+    model.title = @"我的滚球币";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/my-gold.html", APPDELEGATE.url_ip,H5_Host];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
@@ -206,6 +218,15 @@
     WebModel *model = [[WebModel alloc]init];
     model.title = @"我的优惠券";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/pay-card.html", APPDELEGATE.url_ip,H5_Host];
+    ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+    webDetailVC.model = model;
+    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+}
+
+- (void)rechargeAction {
+    WebModel *model = [[WebModel alloc]init];
+    model.title = @"充值";
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/buy-gold.html", APPDELEGATE.url_ip,H5_Host];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
     [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
@@ -262,6 +283,15 @@
         [_myIncomeBtn addTarget:self action:@selector(myIncomeAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _myIncomeBtn;
+}
+
+- (UIButton *)rechargeBtn {
+    if (_rechargeBtn == nil) {
+        _rechargeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rechargeBtn setBackgroundImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateNormal];
+        [_rechargeBtn addTarget:self action:@selector(rechargeAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _rechargeBtn;
 }
 
 - (UIImageView *)rightArrorImageView {

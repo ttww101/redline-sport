@@ -53,7 +53,8 @@
     @"balance" : @"balance",
     @"reachLimit" : @"reachLimit",
     @"showmobile" : @"showmobile",
-    @"coin":@"coin"
+    @"coin":@"coin",
+    @"redpackage":@"redpackage"
 
     };
 }

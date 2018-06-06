@@ -109,9 +109,15 @@
                     self.headerView.height = 210;
                 }
             }else{
+                _userModel = [Methods getUserModel];
+                self.headerView.model = _userModel;
+                self.tableView.tableHeaderView = self.headerView;
                 [self.tableView reloadData];
             }
         } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+            _userModel = [Methods getUserModel];
+            self.headerView.model = _userModel;
+            self.tableView.tableHeaderView = self.headerView;
             [self.tableView reloadData];
         }];
     } else {
@@ -159,21 +165,35 @@
                 [Methods toLogin];
                 return;
             }
+            
             if (indexPath.row == 0) {
+                WebModel *model = [[WebModel alloc]init];
+                model.title = @"分析师收入";
+                model.webUrl = [NSString stringWithFormat:@"%@/%@/my-earnings.html", APPDELEGATE.url_ip,H5_Host];
+                ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+                webDetailVC.model = model;
+                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            } else if (indexPath.row == 1)  {
+                WebModel *model = [[WebModel alloc]init];
+                model.title = @"优惠券";
+                model.webUrl = [NSString stringWithFormat:@"%@/%@/pay-card.html", APPDELEGATE.url_ip,H5_Host];
+                ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+                webDetailVC.model = model;
+                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            } else if (indexPath.row == 2) {
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"滚球服务";
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/gunqiu-service.html", APPDELEGATE.url_ip,H5_Host];
                 ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
                  webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 3) {
                 UserViewController *userVC = [[UserViewController alloc] init];
                 userVC.userId = _userModel.idId;
                 userVC.hidesBottomBarWhenPushed = YES;
                 userVC.Number=1;
                 [APPDELEGATE.customTabbar pushToViewController:userVC animated:YES];
-            } else if (indexPath.row == 2) {
-                
+            } else if (indexPath.row == 4) {
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"账户明细";
                  model.webUrl = [NSString stringWithFormat:@"%@/%@/account-details.html", APPDELEGATE.url_ip,H5_Host];
@@ -181,7 +201,7 @@
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
                 
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 5) {
                 MyBuyTuijianVC *myBuy = [[MyBuyTuijianVC alloc] init];
                 myBuy.userId = _userModel.idId;
                 myBuy.hidesBottomBarWhenPushed = YES;

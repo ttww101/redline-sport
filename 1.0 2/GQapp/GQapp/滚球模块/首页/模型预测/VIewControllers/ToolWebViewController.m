@@ -225,19 +225,19 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [LodingAnimateView showLodingView];
+//    [LodingAnimateView showLodingView];
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [LodingAnimateView dissMissLoadingView];
-    [self dissMissToastView];
+//    [self dissMissToastView];
 
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
-    [LodingAnimateView dissMissLoadingView];
+//    [LodingAnimateView dissMissLoadingView];
     
 }
 
@@ -359,9 +359,13 @@
             return;
         }
         
-
         if ([className isEqualToString:@"BifenViewController"]) {
             [self.tabBarController setSelectedIndex:1];
+            return;
+        }
+        
+        if ([className isEqualToString:@"NewQingBaoViewController"]) {
+            [self.tabBarController setSelectedIndex:2];
             return;
         }
         
@@ -411,7 +415,7 @@
         NSDictionary *dataDic = (NSDictionary *)data;
         NSDictionary *parameter = dataDic[@"data"];
         NSString *type = dataDic[@"type"];
-        __weak ToolWebViewController *weakSelf = self;
+//        __weak ToolWebViewController *weakSelf = self;
         if ([type isEqualToString:@"wx"]) {
             XHPayWxReq *req = [[XHPayWxReq alloc] init];
             req.openID = parameter[@"appid"];

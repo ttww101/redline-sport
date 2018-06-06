@@ -63,6 +63,10 @@
 // 金币数量
 @property (nonatomic , copy) NSNumber *coin;
 
+// 红包金额
+@property (nonatomic , copy) NSString *redpackage;
+
+
 @property (nonatomic , copy) NSDictionary *userDetail;
 
 @end
