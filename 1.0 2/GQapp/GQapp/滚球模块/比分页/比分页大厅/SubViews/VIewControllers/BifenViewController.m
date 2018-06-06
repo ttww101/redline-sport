@@ -25,7 +25,10 @@
 #import "SelectedEventView.h"
 
 #import "HSTabBarContentView.h"
-@interface BifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate,HSTabBarContentViewDataSource>
+#import "ArchiveFile.h"
+#import "GQWebView.h"
+
+@interface BifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate,HSTabBarContentViewDataSource, GQWebViewDelegate>
 @property (nonatomic, strong)JishiViewController *jishiVC;
 @property (nonatomic, strong)SaiguoViewController *saiguoVC;
 @property (nonatomic, strong)SaichengViewController *saichengVC;
@@ -51,6 +54,14 @@
 
 @property (nonatomic, strong) UIButton *btnTitle;
 @property (nonatomic, strong) UIButton *imageV;
+
+@property (nonatomic , strong) UIImageView *activityImageView;
+
+@property (nonatomic , strong) UIWebView *activityWeb;
+
+@property (nonatomic , copy) NSDictionary *activityDic;
+
+
 @end
 
 @implementation BifenViewController
@@ -99,7 +110,7 @@
 
     }
     
-    
+    [self loadRedBombActivity];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -868,14 +879,75 @@
 //    [self removeObserver:self.navTitleView forKeyPath:@"titleFlag"];
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark -  活动入口
+
+#pragma mark - GQWebViewDelegate
+
+- (void)webClose:(id)data {
+    if (_activityWeb) {
+        [_activityWeb removeFromSuperview];
+        _activityWeb = nil;
+    }
+}
+
+- (void)loadRedBombActivity {
+    if (!_activityImageView) {
+        [self.view addSubview:self.activityImageView];
+    }
+    NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
+    for (NSDictionary *dic in activityArray) {
+        if (dic[@"redBomb"]) {
+            NSDictionary *itemDic = dic[@"redBomb"];
+            self.activityDic = itemDic;
+            [self.activityImageView sd_setImageWithURL:[NSURL URLWithString:itemDic[@"icon"]]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.activityImageView.hidden = false;
+            });
+            break;
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.activityImageView.hidden = YES;
+            });
+        }
+    }
+}
+
+#pragma mark - Events
+
+- (void)redBombActivity:(UIGestureRecognizer *)tap {
+    if (self.activityDic) {
+        WebModel *model = [[WebModel alloc]init];
+        model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
+        //    model.webUrl = @"http://mobiledev.gunqiu.com:81/appH5/red-envelopes.html";
+        model.hideNavigationBar = YES;
+        GQWebView *web = [[GQWebView alloc]init];
+        web.webDelegate = self;
+        web.frame = [UIScreen mainScreen].bounds;
+        web.model = model;
+        web.opaque = NO;
+        web.backgroundColor = [UIColor clearColor];
+        web.scrollView.scrollEnabled = false;
+        [[Methods getMainWindow] addSubview:web];
+        _activityWeb = web;
+    }
+}
+
+#pragma mark - Lazy Load
+
+- (UIImageView *)activityImageView {
+    if (_activityImageView == nil) {
+        _activityImageView = [UIImageView new];
+        _activityImageView.frame = CGRectMake(0, 118, Width, 44);
+        _activityImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _activityImageView.clipsToBounds = YES;
+        _activityImageView.hidden = YES;
+        _activityImageView.backgroundColor = [UIColor orangeColor];
+        _activityImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(redBombActivity:)];
+        [_activityImageView addGestureRecognizer:tap];
+    }
+    return _activityImageView;
+}
 
 @end

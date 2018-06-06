@@ -382,6 +382,21 @@
             }
         });
     }];
+    
+    [self.bridge registerHandler:@"closeWin" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"closeWin:",
+                                                            @"parameterData":dic}];
+        self.gqHandler(model, ^(id responseData) {
+            
+        });
+    }];
+    
 }
 
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {

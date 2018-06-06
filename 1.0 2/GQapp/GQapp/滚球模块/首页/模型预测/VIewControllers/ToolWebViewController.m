@@ -56,10 +56,7 @@
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     [self configWebHeight];
     if (self.isBack) {
-        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
-        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-            
-        }];
+        [self refreshData];
     }
 }
 
@@ -90,6 +87,12 @@
     }];
 }
 
+- (void)refreshData {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        
+    }];
+}
 
 - (void)loadBradgeHandler {
     __weak ToolWebViewController *weakSelf = self;

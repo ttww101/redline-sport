@@ -54,8 +54,6 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 
 @property (nonatomic , copy) NSDictionary *activityDic;
 
-@property (nonatomic , strong)  UIWindow *activityWindow;
-
 @property (nonatomic , strong) CustmerTableBar *taBar;
 
 
