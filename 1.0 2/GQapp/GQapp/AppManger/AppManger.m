@@ -311,9 +311,13 @@
     [self.bridge registerHandler:@"toLogin" handler:^(id data, WVJBResponseCallback responseCallback) {
         if (![Methods login]) {
             [Methods toLogin];
-            return;
         }
-        responseCallback(@"Response from testObjcCallback");
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"toLogin:",
+                                                            @"parameterData":@{@"type":@"123"}}];
+        self.gqHandler(model, ^(id responseData) {
+            
+        });
     }];
     
     
@@ -383,15 +387,11 @@
         });
     }];
     
+    
     [self.bridge registerHandler:@"closeWin" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *err;
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                            options:NSJSONReadingMutableContainers
-                                                              error:&err];
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"closeWin:",
-                                                            @"parameterData":dic}];
+                                                            @"parameterData":@{@"type":@"123"}}];
         self.gqHandler(model, ^(id responseData) {
             
         });

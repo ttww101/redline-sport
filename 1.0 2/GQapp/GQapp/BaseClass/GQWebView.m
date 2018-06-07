@@ -29,9 +29,15 @@
     if (self) {
         self.backgroundColor = colorTableViewBackgroundColor;
         [self loadBradgeHandler];
-       
+        // 设置摇一摇功能
+        [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
+        [self becomeFirstResponder];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self resignFirstResponder];
 }
 
 - (void)setModel:(WebModel *)model {
@@ -89,6 +95,7 @@
 
 - (void)openNative:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
+        [self closeWin:@""];
         NSDictionary *dataDic = (NSDictionary *)data;
         NSString *className = dataDic[@"n"];
         Class targetCalss = NSClassFromString(className);
@@ -123,25 +130,48 @@
 }
 
 - (void)closeWin:(id)data {
-    
+    if (_webDelegate && [_webDelegate respondsToSelector:@selector(webClose:)]) {
+        [_webDelegate webClose:@"关闭"];
+    }
+}
+
+- (void)toLogin:(id)data {
+    [self closeWin:@""];
 }
 
 #pragma mark - UIWebViewDelegate
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    //    [LodingAnimateView showLodingView];
+
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    //    [LodingAnimateView dissMissLoadingView];
     
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-//    [SVProgressHUD showErrorWithStatus:@"加载失败"];
-//        [LodingAnimateView dissMissLoadingView];
+    
+}
+
+#pragma mark - ShakeToEdit 摇动手机之后的回调方法
+
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        [self shake_start];
+    }
+}
+
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+   
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (event.subtype == UIEventSubtypeMotionShake){
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self shake_end];
+    }
     
 }
 

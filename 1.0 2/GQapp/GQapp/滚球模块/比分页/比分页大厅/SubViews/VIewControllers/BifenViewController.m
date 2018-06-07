@@ -124,7 +124,6 @@
 
     }];
     
-    [self resignFirstResponder];
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
@@ -526,11 +525,6 @@
     // Do any additional setup after loading the view.
     //        self.hidesBottomBarWhenPushed = YES;
     
-    
-    // 设置摇一摇功能
-    [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
-    [self becomeFirstResponder];
-    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.TitleView];
     
@@ -927,7 +921,6 @@
         WebModel *model = [[WebModel alloc]init];
         model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
         model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
-        //    model.webUrl = @"http://mobiledev.gunqiu.com:81/appH5/red-envelopes.html";
         model.hideNavigationBar = YES;
         GQWebView *web = [[GQWebView alloc]init];
         web.webDelegate = self;
@@ -956,38 +949,6 @@
         [_activityImageView addGestureRecognizer:tap];
     }
     return _activityImageView;
-}
-
-#pragma mark - ShakeToEdit 摇动手机之后的回调方法
-
-- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    //检测到摇动开始
-    if (motion == UIEventSubtypeMotionShake)
-    {
-        if (self.activityWeb) {
-            [self.activityWeb shake_start];
-        }
-    }
-}
-
-- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    //摇动取消
-    NSLog(@"摇动取消");
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    //摇动结束
-    if (event.subtype == UIEventSubtypeMotionShake)
-    {
-        // your code
-        NSLog(@"摇动结束");
-//        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);//振动效果 需要#import <AudioToolbox/AudioToolbox.h>
-        [self.activityWeb shake_end];
-    }
-    
 }
 
 @end
