@@ -33,4 +33,8 @@
 
 - (void)reloadData;
 
+- (void)shake_start;
+
+- (void)shake_end;
+
 @end

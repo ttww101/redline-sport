@@ -17,6 +17,9 @@
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 
+@property (nonatomic , strong) WebViewJavascriptBridge* bridge;
+
+
 @end
 
 @implementation GQWebView
@@ -58,6 +61,7 @@
         }
     }];
     [bridge setWebViewDelegate:self];
+    self.bridge = bridge;
 }
 
 #pragma mark - Load Data
@@ -136,9 +140,41 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [SVProgressHUD showErrorWithStatus:@"加载失败"];
-        [LodingAnimateView dissMissLoadingView];
+//    [SVProgressHUD showErrorWithStatus:@"加载失败"];
+//        [LodingAnimateView dissMissLoadingView];
     
+}
+
+#pragma mark - Open Method
+
+- (void)shake_start {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shake_start", @"val":@""}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        
+    }];
+}
+
+- (void)shake_end {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shake_end", @"val":@""}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        
+    }];
+}
+
+#pragma mark - Private Method
+
+- (NSString *)getJSONMessage:(NSDictionary *)messageDic {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    //去掉字符串中的空格
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    //去掉字符串中的换行符
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    return mutStr;
 }
 
 @end
