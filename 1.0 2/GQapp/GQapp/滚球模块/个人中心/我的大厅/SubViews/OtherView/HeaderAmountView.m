@@ -81,7 +81,7 @@
                 }
             str = amount;
         } else if (i == 1) {
-            str = [NSString stringWithFormat:@"%@(元)",PARAM_IS_NIL_ERROR(_model.redpackage)];
+            str = [NSString stringWithFormat:@"%@(元)",_model.redpackage ? _model.redpackage : @"0"];
         }
         ItemControl *control  = [[ItemControl alloc]initWithFrame:CGRectMake(i * itemWidth, 0, itemWidth, self.height) imageName:dic[@"icon"] title:dic[@"title"] amount:str];
         control.tag = i;

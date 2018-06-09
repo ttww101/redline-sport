@@ -19,6 +19,7 @@
 #import "AppManger.h"
 #import "NavImageView.h"
 #import "GQWebView.h"
+#import "LiveQuizViewController.h"
 
 @interface ToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate>
 
@@ -377,6 +378,18 @@
         
         if ([className isEqualToString:@"NewQingBaoViewController"]) {
             [self.tabBarController setSelectedIndex:2];
+            return;
+        }
+        
+        if ([className isEqualToString:@"LiveQuizViewController"]) {
+            WebModel *model = [[WebModel alloc]init];
+            NSDictionary *vDic = dataDic[@"v"];
+            model.title = PARAM_IS_NIL_ERROR(vDic[@"title"]);
+            model.webUrl = PARAM_IS_NIL_ERROR(vDic[@"url"]);
+            model.hideNavigationBar = YES;
+            LiveQuizViewController *controller = [[LiveQuizViewController alloc]init];
+            controller.model = model;
+            [self.navigationController pushViewController:controller animated:YES];
             return;
         }
         

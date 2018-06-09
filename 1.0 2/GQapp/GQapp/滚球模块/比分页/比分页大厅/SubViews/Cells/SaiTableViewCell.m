@@ -1995,6 +1995,12 @@
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             
             LiveScoreModel *model = [LiveScoreModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
+            
+            if (!model) {
+               [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛异常"];
+                return;
+            }
+            
             //从首页跳转分析页的时候不用反转
             model.neutrality = NO;
             FenxiPageVC *fenxiVC = [[FenxiPageVC alloc] init];
