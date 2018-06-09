@@ -228,18 +228,18 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-//    [LodingAnimateView showLodingView];
+    [LodingAnimateView showLodingView];
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-//    [LodingAnimateView dissMissLoadingView];
+    [LodingAnimateView dissMissLoadingView];
     [self dissMissToastView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
-//    [LodingAnimateView dissMissLoadingView];
+    [LodingAnimateView dissMissLoadingView];
     
 }
 
