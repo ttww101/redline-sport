@@ -896,22 +896,30 @@
     if (!_activityImageView) {
         [self.view addSubview:self.activityImageView];
     }
-    NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
-    for (NSDictionary *dic in activityArray) {
-        if (dic[@"redBomb"]) {
-            NSDictionary *itemDic = dic[@"redBomb"];
-            self.activityDic = itemDic;
-            [self.activityImageView sd_setImageWithURL:[NSURL URLWithString:itemDic[@"icon"]]];
-            dispatch_async(dispatch_get_main_queue(), ^{
+    
+    
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_redBomb]  Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        NSString *code = responseOrignal[@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *itemDic = responseOrignal[@"data"];
+            if (itemDic) {
+                self.activityDic = itemDic;
+                [self.activityImageView sd_setImageWithURL:[NSURL URLWithString:itemDic[@"picture"]]];
                 self.activityImageView.hidden = false;
-            });
-            break;
+            }
+            
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.activityImageView.hidden = YES;
-            });
+            self.activityImageView.hidden = YES;
         }
-    }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        self.activityImageView.hidden = YES;
+    }];
+    
 }
 
 #pragma mark - Events
@@ -920,7 +928,7 @@
     if (self.activityDic) {
         WebModel *model = [[WebModel alloc]init];
         model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
-        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"activityUrl"]);
         model.hideNavigationBar = YES;
         GQWebView *web = [[GQWebView alloc]init];
         web.webDelegate = self;

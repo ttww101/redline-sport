@@ -196,6 +196,14 @@
 // 直播答题接口
 #define url_liveQuiz @"/activity_entry2"
 
+// 上传IDFA
+
+#define url_idfa @"/upidfa"
+
+// 红包活动
+
+#define url_redBomb @"/wcp/redpacket/pic"
+
 // 模型支付接口
 #define url_modelPay @"/pay/modelPay/new"
 

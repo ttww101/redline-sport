@@ -8,6 +8,7 @@
 
 #import "AppConfig.h"
 #import "ArchiveFile.h"
+#import <AdSupport/AdSupport.h>
 
 #define Config_Version @"configVersion"
 
@@ -43,8 +44,21 @@
         } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
     
         }];
+        
+
+        NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        [parameter setObject:idfa forKey:@"idfa"];
+        [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_idfa] ArrayFile:nil Start:^(id requestOrignal) {
+            
+        } End:^(id responseOrignal) {
+            
+        } Success:^(id responseResult, id responseOrignal) {
+            NSLog(@"sucess");
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+            NSLog(@"failure");
+        }];
+        
     });
 }
-
 
 @end

@@ -178,14 +178,15 @@
 #pragma mark - Open Method
 
 - (void)shake_start {
-    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shake_start", @"val":@""}];
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"shake_start"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
         
     }];
 }
 
 - (void)shake_end {
-    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shake_end", @"val":@""}];
+    
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"shake_end"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
         
     }];

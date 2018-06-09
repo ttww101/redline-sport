@@ -143,6 +143,7 @@
         NSUInteger ver = [responseOrignal[@"ver"] integerValue];
         if (ver > configVerson) {
             [[NSUserDefaults standardUserDefaults]setInteger:ver forKey:Config_Version];
+            [[NSUserDefaults standardUserDefaults]setObject:PARAM_IS_NIL_ERROR(responseOrignal[@"currency"]) forKey:@"currency"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             // 配置支付
             if (array) {

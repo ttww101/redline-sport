@@ -216,8 +216,11 @@
         _labMoney.textColor = greencolor;
     }else{
         _labMoney.textColor = redcolor;
-        
-        _labMoney.text = [NSString stringWithFormat:@"%ld球币",_model.amount/100];
+        NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
+        if (!(str.length > 0)) {
+            str = @"球币";
+        }
+        _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
         
         
 //        _labMoney.attributedText = [Methods withContent:_labMoney.text WithColorText:@"球币" textColor:color33 strFont:font12];

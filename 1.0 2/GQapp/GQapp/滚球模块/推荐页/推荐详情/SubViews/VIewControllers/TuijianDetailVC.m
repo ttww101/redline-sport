@@ -929,7 +929,13 @@
                     _labCommentNum1.text = [NSString stringWithFormat:@"%ld",(long)_model.hate_count];
                     _labComment1.selected = _model.hated;
                     
-                    _labelQiuBi.text = [NSString stringWithFormat:@"需支付%ld球币",_model.amount/100];
+                    
+                    NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
+                    if (!(str.length > 0)) {
+                        str = @"球币";
+                    }
+                    
+                    _labelQiuBi.text = [NSString stringWithFormat:@"需支付%ld%@",_model.amount/100,str];
                     _labelQiuBi.font = font14;
                     
                     _labelQiuBi.attributedText = [Methods withContent:_labelQiuBi.text WithColorText:[NSString stringWithFormat:@"%ld",_model.amount/100] textColor:redcolor strFont:font18];

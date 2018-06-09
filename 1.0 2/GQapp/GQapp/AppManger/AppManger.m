@@ -229,6 +229,10 @@
         NSString *picurl = dic[@"picurl"];
         NSString *des = dic[@"des"];
         NSString *linkurl = dic[@"linkurl"];
+        NSString *type = PARAM_IS_NIL_ERROR(dic[@"type"]);
+        if (!(type.length > 0)) {
+            type = @"link";
+        }
         
         [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
             
@@ -279,15 +283,36 @@
                     break;
             }
             
-            
             //创建分享消息对象
             UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-            //创建网页内容对象
-            UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:des thumImage:picurl];
-            //设置网页地址
-            shareObject.webpageUrl = linkurl;
-            //分享消息对象设置分享内容对象
-            messageObject.shareObject = shareObject;
+            
+            if ([type isEqualToString:@"link"]) {
+                //创建网页内容对象
+                UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:des thumImage:picurl];
+                //设置网页地址
+                shareObject.webpageUrl = linkurl;
+                //分享消息对象设置分享内容对象
+                messageObject.shareObject = shareObject;
+            } else if ([type isEqualToString:@"pic"]) {
+                //创建图片内容对象
+                UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+                //如果有缩略图，则设置缩略图
+                shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+                [shareObject setShareImage:picurl];
+                //分享消息对象设置分享内容对象
+                messageObject.shareObject = shareObject;
+            } else if ([type isEqualToString:@"richText"]) {
+               //设置文本
+                messageObject.text = title;
+                //创建图片内容对象
+                UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+                //如果有缩略图，则设置缩略图
+                shareObject.thumbImage = [UIImage imageNamed:@"icon"];
+                [shareObject setShareImage:picurl];
+                //分享消息对象设置分享内容对象
+                messageObject.shareObject = shareObject;
+            }
+            
             //调用分享接口
             [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:[Methods help_getCurrentVC] completion:^(id data, NSError *error) {
                 if (error) {

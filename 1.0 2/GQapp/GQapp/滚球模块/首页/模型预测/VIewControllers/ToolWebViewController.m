@@ -18,8 +18,9 @@
 #import "ArchiveFile.h"
 #import "AppManger.h"
 #import "NavImageView.h"
+#import "GQWebView.h"
 
-@interface ToolWebViewController () <UIWebViewDelegate>
+@interface ToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate>
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
@@ -35,6 +36,7 @@
 
 @property (nonatomic , weak) id observer;
 
+@property (nonatomic , strong) GQWebView *activityWeb;
 
 
 @end
@@ -81,7 +83,7 @@
 #pragma mark - Notification
 
 - (void)refreshResult {
-    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"payResult", @"val":@""}];
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"payResult"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
         
     }];
@@ -241,6 +243,15 @@
     
 }
 
+#pragma mark - GQWebViewDelegate
+
+- (void)webClose:(id)data {
+    if (_activityWeb) {
+        [_activityWeb removeFromSuperview];
+        _activityWeb = nil;
+    }
+}
+
 #pragma mark - JSHandle
 
 - (void)webBack {
@@ -366,6 +377,24 @@
         
         if ([className isEqualToString:@"NewQingBaoViewController"]) {
             [self.tabBarController setSelectedIndex:2];
+            return;
+        }
+        
+        if ([className isEqualToString:@"GQRedBombActivity"]) {
+            WebModel *model = [[WebModel alloc]init];
+            NSDictionary *vDic = dataDic[@"v"];
+            model.title = PARAM_IS_NIL_ERROR(vDic[@"title"]);
+            model.webUrl = PARAM_IS_NIL_ERROR(vDic[@"url"]);
+            model.hideNavigationBar = YES;
+            GQWebView *web = [[GQWebView alloc]init];
+            web.webDelegate = self;
+            web.frame = [UIScreen mainScreen].bounds;
+            web.model = model;
+            web.opaque = NO;
+            web.backgroundColor = [UIColor clearColor];
+            web.scrollView.scrollEnabled = false;
+            [[Methods getMainWindow] addSubview:web];
+            _activityWeb = web;
             return;
         }
         

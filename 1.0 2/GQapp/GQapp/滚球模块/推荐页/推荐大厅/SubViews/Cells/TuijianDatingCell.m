@@ -109,7 +109,11 @@
         
         [_btnZan setBackgroundImage:[UIImage imageNamed:@""]forState:UIControlStateNormal];
         _labZanNum.text = @"";
-        _labMoney.text = [NSString stringWithFormat:@" %ld球币 ",_model.amount/100];
+        NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
+        if (!(str.length > 0)) {
+            str = @"球币";
+        }
+        _labMoney.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
 
     }else{
         _labContent.text = [NSString stringWithFormat:@"分析:  %@",_model.content];
