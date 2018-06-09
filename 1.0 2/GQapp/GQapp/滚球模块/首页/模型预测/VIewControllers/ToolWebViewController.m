@@ -233,9 +233,8 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [LodingAnimateView dissMissLoadingView];
-//    [self dissMissToastView];
-
+//    [LodingAnimateView dissMissLoadingView];
+    [self dissMissToastView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -613,18 +612,21 @@
 }
 
 - (void)createNullToastView:(NSString *)text imageName:(NSString *)imageName {
-    _toastView = [[UIView alloc]initWithFrame:self.webView.bounds];
-    UIImageView *toastImageView = [UIImageView new];
-    toastImageView.image = [UIImage imageNamed:imageName];
-    toastImageView.contentMode = UIViewContentModeScaleToFill;
-    toastImageView.userInteractionEnabled = YES;
-    [_toastView addSubview:toastImageView];
-    [toastImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(_toastView);
-    }];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reloadAction)];
-    [toastImageView addGestureRecognizer:tap];
-    [self.webView addSubview:_toastView];
+    if (!_toastView) {
+         _toastView = [[UIView alloc]initWithFrame:self.webView.bounds];
+        UIImageView *toastImageView = [UIImageView new];
+        toastImageView.image = [UIImage imageNamed:imageName];
+        toastImageView.contentMode = UIViewContentModeScaleToFill;
+        toastImageView.userInteractionEnabled = YES;
+        [_toastView addSubview:toastImageView];
+        [toastImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_toastView);
+        }];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reloadAction)];
+        [toastImageView addGestureRecognizer:tap];
+        [self.webView addSubview:_toastView];
+    }
+    
 }
 
 - (void)dissMissToastView {
