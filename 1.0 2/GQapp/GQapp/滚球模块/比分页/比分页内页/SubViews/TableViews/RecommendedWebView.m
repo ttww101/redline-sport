@@ -12,11 +12,14 @@
 #import <YYModel/YYModel.h>
 #import "ToolWebViewController.h"
 #import "ArchiveFile.h"
+#import "WebviewProgressLine.h"
+
 
 @interface RecommendedWebView () <UIWebViewDelegate>
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 
+@property (nonatomic , strong) WebviewProgressLine *progressLine;
 
 @end
 
@@ -26,6 +29,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = colorTableViewBackgroundColor;
+        self.progressLine = [[WebviewProgressLine alloc] initWithFrame:CGRectMake(0, 0, Width, 3)];
+        self.progressLine.lineColor = redcolor;
+        [self addSubview:self.progressLine];
         [self loadBradgeHandler];
     }
     return self;
@@ -121,15 +127,15 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    
+    [self.progressLine startLoadingAnimation];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-   
+    [self.progressLine endLoadingAnimation];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-
+    [self.progressLine endLoadingAnimation];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
