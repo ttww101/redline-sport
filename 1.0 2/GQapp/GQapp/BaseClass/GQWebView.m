@@ -31,10 +31,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = colorTableViewBackgroundColor;
-        [self loadBradgeHandler];
         // 设置摇一摇功能
         [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
         [self becomeFirstResponder];
+        [self loadBradgeHandler];
         self.progressLine = [[WebviewProgressLine alloc] initWithFrame:CGRectMake(0, 0, Width, 3)];
         self.progressLine.lineColor = redcolor;
         [self addSubview:self.progressLine];
@@ -44,6 +44,10 @@
 
 - (void)dealloc {
     [self resignFirstResponder];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 
 - (void)setModel:(WebModel *)model {

@@ -45,37 +45,72 @@
     
         UIImage *defaultImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageUrl];
         UIImage *selectImage = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:selectImageUrl];
-        if (defaultImage && selectImage) {
-            BOOL loadH5 = [obj[@"loadH5"] integerValue];
-            if (loadH5) {
-                WebModel *model = [[WebModel alloc]init];
-                model.title = obj[@"title"];
-                model.webUrl = obj[@"url"];
-                model.parameter = @{@"nav": PARAM_IS_NIL_ERROR(obj[@"nav"])};
-                model.hideNavigationBar = [obj[@"nav_hidden"] integerValue];
-                model.fromTab = YES;
-                [dataArray addObject:@{
-                                       GQTableBarControllerName : @"ToolWebViewController",
-                                       GQTabBarItemTitle : obj[@"title"],
-                                       GQTabBarItemImage : [defaultImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-                                       GQTabBarItemSelectedImage : [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-                                       GQTabBarItemLoadH5 : @(loadH5),
-                                       GQTabBarItemWbebModel : model
-                                       }];
-            } else {
-                [dataArray addObject:@{
-                                       GQTableBarControllerName : obj[@"className"],
-                                       GQTabBarItemTitle : obj[@"title"],
-                                       GQTabBarItemImage : [defaultImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-                                       GQTabBarItemSelectedImage : [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                       }];
+        BOOL loadLineImage = false;
+        if (!defaultImage) {
+            if (idx == 0) {
+                defaultImage = [UIImage imageNamed:@"shouye"];
+            } else if (idx == 1) {
+                defaultImage = [UIImage imageNamed:@"bifen"];
+            } else if (idx == 2) {
+                 defaultImage = [UIImage imageNamed:@"qingbao"];
+            } else if (idx == 3) {
+                 defaultImage = [UIImage imageNamed:@"tuijian"];
+            } else if (idx == 4) {
+                 defaultImage = [UIImage imageNamed:@"wode"];
+            } else if (idx == 5) {
+                defaultImage = [UIImage imageNamed:@"qingbao"];
             }
-            
-            
+            loadLineImage = YES;
+        }
+        
+        if (!selectImage) {
+            if (idx == 0) {
+                selectImage = [UIImage imageNamed:@"shouye-1"];
+            } else if (idx == 1) {
+                selectImage = [UIImage imageNamed:@"bifen-1"];
+            } else if (idx == 2) {
+                selectImage = [UIImage imageNamed:@"qingbao-1"];
+            } else if (idx == 3) {
+                selectImage = [UIImage imageNamed:@"tuijian-1"];
+            } else if (idx == 4) {
+                selectImage = [UIImage imageNamed:@"wode-1"];
+            } else if (idx == 5) {
+                selectImage = [UIImage imageNamed:@"qingbao-1"];
+            }
+            loadLineImage = YES;
+        }
+        
+        BOOL loadH5 = [obj[@"loadH5"] integerValue];
+        if (loadH5) {
+            WebModel *model = [[WebModel alloc]init];
+            model.title = obj[@"title"];
+            model.webUrl = obj[@"url"];
+            model.parameter = @{@"nav": PARAM_IS_NIL_ERROR(obj[@"nav"])};
+            model.hideNavigationBar = [obj[@"nav_hidden"] integerValue];
+            model.fromTab = YES;
+            [dataArray addObject:@{
+                                   GQTableBarControllerName : @"ToolWebViewController",
+                                   GQTabBarItemTitle : obj[@"title"],
+                                   GQTabBarItemImage : [defaultImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                   GQTabBarItemSelectedImage : [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                   GQTabBarItemLoadH5 : @(loadH5),
+                                   GQTabBarItemWbebModel : model
+                                   }];
         } else {
-            [self reloadTableBarImage];
-            dataArray = [[self loadLocalTableBarConfig] mutableCopy];
-            *stop = YES;
+            [dataArray addObject:@{
+                                   GQTableBarControllerName : obj[@"className"],
+                                   GQTabBarItemTitle : obj[@"title"],
+                                   GQTabBarItemImage : [defaultImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                   GQTabBarItemSelectedImage : [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                   }];
+        }
+        
+        if (idx == array.count - 1) {
+            if (loadLineImage) {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    [self reloadTableBarImage];
+                });
+            }
         }
     }];
     return dataArray;
