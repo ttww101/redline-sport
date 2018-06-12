@@ -27,6 +27,8 @@
 
 @property (nonatomic , strong) AppManger *manger;
 
+@property (nonatomic , strong) UIView *toastView;
+
 
 @end
 
@@ -151,10 +153,11 @@
     if (self.showLoding) {
         [LodingAnimateView dissMissLoadingView];
     }
+    [self dissMissToastView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [SVProgressHUD showErrorWithStatus:@"加载失败"];
+    [self createNullToastView:@"" imageName:@"nodataFirstP"];
     if (self.showLoding) {
         [LodingAnimateView dissMissLoadingView];
     }
@@ -276,6 +279,38 @@
 - (BOOL)panAction:(UIGestureRecognizer *)gestureRecognizer
 {
     return NO;
+}
+
+- (void)reloadAction {
+    [self loadData];
+}
+
+#pragma mark - Private Method
+
+- (void)createNullToastView:(NSString *)text imageName:(NSString *)imageName {
+    if (!_toastView) {
+        [self.navigationController setNavigationBarHidden:false animated:false];
+        _toastView = [[UIView alloc]initWithFrame:self.webView.bounds];
+        UIImageView *toastImageView = [UIImageView new];
+        toastImageView.image = [UIImage imageNamed:imageName];
+        toastImageView.contentMode = UIViewContentModeScaleToFill;
+        toastImageView.userInteractionEnabled = YES;
+        [_toastView addSubview:toastImageView];
+        [toastImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_toastView);
+        }];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reloadAction)];
+        [toastImageView addGestureRecognizer:tap];
+        [self.webView addSubview:_toastView];
+    }
+}
+
+- (void)dissMissToastView {
+    if (_toastView) {
+        [_toastView removeFromSuperview];
+        _toastView = nil;
+        [self.navigationController setNavigationBarHidden:YES animated:false];
+    }
 }
 
 #pragma mark - Lazy Load

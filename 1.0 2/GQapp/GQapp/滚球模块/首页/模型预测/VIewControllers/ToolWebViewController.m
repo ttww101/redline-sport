@@ -633,7 +633,6 @@
         [toastImageView addGestureRecognizer:tap];
         [self.webView addSubview:_toastView];
     }
-    
 }
 
 - (void)dissMissToastView {

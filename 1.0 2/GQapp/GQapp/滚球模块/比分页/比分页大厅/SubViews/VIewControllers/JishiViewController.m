@@ -2508,7 +2508,6 @@ static SystemSoundID shake_sound_id = 0;
         _activityImageView.frame = CGRectMake(0, 118, Width, 66);
         _activityImageView.contentMode = UIViewContentModeScaleAspectFill;
         _activityImageView.clipsToBounds = YES;
-        _activityImageView.backgroundColor = [UIColor orangeColor];
         _activityImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(redBombActivity:)];
         [_activityImageView addGestureRecognizer:tap];
