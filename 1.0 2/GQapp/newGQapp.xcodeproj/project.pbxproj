@@ -63,6 +63,7 @@
 		A94B677D2071FC0D00E0748F /* ToolWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B677C2071FC0D00E0748F /* ToolWebViewController.m */; };
 		A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* LodingAnimateView.m */; };
 		A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
+		A961E43320CF9DFB00000E06 /* WebviewProgressLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A961E43220CF9DFB00000E06 /* WebviewProgressLine.m */; };
 		A96C141D2084875500284E4B /* XHPayWxReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14132084875400284E4B /* XHPayWxReq.m */; };
 		A96C141E2084875500284E4B /* XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14162084875400284E4B /* XHPayKit.m */; };
 		A96C141F2084875500284E4B /* NSDictionary+XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14172084875400284E4B /* NSDictionary+XHPayKit.m */; };
@@ -1200,6 +1201,8 @@
 		A94B67812072003A00E0748F /* LodingAnimateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LodingAnimateView.m; sourceTree = "<group>"; };
 		A94B67822072003A00E0748F /* LodingAnimateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LodingAnimateView.h; sourceTree = "<group>"; };
 		A94D70C3207F43C0002F4310 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		A961E43120CF9DFB00000E06 /* WebviewProgressLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebviewProgressLine.h; sourceTree = "<group>"; };
+		A961E43220CF9DFB00000E06 /* WebviewProgressLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebviewProgressLine.m; sourceTree = "<group>"; };
 		A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+XHPayKit.h"; sourceTree = "<group>"; };
 		A96C14132084875400284E4B /* XHPayWxReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPayWxReq.m; sourceTree = "<group>"; };
 		A96C14142084875400284E4B /* NSString+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XHPayKit.h"; sourceTree = "<group>"; };
@@ -2659,6 +2662,8 @@
 			children = (
 				A91D406820C77FC20059D501 /* GQWebView.h */,
 				A91D406920C77FC20059D501 /* GQWebView.m */,
+				A961E43120CF9DFB00000E06 /* WebviewProgressLine.h */,
+				A961E43220CF9DFB00000E06 /* WebviewProgressLine.m */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -8404,6 +8409,7 @@
 				EB8C1E731F21944C00A07863 /* CommentChildModel.m in Sources */,
 				EB8C1EBD1F21944C00A07863 /* FocusModel.m in Sources */,
 				EB8C1E431F21944C00A07863 /* AnQuanCenterVC.m in Sources */,
+				A961E43320CF9DFB00000E06 /* WebviewProgressLine.m in Sources */,
 				EB8EA72D1F626C7500689C16 /* SelectedSaiGuoTitleView.m in Sources */,
 				A9B5229820932D0E001DF9B9 /* GQMineHeaderView.m in Sources */,
 				843C413D1FB54FB9000AB5A0 /* TongJiModel.m in Sources */,

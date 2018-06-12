@@ -20,6 +20,7 @@
 #import "NavImageView.h"
 #import "GQWebView.h"
 #import "LiveQuizViewController.h"
+#import "WebviewProgressLine.h"
 
 @interface ToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate>
 
@@ -39,6 +40,8 @@
 
 @property (nonatomic , strong) GQWebView *activityWeb;
 
+@property (nonatomic , strong) WebviewProgressLine *progressLine;
+
 
 @end
 
@@ -52,6 +55,10 @@
     if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
     }
+    
+    self.progressLine = [[WebviewProgressLine alloc] initWithFrame:CGRectMake(0, 0, Width, 3)];
+    self.progressLine.lineColor = redcolor;
+    [self.webView addSubview:self.progressLine];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -228,18 +235,18 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [LodingAnimateView showLodingView];
+   [self.progressLine startLoadingAnimation];
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [LodingAnimateView dissMissLoadingView];
+    [self.progressLine endLoadingAnimation];
     [self dissMissToastView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
-    [LodingAnimateView dissMissLoadingView];
+    [self.progressLine endLoadingAnimation];
     
 }
 

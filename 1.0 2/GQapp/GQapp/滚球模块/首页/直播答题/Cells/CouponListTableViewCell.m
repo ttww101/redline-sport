@@ -140,7 +140,7 @@ static NSString *identifier = @"listCell";
 - (UILabel *)descriptionLabel {
     if (_descriptionLabel == nil) {
         _descriptionLabel = [UILabel new];
-        _descriptionLabel.text = @"每张优惠券可查看任意一场18元模型预测服务";
+        _descriptionLabel.text = @"每张优惠券可查看任意一场18钻石模型预测服务";
         _descriptionLabel.font = [UIFont systemFontOfSize:12.f];
         _descriptionLabel.textColor = UIColorFromRGBWithOX(0x999999);
     }

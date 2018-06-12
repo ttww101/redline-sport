@@ -12,12 +12,15 @@
 #import <YYModel/YYModel.h>
 #import "ToolWebViewController.h"
 #import "ArchiveFile.h"
+#import "WebviewProgressLine.h"
 
 @interface GQWebView () <UIWebViewDelegate>
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
+
+@property (nonatomic , strong) WebviewProgressLine *progressLine;
 
 
 @end
@@ -32,6 +35,9 @@
         // 设置摇一摇功能
         [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
         [self becomeFirstResponder];
+        self.progressLine = [[WebviewProgressLine alloc] initWithFrame:CGRectMake(0, 0, Width, 3)];
+        self.progressLine.lineColor = redcolor;
+        [self addSubview:self.progressLine];
     }
     return self;
 }
@@ -141,18 +147,17 @@
 
 #pragma mark - UIWebViewDelegate
 
-
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-
+ [self.progressLine startLoadingAnimation];
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    
+    [self.progressLine endLoadingAnimation];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    
+    [self.progressLine endLoadingAnimation];
 }
 
 #pragma mark - ShakeToEdit 摇动手机之后的回调方法

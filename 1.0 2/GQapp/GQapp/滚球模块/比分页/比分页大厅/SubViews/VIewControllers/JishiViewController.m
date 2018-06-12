@@ -13,7 +13,7 @@
 #import "GuanzhuViewController.h"
 #import "HSJFoldHeaderView.h"
 
-
+#import "GQWebView.h"
 
 #import "SaiTableViewCell.h"
 #import "LiveScoreModel.h"
@@ -26,7 +26,7 @@
 #import "JSbifenModel.h"
 static SystemSoundID shake_sound_id = 0;
 
-@interface JishiViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,DCindexBtnDelegate,FoldSectionHeaderViewDelegate>
+@interface JishiViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,DCindexBtnDelegate,FoldSectionHeaderViewDelegate, GQWebViewDelegate>
 @property (nonatomic, strong) NSArray *arrDataQici;
 //当前页面请求之后保存的flag
 @property (nonatomic, assign) NSInteger currentFlag;
@@ -50,6 +50,15 @@ static SystemSoundID shake_sound_id = 0;
 @property (nonatomic, assign) BOOL timerOn;
 @property (nonatomic, strong) NSMutableArray              *titleArr;
 @property (nonatomic, strong) NSMutableDictionary         *foldInfo;
+
+
+@property (nonatomic , strong) UIImageView *activityImageView;
+
+@property (nonatomic , strong) GQWebView *activityWeb;
+
+@property (nonatomic , copy) NSDictionary *activityDic;
+
+@property (nonatomic , strong) UIButton *cloesBtn;
 
 @end
 
@@ -92,7 +101,11 @@ static SystemSoundID shake_sound_id = 0;
     
 
     self.navigationController.navigationBarHidden = YES;
-//    [self.tableView reloadData];
+    
+    // 活动入口
+    [self loadRedBombActivity];
+    
+    
 }
 
 - (void)viewDidLoad {
@@ -2396,7 +2409,122 @@ static SystemSoundID shake_sound_id = 0;
  // Pass the selected object to the new view controller.
  }
  */
+#pragma mark -  活动入口
 
+#pragma mark - GQWebViewDelegate
+
+- (void)webClose:(id)data {
+    if (_activityWeb) {
+        [_activityWeb removeFromSuperview];
+        _activityWeb = nil;
+    }
+}
+
+- (void)loadRedBombActivity {
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_redBomb]  Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        NSString *code = responseOrignal[@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *itemDic = responseOrignal[@"data"];
+            if (itemDic) {
+                self.activityDic = itemDic;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self addActivityWith:itemDic];
+                });
+            }
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self addActivityWith:nil];
+            });
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self addActivityWith:nil];
+        });
+    }];
+    
+}
+
+- (void)addActivityWith:(NSDictionary *)dataDic {
+    if (dataDic) {
+        if (!_activityImageView) {
+            [self.view addSubview:self.activityImageView];
+            CGRect rect = self.tableView.frame;
+            rect.origin.y = rect.origin.y + 66;
+            rect.size.height = rect.size.height - 66;
+            self.tableView.frame = rect;
+        }
+        [self.activityImageView sd_setImageWithURL:[NSURL URLWithString:dataDic[@"picture"]]];
+        
+    } else {
+        if (_activityImageView) {
+            [_activityImageView removeFromSuperview];
+            _activityImageView = nil;
+        }
+        self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar-14);
+    }
+}
+
+#pragma mark - Events
+
+- (void)redBombActivity:(UIGestureRecognizer *)tap {
+    if (self.activityDic) {
+        if (![Methods login]) {
+            [Methods toLogin];
+            return;
+        }
+        WebModel *model = [[WebModel alloc]init];
+        model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"activityUrl"]);
+        model.hideNavigationBar = YES;
+        GQWebView *web = [[GQWebView alloc]init];
+        web.webDelegate = self;
+        web.frame = [UIScreen mainScreen].bounds;
+        web.model = model;
+        web.opaque = NO;
+        web.backgroundColor = [UIColor clearColor];
+        web.scrollView.scrollEnabled = false;
+        [[Methods getMainWindow] addSubview:web];
+        _activityWeb = web;
+    } else {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"活动不可用"];
+    }
+}
+
+- (void)closeActivity {
+    [self addActivityWith:nil];
+}
+
+#pragma mark - Lazy Load
+
+- (UIImageView *)activityImageView {
+    if (_activityImageView == nil) {
+        _activityImageView = [UIImageView new];
+        _activityImageView.frame = CGRectMake(0, 118, Width, 66);
+        _activityImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _activityImageView.clipsToBounds = YES;
+        _activityImageView.backgroundColor = [UIColor orangeColor];
+        _activityImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(redBombActivity:)];
+        [_activityImageView addGestureRecognizer:tap];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setBackgroundImage:[UIImage imageNamed:@"redbombclose"] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(closeActivity) forControlEvents:UIControlEventTouchUpInside];
+        [_activityImageView addSubview:btn];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_activityImageView.mas_top).offset(5);
+            make.right.equalTo(_activityImageView.mas_right).offset(-5);
+            make.size.mas_equalTo(CGSizeMake(20, 20));
+        }];
+        
+    }
+    return _activityImageView;
+}
 
 
 @end

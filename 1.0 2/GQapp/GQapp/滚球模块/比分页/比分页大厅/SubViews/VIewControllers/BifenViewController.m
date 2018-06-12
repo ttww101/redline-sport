@@ -26,9 +26,8 @@
 
 #import "HSTabBarContentView.h"
 #import "ArchiveFile.h"
-#import "GQWebView.h"
 
-@interface BifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate,HSTabBarContentViewDataSource, GQWebViewDelegate>
+@interface BifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate,HSTabBarContentViewDataSource>
 @property (nonatomic, strong)JishiViewController *jishiVC;
 @property (nonatomic, strong)SaiguoViewController *saiguoVC;
 @property (nonatomic, strong)SaichengViewController *saichengVC;
@@ -54,13 +53,6 @@
 
 @property (nonatomic, strong) UIButton *btnTitle;
 @property (nonatomic, strong) UIButton *imageV;
-
-@property (nonatomic , strong) UIImageView *activityImageView;
-
-@property (nonatomic , strong) GQWebView *activityWeb;
-
-@property (nonatomic , copy) NSDictionary *activityDic;
-
 
 @end
 
@@ -109,8 +101,6 @@
         //    每次进入这个页面都默认加载最新的数据
 
     }
-    
-    [self loadRedBombActivity];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -879,84 +869,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 //    [self removeObserver:self.navTitleView forKeyPath:@"titleFlag"];
-}
-
-#pragma mark -  活动入口
-
-#pragma mark - GQWebViewDelegate
-
-- (void)webClose:(id)data {
-    if (_activityWeb) {
-        [_activityWeb removeFromSuperview];
-        _activityWeb = nil;
-    }
-}
-
-- (void)loadRedBombActivity {
-    if (!_activityImageView) {
-        [self.view addSubview:self.activityImageView];
-    }
-    
-    
-    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
-    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_redBomb]  Start:^(id requestOrignal) {
-        
-    } End:^(id responseOrignal) {
-        
-    } Success:^(id responseResult, id responseOrignal) {
-        NSString *code = responseOrignal[@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary *itemDic = responseOrignal[@"data"];
-            if (itemDic) {
-                self.activityDic = itemDic;
-                [self.activityImageView sd_setImageWithURL:[NSURL URLWithString:itemDic[@"picture"]]];
-                self.activityImageView.hidden = false;
-            }
-            
-        } else {
-            self.activityImageView.hidden = YES;
-        }
-    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        self.activityImageView.hidden = YES;
-    }];
-    
-}
-
-#pragma mark - Events
-
-- (void)redBombActivity:(UIGestureRecognizer *)tap {
-    if (self.activityDic) {
-        WebModel *model = [[WebModel alloc]init];
-        model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
-        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"activityUrl"]);
-        model.hideNavigationBar = YES;
-        GQWebView *web = [[GQWebView alloc]init];
-        web.webDelegate = self;
-        web.frame = [UIScreen mainScreen].bounds;
-        web.model = model;
-        web.opaque = NO;
-        web.backgroundColor = [UIColor clearColor];
-        web.scrollView.scrollEnabled = false;
-        [[Methods getMainWindow] addSubview:web];
-        _activityWeb = web;
-    }
-}
-
-#pragma mark - Lazy Load
-
-- (UIImageView *)activityImageView {
-    if (_activityImageView == nil) {
-        _activityImageView = [UIImageView new];
-        _activityImageView.frame = CGRectMake(0, 118, Width, 44);
-        _activityImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _activityImageView.clipsToBounds = YES;
-        _activityImageView.hidden = YES;
-        _activityImageView.backgroundColor = [UIColor orangeColor];
-        _activityImageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(redBombActivity:)];
-        [_activityImageView addGestureRecognizer:tap];
-    }
-    return _activityImageView;
 }
 
 @end

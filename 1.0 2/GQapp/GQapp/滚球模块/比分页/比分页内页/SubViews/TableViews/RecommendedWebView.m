@@ -13,10 +13,10 @@
 #import "ToolWebViewController.h"
 #import "ArchiveFile.h"
 
-
 @interface RecommendedWebView () <UIWebViewDelegate>
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
+
 
 @end
 
@@ -121,19 +121,15 @@
 
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-//    [LodingAnimateView showLodingView];
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-//    [LodingAnimateView dissMissLoadingView];
-    
+   
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [SVProgressHUD showErrorWithStatus:@"加载失败"];
-//    [LodingAnimateView dissMissLoadingView];
-    
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

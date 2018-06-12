@@ -119,8 +119,8 @@
 
 - (void)loadBradgeHandler {
     __weak LiveQuizViewController *weakSelf = self;
-    
-    self.bridge = [self.manger registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
+    AppManger *manger = [[AppManger alloc]init];
+    self.bridge = [manger registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
         if (responseCallback) {
             weakSelf.callBack = responseCallback;
         }

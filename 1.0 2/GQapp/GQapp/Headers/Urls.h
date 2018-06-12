@@ -202,7 +202,7 @@
 
 // 红包活动
 
-#define url_redBomb @"/wcp/redpacket/pic"
+#define url_redBomb @"/redpacket/pic"
 
 // 模型支付接口
 #define url_modelPay @"/pay/modelPay/new"
