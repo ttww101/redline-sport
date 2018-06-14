@@ -849,7 +849,6 @@
     return _recommendWeb;
 }
 
-#warning 111
 - (JiBenWebView *)webView{
     if (!_webView) {
         _webView = [[JiBenWebView alloc] initWithFrame:CGRectMake(0, 0, Width, _scrollMainView.height)];

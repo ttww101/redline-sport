@@ -2451,7 +2451,7 @@ static SystemSoundID shake_sound_id = 0;
 }
 
 - (void)addActivityWith:(NSDictionary *)dataDic {
-    if (dataDic) {
+    if ([dataDic isKindOfClass:[NSDictionary class]]) {
         if (!_activityImageView) {
             [self.view addSubview:self.activityImageView];
             CGRect rect = self.tableView.frame;
