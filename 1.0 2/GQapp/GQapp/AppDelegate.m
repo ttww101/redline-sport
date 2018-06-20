@@ -30,6 +30,8 @@
 #import "GQTbableConfig.h"
 #import "ArchiveFile.h"
 #import "StartViewController.h"
+#import "LaunchView.h"
+
 #define Config_Version @"configVersion"
 
 
@@ -88,11 +90,12 @@
     StartViewController *launchControl = [[StartViewController alloc]init];
     self.window.rootViewController = launchControl;
     [self.window makeKeyAndVisible];
-    
+    [self getUrlSerPath];
+
     [self isFirstLaunched];
     [self resumePuchase];  // 遗留在本地的内购验证
     //根据AppStore版本更新,在firstViewController里面实现
-    [self getUrlSerPath];
+    
 
     [self setupUM];
     [self setUMShare];
@@ -322,7 +325,6 @@
 
 - (void)initRootViewCotroller
 {
-    
     //每次初始化的时候清除首页缓存
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstPageDataLocal"];
     GQTbableConfig *config = [[GQTbableConfig alloc]init];
@@ -330,13 +332,14 @@
     config.tableBarController.selectedIndex = 0;
     self.window.rootViewController = config.tableBarController;
     [self.window makeKeyWindow];
+    
+    [self loadLaunchImageView];
+    
     //启动程序后请求看有没有未读通知
     if ([Methods login]) {
         [APPDELEGATE.customTabbar loadUreadNotificationNum];
     }
     [self loadFirstData];
-    [self loadLaunchImageView];
-
     //第二天打开app的时候重新初始化根视图
     NSString *currentLocalDay = [Methods getDateByStyle:DateFormatter withDate:[NSDate date]];
     [[NSUserDefaults standardUserDefaults] setObject:currentLocalDay forKey:@"currentLocalDay"];
@@ -1089,27 +1092,14 @@
     } End:^(id responseOrignal) {
         
     } Success:^(id responseResult, id responseOrignal) {
-        
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-            
-          NSString *imageUrl = [responseOrignal objectForKey:@"data"];
-            
-            if (imageUrl == nil || [imageUrl isEqualToString:@""]) {
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"LaunchImageView"];
-                [[NSUserDefaults standardUserDefaults] setObject:imageUrl forKey:@"LaunchImageViewUrl"];
-            }else{
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"LaunchImageView"];
-                
-            }
-            
-            
-        }else{
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"LaunchImageView"];
+            NSDictionary *dataDic = [responseOrignal objectForKey:@"data"];
+            LaunchView *launchV = [[LaunchView alloc] initWithFrame:self.window.bounds];
+            launchV.dataDic = dataDic;
+            [[Methods getMainWindow] addSubview:launchV];
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"LaunchImageView"];
-        
+
     }];
 }
 

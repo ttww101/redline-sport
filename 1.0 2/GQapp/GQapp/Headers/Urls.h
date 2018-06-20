@@ -42,7 +42,7 @@
 
 
 //app打开的时候的图片
-#define url_startpage @"/startpage"
+#define url_startpage @"/startpageX"
 
 //登陆注册接口
 /*

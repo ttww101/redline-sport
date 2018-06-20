@@ -56,6 +56,7 @@
 		A941D534206E22FB008CE14F /* ToolKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D533206E22FB008CE14F /* ToolKitViewController.m */; };
 		A941D537206E236A008CE14F /* ToolKitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D536206E236A008CE14F /* ToolKitViewModel.m */; };
 		A943AAD520C14BA100501299 /* AnalysisWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = A943AAD420C14BA100501299 /* AnalysisWebview.m */; };
+		A94804DD20DA435B00BB489F /* company.png in Resources */ = {isa = PBXBuildFile; fileRef = A94804DC20DA435B00BB489F /* company.png */; };
 		A94B676E2071D51D00E0748F /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B676D2071D51D00E0748F /* LiveViewController.m */; };
 		A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67722071D5F100E0748F /* LiveListViewController.m */; };
 		A94B67772071E32E00E0748F /* LiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67762071E32E00E0748F /* LiveListModel.m */; };
@@ -1188,6 +1189,7 @@
 		A941D536206E236A008CE14F /* ToolKitViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewModel.m; sourceTree = "<group>"; };
 		A943AAD320C14BA100501299 /* AnalysisWebview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalysisWebview.h; sourceTree = "<group>"; };
 		A943AAD420C14BA100501299 /* AnalysisWebview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalysisWebview.m; sourceTree = "<group>"; };
+		A94804DC20DA435B00BB489F /* company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = company.png; sourceTree = "<group>"; };
 		A94B676C2071D51D00E0748F /* LiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		A94B676D2071D51D00E0748F /* LiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		A94B67712071D5F100E0748F /* LiveListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveListViewController.h; sourceTree = "<group>"; };
@@ -3167,6 +3169,7 @@
 			children = (
 				EBFB51FC1DF03EEB00FB6818 /* guide.png */,
 				EBFB51FD1DF03EEB00FB6818 /* guide4.png */,
+				A94804DC20DA435B00BB489F /* company.png */,
 			);
 			name = guide;
 			sourceTree = "<group>";
@@ -7656,6 +7659,7 @@
 				EBF3AB9C1F21CD3100C2341A /* yellowRedCard.png in Resources */,
 				EB9213521DFE964A0020B39F /* reload.png in Resources */,
 				EB041C111F177BB100E80C97 /* share03.png in Resources */,
+				A94804DD20DA435B00BB489F /* company.png in Resources */,
 				EBF3AB661F21CD3100C2341A /* bf-2.png in Resources */,
 				EB92133A1DFE964A0020B39F /* log3.png in Resources */,
 				EB2E1D831CEB205A00726748 /* Icon-Small-40.png in Resources */,

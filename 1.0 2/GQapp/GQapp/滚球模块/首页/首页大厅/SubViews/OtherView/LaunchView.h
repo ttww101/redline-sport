@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LaunchView : UIView
-@property (nonatomic, strong) NSString *imageName;
-@property (nonatomic, strong) NSString *imageUrl;
+
+@property (nonatomic, copy) NSDictionary *dataDic;
 
 @end

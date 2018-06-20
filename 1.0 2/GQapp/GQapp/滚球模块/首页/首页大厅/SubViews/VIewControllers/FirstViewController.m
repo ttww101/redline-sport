@@ -239,15 +239,6 @@
     _btnUerBtnIndex = 1;
     
     _arrBtnUser = [[NSMutableArray alloc] initWithCapacity:0];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"LaunchImageView"]) {
-        LaunchView *launchV = [[LaunchView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
-        launchV.imageUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"LaunchImageViewUrl"];
-        
-        [[APPDELEGATE window] addSubview:launchV];
-        
-    }
-    
-    
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showGuideVC"]) {
         GuideView *guideV = [[GuideView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
