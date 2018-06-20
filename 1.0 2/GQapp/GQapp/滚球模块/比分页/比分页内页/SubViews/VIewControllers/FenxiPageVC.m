@@ -80,6 +80,8 @@
 @property (nonatomic , strong) UIImageView *liveQuizImageView;
 @property (nonatomic , copy) NSDictionary *activityDic;
 
+@property (nonatomic, assign) BOOL isBack;
+
 @end
 
 @implementation FenxiPageVC
@@ -191,15 +193,22 @@
     
     }
     
-    [self.analysisWeb reloadData];
-    [self.recommendWeb reloadData];
-    
+    if (self.isBack) {
+        [self.analysisWeb reloadData];
+        [self.recommendWeb reloadData];
+    }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self loadLiveData];
     });
 
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.isBack = YES;
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];

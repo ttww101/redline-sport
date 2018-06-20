@@ -862,7 +862,7 @@
     NSString *productId = dic[@"productId"];
     NSInteger amount = [dic[@"amount"] integerValue];
     
-    [[AppleIAPService sharedInstance]purchase:@{@"product_id":productId, @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
+    [[AppleIAPService sharedInstance]purchase:@{@"product_id":PARAM_IS_NIL_ERROR(productId), @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
         [hud hide:YES];
         if (error) {
             NSString *errMse = error.userInfo[@"NSLocalizedDescription"];

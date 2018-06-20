@@ -21,6 +21,9 @@
 
 @property (nonatomic , strong) WebviewProgressLine *progressLine;
 
+@property (nonatomic , strong) WebViewJavascriptBridge* bridge;
+
+
 @end
 
 @implementation RecommendedWebView
@@ -39,10 +42,14 @@
 
 - (void)setModel:(WebModel *)model {
     _model = model;
+    [self loadData];
 }
 
 - (void)reloadData {
-    [self loadData];
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        
+    }];
 }
 
 - (void)loadBradgeHandler {
@@ -63,6 +70,7 @@
         }
     }];
     [bridge setWebViewDelegate:self];
+    self.bridge = bridge;
 }
 
 #pragma mark - Load Data
@@ -149,6 +157,22 @@
         scrollView.contentOffset = CGPointZero;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTableViewFrame" object:nil];//到顶通知父视图改变状态
     }
+}
+
+#pragma mark - Private Method
+
+- (NSString *)getJSONMessage:(NSDictionary *)messageDic {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    //去掉字符串中的空格
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    //去掉字符串中的换行符
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    return mutStr;
 }
 
 @end
