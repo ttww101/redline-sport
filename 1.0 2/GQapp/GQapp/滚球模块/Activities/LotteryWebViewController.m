@@ -15,12 +15,15 @@
 
 @property (nonatomic , strong) UIView *statusView;
 
+@property (nonatomic, assign) BOOL recodLoding;
+
 @end
 
 @implementation LotteryWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
     for (NSDictionary *dic in activityArray) {
         if (dic[@"main"]) {
@@ -36,6 +39,19 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    if ([Methods login]) {
+        if (self.recodLoding) {
+            [self.navigationController setNavigationBarHidden:false animated:YES];
+        }
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - UIWebViewDelegate
@@ -61,6 +77,7 @@
             [self configNav];
             [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
             self.statusView.hidden = YES;
+            self.recodLoding = YES;
         } else {
             [self.navigationController setNavigationBarHidden:YES animated:YES];
             if ([Methods login]) {

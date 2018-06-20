@@ -382,8 +382,8 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"手机号不正确"];
         return;
     }
-    if (!(self.userTextF.text.length >= 2 && self.userTextF.text.length <= 8)) {
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入2~8个字符的用户名"];
+    if (!(self.userTextF.text.length >= 2 && self.userTextF.text.length <= 12)) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入2~12位的昵称"];
         return;
     }
 
@@ -581,8 +581,8 @@
 //        cs = [[NSCharacterSet characterSetWithCharactersInString:LettersAndNum] invertedSet];
 //        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
 //        if ([string isEqualToString:filtered]) {
-            if ([toBeString length]>8) {
-                textField.text = [toBeString substringToIndex:8];
+            if ([toBeString length]>12) {
+                textField.text = [toBeString substringToIndex:12];
                 return NO;
             }
                 else{
