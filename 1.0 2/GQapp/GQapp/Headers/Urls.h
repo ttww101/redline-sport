@@ -201,6 +201,11 @@
 
 #define url_idfa @"/upidfa"
 
+// 更新
+#define url_update @"/upgrade"
+
+
+
 // 红包活动
 
 #define url_redBomb @"/redpacket/pic"

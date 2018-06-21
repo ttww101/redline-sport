@@ -45,6 +45,47 @@
     
         }];
         
+        
+        [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_update] Start:^(id requestOrignal) {
+            
+        } End:^(id responseOrignal) {
+            
+        } Success:^(id responseResult, id responseOrignal) {
+            NSString *code = responseOrignal[@"code"];
+            if ([code isEqualToString:@"200"]) {
+                NSDictionary *dic = responseOrignal[@"data"];
+                NSString *messageTitle = dic[@"title"];
+                NSString *content = dic[@"content"];
+                NSString *url = dic[@"downloadurl"];
+                NSInteger isforced = [dic[@"isforced"] integerValue];
+                NSString *version = dic[@"version"];
+                NSString *localVersion = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+                if (![version isEqualToString:localVersion]) {
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:messageTitle message:content preferredStyle:UIAlertControllerStyleAlert];
+                    if (isforced == 0) {
+                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                        }];
+                        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                            
+                        }];
+                        [alertController addAction:okAction];           // A
+                        [alertController addAction:cancelAction];
+                    } else {
+                        
+                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+                            
+                        }];
+                        [alertController addAction:okAction];
+                    }
+                    [APPDELEGATE.customTabbar presentViewController:alertController animated:YES completion:nil];
+                }
+            }
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        
+        }];
+        
 
         NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
         [parameter setObject:idfa forKey:@"idfa"];
@@ -60,6 +101,7 @@
         
     });
     
+
     
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString *oldAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
