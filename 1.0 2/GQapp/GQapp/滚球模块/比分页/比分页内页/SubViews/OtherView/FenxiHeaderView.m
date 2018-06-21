@@ -1007,7 +1007,7 @@
     [self.liveVideoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.basicView.mas_centerX);
         make.bottom.equalTo(self.basicView.mas_bottom).offset(-5);
-        make.size.mas_equalTo(CGSizeMake(103, 20));
+        make.size.mas_equalTo(CGSizeMake(100, 32));
     }];
 
 }

@@ -45,6 +45,8 @@
 
 @end
 
+#define wxpay @"wx"
+
 @implementation ToolWebViewController
 
 - (void)viewDidLoad {
@@ -52,9 +54,9 @@
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
-//    if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
-//        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
-//    }
+    if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
+    }
     
     self.progressLine = [[WebviewProgressLine alloc] initWithFrame:CGRectMake(0, 0, Width, 3)];
     self.progressLine.lineColor = redcolor;
@@ -91,10 +93,14 @@
 #pragma mark - Notification
 
 - (void)refreshResult {
-    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"payResult"}];
-    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-        
-    }];
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:wxpay]) {
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"payResult"}];
+        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+            
+        }];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:wxpay];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
 }
 
 - (void)refreshData {
@@ -474,6 +480,8 @@
             req.timeStamp = timStamp;//时间戳，防重发
             req.package = parameter[@"package"];
             req.sign = parameter[@"sign"];//签名
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:wxpay];
+            [[NSUserDefaults standardUserDefaults]synchronize];
             [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
                 NSInteger code = [resultDict[@"errCode"] integerValue];
                 if(code == 0){//支付成功
@@ -481,6 +489,8 @@
                 } else {
                     weakSelf.callBack(@"0");
                 }
+                [[NSUserDefaults standardUserDefaults]removeObjectForKey:wxpay];
+                [[NSUserDefaults standardUserDefaults]synchronize];
             }];
         } else if ([type isEqualToString:@"ali"]) {
             NSString *orderSign = dataDic[@"data"];
