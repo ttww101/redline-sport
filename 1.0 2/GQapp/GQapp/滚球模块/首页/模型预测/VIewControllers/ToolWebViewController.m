@@ -52,9 +52,9 @@
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
-    if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
-    }
+//    if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
+//        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
+//    }
     
     self.progressLine = [[WebviewProgressLine alloc] initWithFrame:CGRectMake(0, 0, Width, 3)];
     self.progressLine.lineColor = redcolor;
@@ -463,7 +463,7 @@
         NSDictionary *dataDic = (NSDictionary *)data;
         NSDictionary *parameter = dataDic[@"data"];
         NSString *type = dataDic[@"type"];
-//        __weak ToolWebViewController *weakSelf = self;
+        __weak ToolWebViewController *weakSelf = self;
         if ([type isEqualToString:@"wx"]) {
             XHPayWxReq *req = [[XHPayWxReq alloc] init];
             req.openID = parameter[@"appid"];
@@ -477,9 +477,9 @@
             [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
                 NSInteger code = [resultDict[@"errCode"] integerValue];
                 if(code == 0){//支付成功
-//                    weakSelf.callBack(@"1");
+                    weakSelf.callBack(@"1");
                 } else {
-//                    weakSelf.callBack(@"0");
+                    weakSelf.callBack(@"0");
                 }
             }];
         } else if ([type isEqualToString:@"ali"]) {
@@ -487,9 +487,9 @@
             [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"com.Gunqiu.GQapp" completed:^(NSDictionary *resultDict) {
                 NSInteger status = [resultDict[@"resultStatus"] integerValue];
                 if(status == 9000){
-//                    weakSelf.callBack(@"1");
+                    weakSelf.callBack(@"1");
                 } else {
-//                    weakSelf.callBack(@"0");
+                    weakSelf.callBack(@"0");
                 }
             }];
         } else if ([type isEqualToString:@"apple"]) {

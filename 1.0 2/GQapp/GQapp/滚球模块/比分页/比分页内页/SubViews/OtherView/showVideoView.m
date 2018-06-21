@@ -79,6 +79,7 @@
     _url = [url copy];
     NSURL *miguurl = [NSURL URLWithString:_url];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:miguurl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:15];
+    [request setValue:PARAM_IS_NIL_ERROR([Methods getTokenModel].token) forHTTPHeaderField:@"token"];
     [self.webView loadRequest:request];
 }
 
