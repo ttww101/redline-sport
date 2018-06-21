@@ -7,6 +7,7 @@
 //
 
 #import "FenxiHeaderView.h"
+#import "showVideoView.h"
 @interface FenxiHeaderView ()
 {
 }
@@ -42,6 +43,9 @@
 @property (nonatomic, strong) UILabel               *labGuestOrder;
 
 @property (nonatomic, assign) BOOL hideHeader;
+
+@property (nonatomic , strong) UIButton *liveVideoBtn;
+
 @end
 @implementation FenxiHeaderView
 
@@ -558,6 +562,10 @@
         [self.basicBottomView addSubview:self.labTQNum];
         [self.basicBottomView addSubview:self.labPlace];
         [self.basicBottomView addSubview:self.labAdress];
+        
+        
+        // 直播btn
+        [_basicView addSubview:self.liveVideoBtn];
 
     }
     return _basicView;
@@ -800,6 +808,49 @@
     return _labAdress;
 }
 
+- (UIButton *)liveVideoBtn {
+    if (_liveVideoBtn == nil) {
+        _liveVideoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_liveVideoBtn setBackgroundImage:[UIImage imageNamed:@"liveimage"] forState:UIControlStateNormal];
+        [_liveVideoBtn addTarget:self action:@selector(liveAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _liveVideoBtn;
+}
+
+
+#pragma mark - Live Action
+
+- (void)liveAction {
+    
+    if (_model.matchstate == 0) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛未开始"];
+        return;
+    } else if (_model.matchstate < 0) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛已结束"];
+         return;
+    }
+    
+     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+    [parameter setObject:[NSString stringWithFormat:@"%zi",_model.mid ] forKey:@"mid"];
+    [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_video_live] Start:^(id requestOrignal) {
+        
+    } End:^(id responseOrignal) {
+        
+    } Success:^(id responseResult, id responseOrignal) {
+        NSDictionary *data = responseOrignal[@"data"];
+        NSString *url = data[@"url"];
+        if (url.length > 0) {
+            showVideoView *video = [[showVideoView alloc]init];
+            video.url = url;
+            [[Methods getMainWindow] addSubview:video];
+        } else {
+            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"暂无信号"];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"暂时不能观看"];
+    }];
+
+}
 
 - (void)addAutolayout
 {
@@ -832,7 +883,7 @@
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.basicView.mas_centerX);
 //        make.top.equalTo(self.basicView.mas_top).offset(20 + 10);
-        make.top.equalTo(self.imageHome.mas_top);
+        make.top.mas_equalTo(40);
     }];
    
     //两个球队的比分或者距开赛时间
@@ -951,6 +1002,12 @@
         make.trailing.equalTo(self.labAdress.mas_leading).offset(-4);
         make.height.equalTo(self.iconTQ);
 
+    }];
+    
+    [self.liveVideoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.basicView.mas_centerX);
+        make.bottom.equalTo(self.basicView.mas_bottom).offset(-5);
+        make.size.mas_equalTo(CGSizeMake(103, 20));
     }];
 
 }

@@ -47,6 +47,7 @@
         weakSelf.width = Width;
     } completion:^(BOOL finished) {
         weakSelf.hidden = YES;
+        weakSelf.width = 0;
     }];
 }
 

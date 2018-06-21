@@ -117,6 +117,7 @@
 //比分页面新接口
 #define url_bifen_jsbfnew @"/bifen/jsbf"
 
+#define url_video_live @"/livestv"
 
 //欧洲杯
 //设置我的预测
