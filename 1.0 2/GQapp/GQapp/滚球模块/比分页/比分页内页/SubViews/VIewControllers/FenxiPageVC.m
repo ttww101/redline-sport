@@ -217,6 +217,8 @@
     self.webSocket.delegate = nil;
     [self.webSocket close];
     self.webSocket = nil;
+    [self.analysisWeb cancleLoadData];
+    [self.recommendWeb cancleLoadData];
 }
 
 - (void)timerRun

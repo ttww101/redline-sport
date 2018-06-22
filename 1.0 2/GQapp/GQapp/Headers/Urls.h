@@ -279,6 +279,9 @@
 #define url_focuslist @"/focus/list"
 // /user/info用户信息
 #define url_userinfo @"/user/info"
+
+#define url_usernewinfo @"/user/myinfo"
+
 // /ucenter/statistics 统计
 #define url_ucenterstatistics @"/ucenter/statistics"
 // /ucenter/userstatis  新版个人统计

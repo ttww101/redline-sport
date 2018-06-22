@@ -13,15 +13,18 @@
 #import "ToolWebViewController.h"
 #import "ArchiveFile.h"
 #import "WebviewProgressLine.h"
+#import <WebKit/WebKit.h>
 
-
-@interface RecommendedWebView () <UIWebViewDelegate>
+@interface RecommendedWebView () <UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate>
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 
 @property (nonatomic , strong) WebviewProgressLine *progressLine;
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
+
+
+
 
 
 @end
@@ -43,6 +46,37 @@
 - (void)setModel:(WebModel *)model {
     _model = model;
     [self loadData];
+//    NSOperationQueue *queue=[[NSOperationQueue alloc]init];
+//    NSInvocationOperation *op=[[NSInvocationOperation alloc]initWithTarget:self selector:@selector(downLoadWeb) object:nil];
+//    [queue addOperation:op];
+    
+}
+
+-(void)downLoadWeb {
+    
+    NSURL *url=[NSURL URLWithString:_model.webUrl];
+    NSError *error;
+    NSString *strData=[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+    NSData *data=[strData dataUsingEncoding:NSUTF8StringEncoding];
+    if (data !=nil) {
+        [self performSelectorOnMainThread:@selector(downLoad_completed:) withObject:data waitUntilDone:NO];
+    } else {
+        NSLog(@"error when download:%@",error);
+    }
+}
+
+-(void)downLoad_completed:(NSData *)data{
+    NSURL *url=[NSURL URLWithString:_model.webUrl];
+    NSString *nameType=[self mimeType:url];
+    [self loadData:data MIMEType:nameType textEncodingName:@"UTF-8" baseURL:url];
+}
+
+- (NSString *)mimeType:(NSURL *)url {
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    //使用同步方法后去MIMEType
+    NSURLResponse *response = nil;
+    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+    return response.MIMEType;
 }
 
 - (void)reloadData {
@@ -50,6 +84,12 @@
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
         
     }];
+}
+
+- (void)cancleLoadData {
+    if (self.isLoading) {
+        [self stopLoading];
+    }
 }
 
 - (void)loadBradgeHandler {

@@ -883,7 +883,7 @@
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.basicView.mas_centerX);
 //        make.top.equalTo(self.basicView.mas_top).offset(20 + 10);
-        make.top.mas_equalTo(40);
+        make.top.mas_equalTo(30);
     }];
    
     //两个球队的比分或者距开赛时间
@@ -1006,7 +1006,7 @@
     
     [self.liveVideoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.basicView.mas_centerX);
-        make.bottom.equalTo(self.basicView.mas_bottom).offset(-5);
+        make.top.equalTo(self.labState.mas_bottom).offset(5);
         make.size.mas_equalTo(CGSizeMake(100, 32));
     }];
 
