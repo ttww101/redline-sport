@@ -422,6 +422,10 @@
         });
     }];
     
+    [self.bridge registerHandler:@"openBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[data stringValue]]];
+    }];
+    
 }
 
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {
