@@ -248,16 +248,11 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self.progressLine endLoadingAnimation];
     [self dissMissToastView];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"测试" message:@"加载成功" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-    [alert show];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
     [self.progressLine endLoadingAnimation];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"测试" message:@"加载失败" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-    [alert show];
-    
 }
 
 #pragma mark - GQWebViewDelegate
