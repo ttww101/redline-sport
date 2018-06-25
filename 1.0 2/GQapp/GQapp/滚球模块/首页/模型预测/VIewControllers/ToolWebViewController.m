@@ -148,7 +148,7 @@
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:15];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
         [request setValue:PARAM_IS_NIL_ERROR([Methods getTokenModel].token) forHTTPHeaderField:@"token"];
         [self.webView loadRequest:request];
     } else if (self.html5Url != nil) {
@@ -248,11 +248,15 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self.progressLine endLoadingAnimation];
     [self dissMissToastView];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"测试" message:@"加载成功" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    [alert show];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
     [self.progressLine endLoadingAnimation];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"测试" message:@"加载失败" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+    [alert show];
     
 }
 

@@ -116,7 +116,7 @@
         _labMoney.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
 
     }else{
-        _labContent.text = [NSString stringWithFormat:@"分析:  %@",_model.content];
+        _labContent.text = [NSString stringWithFormat:@"分析:  %@",PARAM_IS_NIL_ERROR(_model.content)];
         _labContent.attributedText = [Methods withContent:_labContent.text WithColorText:@"分析:" textColor:color33 strFont:font14];
         
 //        _labCreatTime.text = [Methods timeToNowWith:_model.create_time];
