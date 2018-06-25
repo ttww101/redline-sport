@@ -61,7 +61,7 @@ IMPLEMENTATION_SINGLETON(DependetNetMethods)
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
     [parameter setObject:[NSString stringWithFormat:@"%ld",(long)userModel.idId] forKey:@"id"];
     
-    [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_userinfo] Start:^(id requestOrignal) {
+    [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_usernewinfo] Start:^(id requestOrignal) {
         
     } End:^(id responseOrignal) {
         [APPDELEGATE.customTabbar loadUreadNotificationNum];

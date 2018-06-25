@@ -444,7 +444,7 @@
 
 - (void)getCommentUserInfo
 {
-    NSString*URLString=[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_usernewinfo];
+    NSString*URLString=[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_userinfo];
     
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
     [parameter setObject:[NSString stringWithFormat:@"%ld",(long)self.userId] forKey:@"id"];
