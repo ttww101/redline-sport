@@ -266,7 +266,7 @@
     [parameter setObject:[NSString stringWithFormat:@"%ld",(long)_userId] forKey:@"userId"];
     [parameter setObject:limitStart forKey:@"limitStart"];
     [parameter setObject:limitNum forKey:@"limitNum"];
-    [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_recommendlistUser] Start:^(id requestOrignal) {
+    [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_newrecommendlistUser] Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
         
         [self.mj_header endRefreshing];

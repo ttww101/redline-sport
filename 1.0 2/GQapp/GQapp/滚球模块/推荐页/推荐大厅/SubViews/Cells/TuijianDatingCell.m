@@ -178,7 +178,7 @@
     
     
     
-    if (_model.result.length > 0) {
+    if (_model.result) {
         switch ([_model.result integerValue]) {
             case 0:
             {
@@ -677,12 +677,18 @@
         case typeTuijianCellUser:
         {
             
-            
-            
             [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.basicView.mas_right).offset(-40);
-                make.top.equalTo(self.basicView.mas_top).offset(10);
+                make.right.equalTo(self.basicView.mas_right).offset(-20);
+                make.top.equalTo(self.basicView.mas_top).offset(20);
+                make.size.mas_equalTo(CGSizeMake(70, 30));
             }];
+            
+            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.basicView.mas_right).offset(-20);
+                make.top.equalTo(self.basicView.mas_top).offset(20);
+                make.size.mas_equalTo(CGSizeMake(70, 30));
+            }];
+            
             
             [self.teamView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.basicView.mas_left);
@@ -694,10 +700,11 @@
             [self.peilvView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.basicView.mas_left);
                 make.right.equalTo(self.basicView.mas_right);
-                make.top.equalTo(self.teamView.mas_bottom).offset(0);
+                make.top.equalTo(self.teamView.mas_bottom).offset(10);
                 make.size.mas_equalTo(CGSizeMake(Width, 18));
                 
             }];
+            
             [self.labContent mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.basicView.mas_left).offset(15);
                 make.top.equalTo(self.peilvView.mas_bottom).offset(7.5);

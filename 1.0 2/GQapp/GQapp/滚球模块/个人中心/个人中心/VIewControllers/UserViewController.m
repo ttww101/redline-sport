@@ -535,6 +535,12 @@
 - (void)addAtention:(BOOL)attention
 {
     
+
+    [self btnTuijianClick];
+    
+    
+    return;
+    
     if (![Methods login]) {
         [Methods toLogin];
         

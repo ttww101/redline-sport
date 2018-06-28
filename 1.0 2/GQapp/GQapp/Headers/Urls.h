@@ -256,6 +256,8 @@
 // recommend/listUser 单个用户的推荐列表
 #define url_recommendlistUser @"/recommend/listUser"
 
+#define url_newrecommendlistUser @"/v22/recommend/listUser"
+
 
 // recommend/listUser 单个用户的推荐列表,串关,足彩
 #define url_recommendlistUserChuanGuan @"/recommend/querymycg"

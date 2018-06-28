@@ -181,6 +181,11 @@
     _see = _canSee;
 }
 
+- (void)setPlayType:(NSInteger)playType {
+    _playType = playType;
+    _playtype = _playType;
+}
+
 + (NSValueTransformer *)arrUsermarkJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[UsermarkModel class]];

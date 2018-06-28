@@ -52,7 +52,7 @@
     _labZhuma.text = @"";
     
     _labPankou.text = @"推荐玩法:";
-    if (model.playType == 1) {
+    if (model.playtype == 1) {
         _stateImageView.image = [UIImage imageNamed:@"ic_type_spf"];
     } else if (model.playType == 2) {
         _stateImageView.image = [UIImage imageNamed:@"ic_type_rq"];
