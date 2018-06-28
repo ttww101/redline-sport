@@ -164,6 +164,10 @@
 #define url_listInfo @"/info/listIndex"
 //推荐首页
 #define url_listrecommend @"/recommend/listIndex"
+
+// 新版推荐首页
+#define url_newlistrecommend @"/v22/recommend/listIndex"
+
 //推荐串关
 #define url_listrecommendquerycg @"/recommend/querycg"
 

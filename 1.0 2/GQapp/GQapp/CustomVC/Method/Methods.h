@@ -128,8 +128,11 @@ typedef NS_ENUM(NSInteger, weekType)
 
 + (NSString *)formatMMDDWithStamp:(NSUInteger)timeStamp;
 
++ (NSUInteger)formatTimeStr:(NSString *)timeStr;
 
 + (NSInteger)amountWithProductId:(NSString *)productId;
+
++ (NSString *)compareCurrentTime:(NSString *)str;
 
 /**
  获取设备型号

@@ -62,7 +62,8 @@
     _labSaishi.textColor = [Methods getColor:_model.leagueColor];
     
     //    _labbeginTime1.text = @"周四005 ";
-    _labbeginTime.text = _model.MatchTime;
+    NSInteger timeI =  [Methods formatTimeStr:_model.MatchTime];
+    _labbeginTime.text = [Methods formatMMDDWithStamp:timeI / 1000];
     
     
         if (_model.playtype == 1) {//欧赔

@@ -107,7 +107,7 @@ static CGFloat imageHeight = 76.f;
     }
 
      [self configActivityEntrance]; //  配置活动入口
-     [self update];
+//     [self update];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -1436,6 +1436,16 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     return timeText;
 }
 
++ (NSUInteger)formatTimeStr:(NSString *)timeStr {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    NSDate *lastDate = [formatter dateFromString:timeStr];
+    long long firstStamp = (long long)[lastDate timeIntervalSince1970] * 1000;
+    return firstStamp;
+}
+
+
 + (NSString *)formatMMDDWithStamp:(NSUInteger)timeStamp {
     NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
     [stampFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
@@ -1443,6 +1453,49 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:timeStamp];
     NSString *timeText = [stampFormatter stringFromDate:stampDate];
     return timeText;
+}
+
++ (NSString *)compareCurrentTime:(NSString *)str
+{
+    
+    //把字符串转为NSdate
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *timeDate = [dateFormatter dateFromString:str];
+    //八小时时区
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: timeDate];
+    NSDate *mydate = [timeDate dateByAddingTimeInterval: interval];
+    NSDate *nowDate =[[NSDate date] dateByAddingTimeInterval: interval];
+    // 两个时间间隔
+    NSTimeInterval timeInterval= [mydate timeIntervalSinceDate:nowDate];
+    timeInterval = -timeInterval;
+    long temp = 0;
+    NSString *result;
+    if (timeInterval < 60) {
+        result = [NSString stringWithFormat:@"刚刚"];
+    }
+    else if((temp = timeInterval/60) <60){
+        result = [NSString stringWithFormat:@"%ld分钟前",temp];
+    }
+    
+    else if((temp = timeInterval/(60*60)) <24){
+        result = [NSString stringWithFormat:@"%ld小时前",temp];
+    }
+    
+    else if((temp = timeInterval/(246060)) <30){
+        result = [NSString stringWithFormat:@"%ld天前",temp];
+    }
+    
+    else if((temp = timeInterval/(24606030)) <12){
+        result = [NSString stringWithFormat:@"%ld月前",temp];
+    }
+    else{
+        temp = timeInterval/(24606030*12);
+        result = [NSString stringWithFormat:@"%ld年前",temp];
+    }
+    return result;
+    
 }
 
 + (NSInteger)amountWithProductId:(NSString *)productId {

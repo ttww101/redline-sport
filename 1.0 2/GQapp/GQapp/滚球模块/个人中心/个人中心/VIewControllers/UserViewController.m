@@ -14,15 +14,16 @@
 #import "TuijiandatingModel.h"
 #import "UserTuijianVC.h"
 #import "UserTongjiAllModel.h"
-
+#import "GQWebView.h"
 #import "TongjiVC.h"
+#import "TopContentView.h"
 
 #define cellUserViewController @"cellUserViewController"
 #define cellUserViewControllerRecommand @"cellUserViewControllerRecommand"
 #define cellUserTongji @"cellUserTongji"
 #define cellUserTongjiGoodPlay @"cellUserTongjiGoodPlay"
 
-@interface UserViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,UserOfotherCellTwoDelegate,UserTongjiCellDelegate>
+@interface UserViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,UserOfotherCellTwoDelegate,UserTongjiCellDelegate, GQWebViewDelegate, TopContentViewDelegate>
 @property (nonatomic, strong) UserModel *userModel;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UserOfotherCellTwo *usercell;
@@ -34,6 +35,10 @@
 
 @property (nonatomic, assign) BOOL showMoreUserInfo;
 @property (nonatomic, strong) NavView *nav;
+
+@property (nonatomic , strong) TopContentView *topView;
+
+
 @end
 
 @implementation UserViewController
@@ -41,25 +46,30 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
     self.navigationController.navigationBarHidden = YES;
 }
--(UIStatusBarStyle)preferredStatusBarStyle
-
-{
+-(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.Number=1;
-    self.defaultFailure = @"暂无数据";
-    [self.view addSubview:self.tableView];
+//    self.Number=1;
+//    self.defaultFailure = @"暂无数据";
+//    [self.view addSubview:self.tableView];
     [self getCommentUserInfo];
-    self.view.backgroundColor = [UIColor whiteColor];
     [self setNavView];
+     
+    [self.view addSubview:self.topView];
+    self.view.backgroundColor = [UIColor whiteColor];
+    WebModel *model = [[WebModel alloc]init];
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/chengji.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userId];
+    GQWebView *web = [[GQWebView alloc]init];
+    web.webDelegate = self;
+    web.frame = CGRectMake(0, _topView.bottom, self.view.width, self.view.height - _topView.bottom);
+    web.model = model;
+    [self.view addSubview:web];
 }
 
 
@@ -471,14 +481,15 @@
             
             
             _userModel = [UserModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
-            [self.tableView reloadData];
+//            [self.tableView reloadData];
+            self.topView.model = _userModel;
             
 //            _usercell.model = _userModel;
             _nav.labTitle.text = [NSString stringWithFormat:@"滚球App专家%@",_userModel.nickname];
 
             
-            [self loadTongjiData];
-            [self lodaRecommandData];
+//            [self loadTongjiData];
+//            [self lodaRecommandData];
             
             
             
@@ -495,7 +506,7 @@
 
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
         self.defaultFailure = errorDict;
-        [self.tableView reloadData];
+//        [self.tableView reloadData];
 
     }];
 }
@@ -564,6 +575,8 @@
                 }
                 _userModel.focused = !_userModel.focused;
                 [Methods updateUsetModel:user];
+                
+                self.topView.model = _userModel;
                 
             }else{
                 [SVProgressHUD showImage:[UIImage imageNamed:@""] status:attention? @"取消关注失败":@"关注失败"];
@@ -775,5 +788,17 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark --------------------------
+
+#pragma mark - Lazy Load
+
+- (TopContentView *)topView {
+    if (_topView == nil) {
+        _topView = [[TopContentView alloc]init];
+        _topView.delegate = self;
+    }
+    return _topView;
+}
 
 @end

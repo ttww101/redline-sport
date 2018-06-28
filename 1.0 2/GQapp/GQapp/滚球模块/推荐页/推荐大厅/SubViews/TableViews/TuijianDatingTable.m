@@ -60,10 +60,10 @@
         [self setupTableViewMJHeader];
         
         
-        _list = @"1";
+        _list = @"0";
         _play = @"0";
         _attentioned = @"0";
-        _state = @"0";
+        _state = @"2";
 
         [self loadDataByloadDataType:loadDataFirst];
 
@@ -129,15 +129,18 @@
             case 1:
         {
             if (index == 0) {
-                _state = @"0";
+                _state = @"2";
                 
             }else if (index == 1){
-                _state = @"1";
-                
-            }else if (index == 2){
                 _state = @"-1";
                 
-            }else{
+            }else if (index == 2){
+                _state = @"1";
+                
+            } else if (index == 3){
+                _state = @"0";
+                
+            } else {
                 
             }
 
@@ -156,13 +159,13 @@
 
             switch (index) {
                 case 0:
-                    _list = @"1";
+                    _list = @"0";
                     break;
                 case 1:
-                    _list = @"2";
+                    _list = @"1";
                     break;
                 case 2:
-                    _list = @"3";
+                    _list = @"2";
                     break;
                 case 3:
                     _list = @"4";
@@ -475,11 +478,14 @@
     [parmater setObject:_list forKey:@"sort"];
     [parmater setObject:_play forKey:@"playtype"];
     [parmater setObject:_attentioned forKey:@"focuse"];
-    [parmater setObject:_state forKey:@"matchState"];
+    if (![_state isEqualToString:@"2"]) {
+        [parmater setObject:_state forKey:@"matchState"];
+    }
+    [parmater setObject:@"0" forKey:@"hot"];
     
     [parmater setObject:[NSString stringWithFormat:@"%ld",(long)_limitStart] forKey:@"limitStart"];
     [parmater setObject:@"20" forKey:@"limitNum"];
-    [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parmater PathUrlL:[[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_listrecommend] copy] Start:^(id requestOrignal) {
+    [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parmater PathUrlL:[[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_newlistrecommend] copy] Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
         [self.mj_header endRefreshing];
         [self.mj_footer endRefreshing];

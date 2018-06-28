@@ -266,6 +266,10 @@
 
 #pragma mark - JSHandle
 
+- (void)closeWin:(id)data {
+    
+}
+
 - (void)webBack {
     [self.navigationController popViewControllerAnimated:YES];
 }

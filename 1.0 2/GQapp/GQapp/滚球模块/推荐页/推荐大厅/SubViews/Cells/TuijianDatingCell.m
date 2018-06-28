@@ -17,7 +17,7 @@
 @property (nonatomic, assign) BOOL didSetupConstraints;
 
 @property (nonatomic, strong) UIView *basicView;
-@property (nonatomic, strong) UserViewOfTuijianCell *headerUser;
+@property (nonatomic, strong) UserViewOfTuijianCellCopy *headerUser;
 @property (nonatomic, strong) UserViewofMyBuyTuijian *UserofMyBuy;
 
 @property (nonatomic, strong) TeamViewofTuijianCell *teamView;
@@ -51,6 +51,10 @@
 @property (nonatomic, strong) UILabel *labStatus;
 //付费参看的费用
 @property (nonatomic, strong) UILabel *labMoney;
+
+
+@property (nonatomic , strong) UILabel *goldLabel;
+
 
 @end
 @implementation TuijianDatingCell
@@ -109,30 +113,48 @@
         
         [_btnZan setBackgroundImage:[UIImage imageNamed:@""]forState:UIControlStateNormal];
         _labZanNum.text = @"";
-        NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
-        if (!(str.length > 0)) {
-            str = @"球币";
+        
+        if (!_model.see) {
+            NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
+            if (!(str.length > 0)) {
+                str = @"球币";
+            }
+            _labMoney.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
+        } else {
+            _labMoney.text = nil;
         }
-        _labMoney.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
+        
 
     }else{
-        _labContent.text = [NSString stringWithFormat:@"分析:  %@",PARAM_IS_NIL_ERROR(_model.content)];
-        _labContent.attributedText = [Methods withContent:_labContent.text WithColorText:@"分析:" textColor:color33 strFont:font14];
+//        _labContent.text = [NSString stringWithFormat:@"分析:  %@",PARAM_IS_NIL_ERROR(_model.content)];
+//        _labContent.attributedText = [Methods withContent:_labContent.text WithColorText:@"分析:" textColor:color33 strFont:font14];
+        
         
 //        _labCreatTime.text = [Methods timeToNowWith:_model.create_time];
-        //    评论数
-        [_btnComment setBackgroundImage:[UIImage imageNamed:@"commentNum"] forState:UIControlStateNormal];
-        _labConmmentNum.text = [NSString stringWithFormat:@"%ld",(long)_model.comment_count];
+        
+        //    时间
+        [_btnComment setBackgroundImage:[UIImage imageNamed:@"date"] forState:UIControlStateNormal];
+        _labConmmentNum.text = [Methods compareCurrentTime:_model.recommendTime];
+        
         //查看人数
         [_btnNoZan setBackgroundImage:[UIImage imageNamed:@"hated"] forState:UIControlStateNormal];
         _labNoZanNum.text = [NSString stringWithFormat:@"%ld",(long)_model.readCount];
         
-        
-        
         [_btnZan setBackgroundImage:[UIImage imageNamed:@"clear"]forState:UIControlStateNormal];
         _labZanNum.text = @"";
         
-
+        if (!_model.see) {
+            NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
+            if (!(str.length > 0)) {
+                str = @"球币";
+            }
+            _goldLabel.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
+            _goldLabel.hidden = false;
+        } else{
+            _goldLabel.hidden = YES;
+        }
+       
+        
     }
     _labStatus.text = @"";
 
@@ -155,45 +177,53 @@
 
     
     
-    if (_model.result!= nil) {
+    
+    if (_model.result.length > 0) {
         switch ([_model.result integerValue]) {
             case 0:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"wuxiao"];
+                // 走
+                _imageViewWin.image = [UIImage imageNamed:@"ic_invalidic"];
             }
                 break;
             case 1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"winhalf"];
+                // 赢办
+                _imageViewWin.image = [UIImage imageNamed:@"ic_win_half"];
             }
                 break;
                 
             case 2:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"win"];
+                // 赢
+                _imageViewWin.image = [UIImage imageNamed:@"ic_win"];
             }
                 break;
                 
             case -1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"losehalf"];
+                // 输半
+                _imageViewWin.image = [UIImage imageNamed:@"ic_loss_half"];
             }
                 break;
                 
             case -2:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"lose"];
+                // 输
+                _imageViewWin.image = [UIImage imageNamed:@"ic_loss"];
             }
                 break;
             case -3:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"cheDan"];
+                // 失效
+                _imageViewWin.image = [UIImage imageNamed:@"ic_invalid"];
             }
                 break;
 
             case 10:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"wuxiaoNew"];
+                // 失效
+                _imageViewWin.image = [UIImage imageNamed:@"ic_invalid"];
             }
                 break;
                 
@@ -287,6 +317,7 @@
         [_basicView addSubview:self.btnNoZan];
         [_basicView addSubview:self.labZanNum];
         [_basicView addSubview:self.btnZan];
+        [_basicView addSubview:self.goldLabel];
         
         
         
@@ -296,10 +327,10 @@
     return _basicView;
 }
 
-- (UserViewOfTuijianCell *)headerUser
+- (UserViewOfTuijianCellCopy *)headerUser
 {
     if (!_headerUser) {
-        _headerUser = [[UserViewOfTuijianCell alloc] init];
+        _headerUser = [[UserViewOfTuijianCellCopy alloc] init];
     }
     return _headerUser;
 }
@@ -429,8 +460,23 @@
 {
     if (!_imageViewWin) {
         _imageViewWin = [[UIImageView alloc] init];
+        _imageViewWin.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _imageViewWin;
+}
+
+- (UILabel *)goldLabel {
+    if (_goldLabel == nil) {
+        _goldLabel = [UILabel new];
+        _goldLabel.backgroundColor = UIColorFromRGBWithOX(0xD1A425);
+        _goldLabel.layer.cornerRadius = 3;
+        _goldLabel.layer.masksToBounds = YES;
+        _goldLabel.text = @"50金币";
+        _goldLabel.textColor = [UIColor whiteColor];
+        _goldLabel.font = font15;
+        _goldLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _goldLabel;
 }
 
 - (UILabel *)labContent
@@ -477,8 +523,15 @@
             
             
             [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.basicView.mas_right).offset(-40);
-                make.top.equalTo(self.headerUser.mas_bottom).offset(8);
+                make.right.equalTo(self.basicView.mas_right).offset(-20);
+                make.top.equalTo(self.headerUser.mas_bottom).offset(20);
+                make.size.mas_equalTo(CGSizeMake(70, 30));
+            }];
+            
+            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.basicView.mas_right).offset(-20);
+                make.top.equalTo(self.headerUser.mas_bottom).offset(20);
+                make.size.mas_equalTo(CGSizeMake(70, 30));
             }];
             
             [self.teamView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -491,7 +544,7 @@
             [self.peilvView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.basicView.mas_left);
                 make.right.equalTo(self.basicView.mas_right);
-                make.top.equalTo(self.teamView.mas_bottom).offset(0);
+                make.top.equalTo(self.teamView.mas_bottom).offset(10);
                 make.size.mas_equalTo(CGSizeMake(Width, 18));
 
             }];
@@ -759,25 +812,30 @@
         make.right.equalTo(self.basicView.mas_right).offset(-11);
         make.top.equalTo(self.imageViewWin.mas_top).offset(10);
     }];
-    [self.labConmmentNum mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.btnComment.mas_left).offset(-5);
-        make.centerY.equalTo(self.labCreatTime.mas_centerY);
-    }];
     
     [self.btnComment mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.basicView.mas_right).offset(-18);
+        make.left.equalTo(self.contentView.mas_left).offset(20);
         make.centerY.equalTo(self.labCreatTime.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(20, 20));
     }];
     
-    [self.labNoZanNum mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.btnNoZan.mas_left).offset(-5);
+    [self.labConmmentNum mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.btnComment.mas_right).offset(5);
         make.centerY.equalTo(self.labCreatTime.mas_centerY);
     }];
     
     [self.btnNoZan mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.labConmmentNum.mas_left).offset(-23);
+        make.left.equalTo(self.labConmmentNum.mas_right).offset(5);
+        make.centerY.equalTo(self.labCreatTime.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(20, 20));
+    }];
+    
+    [self.labNoZanNum mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.btnNoZan.mas_right).offset(5);
         make.centerY.equalTo(self.labCreatTime.mas_centerY);
     }];
+    
+   
     
     [self.labZanNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.btnNoZan.mas_left).offset(-9.5);
@@ -799,7 +857,7 @@
 - (void)toTuijianDetail
 
 {
-    NSLog(@"_model.idId=%ld",_model.idId);
+
     if (_type == typeTuijianCellMybuy) {
         
         if (_model.otype == 1) {

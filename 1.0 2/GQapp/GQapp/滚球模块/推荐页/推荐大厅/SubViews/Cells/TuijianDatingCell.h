@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserViewOfTuijianCell.h"
+#import "UserViewOfTuijianCellCopy.h"
 #import "TuijiandatingModel.h"
 
 @interface TuijianDatingCell : UITableViewCell

@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UILabel *labPeilv;
 @property (nonatomic, strong) UILabel *labZhuma;
 
+@property (nonatomic, strong) UIImageView *stateImageView;
+
 @end
 @implementation PeilvViewOfTuijianCell
 
@@ -49,7 +51,18 @@
     _labPeilv.text = @"";
     _labZhuma.text = @"";
     
-    NSLog(@"ya.count=%ld",_model.ya.count);
+    _labPankou.text = @"推荐玩法:";
+    if (model.playType == 1) {
+        _stateImageView.image = [UIImage imageNamed:@"ic_type_spf"];
+    } else if (model.playType == 2) {
+        _stateImageView.image = [UIImage imageNamed:@"ic_type_rq"];
+    } else if (model.playType == 3) {
+        _stateImageView.image = [UIImage imageNamed:@"ic_type_dxq"];
+    }
+    
+
+    return;
+    
     if (_model.see) {//11111
     
         if (_model.spf.count>0) {//欧赔
@@ -687,6 +700,7 @@
         [_basicView addSubview:self.labchoice];
         [_basicView addSubview:self.labPeilv];
         [_basicView addSubview:self.labZhuma];
+        [_basicView addSubview:self.stateImageView];
     }
     return _basicView;
 }
@@ -729,6 +743,14 @@
     return _labZhuma;
 }
 
+- (UIImageView *)stateImageView {
+    if (_stateImageView == nil) {
+        _stateImageView = [UIImageView new];
+        _stateImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _stateImageView;
+}
+
 - (void)addLayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -741,6 +763,12 @@
     [self.labPankou mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.centerY.equalTo(self.basicView.mas_centerY);
+    }];
+    
+    [self.stateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.labPankou.mas_right).offset(5);
+        make.centerY.equalTo(self.labPankou.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(50, 20));
     }];
     
     [self.labchoice mas_makeConstraints:^(MASConstraintMaker *make) {

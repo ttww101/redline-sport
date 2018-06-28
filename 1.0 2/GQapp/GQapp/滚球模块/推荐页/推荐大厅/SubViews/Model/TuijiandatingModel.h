@@ -16,21 +16,25 @@
 @property (nonatomic, copy) NSString *GuestTeam;
 @property (nonatomic, copy) NSString *guestTeam;
 
-
+@property (nonatomic , copy) NSString *leagueName;
 @property (nonatomic, copy) NSString *Name_JS;
+
 @property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) NSString *userinfo;
 
 @property (nonatomic, copy) NSString *HomeTeam;
 @property (nonatomic, copy) NSString *homeTeam;
 
 @property (nonatomic, copy) NSString *pic;
+@property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *contentInfo;
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) NSTimeInterval create_time;
 @property (nonatomic, copy) NSString *MatchTime;
+@property (nonatomic , copy) NSString *matchTime;
 @property (nonatomic, copy) NSString *lotterySort;
 @property (nonatomic, strong) NSArray *ya;
 
@@ -48,6 +52,7 @@
 @property (nonatomic, assign) NSInteger share_weixin_count;
 @property (nonatomic, assign) NSInteger share_weibo_count;
 @property (nonatomic, assign) NSInteger idId;
+@property (nonatomic , assign) NSInteger newsId;
 //场数
 @property (nonatomic, assign) NSInteger recommend_count;
 @property (nonatomic, assign) NSInteger info_count;
@@ -58,6 +63,8 @@
 @property (nonatomic, assign) NSInteger hate_count;
 
 @property (nonatomic, assign) NSInteger user_id;
+@property (nonatomic, assign) NSInteger userId;
+
 //粉丝数
 @property (nonatomic, assign) NSInteger follower_count;
 @property (nonatomic, assign) NSInteger focus_count;
@@ -65,9 +72,13 @@
 @property (nonatomic, assign) BOOL liked;
 @property (nonatomic, assign) BOOL hated;
 @property (nonatomic, assign) BOOL see;
+@property (nonatomic, assign) BOOL canSee;
+
 
 @property (nonatomic, copy) NSString *result;
+@property (nonatomic , copy) NSString *recommendResult;
 @property (nonatomic, assign) NSInteger MatchState;
+@property (nonatomic, assign) NSInteger matchState;
 @property (nonatomic, assign) NSInteger GuestScore;
 @property (nonatomic, assign) NSInteger guestScore;
 @property (nonatomic, assign) NSInteger HomeScore;
@@ -106,4 +117,22 @@
 @property (nonatomic, strong) NSArray *odds;
 //1是推荐 2 是竞猜
 @property (nonatomic, assign) NSInteger otype;
+
+// 等级
+@property (nonatomic , copy) NSString *levelName;
+
+@property (nonatomic , copy) NSString *remark;
+
+@property (nonatomic , copy) NSString *goodSclass;
+
+@property (nonatomic , copy) NSString *sclassWinRate;
+
+@property (nonatomic , copy) NSString *playWinRate;
+
+@property (nonatomic , assign) NSInteger goodPlay;
+
+@property (nonatomic , assign) NSInteger playType;
+
+@property (nonatomic , copy) NSString *recommendTime;
+
 @end
