@@ -2479,9 +2479,8 @@ static SystemSoundID shake_sound_id = 0;
             return;
         }
         WebModel *model = [[WebModel alloc]init];
-        NSDictionary *pDic = self.activityDic[@"v"];
-        model.title = PARAM_IS_NIL_ERROR(pDic[@"title"]);
-        model.webUrl = PARAM_IS_NIL_ERROR(pDic[@"activityUrl"]);
+        model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"activityUrl"]);
         model.hideNavigationBar = YES;
         GQWebView *web = [[GQWebView alloc]init];
         web.webDelegate = self;

@@ -237,8 +237,12 @@
     } else {
         _labRemark1.hidden = YES;
         _labRemark2.hidden = YES;
-        _userWin.hidden = false;
-        _userWin.text = model.remark;
+        if (model.remark.length > 0) {
+            _userWin.hidden = false;
+            _userWin.text = model.remark;
+        } else {
+            _userWin.hidden = YES;
+        }
     }
     
     

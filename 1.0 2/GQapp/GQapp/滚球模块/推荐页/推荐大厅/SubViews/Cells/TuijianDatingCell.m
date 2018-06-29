@@ -178,7 +178,7 @@
     
     
     
-    if (_model.result) {
+    if (_model.result.length > 0) {
         switch ([_model.result integerValue]) {
             case 0:
             {
@@ -409,6 +409,7 @@
         _btnComment = [UIButton buttonWithType:UIButtonTypeCustom];
         _btnComment.titleLabel.font = font11;
         [_btnComment setTitleColor:color99 forState:UIControlStateNormal];
+        _btnComment.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _btnComment;
 }
@@ -429,6 +430,7 @@
         _btnNoZan.titleLabel.font = font11;
         [_btnNoZan setTitleColor:color99 forState:UIControlStateNormal];
         _btnNoZan.tag = 2;
+        _btnZan.imageView.contentMode = UIViewContentModeScaleAspectFit;
 //        [_btnNoZan addTarget:self action:@selector(addLikedHated:) forControlEvents:UIControlEventTouchUpInside];
         
     }
@@ -823,7 +825,7 @@
     [self.btnComment mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(20);
         make.centerY.equalTo(self.labCreatTime.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(20, 20));
+        make.size.mas_equalTo(CGSizeMake(10, 10));
     }];
     
     [self.labConmmentNum mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -834,7 +836,7 @@
     [self.btnNoZan mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labConmmentNum.mas_right).offset(5);
         make.centerY.equalTo(self.labCreatTime.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(20, 20));
+        make.size.mas_equalTo(CGSizeMake(15, 15));
     }];
     
     [self.labNoZanNum mas_makeConstraints:^(MASConstraintMaker *make) {

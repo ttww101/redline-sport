@@ -74,9 +74,9 @@ static CGFloat imageHeight = 50;
     
     NSArray *titleArray = @[@"拥有粉丝", @"关注", @"发表推荐"];
     NSArray *contentArray = @[@(_model.followerCount), @(_model.focusCount), @(_model.recommendCount)];
-    CGFloat width = (self.contentView.width )/ 3;
+    CGFloat width = (self.contentView.width - 90)/ 3;
     for (NSInteger i = 0; i < titleArray.count; i ++) {
-        MessageControl *control = [[MessageControl alloc]initWithFrame:CGRectMake(20 + i * width, self.height - 60, width, 60) title:titleArray[i] amount:[contentArray[i] stringValue]];
+        MessageControl *control = [[MessageControl alloc]initWithFrame:CGRectMake(60 + i * width, self.height - 60, width, 60) title:titleArray[i] amount:[contentArray[i] stringValue]];
         [control addTarget:self action:@selector(controlAction:) forControlEvents:UIControlEventTouchUpInside];
         control.tag = i;
         [self.contentView addSubview:control];
