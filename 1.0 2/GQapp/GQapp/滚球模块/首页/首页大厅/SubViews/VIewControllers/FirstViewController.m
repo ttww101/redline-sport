@@ -1914,13 +1914,33 @@
 #pragma mark - Events
 
 - (void)liveQuziAction:(UITapGestureRecognizer *)tap {
-    WebModel *model = [[WebModel alloc]init];
-    model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
-    model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
-    model.hideNavigationBar = YES;
-    LiveQuizViewController *controller = [[LiveQuizViewController alloc]init];
-    controller.model = model;
-    [self.navigationController pushViewController:controller animated:YES];
+    
+    
+    
+    
+    
+    Class targetCalss = NSClassFromString(self.activityDic[@"n"]);
+    if ([targetCalss isKindOfClass:NSClassFromString(@"LiveQuizViewController")]) {
+        WebModel *model = [[WebModel alloc]init];
+        NSDictionary *pDic = self.activityDic[@"v"];
+        model.title = PARAM_IS_NIL_ERROR(pDic[@"title"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(pDic[@"url"]);
+        model.hideNavigationBar = pDic[@"nav_hidden"];
+        model.parameter = pDic[@"nav"];
+        LiveQuizViewController *controller = [[LiveQuizViewController alloc]init];
+        controller.model = model;
+        [self.navigationController pushViewController:controller animated:YES];
+    } else {
+        ToolWebViewController *target =[[targetCalss alloc] init];
+        WebModel *model = [[WebModel alloc]init];
+        NSDictionary *pDic = self.activityDic[@"v"];
+        model.title = PARAM_IS_NIL_ERROR(pDic[@"title"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(pDic[@"url"]);
+        model.hideNavigationBar = pDic[@"nav_hidden"];
+        model.parameter = pDic[@"nav"];
+        target.model = model;
+        [self.navigationController pushViewController:target animated:YES];
+    }
 }
 
 #pragma mark - Lazy Load

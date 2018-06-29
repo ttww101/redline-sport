@@ -489,14 +489,17 @@ static CGFloat imageHeight = 76.f;
         return;
     }
     
+    Class targetCalss = NSClassFromString(self.activityDic[@"n"]);
+    ToolWebViewController *target =[[targetCalss alloc] init];
     UINavigationController *nc = (UINavigationController *)self.selectedViewController;
     WebModel *model = [[WebModel alloc]init];
-    model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
-    model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
-    model.hideNavigationBar = YES;
-    LotteryWebViewController *controller = [[LotteryWebViewController alloc]init];
-    controller.model = model;
-    [nc pushViewController:controller animated:YES];
+    NSDictionary *pDic = self.activityDic[@"v"];
+    model.title = PARAM_IS_NIL_ERROR(pDic[@"title"]);
+    model.webUrl = PARAM_IS_NIL_ERROR(pDic[@"url"]);
+    model.hideNavigationBar = pDic[@"nav_hidden"];
+    model.parameter = pDic[@"nav"];
+    target.model = model;
+    [nc pushViewController:target animated:YES];
 }
 
 //主页面切换的动画效果

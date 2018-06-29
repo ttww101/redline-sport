@@ -1267,13 +1267,16 @@
 
 - (void)liveQuziAction:(UITapGestureRecognizer *)tap {
     if (self.activityDic) {
+        Class targetCalss = NSClassFromString(self.activityDic[@"n"]);
+        ToolWebViewController *target =[[targetCalss alloc] init];
         WebModel *model = [[WebModel alloc]init];
-        model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
-        model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"url"]);
-        model.hideNavigationBar = YES;
-        ToolWebViewController *controller = [[ToolWebViewController alloc]init];
-        controller.model = model;
-        [self.navigationController pushViewController:controller animated:YES];
+        NSDictionary *pDic = self.activityDic[@"v"];
+        model.title = PARAM_IS_NIL_ERROR(pDic[@"title"]);
+        model.webUrl = PARAM_IS_NIL_ERROR(pDic[@"url"]);
+        model.hideNavigationBar = pDic[@"nav_hidden"];
+        model.parameter = pDic[@"nav"];
+        target.model = model;
+        [self.navigationController pushViewController:target animated:YES];
     } else {
         //发布推荐按钮
         if (![Methods login]) {

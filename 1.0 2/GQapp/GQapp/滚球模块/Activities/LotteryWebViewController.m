@@ -71,7 +71,8 @@
 }
 
 - (void)publicDealWithUrl:(NSString *)url {
-    NSString *otherUrl = self.activityDic[@"url_match_all"];
+    NSDictionary *pDic = self.activityDic[@"v"];
+    NSString *otherUrl = pDic[@"url_match_all"];
     if (otherUrl) {
         if ([otherUrl isEqualToString:url] || [url isEqualToString:[NSString stringWithFormat:@"%@index.html",otherUrl]]) {
             [self configNav];

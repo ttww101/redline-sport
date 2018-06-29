@@ -172,7 +172,7 @@
     [self.view addSubview:self.webView];
     self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
-    
+    [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     if (_model.showBuyBtn) {
         UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [buyBtn setTitle:@"开通服务" forState:UIControlStateNormal];
