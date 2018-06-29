@@ -68,10 +68,15 @@ static CGFloat imageHeight = 50;
     _model = model;
     if (_model) {
         [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_model.pic] placeholderImage:[UIImage imageNamed:@"defaultPic"]];
+        NSString *name = _model.nickname;
+        if (name.length >= 8) {
+            NSString *str = [name substringToIndex:8];
+            name = [NSString stringWithFormat:@"%@...",str];
+        }
         NSDictionary *dic = _model.userDetail;
-        NSString *text = [NSString stringWithFormat:@"%@| %@", _model.nickname ,dic[@"levelName"]];
+        NSString *text = [NSString stringWithFormat:@"%@| %@", name ,dic[@"levelName"]];
         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:text];
-        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.f] range:[text rangeOfString:_model.nickname]];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.f] range:[text rangeOfString:name]];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.f] range:[text rangeOfString:dic[@"levelName"]]];
         _nameLabel.attributedText = att;
         
@@ -157,6 +162,7 @@ static CGFloat imageHeight = 50;
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.avatarImageView.mas_top);
         make.left.equalTo(self.avatarImageView.mas_right).offset(15);
+        make.right.equalTo(self.bgImageView.mas_right).offset(-10);
     }];
     
     [self.bgImageView addSubview:self.control];
@@ -347,6 +353,7 @@ static CGFloat imageHeight = 50;
         _nameLabel.font = [UIFont systemFontOfSize:18.f];;
         _nameLabel.textColor = UIColorFromRGBWithOX(0xffffff);
         _nameLabel.text = @"你的名字";
+        _nameLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _nameLabel;
 }

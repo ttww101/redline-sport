@@ -88,6 +88,13 @@ static CGFloat imageHeight = 50;
     } else {
         [self.followBtn setSelected:false];
     }
+    
+    UserModel *userModel = [Methods getUserModel];
+    if (userModel.idId == model.idId) {
+        self.followBtn.hidden = YES;
+    } else {
+        self.followBtn.hidden = false;
+    }
 }
 
 #pragma mark - Config UI
