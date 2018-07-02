@@ -461,6 +461,8 @@
 
 #define Activity_Path [NSString stringWithFormat:@"%@/activity.data",[ArchiveFile LibraryDirectory]]
 
+#define PAGE_PATH @"PagePath.plist"
+
 
 #endif
 

@@ -45,6 +45,7 @@
 		A91C6DFB207C5EE70035DFC0 /* TuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */; };
 		A91D406A20C77FC20059D501 /* GQWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91D406920C77FC20059D501 /* GQWebView.m */; };
 		A91DCB7D20E9D0EB005B0BC5 /* ShowActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91DCB7C20E9D0EB005B0BC5 /* ShowActivityView.m */; };
+		A91DCB8220E9E118005B0BC5 /* GQAspectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A91DCB8120E9E118005B0BC5 /* GQAspectManager.m */; };
 		A920B9B820BCF02000867100 /* LotteryWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9B720BCF02000867100 /* LotteryWebViewController.m */; };
 		A920B9BB20BD412C00867100 /* ItemControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BA20BD412C00867100 /* ItemControl.m */; };
 		A920B9C020BD656900867100 /* HeaderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BF20BD656900867100 /* HeaderControl.m */; };
@@ -1174,6 +1175,8 @@
 		A91D406920C77FC20059D501 /* GQWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQWebView.m; sourceTree = "<group>"; };
 		A91DCB7B20E9D0EB005B0BC5 /* ShowActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowActivityView.h; sourceTree = "<group>"; };
 		A91DCB7C20E9D0EB005B0BC5 /* ShowActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowActivityView.m; sourceTree = "<group>"; };
+		A91DCB8020E9E117005B0BC5 /* GQAspectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQAspectManager.h; sourceTree = "<group>"; };
+		A91DCB8120E9E118005B0BC5 /* GQAspectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQAspectManager.m; sourceTree = "<group>"; };
 		A920B9B620BCF02000867100 /* LotteryWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LotteryWebViewController.h; sourceTree = "<group>"; };
 		A920B9B720BCF02000867100 /* LotteryWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LotteryWebViewController.m; sourceTree = "<group>"; };
 		A920B9B920BD412C00867100 /* ItemControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemControl.h; sourceTree = "<group>"; };
@@ -2873,6 +2876,8 @@
 				A988D78F208870CA0023D9E2 /* JSModel.m */,
 				A9E1B5FD2089F18300A37328 /* AppConfig.h */,
 				A9E1B5FE2089F18300A37328 /* AppConfig.m */,
+				A91DCB8020E9E117005B0BC5 /* GQAspectManager.h */,
+				A91DCB8120E9E118005B0BC5 /* GQAspectManager.m */,
 			);
 			path = AppManger;
 			sourceTree = "<group>";
@@ -8085,6 +8090,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework",
 				"${BUILT_PRODUCTS_DIR}/DCPathButton/DCPathButton.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceUtil/DeviceUtil.framework",
 				"${BUILT_PRODUCTS_DIR}/HYBLoopScrollView/HYBLoopScrollView.framework",
@@ -8102,6 +8108,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Aspects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DCPathButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceUtil.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HYBLoopScrollView.framework",
@@ -8541,6 +8548,7 @@
 				A96F452C2091699700A6FF76 /* GQTbableConfig.m in Sources */,
 				A9C3BC49209B05BF001674D2 /* StartViewController.m in Sources */,
 				EB82F1571F2AD21D000524A0 /* UIColor+Define.m in Sources */,
+				A91DCB8220E9E118005B0BC5 /* GQAspectManager.m in Sources */,
 				EB8C1FC81F219A8C00A07863 /* DependetNetMethods.m in Sources */,
 				EBFA65AF1F8F8C8E00C4BE6A /* PeilvViewofYapsCell.m in Sources */,
 				EB8C1EC21F21944C00A07863 /* UserlistModel.m in Sources */,

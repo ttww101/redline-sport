@@ -31,6 +31,7 @@
 #import "ArchiveFile.h"
 #import "StartViewController.h"
 #import "LaunchView.h"
+#import "GQAspectManager.h"
 
 #define Config_Version @"configVersion"
 
@@ -81,6 +82,24 @@
     });
 }
 
+/**
+ 统计页面路径
+ */
+
+- (void)configPageStatistics {
+    NSMutableDictionary *dic = [GQAspectManager GQ_PathForPageDic];
+    if (dic) {
+        NSString *lastVersion = dic[@"appVersion"];
+        NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        if (![lastVersion isEqualToString:currentVersion]) {
+            [GQAspectManager GQ_SavePageDic];
+        }
+    } else {
+        [GQAspectManager GQ_SavePageDic];
+    }
+    [GQAspectManager GQ_trackAspectHooks];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
         
@@ -94,6 +113,7 @@
 
     [self isFirstLaunched];
     [self resumePuchase];  // 遗留在本地的内购验证
+    [self configPageStatistics];
     //根据AppStore版本更新,在firstViewController里面实现
     
 

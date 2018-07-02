@@ -144,6 +144,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DCPathButton/DCPathButton.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DeviceUtil/DeviceUtil.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HYBLoopScrollView/HYBLoopScrollView.framework"
@@ -160,6 +161,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DCPathButton/DCPathButton.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DeviceUtil/DeviceUtil.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HYBLoopScrollView/HYBLoopScrollView.framework"
@@ -176,6 +178,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
 fi
 if [[ "$CONFIGURATION" == "ad hoc distribution" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DCPathButton/DCPathButton.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DeviceUtil/DeviceUtil.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HYBLoopScrollView/HYBLoopScrollView.framework"
