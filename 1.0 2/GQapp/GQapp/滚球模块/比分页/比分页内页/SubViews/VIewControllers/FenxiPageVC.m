@@ -31,6 +31,7 @@
 #import "ArchiveFile.h"
 #import "ToolWebViewController.h"
 #import "AnalysisWebview.h"
+#import "ShowActivityView.h"
 
 @interface FenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate>
 
@@ -81,6 +82,8 @@
 @property (nonatomic , copy) NSDictionary *activityDic;
 
 @property (nonatomic, assign) BOOL isBack;
+
+@property (nonatomic , strong) ShowActivityView *animationActivityView;
 
 @end
 
@@ -174,7 +177,6 @@
     
     
     [self.view addSubview:self.liveQuizImageView];
-    
     
 }
 
@@ -1310,6 +1312,13 @@
         [_liveQuizImageView addGestureRecognizer:panTouch];
     }
     return _liveQuizImageView;
+}
+
+- (ShowActivityView *)animationActivityView {
+    if (_animationActivityView == nil) {
+        _animationActivityView = [[ShowActivityView alloc]initWithFrame:CGRectMake(80, 4 * (Height / 5), 80, 80)];
+    }
+    return _animationActivityView;
 }
 
 @end

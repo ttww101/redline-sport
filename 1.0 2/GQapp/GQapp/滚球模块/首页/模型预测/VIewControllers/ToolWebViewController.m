@@ -251,6 +251,9 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    if (error.code == -999) {
+        return;
+    }
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
     [self.progressLine endLoadingAnimation];
 }
