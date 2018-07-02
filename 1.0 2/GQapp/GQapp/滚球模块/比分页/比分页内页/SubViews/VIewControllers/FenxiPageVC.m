@@ -948,6 +948,17 @@
     [self.titleView updateSelectedIndex:index];
     [self.scrollMainView setContentOffset:CGPointMake(_currentIndex * Width,0) animated:NO];
     _tableView.scrollEnabled = YES;
+    if (index == 0) {
+        [MobClick event:@"bsfx" label:@""];
+    } else if (index == 1) {
+        [MobClick event:@"bszs" label:@""];
+    } else if (index == 2) {
+        [MobClick event:@"bsqb" label:@""];
+    } else if (index == 3) {
+        [MobClick event:@"bstj" label:@""];
+    } else if (index == 4) {
+        [MobClick event:@"bszb" label:@""];
+    }
 
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView    // called when scroll view grinds to a halt

@@ -165,6 +165,7 @@
                 return;
             }
             if (indexPath.row == 0) {
+                [MobClick event:@"wdjc" label:@""];
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"我的竞猜";
                 model.webUrl = [NSString stringWithFormat:@"%@/goto/jingcai", APPDELEGATE.url_jsonHeader];
@@ -172,6 +173,7 @@
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
             } else if (indexPath.row == 1)  {
+                [MobClick event:@"wdcp" label:@""];
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"我的彩票";
                 model.webUrl = [NSString stringWithFormat:@"%@/goto/caipiao", APPDELEGATE.url_jsonHeader];
@@ -214,6 +216,7 @@
                     [Methods toLogin];
                     return;
                 }
+                [MobClick event:@"yhq" label:@""];
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"优惠券";
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/pay-card.html", APPDELEGATE.url_ip,H5_Host];
@@ -268,6 +271,7 @@
             
         case 2:{
             if (indexPath.row == 0) {
+                [MobClick event:@"yqhy" label:@""];
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"邀请好友";
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/invite-friends.html", APPDELEGATE.url_ip,H5_Host];

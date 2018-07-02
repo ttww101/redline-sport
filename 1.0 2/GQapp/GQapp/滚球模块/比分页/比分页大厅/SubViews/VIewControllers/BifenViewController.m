@@ -479,9 +479,20 @@
         [self.jishiVC refreshDataByChangeFlag:_currentflag];
         [self.saiguoVC refreshDataByChangeFlag:_currentflag];
         [self.saichengVC refreshDataByChangeFlag:_currentflag];
+    
 //    }
     
 //    [self didSelectedAtIndex:0];
+    
+    if (index == 0) {
+        [MobClick event:@"quanbu" label:@""];
+    } else if (index == 1) {
+        [MobClick event:@"jingcai" label:@""];
+    } else if (index == 2) {
+        [MobClick event:@"beidan" label:@""];
+    } else if (index == 3) {
+        [MobClick event:@"zucai" label:@""];
+    }
 }
 
 
@@ -633,7 +644,15 @@
         }];
     }
     
-    
+    if (index == 0) {
+        [MobClick event:@"jishi" label:@""];
+    } else if (index == 1) {
+        [MobClick event:@"saiguo" label:@""];
+    } else if (index == 2) {
+        [MobClick event:@"saicheng" label:@""];
+    } else if (index == 3) {
+        [MobClick event:@"guanzhu" label:@""];
+    }
     
     
 }

@@ -124,6 +124,18 @@
         return ;
     }];
     
+    
+    // H5统计事件
+    [self.bridge registerHandler:@"UMAnalytics" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        [MobClick event:PARAM_IS_NIL_ERROR(dic[@"eventID"]) label:PARAM_IS_NIL_ERROR(dic[@"label"])];
+        
+    }];
+    
     // 复制事件
     [self.bridge registerHandler:@"txtCopy" handler:^(id data, WVJBResponseCallback responseCallback) {
         UIPasteboard *paste = [UIPasteboard generalPasteboard];

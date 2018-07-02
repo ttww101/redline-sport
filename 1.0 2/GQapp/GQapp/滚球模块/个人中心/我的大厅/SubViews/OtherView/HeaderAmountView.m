@@ -197,6 +197,7 @@
 }
 
 - (void)myGift {
+    [MobClick event:@"hongbao" label:@""];
     WebModel *model = [[WebModel alloc]init];
     model.title = @"我的红包";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/my-redbag.html", APPDELEGATE.url_ip,H5_Host];
@@ -206,6 +207,7 @@
 }
 
 - (void)myGold {
+    [MobClick event:@"gqb" label:@""];
     WebModel *model = [[WebModel alloc]init];
     model.title = @"我的滚球币";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/my-gold.html", APPDELEGATE.url_ip,H5_Host];
@@ -224,6 +226,7 @@
 }
 
 - (void)rechargeAction {
+    [MobClick event:@"chongzhi" label:@""];
     WebModel *model = [[WebModel alloc]init];
     model.title = @"充值";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/buy-gold.html", APPDELEGATE.url_ip,H5_Host];

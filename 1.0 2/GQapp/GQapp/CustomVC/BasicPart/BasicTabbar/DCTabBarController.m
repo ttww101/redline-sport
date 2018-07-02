@@ -488,7 +488,7 @@ static CGFloat imageHeight = 76.f;
     if (![self.selectedViewController isKindOfClass:[UINavigationController class]]) {
         return;
     }
-    
+
     Class targetCalss = NSClassFromString(self.activityDic[@"n"]);
     ToolWebViewController *target =[[targetCalss alloc] init];
     UINavigationController *nc = (UINavigationController *)self.selectedViewController;
@@ -500,6 +500,7 @@ static CGFloat imageHeight = 76.f;
     model.parameter = pDic[@"nav"];
     target.model = model;
     [nc pushViewController:target animated:YES];
+    [MobClick event:@"cp2" label:@""];
 }
 
 //主页面切换的动画效果
@@ -509,6 +510,19 @@ static CGFloat imageHeight = 76.f;
     if ([self.viewControllers indexOfObject:viewController] == 2 && self.recordView) {
         [self p_didSelectCenterTabBarItem];
         return NO;
+    }
+    
+    
+    if ([self.viewControllers indexOfObject:viewController] == 0) {
+        [MobClick event:@"faxian" label:@""];
+    } else if ([self.viewControllers indexOfObject:viewController] == 1) {
+        [MobClick event:@"bifen" label:@""];
+    } else if ([self.viewControllers indexOfObject:viewController] == 2) {
+        [MobClick event:@"qingbao" label:@""];
+    } else if ([self.viewControllers indexOfObject:viewController] == 3) {
+        [MobClick event:@"tjsy" label:@""];
+    } else if ([self.viewControllers indexOfObject:viewController] == 4) {
+        [MobClick event:@"wode" label:@""];
     }
     
     if (self.selectedIndex == [self.viewControllers indexOfObject:viewController]) {

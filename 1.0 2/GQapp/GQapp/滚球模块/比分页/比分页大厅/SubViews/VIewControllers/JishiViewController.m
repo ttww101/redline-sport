@@ -2478,6 +2478,7 @@ static SystemSoundID shake_sound_id = 0;
             [Methods toLogin];
             return;
         }
+        [MobClick event:@"yhb3" label:@""];
         WebModel *model = [[WebModel alloc]init];
         model.title = PARAM_IS_NIL_ERROR(self.activityDic[@"title"]);
         model.webUrl = PARAM_IS_NIL_ERROR(self.activityDic[@"activityUrl"]);

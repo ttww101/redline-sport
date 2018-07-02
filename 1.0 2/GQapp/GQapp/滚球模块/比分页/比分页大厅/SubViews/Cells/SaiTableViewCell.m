@@ -2001,6 +2001,7 @@
                 return;
             }
             
+            [MobClick event:@"xiangqing" label:@"比分"];
             //从首页跳转分析页的时候不用反转
             model.neutrality = NO;
             FenxiPageVC *fenxiVC = [[FenxiPageVC alloc] init];

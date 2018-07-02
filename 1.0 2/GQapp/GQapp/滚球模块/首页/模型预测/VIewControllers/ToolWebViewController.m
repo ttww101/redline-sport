@@ -70,11 +70,13 @@
     if (self.isBack) {
         [self refreshData];
     }
+    [MobClick beginLogPageView:PARAM_IS_NIL_ERROR(_model.title)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.isBack = YES;
+    [MobClick endLogPageView:PARAM_IS_NIL_ERROR(_model.title)];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
