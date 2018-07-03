@@ -417,6 +417,32 @@
 }
 - (void)headerRefresh
 {
+    NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
+    if (activityArray.count == 0) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
+            [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveQuiz] Start:^(id requestOrignal) {
+                
+            } End:^(id responseOrignal) {
+                
+            } Success:^(id responseResult, id responseOrignal) {
+                NSString *code = responseOrignal[@"code"];
+                if ([code isEqualToString:@"200"]) {
+                    NSMutableArray *dataArray = responseOrignal[@"data"];
+                    if (dataArray.count == 0) {
+                        [ArchiveFile clearCachesWithFilePath:Activity_Path];
+                    } else {
+                        [ArchiveFile saveDataWithPath:Activity_Path data:dataArray];
+                        [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadTableBarActivity" object:nil];
+                    }
+                }
+            } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+                
+            }];
+            
+        });
+            
+    }
     
     [self loadData];
 }

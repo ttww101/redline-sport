@@ -18,7 +18,7 @@
         NSMutableDictionary *dic = [GQAspectManager GQ_PathForPageDic];
         NSDictionary *pageDic = dic[@"pageDic"];
         NSString *pageName = pageDic[className];
-        if (pageName) {
+        if (pageName.length > 0) {
             [MobClick beginLogPageView:pageName];
         }
     }error:NULL];
@@ -28,7 +28,7 @@
         NSMutableDictionary *dic = [GQAspectManager GQ_PathForPageDic];
         NSDictionary *pageDic = dic[@"pageDic"];
         NSString *pageName = pageDic[className];
-        if (pageName) {
+        if (pageName.length > 0) {
             [MobClick endLogPageView:pageName];
         }
     }error:NULL];

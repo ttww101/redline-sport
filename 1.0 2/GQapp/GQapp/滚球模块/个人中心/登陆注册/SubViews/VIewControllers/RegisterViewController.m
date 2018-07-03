@@ -230,7 +230,7 @@
     _invTextF = [[UITextField alloc] initWithFrame:CGRectMake(_telTextF.frame.origin.x, _telTextF.frame.origin.y + textHeight*4, _telTextF.bounds.size.width, _telTextF.bounds.size.height)];
     //    _pswTextF.borderStyle = UITextBorderStyleRoundedRect;
     _invTextF.font = font14;
-    _invTextF.placeholder = @"请输入邀请码(选填)";
+    _invTextF.placeholder = @"请输入邀请码(可不填)";
 //    _invTextF.secureTextEntry = YES;
     _invTextF.delegate = self;
     _invTextF.clearButtonMode = UITextFieldViewModeWhileEditing;

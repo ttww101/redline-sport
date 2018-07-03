@@ -21,6 +21,7 @@
 #import "GQWebView.h"
 #import "LiveQuizViewController.h"
 #import "WebviewProgressLine.h"
+#import "LotteryWebViewController.h"
 
 @interface ToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate>
 
@@ -408,6 +409,18 @@
             model.webUrl = PARAM_IS_NIL_ERROR(vDic[@"url"]);
             model.hideNavigationBar = YES;
             LiveQuizViewController *controller = [[LiveQuizViewController alloc]init];
+            controller.model = model;
+            [self.navigationController pushViewController:controller animated:YES];
+            return;
+        }
+        
+        if ([className isEqualToString:@"LotteryWebViewController"]) {
+            WebModel *model = [[WebModel alloc]init];
+            NSDictionary *vDic = dataDic[@"v"];
+            model.title = PARAM_IS_NIL_ERROR(vDic[@"title"]);
+            model.webUrl = PARAM_IS_NIL_ERROR(vDic[@"url"]);
+            model.hideNavigationBar = YES;
+            LotteryWebViewController *controller = [[LotteryWebViewController alloc]init];
             controller.model = model;
             [self.navigationController pushViewController:controller animated:YES];
             return;

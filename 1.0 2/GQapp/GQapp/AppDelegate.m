@@ -300,49 +300,6 @@
     
 }
 
-
-/*
-- (void)takeScreenShot:(NSNotification *)notF
-{
-    NSLog(@"%@",notF.userInfo);
-    
-    [self performSelector:@selector(latestAssetImage) withObject:nil afterDelay:1];
-//    [self latestAssetImage];
-}
- */
- 
-/**
- *  相册中最新的一张图片
- */
-
-/*
-- (void)latestAssetImage {
-    
-    // 获取所有资源的集合，并按资源的创建时间排序
-    PHFetchOptions *options = [[PHFetchOptions alloc] init];
-    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    PHFetchResult *assetsFetchResults = [PHAsset fetchAssetsWithOptions:options];
-    PHAsset *asset = [assetsFetchResults firstObject];
-    // 使用PHImageManager从PHAsset中请求图片
-    PHImageManager *imageManager = [[PHImageManager alloc] init];
-    [imageManager requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        if (result) {
-            // result 即为查找到的图片,也是此时的截屏图片
-            
-          __block  UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
-            imageV.image = result;
-            imageV.alpha = 0.5;
-            [[Methods getMainWindow] addSubview:imageV];
-            
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [imageV removeFromSuperview];
-            });
-        }
-    }];
-}
-*/
-
 - (void)initRootViewCotroller
 {
     //每次初始化的时候清除首页缓存
@@ -352,9 +309,7 @@
     config.tableBarController.selectedIndex = 0;
     self.window.rootViewController = config.tableBarController;
     [self.window makeKeyWindow];
-    
     [self loadLaunchImageView];
-    
     //启动程序后请求看有没有未读通知
     if ([Methods login]) {
         [APPDELEGATE.customTabbar loadUreadNotificationNum];
@@ -765,9 +720,13 @@
     }else{
        
     }
-    _successGetPushInfo = YES;
-    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
-    completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+    
+    
+    
+    // 程序出于前台时 收到推送 
+//    _successGetPushInfo = YES;
+//    _pushInfo = [[NSDictionary alloc] initWithDictionary:userInfo];
+//    completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
 }
 
 //iOS10新增：处理后台点击通知的代理方法

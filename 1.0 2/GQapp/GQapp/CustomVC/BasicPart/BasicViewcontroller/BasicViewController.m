@@ -14,12 +14,6 @@
 
 @implementation BasicViewController
 
-//在页面消失的时候就让navigationbar还原样式
--(void)viewWillDisappear:(BOOL)animated{
-    
-    //    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    //    [self.navigationController.navigationBar setShadowImage:nil];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

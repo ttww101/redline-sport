@@ -82,7 +82,7 @@ static CGFloat imageHeight = 76.f;
     //推送跳转新闻页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToNewsWeb:) name:NotificationpushToNewsWeb object:nil];
     
-
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(configActivityEntrance) name:@"reloadTableBarActivity" object:nil];
     
     // 状态栏(statusbar)
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
@@ -107,7 +107,7 @@ static CGFloat imageHeight = 76.f;
     }
 
      [self configActivityEntrance]; //  配置活动入口
-//     [self update];
+     [self update];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
