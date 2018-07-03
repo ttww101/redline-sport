@@ -247,7 +247,7 @@
     [_btnJIZhu setImage:[UIImage imageNamed:@"wangji"] forState:UIControlStateNormal];
     [_btnJIZhu setImage:[UIImage imageNamed:@"jizhu"] forState:UIControlStateSelected];
     [_btnJIZhu addTarget:self action:@selector(jiZhuPassword:) forControlEvents:UIControlEventTouchUpInside];
-    _btnJIZhu.selected = NO;
+    _btnJIZhu.selected = YES;
     [self.view addSubview:_btnJIZhu];
     
     UILabel *argementlab = [[UILabel alloc] initWithFrame:CGRectMake(_telTextF.frame.origin.x, registerView.bottom + 16, 160, 15)];
