@@ -33,4 +33,6 @@
 
 - (void)reloadData;
 
+- (void)jsReoload;
+
 @end

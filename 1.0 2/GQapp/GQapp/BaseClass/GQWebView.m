@@ -59,6 +59,13 @@
     [self loadData];
 }
 
+- (void)jsReoload {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        
+    }];
+}
+
 - (void)loadBradgeHandler {
     __weak GQWebView *weakSelf = self;
     AppManger *manger = [[AppManger alloc]init];

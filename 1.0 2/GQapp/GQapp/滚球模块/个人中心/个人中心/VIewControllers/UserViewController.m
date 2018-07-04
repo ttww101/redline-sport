@@ -18,6 +18,7 @@
 #import "TongjiVC.h"
 #import "TopContentView.h"
 
+
 #define cellUserViewController @"cellUserViewController"
 #define cellUserViewControllerRecommand @"cellUserViewControllerRecommand"
 #define cellUserTongji @"cellUserTongji"
@@ -38,6 +39,10 @@
 
 @property (nonatomic , strong) TopContentView *topView;
 
+@property (nonatomic, assign) BOOL isBack;
+
+@property (nonatomic , strong) GQWebView *webView;
+
 
 @end
 
@@ -47,6 +52,9 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    if (self.isBack) {
+        [_webView jsReoload];
+    }
 }
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
@@ -70,7 +78,14 @@
     web.frame = CGRectMake(0, _topView.bottom, self.view.width, self.view.height - _topView.bottom);
     web.model = model;
     [self.view addSubview:web];
+    _webView = web;
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.isBack = YES;
+}
+
 
 
 #pragma mark -- UITableViewDataSource

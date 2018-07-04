@@ -496,7 +496,7 @@ static CGFloat imageHeight = 76.f;
     NSDictionary *pDic = self.activityDic[@"v"];
     model.title = PARAM_IS_NIL_ERROR(pDic[@"title"]);
     model.webUrl = PARAM_IS_NIL_ERROR(pDic[@"url"]);
-    model.hideNavigationBar = pDic[@"nav_hidden"];
+    model.hideNavigationBar = [pDic[@"nav_hidden"] integerValue];
     model.parameter = pDic[@"nav"];
     target.model = model;
     [nc pushViewController:target animated:YES];
