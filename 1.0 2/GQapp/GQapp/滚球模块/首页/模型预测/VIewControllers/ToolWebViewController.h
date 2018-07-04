@@ -15,7 +15,7 @@
 
 @interface ToolWebViewController : BasicViewController
 
-@property (nonatomic , strong) WKWebView *wkWebView;
+@property (nonatomic , strong) WKWebView *wkWeb;
 
 @property (nonatomic, copy) NSString *webTitle;
 

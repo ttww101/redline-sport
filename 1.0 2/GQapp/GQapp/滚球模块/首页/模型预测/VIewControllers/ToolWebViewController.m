@@ -61,8 +61,8 @@
     self.progressView.progressTintColor = redcolor;
     self.progressView.trackTintColor = [UIColor clearColor];
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
-    [self.wkWebView addSubview:self.progressView];
-    [self.wkWebView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    [self.wkWeb addSubview:self.progressView];
+    [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,7 +92,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-    [self.wkWebView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [self.wkWeb removeObserver:self forKeyPath:@"estimatedProgress"];
 }
 
 #pragma mark - Notification
@@ -119,7 +119,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        self.progressView.progress = self.wkWebView.estimatedProgress;
+        self.progressView.progress = self.wkWeb.estimatedProgress;
         if (self.progressView.progress == 1) {
             /*
              *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
@@ -165,7 +165,7 @@
 - (void)loadBradgeHandler {
     __weak ToolWebViewController *weakSelf = self;
     AppManger *manger = [[AppManger alloc]init];
-    WebViewJavascriptBridge *bridge = [manger WK_RegisterJSTool:self.wkWebView hannle:^(id data, GQJSResponseCallback responseCallback) {
+    WebViewJavascriptBridge *bridge = [manger WK_RegisterJSTool:self.wkWeb hannle:^(id data, GQJSResponseCallback responseCallback) {
         if (responseCallback) {
             weakSelf.callBack = responseCallback;
         }
@@ -199,11 +199,11 @@
         NSURL *url = [NSURL URLWithString:self.urlPath];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
         [request setValue:PARAM_IS_NIL_ERROR([Methods getTokenModel].token) forHTTPHeaderField:@"token"];
-        [self.wkWebView loadRequest:request];
+        [self.wkWeb loadRequest:request];
     } else if (self.html5Url != nil) {
         NSString* path = [[NSBundle mainBundle] pathForResource:self.html5Url ofType:@"html"];
         NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        [self.wkWebView loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
+        [self.wkWeb loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
     }
 }
 
@@ -211,16 +211,16 @@
 
 - (void)configWebHeight {
     if (self.navigationController.navigationBarHidden) {
-        self.wkWebView.frame = CGRectMake(0, 0, self.view.width, Height - (_model.fromTab ? 49:0));
+        self.wkWeb.frame = CGRectMake(0, 0, self.view.width, Height - (_model.fromTab ? 49:0));
     } else {
-        self.wkWebView.frame = CGRectMake(0, 0, self.view.width, Height - 64 - (_model.fromTab ? 49:0));
+        self.wkWeb.frame = CGRectMake(0, 0, self.view.width, Height - 64 - (_model.fromTab ? 49:0));
     }
 }
 
 - (void)configUI {
-    [self.view addSubview:self.wkWebView];
+    [self.view addSubview:self.wkWeb];
     self.navigationItem.title = _model.title;
-    adjustsScrollViewInsets_NO(self.wkWebView.scrollView, self);
+    adjustsScrollViewInsets_NO(self.wkWeb.scrollView, self);
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     if (_model.showBuyBtn) {
         UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -684,7 +684,7 @@
 
 - (void)createNullToastView:(NSString *)text imageName:(NSString *)imageName {
     if (!_toastView) {
-         _toastView = [[UIView alloc]initWithFrame:self.wkWebView.bounds];
+         _toastView = [[UIView alloc]initWithFrame:self.wkWeb.bounds];
         UIImageView *toastImageView = [UIImageView new];
         toastImageView.image = [UIImage imageNamed:imageName];
         toastImageView.contentMode = UIViewContentModeScaleToFill;
@@ -695,7 +695,7 @@
         }];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reloadAction)];
         [toastImageView addGestureRecognizer:tap];
-        [self.wkWebView addSubview:_toastView];
+        [self.wkWeb addSubview:_toastView];
     }
 }
 
@@ -995,17 +995,17 @@
 
 #pragma mark - Lazy Load
 
-- (WKWebView *)wkWebView {
-    if (_wkWebView == nil) {
-        _wkWebView = [[WKWebView alloc]initWithFrame:self.view.bounds];
-        _wkWebView.navigationDelegate = self;
-        _wkWebView.UIDelegate = self;
-        _wkWebView.scrollView.showsHorizontalScrollIndicator = false;
-        _wkWebView.scrollView.showsVerticalScrollIndicator = false;
-        _wkWebView.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
-        _wkWebView.backgroundColor = [UIColor whiteColor];
+- (WKWebView *)wkWeb {
+    if (_wkWeb == nil) {
+        _wkWeb = [[WKWebView alloc]initWithFrame:self.view.bounds];
+        _wkWeb.navigationDelegate = self;
+        _wkWeb.UIDelegate = self;
+        _wkWeb.scrollView.showsHorizontalScrollIndicator = false;
+        _wkWeb.scrollView.showsVerticalScrollIndicator = false;
+        _wkWeb.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
+        _wkWeb.backgroundColor = [UIColor whiteColor];
     }
-    return _wkWebView;
+    return _wkWeb;
 }
 
 @end

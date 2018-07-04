@@ -316,8 +316,8 @@
     }
     [self loadFirstData];
     //第二天打开app的时候重新初始化根视图
-    NSString *currentLocalDay = [Methods getDateByStyle:DateFormatter withDate:[NSDate date]];
-    [[NSUserDefaults standardUserDefaults] setObject:currentLocalDay forKey:@"currentLocalDay"];
+//    NSString *currentLocalDay = [Methods getDateByStyle:DateFormatter withDate:[NSDate date]];
+//    [[NSUserDefaults standardUserDefaults] setObject:currentLocalDay forKey:@"currentLocalDay"];
     
 }
 
@@ -909,14 +909,9 @@
     }
     
     
-    
-    NSString *currentLocalDay = [Methods getDateByStyle:DateFormatter withDate:[NSDate date]];
-    
-    if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"currentLocalDay"] isEqualToString:currentLocalDay]) {
-        [self initRootViewCotroller];
-    }
 
-    
+
+
     //不写去除角标,因为若是去除的话会把通知栏里面所有的角标都去除,
     //服务器发送推送的时候传的角标默认为0,不再去除
 //    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -1071,9 +1066,11 @@
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             NSDictionary *dataDic = [responseOrignal objectForKey:@"data"];
-            LaunchView *launchV = [[LaunchView alloc] initWithFrame:self.window.bounds];
-            launchV.dataDic = dataDic;
-            [[Methods getMainWindow] addSubview:launchV];
+            if (!(dataDic.allKeys.count == 0)) {
+                LaunchView *launchV = [[LaunchView alloc] initWithFrame:self.window.bounds];
+                launchV.dataDic = dataDic;
+                [[Methods getMainWindow] addSubview:launchV];
+            }
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
 
