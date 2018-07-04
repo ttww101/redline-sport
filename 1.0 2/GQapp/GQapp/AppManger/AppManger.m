@@ -18,6 +18,8 @@
 
 @property (nonatomic , strong) UIWebView *webView;
 
+@property (nonatomic , strong) WKWebView *wkWebView;
+
 @property (nonatomic , strong) WebViewJavascriptBridge *bridge;
 
 @property (nonatomic , copy) GQJSHandler gqHandler;
@@ -50,8 +52,24 @@
     return self.bridge;
 }
 
+- (WebViewJavascriptBridge *)WK_RegisterJSTool:(WKWebView *)webView hannle:(GQJSHandler)jsHandle {
+    if (webView) {
+        self.wkWebView = webView;
+    }
+    if (jsHandle) {
+        self.gqHandler = jsHandle;
+    }
+    [self initJavaScriptObservers];
+    return self.bridge;
+}
+
 - (void)initJavaScriptObservers {
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+    if (self.webView) {
+        self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
+    } else {
+         self.bridge = [WebViewJavascriptBridge bridgeForWebView:_wkWebView];
+    }
+    
     NSString *token = [Methods getTokenModel].token;
     NSString *jsonToken = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(token)}];
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(jsonToken)}];
@@ -181,6 +199,9 @@
     
     // 弹出框
     [self.bridge registerHandler:@"toast" handler:^(id data, WVJBResponseCallback responseCallback) {
+        if (data == nil) {
+            return ;
+        }
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData

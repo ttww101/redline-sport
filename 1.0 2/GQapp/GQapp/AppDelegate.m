@@ -33,7 +33,7 @@
 #import "LaunchView.h"
 #import "GQAspectManager.h"
 
-#define Config_Version @"configVersion"
+#define Config_Version @"ver"
 
 
 #if defined(DEBUG) || defined(_DEBUG)

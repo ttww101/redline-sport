@@ -21,6 +21,4 @@
 
 - (void)reloadData;
 
-- (void)cancleLoadData;
-
 @end

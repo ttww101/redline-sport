@@ -12,14 +12,13 @@
 #import <YYModel/YYModel.h>
 #import "ToolWebViewController.h"
 #import "ArchiveFile.h"
-#import "WebviewProgressLine.h"
 #import <WebKit/WebKit.h>
 
 @interface RecommendedWKWeb () <UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate>
 
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 
-@property (nonatomic , strong) WebviewProgressLine *progressLine;
+@property (nonatomic, strong) UIProgressView *progressView;
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
@@ -31,9 +30,19 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = colorTableViewBackgroundColor;
+        self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, Width, 2)];
+        self.progressView.progressTintColor = redcolor;
+        self.progressView.trackTintColor = [UIColor clearColor];
+        self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
+        [self addSubview:self.progressView];
         [self loadBradgeHandler];
+        [self addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"estimatedProgress"];
 }
 
 #pragma mark - Open Method
@@ -41,7 +50,13 @@
 - (void)setModel:(WebModel *)model {
     _model = model;
     [self loadData];
-    
+}
+
+- (void)reloadData {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        
+    }];
 }
 
 #pragma mark - Load Data
@@ -49,7 +64,7 @@
 - (void)loadBradgeHandler {
     __weak RecommendedWKWeb *weakSelf = self;
     AppManger *manger = [[AppManger alloc]init];
-    WebViewJavascriptBridge* bridge = [manger registerJSTool:self hannle:^(id data, GQJSResponseCallback responseCallback) {
+    WebViewJavascriptBridge* bridge = [manger WK_RegisterJSTool:self hannle:^(id data, GQJSResponseCallback responseCallback) {
         if (responseCallback) {
             weakSelf.callBack = responseCallback;
         }
@@ -67,7 +82,6 @@
     self.bridge = bridge;
 }
 
-
 - (void)loadData {
     if (_model) {
         self.urlPath = _model.webUrl;
@@ -77,7 +91,7 @@
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:15];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
         [request setValue:PARAM_IS_NIL_ERROR([Methods getTokenModel].token) forHTTPHeaderField:@"token"];
         [self loadRequest:request];
     } else if (self.html5Url != nil) {
@@ -85,6 +99,114 @@
         NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         [self loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
     }
+}
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+        self.progressView.progress = self.estimatedProgress;
+        if (self.progressView.progress == 1) {
+            /*
+             *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
+             *动画时长0.25s，延时0.3s后开始动画
+             *动画结束后将progressView隐藏
+             */
+            __weak typeof (self)weakSelf = self;
+            [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
+                weakSelf.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
+            } completion:^(BOOL finished) {
+                weakSelf.progressView.hidden = YES;
+                
+            }];
+        }
+    }else{
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark - WKDelegate
+
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
+    self.progressView.hidden = NO;
+    self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
+}
+
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    self.progressView.hidden = YES;
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    self.progressView.hidden = YES;
+}
+
+
+#pragma mark - JS Handle
+
+- (void)openNative:(id)data {
+    if ([data isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dataDic = (NSDictionary *)data;
+        NSString *className = dataDic[@"n"];
+        Class targetCalss = NSClassFromString(className);
+        id target = [[targetCalss alloc] init];
+        if (target == nil) {
+            [SVProgressHUD showErrorWithStatus:@"暂时不能打开"];
+            return;
+        } else {
+            unsigned int outCount = 0;
+            NSMutableArray *keyArray = [NSMutableArray array];
+            objc_property_t *propertys = class_copyPropertyList([targetCalss class], &outCount);
+            for (unsigned int i = 0; i < outCount; i ++) {
+                objc_property_t property = propertys[i];
+                NSString * propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+                [keyArray addObject:propertyName];
+            }
+            free(propertys);
+            
+            NSDictionary *parameterDic = dataDic[@"v"];
+            if (parameterDic.allKeys.count > 0) {
+                NSArray *array = parameterDic.allKeys;
+                for (NSInteger i = 0; i < array.count; i++) {
+                    NSString *key = array[i];
+                    if ([keyArray containsObject:key]) {
+                        [target setValue:parameterDic[key] forKey:key];
+                    }
+                }
+            }
+            [[Methods help_getCurrentVC].navigationController pushViewController:target animated:YES];
+        }
+    }
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!_cellCanScroll) {
+        scrollView.contentOffset = CGPointZero;
+    }
+    if (scrollView.contentOffset.y <= 0) {
+        
+        _cellCanScroll = NO;
+        scrollView.contentOffset = CGPointZero;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTableViewFrame" object:nil];//到顶通知父视图改变状态
+    }
+}
+
+#pragma mark - Private Method
+
+- (NSString *)getJSONMessage:(NSDictionary *)messageDic {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    //去掉字符串中的空格
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    //去掉字符串中的换行符
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    return mutStr;
 }
 
 

@@ -6,8 +6,8 @@
 //  Copyright © 2018年 GQXX. All rights reserved.
 //
 
-#import "RecommendedWebView.h"
+#import "RecommendedWKWeb.h"
 
-@interface AnalysisWebview : RecommendedWebView
+@interface AnalysisWebview : RecommendedWKWeb
 
 @end

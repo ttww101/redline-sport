@@ -32,6 +32,7 @@
 #import "ToolWebViewController.h"
 #import "AnalysisWebview.h"
 #import "ShowActivityView.h"
+#import "RecommendedWKWeb.h"
 
 @interface FenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate>
 
@@ -51,7 +52,7 @@
 @property (nonatomic, strong) TuijianDatingTableView *tuiJianTable;
 @property (nonatomic, strong) JiBenWebView *webView;
 @property (nonatomic, strong) NewTuijianHtml *webViewZhiShu;//指数
-@property (nonatomic, strong) RecommendedWebView *recommendWeb;
+@property (nonatomic, strong) RecommendedWKWeb *recommendWeb;
 @property (nonatomic , strong) AnalysisWebview *analysisWeb; // 分析
 
 
@@ -219,8 +220,7 @@
     self.webSocket.delegate = nil;
     [self.webSocket close];
     self.webSocket = nil;
-    [self.analysisWeb cancleLoadData];
-    [self.recommendWeb cancleLoadData];
+    
 }
 
 - (void)timerRun
@@ -851,9 +851,9 @@
     return _tuiJianTable;
 }
 
-- (RecommendedWebView *)recommendWeb {
+- (RecommendedWKWeb *)recommendWeb {
     if (_recommendWeb == nil) {
-        _recommendWeb = [[RecommendedWebView alloc]initWithFrame:CGRectMake(Width*3, 0, Width, _scrollMainView.height)];
+        _recommendWeb = [[RecommendedWKWeb alloc]initWithFrame:CGRectMake(Width*3, 0, Width, _scrollMainView.height)];
         WebModel *model = [[WebModel alloc]init];
         model.webUrl = [NSString stringWithFormat:@"%@/%@/tuijian-list.html?sid=%zi", APPDELEGATE.url_ip, H5_Host,_model.mid];
         _recommendWeb.model = model;

@@ -79,6 +79,10 @@
 		A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
 		A94F2C1E20DCF6D100F805E2 /* RecommendedWKWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F2C1D20DCF6D100F805E2 /* RecommendedWKWeb.m */; };
 		A961E43320CF9DFB00000E06 /* WebviewProgressLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A961E43220CF9DFB00000E06 /* WebviewProgressLine.m */; };
+		A96BEBDF20ECB02000B90C5A /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBD720ECB02000B90C5A /* WebViewJavascriptBridgeBase.m */; };
+		A96BEBE020ECB02000B90C5A /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBD820ECB02000B90C5A /* WKWebViewJavascriptBridge.m */; };
+		A96BEBE120ECB02000B90C5A /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBD920ECB02000B90C5A /* WebViewJavascriptBridge.m */; };
+		A96BEBE220ECB02000B90C5A /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBDC20ECB02000B90C5A /* WebViewJavascriptBridge_JS.m */; };
 		A96C141D2084875500284E4B /* XHPayWxReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14132084875400284E4B /* XHPayWxReq.m */; };
 		A96C141E2084875500284E4B /* XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14162084875400284E4B /* XHPayKit.m */; };
 		A96C141F2084875500284E4B /* NSDictionary+XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14172084875400284E4B /* NSDictionary+XHPayKit.m */; };
@@ -623,10 +627,6 @@
 		EB8C1FCE1F219A8C00A07863 /* WebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FA41F219A8C00A07863 /* WebVC.m */; };
 		EB8C1FCF1F219A8C00A07863 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FA61F219A8C00A07863 /* WKWebViewController.m */; };
 		EB8C1FD01F219A8C00A07863 /* JKCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FA91F219A8C00A07863 /* JKCountDownButton.m */; };
-		EB8C1FD11F219A8C00A07863 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FAC1F219A8C00A07863 /* WebViewJavascriptBridge.m */; };
-		EB8C1FD21F219A8C00A07863 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FAE1F219A8C00A07863 /* WebViewJavascriptBridge_JS.m */; };
-		EB8C1FD31F219A8C00A07863 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FB01F219A8C00A07863 /* WebViewJavascriptBridgeBase.m */; };
-		EB8C1FD41F219A8C00A07863 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FB21F219A8C00A07863 /* WKWebViewJavascriptBridge.m */; };
 		EB8C1FD71F219B5900A07863 /* WebDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FD51F219B5900A07863 /* WebDetailViewController.m */; };
 		EB8C1FE71F219C3D00A07863 /* RongyongChatingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FE01F219C3D00A07863 /* RongyongChatingVC.m */; };
 		EB8C1FE81F219C3D00A07863 /* RongYongGroupChatingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1FE21F219C3D00A07863 /* RongYongGroupChatingVC.m */; };
@@ -1230,6 +1230,14 @@
 		A94F2C1D20DCF6D100F805E2 /* RecommendedWKWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendedWKWeb.m; sourceTree = "<group>"; };
 		A961E43120CF9DFB00000E06 /* WebviewProgressLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebviewProgressLine.h; sourceTree = "<group>"; };
 		A961E43220CF9DFB00000E06 /* WebviewProgressLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebviewProgressLine.m; sourceTree = "<group>"; };
+		A96BEBD720ECB02000B90C5A /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		A96BEBD820ECB02000B90C5A /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		A96BEBD920ECB02000B90C5A /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		A96BEBDA20ECB02000B90C5A /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		A96BEBDB20ECB02000B90C5A /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		A96BEBDC20ECB02000B90C5A /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		A96BEBDD20ECB02000B90C5A /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		A96BEBDE20ECB02000B90C5A /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+XHPayKit.h"; sourceTree = "<group>"; };
 		A96C14132084875400284E4B /* XHPayWxReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPayWxReq.m; sourceTree = "<group>"; };
 		A96C14142084875400284E4B /* NSString+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XHPayKit.h"; sourceTree = "<group>"; };
@@ -2071,14 +2079,6 @@
 		EB8C1FA61F219A8C00A07863 /* WKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		EB8C1FA81F219A8C00A07863 /* JKCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCountDownButton.h; sourceTree = "<group>"; };
 		EB8C1FA91F219A8C00A07863 /* JKCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCountDownButton.m; sourceTree = "<group>"; };
-		EB8C1FAB1F219A8C00A07863 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		EB8C1FAC1F219A8C00A07863 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		EB8C1FAD1F219A8C00A07863 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
-		EB8C1FAE1F219A8C00A07863 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
-		EB8C1FAF1F219A8C00A07863 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
-		EB8C1FB01F219A8C00A07863 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
-		EB8C1FB11F219A8C00A07863 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		EB8C1FB21F219A8C00A07863 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		EB8C1FD51F219B5900A07863 /* WebDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebDetailViewController.m; sourceTree = "<group>"; };
 		EB8C1FD61F219B5900A07863 /* WebDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDetailViewController.h; sourceTree = "<group>"; };
 		EB8C1FDF1F219C3D00A07863 /* RongyongChatingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RongyongChatingVC.h; sourceTree = "<group>"; };
@@ -2828,6 +2828,21 @@
 				A94D70CB207F43C0002F4310 /* ChartsTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A96BEBD620ECB02000B90C5A /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				A96BEBD720ECB02000B90C5A /* WebViewJavascriptBridgeBase.m */,
+				A96BEBD820ECB02000B90C5A /* WKWebViewJavascriptBridge.m */,
+				A96BEBD920ECB02000B90C5A /* WebViewJavascriptBridge.m */,
+				A96BEBDA20ECB02000B90C5A /* WebViewJavascriptBridge_JS.h */,
+				A96BEBDB20ECB02000B90C5A /* WebViewJavascriptBridgeBase.h */,
+				A96BEBDC20ECB02000B90C5A /* WebViewJavascriptBridge_JS.m */,
+				A96BEBDD20ECB02000B90C5A /* WebViewJavascriptBridge.h */,
+				A96BEBDE20ECB02000B90C5A /* WKWebViewJavascriptBridge.h */,
+			);
+			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
 		A96C14112084875400284E4B /* XHPayKit */ = {
@@ -6342,21 +6357,6 @@
 			path = CountBtn;
 			sourceTree = "<group>";
 		};
-		EB8C1FAA1F219A8C00A07863 /* WebViewJavascriptBridge */ = {
-			isa = PBXGroup;
-			children = (
-				EB8C1FAB1F219A8C00A07863 /* WebViewJavascriptBridge.h */,
-				EB8C1FAC1F219A8C00A07863 /* WebViewJavascriptBridge.m */,
-				EB8C1FAD1F219A8C00A07863 /* WebViewJavascriptBridge_JS.h */,
-				EB8C1FAE1F219A8C00A07863 /* WebViewJavascriptBridge_JS.m */,
-				EB8C1FAF1F219A8C00A07863 /* WebViewJavascriptBridgeBase.h */,
-				EB8C1FB01F219A8C00A07863 /* WebViewJavascriptBridgeBase.m */,
-				EB8C1FB11F219A8C00A07863 /* WKWebViewJavascriptBridge.h */,
-				EB8C1FB21F219A8C00A07863 /* WKWebViewJavascriptBridge.m */,
-			);
-			path = WebViewJavascriptBridge;
-			sourceTree = "<group>";
-		};
 		EB8C1FD81F219C3D00A07863 /* 融云即时通讯 */ = {
 			isa = PBXGroup;
 			children = (
@@ -6678,6 +6678,7 @@
 		EBC0A3851CA92AD700F75E7E /* CustomVC */ = {
 			isa = PBXGroup;
 			children = (
+				A96BEBD620ECB02000B90C5A /* WebViewJavascriptBridge */,
 				A96C1422208492BE00284E4B /* SelectPayMent */,
 				EB75ED931F3D4F5100B6046C /* BasicContentView */,
 				EB8C20081F219DD100A07863 /* ShowImages */,
@@ -6689,7 +6690,6 @@
 				EB8C1F941F219A8C00A07863 /* HttpRequst */,
 				EB8C1F9F1F219A8C00A07863 /* webVC */,
 				EB8C1FA71F219A8C00A07863 /* CountBtn */,
-				EB8C1FAA1F219A8C00A07863 /* WebViewJavascriptBridge */,
 			);
 			path = CustomVC;
 			sourceTree = "<group>";
@@ -8229,7 +8229,6 @@
 				EB8C1FB91F219A8C00A07863 /* DCScrollVIew.m in Sources */,
 				A9B5229B20933A8E001DF9B9 /* HeaderAmountView.m in Sources */,
 				EB5A46981F26F1760093962B /* PictureView.m in Sources */,
-				EB8C1FD31F219A8C00A07863 /* WebViewJavascriptBridgeBase.m in Sources */,
 				EB518D391F7BD09900D548BC /* PlycSelectedView.m in Sources */,
 				A94F2C1E20DCF6D100F805E2 /* RecommendedWKWeb.m in Sources */,
 				EB8C1E411F21944C00A07863 /* SettingVC.m in Sources */,
@@ -8272,6 +8271,7 @@
 				EB8C1E471F21944C00A07863 /* FansTable.m in Sources */,
 				EB8C1E3F1F21944C00A07863 /* UserViewController.m in Sources */,
 				EB6BDA391F39607E00C9EA73 /* TongPeiSwitch.m in Sources */,
+				A96BEBE120ECB02000B90C5A /* WebViewJavascriptBridge.m in Sources */,
 				EB8C1E531F21944C00A07863 /* RemindModel.m in Sources */,
 				EB2319DF1F7CFB3900003F3C /* YpasCell.m in Sources */,
 				A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */,
@@ -8286,7 +8286,6 @@
 				EB8C1EE21F21974000A07863 /* Dan_StringGuanModel.m in Sources */,
 				EB3105D51F456FE9009E6AE9 /* UserOfotherCellTwo.m in Sources */,
 				EB76842F1F3AC1F40054A705 /* TongPeiMatchModel.m in Sources */,
-				EB8C1FD41F219A8C00A07863 /* WKWebViewJavascriptBridge.m in Sources */,
 				EB3E74E11F3C370300C29DA7 /* TongpeiDTModel.m in Sources */,
 				EB8C1E941F21944C00A07863 /* SelectedDataView.m in Sources */,
 				EB518D041F7B808300D548BC /* FeedbackNewVC.m in Sources */,
@@ -8426,6 +8425,7 @@
 				EB8C1E811F21944C00A07863 /* InfoListModel.m in Sources */,
 				EB8C1E3D1F21944C00A07863 /* UserOfOtherCell.m in Sources */,
 				EB8C1E701F21944C00A07863 /* TuijianDTViewController.m in Sources */,
+				A96BEBE220ECB02000B90C5A /* WebViewJavascriptBridge_JS.m in Sources */,
 				A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */,
 				EB8C1E781F21944C00A07863 /* SearchVCZhujiaCell.m in Sources */,
 				EB8C1EA91F21944C00A07863 /* JiaoYiNewTabelView.m in Sources */,
@@ -8436,7 +8436,6 @@
 				EB5BCF441F4142B200EF32E6 /* JiShiPeiLvCell.m in Sources */,
 				EB8C1FC01F219A8C00A07863 /* CacheObject.m in Sources */,
 				EB8C1E631F21944C00A07863 /* QBNavigationVC.m in Sources */,
-				EB8C1FD21F219A8C00A07863 /* WebViewJavascriptBridge_JS.m in Sources */,
 				EBC0A2AA1CA924AE00F75E7E /* main.m in Sources */,
 				EB8C1FCB1F219A8C00A07863 /* UniversalNetwork.m in Sources */,
 				EB8C1E961F21944C00A07863 /* SelectedEventView.m in Sources */,
@@ -8470,7 +8469,6 @@
 				A9E87647208083AE00480C81 /* CouponListTableViewCell.m in Sources */,
 				EB5BCF511F4186A800EF32E6 /* JSPLDownCell.m in Sources */,
 				EB8C1FC91F219A8C00A07863 /* HttpString.m in Sources */,
-				EB8C1FD11F219A8C00A07863 /* WebViewJavascriptBridge.m in Sources */,
 				A988D78D208849EC0023D9E2 /* AppManger.m in Sources */,
 				EB8C1E501F21944C00A07863 /* MyProfileVC.m in Sources */,
 				EB8C1ECD1F21944C00A07863 /* UIView+SDExtension.m in Sources */,
@@ -8503,6 +8501,7 @@
 				EB6BDA571F39C48400C9EA73 /* BaolengDTHeaderView.m in Sources */,
 				EB8C1E591F21944C00A07863 /* ToAnalystsVC.m in Sources */,
 				EBAF522A1F46E2BE006905E9 /* UserTongjiCollectioncell.m in Sources */,
+				A96BEBE020ECB02000B90C5A /* WKWebViewJavascriptBridge.m in Sources */,
 				EB8C1E571F21944C00A07863 /* RemindViewController.m in Sources */,
 				EB8C1E561F21944C00A07863 /* NoticeViewController.m in Sources */,
 				EB542DC31F7210E000C051E8 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
@@ -8548,6 +8547,7 @@
 				A96F452C2091699700A6FF76 /* GQTbableConfig.m in Sources */,
 				A9C3BC49209B05BF001674D2 /* StartViewController.m in Sources */,
 				EB82F1571F2AD21D000524A0 /* UIColor+Define.m in Sources */,
+				A96BEBDF20ECB02000B90C5A /* WebViewJavascriptBridgeBase.m in Sources */,
 				A91DCB8220E9E118005B0BC5 /* GQAspectManager.m in Sources */,
 				EB8C1FC81F219A8C00A07863 /* DependetNetMethods.m in Sources */,
 				EBFA65AF1F8F8C8E00C4BE6A /* PeilvViewofYapsCell.m in Sources */,

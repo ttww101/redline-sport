@@ -35,8 +35,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.webView addSubview:self.statusView];
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.wkWebView addSubview:self.statusView];
+    [self.wkWebView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     if ([Methods login]) {
@@ -53,6 +53,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
+
 
 #pragma mark - UIWebViewDelegate
 
@@ -76,13 +77,13 @@
     if (otherUrl) {
         if ([otherUrl isEqualToString:url] || [url isEqualToString:[NSString stringWithFormat:@"%@index.html",otherUrl]]) {
             [self configNav];
-            [self.webView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+            [self.wkWebView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
             self.statusView.hidden = YES;
             self.recodLoding = YES;
         } else {
             [self.navigationController setNavigationBarHidden:YES animated:YES];
             if ([Methods login]) {
-                [self.webView.scrollView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
+                [self.wkWebView.scrollView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
                 self.statusView.hidden = false;
             }
         }
