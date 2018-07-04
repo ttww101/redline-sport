@@ -9,6 +9,7 @@
 #import "AppConfig.h"
 #import "ArchiveFile.h"
 #import <AdSupport/AdSupport.h>
+#import <WebKit/WebKit.h>
 
 #define Config_Version @"configVersion"
 
@@ -71,6 +72,16 @@
     NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
     
+    
+    WKWebView *wkWeb = [[WKWebView alloc] initWithFrame:CGRectZero];
+    [wkWeb evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
+        NSString *oldAgent = result;
+        NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+        NSString *agent = [NSString stringWithFormat:@" newGQapp/%@",version];
+        NSString *newAgent = [oldAgent stringByAppendingString:agent];
+        NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+    }];
 }
 
 @end
