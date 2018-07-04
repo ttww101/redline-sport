@@ -470,6 +470,13 @@
             return;
         }
         
+        if ([className isEqualToString:@"FabuTuijianSelectedItemVC"]) {
+            if (![Methods login]) {
+                [Methods toLogin];
+                return;
+            }
+        }
+        
         if ([self containsClassName:className]) {
             UIViewController *controller =[self indexWithClassName:className];
             if (controller) {

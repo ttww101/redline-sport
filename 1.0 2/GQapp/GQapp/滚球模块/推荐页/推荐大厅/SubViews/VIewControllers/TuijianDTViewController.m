@@ -103,6 +103,10 @@
 #pragma mark - Events
 
 - (void)publishRecommend {
+    if (![Methods login]) {
+        [Methods toLogin];
+        return;
+    }
     FabuTuijianSelectedItemVC *jinCai = [[FabuTuijianSelectedItemVC alloc] init];
     jinCai.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:jinCai animated:YES];
