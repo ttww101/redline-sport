@@ -19,6 +19,7 @@
 #import "FeedbackVC.h"
 #import "FeedbackNewVC.h"
 #import "MyBuyTuijianVC.h"
+#import "ToolWebViewController.h"
 #define cellMineViewControllerUserCell @"cellMineViewControllerUserCell"
 #define cellMineViewController @"cellMineViewController"
 
@@ -821,10 +822,12 @@
                         return;
                     }
                     
-                    MyBuyTuijianVC *myBuy = [[MyBuyTuijianVC alloc] init];
-                    myBuy.userId = _userModel.idId;
-                    myBuy.hidesBottomBarWhenPushed = YES;
-                    [APPDELEGATE.customTabbar pushToViewController:myBuy animated:YES];
+                    WebModel *model = [[WebModel alloc]init];
+                    model.title = @"购买记录";
+                    model.webUrl = [NSString stringWithFormat:@"%@/%@/purchase-details.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userModel.idId];
+                    ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+                    webDetailVC.model = model;
+                    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
                      
                 }
                     break;
