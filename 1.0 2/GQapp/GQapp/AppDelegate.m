@@ -164,6 +164,7 @@
         NSMutableArray *array = responseOrignal[@"pay"];
         NSMutableArray *tabBarArray = responseOrignal[@"tabBar"];
         NSUInteger ver = [responseOrignal[@"ver"] integerValue];
+        NSInteger configVerson = [[NSUserDefaults standardUserDefaults]integerForKey:Config_Version];
         if (ver > configVerson) {
             [[NSUserDefaults standardUserDefaults]setInteger:ver forKey:Config_Version];
             [[NSUserDefaults standardUserDefaults]setObject:PARAM_IS_NIL_ERROR(responseOrignal[@"currency"]) forKey:@"currency"];

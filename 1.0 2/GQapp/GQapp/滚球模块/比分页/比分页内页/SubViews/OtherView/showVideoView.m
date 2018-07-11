@@ -17,6 +17,8 @@
 
 @property (nonatomic , strong) WebviewProgressLine *progressLine;
 
+@property (nonatomic , strong) UILabel *recordLabel;
+
 
 @end
 
@@ -49,11 +51,15 @@
     UILabel *titleLabel = [[UILabel alloc]init];
     titleLabel.text = @"咪咕视频";
     titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = font17;
     [bgView addSubview:titleLabel];
+    self.recordLabel = titleLabel;
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(bgView.mas_centerX);
         make.top.equalTo(bgView.mas_top).offset(30);
+        make.left.equalTo(self.mas_left).offset(70);
+        make.right.equalTo(self.mas_right).offset(-70);
     }];
     
     UIButton *reloadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -81,6 +87,8 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:miguurl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:15];
     [request setValue:PARAM_IS_NIL_ERROR([Methods getTokenModel].token) forHTTPHeaderField:@"token"];
     [self.webView loadRequest:request];
+    
+    self.recordLabel.text = _url;
 }
 
 #pragma mark - UIWebViewDelegate
