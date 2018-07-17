@@ -318,7 +318,6 @@
             
             //创建分享消息对象
             UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-            
             if ([type isEqualToString:@"link"]) {
                 //创建网页内容对象
                 UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:des thumImage:picurl];

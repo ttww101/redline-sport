@@ -153,7 +153,11 @@
 
 - (void)loadConfig {
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [HttpString getCommenParemeter]];
-    NSInteger configVerson = [[NSUserDefaults standardUserDefaults]integerForKey:Config_Version];
+    NSString *localVerson = [[NSUserDefaults standardUserDefaults] objectForKey:Config_Version];
+    if (!localVerson) {
+        localVerson = @"0";
+    }
+    NSInteger configVerson = [localVerson integerValue];
     [parameter setObject:@"1" forKey:@"platform"];
     [parameter setObject:@(configVerson) forKey:Config_Version];
     [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_ConfigjSon] Start:^(id requestOrignal) {
@@ -164,9 +168,8 @@
         NSMutableArray *array = responseOrignal[@"pay"];
         NSMutableArray *tabBarArray = responseOrignal[@"tabBar"];
         NSUInteger ver = [responseOrignal[@"ver"] integerValue];
-        NSInteger configVerson = [[NSUserDefaults standardUserDefaults]integerForKey:Config_Version];
         if (ver > configVerson) {
-            [[NSUserDefaults standardUserDefaults]setInteger:ver forKey:Config_Version];
+            [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%zi",ver] forKey:Config_Version];
             [[NSUserDefaults standardUserDefaults]setObject:PARAM_IS_NIL_ERROR(responseOrignal[@"currency"]) forKey:@"currency"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             // 配置支付
