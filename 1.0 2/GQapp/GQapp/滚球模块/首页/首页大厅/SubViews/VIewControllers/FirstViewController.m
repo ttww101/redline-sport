@@ -1603,8 +1603,19 @@
 //            odd.hidesBottomBarWhenPushed = YES;
 //
 //            [APPDELEGATE.customTabbar pushToViewController:odd animated:YES];
-            ModelPredictionViewController *control = [[ModelPredictionViewController alloc]init];
-            [self.navigationController pushViewController:control animated:YES];
+//            ModelPredictionViewController *control = [[ModelPredictionViewController alloc]init];
+//            [self.navigationController pushViewController:control animated:YES];
+            
+
+            [MobClick event:@"mxyc" label:@""];
+            WebModel *model = [[WebModel alloc]init];
+            model.title = @"模型预测";
+            model.webUrl = [NSString stringWithFormat:@"%@/%@/mode.html", APPDELEGATE.url_ip,H5_Host];
+            ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
+            webDetailVC.model = model;
+            [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            
+            
         }
             break;
         case 3:

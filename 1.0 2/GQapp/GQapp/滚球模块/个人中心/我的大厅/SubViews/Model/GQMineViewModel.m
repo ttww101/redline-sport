@@ -13,8 +13,8 @@
 + (NSArray *)getMineDataArray {
     NSMutableArray *groupArray = [NSMutableArray array];
     
-    NSArray *imageArray1 = @[@"image13", @"image14", @"image2", @"image3"];
-    NSArray *leftContentArry1 = @[@"我的竞猜", @"我的彩票", @"账户明细", @"购买记录"];
+    NSArray *imageArray1 = @[@"image13", @"image2", @"image3"];
+    NSArray *leftContentArry1 = @[@"我的竞猜", @"账户明细", @"购买记录"];
     NSMutableArray *array1 = [NSMutableArray new];
     for (NSInteger i = 0; i < imageArray1.count; i ++) {
         GQMineModel *model = [[GQMineModel alloc]init];

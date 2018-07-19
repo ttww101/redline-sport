@@ -37,6 +37,10 @@ static AFHTTPRequestOperationManager *_afnetManager;
         [_afnetManager.requestSerializer setValue:@"" forHTTPHeaderField:@"token"];
 
     }
+
+    [_afnetManager.requestSerializer setValue:@"GQLive" forHTTPHeaderField:@"User-Agent"];
+    
+
     
     return dcHttpRequset;
     return nil;

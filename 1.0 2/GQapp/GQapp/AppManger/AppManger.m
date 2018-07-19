@@ -114,7 +114,8 @@
                                   @"uuid":idfv,
                                   @"deviceType":[Methods iphoneType],
                                   @"userId": @(model.idId),
-                                  @"thirdPay":@(weatherShowThirdPay)
+                                  @"thirdPay":@(weatherShowThirdPay),
+                                  @"User-Agent": @"GQLive"
                                   };
         
         NSString *jsonInfo = [self getJSONMessage:infoDic];

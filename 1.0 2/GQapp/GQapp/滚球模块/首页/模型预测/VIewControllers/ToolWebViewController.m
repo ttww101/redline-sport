@@ -166,6 +166,9 @@
     if (error.code == -999) {
         return;
     }
+    if (error.code == -1002) {
+        return;
+    }
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
 }
 
