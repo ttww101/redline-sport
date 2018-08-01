@@ -500,7 +500,7 @@ static CGFloat imageHeight = 76.f;
     model.parameter = pDic[@"nav"];
     target.model = model;
     [nc pushViewController:target animated:YES];
-    [MobClick event:@"cp2" label:@""];
+    [MobClick event:@"syjc2" label:@""];
 }
 
 //主页面切换的动画效果

@@ -483,10 +483,15 @@
         }
         
         if ([className isEqualToString:@"FabuTuijianSelectedItemVC"]) {
+            [MobClick event:@"tjdtftj" label:@""];
             if (![Methods login]) {
                 [Methods toLogin];
                 return;
             }
+        }
+        
+        if ([className isEqualToString:@"SearchViewController"]) {
+            [MobClick event:@"tjdtss" label:@""];
         }
         
         if ([self containsClassName:className]) {

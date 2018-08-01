@@ -1290,6 +1290,7 @@
         model.parameter = pDic[@"nav"];
         target.model = model;
         [self.navigationController pushViewController:target animated:YES];
+        [MobClick event:@"bsxqjc" label:@""];
     } else {
         //发布推荐按钮
         if (![Methods login]) {

@@ -155,7 +155,7 @@
 //获取单场爆料比赛的信息
 #define url_SingalInfoMatch @"/info/schedule/show"
 //获取单场推荐比赛的信息
-#define url_SingalRecommendMatch @"/recommend/schedule/show"
+#define url_SingalRecommendMatch @"/pc/recommend/schedule/show"
 //增加爆料
 #define url_addinfo @"/info/add"
 //增加推荐

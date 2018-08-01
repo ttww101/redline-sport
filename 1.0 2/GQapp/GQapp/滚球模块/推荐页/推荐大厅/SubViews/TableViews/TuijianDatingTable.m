@@ -43,7 +43,7 @@
 }
 */
 #pragma mark -- UITableViewDataSource
-- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
+- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style playType:(NSInteger)type;
 {
     self = [super initWithFrame:frame style:style];
     if (self) {
@@ -64,9 +64,25 @@
         _play = @"0";
         _attentioned = @"0";
         _state = @"2";
+        
+        _playType = type;
 
-        [self loadDataByloadDataType:loadDataFirst];
-
+        if (_playType == 0) {
+            [self loadDataByloadDataType:loadDataFirst];
+        } else {
+            NSString *playTetx = nil;
+            if (_playType == 0) {
+                playTetx = @"全部玩法";
+            } else if (_playType == 1) {
+                playTetx = @"胜平负";
+            } else if (_playType == 2) {
+                playTetx = @"让球";
+            } else if (_playType == 3) {
+                playTetx = @"大小球";
+            }
+            [self selectedWithItem:0 WithIndex:_playType WithTitle:playTetx];
+            self.selectedView.play = _playType;
+        }
     }
     return self;
 }
@@ -466,6 +482,9 @@
         case loadDataHeaderRefesh:
         {
             _limitStart = 0;
+            if (!self.arrData) {
+                self.arrData = [[NSMutableArray alloc] init];
+            }
             [self.arrData removeAllObjects];
         }
             break;

@@ -12,4 +12,7 @@
 @interface TuijianDTViewController : BasicViewController
 @property (nonatomic, strong) TuijianDatingTable *tableViewV;
 @property (nonatomic, assign)NSInteger setConSize;//重新设置偏移量
+
+@property (nonatomic, assign) NSInteger playType;
+
 @end

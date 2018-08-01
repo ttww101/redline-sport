@@ -16,6 +16,7 @@
 
 @end
 @interface TuijianSelectedItemView : UIView
+@property (nonatomic, assign) NSInteger play;
 @property (nonatomic, strong) NSArray *arrSaishi;
 @property (nonatomic,weak) id<TuijianSelectedItemViewDelegate> delegate;
 - (void)updateWithIndex:(NSInteger)index;

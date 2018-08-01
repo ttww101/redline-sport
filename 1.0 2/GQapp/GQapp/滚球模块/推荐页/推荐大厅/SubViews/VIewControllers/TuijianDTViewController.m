@@ -92,7 +92,7 @@
 
 - (TuijianDatingTable *)tableViewV {
     if (!_tableViewV) {
-        _tableViewV = [[TuijianDatingTable alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableViewV = [[TuijianDatingTable alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain playType:_playType];
     }
     return _tableViewV;
 }

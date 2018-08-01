@@ -1474,23 +1474,13 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     NSString *result;
     if (timeInterval < 60) {
         result = [NSString stringWithFormat:@"刚刚"];
-    }
-    else if((temp = timeInterval/60) <60){
+    } else if((temp = timeInterval/60) <60){
         result = [NSString stringWithFormat:@"%ld分钟前",temp];
-    }
-    
-    else if((temp = timeInterval/(60*60)) <24){
+    } else if((temp = timeInterval/(60*60)) <24){
         result = [NSString stringWithFormat:@"%ld小时前",temp];
-    }
-    
-    else if((temp = timeInterval/(246060)) <30){
-        result = [NSString stringWithFormat:@"%ld天前",temp];
-    }
-    
-    else if((temp = timeInterval/(24606030)) <12){
-        result = [NSString stringWithFormat:@"%ld月前",temp];
-    }
-    else{
+    } else if((temp = timeInterval/(246060)) <30){
+        result = [self getDateByStyle:@"MM-dd HH:mm" withDate:timeDate];
+    }  else{
         temp = timeInterval/(24606030*12);
         result = [NSString stringWithFormat:@"%ld年前",temp];
     }

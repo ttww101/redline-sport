@@ -28,7 +28,7 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 
 
-@property (nonatomic, assign) NSInteger play;
+
 @property (nonatomic, assign) NSInteger state;
 @property (nonatomic, assign) NSInteger list;
 

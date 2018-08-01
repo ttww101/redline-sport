@@ -2120,6 +2120,8 @@
         
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
 //        [self setupModel:_model];
+        
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:responseOrignal[@"msg"]];
 
     }];
 }
