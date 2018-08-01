@@ -126,7 +126,7 @@
 
 
 
-
+#define ONE_PX_LINE 1.0f / [UIScreen mainScreen].scale
 
 
 

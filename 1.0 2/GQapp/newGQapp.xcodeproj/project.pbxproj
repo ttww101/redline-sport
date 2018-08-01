@@ -106,6 +106,17 @@
 		A988D790208870CA0023D9E2 /* JSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A988D78F208870CA0023D9E2 /* JSModel.m */; };
 		A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* MyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */; };
+		A99166252111B07400FABE68 /* InfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A991660B2111B07300FABE68 /* InfoViewModel.m */; };
+		A99166262111B07400FABE68 /* CommentsDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A991660C2111B07300FABE68 /* CommentsDetailViewModel.m */; };
+		A99166272111B07400FABE68 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166122111B07300FABE68 /* MessageViewController.m */; };
+		A99166282111B07400FABE68 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166132111B07300FABE68 /* CommentsViewController.m */; };
+		A99166292111B07400FABE68 /* CommentsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166142111B07300FABE68 /* CommentsDetailViewController.m */; };
+		A991662A2111B07400FABE68 /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166162111B07300FABE68 /* InputViewController.m */; };
+		A991662B2111B07400FABE68 /* InfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A991661A2111B07300FABE68 /* InfoModel.m */; };
+		A991662C2111B07400FABE68 /* DetailHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A991661C2111B07300FABE68 /* DetailHeaderTableViewCell.m */; };
+		A991662D2111B07400FABE68 /* HeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A991661E2111B07300FABE68 /* HeaderTableViewCell.m */; };
+		A991662E2111B07400FABE68 /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166212111B07400FABE68 /* InfoTableViewCell.m */; };
+		A991662F2111B07400FABE68 /* DeatilHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166232111B07400FABE68 /* DeatilHeaderView.m */; };
 		A9B5228B20930C20001DF9B9 /* GQMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228A20930C20001DF9B9 /* GQMineViewController.m */; };
 		A9B5228F2093139A001DF9B9 /* GQMineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228E2093139A001DF9B9 /* GQMineModel.m */; };
 		A9B522922093150D001DF9B9 /* GQMineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B522912093150D001DF9B9 /* GQMineViewModel.m */; };
@@ -1278,6 +1289,28 @@
 		A98C9690207B7F4A00C308AE /* UserViewofMyBuyTuijian.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewofMyBuyTuijian.m; sourceTree = "<group>"; };
 		A98C9692207B7F4A00C308AE /* MyBuyTuijianVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBuyTuijianVC.m; sourceTree = "<group>"; };
 		A98C9693207B7F4A00C308AE /* MyBuyTuijianVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBuyTuijianVC.h; sourceTree = "<group>"; };
+		A991660B2111B07300FABE68 /* InfoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewModel.m; sourceTree = "<group>"; };
+		A991660C2111B07300FABE68 /* CommentsDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsDetailViewModel.m; sourceTree = "<group>"; };
+		A991660D2111B07300FABE68 /* InfoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewModel.h; sourceTree = "<group>"; };
+		A991660E2111B07300FABE68 /* CommentsDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsDetailViewModel.h; sourceTree = "<group>"; };
+		A99166102111B07300FABE68 /* CommentsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsDetailViewController.h; sourceTree = "<group>"; };
+		A99166112111B07300FABE68 /* InputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
+		A99166122111B07300FABE68 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		A99166132111B07300FABE68 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
+		A99166142111B07300FABE68 /* CommentsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsDetailViewController.m; sourceTree = "<group>"; };
+		A99166152111B07300FABE68 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		A99166162111B07300FABE68 /* InputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputViewController.m; sourceTree = "<group>"; };
+		A99166172111B07300FABE68 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		A99166192111B07300FABE68 /* InfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoModel.h; sourceTree = "<group>"; };
+		A991661A2111B07300FABE68 /* InfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoModel.m; sourceTree = "<group>"; };
+		A991661C2111B07300FABE68 /* DetailHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailHeaderTableViewCell.m; sourceTree = "<group>"; };
+		A991661D2111B07300FABE68 /* DeatilHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeatilHeaderView.h; sourceTree = "<group>"; };
+		A991661E2111B07300FABE68 /* HeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderTableViewCell.m; sourceTree = "<group>"; };
+		A991661F2111B07300FABE68 /* InfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoTableViewCell.h; sourceTree = "<group>"; };
+		A99166202111B07400FABE68 /* DetailHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailHeaderTableViewCell.h; sourceTree = "<group>"; };
+		A99166212111B07400FABE68 /* InfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
+		A99166222111B07400FABE68 /* HeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderTableViewCell.h; sourceTree = "<group>"; };
+		A99166232111B07400FABE68 /* DeatilHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeatilHeaderView.m; sourceTree = "<group>"; };
 		A9B5228920930C20001DF9B9 /* GQMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineViewController.h; sourceTree = "<group>"; };
 		A9B5228A20930C20001DF9B9 /* GQMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineViewController.m; sourceTree = "<group>"; };
 		A9B5228D2093139A001DF9B9 /* GQMineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineModel.h; sourceTree = "<group>"; };
@@ -2930,6 +2963,75 @@
 			path = VIewControllers;
 			sourceTree = "<group>";
 		};
+		A99166082111B07300FABE68 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				A99166092111B07300FABE68 /* Information */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		A99166092111B07300FABE68 /* Information */ = {
+			isa = PBXGroup;
+			children = (
+				A991660A2111B07300FABE68 /* ViewModel */,
+				A991660F2111B07300FABE68 /* Controller */,
+				A99166182111B07300FABE68 /* Model */,
+				A991661B2111B07300FABE68 /* View */,
+			);
+			path = Information;
+			sourceTree = "<group>";
+		};
+		A991660A2111B07300FABE68 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A991660E2111B07300FABE68 /* CommentsDetailViewModel.h */,
+				A991660C2111B07300FABE68 /* CommentsDetailViewModel.m */,
+				A991660D2111B07300FABE68 /* InfoViewModel.h */,
+				A991660B2111B07300FABE68 /* InfoViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A991660F2111B07300FABE68 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A99166172111B07300FABE68 /* CommentsViewController.h */,
+				A99166132111B07300FABE68 /* CommentsViewController.m */,
+				A99166102111B07300FABE68 /* CommentsDetailViewController.h */,
+				A99166142111B07300FABE68 /* CommentsDetailViewController.m */,
+				A99166112111B07300FABE68 /* InputViewController.h */,
+				A99166162111B07300FABE68 /* InputViewController.m */,
+				A99166152111B07300FABE68 /* MessageViewController.h */,
+				A99166122111B07300FABE68 /* MessageViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A99166182111B07300FABE68 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A99166192111B07300FABE68 /* InfoModel.h */,
+				A991661A2111B07300FABE68 /* InfoModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A991661B2111B07300FABE68 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A99166202111B07400FABE68 /* DetailHeaderTableViewCell.h */,
+				A991661C2111B07300FABE68 /* DetailHeaderTableViewCell.m */,
+				A991661F2111B07300FABE68 /* InfoTableViewCell.h */,
+				A99166212111B07400FABE68 /* InfoTableViewCell.m */,
+				A99166222111B07400FABE68 /* HeaderTableViewCell.h */,
+				A991661E2111B07300FABE68 /* HeaderTableViewCell.m */,
+				A991661D2111B07300FABE68 /* DeatilHeaderView.h */,
+				A99166232111B07400FABE68 /* DeatilHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A9D37AA12085C2F7009BA927 /* LiveQuiz */ = {
 			isa = PBXGroup;
 			children = (
@@ -3704,6 +3806,7 @@
 		EB8C1C251F21944B00A07863 /* 滚球模块 */ = {
 			isa = PBXGroup;
 			children = (
+				A99166082111B07300FABE68 /* Module */,
 				A920B9B420BCEFEF00867100 /* Activities */,
 				EBF3AB141F21CD3100C2341A /* 本地h5文件 */,
 				EB8C1C261F21944B00A07863 /* 个人中心 */,
@@ -8183,9 +8286,11 @@
 				EB75EDBF1F3D886E00B6046C /* LiveEventMedel.m in Sources */,
 				A943AAD520C14BA100501299 /* AnalysisWebview.m in Sources */,
 				A9D9494420BBAB4D0031B2F5 /* TabbarButton.m in Sources */,
+				A991662C2111B07400FABE68 /* DetailHeaderTableViewCell.m in Sources */,
 				EB8C1EE71F21974000A07863 /* RelRecNewVC.m in Sources */,
 				EB8C1EE31F21974000A07863 /* Dan_StringMatchsModel.m in Sources */,
 				EB564C5D1F4D79EE00F4C947 /* PanwangZhishuTable.m in Sources */,
+				A991662A2111B07400FABE68 /* InputViewController.m in Sources */,
 				EBDD64281F569F910008B514 /* PushSettingVC.m in Sources */,
 				A9833D4320E4D1F7008A6F94 /* UserViewOfTuijianCellCopy.m in Sources */,
 				EB8C1EB91F21944C00A07863 /* RedDanCycleView.m in Sources */,
@@ -8253,6 +8358,7 @@
 				EB8C1FD01F219A8C00A07863 /* JKCountDownButton.m in Sources */,
 				EB82F1541F2AD21D000524A0 /* NSArray+Log.m in Sources */,
 				EB8C1E761F21944C00A07863 /* TuijianDetailTableView.m in Sources */,
+				A99166292111B07400FABE68 /* CommentsDetailViewController.m in Sources */,
 				EB8C1E521F21944C00A07863 /* NoticeModel.m in Sources */,
 				EB6BDA511F39A99E00C9EA73 /* BaolengZishuModel.m in Sources */,
 				EB8C1E5C1F21944C00A07863 /* RegisterViewController.m in Sources */,
@@ -8297,6 +8403,7 @@
 				EB8C1E6D1F21944C00A07863 /* UserViewOfTuijianCell.m in Sources */,
 				A96C141E2084875500284E4B /* XHPayKit.m in Sources */,
 				EB6BDA541F39C19900C9EA73 /* BaolengDetailVC.m in Sources */,
+				A991662D2111B07400FABE68 /* HeaderTableViewCell.m in Sources */,
 				EBC0A2AD1CA924AE00F75E7E /* AppDelegate.m in Sources */,
 				EB9DA4F31F4EC75A00DE7FB9 /* TuijianDatingTable.m in Sources */,
 				EB8C1E4B1F21944C00A07863 /* UserTuiianView.m in Sources */,
@@ -8308,6 +8415,7 @@
 				EB6BDA5A1F39C65B00C9EA73 /* BaolengSwitch.m in Sources */,
 				EB8C1E9A1F21944C00A07863 /* JishiViewController.m in Sources */,
 				EB8C1E451F21944C00A07863 /* FansCell.m in Sources */,
+				A991662F2111B07400FABE68 /* DeatilHeaderView.m in Sources */,
 				EB8C1E481F21944C00A07863 /* FriendsVC.m in Sources */,
 				EBAF52221F46A046006905E9 /* UserTableView.m in Sources */,
 				EB8C20211F21A0AA00A07863 /* GoodsclassModel.m in Sources */,
@@ -8382,6 +8490,7 @@
 				EB8C1E6A1F21944C00A07863 /* UsermarkModel.m in Sources */,
 				EB8C1FC11F219A8C00A07863 /* Methods.m in Sources */,
 				EB7684321F3AF5800054A705 /* BaolengMatchModel.m in Sources */,
+				A99166252111B07400FABE68 /* InfoViewModel.m in Sources */,
 				EB8C1E401F21944C00A07863 /* FeedbackVC.m in Sources */,
 				A9E876572080BD4700480C81 /* LiveQuizWithdrawalTableViewCell.m in Sources */,
 				EB8C1FB61F219A8C00A07863 /* DCTabBarController.m in Sources */,
@@ -8407,6 +8516,7 @@
 				EB161CAF1F905FBD00118F60 /* PanProcessModel.m in Sources */,
 				EB8C1FE91F219C3D00A07863 /* RongyunChatVC.m in Sources */,
 				EB8C1E541F21944C00A07863 /* NoticeDetailViewController.m in Sources */,
+				A99166262111B07400FABE68 /* CommentsDetailViewModel.m in Sources */,
 				EB21A0B81F9EE1AE002F7FBB /* DataModelViewofFP.m in Sources */,
 				EB8C1E831F21944C00A07863 /* JiBenWebView.m in Sources */,
 				EBF439321E9F56A90050AAE8 /* UIView+Additions.m in Sources */,
@@ -8416,6 +8526,7 @@
 				EB6BDA361F395E3300C9EA73 /* TongpeiDTResultView.m in Sources */,
 				EB8C1E8A1F21944C00A07863 /* JSbifenModel.m in Sources */,
 				EB75EDB31F3D4FEA00B6046C /* JiShiPeiLvVC.m in Sources */,
+				A99166272111B07400FABE68 /* MessageViewController.m in Sources */,
 				EB8C20201F21A0AA00A07863 /* GoodPlayModel.m in Sources */,
 				EB2E28171F5838CB00086052 /* BaolengTable.m in Sources */,
 				EB8C1E811F21944C00A07863 /* InfoListModel.m in Sources */,
@@ -8444,6 +8555,7 @@
 				EB8C1ECC1F21944C00A07863 /* SDCycleScrollView.m in Sources */,
 				EB8C1EC41F21944C00A07863 /* GuideView.m in Sources */,
 				EB8C1EB81F21944C00A07863 /* FirstPUserlistView.m in Sources */,
+				A991662E2111B07400FABE68 /* InfoTableViewCell.m in Sources */,
 				EB6149D61F3844A10098C2DE /* TongpeiTongjiVC.m in Sources */,
 				EB8C1E731F21944C00A07863 /* CommentChildModel.m in Sources */,
 				EB8C1EBD1F21944C00A07863 /* FocusModel.m in Sources */,
@@ -8520,6 +8632,7 @@
 				EB6149E21F385D760098C2DE /* TongPeiTJModel.m in Sources */,
 				EB518D251F7B950C00D548BC /* PeilvYichangVC.m in Sources */,
 				EB542DC41F7210E000C051E8 /* UIView+SDAutoLayout.m in Sources */,
+				A991662B2111B07400FABE68 /* InfoModel.m in Sources */,
 				EB8C20071F219D7100A07863 /* UITabBar+badge.m in Sources */,
 				EBC6E4381F41B376005D1188 /* BisaiTongjiCellTwo.m in Sources */,
 				EB8C1E741F21944C00A07863 /* CommentModel.m in Sources */,
@@ -8552,6 +8665,7 @@
 				EB6149DF1F385BA50098C2DE /* TongbeiTongjiCell.m in Sources */,
 				EB8C1EA51F21944C00A07863 /* SelectedJincaiVC.m in Sources */,
 				EB8C1EB41F21944C00A07863 /* PanWangModel.m in Sources */,
+				A99166282111B07400FABE68 /* CommentsViewController.m in Sources */,
 				EB518D0A1F7B81A500D548BC /* FeedBackCell.m in Sources */,
 				EB8C1FC31F219A8C00A07863 /* NSObject+Perform.m in Sources */,
 				EB9DA4F01F4EB91200DE7FB9 /* TuijianSelectedItemTitleView.m in Sources */,

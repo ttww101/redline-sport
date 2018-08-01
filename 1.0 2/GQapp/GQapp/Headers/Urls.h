@@ -464,6 +464,19 @@
 #define PAGE_PATH @"PagePath.plist"
 
 
+
+#pragma mark -
+
+#define info_url @"/flashnews/comments"
+
+#define info_like_url @"/flashnews/like"
+
+
+#define info_like_comment @"/flashnews/comment"
+
+#define info_url_commentcount @"/flashnews/comments/count"
+
+
 #endif
 
 

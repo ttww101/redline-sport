@@ -34,6 +34,7 @@
 @property (nonatomic, assign) NSInteger ListItemWeek;//周榜
 @property (nonatomic, assign)BOOL yesORno;
 
+@property (nonatomic , strong) UIImageView *triangleImageView;
 
 @end
 
@@ -59,7 +60,7 @@
     self.defaultFailure = @"";
     [self setNavView];
     _yesORno = NO;
-    [LodingAnimateView showLodingView];
+
     if(self.typeList == typeListOne){
         _ListItemWeek = 0;
         
@@ -162,7 +163,41 @@
     
 }
 
-
+- (void)didSelectedTitle:(UIButton *)sender {
+    UIButton *btn = (UIButton *)sender;
+    CGPoint center = _triangleImageView.center;
+    center.x = btn.center.x;
+    _triangleImageView.center = center;
+    
+    if (btn.tag == 0) {
+        self.typeList = typeListOne;
+    } else if (btn.tag == 1) {
+        self.typeList = typeListFore;
+    } else if (btn.tag == 2) {
+        self.typeList = typeListFive;
+    } else if (btn.tag == 3) {
+        self.typeList = typeListTwo;
+    }
+    
+    
+    if(self.typeList == typeListOne){
+        _ListItemWeek = 0;
+        for (int i = 0; i < 4; i ++) {
+            [self setNumGetData:i];
+            
+        }
+        if (_titleView) {
+            _titleView.hidden = false;
+        }
+        _scrollView.frame = CGRectMake(0, _titleView.bottom, Width, Height - _titleView.bottom);
+    }else{
+        [self setNumGetDataTwo];
+        if (_titleView) {
+            _titleView.hidden = YES;
+        }
+        _scrollView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar);
+    }
+}
 
 #pragma mark -- setnavView
 - (void)setNavView{
@@ -174,6 +209,32 @@
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"tuijianDTLeftImage"] forState:UIControlStateNormal];
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"tuijianDTLeftImage"] forState:UIControlStateHighlighted];
     [self.view addSubview:nav];
+    
+    NSArray *titleArray = @[@"排行榜", @"连红榜", @"盈利榜", @"人气榜"];
+    nav.labTitle.hidden = YES;
+    UIView *indexView = [UIView new];
+    indexView.frame = CGRectMake(nav.btnLeft.right, 0, nav.width - (nav.btnLeft.width * 2), nav.height);
+    CGFloat width = indexView.width / titleArray.count;
+    for (NSInteger i = 0; i < titleArray.count; i++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:titleArray[i] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(i * width, 20, width, indexView.height - 20);
+        [btn addTarget:self action:@selector(didSelectedTitle:) forControlEvents:UIControlEventTouchUpInside];
+        btn.titleLabel.font = font15;
+        btn.tag = i;
+        [indexView addSubview:btn];
+    }
+    [nav addSubview:indexView];
+    
+    _triangleImageView = [UIImageView new];
+    _triangleImageView.image = [UIImage imageNamed:@"ic_triangle"];
+    _triangleImageView.frame = CGRectMake(0, indexView.height - 10, 20, 10);
+    _triangleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [indexView addSubview:_triangleImageView];
+    CGPoint center = _triangleImageView.center;
+    center.x = width / 2;
+    _triangleImageView.center = center;
     
     
     //设置滚动的view
@@ -204,6 +265,7 @@
 - (void)loadDataRecommandListParameter:(NSMutableDictionary *)parameterDic urlStr:(NSString *)url num:(NSInteger)num
 {
 
+    [LodingAnimateView showLodingView];
     [[DCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameterDic PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url] Start:^(id requestOrignal) {
         if (self.typeList == typeListOne && !_yesORno) {
             _yesORno = YES;
@@ -266,12 +328,12 @@
             }
             
         }else{
-
+            [LodingAnimateView dissMissLoadingView];
             
         }
         
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        
+        [LodingAnimateView dissMissLoadingView];
     }];
 }
 
