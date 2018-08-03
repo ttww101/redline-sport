@@ -55,6 +55,10 @@
 
 @property (nonatomic , strong) UILabel *goldLabel;
 
+@property (nonatomic , strong) UILabel *buyNumLabel;
+
+@property (nonatomic , strong) UIImageView *buyImageView;
+
 
 @end
 @implementation TuijianDatingCell
@@ -158,15 +162,38 @@
     }
     _labStatus.text = @"";
 
-    if (_type == typeTuijianCellUser) {
+    if (_type == typeTuijianCellUser || _type == typeTuijianCellDating) {
         
-        if (_model.status == 2) {
-            _labStatus.text = @"待审核";
-
-        }else if (_model.status == 6){
-        _labStatus.text = @"审核不通过";
+//        if (_model.status == 2) {
+//            _labStatus.text = @"待审核";
+//
+//        }else if (_model.status == 6){
+//        _labStatus.text = @"审核不通过";
+//        }
+//        _labStatus.textColor = redcolor;
+        
+//        if (_model.showPrice) {
+//            NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
+//            if (!(str.length > 0)) {
+//                str = @"球币";
+//            }
+//            _goldLabel.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
+//            _goldLabel.hidden = false;
+//            if (_model.amount == 0) {
+//                _goldLabel.hidden = YES;
+//            }
+//        } else {
+//            _goldLabel.hidden = YES;
+//        }
+        
+        if (_model.amount > 0) {
+            _buyNumLabel.text = [NSString stringWithFormat:@"%@人购买",_model.buyCount];
+            _buyNumLabel.hidden = false;
+            _buyImageView.hidden = false;
+        } else {
+            _buyNumLabel.hidden = YES;
+            _buyImageView.hidden = YES;
         }
-        _labStatus.textColor = redcolor;
 
     }else{
         _labStatus.text = @"";
@@ -263,6 +290,8 @@
                 [_basicView addSubview:self.headerUser];
                 [_basicView addSubview:self.teamView];
                 [_basicView addSubview:self.peilvView];
+                [_basicView addSubview:self.buyNumLabel];
+                [_basicView addSubview:self.buyImageView];
 
             }
                 break;
@@ -278,6 +307,8 @@
             {
                 [_basicView addSubview:self.teamView];
                 [_basicView addSubview:self.peilvView];
+                [_basicView addSubview:self.buyNumLabel];
+                [_basicView addSubview:self.buyImageView];
 
             }
                 break;
@@ -500,6 +531,26 @@
     }
     return _viewContent;
 }
+
+- (UILabel *)buyNumLabel
+{
+    if (!_buyNumLabel) {
+        _buyNumLabel = [[UILabel alloc] init];
+        _buyNumLabel.font = font12;
+        _buyNumLabel.textColor = color99;
+        _buyNumLabel.numberOfLines = 1;
+    }
+    return _buyNumLabel;
+}
+
+- (UIImageView *)buyImageView {
+    if (_buyImageView == nil) {
+        _buyImageView = [UIImageView new];
+        _buyImageView.image = [UIImage imageNamed:@"buyshop"];
+    }
+    return _buyImageView;
+}
+
 - (void)addAutoLayoutToCell
 {
     
@@ -568,6 +619,15 @@
                 make.left.equalTo(self.basicView.mas_left).offset(15);
                 make.bottom.equalTo(self.basicView.mas_bottom).offset(-21.5);
                 make.top.equalTo(self.labContent.mas_bottom).offset(8.5);
+            }];
+            
+            [self.buyNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(_basicView.mas_right).offset(-15);
+                make.bottom.equalTo(_basicView.mas_bottom).offset(-15);
+            }];
+            [self.buyImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.buyNumLabel.mas_left).offset(-5);
+                make.centerY.equalTo(self.buyNumLabel.mas_centerY);
             }];
 
         }
@@ -679,15 +739,15 @@
         case typeTuijianCellUser:
         {
             
-            [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.basicView.mas_right).offset(-20);
-                make.top.equalTo(self.basicView.mas_top).offset(20);
+                make.top.equalTo(self.basicView.mas_top).offset(10);
                 make.size.mas_equalTo(CGSizeMake(70, 30));
             }];
             
-            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.basicView.mas_right).offset(-20);
-                make.top.equalTo(self.basicView.mas_top).offset(20);
+                make.centerY.equalTo(self.basicView.mas_centerY);
                 make.size.mas_equalTo(CGSizeMake(70, 30));
             }];
             
@@ -724,6 +784,15 @@
                 make.left.equalTo(self.basicView.mas_left).offset(15);
                 make.bottom.equalTo(self.basicView.mas_bottom).offset(-21.5);
                 make.top.equalTo(self.labContent.mas_bottom).offset(8.5);
+            }];
+            
+            [self.buyNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(_basicView.mas_right).offset(-15);
+                make.bottom.equalTo(_basicView.mas_bottom).offset(-15);
+            }];
+            [self.buyImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.buyNumLabel.mas_left).offset(-5);
+                make.centerY.equalTo(self.buyNumLabel.mas_centerY);
             }];
 
 

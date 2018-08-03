@@ -1481,8 +1481,7 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     } else if((temp = timeInterval/(246060)) <30){
         result = [self getDateByStyle:@"MM-dd HH:mm" withDate:timeDate];
     }  else{
-        temp = timeInterval/(24606030*12);
-        result = [NSString stringWithFormat:@"%ld年前",temp];
+       result = [self getDateByStyle:@"MM-dd HH:mm" withDate:timeDate];
     }
     return result;
     

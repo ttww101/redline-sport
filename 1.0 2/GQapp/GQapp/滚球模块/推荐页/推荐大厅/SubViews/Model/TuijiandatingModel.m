@@ -89,7 +89,10 @@
              @"playWinRate":@"playWinRate",
              @"goodPlay":@"goodPlay",
              @"recommendTime":@"recommendTime",
-             @"playType":@"playType"
+             @"playType":@"playType",
+             @"buyCount":@"buyCount",
+             @"showPrice": @"showPrice",
+             @"showBuyCount":@"showBuyCount"
 
              };
 }

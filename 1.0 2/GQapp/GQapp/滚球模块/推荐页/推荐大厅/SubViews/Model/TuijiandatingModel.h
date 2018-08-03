@@ -135,4 +135,10 @@
 
 @property (nonatomic , copy) NSString *recommendTime;
 
+@property (nonatomic , copy) NSString *buyCount; // 购买人数
+
+@property (nonatomic, assign) BOOL showPrice; // 是否显示金币
+
+@property (nonatomic, assign) BOOL showBuyCount; // 是否显示购买人数
+
 @end
