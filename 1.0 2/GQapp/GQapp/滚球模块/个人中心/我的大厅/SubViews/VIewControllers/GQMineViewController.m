@@ -203,6 +203,7 @@
                 }
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"分析师收入";
+                model.hideNavigationBar = YES;
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/my-earnings.html", APPDELEGATE.url_ip,H5_Host];
                 ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
                 webDetailVC.model = model;

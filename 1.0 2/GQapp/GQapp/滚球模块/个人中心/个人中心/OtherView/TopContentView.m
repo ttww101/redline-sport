@@ -49,6 +49,9 @@ static CGFloat imageHeight = 50;
 
 - (void)setModel:(UserModel *)model {
     _model = model;
+    if (_model == nil) {
+        return;
+    }
      [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_model.pic] placeholderImage:[UIImage imageNamed:@"defaultPic"]];
     NSString *imageName = [Methods getPersonLeavelImageName:_model.analysttype];
     self.levealImageView.image = [UIImage imageNamed:imageName];

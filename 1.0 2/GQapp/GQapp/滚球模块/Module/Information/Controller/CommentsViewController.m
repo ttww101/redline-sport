@@ -193,8 +193,8 @@
 - (void)replyAction {
     InputViewController *control = [[InputViewController alloc]init];
     control.newsid = _ID;
-    control.parentid = @"-1";
-    control.moduleid = self.module;
+    control.parentid = @"0";
+    control.moduleid = PARAM_IS_NIL_ERROR(_module);
     [self.navigationController pushViewController:control animated:YES];
 }
 

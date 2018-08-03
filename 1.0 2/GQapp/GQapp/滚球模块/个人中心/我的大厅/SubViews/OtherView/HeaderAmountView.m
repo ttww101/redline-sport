@@ -200,6 +200,7 @@
     [MobClick event:@"hongbao" label:@""];
     WebModel *model = [[WebModel alloc]init];
     model.title = @"我的红包";
+    model.hideNavigationBar = YES;
     model.webUrl = [NSString stringWithFormat:@"%@/%@/my-redbag.html", APPDELEGATE.url_ip,H5_Host];
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
@@ -211,6 +212,7 @@
     WebModel *model = [[WebModel alloc]init];
     model.title = @"我的滚球币";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/my-gold.html", APPDELEGATE.url_ip,H5_Host];
+    model.hideNavigationBar = YES;
     ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
     webDetailVC.model = model;
     [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];

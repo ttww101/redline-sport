@@ -678,6 +678,7 @@
         NSDictionary *commentDic = self.commentsDic[@"comment"];
         self.commentsView.newsID =  [NSString stringWithFormat:@"%@",commentDic[@"id"]];
         self.commentsView.module = [NSString stringWithFormat:@"%@",commentDic[@"module"]];
+        [self.commentsView loadData];
     }
 }
 

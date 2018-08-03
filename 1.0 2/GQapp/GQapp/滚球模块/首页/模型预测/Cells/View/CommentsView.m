@@ -30,15 +30,10 @@
 
 #pragma mark - Open Method
 
-- (void)setNewsID:(NSString *)newsID {
-    _newsID = newsID;
-    [self loadData];
-}
-
 - (void)loadData {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
     [parameter setValue:PARAM_IS_NIL_ERROR(_newsID) forKey:@"newsid"];
-    [parameter setValue:PARAM_IS_NIL_ERROR(_module) forKey:@"1"];
+    [parameter setValue:PARAM_IS_NIL_ERROR(_module) forKey:@"module"];
     [[DCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,info_url_commentcount] Start:^(id requestOrignal) {
         
     } End:^(id responseOrignal) {

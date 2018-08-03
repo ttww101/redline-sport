@@ -34,8 +34,8 @@
 ////5740011b67e58ec642002549
 #define UMAppkey @"569751b567e58ede75000282"
 
-#define QQAppID @"1105366123"
-#define QQAppkey @"NiV7yLegMYLlz65u"
+#define QQAppID @"1106441677"
+#define QQAppkey @"jbhOmsbcAZAHFMIk"
 #define QQAppredirectURL @"http://mobile.umeng.com/social"
 
 ////#define WXAppID @"wx851b833ea7a36d67"

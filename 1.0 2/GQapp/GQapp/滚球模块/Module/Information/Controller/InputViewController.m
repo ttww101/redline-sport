@@ -251,7 +251,7 @@ static NSInteger maxValue = 1000;
     
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[HttpString getCommenParemeter]];
     [parameter setValue:_newsid forKey:@"newsid"];
-    [parameter setValue:_parentid forKey:@"parentid"];
+    [parameter setValue:_parentid forKey:@"parentId"];
     [parameter setValue:self.textView.text forKey:@"content"];
     [parameter setValue:PARAM_IS_NIL_ERROR(self.moduleid) forKey:@"module"];
     [[DCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,info_like_comment] ArrayFile:nil Start:^(id requestOrignal) {
@@ -263,6 +263,7 @@ static NSInteger maxValue = 1000;
             self.recordText = self.textView.text;
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"发表成功"];
              [self.view endEditing:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:responseOrignal[@"msg"]];
         }
