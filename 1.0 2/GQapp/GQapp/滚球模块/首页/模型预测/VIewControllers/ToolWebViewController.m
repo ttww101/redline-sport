@@ -21,8 +21,11 @@
 #import "GQWebView.h"
 #import "LiveQuizViewController.h"
 #import "LotteryWebViewController.h"
+#import "CommentsView.h"
+#import "CommentsViewController.h"
+#import "InputViewController.h"
 
-@interface ToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate>
+@interface ToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate>
 
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 
@@ -41,6 +44,10 @@
 @property (nonatomic , strong) GQWebView *activityWeb;
 
 @property (nonatomic, strong) UIProgressView *progressView;
+
+@property (nonatomic , strong) CommentsView *commentsView;
+
+@property (nonatomic , strong) NSDictionary *commentsDic;
 
 @end
 
@@ -171,6 +178,37 @@
     }
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
 }
+
+#pragma mark - CommentsViewDelegate
+
+- (void)commentViewDidSelectCommnetList:(CommentsView *)commentView {
+    if (self.commentsDic) {
+        NSDictionary *dic = self.commentsDic[@"comment"];
+        CommentsViewController *control = [[CommentsViewController alloc]init];
+        control.ID = [NSString stringWithFormat:@"%@",dic[@"id"]];
+        control.module = dic[@"module"];
+        [self.navigationController pushViewController:control animated:YES];
+    }
+}
+
+- (void)commentViewDidSelectReply:(CommentsView *)commentView {
+    if (self.commentsDic) {
+        NSDictionary *dic = self.commentsDic[@"comment"];
+        InputViewController *control = [[InputViewController alloc]init];
+        control.newsid = [NSString stringWithFormat:@"%@",dic[@"id"]];
+        control.moduleid = dic[@"module"];
+        control.parentid = @"-1";
+        [self.navigationController pushViewController:control animated:YES];
+    }
+}
+
+- (void)commentViewDidSelectShare:(CommentsView *)commentView {
+    if (self.commentsDic) {
+        NSDictionary *dic = self.commentsDic[@"share"];
+        [self webShare:dic];
+    }
+}
+
 
 #pragma mark - Load Data
 
@@ -631,6 +669,18 @@
     }
 }
 
+- (void)pagetoolbar:(id)data {
+    if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
+        self.commentsDic = (NSDictionary *)data;
+        [self.view addSubview:self.commentsView];
+        self.wkWeb.height = self.wkWeb.height - self.commentsView.height;
+        self.commentsView.top = self.wkWeb.bottom;
+        NSDictionary *commentDic = self.commentsDic[@"comment"];
+        self.commentsView.newsID =  [NSString stringWithFormat:@"%@",commentDic[@"id"]];
+        self.commentsView.module = [NSString stringWithFormat:@"%@",commentDic[@"module"]];
+    }
+}
+
 #pragma mark - Private Method
 
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {
@@ -1023,6 +1073,14 @@
         _wkWeb.backgroundColor = [UIColor whiteColor];
     }
     return _wkWeb;
+}
+
+- (CommentsView *)commentsView {
+    if (_commentsView == nil) {
+        _commentsView = [[CommentsView alloc]init];
+        _commentsView.delegate = self;
+    }
+    return _commentsView;
 }
 
 @end

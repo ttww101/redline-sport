@@ -97,7 +97,6 @@
     } else {
         [GQAspectManager GQ_SavePageDic];
     }
-    [GQAspectManager GQ_trackAspectHooks];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

@@ -459,6 +459,33 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[data stringValue]]];
     }];
     
+    [self.bridge registerHandler:@"pagetoolbar" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        JSModel *model =  [JSModel yy_modelWithDictionary:@{
+                                                            @"methdName":@"pagetoolbar:",
+                                                            @"parameterData":dic}];
+        self.gqHandler(model, ^(id responseData) {
+            if ([responseData integerValue] == 1) {
+                
+                //                NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareSuccess", @"val":@(platformType)}];
+                //                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                //
+                //                }];
+                
+                
+            } else {
+                //                NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareFailed", @"val":@(platformType)}];
+                //                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                //
+                //                }];
+            }
+        });
+    }];
+    
     
 }
 

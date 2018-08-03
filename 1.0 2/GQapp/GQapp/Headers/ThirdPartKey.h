@@ -41,8 +41,8 @@
 ////#define WXAppID @"wx851b833ea7a36d67"
 ////#define WXAppSecret @"c48c8b970c941e6e0f2b8a5faaf9467b"
 //
-#define WXAppID @"wx851b833ea7a36d67"
-#define WXAppSecret @"c48c8b970c941e6e0f2b8a5faaf9467b"
+#define WXAppID @"wx56bdccdbd05520ef"
+#define WXAppSecret @"79b95248d5e67a8487496ffc8368ede3"
 #define WXAppredirectURL @"http://www.umeng.com/social"
 #define WXAppFriendredirectURL @"http://www.umeng.com/social"
 
@@ -62,12 +62,6 @@
 #define RongIMKitSecret @"lzsOoznhsgwvML"
 
 #define RongIMKitToken @"5sI5qXR3DKAaTFlvQjGMY0Pa5VBBOAHznnj3xy2n/bKpRzIl2A7MXpM9uWKjzNFLs0syLCm9a10R4nERkfYYwA=="
-
-
-
-
-
-
 
 
 

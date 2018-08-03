@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Aspects/Aspects.h>
 
 
 @interface GQAspectManager : NSObject
-
-+ (void)GQ_trackAspectHooks;
 
 /**
  用户页面访问路径

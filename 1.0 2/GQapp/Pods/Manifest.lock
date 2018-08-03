@@ -20,7 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Aspects (1.4.1)
   - Bugly (2.4.6)
   - DCPathButton (2.1.4)
   - DeviceUtil (1.3.8)
@@ -63,7 +62,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5.0)
-  - Aspects
   - Bugly (~> 2.4.6)
   - DCPathButton (~> 2.1.3)
   - DeviceUtil (~> 1.3.2)
@@ -91,7 +89,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
-    - Aspects
     - Bugly
     - DCPathButton
     - DeviceUtil
@@ -115,7 +112,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
   Bugly: 7756e72c59387b0d490f46e83ab458ae94ee7fba
   DCPathButton: 99c8211ef3eafc3b438c917a4c7b4502fa77eee7
   DeviceUtil: 9e91dd78b14cd51715d6fada8871c71b00283023
@@ -137,6 +133,6 @@ SPEC CHECKSUMS:
   UMCShare: 0c406a22c874fe6c9c97784a71db349e7fcea0eb
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 648f5965d5fe1d0a2ff8a1a7d0d674977eb75a93
+PODFILE CHECKSUM: fae687c968325b6a9f75f85c4157c1f5c27c7601
 
 COCOAPODS: 1.5.0

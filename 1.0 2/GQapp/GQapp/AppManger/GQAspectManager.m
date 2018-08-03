@@ -11,29 +11,6 @@
 
 @implementation GQAspectManager
 
-+ (void)GQ_trackAspectHooks {
-    
-    [UIViewController aspect_hookSelector:@selector(viewWillAppear:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
-        NSString *className = NSStringFromClass([[aspectInfo instance] class]);
-        NSMutableDictionary *dic = [GQAspectManager GQ_PathForPageDic];
-        NSDictionary *pageDic = dic[@"pageDic"];
-        NSString *pageName = pageDic[className];
-        if (pageName.length > 0) {
-            [MobClick beginLogPageView:pageName];
-        }
-    }error:NULL];
-    
-    [UIViewController aspect_hookSelector:@selector(viewWillDisappear:) withOptions:AspectPositionBefore usingBlock:^(id<AspectInfo> aspectInfo) {
-        NSString *className = NSStringFromClass([[aspectInfo instance] class]);
-        NSMutableDictionary *dic = [GQAspectManager GQ_PathForPageDic];
-        NSDictionary *pageDic = dic[@"pageDic"];
-        NSString *pageName = pageDic[className];
-        if (pageName.length > 0) {
-            [MobClick endLogPageView:pageName];
-        }
-    }error:NULL];
-}
-
 + (void)GQ_SavePageDic {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];

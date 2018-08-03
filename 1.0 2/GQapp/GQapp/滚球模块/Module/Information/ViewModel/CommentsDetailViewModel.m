@@ -19,10 +19,10 @@
         if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
             response(true, responseOrignal);
         } else {
-            response(false, responseOrignal[@"msg"]);
+            response(false, responseOrignal);
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        response(false, responseOrignal[@"msg"]);
+        response(false, responseOrignal);
     }];
 }
 

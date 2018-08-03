@@ -70,6 +70,7 @@
 		A941D534206E22FB008CE14F /* ToolKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D533206E22FB008CE14F /* ToolKitViewController.m */; };
 		A941D537206E236A008CE14F /* ToolKitViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A941D536206E236A008CE14F /* ToolKitViewModel.m */; };
 		A943AAD520C14BA100501299 /* AnalysisWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = A943AAD420C14BA100501299 /* AnalysisWebview.m */; };
+		A94467DE211401DD00C9413C /* UIViewController+Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = A94467DD211401DD00C9413C /* UIViewController+Statistics.m */; };
 		A94B676E2071D51D00E0748F /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B676D2071D51D00E0748F /* LiveViewController.m */; };
 		A94B67732071D5F100E0748F /* LiveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67722071D5F100E0748F /* LiveListViewController.m */; };
 		A94B67772071E32E00E0748F /* LiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67762071E32E00E0748F /* LiveListModel.m */; };
@@ -117,6 +118,7 @@
 		A991662D2111B07400FABE68 /* HeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A991661E2111B07300FABE68 /* HeaderTableViewCell.m */; };
 		A991662E2111B07400FABE68 /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166212111B07400FABE68 /* InfoTableViewCell.m */; };
 		A991662F2111B07400FABE68 /* DeatilHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166232111B07400FABE68 /* DeatilHeaderView.m */; };
+		A99166322111B62400FABE68 /* CommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166312111B62400FABE68 /* CommentsView.m */; };
 		A9B5228B20930C20001DF9B9 /* GQMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228A20930C20001DF9B9 /* GQMineViewController.m */; };
 		A9B5228F2093139A001DF9B9 /* GQMineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228E2093139A001DF9B9 /* GQMineModel.m */; };
 		A9B522922093150D001DF9B9 /* GQMineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B522912093150D001DF9B9 /* GQMineViewModel.m */; };
@@ -1223,6 +1225,8 @@
 		A941D536206E236A008CE14F /* ToolKitViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolKitViewModel.m; sourceTree = "<group>"; };
 		A943AAD320C14BA100501299 /* AnalysisWebview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalysisWebview.h; sourceTree = "<group>"; };
 		A943AAD420C14BA100501299 /* AnalysisWebview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnalysisWebview.m; sourceTree = "<group>"; };
+		A94467DC211401DD00C9413C /* UIViewController+Statistics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Statistics.h"; sourceTree = "<group>"; };
+		A94467DD211401DD00C9413C /* UIViewController+Statistics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Statistics.m"; sourceTree = "<group>"; };
 		A94B676C2071D51D00E0748F /* LiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		A94B676D2071D51D00E0748F /* LiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		A94B67712071D5F100E0748F /* LiveListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveListViewController.h; sourceTree = "<group>"; };
@@ -1311,6 +1315,8 @@
 		A99166212111B07400FABE68 /* InfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoTableViewCell.m; sourceTree = "<group>"; };
 		A99166222111B07400FABE68 /* HeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderTableViewCell.h; sourceTree = "<group>"; };
 		A99166232111B07400FABE68 /* DeatilHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeatilHeaderView.m; sourceTree = "<group>"; };
+		A99166302111B62400FABE68 /* CommentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsView.h; sourceTree = "<group>"; };
+		A99166312111B62400FABE68 /* CommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsView.m; sourceTree = "<group>"; };
 		A9B5228920930C20001DF9B9 /* GQMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineViewController.h; sourceTree = "<group>"; };
 		A9B5228A20930C20001DF9B9 /* GQMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQMineViewController.m; sourceTree = "<group>"; };
 		A9B5228D2093139A001DF9B9 /* GQMineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQMineModel.h; sourceTree = "<group>"; };
@@ -3043,6 +3049,8 @@
 		A9D37AA82085D312009BA927 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A99166302111B62400FABE68 /* CommentsView.h */,
+				A99166312111B62400FABE68 /* CommentsView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -6826,6 +6834,8 @@
 				EB82F1511F2AD21D000524A0 /* NSString+unicode.m */,
 				EB82F1521F2AD21D000524A0 /* UIColor+Define.h */,
 				EB82F1531F2AD21D000524A0 /* UIColor+Define.m */,
+				A94467DC211401DD00C9413C /* UIViewController+Statistics.h */,
+				A94467DD211401DD00C9413C /* UIViewController+Statistics.m */,
 			);
 			path = Categoreies;
 			sourceTree = "<group>";
@@ -8189,7 +8199,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-newGQapp/Pods-newGQapp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Aspects/Aspects.framework",
 				"${BUILT_PRODUCTS_DIR}/DCPathButton/DCPathButton.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceUtil/DeviceUtil.framework",
 				"${BUILT_PRODUCTS_DIR}/HYBLoopScrollView/HYBLoopScrollView.framework",
@@ -8207,7 +8216,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Aspects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DCPathButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceUtil.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HYBLoopScrollView.framework",
@@ -8446,6 +8454,7 @@
 				EB518D141F7B84ED00D548BC /* TimeModel.m in Sources */,
 				EB8C1E9D1F21944C00A07863 /* SearchMatchVC.m in Sources */,
 				EB8C1E981F21944C00A07863 /* BifenViewController.m in Sources */,
+				A94467DE211401DD00C9413C /* UIViewController+Statistics.m in Sources */,
 				EB8C1EE41F21974000A07863 /* SelectedViewOfFabuTuijian.m in Sources */,
 				A91C6DFB207C5EE70035DFC0 /* TuijianDatingCell.m in Sources */,
 				EB6BDA601F39CED000C9EA73 /* BaolengDTModel.m in Sources */,
@@ -8634,6 +8643,7 @@
 				EB542DC41F7210E000C051E8 /* UIView+SDAutoLayout.m in Sources */,
 				A991662B2111B07400FABE68 /* InfoModel.m in Sources */,
 				EB8C20071F219D7100A07863 /* UITabBar+badge.m in Sources */,
+				A99166322111B62400FABE68 /* CommentsView.m in Sources */,
 				EBC6E4381F41B376005D1188 /* BisaiTongjiCellTwo.m in Sources */,
 				EB8C1E741F21944C00A07863 /* CommentModel.m in Sources */,
 				EB3CE0B81FA038950080D8D2 /* TFFileUploadManager.m in Sources */,
