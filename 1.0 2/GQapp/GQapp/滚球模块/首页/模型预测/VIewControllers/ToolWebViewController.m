@@ -49,6 +49,7 @@
 
 @property (nonatomic , strong) NSDictionary *commentsDic;
 
+
 @end
 
 #define wxpay @"wx"
@@ -70,16 +71,30 @@
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
     [self.wkWeb addSubview:self.progressView];
     [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    
+    [self catchJsLog];
+}
+
+- (void)catchJsLog{
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     [self configWebHeight];
+    
     if (self.isBack) {
-        [self refreshData];
+        if (self.progressView.hidden) {
+            [self refreshData];
+        }
     }
+    
     [MobClick beginLogPageView:PARAM_IS_NIL_ERROR(_model.title)];
+    if (_commentsView) {
+        [_commentsView loadData];
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -116,10 +131,12 @@
 }
 
 - (void)refreshData {
-    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
-    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-        
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
+        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+
+        }];
+    });
 }
 
 #pragma mark - KVO
@@ -179,6 +196,10 @@
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
 }
 
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView API_AVAILABLE(macosx(10.11), ios(9.0)); {
+    [webView reload];
+}
+
 #pragma mark - CommentsViewDelegate
 
 - (void)commentViewDidSelectCommnetList:(CommentsView *)commentView {
@@ -197,7 +218,7 @@
         InputViewController *control = [[InputViewController alloc]init];
         control.newsid = [NSString stringWithFormat:@"%@",dic[@"id"]];
         control.moduleid = dic[@"module"];
-        control.parentid = @"-1";
+        control.parentid = @"0";
         [self.navigationController pushViewController:control animated:YES];
     }
 }
@@ -243,7 +264,7 @@
             self.html5Url = _recordUrl;
         }
     }
-
+    
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];

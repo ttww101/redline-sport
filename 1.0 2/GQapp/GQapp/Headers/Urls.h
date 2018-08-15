@@ -225,7 +225,7 @@
 #define url_ConfigjSon @"/initx.json"
 
 // h5地址拼接
-#define H5_Host @"appH5/gqlive"
+#define H5_Host @"appH5/gqlive1"
 
 // 苹果内购验证
 

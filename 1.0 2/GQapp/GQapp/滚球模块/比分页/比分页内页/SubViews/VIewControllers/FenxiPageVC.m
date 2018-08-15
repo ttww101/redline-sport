@@ -878,7 +878,7 @@
     if (_analysisWeb == nil) {
         _analysisWeb = [[AnalysisWebview alloc]initWithFrame:CGRectMake(0, 0, Width, _scrollMainView.height)];
         WebModel *model = [[WebModel alloc]init];
-        model.webUrl = [NSString stringWithFormat:@"%@/%@/fenxi/index.html#/?sid=%zi", APPDELEGATE.url_ip, H5_Host,_model.mid];
+        model.webUrl = [NSString stringWithFormat:@"%@/appH5/fenxi/#/?id=%zi", APPDELEGATE.url_ip,_model.mid];
         _analysisWeb.model = model;
         _analysisWeb.tag = 30;
     }

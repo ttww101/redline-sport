@@ -273,22 +273,14 @@
                 
             }
         }else if (self.typeList != typeListOne){
-//            [LodingAnimateView showLodingView];
         }
         
     } End:^(id responseOrignal) {
-        if (self.typeList == typeListOne){
-            if (num == 2) {
-                [LodingAnimateView dissMissLoadingView];
-            }
-            
-        }else{
-            [LodingAnimateView dissMissLoadingView];
-        }
         
-
+        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+            [LodingAnimateView dissMissLoadingView];
             self.defaultFailure = @"";
             if (self.typeList == typeListOne) {
                 switch (num) {
@@ -310,8 +302,6 @@
                         break;
                     case 3:{
                         _arrDataFour = [[NSArray alloc] initWithArray:[RecommandListModel arrayOfEntitiesFromArray:[responseOrignal objectForKey:@"data"]]];
-                        
-                         [LodingAnimateView dissMissLoadingView];
                     }
                         break;
                         
@@ -328,7 +318,7 @@
             }
             
         }else{
-            [LodingAnimateView dissMissLoadingView];
+            
             
         }
         

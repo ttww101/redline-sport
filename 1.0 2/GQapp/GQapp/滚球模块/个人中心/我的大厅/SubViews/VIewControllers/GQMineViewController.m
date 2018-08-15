@@ -273,6 +273,7 @@
                 [MobClick event:@"yqhy" label:@""];
                 WebModel *model = [[WebModel alloc]init];
                 model.title = @"邀请好友";
+//                model.webUrl = @"http://people.mozilla.org/~rnewman/fennec/mem.html1";
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/invite-friends.html", APPDELEGATE.url_ip,H5_Host];
                 ToolWebViewController *webDetailVC = [[ToolWebViewController alloc] init];
                 webDetailVC.model = model;

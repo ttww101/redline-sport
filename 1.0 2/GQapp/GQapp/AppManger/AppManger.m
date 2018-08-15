@@ -70,28 +70,28 @@
          self.bridge = [WebViewJavascriptBridge bridgeForWebView:_wkWebView];
     }
     
-    NSString *token = [Methods getTokenModel].token;
-    NSString *jsonToken = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(token)}];
-    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(jsonToken)}];
+    __weak AppManger *weakSelf = self;
     
     // 获取当前页面链接
     [self.bridge registerHandler:@"currentPage" handler:^(id data, WVJBResponseCallback responseCallback) {
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"currentPage:",
                                                             @"parameterData":data}];
-        self.gqHandler(model, ^(id responseData) {
+        weakSelf.gqHandler(model, ^(id responseData) {
         });
     }];
     
     // 注册token
     [self.bridge registerHandler:@"getToken" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSString *currentToken = [Methods getTokenModel].token;
-        NSString *valueJson = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(currentToken)}];
-        NSString *parameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(valueJson)}];
-        [self.bridge callHandler:@"jsCallBack" data:parameter responseCallback:^(id responseData) {
-            
-        }];
-        responseCallback(jsonParameter);
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSString *currentToken = [Methods getTokenModel].token;
+            NSString *valueJson = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(currentToken)}];
+            NSString *parameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(valueJson)}];
+            [weakSelf.bridge callHandler:@"jsCallBack" data:parameter responseCallback:^(id responseData) {
+                
+            }];
+        });
+//        NSString *text = @"{\"id\":\"getToken\",\"val\":\"{\\\"token\\\":\\\"\\\"}\"}";
     }];
     
     // 注册设备信息
@@ -105,6 +105,7 @@
         NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
         NSString *sysVersion = [UIDevice currentDevice].systemVersion;
         NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        NSString *webPath = [NSString stringWithFormat:@"%@/%@", APPDELEGATE.url_ip,H5_Host];
         NSDictionary *infoDic = @{
                                   @"platform":@"1",
                                   @"visit":@(1),
@@ -115,12 +116,13 @@
                                   @"deviceType":[Methods iphoneType],
                                   @"userId": @(model.idId),
                                   @"thirdPay":@(weatherShowThirdPay),
-                                  @"User-Agent": @"GQLive"
+                                  @"User-Agent": @"GQLive",
+                                  @"h5Path":webPath
                                   };
         
         NSString *jsonInfo = [self getJSONMessage:infoDic];
         NSString *jsonParameter = [self getJSONMessage:@{@"id":@"info", @"val":jsonInfo}];
-        [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+        [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
             
         }];
     }];
@@ -164,8 +166,6 @@
     
     // 获取状态
     [self.bridge registerHandler:@"getState" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"11323");
-        responseCallback(@"Response from testObjcCallback");
     }];
     
     //  0  原生可以退出    1  原生不可退出
@@ -373,7 +373,7 @@
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"toLogin:",
                                                             @"parameterData":@{@"type":@"123"}}];
-        self.gqHandler(model, ^(id responseData) {
+        weakSelf.gqHandler(model, ^(id responseData) {
             
         });
     }];
@@ -388,7 +388,7 @@
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"payAction:",
                                                             @"parameterData":dic}];
-        self.gqHandler(model, ^(id responseData) {
+        weakSelf.gqHandler(model, ^(id responseData) {
         });
     }];
     
@@ -401,7 +401,7 @@
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"openNative:",
                                                             @"parameterData":dic}];
-        self.gqHandler(model, ^(id responseData) {
+        weakSelf.gqHandler(model, ^(id responseData) {
             
         });
     }];
@@ -416,7 +416,7 @@
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
                                                            @"methdName":@"nav:",
                                                            @"parameterData":dic}];
-        self.gqHandler(model, ^(id responseData) {
+        weakSelf.gqHandler(model, ^(id responseData) {
             
         });
     }];
@@ -433,12 +433,12 @@
         self.gqHandler(model, ^(id responseData) {
             if ([responseData integerValue] == 1) {
                 NSString *jsonParameter = [self getJSONMessage:@{@"id":@"paySuccess", @"val":@(1)}];
-                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
                     
                 }];
             } else {
                 NSString *jsonParameter = [self getJSONMessage:@{@"id":@"payFailed", @"val":@(0)}];
-                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+                [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
                     
                 }];
             }
@@ -450,7 +450,7 @@
         JSModel *model =  [JSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"closeWin:",
                                                             @"parameterData":@{@"type":@"123"}}];
-        self.gqHandler(model, ^(id responseData) {
+        weakSelf.gqHandler(model, ^(id responseData) {
             
         });
     }];

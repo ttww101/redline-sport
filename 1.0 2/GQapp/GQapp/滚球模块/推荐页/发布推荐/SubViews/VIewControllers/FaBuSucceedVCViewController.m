@@ -201,8 +201,12 @@
 }
 
 - (void)jiXvClick {
-    self.tabBarController.selectedIndex = 3;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSArray *array = self.navigationController.viewControllers;
+    if ([array[1] isKindOfClass:NSClassFromString(@"FabuTuijianSelectedItemVC")]) {
+        [self.navigationController popToViewController:array[1] animated:YES];
+    } else {
+         [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 - (void)loadTuiJianDetailView {
