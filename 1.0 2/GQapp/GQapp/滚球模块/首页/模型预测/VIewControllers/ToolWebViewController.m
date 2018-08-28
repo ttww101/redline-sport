@@ -71,13 +71,9 @@
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
     [self.wkWeb addSubview:self.progressView];
     [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    
-    [self catchJsLog];
-}
-
-- (void)catchJsLog{
 
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -91,9 +87,11 @@
     }
     
     [MobClick beginLogPageView:PARAM_IS_NIL_ERROR(_model.title)];
-    if (_commentsView) {
-        [_commentsView loadData];
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        if (_commentsView) {
+            [_commentsView loadData];
+        }
+    });
     
 }
 
@@ -115,6 +113,8 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     [self.wkWeb removeObserver:self forKeyPath:@"estimatedProgress"];
+    self.wkWeb = nil;
+    self.bridge = nil;
 }
 
 #pragma mark - Notification
@@ -264,7 +264,7 @@
             self.html5Url = _recordUrl;
         }
     }
-    
+
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
