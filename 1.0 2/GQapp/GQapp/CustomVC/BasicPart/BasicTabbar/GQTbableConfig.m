@@ -30,6 +30,7 @@
 
 - (NSArray *)tableBarItemArray {
     NSMutableArray *array = [ArchiveFile getDataWithPath:TableConfig];
+//    return [self loadLocalTableBarConfig];
     if (array.count > 0) {
         return [self loadServerTableBarConfigWithArray:array];
     } else {
@@ -134,37 +135,27 @@
 }
 
 - (NSArray *)loadLocalTableBarConfig {
-    NSDictionary *firstTabBarItemsAttributes = [self tableBarItemControllerName:@"FirstViewController" title:@"首页" defaultImage:@"shouye" selectImage:@"shouye-1"];
-    NSDictionary *secondTabBarItemsAttributes = [self tableBarItemControllerName:@"BifenViewController" title:@"比分" defaultImage:@"bifen" selectImage:@"bifen-1"];
-    NSDictionary *fifthTabBarItemsAttributes = [self tableBarItemControllerName:@"NewQingBaoViewController" title:@"情报" defaultImage:@"qingbao" selectImage:@"qingbao-1"];
+    //    NSDictionary *fifthTabBarItemsAttributes = [self tableBarItemControllerName:@"FirstViewController" title:@"首页" defaultImage:@"shouye" selectImage:@"shouye-1"];
+    NSDictionary *firstTabBarItemsAttributes = [self tableBarItemControllerName:@"BifenViewController" title:@"比分" defaultImage:@"bifen" selectImage:@"bifen-1"];
+    
+    NSDictionary *thirdTabBarItemsAttributes = [self tableBarItemControllerName:@"NewQingBaoViewController" title:@"情报" defaultImage:@"qingbao" selectImage:@"qingbao-1"];
+    
+    
     WebModel *model = [[WebModel alloc]init];
-    model.title = @"滚球App推荐首页";
-    model.webUrl = [NSString stringWithFormat:@"%@/%@/tuijianIndex.html", APPDELEGATE.url_ip,H5_Host];
-    model.hideNavigationBar = false;
+    model.title = @"发现";
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/index.html", APPDELEGATE.url_ip,H5_Host];
+    model.hideNavigationBar = YES;
+    NSDictionary *fifthTabBarItemsAttributes = @{
+                                                 GQTableBarControllerName : @"ToolWebViewController",
+                                                 GQTabBarItemTitle : @"发现",
+                                                 GQTabBarItemImage : [[UIImage imageNamed:@"tab-find"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                                 GQTabBarItemSelectedImage : [[UIImage imageNamed:@"tab-find-select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                                 GQTabBarItemWbebModel : model,
+                                                 GQTabBarItemLoadH5 : @(1)
+                                                 };
     
-    NSArray *leftArray = @[
-                           @{@"vars":@{@"title":@"推荐市场规则", @"url":@"http://www.gunqiu.com/help/v2.2.0/tuijian.html"}, @"icon":@"rule", @"func":@"openH5:"}
-                           ];
     
-    NSArray *rightArray = @[
-                           @{@"vars":@{@"n":@"SearchViewController", @"v":@{}}, @"icon":@"search", @"func":@"openNative:"},
-                           @{@"vars":@{@"n":@"FabuTuijianSelectedItemVC", @"v":@{}}, @"icon":@"publish", @"func":@"openNative:"}
-                            ];
-
-    NSDictionary *nav = @{@"nav":@{@"left":leftArray, @"right":rightArray}};
-    model.parameter = nav;
-    
-//    NSDictionary *thirdTabBarItemsAttributes = @{
-//                                                 GQTableBarControllerName : @"BaseWebViewController",
-//                                                 GQTabBarItemTitle : @"推荐",
-//                                                 GQTabBarItemImage : [[UIImage imageNamed:@"tuijian"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-//                                                 GQTabBarItemSelectedImage : [[UIImage imageNamed:@"tuijian-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
-//                                                 GQTabBarItemWbebModel : model,
-//                                                 GQTabBarItemLoadH5 : @(1)
-//                                                 };
-  
-  
-  NSDictionary *thirdTabBarItemsAttributes = [self tableBarItemControllerName:@"TuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
+    NSDictionary *secondTabBarItemsAttributes = [self tableBarItemControllerName:@"TuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
     NSDictionary *fourthTabBarItemsAttributes = [self tableBarItemControllerName:@"MineViewController" title:@"我的" defaultImage:@"wode" selectImage:@"wode-1"];
     NSArray *array = @[firstTabBarItemsAttributes, secondTabBarItemsAttributes, fifthTabBarItemsAttributes, thirdTabBarItemsAttributes, fourthTabBarItemsAttributes];
     return array;
