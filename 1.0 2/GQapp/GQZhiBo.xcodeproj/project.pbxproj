@@ -903,8 +903,6 @@
 		EBC0A2AD1CA924AE00F75E7E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC0A2AC1CA924AE00F75E7E /* AppDelegate.m */; };
 		EBC0A2B31CA924AE00F75E7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2B11CA924AE00F75E7E /* Main.storyboard */; };
 		EBC0A2B51CA924AE00F75E7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2B41CA924AE00F75E7E /* Assets.xcassets */; };
-		EBC0A2C31CA924AE00F75E7E /* GQappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC0A2C21CA924AE00F75E7E /* GQappTests.m */; };
-		EBC0A2CE1CA924AE00F75E7E /* GQappUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC0A2CD1CA924AE00F75E7E /* GQappUITests.m */; };
 		EBC0A3C21CA92AD700F75E7E /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2DE1CA92AD700F75E7E /* clear.png */; };
 		EBC0A3C31CA92AD700F75E7E /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2DF1CA92AD700F75E7E /* comment@2x.png */; };
 		EBC0A3C41CA92AD700F75E7E /* fabu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2E01CA92AD700F75E7E /* fabu@2x.png */; };
@@ -1088,20 +1086,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = A58A4ED274A941CA248EA921;
 			remoteInfo = Charts;
-		};
-		EBC0A2BF1CA924AE00F75E7E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBC0A29D1CA924AE00F75E7E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EBC0A2A41CA924AE00F75E7E;
-			remoteInfo = GQZhiBo;
-		};
-		EBC0A2CA1CA924AE00F75E7E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EBC0A29D1CA924AE00F75E7E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EBC0A2A41CA924AE00F75E7E;
-			remoteInfo = GQZhiBo;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -2406,17 +2390,15 @@
 		EBBA7E321F7A4739004CC168 /* addJingcai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addJingcai@2x.png"; sourceTree = "<group>"; };
 		EBBA7E331F7A4739004CC168 /* addJingcaiS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addJingcaiS@2x.png"; sourceTree = "<group>"; };
 		EBBA7E361F7A48BD004CC168 /* fabuJingcai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fabuJingcai@2x.png"; sourceTree = "<group>"; };
-		EBC0A2A51CA924AE00F75E7E /* newGQapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newGQapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBC0A2A51CA924AE00F75E7E /* GQZhiBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GQZhiBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC0A2A91CA924AE00F75E7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EBC0A2AB1CA924AE00F75E7E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EBC0A2AC1CA924AE00F75E7E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		EBC0A2B21CA924AE00F75E7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EBC0A2B41CA924AE00F75E7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBC0A2B91CA924AE00F75E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EBC0A2BE1CA924AE00F75E7E /* newGQappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newGQappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC0A2C21CA924AE00F75E7E /* GQappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQappTests.m; sourceTree = "<group>"; };
 		EBC0A2C41CA924AE00F75E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EBC0A2C91CA924AE00F75E7E /* newGQappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = newGQappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC0A2CD1CA924AE00F75E7E /* GQappUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GQappUITests.m; sourceTree = "<group>"; };
 		EBC0A2CF1CA924AE00F75E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBC0A2DE1CA92AD700F75E7E /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
@@ -2627,20 +2609,6 @@
 				EBC0A44D1CA934D500F75E7E /* libz.tbd in Frameworks */,
 				EB24FF141CF03B0B0035DA24 /* CoreTelephony.framework in Frameworks */,
 				FB8F4873CF0A14B270032879 /* Pods_newGQapp.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EBC0A2BB1CA924AE00F75E7E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EBC0A2C61CA924AE00F75E7E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6584,9 +6552,7 @@
 		EBC0A2A61CA924AE00F75E7E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EBC0A2A51CA924AE00F75E7E /* newGQapp.app */,
-				EBC0A2BE1CA924AE00F75E7E /* newGQappTests.xctest */,
-				EBC0A2C91CA924AE00F75E7E /* newGQappUITests.xctest */,
+				EBC0A2A51CA924AE00F75E7E /* GQZhiBo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -7292,9 +7258,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EBC0A2A41CA924AE00F75E7E /* newGQapp */ = {
+		EBC0A2A41CA924AE00F75E7E /* GQZhiBo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EBC0A2D21CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "newGQapp" */;
+			buildConfigurationList = EBC0A2D21CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "GQZhiBo" */;
 			buildPhases = (
 				53523D5A679F0C3E222492B9 /* [CP] Check Pods Manifest.lock */,
 				EBC0A2A11CA924AE00F75E7E /* Sources */,
@@ -7310,46 +7276,10 @@
 			dependencies = (
 				A9E8763A2080409800480C81 /* PBXTargetDependency */,
 			);
-			name = newGQapp;
+			name = GQZhiBo;
 			productName = GQZhiBo;
-			productReference = EBC0A2A51CA924AE00F75E7E /* newGQapp.app */;
+			productReference = EBC0A2A51CA924AE00F75E7E /* GQZhiBo.app */;
 			productType = "com.apple.product-type.application";
-		};
-		EBC0A2BD1CA924AE00F75E7E /* newGQappTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EBC0A2D51CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "newGQappTests" */;
-			buildPhases = (
-				EBC0A2BA1CA924AE00F75E7E /* Sources */,
-				EBC0A2BB1CA924AE00F75E7E /* Frameworks */,
-				EBC0A2BC1CA924AE00F75E7E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EBC0A2C01CA924AE00F75E7E /* PBXTargetDependency */,
-			);
-			name = newGQappTests;
-			productName = GQappTests;
-			productReference = EBC0A2BE1CA924AE00F75E7E /* newGQappTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		EBC0A2C81CA924AE00F75E7E /* newGQappUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EBC0A2D81CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "newGQappUITests" */;
-			buildPhases = (
-				EBC0A2C51CA924AE00F75E7E /* Sources */,
-				EBC0A2C61CA924AE00F75E7E /* Frameworks */,
-				EBC0A2C71CA924AE00F75E7E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EBC0A2CB1CA924AE00F75E7E /* PBXTargetDependency */,
-			);
-			name = newGQappUITests;
-			productName = GQappUITests;
-			productReference = EBC0A2C91CA924AE00F75E7E /* newGQappUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -7377,21 +7307,9 @@
 							};
 						};
 					};
-					EBC0A2BD1CA924AE00F75E7E = {
-						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = A4MC62Y5RA;
-						ProvisioningStyle = Manual;
-						TestTargetID = EBC0A2A41CA924AE00F75E7E;
-					};
-					EBC0A2C81CA924AE00F75E7E = {
-						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = A4MC62Y5RA;
-						ProvisioningStyle = Automatic;
-						TestTargetID = EBC0A2A41CA924AE00F75E7E;
-					};
 				};
 			};
-			buildConfigurationList = EBC0A2A01CA924AE00F75E7E /* Build configuration list for PBXProject "newGQapp" */;
+			buildConfigurationList = EBC0A2A01CA924AE00F75E7E /* Build configuration list for PBXProject "GQZhiBo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -7411,9 +7329,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				EBC0A2A41CA924AE00F75E7E /* newGQapp */,
-				EBC0A2BD1CA924AE00F75E7E /* newGQappTests */,
-				EBC0A2C81CA924AE00F75E7E /* newGQappUITests */,
+				EBC0A2A41CA924AE00F75E7E /* GQZhiBo */,
 			);
 		};
 /* End PBXProject section */
@@ -8072,20 +7988,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EBC0A2BC1CA924AE00F75E7E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EBC0A2C71CA924AE00F75E7E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -8610,22 +8512,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EBC0A2BA1CA924AE00F75E7E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EBC0A2C31CA924AE00F75E7E /* GQappTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EBC0A2C51CA924AE00F75E7E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EBC0A2CE1CA924AE00F75E7E /* GQappUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -8633,16 +8519,6 @@
 			isa = PBXTargetDependency;
 			name = Charts;
 			targetProxy = A9E876392080409800480C81 /* PBXContainerItemProxy */;
-		};
-		EBC0A2C01CA924AE00F75E7E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EBC0A2A41CA924AE00F75E7E /* newGQapp */;
-			targetProxy = EBC0A2BF1CA924AE00F75E7E /* PBXContainerItemProxy */;
-		};
-		EBC0A2CB1CA924AE00F75E7E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EBC0A2A41CA924AE00F75E7E /* newGQapp */;
-			targetProxy = EBC0A2CA1CA924AE00F75E7E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -8913,80 +8789,6 @@
 			};
 			name = Release;
 		};
-		EBC0A2D61CA924AE00F75E7E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: guorong cai (34D636JV2B)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GQZhiBo/PrefixHeader.pch";
-				INFOPLIST_FILE = GQappTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Gunqiu.GQappTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/newGQapp.app/newGQapp";
-			};
-			name = Debug;
-		};
-		EBC0A2D71CA924AE00F75E7E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: guorong cai (A4MC62Y5RA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GQZhiBo/PrefixHeader.pch";
-				INFOPLIST_FILE = GQappTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Gunqiu.GQappTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/newGQapp.app/newGQapp";
-			};
-			name = Release;
-		};
-		EBC0A2D91CA924AE00F75E7E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GQZhiBo/PrefixHeader.pch";
-				INFOPLIST_FILE = GQappUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Gunqiu.GQappUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_TARGET_NAME = GQZhiBo;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		EBC0A2DA1CA924AE00F75E7E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GQZhiBo/PrefixHeader.pch";
-				INFOPLIST_FILE = GQappUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Gunqiu.GQappUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_TARGET_NAME = GQZhiBo;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 		EBFE4D421D6D9ECF00E62EEF /* ad hoc distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -9110,47 +8912,10 @@
 			};
 			name = "ad hoc distribution";
 		};
-		EBFE4D441D6D9ECF00E62EEF /* ad hoc distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: guorong cai (A4MC62Y5RA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GQZhiBo/PrefixHeader.pch";
-				INFOPLIST_FILE = GQappTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Gunqiu.GQappTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/newGQapp.app/newGQapp";
-			};
-			name = "ad hoc distribution";
-		};
-		EBFE4D451D6D9ECF00E62EEF /* ad hoc distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/GQZhiBo/PrefixHeader.pch";
-				INFOPLIST_FILE = GQappUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Gunqiu.GQappUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TEST_TARGET_NAME = GQZhiBo;
-				USES_XCTRUNNER = YES;
-			};
-			name = "ad hoc distribution";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EBC0A2A01CA924AE00F75E7E /* Build configuration list for PBXProject "newGQapp" */ = {
+		EBC0A2A01CA924AE00F75E7E /* Build configuration list for PBXProject "GQZhiBo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBC0A2D01CA924AE00F75E7E /* Debug */,
@@ -9160,32 +8925,12 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EBC0A2D21CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "newGQapp" */ = {
+		EBC0A2D21CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "GQZhiBo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBC0A2D31CA924AE00F75E7E /* Debug */,
 				EBC0A2D41CA924AE00F75E7E /* Release */,
 				EBFE4D431D6D9ECF00E62EEF /* ad hoc distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EBC0A2D51CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "newGQappTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EBC0A2D61CA924AE00F75E7E /* Debug */,
-				EBC0A2D71CA924AE00F75E7E /* Release */,
-				EBFE4D441D6D9ECF00E62EEF /* ad hoc distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EBC0A2D81CA924AE00F75E7E /* Build configuration list for PBXNativeTarget "newGQappUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EBC0A2D91CA924AE00F75E7E /* Debug */,
-				EBC0A2DA1CA924AE00F75E7E /* Release */,
-				EBFE4D451D6D9ECF00E62EEF /* ad hoc distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
