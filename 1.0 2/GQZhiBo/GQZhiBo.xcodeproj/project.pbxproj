@@ -80,11 +80,18 @@
 		A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* LodingAnimateView.m */; };
 		A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
 		A94F2C1E20DCF6D100F805E2 /* RecommendedWKWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F2C1D20DCF6D100F805E2 /* RecommendedWKWeb.m */; };
+		A951F96E213D06030001B803 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F965213D06030001B803 /* WebViewJavascriptBridgeBase.m */; };
+		A951F96F213D06030001B803 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F966213D06030001B803 /* WKWebViewJavascriptBridge.m */; };
+		A951F970213D06030001B803 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F967213D06030001B803 /* WebViewJavascriptBridge.m */; };
+		A951F971213D06030001B803 /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F96A213D06030001B803 /* WebViewJavascriptBridge_JS.m */; };
+		A951F982213D062A0001B803 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F976213D06290001B803 /* SDCycleScrollView.m */; };
+		A951F983213D062A0001B803 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F977213D06290001B803 /* UIView+SDExtension.m */; };
+		A951F984213D062A0001B803 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F978213D06290001B803 /* SDCollectionViewCell.m */; };
+		A951F985213D062A0001B803 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F97B213D06290001B803 /* TADotView.m */; };
+		A951F986213D062A0001B803 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F97C213D06290001B803 /* TAPageControl.m */; };
+		A951F987213D062A0001B803 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F97D213D06290001B803 /* TAAnimatedDotView.m */; };
+		A951F988213D062A0001B803 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F97E213D06290001B803 /* TAAbstractDotView.m */; };
 		A961E43320CF9DFB00000E06 /* WebviewProgressLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A961E43220CF9DFB00000E06 /* WebviewProgressLine.m */; };
-		A96BEBDF20ECB02000B90C5A /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBD720ECB02000B90C5A /* WebViewJavascriptBridgeBase.m */; };
-		A96BEBE020ECB02000B90C5A /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBD820ECB02000B90C5A /* WKWebViewJavascriptBridge.m */; };
-		A96BEBE120ECB02000B90C5A /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBD920ECB02000B90C5A /* WebViewJavascriptBridge.m */; };
-		A96BEBE220ECB02000B90C5A /* WebViewJavascriptBridge_JS.m in Sources */ = {isa = PBXBuildFile; fileRef = A96BEBDC20ECB02000B90C5A /* WebViewJavascriptBridge_JS.m */; };
 		A96C141D2084875500284E4B /* XHPayWxReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14132084875400284E4B /* XHPayWxReq.m */; };
 		A96C141E2084875500284E4B /* XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14162084875400284E4B /* XHPayKit.m */; };
 		A96C141F2084875500284E4B /* NSDictionary+XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14172084875400284E4B /* NSDictionary+XHPayKit.m */; };
@@ -569,13 +576,6 @@
 		EB8C1EC41F21944C00A07863 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E221F21944C00A07863 /* GuideView.m */; };
 		EB8C1EC51F21944C00A07863 /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E241F21944C00A07863 /* LaunchView.m */; };
 		EB8C1EC61F21944C00A07863 /* RedDanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E261F21944C00A07863 /* RedDanCell.m */; };
-		EB8C1EC71F21944C00A07863 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E2A1F21944C00A07863 /* TAAbstractDotView.m */; };
-		EB8C1EC81F21944C00A07863 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E2C1F21944C00A07863 /* TAAnimatedDotView.m */; };
-		EB8C1EC91F21944C00A07863 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E2E1F21944C00A07863 /* TADotView.m */; };
-		EB8C1ECA1F21944C00A07863 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E301F21944C00A07863 /* TAPageControl.m */; };
-		EB8C1ECB1F21944C00A07863 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E321F21944C00A07863 /* SDCollectionViewCell.m */; };
-		EB8C1ECC1F21944C00A07863 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E341F21944C00A07863 /* SDCycleScrollView.m */; };
-		EB8C1ECD1F21944C00A07863 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E361F21944C00A07863 /* UIView+SDExtension.m */; };
 		EB8C1ECE1F21944C00A07863 /* VierticalScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E381F21944C00A07863 /* VierticalScrollView.m */; };
 		EB8C1ECF1F21944C00A07863 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1E3C1F21944C00A07863 /* FirstViewController.m */; };
 		EB8C1EE21F21974000A07863 /* Dan_StringGuanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1ED41F21974000A07863 /* Dan_StringGuanModel.m */; };
@@ -1192,16 +1192,30 @@
 		A94D70C3207F43C0002F4310 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
 		A94F2C1C20DCF6D100F805E2 /* RecommendedWKWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecommendedWKWeb.h; sourceTree = "<group>"; };
 		A94F2C1D20DCF6D100F805E2 /* RecommendedWKWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecommendedWKWeb.m; sourceTree = "<group>"; };
+		A951F965213D06030001B803 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		A951F966213D06030001B803 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		A951F967213D06030001B803 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		A951F968213D06030001B803 /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
+		A951F969213D06030001B803 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		A951F96A213D06030001B803 /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
+		A951F96B213D06030001B803 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		A951F96C213D06030001B803 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		A951F973213D06290001B803 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		A951F974213D06290001B803 /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		A951F975213D06290001B803 /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		A951F976213D06290001B803 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		A951F977213D06290001B803 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		A951F978213D06290001B803 /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		A951F97A213D06290001B803 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		A951F97B213D06290001B803 /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		A951F97C213D06290001B803 /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		A951F97D213D06290001B803 /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		A951F97E213D06290001B803 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		A951F97F213D06290001B803 /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		A951F980213D06290001B803 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		A951F981213D06290001B803 /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
 		A961E43120CF9DFB00000E06 /* WebviewProgressLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebviewProgressLine.h; sourceTree = "<group>"; };
 		A961E43220CF9DFB00000E06 /* WebviewProgressLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebviewProgressLine.m; sourceTree = "<group>"; };
-		A96BEBD720ECB02000B90C5A /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
-		A96BEBD820ECB02000B90C5A /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		A96BEBD920ECB02000B90C5A /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
-		A96BEBDA20ECB02000B90C5A /* WebViewJavascriptBridge_JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge_JS.h; sourceTree = "<group>"; };
-		A96BEBDB20ECB02000B90C5A /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
-		A96BEBDC20ECB02000B90C5A /* WebViewJavascriptBridge_JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge_JS.m; sourceTree = "<group>"; };
-		A96BEBDD20ECB02000B90C5A /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
-		A96BEBDE20ECB02000B90C5A /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
 		A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+XHPayKit.h"; sourceTree = "<group>"; };
 		A96C14132084875400284E4B /* XHPayWxReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPayWxReq.m; sourceTree = "<group>"; };
 		A96C14142084875400284E4B /* NSString+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XHPayKit.h"; sourceTree = "<group>"; };
@@ -1956,20 +1970,6 @@
 		EB8C1E241F21944C00A07863 /* LaunchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
 		EB8C1E251F21944C00A07863 /* RedDanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedDanCell.h; sourceTree = "<group>"; };
 		EB8C1E261F21944C00A07863 /* RedDanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedDanCell.m; sourceTree = "<group>"; };
-		EB8C1E291F21944C00A07863 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
-		EB8C1E2A1F21944C00A07863 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
-		EB8C1E2B1F21944C00A07863 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
-		EB8C1E2C1F21944C00A07863 /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
-		EB8C1E2D1F21944C00A07863 /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
-		EB8C1E2E1F21944C00A07863 /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
-		EB8C1E2F1F21944C00A07863 /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
-		EB8C1E301F21944C00A07863 /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
-		EB8C1E311F21944C00A07863 /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
-		EB8C1E321F21944C00A07863 /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
-		EB8C1E331F21944C00A07863 /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
-		EB8C1E341F21944C00A07863 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
-		EB8C1E351F21944C00A07863 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
-		EB8C1E361F21944C00A07863 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		EB8C1E371F21944C00A07863 /* VierticalScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VierticalScrollView.h; sourceTree = "<group>"; };
 		EB8C1E381F21944C00A07863 /* VierticalScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VierticalScrollView.m; sourceTree = "<group>"; };
 		EB8C1E3B1F21944C00A07863 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
@@ -2714,6 +2714,8 @@
 		A94D6EA9207F4115002F4310 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				A951F972213D06290001B803 /* SDCycleScrollView */,
+				A951F964213D06030001B803 /* WebViewJavascriptBridge */,
 				A96C14112084875400284E4B /* XHPayKit */,
 				A94D70C3207F43C0002F4310 /* Charts.xcodeproj */,
 			);
@@ -2729,19 +2731,48 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A96BEBD620ECB02000B90C5A /* WebViewJavascriptBridge */ = {
+		A951F964213D06030001B803 /* WebViewJavascriptBridge */ = {
 			isa = PBXGroup;
 			children = (
-				A96BEBD720ECB02000B90C5A /* WebViewJavascriptBridgeBase.m */,
-				A96BEBD820ECB02000B90C5A /* WKWebViewJavascriptBridge.m */,
-				A96BEBD920ECB02000B90C5A /* WebViewJavascriptBridge.m */,
-				A96BEBDA20ECB02000B90C5A /* WebViewJavascriptBridge_JS.h */,
-				A96BEBDB20ECB02000B90C5A /* WebViewJavascriptBridgeBase.h */,
-				A96BEBDC20ECB02000B90C5A /* WebViewJavascriptBridge_JS.m */,
-				A96BEBDD20ECB02000B90C5A /* WebViewJavascriptBridge.h */,
-				A96BEBDE20ECB02000B90C5A /* WKWebViewJavascriptBridge.h */,
+				A951F965213D06030001B803 /* WebViewJavascriptBridgeBase.m */,
+				A951F966213D06030001B803 /* WKWebViewJavascriptBridge.m */,
+				A951F967213D06030001B803 /* WebViewJavascriptBridge.m */,
+				A951F968213D06030001B803 /* WebViewJavascriptBridge_JS.h */,
+				A951F969213D06030001B803 /* WebViewJavascriptBridgeBase.h */,
+				A951F96A213D06030001B803 /* WebViewJavascriptBridge_JS.m */,
+				A951F96B213D06030001B803 /* WebViewJavascriptBridge.h */,
+				A951F96C213D06030001B803 /* WKWebViewJavascriptBridge.h */,
 			);
 			path = WebViewJavascriptBridge;
+			sourceTree = "<group>";
+		};
+		A951F972213D06290001B803 /* SDCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				A951F973213D06290001B803 /* UIView+SDExtension.h */,
+				A951F974213D06290001B803 /* SDCycleScrollView.h */,
+				A951F975213D06290001B803 /* SDCollectionViewCell.h */,
+				A951F976213D06290001B803 /* SDCycleScrollView.m */,
+				A951F977213D06290001B803 /* UIView+SDExtension.m */,
+				A951F978213D06290001B803 /* SDCollectionViewCell.m */,
+				A951F979213D06290001B803 /* PageControl */,
+			);
+			path = SDCycleScrollView;
+			sourceTree = "<group>";
+		};
+		A951F979213D06290001B803 /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				A951F97A213D06290001B803 /* TAAbstractDotView.h */,
+				A951F97B213D06290001B803 /* TADotView.m */,
+				A951F97C213D06290001B803 /* TAPageControl.m */,
+				A951F97D213D06290001B803 /* TAAnimatedDotView.m */,
+				A951F97E213D06290001B803 /* TAAbstractDotView.m */,
+				A951F97F213D06290001B803 /* TADotView.h */,
+				A951F980213D06290001B803 /* TAAnimatedDotView.h */,
+				A951F981213D06290001B803 /* TAPageControl.h */,
+			);
+			path = PageControl;
 			sourceTree = "<group>";
 		};
 		A96C14112084875400284E4B /* XHPayKit */ = {
@@ -5979,7 +6010,6 @@
 				EB8C1E241F21944C00A07863 /* LaunchView.m */,
 				EB8C1E251F21944C00A07863 /* RedDanCell.h */,
 				EB8C1E261F21944C00A07863 /* RedDanCell.m */,
-				EB8C1E271F21944C00A07863 /* SDCycleScrollView */,
 				EB8C1E371F21944C00A07863 /* VierticalScrollView.h */,
 				EB8C1E381F21944C00A07863 /* VierticalScrollView.m */,
 				EBE92BE81F5434B7004375E7 /* DataModelView.h */,
@@ -5988,35 +6018,6 @@
 				EB21A0B71F9EE1AE002F7FBB /* DataModelViewofFP.m */,
 			);
 			path = OtherView;
-			sourceTree = "<group>";
-		};
-		EB8C1E271F21944C00A07863 /* SDCycleScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				EB8C1E281F21944C00A07863 /* PageControl */,
-				EB8C1E311F21944C00A07863 /* SDCollectionViewCell.h */,
-				EB8C1E321F21944C00A07863 /* SDCollectionViewCell.m */,
-				EB8C1E331F21944C00A07863 /* SDCycleScrollView.h */,
-				EB8C1E341F21944C00A07863 /* SDCycleScrollView.m */,
-				EB8C1E351F21944C00A07863 /* UIView+SDExtension.h */,
-				EB8C1E361F21944C00A07863 /* UIView+SDExtension.m */,
-			);
-			path = SDCycleScrollView;
-			sourceTree = "<group>";
-		};
-		EB8C1E281F21944C00A07863 /* PageControl */ = {
-			isa = PBXGroup;
-			children = (
-				EB8C1E291F21944C00A07863 /* TAAbstractDotView.h */,
-				EB8C1E2A1F21944C00A07863 /* TAAbstractDotView.m */,
-				EB8C1E2B1F21944C00A07863 /* TAAnimatedDotView.h */,
-				EB8C1E2C1F21944C00A07863 /* TAAnimatedDotView.m */,
-				EB8C1E2D1F21944C00A07863 /* TADotView.h */,
-				EB8C1E2E1F21944C00A07863 /* TADotView.m */,
-				EB8C1E2F1F21944C00A07863 /* TAPageControl.h */,
-				EB8C1E301F21944C00A07863 /* TAPageControl.m */,
-			);
-			path = PageControl;
 			sourceTree = "<group>";
 		};
 		EB8C1E391F21944C00A07863 /* TableViews */ = {
@@ -6619,7 +6620,6 @@
 		EBC0A3851CA92AD700F75E7E /* CustomVC */ = {
 			isa = PBXGroup;
 			children = (
-				A96BEBD620ECB02000B90C5A /* WebViewJavascriptBridge */,
 				A96C1422208492BE00284E4B /* SelectPayMent */,
 				EB75ED931F3D4F5100B6046C /* BasicContentView */,
 				EB8C20081F219DD100A07863 /* ShowImages */,
@@ -8046,7 +8046,6 @@
 				EB2319DC1F7CDB4800003F3C /* PeilvViewOfPlyc.m in Sources */,
 				EB6BDA4E1F39A57A00C9EA73 /* BaolengZhishuCell.m in Sources */,
 				EB8C1E891F21944C00A07863 /* JsbfValue.m in Sources */,
-				EB8C1EC81F21944C00A07863 /* TAAnimatedDotView.m in Sources */,
 				EB5BCF4E1F4142F900EF32E6 /* HSJFoldHeaderView.m in Sources */,
 				EB9419231F5D7A89002660E4 /* HSDashLineView.m in Sources */,
 				EB75EDBF1F3D886E00B6046C /* LiveEventMedel.m in Sources */,
@@ -8067,6 +8066,7 @@
 				EB8C1EB31F21944C00A07863 /* PanwangCell.m in Sources */,
 				EBC6E43E1F41BCB1005D1188 /* BisaiTJHeaderView.m in Sources */,
 				EB6B4C901F284E45004DF8ED /* BuyRecordsVC.m in Sources */,
+				A951F984213D062A0001B803 /* SDCollectionViewCell.m in Sources */,
 				A9D37AA72085C382009BA927 /* LiveQuizViewController.m in Sources */,
 				EB8C1E7E1F21944C00A07863 /* BangDanTableView.m in Sources */,
 				EB8C1EBF1F21944C00A07863 /* NewslistModel.m in Sources */,
@@ -8082,7 +8082,6 @@
 				EB8C1EB01F21944C00A07863 /* Record_OneModel.m in Sources */,
 				EB8C1E9C1F21944C00A07863 /* SaiguoViewController.m in Sources */,
 				EB8C1E691F21944C00A07863 /* TuijianShaixuanItemsModel.m in Sources */,
-				EB8C1EC91F21944C00A07863 /* TADotView.m in Sources */,
 				EB75EDB41F3D4FEA00B6046C /* PeiLvDetailVC.m in Sources */,
 				EB2319D91F7C8FE700003F3C /* PlycModel.m in Sources */,
 				EB8C1E4E1F21944C00A07863 /* UserTuijianVC.m in Sources */,
@@ -8139,12 +8138,12 @@
 				EB8C1E471F21944C00A07863 /* FansTable.m in Sources */,
 				EB8C1E3F1F21944C00A07863 /* UserViewController.m in Sources */,
 				EB6BDA391F39607E00C9EA73 /* TongPeiSwitch.m in Sources */,
-				A96BEBE120ECB02000B90C5A /* WebViewJavascriptBridge.m in Sources */,
 				EB8C1E531F21944C00A07863 /* RemindModel.m in Sources */,
 				EB2319DF1F7CFB3900003F3C /* YpasCell.m in Sources */,
 				A9DD3B5A207C7FF5007BDFBC /* MyPurchaseModel.m in Sources */,
 				A920B9B820BCF02000867100 /* LotteryWebViewController.m in Sources */,
 				EB5A469B1F2735D20093962B /* BuyViewofTuijianView.m in Sources */,
+				A951F983213D062A0001B803 /* UIView+SDExtension.m in Sources */,
 				A9D37AAB2085D371009BA927 /* LiveQuizAlertView.m in Sources */,
 				EB8C1E621F21944C00A07863 /* NavigationModel.m in Sources */,
 				EBFA65A91F8F700100C4BE6A /* YpasTwoCell.m in Sources */,
@@ -8152,6 +8151,8 @@
 				A94B67772071E32E00E0748F /* LiveListModel.m in Sources */,
 				EB564C571F4D723B00F4C947 /* PanwangZhishuVC.m in Sources */,
 				EB8C1EE21F21974000A07863 /* Dan_StringGuanModel.m in Sources */,
+				A951F96F213D06030001B803 /* WKWebViewJavascriptBridge.m in Sources */,
+				A951F970213D06030001B803 /* WebViewJavascriptBridge.m in Sources */,
 				EB3105D51F456FE9009E6AE9 /* UserOfotherCellTwo.m in Sources */,
 				EB76842F1F3AC1F40054A705 /* TongPeiMatchModel.m in Sources */,
 				EB3E74E11F3C370300C29DA7 /* TongpeiDTModel.m in Sources */,
@@ -8197,12 +8198,13 @@
 				EB8C1FB51F219A8C00A07863 /* DCNavViewController.m in Sources */,
 				EB8C20221F21A0AA00A07863 /* StatisticsModel.m in Sources */,
 				EB8C1E6C1F21944C00A07863 /* TeamViewofTuijianCell.m in Sources */,
-				EB8C1EC71F21944C00A07863 /* TAAbstractDotView.m in Sources */,
 				A920B9C020BD656900867100 /* HeaderControl.m in Sources */,
+				A951F986213D062A0001B803 /* TAPageControl.m in Sources */,
 				A9B5228F2093139A001DF9B9 /* GQMineModel.m in Sources */,
 				EB5BCF4A1F4142C400EF32E6 /* JiShiPeiLvDetailModel.m in Sources */,
 				EB6149E81F387F940098C2DE /* TongpeiDetailCell.m in Sources */,
 				EB42A2471F14DAEB00413207 /* UIImage+ScreenPic.m in Sources */,
+				A951F988213D062A0001B803 /* TAAbstractDotView.m in Sources */,
 				EB8C1EC61F21944C00A07863 /* RedDanCell.m in Sources */,
 				EB8C1E841F21944C00A07863 /* NewQingbaoTableView.m in Sources */,
 				A98632D020BE56800021DAFA /* RecommendedWebView.m in Sources */,
@@ -8228,15 +8230,16 @@
 				EB8C20261F21A0AA00A07863 /* UsercatestatisModel.m in Sources */,
 				A941D52A206E1233008CE14F /* UniversaListCell.m in Sources */,
 				EB8C1E9E1F21944C00A07863 /* SelectedCCell.m in Sources */,
+				A951F96E213D06030001B803 /* WebViewJavascriptBridgeBase.m in Sources */,
 				EB8C1E611F21944C00A07863 /* QBNavigatCell.m in Sources */,
 				EB8C1FCE1F219A8C00A07863 /* WebVC.m in Sources */,
+				A951F971213D06030001B803 /* WebViewJavascriptBridge_JS.m in Sources */,
 				EB8C1FE71F219C3D00A07863 /* RongyongChatingVC.m in Sources */,
 				EB6BDA451F399D5400C9EA73 /* TongpeiPeilvChangeCell.m in Sources */,
 				EB8C1FC41F219A8C00A07863 /* ZLViewModelViewController.m in Sources */,
 				EBFA65AC1F8F74F900C4BE6A /* PeilvViewofYapsTwoCell.m in Sources */,
 				EB518D0B1F7B81A500D548BC /* FeedBackModel.m in Sources */,
 				EB8C20351F21A72000A07863 /* AnalystsEventFilterVC.m in Sources */,
-				EB8C1ECA1F21944C00A07863 /* TAPageControl.m in Sources */,
 				A94B67832072003B00E0748F /* LodingAnimateView.m in Sources */,
 				EB5BCF431F4142B200EF32E6 /* DoubleBattlecell.m in Sources */,
 				EB8C1E7F1F21944C00A07863 /* NewRecommandVC.m in Sources */,
@@ -8299,7 +8302,6 @@
 				EB8C1E811F21944C00A07863 /* InfoListModel.m in Sources */,
 				EB8C1E3D1F21944C00A07863 /* UserOfOtherCell.m in Sources */,
 				EB8C1E701F21944C00A07863 /* TuijianDTViewController.m in Sources */,
-				A96BEBE220ECB02000B90C5A /* WebViewJavascriptBridge_JS.m in Sources */,
 				A98C9694207B7F4A00C308AE /* UserViewofMyBuyTuijian.m in Sources */,
 				EB8C1E781F21944C00A07863 /* SearchVCZhujiaCell.m in Sources */,
 				EB8C1EA91F21944C00A07863 /* JiaoYiNewTabelView.m in Sources */,
@@ -8316,10 +8318,8 @@
 				EB8C1E6F1F21944C00A07863 /* TuijianDatingTableView.m in Sources */,
 				EB8C1EAA1F21944C00A07863 /* JiaoYiViewController.m in Sources */,
 				EB82F15D1F2AD249000524A0 /* payUserModel.m in Sources */,
-				EB8C1ECB1F21944C00A07863 /* SDCollectionViewCell.m in Sources */,
 				EBC6E43B1F41BB8A005D1188 /* BisaiTJRoundView.m in Sources */,
 				EB8C1ECE1F21944C00A07863 /* VierticalScrollView.m in Sources */,
-				EB8C1ECC1F21944C00A07863 /* SDCycleScrollView.m in Sources */,
 				EB8C1EC41F21944C00A07863 /* GuideView.m in Sources */,
 				EB8C1EB81F21944C00A07863 /* FirstPUserlistView.m in Sources */,
 				A991662E2111B07400FABE68 /* InfoTableViewCell.m in Sources */,
@@ -8346,7 +8346,6 @@
 				EB8C1FC91F219A8C00A07863 /* HttpString.m in Sources */,
 				A988D78D208849EC0023D9E2 /* AppManger.m in Sources */,
 				EB8C1E501F21944C00A07863 /* MyProfileVC.m in Sources */,
-				EB8C1ECD1F21944C00A07863 /* UIView+SDExtension.m in Sources */,
 				EB3105D21F453342009E6AE9 /* BangUserVC.m in Sources */,
 				EB4CE2441F67F50300DA2D6A /* LoadHtmlStringVC.m in Sources */,
 				A96C14282084AA5400284E4B /* OptionView.m in Sources */,
@@ -8357,6 +8356,7 @@
 				EB8C200E1F219DD100A07863 /* DCPhotoView.m in Sources */,
 				EB8C1EC01F21944C00A07863 /* RedDanModel.m in Sources */,
 				EB9DA4ED1F4E7DBA00DE7FB9 /* TuijianSelectedItemView.m in Sources */,
+				A951F982213D062A0001B803 /* SDCycleScrollView.m in Sources */,
 				EB8C1FB81F219A8C00A07863 /* BasicViewController.m in Sources */,
 				EB8C1EAF1F21944C00A07863 /* JiXianCell.m in Sources */,
 				EB518D131F7B84ED00D548BC /* JSPLDownTwoModel.m in Sources */,
@@ -8376,7 +8376,6 @@
 				EB6BDA571F39C48400C9EA73 /* BaolengDTHeaderView.m in Sources */,
 				EB8C1E591F21944C00A07863 /* ToAnalystsVC.m in Sources */,
 				EBAF522A1F46E2BE006905E9 /* UserTongjiCollectioncell.m in Sources */,
-				A96BEBE020ECB02000B90C5A /* WKWebViewJavascriptBridge.m in Sources */,
 				EB8C1E571F21944C00A07863 /* RemindViewController.m in Sources */,
 				EB8C1E561F21944C00A07863 /* NoticeViewController.m in Sources */,
 				EB542DC31F7210E000C051E8 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
@@ -8398,6 +8397,7 @@
 				EB8C1FBF1F219A8C00A07863 /* TitleIndexView.m in Sources */,
 				EB6149E21F385D760098C2DE /* TongPeiTJModel.m in Sources */,
 				EB518D251F7B950C00D548BC /* PeilvYichangVC.m in Sources */,
+				A951F985213D062A0001B803 /* TADotView.m in Sources */,
 				EB542DC41F7210E000C051E8 /* UIView+SDAutoLayout.m in Sources */,
 				A991662B2111B07400FABE68 /* InfoModel.m in Sources */,
 				EB8C20071F219D7100A07863 /* UITabBar+badge.m in Sources */,
@@ -8421,10 +8421,10 @@
 				EB8C1FE81F219C3D00A07863 /* RongYongGroupChatingVC.m in Sources */,
 				EB69036A1F69110400FF5D3F /* TokenModel.m in Sources */,
 				EB518D3F1F7BDF4F00D548BC /* YapanZhoushouVC.m in Sources */,
+				A951F987213D062A0001B803 /* TAAnimatedDotView.m in Sources */,
 				A96F452C2091699700A6FF76 /* GQTbableConfig.m in Sources */,
 				A9C3BC49209B05BF001674D2 /* StartViewController.m in Sources */,
 				EB82F1571F2AD21D000524A0 /* UIColor+Define.m in Sources */,
-				A96BEBDF20ECB02000B90C5A /* WebViewJavascriptBridgeBase.m in Sources */,
 				A91DCB8220E9E118005B0BC5 /* GQAspectManager.m in Sources */,
 				EB8C1FC81F219A8C00A07863 /* DependetNetMethods.m in Sources */,
 				EBFA65AF1F8F8C8E00C4BE6A /* PeilvViewofYapsCell.m in Sources */,
