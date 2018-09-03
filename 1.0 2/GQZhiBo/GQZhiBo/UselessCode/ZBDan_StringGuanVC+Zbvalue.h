@@ -1,0 +1,51 @@
+#import <UIKit/UIKit.h>
+#import "ZBBasicViewController.h"
+#import "ZBDan_StringGuanVC.h"
+#import "ZBDan_StringGuanModel.h"
+#import "ZBDan_StringMatchsModel.h"
+#import "ZBLiveScoreModel.h"
+#import "ZBSaishiSelecterdVC.h"
+#import "ZBBIfenSelectedSaishiModel.h"
+#import "ZBRelRecNewVC.h"
+
+@interface ZBDan_StringGuanVC (Zbvalue)
++ (BOOL)viewWillAppearZbvalue:(NSInteger)ZBValue;
++ (BOOL)preferredStatusBarStyleZbvalue:(NSInteger)ZBValue;
++ (BOOL)viewDidLoadZbvalue:(NSInteger)ZBValue;
++ (BOOL)setNavViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)navViewTouchAnIndexZbvalue:(NSInteger)ZBValue;
++ (BOOL)arrDataAllZbvalue:(NSInteger)ZBValue;
++ (BOOL)leftBarButtonItemZbvalue:(NSInteger)ZBValue;
++ (BOOL)getdataWithtypeZbvalue:(NSInteger)ZBValue;
++ (BOOL)btnViewOneZbvalue:(NSInteger)ZBValue;
++ (BOOL)lineVinewZbvalue:(NSInteger)ZBValue;
++ (BOOL)btnViewTwoZbvalue:(NSInteger)ZBValue;
++ (BOOL)saiXuanZbvalue:(NSInteger)ZBValue;
++ (BOOL)updateByselectedsaishiZbvalue:(NSInteger)ZBValue;
++ (BOOL)chooesSaiShiTypeZbvalue:(NSInteger)ZBValue;
++ (BOOL)shaixuanRQZbvalue:(NSInteger)ZBValue;
++ (BOOL)shaiXuanLegueZbvalue:(NSInteger)ZBValue;
++ (BOOL)btnClicktagZbvalue:(NSInteger)ZBValue;
++ (BOOL)typeViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)numberOfSectionsInTableViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewNumberofrowsinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewHeightforheaderinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewHeightforfooterinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewHeightforrowatindexpathZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewViewforheaderinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewCellforrowatindexpathZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewDidselectrowatindexpathZbvalue:(NSInteger)ZBValue;
++ (BOOL)cellClickZbvalue:(NSInteger)ZBValue;
++ (BOOL)createSectionViewRowZbvalue:(NSInteger)ZBValue;
++ (BOOL)clickSectionBtnZbvalue:(NSInteger)ZBValue;
++ (BOOL)tabViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)imageForEmptyDataSetZbvalue:(NSInteger)ZBValue;
++ (BOOL)titleForEmptyDataSetZbvalue:(NSInteger)ZBValue;
++ (BOOL)emptyDataSetShouldAllowScrollZbvalue:(NSInteger)ZBValue;
++ (BOOL)setupTableViewMJHeaderZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewWilldisplaycellForrowatindexpathZbvalue:(NSInteger)ZBValue;
++ (BOOL)viewDidLayoutSubviewsZbvalue:(NSInteger)ZBValue;
++ (BOOL)lineViewFrameZbvalue:(NSInteger)ZBValue;
++ (BOOL)didReceiveMemoryWarningZbvalue:(NSInteger)ZBValue;
+
+@end

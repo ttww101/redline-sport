@@ -1,0 +1,55 @@
+#import "ZBBasicViewController.h"
+#import "ZBToAnalystsVC.h"
+#import "ZBSuccessfulView.h"
+#import "ZBChangePhoneNumVC.h"
+#import "ZBAnalystsEventFilterVC.h"
+#import "ZBPictureView.h"
+
+@interface ZBToAnalystsVC (Zbvalue)
++ (BOOL)viewWillAppearZbvalue:(NSInteger)ZBValue;
++ (BOOL)preferredStatusBarStyleZbvalue:(NSInteger)ZBValue;
++ (BOOL)viewDidLoadZbvalue:(NSInteger)ZBValue;
++ (BOOL)setModelZbvalue:(NSInteger)ZBValue;
++ (BOOL)succViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)backViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)KeyboardShowZbvalue:(NSInteger)ZBValue;
++ (BOOL)KeyboardHideZbvalue:(NSInteger)ZBValue;
++ (BOOL)textViewDidChangeZbvalue:(NSInteger)ZBValue;
++ (BOOL)txtResonZbvalue:(NSInteger)ZBValue;
++ (BOOL)textViewShouldBeginEditingZbvalue:(NSInteger)ZBValue;
++ (BOOL)textViewDidEndEditingZbvalue:(NSInteger)ZBValue;
++ (BOOL)setNavViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)sureBtnCilckZbvalue:(NSInteger)ZBValue;
++ (BOOL)tapScrollViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)touchesBeganWitheventZbvalue:(NSInteger)ZBValue;
++ (BOOL)setSubViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)firstViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)coloseClickZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)labPlaceholderZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewNumberofrowsinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewViewforheaderinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)numberOfSectionsInTableViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewHeightforrowatindexpathZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewHeightforheaderinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewHeightforfooterinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewViewforfooterinsectionZbvalue:(NSInteger)ZBValue;
++ (BOOL)txtNameZbvalue:(NSInteger)ZBValue;
++ (BOOL)txtCarNumZbvalue:(NSInteger)ZBValue;
++ (BOOL)labLeaguesZbvalue:(NSInteger)ZBValue;
++ (BOOL)picView1Zbvalue:(NSInteger)ZBValue;
++ (BOOL)picView2Zbvalue:(NSInteger)ZBValue;
++ (BOOL)picView3Zbvalue:(NSInteger)ZBValue;
++ (BOOL)txtTelPhoneZbvalue:(NSInteger)ZBValue;
++ (BOOL)txtQQZbvalue:(NSInteger)ZBValue;
++ (BOOL)txtWeiXinZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewCellforrowatindexpathZbvalue:(NSInteger)ZBValue;
++ (BOOL)clickPhoneZbvalue:(NSInteger)ZBValue;
++ (BOOL)backStrZbvalue:(NSInteger)ZBValue;
++ (BOOL)tableViewDidselectrowatindexpathZbvalue:(NSInteger)ZBValue;
++ (BOOL)navViewTouchAnIndexZbvalue:(NSInteger)ZBValue;
++ (BOOL)textViewShouldchangetextinrangeReplacementtextZbvalue:(NSInteger)ZBValue;
++ (BOOL)stringContainsEmojiZbvalue:(NSInteger)ZBValue;
++ (BOOL)didReceiveMemoryWarningZbvalue:(NSInteger)ZBValue;
+
+@end

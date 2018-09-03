@@ -1,0 +1,44 @@
+#import <Foundation/Foundation.h>
+@interface ZBValueZBSaiguoViewControllerQ: NSObject
++ (BOOL)Yinit:(NSInteger)ZBValue;
++ (BOOL)eViewwillappear:(NSInteger)ZBValue;
++ (BOOL)bViewwilldisappear:(NSInteger)ZBValue;
++ (BOOL)xviewDidLoad:(NSInteger)ZBValue;
++ (BOOL)jchangeShowType:(NSInteger)ZBValue;
++ (BOOL)IContenviewtapfresh:(NSInteger)ZBValue;
++ (BOOL)hdataLineView:(NSInteger)ZBValue;
++ (BOOL)vsaiGuoTitleView:(NSInteger)ZBValue;
++ (BOOL)rSelectedsaiguoviewindex:(NSInteger)ZBValue;
++ (BOOL)odataTitleView:(NSInteger)ZBValue;
++ (BOOL)qSelecteddateviewindex:(NSInteger)ZBValue;
++ (BOOL)OdataView:(NSInteger)ZBValue;
++ (BOOL)xZbselectermatchviewiSelectedatindexkWithselectedname:(NSInteger)ZBValue;
++ (BOOL)LtouchTapView:(NSInteger)ZBValue;
++ (BOOL)VshowOrhideDateView:(NSInteger)ZBValue;
++ (BOOL)ddidReceiveMemoryWarning:(NSInteger)ZBValue;
++ (BOOL)YRefreshdatabychangeflag:(NSInteger)ZBValue;
++ (BOOL)TtableView:(NSInteger)ZBValue;
++ (BOOL)FEmptydatasetKDidtapview:(NSInteger)ZBValue;
++ (BOOL)BImageforemptydataset:(NSInteger)ZBValue;
++ (BOOL)YTitleforemptydataset:(NSInteger)ZBValue;
++ (BOOL)HEmptydatasetshouldallowscroll:(NSInteger)ZBValue;
++ (BOOL)zindexBtn:(NSInteger)ZBValue;
++ (BOOL)ZScrolltoscale:(NSInteger)ZBValue;
++ (BOOL)xScrollviewdidscroll:(NSInteger)ZBValue;
++ (BOOL)yScrollviewdidenddecelerating:(NSInteger)ZBValue;
++ (BOOL)zScrollviewdidendscrollinganimation:(NSInteger)ZBValue;
++ (BOOL)phideIndexBtn:(NSInteger)ZBValue;
++ (BOOL)dScrollviewwillbegindragging:(NSInteger)ZBValue;
++ (BOOL)ZScrollviewdidenddraggingUWilldecelerate:(NSInteger)ZBValue;
++ (BOOL)DTableviewXDidselectrowatindexpath:(NSInteger)ZBValue;
++ (BOOL)zsetupHeaderView:(NSInteger)ZBValue;
++ (BOOL)qheaderRefreshData:(NSInteger)ZBValue;
++ (BOOL)vNumberofsectionsintableview:(NSInteger)ZBValue;
++ (BOOL)qTablevieweNumberofrowsinsection:(NSInteger)ZBValue;
++ (BOOL)oTableviewRCellforrowatindexpath:(NSInteger)ZBValue;
++ (BOOL)MTableviewQHeightforrowatindexpath:(NSInteger)ZBValue;
++ (BOOL)qloadDataQiciJishiViewController:(NSInteger)ZBValue;
++ (BOOL)tLoaddatajishiviewcontrollerwithqici:(NSInteger)ZBValue;
++ (BOOL)HclearSelectedSaved:(NSInteger)ZBValue;
+
+@end

@@ -1,0 +1,39 @@
+#import <Foundation/Foundation.h>
+@interface ZBValueZBUserViewControllerM: NSObject
++ (BOOL)NViewwillappear:(NSInteger)ZBValue;
++ (BOOL)ypreferredStatusBarStyle:(NSInteger)ZBValue;
++ (BOOL)KviewDidLoad:(NSInteger)ZBValue;
++ (BOOL)vViewwilldisappear:(NSInteger)ZBValue;
++ (BOOL)xtableView:(NSInteger)ZBValue;
++ (BOOL)ssetupTableViewMJHeader:(NSInteger)ZBValue;
++ (BOOL)bEmptydatasetPDidtapview:(NSInteger)ZBValue;
++ (BOOL)sImageforemptydataset:(NSInteger)ZBValue;
++ (BOOL)BTitleforemptydataset:(NSInteger)ZBValue;
++ (BOOL)yEmptydatasetshouldallowscroll:(NSInteger)ZBValue;
++ (BOOL)XScrollviewwillbegindragging:(NSInteger)ZBValue;
++ (BOOL)GScrollviewdidenddraggingaWilldecelerate:(NSInteger)ZBValue;
++ (BOOL)ATableviewuDidselectrowatindexpath:(NSInteger)ZBValue;
++ (BOOL)tNumberofsectionsintableview:(NSInteger)ZBValue;
++ (BOOL)XTableviewwHeightforfooterinsection:(NSInteger)ZBValue;
++ (BOOL)bTableviewiViewforfooterinsection:(NSInteger)ZBValue;
++ (BOOL)bTableviewaHeightforheaderinsection:(NSInteger)ZBValue;
++ (BOOL)oTableviewVViewforheaderinsection:(NSInteger)ZBValue;
++ (BOOL)TdidToTongjiVC:(NSInteger)ZBValue;
++ (BOOL)abtnTuijianClick:(NSInteger)ZBValue;
++ (BOOL)jTableviewwNumberofrowsinsection:(NSInteger)ZBValue;
++ (BOOL)rTableviewwHeightforrowatindexpath:(NSInteger)ZBValue;
++ (BOOL)xTableviewDCellforrowatindexpath:(NSInteger)ZBValue;
++ (BOOL)HgetCommentUserInfo:(NSInteger)ZBValue;
++ (BOOL)nUpdownbtnclick:(NSInteger)ZBValue;
++ (BOOL)pAttentionbtnclick:(NSInteger)ZBValue;
++ (BOOL)bNavbtnclick:(NSInteger)ZBValue;
++ (BOOL)hAddatention:(NSInteger)ZBValue;
++ (BOOL)plodaRecommandData:(NSInteger)ZBValue;
++ (BOOL)PloadTongjiData:(NSInteger)ZBValue;
++ (BOOL)EsetNavView:(NSInteger)ZBValue;
++ (BOOL)vScrollviewdidscroll:(NSInteger)ZBValue;
++ (BOOL)nNavviewtouchanindex:(NSInteger)ZBValue;
++ (BOOL)ddidReceiveMemoryWarning:(NSInteger)ZBValue;
++ (BOOL)CtopView:(NSInteger)ZBValue;
+
+@end

@@ -1,0 +1,53 @@
+#import <UIKit/UIKit.h>
+#import "ZBLiveScoreModel.h"
+#import "ZBLivingModel.h"
+#import "ZBSaiTableViewCell.h"
+#import "ZBDCHttpRequest.h"
+#import "ZBFenxiPageVC.h"
+
+@interface ZBSaiTableViewCell (Zbvalue)
++ (BOOL)awakeFromNibZbvalue:(NSInteger)ZBValue;
++ (BOOL)setSelectedAnimatedZbvalue:(NSInteger)ZBValue;
++ (BOOL)setScoreModelZbvalue:(NSInteger)ZBValue;
++ (BOOL)basicViewZbvalue:(NSInteger)ZBValue;
++ (BOOL)viewlineZbvalue:(NSInteger)ZBValue;
++ (BOOL)imageBgZbvalue:(NSInteger)ZBValue;
++ (BOOL)imageJiaoqiuZbvalue:(NSInteger)ZBValue;
++ (BOOL)labQBZbvalue:(NSInteger)ZBValue;
++ (BOOL)labQBNumZbvalue:(NSInteger)ZBValue;
++ (BOOL)viewLineRZbvalue:(NSInteger)ZBValue;
++ (BOOL)labTJZbvalue:(NSInteger)ZBValue;
++ (BOOL)labTJNumZbvalue:(NSInteger)ZBValue;
++ (BOOL)sortLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)timeLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)eventLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)imageAnimationZbvalue:(NSInteger)ZBValue;
++ (BOOL)VSlabZbvalue:(NSInteger)ZBValue;
++ (BOOL)teamHomeLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)teamAwayLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)pankouLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)peiLvHomeLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)peilvAwayLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)pankouLableftZbvalue:(NSInteger)ZBValue;
++ (BOOL)peiLvHomeLableftZbvalue:(NSInteger)ZBValue;
++ (BOOL)peilvAwayLableftZbvalue:(NSInteger)ZBValue;
++ (BOOL)halfScoreZbvalue:(NSInteger)ZBValue;
++ (BOOL)jiaoqiuScoreZbvalue:(NSInteger)ZBValue;
++ (BOOL)labstateZbvalue:(NSInteger)ZBValue;
++ (BOOL)jianBtnZbvalue:(NSInteger)ZBValue;
++ (BOOL)baoBtnZbvalue:(NSInteger)ZBValue;
++ (BOOL)attentionBtnZbvalue:(NSInteger)ZBValue;
++ (BOOL)redHomeLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)redAwayLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)yellowHomeLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)yellowAwayLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)listHomeLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)listAwayLabZbvalue:(NSInteger)ZBValue;
++ (BOOL)labRemarkZbvalue:(NSInteger)ZBValue;
++ (BOOL)addAutoLayoutToCellZbvalue:(NSInteger)ZBValue;
++ (BOOL)attentionZbvalue:(NSInteger)ZBValue;
++ (BOOL)UpdateAttentionWithIdWhetherselectedZbvalue:(NSInteger)ZBValue;
++ (BOOL)toFenxiyeZbvalue:(NSInteger)ZBValue;
++ (BOOL)toFenxiWithMatchIdTopageindexToitemindexZbvalue:(NSInteger)ZBValue;
+
+@end

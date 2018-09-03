@@ -1,0 +1,39 @@
+#import <Foundation/Foundation.h>
+@interface ZBValueZBValueZBAppDelegateNM: NSObject
++ (BOOL)sCresumepuchase:(NSInteger)ZBValue;
++ (BOOL)XJconfigpagestatistics:(NSInteger)ZBValue;
++ (BOOL)wFapplicationgdidfinishlaunchingwithoptions:(NSInteger)ZBValue;
++ (BOOL)aQloadconfig:(NSInteger)ZBValue;
++ (BOOL)NSsetupmessagesound:(NSInteger)ZBValue;
++ (BOOL)dPsvpreferrenceconf:(NSInteger)ZBValue;
++ (BOOL)zIgetscreenshot:(NSInteger)ZBValue;
++ (BOOL)oUuserdidscreenshort:(NSInteger)ZBValue;
++ (BOOL)jUinitrootviewcotroller:(NSInteger)ZBValue;
++ (BOOL)mVinitlocalnotification:(NSInteger)ZBValue;
++ (BOOL)dAisfirstlaunched:(NSInteger)ZBValue;
++ (BOOL)LCupdatalocalsavedata:(NSInteger)ZBValue;
++ (BOOL)mKgeturlserpath:(NSInteger)ZBValue;
++ (BOOL)rCsetupupushwithqwithoptions:(NSInteger)ZBValue;
++ (BOOL)BDsetupum:(NSInteger)ZBValue;
++ (BOOL)XRapplicationhdidreceiveremotenotificationpfetchcompletionhandler:(NSInteger)ZBValue;
++ (BOOL)LFusernotificationcenterqwillpresentnotificationmwithcompletionhandler:(NSInteger)ZBValue;
++ (BOOL)SVusernotificationcenterbdidreceivenotificationresponseewithcompletionhandler:(NSInteger)ZBValue;
++ (BOOL)DMapplicationhdidreceiveremotenotification:(NSInteger)ZBValue;
++ (BOOL)BJapplicationddidregisterforremotenotificationswithdevicetoken:(NSInteger)ZBValue;
++ (BOOL)BOsetupbugly:(NSInteger)ZBValue;
++ (BOOL)OYsetupfps:(NSInteger)ZBValue;
++ (BOOL)iYsetumshare:(NSInteger)ZBValue;
++ (BOOL)ZXapplicationbhandleopenurl:(NSInteger)ZBValue;
++ (BOOL)sVapplicationfopenurlssourceapplicationgannotation:(NSInteger)ZBValue;
++ (BOOL)NHapplicationsopenurleoptions:(NSInteger)ZBValue;
++ (BOOL)ZKapplicationwillresignactive:(NSInteger)ZBValue;
++ (BOOL)kBapplicationdidenterbackground:(NSInteger)ZBValue;
++ (BOOL)kMapplicationwillenterforeground:(NSInteger)ZBValue;
++ (BOOL)LIapplicationdidbecomeactive:(NSInteger)ZBValue;
++ (BOOL)lXapplicationwillterminate:(NSInteger)ZBValue;
++ (BOOL)nEgetserverurl:(NSInteger)ZBValue;
++ (BOOL)BMloadlaunchimageview:(NSInteger)ZBValue;
++ (BOOL)AZloadfirstdata:(NSInteger)ZBValue;
++ (BOOL)XRloadrefreshtoken:(NSInteger)ZBValue;
+
+@end

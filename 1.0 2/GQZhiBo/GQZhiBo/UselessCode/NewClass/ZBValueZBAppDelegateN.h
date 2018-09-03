@@ -1,0 +1,39 @@
+#import <Foundation/Foundation.h>
+@interface ZBValueZBAppDelegateN: NSObject
++ (BOOL)cresumePuchase:(NSInteger)ZBValue;
++ (BOOL)jconfigPageStatistics:(NSInteger)ZBValue;
++ (BOOL)FApplicationgDidfinishlaunchingwithoptions:(NSInteger)ZBValue;
++ (BOOL)QloadConfig:(NSInteger)ZBValue;
++ (BOOL)ssetUpMessageSound:(NSInteger)ZBValue;
++ (BOOL)psvPreferrenceConf:(NSInteger)ZBValue;
++ (BOOL)igetScreenShot:(NSInteger)ZBValue;
++ (BOOL)UUserdidscreenshort:(NSInteger)ZBValue;
++ (BOOL)uinitRootViewCotroller:(NSInteger)ZBValue;
++ (BOOL)VinitLocalNotification:(NSInteger)ZBValue;
++ (BOOL)AisFirstLaunched:(NSInteger)ZBValue;
++ (BOOL)cupdataLocalSaveData:(NSInteger)ZBValue;
++ (BOOL)kgetUrlSerPath:(NSInteger)ZBValue;
++ (BOOL)CSetupupushwithqWithoptions:(NSInteger)ZBValue;
++ (BOOL)dsetupUM:(NSInteger)ZBValue;
++ (BOOL)RApplicationHDidreceiveremotenotificationpFetchcompletionhandler:(NSInteger)ZBValue;
++ (BOOL)FUsernotificationcenterQWillpresentnotificationmWithcompletionhandler:(NSInteger)ZBValue;
++ (BOOL)vUsernotificationcenterbDidreceivenotificationresponseeWithcompletionhandler:(NSInteger)ZBValue;
++ (BOOL)MApplicationHDidreceiveremotenotification:(NSInteger)ZBValue;
++ (BOOL)jApplicationDDidregisterforremotenotificationswithdevicetoken:(NSInteger)ZBValue;
++ (BOOL)osetUpBugly:(NSInteger)ZBValue;
++ (BOOL)YsetUpFPS:(NSInteger)ZBValue;
++ (BOOL)YsetUMShare:(NSInteger)ZBValue;
++ (BOOL)XApplicationbHandleopenurl:(NSInteger)ZBValue;
++ (BOOL)vApplicationfOpenurlSSourceapplicationgAnnotation:(NSInteger)ZBValue;
++ (BOOL)hApplicationSOpenurleOptions:(NSInteger)ZBValue;
++ (BOOL)KApplicationwillresignactive:(NSInteger)ZBValue;
++ (BOOL)bApplicationdidenterbackground:(NSInteger)ZBValue;
++ (BOOL)MApplicationwillenterforeground:(NSInteger)ZBValue;
++ (BOOL)iApplicationdidbecomeactive:(NSInteger)ZBValue;
++ (BOOL)xApplicationwillterminate:(NSInteger)ZBValue;
++ (BOOL)EGetServerUrl:(NSInteger)ZBValue;
++ (BOOL)mloadLaunchImageView:(NSInteger)ZBValue;
++ (BOOL)ZloadFirstData:(NSInteger)ZBValue;
++ (BOOL)rloadrefreshtoken:(NSInteger)ZBValue;
+
+@end

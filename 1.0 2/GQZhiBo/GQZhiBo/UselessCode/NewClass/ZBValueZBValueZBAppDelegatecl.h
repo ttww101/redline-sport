@@ -1,0 +1,39 @@
+#import <Foundation/Foundation.h>
+@interface ZBValueZBValueZBAppDelegatecl: NSObject
++ (BOOL)gTresumepuchasezbvalue:(NSInteger)ZBValue;
++ (BOOL)URconfigpagestatisticszbvalue:(NSInteger)ZBValue;
++ (BOOL)tNapplicationdidfinishlaunchingwithoptionszbvalue:(NSInteger)ZBValue;
++ (BOOL)pHloadconfigzbvalue:(NSInteger)ZBValue;
++ (BOOL)pQsetupmessagesoundzbvalue:(NSInteger)ZBValue;
++ (BOOL)iPsvpreferrenceconfzbvalue:(NSInteger)ZBValue;
++ (BOOL)CJgetscreenshotzbvalue:(NSInteger)ZBValue;
++ (BOOL)UUuserdidscreenshortzbvalue:(NSInteger)ZBValue;
++ (BOOL)qAinitrootviewcotrollerzbvalue:(NSInteger)ZBValue;
++ (BOOL)DWinitlocalnotificationzbvalue:(NSInteger)ZBValue;
++ (BOOL)iKisfirstlaunchedzbvalue:(NSInteger)ZBValue;
++ (BOOL)gEupdatalocalsavedatazbvalue:(NSInteger)ZBValue;
++ (BOOL)nHgeturlserpathzbvalue:(NSInteger)ZBValue;
++ (BOOL)UJsetupupushwithwithoptionszbvalue:(NSInteger)ZBValue;
++ (BOOL)FPsetupumzbvalue:(NSInteger)ZBValue;
++ (BOOL)oWapplicationdidreceiveremotenotificationfetchcompletionhandlerzbvalue:(NSInteger)ZBValue;
++ (BOOL)kLusernotificationcenterwillpresentnotificationwithcompletionhandlerzbvalue:(NSInteger)ZBValue;
++ (BOOL)FLusernotificationcenterdidreceivenotificationresponsewithcompletionhandlerzbvalue:(NSInteger)ZBValue;
++ (BOOL)gPapplicationdidreceiveremotenotificationzbvalue:(NSInteger)ZBValue;
++ (BOOL)fMapplicationdidregisterforremotenotificationswithdevicetokenzbvalue:(NSInteger)ZBValue;
++ (BOOL)sJsetupbuglyzbvalue:(NSInteger)ZBValue;
++ (BOOL)jJsetupfpszbvalue:(NSInteger)ZBValue;
++ (BOOL)VSsetumsharezbvalue:(NSInteger)ZBValue;
++ (BOOL)cKapplicationhandleopenurlzbvalue:(NSInteger)ZBValue;
++ (BOOL)vAapplicationopenurlsourceapplicationannotationzbvalue:(NSInteger)ZBValue;
++ (BOOL)SKapplicationopenurloptionszbvalue:(NSInteger)ZBValue;
++ (BOOL)PKapplicationwillresignactivezbvalue:(NSInteger)ZBValue;
++ (BOOL)TRapplicationdidenterbackgroundzbvalue:(NSInteger)ZBValue;
++ (BOOL)JUapplicationwillenterforegroundzbvalue:(NSInteger)ZBValue;
++ (BOOL)NDapplicationdidbecomeactivezbvalue:(NSInteger)ZBValue;
++ (BOOL)IIapplicationwillterminatezbvalue:(NSInteger)ZBValue;
++ (BOOL)CTgetserverurlzbvalue:(NSInteger)ZBValue;
++ (BOOL)zQloadlaunchimageviewzbvalue:(NSInteger)ZBValue;
++ (BOOL)WPloadfirstdatazbvalue:(NSInteger)ZBValue;
++ (BOOL)BKloadrefreshtokenzbvalue:(NSInteger)ZBValue;
+
+@end
