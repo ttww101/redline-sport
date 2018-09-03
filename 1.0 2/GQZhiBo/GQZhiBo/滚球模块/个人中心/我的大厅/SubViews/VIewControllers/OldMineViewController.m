@@ -6,7 +6,7 @@
 //  Copyright © 2016年 WQ_h. All rights reserved.
 //
 
-#import "MineViewController.h"
+#import "OldMineViewController.h"
 #import "NoticePageVC.h"
 #import "UsersCell.h"
 #import "SettingVC.h"
@@ -23,7 +23,7 @@
 #define cellMineViewControllerUserCell @"cellMineViewControllerUserCell"
 #define cellMineViewController @"cellMineViewController"
 
-@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface OldMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UILabel *labUnreadNum;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UserModel *userModel;
@@ -31,7 +31,7 @@
 @property (nonatomic, strong) NSString *unreadNoticeCount;
 @end
 
-@implementation MineViewController
+@implementation OldMineViewController
 
 
 -(UIStatusBarStyle)preferredStatusBarStyle

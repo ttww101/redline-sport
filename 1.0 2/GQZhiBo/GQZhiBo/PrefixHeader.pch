@@ -35,7 +35,7 @@
 #import "Masonry.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "UniversalNetwork.h"
-#import "MineViewController.h"
+#import "OldMineViewController.h"
 #import "UserViewController.h"
 #import "WebVC.h"
 #import "UIScrollView+EmptyDataSet.h"

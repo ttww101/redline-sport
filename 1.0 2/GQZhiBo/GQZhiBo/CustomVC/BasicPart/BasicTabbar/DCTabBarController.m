@@ -13,7 +13,7 @@
 //#import "QingbaoFPViewController.h"
 #import "NewQingBaoViewController.h"
 
-#import "MineViewController.h"
+#import "OldMineViewController.h"
 #import "UITabBar+badge.h"
 #import "DCNavViewController.h"
 #import "TuijianDetailVC.h"

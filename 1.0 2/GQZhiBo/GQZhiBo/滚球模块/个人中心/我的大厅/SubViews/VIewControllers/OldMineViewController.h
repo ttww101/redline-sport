@@ -8,6 +8,6 @@
 
 #import "BasicViewController.h"
 
-@interface MineViewController : BasicViewController
+@interface OldMineViewController : BasicViewController
 @property (nonatomic, assign) BOOL showBack;
 @end

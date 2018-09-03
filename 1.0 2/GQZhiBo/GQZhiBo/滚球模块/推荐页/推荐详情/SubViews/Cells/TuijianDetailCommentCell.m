@@ -7,7 +7,7 @@
 //
 
 #import "TuijianDetailCommentCell.h"
-#import "MineViewController.h"
+#import "OldMineViewController.h"
 #import "UserViewController.h"
 #import "CommentDetailView.h"
 

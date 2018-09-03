@@ -43,7 +43,7 @@
 		84BA634C1FC6875100A65360 /* UIAlertController+askForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BA634A1FC6875100A65360 /* UIAlertController+askForUser.m */; };
 		A900863720DB4A9600437F72 /* showVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A900863620DB4A9600437F72 /* showVideoView.m */; };
 		A9128A9C20F610FD0012AB4D /* company.png in Resources */ = {isa = PBXBuildFile; fileRef = A9128A9B20F610FD0012AB4D /* company.png */; };
-		A91C6DF8207C4D240035DFC0 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* MineViewController.m */; };
+		A91C6DF8207C4D240035DFC0 /* OldMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* OldMineViewController.m */; };
 		A91C6DFB207C5EE70035DFC0 /* TuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */; };
 		A91D406A20C77FC20059D501 /* GQWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91D406920C77FC20059D501 /* GQWebView.m */; };
 		A91DCB7D20E9D0EB005B0BC5 /* ShowActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91DCB7C20E9D0EB005B0BC5 /* ShowActivityView.m */; };
@@ -1130,8 +1130,8 @@
 		A900863520DB4A9600437F72 /* showVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = showVideoView.h; sourceTree = "<group>"; };
 		A900863620DB4A9600437F72 /* showVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = showVideoView.m; sourceTree = "<group>"; };
 		A9128A9B20F610FD0012AB4D /* company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = company.png; sourceTree = "<group>"; };
-		A91C6DF6207C4D240035DFC0 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
-		A91C6DF7207C4D240035DFC0 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		A91C6DF6207C4D240035DFC0 /* OldMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldMineViewController.m; sourceTree = "<group>"; };
+		A91C6DF7207C4D240035DFC0 /* OldMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldMineViewController.h; sourceTree = "<group>"; };
 		A91C6DF9207C5EE60035DFC0 /* TuijianDatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianDatingCell.m; sourceTree = "<group>"; };
 		A91C6DFA207C5EE70035DFC0 /* TuijianDatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianDatingCell.h; sourceTree = "<group>"; };
 		A91D406820C77FC20059D501 /* GQWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GQWebView.h; sourceTree = "<group>"; };
@@ -4151,8 +4151,8 @@
 		EB8C1C721F21944B00A07863 /* VIewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				A91C6DF7207C4D240035DFC0 /* MineViewController.h */,
-				A91C6DF6207C4D240035DFC0 /* MineViewController.m */,
+				A91C6DF7207C4D240035DFC0 /* OldMineViewController.h */,
+				A91C6DF6207C4D240035DFC0 /* OldMineViewController.m */,
 				A9B5228920930C20001DF9B9 /* GQMineViewController.h */,
 				A9B5228A20930C20001DF9B9 /* GQMineViewController.m */,
 			);
@@ -8415,7 +8415,7 @@
 				EB3105D81F457F52009E6AE9 /* RoundUserView.m in Sources */,
 				A9E8764320807F9700480C81 /* CouponListViewController.m in Sources */,
 				EB8C1E5A1F21944C00A07863 /* ForgetPswViewController.m in Sources */,
-				A91C6DF8207C4D240035DFC0 /* MineViewController.m in Sources */,
+				A91C6DF8207C4D240035DFC0 /* OldMineViewController.m in Sources */,
 				EB8C20041F219D7100A07863 /* NSString+Regular.m in Sources */,
 				EB8C20051F219D7100A07863 /* PictureModel.m in Sources */,
 				EB8C1FE81F219C3D00A07863 /* RongYongGroupChatingVC.m in Sources */,
