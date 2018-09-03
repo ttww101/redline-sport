@@ -30,7 +30,6 @@
 
 - (NSArray *)tableBarItemArray {
     NSMutableArray *array = [ArchiveFile getDataWithPath:TableConfig];
-//    return [self loadLocalTableBarConfig];
     if (array.count > 0) {
         return [self loadServerTableBarConfigWithArray:array];
     } else {
