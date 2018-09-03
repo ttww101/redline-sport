@@ -1,13 +1,4 @@
-//
-//  ZBTongJiModel.h
-//  GQapp
-//
-//  Created by Admin on 2017/11/10.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
-
 @interface ZBTongJiModel : NSObject
 @property (strong,nonatomic) NSMutableArray *event;
 @property (strong,nonatomic) NSMutableArray *tech;

@@ -1,16 +1,5 @@
-
-//
-//  ZBAspectManager.m
-//  newGQapp
-//
-//  Created by genglei on 2018/7/2.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBAspectManager.h"
-
 @implementation ZBAspectManager
-
 + (void)GQ_SavePageDic {
     NSMutableDictionary *dic = [NSMutableDictionary new];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -84,12 +73,10 @@
     NSString*path=[doc stringByAppendingPathComponent:PAGE_PATH];
     [dic writeToFile:path atomically:YES];
 }
-
 + (NSMutableDictionary *)GQ_PathForPageDic {
     NSString*doc=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
     NSString*path=[doc stringByAppendingPathComponent:PAGE_PATH];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     return dic;
 }
-
 @end

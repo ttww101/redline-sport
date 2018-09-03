@@ -1,13 +1,4 @@
-//
-//  ZBFansModel.h
-//  GQapp
-//
-//  Created by WQ_h on 16/3/31.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBFansModel : ZBBasicModel
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *pic;

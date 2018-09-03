@@ -1,11 +1,3 @@
-//
-//  ZBBaolengDTModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/8.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
 @interface ZBBaolengDTModel : ZBBasicModel
 @property (nonatomic, strong) NSString *teamname;
@@ -22,5 +14,4 @@
 @property (nonatomic, assign) NSInteger teamid;
 @property (nonatomic, strong) NSString *guestteam;
 @property (nonatomic, strong) NSString *hometeam;
-
 @end

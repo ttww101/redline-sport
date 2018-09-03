@@ -1,11 +1,3 @@
-//
-//  ZBPeilvViewOfPlyc.m
-//  GQapp
-//
-//  Created by WQ on 2017/9/28.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBPeilvViewOfPlyc.h"
 @interface ZBPeilvViewOfPlyc()
 @property (nonatomic, assign) BOOL isaddlayout;
@@ -19,118 +11,78 @@
 @property (nonatomic, strong) UILabel *labCP1;
 @property (nonatomic, strong) UILabel *labCP2;
 @property (nonatomic, strong) UILabel *labCP3;
-
 @property (nonatomic, strong) UILabel *labJPTime;
-
-
 @property (nonatomic, strong) UILabel *labWin;
 @property (nonatomic, strong) UILabel *labPing;
 @property (nonatomic, strong) UILabel *labLose;
 @property (nonatomic, strong) UILabel *labWinTitle;
 @property (nonatomic, strong) UILabel *labPingTitle;
 @property (nonatomic, strong) UILabel *labLoseTitle;
-
-
-
 @property (nonatomic, strong) UIImageView *imageJP1;
 @property (nonatomic, strong) UIImageView *imageJP2;
 @property (nonatomic, strong) UIImageView *imageJP3;
-
-
-
 @property (nonatomic, strong) UIImageView *imageWin;
 @property (nonatomic, strong) UIImageView *imagePing;
 @property (nonatomic, strong) UIImageView *imageLose;
-
 @property (nonatomic, strong) UIView *viewLine;
 @end
 @implementation ZBPeilvViewOfPlyc
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (void)setModel:(ZBPlycModel *)model
 {
     _model = model;
-//    self.backgroundColor = colorCC;
     [self addSubview:self.basicView];
     if (!_isaddlayout) {
         _isaddlayout = YES;
         [self addlayout];
     }
-    
     _labcompany.text = [NSString stringWithFormat:@"公司: %@",_model.companyName];
     _labJPTitle.text = @"即:";
     _labCPTitle.text = @"初:";
-    
     _labJP1.text = _model.finalWin;
     _labJP2.text = _model.finalDraw;
     _labJP3.text = _model.finalLose;
     _labCP1.text = _model.firstWin;
     _labCP2.text = _model.firstDraw;
     _labCP3.text = _model.firstLose;
-//
-    
     _labJP1.textColor = color33;
     _labJP2.textColor = color33;
     _labJP3.textColor = color33;
-
-//    _labJPTime.text = @"赛前24小时";
     if ([_model.finalWin floatValue] > [_model.firstWin floatValue]) {
         _labJP1.textColor = redcolor;
         _imageJP1.image = [UIImage imageNamed:@"plycRedup"];
     }else if ([_model.finalWin floatValue] < [_model.firstWin floatValue]){
         _labJP1.textColor = greencolor;
         _imageJP1.image = [UIImage imageNamed:@"plycgreenDown"];
-
     }else{
         _labCP1.textColor = color33;
         _imageJP1.image = [UIImage imageNamed:@""];
-
     }
-    
-    
     if ([_model.finalDraw floatValue] > [_model.firstDraw floatValue]) {
         _labJP2.textColor = redcolor;
         _imageJP2.image = [UIImage imageNamed:@"plycRedup"];
     }else if ([_model.finalDraw floatValue] < [_model.firstDraw floatValue]){
         _labJP2.textColor = greencolor;
         _imageJP2.image = [UIImage imageNamed:@"plycgreenDown"];
-        
     }else{
         _labJP2.textColor = color33;
         _imageJP2.image = [UIImage imageNamed:@""];
-        
     }
-
-    
     if ([_model.finalLose floatValue] > [_model.firstLose floatValue]) {
         _labJP3.textColor = redcolor;
         _imageJP3.image = [UIImage imageNamed:@"plycRedup"];
     }else if ([_model.finalLose floatValue] < [_model.firstLose floatValue]){
         _labJP3.textColor = greencolor;
         _imageJP3.image = [UIImage imageNamed:@"plycgreenDown"];
-        
     }else{
         _labJP3.textColor = color33;
         _imageJP3.image = [UIImage imageNamed:@""];
-        
     }
-
     _labWinTitle.text = @"胜";
     _labPingTitle.text = @"平";
     _labLoseTitle.text = @"负";
-
     _labWin.text = [NSString stringWithFormat:@"%@%%",_model.winAmp] ;
     _labPing.text = [NSString stringWithFormat:@"%@%%",_model.drawAmp];
     _labLose.text = [NSString stringWithFormat:@"%@%%",_model.loseAmp];
-
-    
     if ([_model.winAmp floatValue] == 0) {
         _labWin.textColor = color33;
         _imageWin.image = [UIImage imageNamed:@""];
@@ -138,16 +90,10 @@
     else if ([_model.winAmp containsString:@"-"]) {
         _labWin.textColor = greencolor;
         _imageWin.image = [UIImage imageNamed:@"plycgreenDown"];
-
     }else{
         _labWin.textColor = redcolor;
         _imageWin.image = [UIImage imageNamed:@"plycRedup"];
-
-
     }
-    
-    
-    
     if ([_model.drawAmp floatValue] == 0) {
         _labPing.textColor = color33;
         _imagePing.image = [UIImage imageNamed:@""];
@@ -155,15 +101,10 @@
     else if ([_model.drawAmp containsString:@"-"]) {
         _labPing.textColor = greencolor;
         _imagePing.image = [UIImage imageNamed:@"plycgreenDown"];
-        
     }else{
         _labPing.textColor = redcolor;
         _imagePing.image = [UIImage imageNamed:@"plycRedup"];
-        
-        
     }
-
-    
     if ([_model.loseAmp floatValue] == 0) {
         _labLose.textColor = color33;
         _imageLose.image = [UIImage imageNamed:@""];
@@ -171,31 +112,21 @@
     else if ([_model.loseAmp containsString:@"-"]) {
         _labLose.textColor = greencolor;
         _imageLose.image = [UIImage imageNamed:@"plycgreenDown"];
-        
     }else{
         _labLose.textColor = redcolor;
         _imageLose.image = [UIImage imageNamed:@"plycRedup"];
-        
-        
     }
-
-    
-    
 }
-
-
 - (UIView *)basicView
 {
     if (!_basicView) {
         _basicView = [[UIView alloc] init];
-        
         [_basicView addSubview:self.labcompany];
         [_basicView addSubview:self.labJPTitle];
         [_basicView addSubview:self.labJP1];
         [_basicView addSubview:self.labJP2];
         [_basicView addSubview:self.labJP3];
         [_basicView addSubview:self.labJPTime];
-
         [_basicView addSubview:self.labCPTitle];
         [_basicView addSubview:self.labCP1];
         [_basicView addSubview:self.labCP2];
@@ -213,11 +144,9 @@
         [_basicView addSubview:self.imagePing];
         [_basicView addSubview:self.imageLose];
         [_basicView addSubview:self.viewLine];
-
     }
     return _basicView;
 }
-
 - (UILabel *)labcompany
 {
     if (!_labcompany) {
@@ -228,7 +157,6 @@
     }
     return _labcompany;
 }
-
 - (UILabel *)labJPTitle
 {
     if (!_labJPTitle) {
@@ -269,7 +197,6 @@
     }
     return _labJP3;
 }
-
 - (UILabel *)labJPTime
 {
     if (!_labJPTime) {
@@ -280,8 +207,6 @@
     }
     return _labJPTime;
 }
-
-
 - (UILabel *)labCPTitle
 {
     if (!_labCPTitle) {
@@ -322,8 +247,6 @@
     }
     return _labCP3;
 }
-
-
 - (UILabel *)labWinTitle
 {
     if (!_labWinTitle) {
@@ -384,7 +307,6 @@
     }
     return _labLose;
 }
-
 - (UIImageView *)imageJP1
 {
     if (!_imageJP1) {
@@ -427,8 +349,6 @@
     }
     return _imageLose;
 }
-
-
 - (UIView *)viewLine
 {
     if (!_viewLine) {
@@ -437,139 +357,99 @@
     }
     return _viewLine;
 }
-
 - (void)addlayout
 {
-    
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.top.equalTo(self.mas_top);
         make.bottom.equalTo(self.mas_bottom);
     }];
-    
-    
-    
     [self.labcompany mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(11);
         make.top.equalTo(self.basicView.mas_top).offset(4);
-        
-        
     }];
-    
     [self.labJPTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.labcompany.mas_bottom).offset(4);
         make.left.equalTo(self.basicView.mas_left).offset(11);
     }];
-    
     [self.labJP1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labJPTitle.mas_centerY).offset(0);
         make.left.equalTo(self.labJPTitle.mas_right).offset(6);
         make.width.mas_equalTo(40);
     }];
-
     [self.imageJP1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labJP1.mas_right);
         make.centerY.equalTo(self.labJPTitle.mas_centerY).offset(0);
-
     }];
-    
     [self.labJP2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labJPTitle.mas_centerY).offset(0);
         make.left.equalTo(self.imageJP1.mas_right).offset(0);
         make.width.mas_equalTo(40);
     }];
-    
     [self.imageJP2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labJP2.mas_right);
         make.centerY.equalTo(self.labJPTitle.mas_centerY).offset(0);
-        
     }];
-
     [self.labJP3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labJPTitle.mas_centerY).offset(0);
         make.left.equalTo(self.imageJP2.mas_right).offset(0);
         make.width.mas_equalTo(40);
     }];
-    
     [self.imageJP3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labJP3.mas_right);
         make.centerY.equalTo(self.labJPTitle.mas_centerY).offset(0);
-        
     }];
-
     [self.labJPTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imageJP3.mas_right).offset(5);
         make.centerY.equalTo(self.labJPTitle.mas_centerY).offset(0);
-
     }];
-    
-    
     [self.labCPTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.labJPTitle.mas_bottom).offset(3);
         make.left.equalTo(self.basicView.mas_left).offset(11);
     }];
-
     [self.labCP1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labCPTitle.mas_centerY).offset(0);
         make.centerX.equalTo(self.labJP1.mas_centerX).offset(0);
         make.width.mas_equalTo(40);
     }];
-    
     [self.labCP2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labCPTitle.mas_centerY).offset(0);
         make.centerX.equalTo(self.labJP2.mas_centerX).offset(0);
         make.width.mas_equalTo(40);
     }];
-    
-
-    
     [self.labCP3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labCPTitle.mas_centerY).offset(0);
         make.centerX.equalTo(self.labJP3.mas_centerX).offset(0);
         make.width.mas_equalTo(40);
     }];
-    
-
-    
     [self.imageLose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labJPTitle.mas_centerY);
         make.right.equalTo(self.basicView.mas_right).offset(-12);
-        
     }];
-    
     [self.labLose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.imageLose.mas_left);
         make.centerY.equalTo(self.labJPTitle.mas_centerY);
         make.width.mas_equalTo(43);
     }];
-
     [self.imagePing mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labJPTitle.mas_centerY);
         make.right.equalTo(self.labLose.mas_left).offset(0);
-        
     }];
-    
     [self.labPing mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.imagePing.mas_left);
         make.centerY.equalTo(self.labJPTitle.mas_centerY);
         make.width.mas_equalTo(43);
     }];
-
     [self.imageWin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labJPTitle.mas_centerY);
         make.right.equalTo(self.labPing.mas_left).offset(0);
-        
     }];
-    
     [self.labWin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.imageWin.mas_left);
         make.centerY.equalTo(self.labJPTitle.mas_centerY);
         make.width.mas_equalTo(43);
     }];
-
-    
-    
     [self.labWinTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labCPTitle.mas_centerY);
         make.centerX.equalTo(self.labWin.mas_centerX);
@@ -582,14 +462,10 @@
         make.centerY.equalTo(self.labCPTitle.mas_centerY);
         make.centerX.equalTo(self.labLose.mas_centerX);
     }];
-
-    
     [self.viewLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left);
         make.bottom.equalTo(self.basicView.mas_bottom);
         make.size.mas_equalTo(CGSizeMake(Width, 10));
     }];
 }
-
-
 @end

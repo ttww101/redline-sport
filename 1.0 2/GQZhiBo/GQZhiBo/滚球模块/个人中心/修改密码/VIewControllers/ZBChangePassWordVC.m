@@ -1,30 +1,17 @@
-//
-//  ZBChangePassWordVC.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/4/26.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBChangePassWordVC.h"
-
 @interface ZBChangePassWordVC ()
 @property (nonatomic, strong)UIView *bkView;
 @property (nonatomic, strong)UITextField *txtOldNum;
 @property (nonatomic, strong)UITextField *txtNewNum;
 @property (nonatomic, strong)UITextField *txtSourNum;
-
 @property (nonatomic, strong)UILabel *labOld;
 @property (nonatomic, strong)UILabel *labNew;
 @property (nonatomic, strong)UILabel *labSore;
 @end
-
 @implementation ZBChangePassWordVC
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,7 +25,6 @@
     [self.bkView addSubview:self.txtNewNum];
     [self.bkView addSubview:self.txtSourNum];
     [self setAotView];
-    // Do any additional setup after loading the view.
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -58,30 +44,19 @@
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
-        //right
-        
         [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
         [SVProgressHUD setMinimumDismissTimeInterval:1.5];
         self.txtOldNum.text = [self.txtOldNum.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         self.txtNewNum.text = [self.txtNewNum.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
         self.txtSourNum.text = [self.txtSourNum.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        
-        
         if (isNUll(self.txtOldNum.text)|| isNUll(self.txtNewNum.text) || isNUll(self.txtSourNum.text)) {
-            
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"应填项不能为空"];
             return;
         }
-        
         if (self.txtOldNum.text.length == 0) {
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入原密码"];
-
             return;
         }
         if (self.txtOldNum.text.length<6 || self.txtOldNum.text.length>16) {
@@ -100,12 +75,10 @@
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"新密码与原密码相同"];
             return;
         }
-        
         if (![self.txtSourNum.text isEqualToString:self.txtNewNum.text]) {
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"两次输入的密码不一致"];
             return;
         }
-
         [self ConfireBtnRequest];
     }
 }
@@ -128,7 +101,6 @@
         _labOld.textColor = color66;
         _labOld.font = font14;
         _labOld.text = @"旧密码  ";
-        
     }
     return _labOld;
 }
@@ -139,7 +111,6 @@
         _labNew.textColor = color66;
         _labNew.text = @"新密码  ";
     }
-    
     return _labNew;
 }
 - (UILabel *)labSore{
@@ -184,20 +155,13 @@
 - (void)ConfireBtnRequest
 {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter] ];
-
     [parameter setObject:@"6" forKey:@"flag"];
     [parameter setObject:[ZBMethods md5WithString:self.txtOldNum.text] forKey:@"oldpsw"];
     [parameter setObject:[ZBMethods md5WithString:self.txtNewNum.text] forKey:@"newpsw"];
-
-    // 设备udid
     [parameter setObject:@"1" forKey:@"platform"];
     [parameter setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceTokenStr"] forKey:@"uuid"];
-    
-    
     [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_loginAndRegister] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             [self.navigationController popToRootViewControllerAnimated:YES];
@@ -209,11 +173,8 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
-    
 }
-
 - (void)setAotView{
-    
     [self.bkView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.view.mas_right);
         make.left.mas_equalTo(self.view.mas_left);
@@ -256,23 +217,9 @@
         make.left.mas_equalTo(self.txtNewNum.mas_left);
         make.top.mas_equalTo(self.labSore.mas_top);
         make.height.mas_offset(44);
-        
     }];
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

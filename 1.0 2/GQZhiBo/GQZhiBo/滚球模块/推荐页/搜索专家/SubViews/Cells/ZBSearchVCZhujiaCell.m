@@ -1,37 +1,21 @@
-//
-//  ZBSearchVCZhujiaCell.m
-//  GQapp
-//
-//  Created by WQ on 16/11/23.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBSearchVCZhujiaCell.h"
-
 @interface ZBSearchVCZhujiaCell()
 @property (assign, nonatomic)  BOOL isaddlaout;
 @property (strong, nonatomic)  UIButton *btnPhoto;
 @property (strong, nonatomic)  UIButton *labName;
 @property (strong, nonatomic)  UILabel *labJiBie;
-
 @property (strong, nonatomic)  UILabel *labLianHong;
 @property (strong, nonatomic)  UILabel *labLianHongNum;
 @property (nonatomic, strong) UIView *basicView;
-
 @end
-
 @implementation ZBSearchVCZhujiaCell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.labJiBie.textColor = BalckColor1;
     self.labLianHong.backgroundColor = redcolor;
     self.labLianHongNum.textColor = color66;
     self.labLianHong.textColor = [UIColor whiteColor];
-//    [self.btnPhoto setImage:[UIImage imageNamed:@"defaultPic"] forState:UIControlStateNormal];
-    // Initialization code
 }
-
 - (void)setModel:(ZBUserlistModel *)model
 {
     [self.contentView addSubview:self.basicView];
@@ -43,23 +27,16 @@
     self.btnPhoto.layer.masksToBounds = YES;
     self.btnPhoto.userInteractionEnabled = NO;
     self.labName.userInteractionEnabled = NO;
-
     [_btnPhoto sd_setBackgroundImageWithURL:[NSURL URLWithString:_model.pic] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"defaultPic"]];
     [_labName setTitle:_model.nickname forState:UIControlStateNormal];
-    
-    
     if (!_isaddlaout) {
         _isaddlaout = YES;
         [self addlayout];
     }
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -71,11 +48,9 @@
 {
     if (!_btnPhoto) {
         _btnPhoto = [UIButton buttonWithType:UIButtonTypeCustom];
-        
     }
     return _btnPhoto;
 }
-
 - (UIButton *)labName
 {
     if (!_labName) {
@@ -90,7 +65,6 @@
     }
     return _viewBottom;
 }
-
 - (void)addlayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -106,9 +80,7 @@
     [self.labName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnPhoto.mas_right).offset(10);
         make.centerY.equalTo(self.basicView.mas_centerY);
-
     }];
-    
     [self.viewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.bottom.equalTo(self.basicView.mas_bottom);
@@ -116,9 +88,4 @@
         make.width.mas_equalTo(Width -15);
     }];
 }
-
-
-
-
-
 @end

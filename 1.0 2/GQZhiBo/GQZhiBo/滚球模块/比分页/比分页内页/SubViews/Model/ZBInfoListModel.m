@@ -1,11 +1,3 @@
-//
-//  ZBInfoListModel.m
-//  GunQiuLive
-//
-//  Created by WQ_h on 16/3/14.
-//  Copyright © 2016年 WQ_h. All rights reserved.
-//
-
 #import "ZBInfoListModel.h"
 #import "ZBMedalsModel.h"
 @implementation ZBInfoListModel
@@ -89,14 +81,6 @@
         return [NSString stringWithFormat:@"%@",number];
     }];
 }
-
-
-//+ (NSValueTransformer *)MatchTimeJSONTransformer
-//{
-//    return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *nunber) {
-//        return [ZBMethods getDateByStyle:dateStyleFormatter withDate:[NSDate dateWithTimeIntervalSince1970:[nunber doubleValue]/1000]];
-//    }];
-//}
 + (NSValueTransformer *)fansJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(id number) {
@@ -106,7 +90,6 @@
         return [NSString stringWithFormat:@"%@",number];
     }];
 }
-
 + (NSValueTransformer *)win_rateJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(id number) {
@@ -125,7 +108,6 @@
         return [NSString stringWithFormat:@"%.2f%%",[number floatValue]*100];
     }];
 }
-
 + (NSValueTransformer *)create_timeJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
@@ -138,11 +120,8 @@
         return [ZBMethods getDateByStyle:dateStyleFormatter withDate:[NSDate dateWithTimeIntervalSince1970:[number doubleValue]/1000]];
     }];
 }
-
 + (NSValueTransformer *)medalsJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBMedalsModel class]];
-    
 }
-
 @end

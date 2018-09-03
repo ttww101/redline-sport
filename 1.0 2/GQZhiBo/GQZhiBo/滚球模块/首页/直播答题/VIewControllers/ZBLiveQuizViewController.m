@@ -1,11 +1,3 @@
-//
-//  ZBLiveQuizViewController.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/17.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBLiveQuizViewController.h"
 #import "WebViewJavascriptBridge.h"
 #import "ZBLiveQuizWithDrawalViewController.h"
@@ -14,40 +6,27 @@
 #import "ZBLiveQuizAlertView.h"
 #import "ZBAppManger.h"
 #import "ZBJSModel.h"
-
 @interface ZBLiveQuizViewController () <UIWebViewDelegate, UIGestureRecognizerDelegate>
-
 @property (nonatomic, strong) UIWebView *webView;
-
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
-
 @property (nonatomic , copy) GQJSResponseCallback callBack;
-
 @property (nonatomic , assign) BOOL showLoding;
-
 @property (nonatomic , strong) ZBAppManger *manger;
-
 @property (nonatomic , strong) UIView *toastView;
-
-
 @end
-
 @implementation ZBLiveQuizViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.showLoding = YES;
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
-    
     __block __weak id gpsObserver;
     gpsObserver = [[NSNotificationCenter defaultCenter]addObserverForName:@"userLoginNotification" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
         [self userLogin];
         [[NSNotificationCenter defaultCenter] removeObserver:gpsObserver];
     }];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
@@ -55,23 +34,18 @@
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     }
 }
-
 - (void)viewDidDisappear:(BOOL)animated {
     if ([_model.title isEqualToString:@"直播答题"]) {
         [[UIApplication sharedApplication] setIdleTimerDisabled:false];
     }
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
-
 #pragma mark - notification
-
 - (void)userLogin {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (_webView) {
@@ -83,9 +57,7 @@
         [self loadData];
     });
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     [self.view addSubview:self.webView];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,19 +65,15 @@
     }];
     self.navigationItem.title = _model.title;
     adjustsScrollViewInsets_NO(self.webView.scrollView, self);
-    
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
     [self.view addGestureRecognizer:pan];
 }
-
 #pragma mark - Load Data
-
 - (void)loadData {
     if (_model) {
         self.urlPath = _model.webUrl;
         self.html5Url = _model.htmlUrl;
     }
-    
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
@@ -118,7 +86,6 @@
         [self.webView loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
     }
 }
-
 - (void)loadBradgeHandler {
     __weak ZBLiveQuizViewController *weakSelf = self;
     ZBAppManger *manger = [[ZBAppManger alloc]init];
@@ -129,7 +96,6 @@
         ZBJSModel *model = (ZBJSModel *)data;
         NSString *actionString = model.methdName;
         SEL action = NSSelectorFromString(actionString);
-        
         if ([self respondsToSelector:action]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -137,34 +103,27 @@
 #pragma clang diagnostic pop
         }
     }];
-    
     [self.bridge setWebViewDelegate:self];
 }
-
 #pragma mark - UIWebViewDelegate
-
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     if (self.showLoding) {
         [ZBLodingAnimateView showLodingView];
     }
 }
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (self.showLoding) {
         [ZBLodingAnimateView dissMissLoadingView];
     }
     [self dissMissToastView];
 }
-
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
     if (self.showLoding) {
         [ZBLodingAnimateView dissMissLoadingView];
     }
 }
-
 #pragma mark - JSHandle
-
 - (void)back:(id)parameter {
     if ([parameter integerValue] == 0) {
         self.callBack(@"1");
@@ -173,7 +132,6 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
-
 - (void)dialog:(id)parameter {
     NSData *jsonData = [parameter dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
@@ -189,7 +147,6 @@
         }
     }];
 }
-
 - (void)open:(id)parameter {
     NSString *targetClass = parameter;
     Class targetCalss = NSClassFromString(targetClass);
@@ -201,13 +158,10 @@
         [self.navigationController pushViewController:target animated:YES];
     }
 }
-
 - (void)openNative:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dataDic = (NSDictionary *)data;
         NSString *className = dataDic[@"n"];
-    
-        
         if ([self containsClassName:className]) {
             UIViewController *controller =[self indexWithClassName:className];
             if (controller) {
@@ -215,7 +169,6 @@
             } else {
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }
-            
         } else {
             Class targetCalss = NSClassFromString(className);
             id target = [[targetCalss alloc] init];
@@ -232,7 +185,6 @@
                     [keyArray addObject:propertyName];
                 }
                 free(propertys);
-                
                 NSDictionary *parameterDic = dataDic[@"v"];
                 if (parameterDic.allKeys.count > 0) {
                     NSArray *array = parameterDic.allKeys;
@@ -248,7 +200,6 @@
         }
     }
 }
-
 - (BOOL)containsClassName:(NSString *)className {
     NSArray *classArray = self.navigationController.viewControllers;
     Class targetClass = NSClassFromString(className);
@@ -261,7 +212,6 @@
     }
     return false;
 }
-
 - (id)indexWithClassName:(NSString *)className {
     NSArray *classArray = self.navigationController.viewControllers;
     Class targetClass = NSClassFromString(className);
@@ -273,20 +223,15 @@
     }
     return nil;
 }
-
 #pragma mark - Action
-
 - (BOOL)panAction:(UIGestureRecognizer *)gestureRecognizer
 {
     return NO;
 }
-
 - (void)reloadAction {
     [self loadData];
 }
-
 #pragma mark - Private Method
-
 - (void)createNullToastView:(NSString *)text imageName:(NSString *)imageName {
     if (!_toastView) {
         [self.navigationController setNavigationBarHidden:false animated:false];
@@ -304,7 +249,6 @@
         [self.webView addSubview:_toastView];
     }
 }
-
 - (void)dissMissToastView {
     if (_toastView) {
         [_toastView removeFromSuperview];
@@ -312,9 +256,7 @@
         [self.navigationController setNavigationBarHidden:YES animated:false];
     }
 }
-
 #pragma mark - Lazy Load
-
 - (UIWebView *)webView {
     if (!_webView) {
         _webView = [[UIWebView alloc]init];
@@ -328,12 +270,10 @@
     }
     return _webView;
 }
-
 - (ZBAppManger *)manger {
     if (_manger == nil) {
         _manger = [[ZBAppManger alloc]init];
     }
     return _manger;
 }
-
 @end

@@ -1,11 +1,3 @@
-//
-//  ZBUserTuiianView.h
-//  GQapp
-//
-//  Created by WQ on 2017/4/20.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 @protocol UserTuiianViewDelegate<NSObject>
 @optional

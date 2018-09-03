@@ -1,11 +1,3 @@
-//
-//  ZBMineHeaderView.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/27.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBMineHeaderView.h"
 #import "ZBHeaderAmountView.h"
 #import "ZBToAnalystsVC.h"
@@ -13,57 +5,32 @@
 #import "ZBMyProfileVC.h"
 #import "ZBHeaderControl.h"
 #import "ZBUserTuijianVC.h"
-
 @interface ZBMineHeaderView ()
-
 @property (nonatomic, strong) UIImageView *bgImageView;
-
 @property (nonatomic, strong) UILabel *titleLabel;
-
 @property (nonatomic , strong) UIButton *messageBtn;
-
 @property (nonatomic, strong) UIImageView *avatarImageView;
-
 @property (nonatomic, strong) UIImageView *levealImageView;
-
 @property (nonatomic, strong) UILabel *nameLabel;
-
 @property (nonatomic, strong) UIImageView *rightArrorImageView;
-
 @property (nonatomic , strong) UIButton *applyBtn;
-
 @property (nonatomic , strong) ZBHeaderAmountView *amountView;
-
 @property (nonatomic, strong) UILabel *desLabel;
-
 @property (nonatomic, strong) UIControl *control;
-
 @property (nonatomic , strong) ZBHeaderControl *leftControl;
-
 @property (nonatomic , strong) ZBHeaderControl *centerControl;
-
 @property (nonatomic , strong) ZBHeaderControl *rightControl;
-
 @property (nonatomic, assign) CGFloat controlWidth;
-
-
-
 @end
-
 static CGFloat imageHeight = 50;
-
-
 @implementation ZBMineHeaderView
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self configUI];
     }
     return self;
 }
-
 #pragma mark - Open Method
-
 - (void)setModel:(ZBUserModel *)model {
     _model = model;
     if (_model) {
@@ -79,10 +46,8 @@ static CGFloat imageHeight = 50;
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.f] range:[text rangeOfString:name]];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.f] range:[text rangeOfString:dic[@"levelName"]]];
         _nameLabel.attributedText = att;
-        
         NSString *imageName = [ZBMethods getPersonLeavelImageName:_model.analysttype];
         self.levealImageView.image = [UIImage imageNamed:imageName];
-        
         if (_model.analyst == 1) {
             self.applyBtn.hidden = YES;
         } else {
@@ -92,14 +57,12 @@ static CGFloat imageHeight = 50;
         _amountView.model = _model;
         self.desLabel.hidden = YES;
         self.control.hidden = YES;
-        
         self.leftControl.content = [NSString stringWithFormat:@"推荐:%zi",_model.recommendCount];
         self.centerControl.content = [NSString stringWithFormat:@"关注:%zi",_model.focusCount];
         self.rightControl.content = [NSString stringWithFormat:@"粉丝:%zi",_model.followerCount];
         self.leftControl.hidden = false;
         self.centerControl.hidden = false;
         self.rightControl.hidden = false;
-        
     } else {
         self.avatarImageView.image = [UIImage imageNamed:@"defaultPic"];
         self.nameLabel.text = @"登陆/注册";
@@ -114,15 +77,11 @@ static CGFloat imageHeight = 50;
         self.centerControl.hidden = YES;
         self.rightControl.hidden = YES;
     }
-
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.backgroundColor = UIColorFromRGBWithOX(0xebebeb);
     self.controlWidth = Width / 3.f;
-    
     [self addSubview:self.bgImageView];
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(0);
@@ -130,74 +89,61 @@ static CGFloat imageHeight = 50;
         make.left.equalTo(self.mas_left).offset(0);
         make.height.mas_equalTo(200);
     }];
-    
     [self.bgImageView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgImageView.mas_top).offset(30);
         make.centerX.equalTo(self.bgImageView.mas_centerX);
     }];
-    
     [self.bgImageView addSubview:self.messageBtn];
     [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.titleLabel.mas_centerY);
         make.right.equalTo(self.bgImageView.mas_right).offset(-15);
         make.size.mas_equalTo(CGSizeMake(15, 16));
     }];
-    
     [self.bgImageView addSubview:self.avatarImageView];
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgImageView.mas_top).offset(60);
         make.left.equalTo(self.bgImageView.mas_left).offset(15);
         make.size.mas_equalTo(CGSizeMake(imageHeight, imageHeight));
     }];
-    
     [self.bgImageView addSubview:self.levealImageView];
     [self.levealImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgImageView.mas_top).offset(95);
         make.left.equalTo(self.bgImageView.mas_left).offset(45);
         make.size.mas_equalTo(CGSizeMake(16, 16));
     }];
-    
     [self.bgImageView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.avatarImageView.mas_top);
         make.left.equalTo(self.avatarImageView.mas_right).offset(15);
         make.right.equalTo(self.bgImageView.mas_right).offset(-10);
     }];
-    
     [self.bgImageView addSubview:self.control];
     [self.control mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.nameLabel);
     }];
-    
     [self.bgImageView addSubview:self.applyBtn];
     [self.applyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(68, 20));
         make.left.equalTo(self.nameLabel.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(7);
     }];
-    
     [self.bgImageView addSubview:self.rightArrorImageView];
     [self.rightArrorImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.avatarImageView.mas_centerY);
         make.right.equalTo(self.bgImageView.mas_right).offset(-15);
         make.size.mas_equalTo(CGSizeMake(11, 20));
     }];
-    
     [self.bgImageView addSubview:self.desLabel];
     [self.desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(7);
     }];
-    
     [self addSubview:self.leftControl];
     [self addSubview:self.centerControl];
     [self addSubview:self.rightControl];
-
 }
-
 #pragma mark - Events
-
 - (void)applyAction {
     [[ZBDependetNetMethods sharedInstance] loadUserInfocompletion:^(ZBUserModel *userback) {
         ZBUserModel *model = [ZBMethods getUserModel];
@@ -215,7 +161,6 @@ static CGFloat imageHeight = 50;
         [APPDELEGATE.customTabbar pushToViewController:analysts animated:YES];
     }];
 }
-
 - (void)pushMessageAction {
     if(![ZBMethods login]) {
         [ZBMethods toLogin];
@@ -229,29 +174,23 @@ static CGFloat imageHeight = 50;
     webDetailVC.model = model;
     [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
 }
-
 - (void)avatarClick {
     if ([ZBMethods login]) {
         ZBMyProfileVC *myProfile = [[ZBMyProfileVC alloc] init];
         myProfile.hidesBottomBarWhenPushed = YES;
         [APPDELEGATE.customTabbar pushToViewController:myProfile animated:YES];
-        
     }else{
         [ZBMethods toLogin];
     }
-
 }
-
 - (void)personInfoAction {
     [self avatarClick];
 }
-
 - (void)controlAction {
     if (![ZBMethods login]) {
         [ZBMethods toLogin];
     }
 }
-
 - (void)leftControlAction {
     if(![ZBMethods login]) {
         [ZBMethods toLogin];
@@ -263,7 +202,6 @@ static CGFloat imageHeight = 50;
     tuijian.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:tuijian animated:YES];
 }
-
 - (void)centerControlAction {
     if(![ZBMethods login]) {
         [ZBMethods toLogin];
@@ -275,7 +213,6 @@ static CGFloat imageHeight = 50;
     friend.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
 }
-
 - (void)rightControlAction {
     if(![ZBMethods login]) {
         [ZBMethods toLogin];
@@ -287,9 +224,7 @@ static CGFloat imageHeight = 50;
     friend.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
 }
-
 #pragma mark - Lazy Load
-
 - (UIImageView *)bgImageView {
     if (_bgImageView == nil) {
         _bgImageView = [UIImageView new];
@@ -299,7 +234,6 @@ static CGFloat imageHeight = 50;
     }
     return _bgImageView;
 }
-
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [UILabel new];
@@ -310,7 +244,6 @@ static CGFloat imageHeight = 50;
     }
     return _titleLabel;
 }
-
 - (UIButton *)messageBtn {
     if (_messageBtn == nil) {
         _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -319,7 +252,6 @@ static CGFloat imageHeight = 50;
     }
     return _messageBtn;
 }
-
 - (UIButton *)applyBtn {
     if (_applyBtn == nil) {
         _applyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -328,8 +260,6 @@ static CGFloat imageHeight = 50;
     }
     return _applyBtn;
 }
-
-
 - (UIImageView *)avatarImageView {
     if (_avatarImageView == nil) {
         _avatarImageView = [UIImageView new];
@@ -342,11 +272,9 @@ static CGFloat imageHeight = 50;
         [_avatarImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarClick)]];
         _avatarImageView.backgroundColor = [UIColor orangeColor];
         _avatarImageView.userInteractionEnabled = YES;
-        
     }
     return _avatarImageView;
 }
-
 - (UILabel *)nameLabel {
     if (_nameLabel == nil) {
         _nameLabel = [UILabel new];
@@ -357,7 +285,6 @@ static CGFloat imageHeight = 50;
     }
     return _nameLabel;
 }
-
 - (UIImageView *)rightArrorImageView {
     if (_rightArrorImageView == nil) {
         _rightArrorImageView = [UIImageView new];
@@ -369,14 +296,12 @@ static CGFloat imageHeight = 50;
     }
     return _rightArrorImageView;
 }
-
 - (ZBHeaderAmountView *)amountView {
     if (_amountView == nil) {
         _amountView = [[ZBHeaderAmountView alloc]initWithFrame:CGRectMake(15, 165, Width - 30, 60)];
     }
     return _amountView;
 }
-
 - (UILabel *)desLabel {
     if (_desLabel == nil) {
         _desLabel = [UILabel new];
@@ -387,7 +312,6 @@ static CGFloat imageHeight = 50;
     }
     return _desLabel;
 }
-
 - (UIControl *)control {
     if (_control == nil) {
         _control = [[UIControl alloc]init];
@@ -396,14 +320,12 @@ static CGFloat imageHeight = 50;
     }
     return _control;
 }
-
 - (UIImageView *)levealImageView {
     if (_levealImageView == nil) {
         _levealImageView = [UIImageView new];
     }
     return _levealImageView;
 }
-
 - (ZBHeaderControl *)leftControl {
     if (_leftControl == nil) {
         _leftControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(0, 130, self.controlWidth, 30) content:@"推荐:0" showRightLine:false];
@@ -411,7 +333,6 @@ static CGFloat imageHeight = 50;
     }
     return _leftControl;
 }
-
 - (ZBHeaderControl *)centerControl {
     if (_centerControl == nil) {
         _centerControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(self.controlWidth, 130, self.controlWidth, 30) content:@"关注:0" showRightLine:false];
@@ -419,7 +340,6 @@ static CGFloat imageHeight = 50;
     }
     return _centerControl;
 }
-
 - (ZBHeaderControl *)rightControl {
     if (_rightControl == nil) {
         _rightControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(self.controlWidth * 2, 130, self.controlWidth, 30) content:@"粉丝:0" showRightLine:YES];
@@ -427,6 +347,4 @@ static CGFloat imageHeight = 50;
     }
     return _rightControl;
 }
-
-
 @end

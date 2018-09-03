@@ -1,13 +1,4 @@
-//
-//  ZBFeedBackModel.m
-//  GQapp
-//
-//  Created by Marjoice on 21/09/2017.
-//  Copyright © 2017 GQXX. All rights reserved.
-//
-
 #import "ZBFeedBackModel.h"
-
 @implementation ZBFeedBackModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -18,5 +9,4 @@
              @"reply" : @"reply",
              };
 }
-
 @end

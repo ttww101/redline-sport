@@ -1,15 +1,5 @@
-//
-//  ZBWebviewProgressLine.m
-//  newGQapp
-//
-//  Created by genglei on 2018/6/12.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBWebviewProgressLine.h"
-
 @implementation ZBWebviewProgressLine
-
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -19,16 +9,13 @@
     }
     return self;
 }
-
 -(void)setLineColor:(UIColor *)lineColor{
     _lineColor = lineColor;
     self.backgroundColor = lineColor;
 }
-
 -(void)startLoadingAnimation{
     self.hidden = NO;
     self.width = 0.0;
-    
     __weak UIView *weakSelf = self;
     [UIView animateWithDuration:0.4 animations:^{
         weakSelf.width = Width * 0.6;
@@ -37,10 +24,7 @@
             weakSelf.width = Width * 0.8;
         }];
     }];
-    
-    
 }
-
 -(void)endLoadingAnimation{
     __weak UIView *weakSelf = self;
     [UIView animateWithDuration:0.2 animations:^{
@@ -50,5 +34,4 @@
         weakSelf.width = 0;
     }];
 }
-
 @end

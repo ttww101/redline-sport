@@ -1,13 +1,4 @@
-//
-//  ZBliveLineupModel.m
-//  GQapp
-//
-//  Created by WQ_h on 16/5/4.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBliveLineupModel.h"
-
 @implementation ZBliveLineupModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -38,7 +29,6 @@
     }];
     return nil;
 }
-
 + (NSValueTransformer *)assistJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
@@ -46,7 +36,6 @@
     }];
     return nil;
 }
-
 + (NSValueTransformer *)roundsJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
@@ -54,7 +43,6 @@
     }];
     return nil;
 }
-
 + (NSValueTransformer *)playeridJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
@@ -62,7 +50,6 @@
     }];
     return nil;
 }
-
 + (NSValueTransformer *)bestsumJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
@@ -70,7 +57,6 @@
     }];
     return nil;
 }
-
 + (NSValueTransformer *)ratingJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
@@ -85,6 +71,4 @@
     }];
     return nil;
 }
-
-
 @end

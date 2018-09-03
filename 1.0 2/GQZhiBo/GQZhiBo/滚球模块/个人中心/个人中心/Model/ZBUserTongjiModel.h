@@ -1,11 +1,3 @@
-//
-//  ZBUserTongjiModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/22.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
 #import "ZBTotalrateModel.h"
 @interface ZBUserTongjiModel : ZBBasicModel

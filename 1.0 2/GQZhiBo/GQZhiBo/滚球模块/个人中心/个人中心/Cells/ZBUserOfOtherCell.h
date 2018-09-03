@@ -1,11 +1,3 @@
-//
-//  ZBUserOfOtherCell.h
-//  GQapp
-//
-//  Created by WQ on 2017/4/26.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 @protocol UserOfOtherCellDelegate<NSObject>
 @optional
@@ -13,7 +5,6 @@
 - (void)navBtnClick:(NSInteger)index;
 - (void)tuijianBtnClick:(NSInteger)index;
 - (void)upDownBtnClick:(BOOL)selected;
-
 @end
 @interface ZBUserOfOtherCell : UITableViewCell
 @property (nonatomic, strong) ZBUserModel *model;

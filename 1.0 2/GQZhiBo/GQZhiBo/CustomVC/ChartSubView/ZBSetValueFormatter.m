@@ -1,13 +1,4 @@
-//
-//  ZBSetValueFormatter.m
-//  无限滚动
-//
-//  Created by caoting on 2016/11/30.
-//  Copyright © 2016年 admin. All rights reserved.
-//
-
 #import "ZBSetValueFormatter.h"
-
 @interface ZBSetValueFormatter ()
 {
     NSArray * _arr;
@@ -34,14 +25,11 @@
     }
     return self;
 }
-
 - (NSString * _Nonnull)stringForValue:(double)value entry:(ChartDataEntry * _Nonnull)entry dataSetIndex:(NSInteger)dataSetIndex viewPortHandler:(ChartViewPortHandler * _Nullable)viewPortHandler{
-    //    NSLog(@"value:%f----entry:%@------dataSetIndex:%ld-------viewPortHandler:%@",value,[entry modelToJSONString],(long)dataSetIndex,[viewPortHandler modelToJSONString]);
     if (entry.x==_AAAdataSetIndex) {
         return [NSString stringWithFormat:@"%ld%%",(NSInteger)entry.y];
     }else{
         return @"";
     }
 }
-
 @end

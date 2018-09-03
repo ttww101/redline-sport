@@ -1,51 +1,24 @@
-//
-//  Device.h
-//  GunQiuLive
-//
-//  Created by WQ_h on 15/12/22.
-//  Copyright (c) 2015年 WQ_h. All rights reserved.
-//
 #ifndef GunQiuLive_Device_h
 #define GunQiuLive_Device_h
-//模拟器设备判断
 #define isOniPhone4 ([UIScreen mainScreen].bounds.size.height == 480)
 #define isOniPhone5 ([UIScreen mainScreen].bounds.size.height == 568)
 #define isOniphone6 ([UIScreen mainScreen].bounds.size.height == 667)
 #define isOniphone7 ([UIScreen mainScreen].bounds.size.height == 667)
 #define isOniphone6p ([UIScreen mainScreen].bounds.size.height >= 736)
-
-
 #define Height [UIScreen mainScreen].bounds.size.height
 #define Width  [UIScreen mainScreen].bounds.size.width
 #define Screen_Base_Width 375.0
-//#define Scale_Ratio ([UIScreen mainScreen].bounds.size.width/375.0 > 1? [UIScreen mainScreen].bounds.size.width/375.0 : 1)
-//#define Scale_Ratio [UIScreen mainScreen].bounds.size.width/375.0
-
 #define Scale_Ratio_width [UIScreen mainScreen].bounds.size.width/375.0
 #define Scale_Ratio_height [UIScreen mainScreen].bounds.size.height/667.0
-
 #define Scale_Ratio (1)
-
 #define _StatusBarHeight (![UIApplication sharedApplication].statusBarHidden ? [UIApplication sharedApplication].statusBarFrame.size.height : 0)
 #define _ScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define _ScrrenWidth ([UIScreen mainScreen].bounds.size.width)
 #define _TabBarHeight (self.tabBarController ? (!self.tabBarController.hidesBottomBarWhenPushed ? self.tabBarController.tabBar.frame.size.height : 0): 0)
 #define _NaviBarHeight (self.navigationController ? (!self.navigationController.navigationBarHidden ? (self.navigationController.navigationBar.frame.size.height + _StatusBarHeight) : 0): 0)
 #define _ContentHeight (_ScreenHeight - _TabBarHeight - _NaviBarHeight)
-
 #define STOREAPPID @"1116339458"
-
-/*
- 640 960 320 480 4
- 640 1136 320 568 5
- 750 1334 375 667 6
- 1080 1920 414 736 
- (1242 2208 607 1104) 6+
- */
-
 #define FONT_DIN_Bold_SIZE(s)                         [UIFont fontWithName:@"DIN-Bold" size:s]
-
-
 #define font7 [UIFont systemFontOfSize:(7*Scale_Ratio)]
 #define font8 [UIFont systemFontOfSize:(8*Scale_Ratio)]
 #define font9 [UIFont systemFontOfSize:(9*Scale_Ratio)]
@@ -59,7 +32,6 @@
 #define font17 [UIFont systemFontOfSize:(17*Scale_Ratio)]
 #define font18 [UIFont systemFontOfSize:(18*Scale_Ratio)]
 #define font20 [UIFont systemFontOfSize:(20*Scale_Ratio)]
-
 #define font22 [UIFont systemFontOfSize:(22*Scale_Ratio)]
 #define font23 [UIFont systemFontOfSize:(23*Scale_Ratio)]
 #define font24 [UIFont systemFontOfSize:(24*Scale_Ratio)]
@@ -68,7 +40,6 @@
 #define font28 [UIFont systemFontOfSize:(28*Scale_Ratio)]
 #define font30 [UIFont systemFontOfSize:(30*Scale_Ratio)]
 #define font32 [UIFont systemFontOfSize:(32*Scale_Ratio)]
-
 #define fontSize7 (7*Scale_Ratio)
 #define fontSize8 (8*Scale_Ratio)
 #define fontSize9 (9*Scale_Ratio)
@@ -94,21 +65,8 @@
 #define fontSize29 (29*Scale_Ratio)
 #define fontSize30 (30*Scale_Ratio)
 #define fontSize31 (31*Scale_Ratio)
-
 #define navFont BoldFont6(fontSize18)
 #
-/*
- UIFontWeightUltraLight  - 超细字体
- UIFontWeightThin  - 纤细字体
- UIFontWeightLight  - 亮字体
- UIFontWeightRegular  - 常规字体
- UIFontWeightMedium  - 介于Regular和Semibold之间
- UIFontWeightSemibold  - 半粗字体
- UIFontWeightBold  - 加粗字体
- UIFontWeightHeavy  - 介于Bold和Black之间
- UIFontWeightBlack  - 最粗字体(理解)
- */
-//粗体字程度
 #define BoldFont0(size) [UIFont systemFontOfSize:size weight:UIFontWeightUltraLight]
 #define BoldFont1(size) [UIFont systemFontOfSize:size weight:UIFontWeightThin]
 #define BoldFont2(size) [UIFont systemFontOfSize:size weight:UIFontWeightLight]
@@ -118,19 +76,5 @@
 #define BoldFont6(size) [UIFont systemFontOfSize:size weight:UIFontWeightBold]
 #define BoldFont7(size) [UIFont systemFontOfSize:size weight:UIFontWeightHeavy]
 #define BoldFont8(size) [UIFont systemFontOfSize:size weight:UIFontWeightBlack]
-
-
-
-
-
-
-
-
 #define ONE_PX_LINE 1.0f / [UIScreen mainScreen].scale
-
-
-
-
-
-
 #endif

@@ -1,11 +1,3 @@
-//
-//  ZBTongpeiPeilvChangeTItleView.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/8.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBTongpeiPeilvChangeTItleView.h"
 @interface ZBTongpeiPeilvChangeTItleView()
 @property (nonatomic, strong) UIView *basicView;
@@ -15,16 +7,6 @@
 @property (nonatomic, strong) UILabel *labTime;
 @end
 @implementation ZBTongpeiPeilvChangeTItleView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -44,7 +26,6 @@
     }
     return _basicView;
 }
-
 - (UILabel *)labPeilv
 {
     if (!_labPeilv) {
@@ -56,7 +37,6 @@
     }
     return _labPeilv;
 }
-
 - (UILabel *)labKaili
 {
     if (!_labKaili) {
@@ -90,5 +70,4 @@
     }
     return _labTime;
 }
-
 @end

@@ -1,26 +1,16 @@
-//
-//  ZBBangDanListCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/4/28.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBangDanListCell.h"
-
 @interface ZBBangDanListCell()
 @property (nonatomic, strong)UILabel *labNum;
-@property (nonatomic, strong)UIImageView *imgCrown;//皇冠
-@property (nonatomic, strong)UIButton *imgPhoto;//头像
-@property (nonatomic, strong)UILabel *labName;//名字
-@property (nonatomic, strong)UILabel *labSession;//场次
-@property (nonatomic, strong)UILabel *labWinRate;//盈利率
+@property (nonatomic, strong)UIImageView *imgCrown;
+@property (nonatomic, strong)UIButton *imgPhoto;
+@property (nonatomic, strong)UILabel *labName;
+@property (nonatomic, strong)UILabel *labSession;
+@property (nonatomic, strong)UILabel *labWinRate;
 @property (nonatomic, strong)UILabel *labWinRateTwo;
-@property (nonatomic, strong)UIButton *btnFocus;//关注按钮
+@property (nonatomic, strong)UIButton *btnFocus;
 @property (nonatomic, strong)UIView *lineView;
 @property (nonatomic, strong)UIView *bkView;
 @end
-
 @implementation ZBBangDanListCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -34,15 +24,12 @@
         [self.bkView addSubview:self.labWinRate];
         [self.bkView addSubview:self.labWinRateTwo];
         [self.bkView addSubview:self.lineView];
-       
     }
     return self;
 }
 - (void)setModel:(ZBRecommandListModel *)model{
     _model = model;
-  
     self.imgCrown.hidden = YES;
-    
     if ([model.rank isEqualToString:@"1"]) {
         self.imgCrown.image = [UIImage imageNamed:@"guanjun"];
         self.labNum.hidden = NO;
@@ -51,33 +38,25 @@
         self.imgCrown.image = [UIImage imageNamed:@"yajun"];
         self.labNum.hidden = NO;
         _labNum.textColor = color4E37DB;
-        
     }else if([model.rank isEqualToString:@"3"]){
         self.imgCrown.image = [UIImage imageNamed:@"jijun"];
         self.labNum.hidden = NO;
         _labNum.textColor = color33A1FF;
-        
     }else{
         self.labNum.text = model.rank;
         self.labNum.hidden = NO;
         _labNum.textColor = color33;
-        
     }
-    //
-    
     self.labNum.text = model.rank;
       self.labName.text = model.nickname;
     [self.imgPhoto sd_setBackgroundImageWithURL:[NSURL URLWithString:_model.extension2] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"defaultPic"]];
-    if (self.type == 1 || self.type == 5) {//专家榜和盈利榜
+    if (self.type == 1 || self.type == 5) {
         self.labWinRate.text = model.casua;
         self.labWinRateTwo.text = model.casuatwo;
-        
-        if (self.type == 5) {//盈利榜
+        if (self.type == 5) {
             self.labWinRate.text = model.casuatwo;
             self.labWinRateTwo.text = model.casua;
-            
         }
-        
         self.labSession.text = [NSString stringWithFormat:@"推荐%@场",model.realnums];
         self.labSession.attributedText = [ZBMethods withContent:self.labSession.text contentColor:color33 WithColorText:model.realnums textColor:color66];
     }else{
@@ -92,11 +71,8 @@
             self.labWinRate.attributedText = [ZBMethods withContent:self.labWinRate.text WithColorText:@"%" textColor:color33 strFont:font14];
         }
     }
-
-
     ZBUserModel *user = [ZBMethods getUserModel];
     if (user.idId == _model.userid) {
-        
         _btnFocus.hidden = YES;
     }else{
         _btnFocus.hidden = NO;
@@ -105,30 +81,22 @@
         }else{
             self.btnFocus.selected = YES;
         }
-
     }
     [self setAotorelayout:self.type];
 }
 - (UIView *)bkView{
     if (!_bkView) {
         _bkView = [[UIView alloc] init];
-//        _bkView.backgroundColor = [UIColor whiteColor];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBasicView)];
         [_bkView addGestureRecognizer:tap];
-
-        
-        
     }
-    
     return _bkView;
 }
-
 - (void)tapBasicView
 {
     if (_model.userid == 1) {
         return;
     }
-    
     ZBUserViewController *user = [[ZBUserViewController alloc] init];
     user.userId = _model.userid;
     user.userName = _model.nickname;
@@ -137,14 +105,12 @@
     user.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:user animated:YES];
 }
-
 - (UILabel *)labNum{
     if (!_labNum) {
         _labNum = [[UILabel alloc] init];
         _labNum.font = font16;
         _labNum.textColor = color33;
         _labNum.textAlignment = NSTextAlignmentCenter;
-//        _labNum.text = @"1";
     }
     return _labNum;
 }
@@ -152,19 +118,15 @@
     if (!_imgCrown) {
         _imgCrown = [[UIImageView alloc] init];
     }
-    
     return _imgCrown;
 }
 - (UIButton *)imgPhoto{
     if (!_imgPhoto) {
         _imgPhoto = [[UIButton alloc] init];
-//        [_imgPhoto setBackgroundImage:[UIImage imageNamed:@"defaultPic"] forState:UIControlStateNormal];
         _imgPhoto.layer.cornerRadius = 20;
         _imgPhoto.layer.masksToBounds = YES;
         _imgPhoto.userInteractionEnabled = NO;
-
     }
-    
     return _imgPhoto;
 }
 - (UILabel *)labName{
@@ -181,9 +143,7 @@
         _labSession = [[UILabel alloc] init];
         _labSession.font = font12;
         _labSession.textColor = color99;
-//        _labSession.text = @"场次35";
     }
-    
     return _labSession;
 }
 - (UILabel *)labWinRateTwo{
@@ -192,7 +152,6 @@
         _labWinRateTwo.font = font14;
         _labWinRateTwo.textColor = color33;
         _labWinRateTwo.textAlignment = NSTextAlignmentCenter;
-//        _labWinRateTwo.backgroundColor = redcolor;
     }
     return _labWinRateTwo;
 }
@@ -205,16 +164,13 @@
     }
     return _labWinRate;
 }
-
 - (UIButton *)btnFocus{
     if (!_btnFocus) {
         _btnFocus = [UIButton buttonWithType:UIButtonTypeCustom];
         [_btnFocus setImage:[UIImage imageNamed:@"focusonUserUserV"] forState:UIControlStateNormal];
         [_btnFocus setImage:[UIImage imageNamed:@"focusGrayUserV"] forState:UIControlStateSelected];
-
         [_btnFocus addTarget:self action:@selector(AddAttention:) forControlEvents:UIControlEventTouchUpInside];
     }
-    
     return _btnFocus;
 }
 - (void)AddAttention:(UIButton *)btn
@@ -223,13 +179,6 @@
         [ZBMethods toLogin];
         return;
     }
-    //    /focusAdd 新增关注
-    //    param.put("followerId", "3"); //跟随者
-    //    param.put("leaderId", "5"); //被跟随者
-    //
-    //    /focusRemove 删除关注
-    //    param.put("followerId", "3"); //跟随者
-    //    param.put("leaderId", "5"); //被跟随者
     NSMutableDictionary *paremeter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     ZBUserModel *user = [ZBMethods getUserModel];
     NSString *url;
@@ -242,46 +191,34 @@
     [paremeter setObject:[NSString stringWithFormat:@"%ld",(long)_model.userid] forKey:@"leaderId"];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:paremeter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             if ((NSInteger)[[responseOrignal objectForKey:@"data"] integerValue] >0) {
-                
                 if (btn.selected) {
                     user.focusCount = user.focusCount
                     -1;
                     _model.extension1 = 0;
-                    
                 }else{
                     user.focusCount = user.focusCount +1;
                     _model.extension1 = 1;
-                    
                 }
-                
                 btn.selected = !btn.selected;
                 [ZBMethods getUserModel];
                 [ZBMethods updateUsetModel:user];
                 if (btn.selected) {
-                    
                     [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"关注成功"];
                 }else{
                     [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"取消关注成功"];
                 }
-                
-                
             }else{
                 [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
-                
             }
         }else
         {
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
-
-            
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-
     }];
 }
 - (UIView *)lineView{
@@ -319,7 +256,6 @@
         [self.btnFocus mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self.bkView.mas_right).offset(-10);
             make.centerY.mas_equalTo(self.bkView.mas_centerY);
-//            make.width.mas_offset(78/ 2);
         }];
         [self.labSession mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.imgPhoto.mas_right).offset(10);
@@ -330,14 +266,11 @@
             make.bottom.mas_equalTo(self.labSession.mas_top).offset(-6);
             make.width.mas_offset(85);
         }];
-        
         [self.labWinRate mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.bkView.mas_centerY);
-//            make.left.mas_equalTo(self.labName.mas_right);
             make.right.mas_equalTo(self.btnFocus.mas_left);
             make.width.mas_offset(50);
         }];
-        
         [self.labWinRateTwo mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.bkView.mas_centerY);
             make.right.mas_equalTo(self.labWinRate.mas_left).offset(-5);
@@ -347,7 +280,6 @@
         [self.btnFocus mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self.bkView.mas_right).offset(-10);
             make.centerY.mas_equalTo(self.bkView.mas_centerY);
-//            make.width.mas_offset(78/ 2);
         }];
         [self.labSession mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(0);
@@ -358,54 +290,36 @@
             make.centerY.mas_equalTo(self.bkView.mas_centerY);
             make.width.mas_offset(100);
         }];
-        
         if (type == 2) {
             [self.labWinRate mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.mas_equalTo(self.bkView.mas_centerY);
-                //            make.left.mas_equalTo(self.labName.mas_right);
                 make.right.mas_equalTo(self.btnFocus.mas_left).offset(-20);
                 make.width.mas_offset(50);
             }];
         }else{
             [self.labWinRate mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.bkView.mas_centerY);
-            //            make.left.mas_equalTo(self.labName.mas_right);
             make.right.mas_equalTo(self.btnFocus.mas_left);
             make.width.mas_offset(50);
             }];
         }
-        
-        
         [self.labWinRateTwo mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(self.bkView.mas_centerY);
             make.right.mas_equalTo(self.labWinRate.mas_left).offset(-5);
             make.width.mas_offset(50);
         }];
-        
-        
     }
-    
-
-    
-    
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.bkView.mas_left);
         make.right.mas_equalTo(self.bkView.mas_right);
         make.bottom.mas_equalTo(self.bkView.mas_bottom);
         make.height.mas_offset(0.5);
     }];
-    
 }
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 @end

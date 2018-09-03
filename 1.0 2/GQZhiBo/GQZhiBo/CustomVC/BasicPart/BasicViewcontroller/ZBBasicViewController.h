@@ -1,14 +1,5 @@
-//
-//  ZBBasicViewController.h
-//  Wq
-//
-//  Created by WQ_h on 15/9/17.
-//  Copyright (c) 2015年 WQ_h. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import "ZBNavView.h"
-
 typedef NS_ENUM(NSInteger,userType)
 {
     userTypeMine = 0,
@@ -20,7 +11,6 @@ typedef NS_ENUM(NSInteger,jingcaiListCellType) {
     jingcaiListCellTypeUserSingle =2,
     jingcaiListCellTypeMybuy =3,
     jingcaiListCellTypeUserAll =4,
-
 };
 @interface ZBBasicViewController : UIViewController<NavViewDelegate>
 @property (nonatomic, strong) NSString *defaultFailure;

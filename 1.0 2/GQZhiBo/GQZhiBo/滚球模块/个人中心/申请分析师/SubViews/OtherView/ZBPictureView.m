@@ -1,14 +1,5 @@
-//
-//  ZBPictureView.m
-//  GQapp
-//
-//  Created by WQ on 2017/7/25.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBPictureView.h"
 @interface ZBPictureView()<UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-
 @property (nonatomic, strong) UIView *basicView;
 @property (nonatomic, strong) UIImageView *imagePic;
 @property (nonatomic, strong) UIView *viewBottom;
@@ -16,54 +7,31 @@
 @property (nonatomic, strong) UILabel *labDetail;
 @end
 @implementation ZBPictureView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (id)init
 {
     self = [super init];
     if (self) {
-//        self.backgroundColor = redcolor;
     }
     return self;
 }
-
 - (void)setDetailText:(NSString *)detailText
 {
     _detailText = detailText;
     [self addSubview:self.basicView];
-
     _labDetail.text = _detailText;
-    
     if ([detailText isEqualToString:@"手持身份证"]) {
         _imagePic.image = [UIImage imageNamed:@"shenfenzheng2"];
     }else if ([detailText isEqualToString:@"身份证正面"]) {
         _imagePic.image = [UIImage imageNamed:@"shenfenzheng3"];
-
     }else if ([detailText isEqualToString:@"身份证背面"]) {
         _imagePic.image = [UIImage imageNamed:@"shenfenzheng1"];
-
     }else{
         _imagePic.image = [UIImage imageNamed:@"shenfenzheng1"];
     }
-    
 }
 - (void)setImagePicUrl:(NSString *)imagePicUrl
 {
     _imagePicUrl = imagePicUrl;
-    
-//    [_imagePic sd_setImageWithURL:[NSURL URLWithString:_imagePicUrl] placeholderImage:[UIImage imageNamed:@"defaultPic"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//        if (image) {
-//            _imageSave = image;
-//        }
-//    }];
-    
 }
 - (UIView *)basicView
 {
@@ -76,7 +44,6 @@
     }
     return _basicView;
 }
-
 - (UIImageView *)imagePic
 {
     if (!_imagePic) {
@@ -121,13 +88,10 @@
     }
     return _labDetail;
 }
-
-
 - (void)getPhonePhoto
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"相册" otherButtonTitles:@"拍照", nil];
     [actionSheet showInView:APPDELEGATE.customTabbar.view];
-
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -137,49 +101,29 @@
         pickerVC.delegate = self;
         pickerVC.allowsEditing = YES;
         [APPDELEGATE.customTabbar presentToViewController:pickerVC animated:YES completion:^{
-            
         }];
-        
     }else if (buttonIndex == 1){
         UIImagePickerController *pickerVC = [[UIImagePickerController alloc] init];
         pickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
         pickerVC.delegate = self;
         pickerVC.allowsEditing = YES;
         [APPDELEGATE.customTabbar presentToViewController:pickerVC animated:YES completion:^{
-            
         }];
-        
     }else{
-        
     }
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    //    NSLog(@"%@",info);
     [picker dismissViewControllerAnimated:YES completion:^{
-        
     }];
-    
     UIImage *imagef = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    
     _imagePic.image = imagef;
     _labImg.text = @"点击切换";
     self.imageSave = imagef;
-    
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:^{
-        
     }];
-    
 }
-
-
-
-
-
-
-
-
 @end

@@ -1,11 +1,3 @@
-//
-//  ZBTongpeiDetailCell.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/7.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBTongpeiDetailCell.h"
 @interface ZBTongpeiDetailCell()
 @property (nonatomic, assign) BOOL isaddLayout;
@@ -14,33 +6,23 @@
 @property (nonatomic, strong) UILabel *labTime;
 @property (nonatomic, strong) UILabel *labHomteam;
 @property (nonatomic, strong) UILabel *labGuestteam;
-//用来标记中间盘口的位置
 @property (nonatomic, strong) UIView *ViewPingCenter;
-
 @property (nonatomic, strong) UILabel *labHomePankouwin;
 @property (nonatomic, strong) UILabel *labHomePankouping;
 @property (nonatomic, strong) UILabel *labHomePankoulose;
-
 @property (nonatomic, strong) UILabel *labGuestPankouwin;
 @property (nonatomic, strong) UILabel *labGuestPankouping;
 @property (nonatomic, strong) UILabel *labGuestPankoulose;
-
 @property (nonatomic, strong) UILabel *labHomeScore;
 @property (nonatomic, strong) UILabel *labGuestScore;
 @property (nonatomic, strong) UILabel *labWin;
-
 @end
 @implementation ZBTongpeiDetailCell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 - (void)setModel:(ZBTongPeiMatchModel *)model
 {
@@ -50,7 +32,6 @@
         _isaddLayout = YES;
         [self addLayout];
     }
-
     _labLeague.text = _model.sclassName;
     _labLeague.textColor = [ZBMethods getColor:_model.sclassColor];
     _labTime.text = _model.matchTime;
@@ -61,56 +42,38 @@
     _labHomePankouwin.text = _model.firstWin;
     _labHomePankouping.text = _model.firstDraw;
     _labHomePankoulose.text = _model.firstLose;
-    
     _labGuestPankouwin.text = _model.finalWin;
     _labGuestPankouping.text = _model.finalDraw;
     _labGuestPankoulose.text = _model.finalLose;
-    
     if ([_model.finalWin floatValue]>[_model.firstWin floatValue]) {
         _labGuestPankouwin.textColor = redcolor;
     }else if ([_model.finalWin floatValue]<[_model.firstWin floatValue]) {
         _labGuestPankouwin.textColor = greencolor;
     }else{
-        
         _labGuestPankouwin.textColor = color33;
-        
     }
-    
-    
     if (_pelvIndex == 0) {
         if ([_model.finalDraw floatValue]>[_model.firstDraw floatValue]) {
             _labGuestPankouping.textColor = redcolor;
         }else if ([_model.finalDraw floatValue]<[_model.firstDraw floatValue]) {
             _labGuestPankouping.textColor = greencolor;
         }else{
-            
             _labGuestPankouping.textColor = color33;
-            
         }
-
     }else{
-    
         _labGuestPankouping.textColor = color33;
-
     }
-
-    
     if ([_model.finalLose floatValue]>[_model.firstLose floatValue]) {
         _labGuestPankoulose.textColor = redcolor;
     }else if ([_model.finalLose floatValue]<[_model.firstLose floatValue]) {
         _labGuestPankoulose.textColor = greencolor;
     }else{
-        
         _labGuestPankoulose.textColor = color33;
-        
     }
-    
     _labWin.text = _model.result;
     _labWin.backgroundColor = [ZBMethods getColor:_model.resultColor];
     _labWin.textColor = [UIColor whiteColor];
 }
-
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -125,16 +88,10 @@
         [_basicView addSubview:self.labHomePankouwin];
         [_basicView addSubview:self.labHomePankouping];
         [_basicView addSubview:self.labHomePankoulose];
-
         [_basicView addSubview:self.labGuestPankouwin];
         [_basicView addSubview:self.labGuestPankouping];
         [_basicView addSubview:self.labGuestPankoulose];
-
         [_basicView addSubview:self.labWin];
-
-        
-        
-        
     }
     return _basicView;
 }
@@ -154,7 +111,6 @@
     }
     return _labLeague;
 }
-
 - (UILabel *)labTime
 {
     if (!_labTime) {
@@ -199,7 +155,6 @@
         _labGuestScore.font = font12;
         _labGuestScore.textColor = color33;
         _labGuestScore.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labGuestScore;
 }
@@ -210,7 +165,6 @@
         _labHomePankouwin.font = font12;
         _labHomePankouwin.textColor = color33;
         _labHomePankouwin.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labHomePankouwin;
 }
@@ -221,7 +175,6 @@
         _labHomePankouping.font = font12;
         _labHomePankouping.textColor = color33;
         _labHomePankouping.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _labHomePankouping;
 }
@@ -232,11 +185,9 @@
         _labHomePankoulose.font = font12;
         _labHomePankoulose.textColor = color33;
         _labHomePankoulose.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _labHomePankoulose;
 }
-
 - (UILabel *)labGuestPankouwin
 {
     if (!_labGuestPankouwin) {
@@ -244,7 +195,6 @@
         _labGuestPankouwin.font = font12;
         _labGuestPankouwin.textColor = color33;
         _labGuestPankouwin.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labGuestPankouwin;
 }
@@ -255,7 +205,6 @@
         _labGuestPankouping.font = font12;
         _labGuestPankouping.textColor = color33;
         _labGuestPankouping.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _labGuestPankouping;
 }
@@ -266,7 +215,6 @@
         _labGuestPankoulose.font = font12;
         _labGuestPankoulose.textColor = color33;
         _labGuestPankoulose.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _labGuestPankoulose;
 }
@@ -279,11 +227,9 @@
         _labWin.textAlignment = NSTextAlignmentCenter;
         _labWin.layer.cornerRadius = 3;
         _labWin.layer.masksToBounds = YES;
-
     }
     return _labWin;
 }
-
 - (void)addLayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -291,120 +237,70 @@
         make.top.equalTo(self.contentView.mas_top);
         make.right.equalTo(self.contentView.mas_right);
         make.bottom.equalTo(self.contentView.mas_bottom);
-        
     }];
-    
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.basicView.mas_top).offset(7.5);
         make.width.mas_equalTo(60);
     }];
-    
     [self.labTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.bottom.equalTo(self.basicView.mas_bottom).offset(-7.5);
         make.width.mas_equalTo(60);
-
     }];
-    
     [self.labHomteam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labLeague.mas_right);
         make.centerY.equalTo(self.labLeague.mas_centerY);
         make.width.mas_equalTo((Width - 15 - 60 - 35 -100 - 55));
     }];
-    
     [self.labGuestteam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labLeague.mas_right);
         make.centerY.equalTo(self.labTime.mas_centerY);
         make.width.mas_equalTo((Width - 15 - 60 - 35 -100 - 55));
     }];
-    
-    
     [self.labHomeScore mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labHomteam.mas_right);
         make.centerY.equalTo(self.labLeague.mas_centerY);
         make.width.mas_equalTo(35);
-
     }];
-    
     [self.labGuestScore mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labHomteam.mas_right);
         make.centerY.equalTo(self.labTime.mas_centerY);
         make.width.mas_equalTo(35);
-        
     }];
-
     [self.ViewPingCenter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top);
         make.left.equalTo(self.labHomeScore.mas_right);
         make.width.mas_equalTo(100);
-
     }];
-    
     [self.labHomePankouping mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.ViewPingCenter.mas_centerX);
         make.centerY.equalTo(self.labLeague.mas_centerY);
-        
     }];
-
-    
     [self.labHomePankouwin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labLeague.mas_centerY);
         make.right.equalTo(self.labHomePankouping.mas_left).offset(-5);
     }];
-
-    
     [self.labHomePankoulose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labHomePankouping.mas_right).offset(5);
         make.centerY.equalTo(self.labLeague.mas_centerY);
-        
     }];
-
-    
     [self.labGuestPankouping mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.ViewPingCenter.mas_centerX);
         make.centerY.equalTo(self.labTime.mas_centerY);
-        
     }];
-
-
     [self.labGuestPankouwin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.labGuestPankouping.mas_left).offset(-5);
         make.centerY.equalTo(self.labTime.mas_centerY);
-        
     }];
-
     [self.labGuestPankoulose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labGuestPankouping.mas_right).offset(5);
         make.centerY.equalTo(self.labTime.mas_centerY);
-        
     }];
-
-    
     [self.labWin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.basicView.mas_centerY);
         make.right.equalTo(self.basicView.mas_right).offset(-10);
         make.size.mas_equalTo(CGSizeMake(35, 16));
     }];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

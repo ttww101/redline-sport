@@ -1,26 +1,12 @@
-//
-//  ZBPanwangCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/6/21.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBPanwangCell.h"
-
 @interface ZBPanwangCell()
-
 @property (nonatomic, strong)UIView *basView;
-@property (nonatomic, strong)UILabel *labNum;//排名
-@property (nonatomic, strong)UILabel *labName;//名字
-@property (nonatomic, strong)UILabel *labLeague;//赛事
+@property (nonatomic, strong)UILabel *labNum;
+@property (nonatomic, strong)UILabel *labName;
+@property (nonatomic, strong)UILabel *labLeague;
 @property (nonatomic, strong)UIView *lineView;
-
 @end
-
-
 @implementation ZBPanwangCell
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.basView];
@@ -39,7 +25,6 @@
         _basView = [[UIView alloc] init];
         _basView.backgroundColor = [UIColor clearColor];
     }
-    
     return _basView;
 }
 - (UILabel *)labNum{
@@ -81,7 +66,6 @@
     }
     return _labGaiLv;
 }
-
 - (UILabel *)labGaiLvTitle{
     if (!_labGaiLvTitle) {
         _labGaiLvTitle = [[UILabel alloc] init];
@@ -118,7 +102,6 @@
         make.top.mas_equalTo(self.contentView.mas_top);
         make.bottom.mas_equalTo(self.contentView.mas_bottom);
     }];
-    
     [self.labNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.basView.mas_left);
         make.centerY.mas_equalTo(self.basView.mas_centerY);
@@ -128,7 +111,6 @@
         make.left.mas_equalTo(self.labNum.mas_right);
         make.centerY.mas_equalTo(self.labNum.mas_centerY);
     }];
-    
     [self.labGaiLv mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.basView.mas_right).offset(-15);
         make.top.mas_equalTo(self.basView.mas_top).offset(11.5);
@@ -137,9 +119,7 @@
     [self.labGaiLvTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.labGaiLv.mas_bottom).offset(3.5);
         make.centerX.mas_equalTo(self.labGaiLv.mas_centerX);
-//        make.width.mas_offset(50);
     }];
-
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.labGaiLv.mas_left);
         make.centerY.mas_equalTo(self.basView.mas_centerY);
@@ -151,20 +131,11 @@
         make.left.mas_equalTo(self.basView.mas_left);
         make.height.mas_offset(0.5);
     }];
-    
-    
 }
-
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 @end

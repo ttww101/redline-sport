@@ -1,13 +1,4 @@
-//
-//  ZBLiveScoreModel.m
-//  GunQiuLive
-//
-//  Created by WQ_h on 16/2/3.
-//  Copyright © 2016年 WQ_h. All rights reserved.
-//
-
 #import "ZBLiveScoreModel.h"
-
 @implementation ZBLiveScoreModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -51,8 +42,6 @@
              @"weathericon" : @"weathericon",
              @"homeOrderNum" : @"homeOrderNum",
              @"guestOrderNum" : @"guestOrderNum",
-
              };
 }
-
 @end

@@ -1,70 +1,42 @@
-//
-//  ZBUserOfotherCellTwo.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/17.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
 #import "ZBDC_JZAPhotoVC.h"
 #import "ZBUserOfotherCellTwo.h"
 @interface ZBUserOfotherCellTwo ()
 @property (nonatomic, strong) UIView *basicView;
-
 @property (nonatomic, strong) UIImageView *imageBasic;
-
 @property (nonatomic, strong) UIView *viewCenter;
 @property (nonatomic, strong) UIButton *btnUserPic;
 @property (nonatomic, strong) UIButton *btnUser;
-
 @property (nonatomic, strong) UILabel *labfocusNum;
 @property (nonatomic, strong) UILabel *labfocusTitle;
 @property (nonatomic, strong) UILabel *labfollowerNum;
 @property (nonatomic, strong) UILabel *labfollowerTitle;
-
-
 @property (nonatomic, strong) UILabel *labUserRemark1;
 @property (nonatomic, strong) UILabel *labUserRemark2;
-@property (nonatomic, strong) UILabel *labUserIntro;//用户简介
+@property (nonatomic, strong) UILabel *labUserIntro;
 @property (nonatomic, strong) UIButton *btnAttention;
 @property (nonatomic, strong) UIButton *btnUpdown;
 @property (nonatomic, strong) UIView *viewLineBottom;
-
 @property (nonatomic, assign) BOOL isAddAutoLayout;
-
 @end
 @implementation ZBUserOfotherCellTwo
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 - (void)setModel:(ZBUserModel *)model
 {
     _model = model;
     [self.contentView addSubview:self.basicView];
-//    self.contentView.backgroundColor = colorEE;
     if (!_isAddAutoLayout) {
         _isAddAutoLayout = YES;
         [self addlayout];
     }
-    
-//    _model.userinfo = @"天天天向上天天天向上天天天向上天天天向上天天天向上天天天向上天天天向上天天天向上天天天向上";
-//    _model.remarkWinNum = @"3中3";
-//    _model.remarkContinuous = @"五莲红";
-    
     [_btnUserPic sd_setBackgroundImageWithURL:[NSURL URLWithString:_model.pic] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"defaultPic"]];
     [_btnUser setTitle:_model.nickname forState:UIControlStateNormal];
-    
     _labfocusNum.text = [NSString stringWithFormat:@"%ld",_model.focusCount];
     _labfocusTitle.text = @"关注";
-    
     _labfollowerNum.text = [NSString stringWithFormat:@"%ld",_model.followerCount];
     _labfollowerTitle.text = @"粉丝";
     _btnUpdown.selected = _showMoreUserInfo;
@@ -72,32 +44,21 @@
         _labUserIntro.numberOfLines = 0;
     }else{
         _labUserIntro.numberOfLines = 1;
-        
     }
-    
     if (isNUll(_model.userinfo) || [_model.userinfo isEqualToString:@" "]) {
         _labUserIntro.text = @"";
     }else{
     [_labUserIntro setAttributedText:[ZBMethods setTextStyleWithString:_model.userinfo WithLineSpace:6 WithHeaderIndent:0]];
-    
     }
     CGSize textSize = [_model.userinfo boundingRectWithSize:CGSizeMake(Width - 30, MAXFLOAT) font:font14 lineSpacing:0];
-    //    NSLog(@"%f",textSize.height);
-    
     ZBUserModel *user = [ZBMethods getUserModel];
-    
     if (user.idId == _model.idId) {
         _btnAttention.hidden = YES;
     }else{
         _btnAttention.selected = _model.focused;
         _btnAttention.hidden = NO;
-
     }
-    
     _imageBasic.image = [UIImage imageNamed:@"white"];
-
-    
-    
     if (textSize.height>17) {
         [_btnUpdown setBackgroundImage:[UIImage imageNamed:@"userContentDown"] forState:UIControlStateNormal];
         [_btnUpdown setBackgroundImage:[UIImage imageNamed:@"userContentUp"] forState:UIControlStateSelected];
@@ -106,80 +67,48 @@
             make.size.mas_equalTo(CGSizeMake(13, 13));
         }];
     }else{
-        
         [_btnUpdown setBackgroundImage:[UIImage imageNamed:@"clear"] forState:UIControlStateNormal];
         [_btnUpdown setBackgroundImage:[UIImage imageNamed:@"clear"] forState:UIControlStateSelected];
         _btnUpdown.enabled = NO;
         [_btnUpdown mas_updateConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(0, 0));
         }];
-        
     }
-    
-    
     if (isNUll(_model.remarkContinuous) && isNUll(_model.remarkWinNum)) {
-        
         _labUserRemark1.hidden = YES;
         _labUserRemark2.hidden = YES;
-        
         [self.btnUser mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.btnUserPic.mas_right).offset(5);
             make.centerY.equalTo(self.btnUserPic.mas_centerY);
             make.height.mas_equalTo(14);
-
         }];
-        
     }else{
-        
-        
         _labUserRemark1.hidden = NO;
         _labUserRemark2.hidden = NO;
-        
         [self.btnUser mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.btnUserPic.mas_right).offset(5);
             make.bottom.equalTo(self.viewCenter.mas_top).offset(-3);
             make.height.mas_equalTo(14);
-
         }];
-        
-        
         if (isNUll(_model.remarkContinuous) ) {
             _labUserRemark1.text = [NSString stringWithFormat:@"  %@  ",_model.remarkWinNum];
             _labUserRemark1.textColor = redcolor;
             _labUserRemark1.backgroundColor = colorFEE3E1;
-
-            
             _labUserRemark2.hidden = YES;
         }else{
             _labUserRemark1.text = [NSString stringWithFormat:@"  %@  ",_model.remarkContinuous];
             _labUserRemark1.textColor = [UIColor whiteColor];
             _labUserRemark1.backgroundColor = redcolor;
-
-            
-            
             if (isNUll(_model.remarkWinNum)) {
                 _labUserRemark2.hidden = YES;
-                
             }else{
                 _labUserRemark2.text = [NSString stringWithFormat:@"  %@  ",_model.remarkWinNum];
                 _labUserRemark2.textColor = redcolor;
                 _labUserRemark2.backgroundColor = colorFEE3E1;
-                
-
             }
-            
         }
-        
-        
     }
-
-    
-    
-    
-    
-    
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -191,7 +120,6 @@
         [_basicView addSubview:self.labfocusTitle];
         [_basicView addSubview:self.labfollowerNum];
         [_basicView addSubview:self.labfollowerTitle];
-
         [_basicView addSubview:self.labUserRemark1];
         [_basicView addSubview:self.labUserRemark2];
         [_basicView addSubview:self.labUserIntro];
@@ -202,7 +130,6 @@
     }
     return _basicView;
 }
-
 - (UIView *)viewLineBottom
 {
     if (!_viewLineBottom) {
@@ -215,21 +142,16 @@
 {
     if (!_imageBasic) {
         _imageBasic = [[UIImageView alloc] init];
-        
     }
     return _imageBasic;
 }
-
-
 - (UIView *)viewCenter
 {
     if (!_viewCenter) {
         _viewCenter = [[UIView alloc] init];
-//        _viewCenter.backgroundColor = [UIColor redColor];
     }
     return _viewCenter;
 }
-
 - (UIButton *)btnUserPic
 {
     if (!_btnUserPic) {
@@ -237,20 +159,15 @@
         _btnUserPic.layer.cornerRadius = 34/2;
         _btnUserPic.layer.masksToBounds = YES;
         [_btnUserPic addTarget:self action:@selector(showUserPic) forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return _btnUserPic;
 }
 - (void)showUserPic{
-    
     ZBDC_JZAPhotoVC *album = [[ZBDC_JZAPhotoVC alloc] init];
-    
-    album.imgArr = [NSMutableArray arrayWithObject:_model.pic];//可以是图片的url字符串数组，亦可以是UIImage
+    album.imgArr = [NSMutableArray arrayWithObject:_model.pic];
     [APPDELEGATE.customTabbar presentToViewController:album animated:YES completion:^{
-        
     }];
 }
-
 - (UIButton *)btnUser
 {
     if (!_btnUser) {
@@ -261,9 +178,6 @@
     }
     return _btnUser;
 }
-
-
-
 - (UILabel *)labUserRemark1
 {
     if (!_labUserRemark1) {
@@ -285,7 +199,6 @@
         _labUserRemark2.layer.cornerRadius = 3;
         _labUserRemark2.layer.masksToBounds = YES;
         _labUserRemark2.backgroundColor = colorFEE3E1;
-        
     }
     return _labUserRemark2;
 }
@@ -311,7 +224,6 @@
         _labfocusTitle.textAlignment = NSTextAlignmentCenter;
         UITapGestureRecognizer *tapFocus = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toFocus)];
         [_labfocusTitle addGestureRecognizer:tapFocus];
-
     }
     return _labfocusTitle;
 }
@@ -324,7 +236,6 @@
         _labfollowerNum.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapFollower = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toFollower)];
         [_labfollowerNum addGestureRecognizer:tapFollower];
-
     }
     return _labfollowerNum;
 }
@@ -336,14 +247,11 @@
         _labfollowerTitle.font = font10;
         _labfollowerTitle.userInteractionEnabled = YES;
         _labfollowerTitle.textAlignment = NSTextAlignmentCenter;
-
         UITapGestureRecognizer *tapFollower = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toFollower)];
         [_labfollowerTitle addGestureRecognizer:tapFollower];
-
     }
     return _labfollowerTitle;
 }
-
 - (UILabel *)labUserIntro
 {
     if (!_labUserIntro) {
@@ -361,7 +269,6 @@
 {
     if (_delegate && [_delegate respondsToSelector:@selector(upDownBtnClick:)]) {
         [_delegate upDownBtnClick:!_showMoreUserInfo];
-        
     }
 }
 - (UIButton *)btnAttention
@@ -376,22 +283,15 @@
 }
 - (void)btnClick:(UIButton *)btn
 {
-    
     if (![ZBMethods login]) {
         [ZBMethods toLogin];
-        
         return;
     }
-    
     if (_delegate && [_delegate respondsToSelector:@selector(attentionBtnClick:)]) {
         [_delegate attentionBtnClick:btn];
         btn.selected = !btn.selected;
-        
     }
-
-
 }
-
 - (UIButton *)btnUpdown
 {
     if (!_btnUpdown) {
@@ -399,21 +299,16 @@
         [_btnUpdown setBackgroundImage:[UIImage imageNamed:@"userContentDown"] forState:UIControlStateNormal];
         [_btnUpdown setBackgroundImage:[UIImage imageNamed:@"userContentUp"] forState:UIControlStateSelected];
         [_btnUpdown addTarget:self action:@selector(btnUpdownClick:) forControlEvents:UIControlEventTouchUpInside];
-//        _btnUpdown.backgroundColor = redcolor;
     }
     return _btnUpdown;
 }
-
 - (void)btnUpdownClick:(UIButton *)btn
 {
     btn.selected = !btn.selected;
     if (_delegate && [_delegate respondsToSelector:@selector(upDownBtnClick:)]) {
         [_delegate upDownBtnClick:!_showMoreUserInfo];
-        
     }
- 
 }
-
 - (void)addlayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -422,43 +317,36 @@
         make.top.equalTo(self.contentView.mas_top);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
-    
     [self.btnUserPic mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(18);
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.size.mas_equalTo(CGSizeMake(34, 34));
     }];
-    
     [self.btnUser mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.btnUserPic.mas_top);
         make.left.equalTo(self.btnUserPic.mas_right).offset(5);
         make.height.mas_equalTo(14);
     }];
-    
     [self.viewCenter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnUserPic.mas_right).offset(5);
         make.centerY.equalTo(self.btnUserPic.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(100, 0.5));
     }];
-    
     [self.labUserRemark1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnUserPic.mas_right).offset(5);
         make.top.equalTo(self.viewCenter.mas_bottom).offset(3);
         make.height.mas_equalTo(14);
     }];
-    
     [self.labUserRemark2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labUserRemark1.mas_right).offset(5);
         make.centerY.equalTo(self.labUserRemark1.mas_centerY);
         make.height.mas_equalTo(14);
     }];
-
    [self.btnAttention mas_makeConstraints:^(MASConstraintMaker *make) {
        make.right.equalTo(self.basicView.mas_right).offset(-15);
        make.top.equalTo(self.basicView.mas_top).offset(28);
        make.size.mas_equalTo(CGSizeMake(51, 24));
    }];
-    
     [self.labfollowerNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(26);
         make.right.equalTo(self.btnAttention.mas_left).offset(-33);
@@ -468,7 +356,6 @@
         make.centerX.equalTo(self.labfollowerNum.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(35, 20));
     }];
-    
     [self.labfocusNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.labfollowerNum.mas_top);
         make.right.equalTo(self.labfollowerNum.mas_left).offset(-24);
@@ -477,71 +364,38 @@
         make.top.equalTo(self.labfocusNum.mas_bottom).offset(0);
         make.centerX.equalTo(self.labfocusNum.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(35, 20));
-
     }];
-    
     [self.labUserIntro mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.btnUserPic.mas_bottom).offset(11);
         make.right.equalTo(self.basicView.mas_right).offset(-15);
     }];
-    
-    
     [self.btnUpdown mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.labUserIntro.mas_bottom).offset(5);
         make.centerX.equalTo(self.basicView.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(44, 44));
-
     }];
-    
     [self.viewLineBottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 0.5));
         make.top.equalTo(self.btnUpdown.mas_bottom).offset(5);
         make.bottom.equalTo(self.basicView.mas_bottom);
     }];
-    
 }
-
-
-
-
-
 - (void)toFollower
 {
-    //                    关注
     ZBFriendsVC *friend = [[ZBFriendsVC alloc] init];
     friend.userId = _model.idId;
     friend.selectedIndex = 1;
     friend.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
-
 }
-
 - (void)toFocus
 {
-    //                    关注
     ZBFriendsVC *friend = [[ZBFriendsVC alloc] init];
     friend.userId = _model.idId;
     friend.selectedIndex = 0;
     friend.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

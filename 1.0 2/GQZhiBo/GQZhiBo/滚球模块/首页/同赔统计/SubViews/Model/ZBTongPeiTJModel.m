@@ -1,13 +1,4 @@
-//
-//  ZBTongPeiTJModel.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/7.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBTongPeiTJModel.h"
-
 @implementation ZBTongPeiTJModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -28,7 +19,6 @@
              @"rateDesc" : @"rateDesc",
              @"resultColor" : @"resultColor",
              @"num" : @"num",
-
              };
 }
 @end

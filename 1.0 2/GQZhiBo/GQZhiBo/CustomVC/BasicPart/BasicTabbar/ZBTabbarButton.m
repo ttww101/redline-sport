@@ -1,31 +1,14 @@
-//
-//  ZBTabbarButton.m
-//  newGQapp
-//
-//  Created by genglei on 2018/5/28.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #define SPACE 3
-
 #import "ZBTabbarButton.h"
 #import "ArchiveFile.h"
-
 @interface ZBTabbarButton ()
-
 @property (nonatomic, strong) UIImageView *iconImageView;
-
 @property (nonatomic , strong) UIImage *normalImage;
-
 @property (nonatomic , strong) UIImage *selectedImage;
-
 @end
-
 static CGFloat const defultImageSize = 25;
 static CGFloat const selectImageSzie = 50;
-
 @implementation ZBTabbarButton
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -43,15 +26,11 @@ static CGFloat const selectImageSzie = 50;
     }
     return self;
 }
-
 #pragma mark - System Method
-
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    
     if (selected) {
-        
         _iconImageView.image= _selectedImage;
         self.textLabel.textColor= [UIColor colorWithRed:255.0/255.0 green:90.0/255.0 blue:90.0/255.0 alpha:1.0];
     }
@@ -60,22 +39,16 @@ static CGFloat const selectImageSzie = 50;
         _iconImageView.image = _normalImage;
         self.textLabel.textColor     = [UIColor darkGrayColor];
     }
-    
     [self reloadImageViewSize:selected];
 }
-
 - (void)reloadImageViewSize:(BOOL)select {
-    
     NSMutableArray *activityArray = [ArchiveFile getDataWithPath:Activity_Path];
     for (NSDictionary *dic in activityArray) {
         if (dic[@"main"]) {
-    
         } else {
-            
         }
     }
 }
-
 - (void)setTabbarImage:(UIImage *)image selectedImage:(UIImage *)selectedImage title:(NSString *)titleStr
 {
     _normalImage = image;
@@ -83,8 +56,6 @@ static CGFloat const selectImageSzie = 50;
     _iconImageView.image= image;
     self.textLabel.text=titleStr;
 }
-
-
 - (NSMutableAttributedString *)mutableAttributedStringWithText:(NSString *)tt textSize:(float)ts color:(UIColor *)cl
 {
     NSMutableAttributedString *strAttribude = [[NSMutableAttributedString alloc] initWithString:tt];
@@ -92,5 +63,4 @@ static CGFloat const selectImageSzie = 50;
     [strAttribude addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:NSMakeRange(0, tt.length)];
     return strAttribude;
 }
-
 @end

@@ -1,24 +1,11 @@
-//
-//  ZBJiXianCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/6/21.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBJiXianCell.h"
-
 @interface ZBJiXianCell()
 @property (nonatomic, strong)UIView *basicView;
-
-
 @property (nonatomic, strong)UILabel *labNumOne;
 @property (nonatomic, strong)UILabel *labNumOneStr;
 @property (nonatomic, strong)UILabel *labNumTwo;
 @property (nonatomic, strong)UILabel *labNumTwoStr;
 @property (nonatomic, strong)UIView *liView;
-
-
 @property (nonatomic, strong) UIView *viewLine;
 @property (nonatomic, strong) UILabel *labQici;
 @property (nonatomic, strong) UILabel *labLeague;
@@ -31,24 +18,16 @@
 @property (nonatomic, strong) UILabel *labPeilvUp;
 @property (nonatomic, strong) UILabel *labpeilvGoal;
 @property (nonatomic, strong) UILabel *labPeilvDown;
-
 @end
-
 @implementation ZBJiXianCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.basicView];
-
-        
-        
         [self.basicView addSubview:self.labNumOne];
         [self.basicView addSubview:self.labNumOneStr];
         [self.basicView addSubview:self.labNumTwo];
         [self.basicView addSubview:self.labNumTwoStr];
         [self.basicView addSubview:self.liView];
-        
-        
-        
         [self.basicView addSubview:self.labQici];
         [self.basicView addSubview:self.labLeague];
         [self.basicView addSubview:self.labTime];
@@ -61,7 +40,6 @@
         [self.basicView addSubview:self.labpeilvGoal];
         [self.basicView addSubview:self.labPeilvDown];
         [self.basicView addSubview:self.viewLine];
-
         [self setMas];
     }
     return self;
@@ -120,7 +98,6 @@
     }
     return _labNumTwoStr;
 }
-
 - (UILabel *)labQici
 {
     if (!_labQici) {
@@ -130,7 +107,6 @@
     }
     return _labQici;
 }
-
 - (UILabel *)labLeague
 {
     if (!_labLeague) {
@@ -140,7 +116,6 @@
     }
     return _labLeague;
 }
-
 - (UILabel *)labTime
 {
     if (!_labTime) {
@@ -150,7 +125,6 @@
     }
     return _labTime;
 }
-
 - (UILabel *)labHomteam
 {
     if (!_labHomteam) {
@@ -231,81 +205,46 @@
     }
     return _viewLine;
 }
-
 - (void)setModel:(ZBRecord_OneModel *)model{
     _model = model;
-    
-    
-    
-    
     _labQici.text =isNUll(_model.sortone)?@"" :[NSString stringWithFormat:@"%@ ",_model.sortone] ;
     _labLeague.text = _model.league;
-//    _labLeague.textColor = [ZBMethods getColor:_model.sclassColor];
     _labTime.text = _model.mtime;
-    
-    
     if ([_model.hometeam isEqualToString:_model.teamname]) {
         _labHomteam.textColor = redcolor;
     }else{
         _labHomteam.textColor = color33;
-
     }
-    
     if ([_model.guestteam isEqualToString:_model.teamname]) {
         _labGuestteam.textColor = redcolor;
     }else{
         _labGuestteam.textColor = color33;
-        
     }
-
-    
     NSString *home = _model.hometeam;
     NSString *guest = _model.guestteam;
-    
-    
     if (isOniPhone4 || isOniPhone5) {
-        
         if (home.length>5) {
             home = [NSString stringWithFormat:@"%@…",[home substringToIndex:5]];
         }
         if (guest.length>5) {
             guest = [NSString stringWithFormat:@"%@…",[guest substringToIndex:5]];
         }
-        
     }else{
-        
         if (home.length>6) {
             home = [NSString stringWithFormat:@"%@…",[home substringToIndex:6]];
         }
         if (guest.length>6) {
             guest = [NSString stringWithFormat:@"%@…",[guest substringToIndex:6]];
         }
-        
     }
-    
     _labHomteam.text = home;
     _labVS.text = @"vs";
     _labGuestteam.text = guest;
-//    _labCompany.text = _model.company;
     _labCompany.text = @"";
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
     self.labNumOne.text = [NSString stringWithFormat:@"%ld",model.mostresult];
     self.labNumTwo.text = [NSString stringWithFormat:@"%ld",model.historymostresult];
     if (self.type ==0) {
-//        胜平负
         _labPankou.text = @"初赔";
-
         switch (model.type) {
             case 1:
                 self.labNumOneStr.text = @"当前连胜";
@@ -316,118 +255,82 @@
                 self.labNumOneStr.text = @"当前连平";
                 _labNumOneStr.textColor = bluecolor;
                 _labNumOne.textColor = bluecolor;
-
                 break;
             case 3:
                 self.labNumOneStr.text = @"当前连负";                _labNumOneStr.textColor = greencolor;
                 _labNumOne.textColor = greencolor;
-
                 break;
-                
             default:
                 break;
         }
     }else if (self.type == 1){
         _labPankou.text = @"初盘";
-
-//        亚盘
         switch (model.type) {
             case 1:
                 self.labNumOneStr.text = @"连续赢盘";
                 _labNumOneStr.textColor = redcolor;
                 _labNumOne.textColor = redcolor;
-
                 break;
-
             case 3:
                 self.labNumOneStr.text = @"连续输盘";
                 _labNumOneStr.textColor = greencolor;
                 _labNumOne.textColor = greencolor;
-
                 break;
-                
             default:
                 break;
         }
     }else{
         _labPankou.text = @"初盘";
-
-//        大小球
         switch (model.type) {
             case 1:
                 self.labNumOneStr.text = @"连续大球";
                 _labNumOneStr.textColor = redcolor;
                 _labNumOne.textColor = redcolor;
-
                 break;
-
             case 3:
                 self.labNumOneStr.text = @"连续小球";
                 _labNumOneStr.textColor = greencolor;
                 _labNumOne.textColor = greencolor;
-
                 break;
-                
             default:
                 break;
         }
     }
-    
     if (isNUll(_model.win)) {
         _labPankou.text = @"";
         _labPeilvUp.text = @"";
         _labpeilvGoal.text = @"";
         _labPeilvDown.text = @"";
-        
         [self.labQici mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.basicView.mas_top).offset(22.5);
         }];
         [self.labLeague mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.basicView.mas_top).offset(22.5);
-            
         }];
         [self.labTime mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.basicView.mas_top).offset(22.5);
-            
         }];
-        
         _labPankou.text = @"";
-        
-        
     }else{
-        
         [self.labQici mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.basicView.mas_top).offset(14.5);
         }];
         [self.labLeague mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.basicView.mas_top).offset(14.5);
-            
         }];
         [self.labTime mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.basicView.mas_top).offset(14.5);
-            
         }];
-        
-        
-        
-        
         if (_type == 0) {
             _labPankou.text = @"初赔";
-            
         }else{
             _labPankou.text = @"初盘";
-            
         }
         _labPeilvUp.text = _model.win;
         _labpeilvGoal.text = _model.draw;
         _labPeilvDown.text = _model.lose;
-        
     }
-
-
-
 }
-
 - (void)setMas{
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentView.mas_left);
@@ -442,19 +345,15 @@
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labQici.mas_right).offset(0);
         make.top.equalTo(self.basicView.mas_top).offset(14.5);
-        
     }];
     [self.labTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labLeague.mas_right).offset(5);
         make.top.equalTo(self.basicView.mas_top).offset(14.5);
-        
     }];
-    
     [self.labHomteam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labTime.mas_bottom).offset(6.5);
     }];
-    
     [self.labVS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labHomteam.mas_right).offset(5);
         make.centerY.equalTo(self.labHomteam.mas_centerY);
@@ -462,20 +361,15 @@
     [self.labGuestteam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labVS.mas_right).offset(5);
         make.centerY.equalTo(self.labHomteam.mas_centerY);
-        
     }];
-    
     [self.labCompany mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labHomteam.mas_bottom).offset(6.5);
     }];
-    
     [self.labPankou mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labCompany.mas_right).offset(0);
         make.top.equalTo(self.labHomteam.mas_bottom).offset(6.5);
     }];
-    
-    
     [self.labPeilvUp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labPankou.mas_right).offset(5);
         make.centerY.equalTo(self.labPankou.mas_centerY);
@@ -493,11 +387,6 @@
         make.bottom.equalTo(self.basicView.mas_bottom);
         make.size.mas_equalTo(CGSizeMake(Width, 0.6));
     }];
-    
-
-    
-    
-    
     [self.labNumTwoStr mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.basicView.mas_right).offset(-18);
         make.bottom.mas_equalTo(self.basicView.mas_bottom).offset(-20);
@@ -512,7 +401,6 @@
         make.width.mas_offset(0.5);
         make.right.mas_equalTo(self.labNumTwoStr.mas_left).offset(-11);
     }];
-    
     [self.labNumOneStr mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.liView.mas_left).offset(-11);
         make.centerY.mas_equalTo(self.labNumTwoStr.mas_centerY);
@@ -521,19 +409,11 @@
         make.centerY.mas_equalTo(self.labNumTwo.mas_centerY);
         make.centerX.mas_equalTo(self.labNumOneStr.mas_centerX);
     }];
-    
-    
 }
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 @end

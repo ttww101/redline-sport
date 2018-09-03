@@ -1,13 +1,4 @@
-//
-//  ZBCommentModel.h
-//  GunQiuLive
-//
-//  Created by WQ_h on 16/3/17.
-//  Copyright © 2016年 WQ_h. All rights reserved.
-//
-//评论
 #import "ZBBasicModel.h"
-
 @interface ZBCommentModel : ZBBasicModel
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *nickname;
@@ -21,6 +12,4 @@
 @property (nonatomic, strong) NSArray *child;
 @property (nonatomic, assign) BOOL showMoreCommentChild;
 @property (nonatomic, assign) NSInteger ilike;
-
-
 @end

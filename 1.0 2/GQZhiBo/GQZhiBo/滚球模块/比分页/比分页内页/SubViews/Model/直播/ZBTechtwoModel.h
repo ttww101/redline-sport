@@ -1,13 +1,4 @@
-//
-//  ZBTechtwoModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/15.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBTechtwoModel : ZBBasicModel
 @property (nonatomic, strong) NSString *shotsNum;
 @property (nonatomic, strong) NSString *redCard;

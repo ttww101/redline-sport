@@ -1,26 +1,11 @@
-//
-//  ZBLotteryWebViewController.m
-//  newGQapp
-//
-//  Created by genglei on 2018/5/29.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBLotteryWebViewController.h"
 #import "ArchiveFile.h"
-
 @interface ZBLotteryWebViewController () <UIWebViewDelegate>
-
 @property (nonatomic , strong) NSDictionary *activityDic;
-
 @property (nonatomic , strong) UIView *statusView;
-
 @property (nonatomic, assign) BOOL recodLoding;
-
 @end
-
 @implementation ZBLotteryWebViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -32,7 +17,6 @@
         }
     }
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.wkWeb addSubview:self.statusView];
@@ -45,18 +29,13 @@
         }
     }
 }
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
-
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
-
-
 #pragma mark - UIWebViewDelegate
-
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType  == UIWebViewNavigationTypeOther) {
         NSString *url = request.URL.absoluteString;
@@ -70,7 +49,6 @@
     }
     return YES;
 }
-
 - (void)publicDealWithUrl:(NSString *)url {
     NSDictionary *pDic = self.activityDic[@"v"];
     NSString *otherUrl = pDic[@"url_match_all"];
@@ -89,36 +67,26 @@
         }
     }
 }
-
 #pragma mark - Private Method
-
 - (void)configNav {
     [self.navigationController setNavigationBarHidden:false animated:false];
-    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     btn.frame = CGRectMake(0, 0, 44, 44);
     [btn addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem = leftItem;
-    
     UIImageView *titleImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 18)];
     titleImageView.image = [UIImage imageNamed:@"navimage"];
     self.navigationItem.titleView = titleImageView;
-    
 }
-
 - (void)actionBack {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - Lazy Load
-
 - (UIView *)statusView {
     if (_statusView == nil) {
         _statusView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, Width, 20)];
@@ -127,5 +95,4 @@
     }
     return _statusView;
 }
-
 @end

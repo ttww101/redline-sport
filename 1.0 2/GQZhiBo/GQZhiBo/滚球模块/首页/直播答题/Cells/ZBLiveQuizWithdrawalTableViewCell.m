@@ -1,32 +1,13 @@
-//
-//  ZBLiveQuizWithdrawalTableViewCell.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/13.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBLiveQuizWithdrawalTableViewCell.h"
-
 @interface ZBLiveQuizWithdrawalTableViewCell ()
-
 @property (nonatomic, strong) UIView *lineView;
-
 @property (nonatomic, strong) UILabel *timeLabel;
-
 @property (nonatomic, strong) UILabel *vsLabel;
-
 @property (nonatomic, strong) UILabel *addMoneyLabel;
-
-
 @end
-
 @implementation ZBLiveQuizWithdrawalTableViewCell
-
 static CGFloat cell_Height = 70.f;
-
 static NSString *identifier = @"listCell";
-
 + (ZBLiveQuizWithdrawalTableViewCell *)cellForTableView:(UITableView *)tableView {
     ZBLiveQuizWithdrawalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -35,7 +16,6 @@ static NSString *identifier = @"listCell";
     }
     return cell;
 }
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -43,23 +23,17 @@ static NSString *identifier = @"listCell";
     }
     return self;
 }
-
-
 #pragma mark - Open Method
-
 + (CGFloat)heightForCell {
     return cell_Height;
 }
-
 - (void)refreshContentData:(id)model {
     ZBWithdrawalModel *data = (ZBWithdrawalModel *)model;
     self.timeLabel.text = [ZBMethods formatMMDDWithStamp:data.created];
     self.vsLabel.text = data.item_name;
     self.addMoneyLabel.text = [NSString stringWithFormat:@"+%@元", [ZBMethods amountFormater:data.amount]];
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     [self.contentView addSubview:self.lineView];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,27 +41,22 @@ static NSString *identifier = @"listCell";
         make.left.equalTo(self.contentView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 0.5));
     }];
-    
     [self.contentView addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).offset(15);
     }];
-    
     [self.contentView addSubview:self.vsLabel];
     [self.vsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.timeLabel.mas_left);
         make.top.equalTo(self.timeLabel.mas_bottom).offset(9);
     }];
-    
     [self.contentView addSubview:self.addMoneyLabel];
     [self.addMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-15);
         make.centerY.equalTo(self.contentView.mas_centerY);
     }];
 }
-
 #pragma mark - Lazy Load
-
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [UIView new];
@@ -95,7 +64,6 @@ static NSString *identifier = @"listCell";
     }
     return _lineView;
 }
-
 - (UILabel *)timeLabel {
     if (_timeLabel == nil) {
         _timeLabel = [UILabel new];
@@ -105,7 +73,6 @@ static NSString *identifier = @"listCell";
     }
     return _timeLabel;
 }
-
 - (UILabel *)vsLabel {
     if (_vsLabel == nil) {
         _vsLabel = [UILabel new];
@@ -115,7 +82,6 @@ static NSString *identifier = @"listCell";
     }
     return _vsLabel;
 }
-
 - (UILabel *)addMoneyLabel {
     if (_addMoneyLabel == nil) {
         _addMoneyLabel = [UILabel new];
@@ -125,7 +91,4 @@ static NSString *identifier = @"listCell";
     }
     return _addMoneyLabel;
 }
-
-
-
 @end

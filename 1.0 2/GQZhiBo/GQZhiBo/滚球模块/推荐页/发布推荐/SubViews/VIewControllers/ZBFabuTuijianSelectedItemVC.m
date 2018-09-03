@@ -1,32 +1,19 @@
-//
-//  ZBFabuTuijianSelectedItemVC.m
-//  GQapp
-//
-//  Created by WQ on 2017/9/8.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
 #import "ZBTitleIndexView.h"
 #import "ZBFabuTuijianSelectedItemVC.h"
 #import "ZBDan_StringGuanVC.h"
 @interface ZBFabuTuijianSelectedItemVC ()<ViewPagerDataSource,ViewPagerDelegate,TitleIndexViewDelegate>
-//当前第几个页面
 @property (nonatomic, assign)NSInteger currentIndex;
 @property (nonatomic, strong)ZBTitleIndexView *titleView;
-
 @end
-
 @implementation ZBFabuTuijianSelectedItemVC
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     self.navigationController.navigationBarHidden = YES;
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 #pragma mark -- setnavView
 - (void)setNavView
@@ -40,26 +27,16 @@
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
     [self.view addSubview:nav];
 }
-
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
-        //right
-        
-        
     }
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self setNavView];
-    
-    
     _titleView = [[ZBTitleIndexView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 44)];
     _titleView.selectedIndex = 0;
     _titleView.nalColor = color33;
@@ -70,23 +47,16 @@
     _titleView.arrData = @[@"全部",@"竞彩",@"北单",@"足彩"];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
-    
-    
-    
-    
     self.delegate = self;
     self.dataSource = self;
     self.manualLoadData = YES;
     self.currentIndex = 0;
     self.scrollingLocked = NO;
-    
     [self reloadData];
-
 }
 - (void)didSelectedAtIndex:(NSInteger)index
 {
     UIPageViewControllerNavigationDirection direction;
-    
     if (index < _currentIndex) {
         direction = UIPageViewControllerNavigationDirectionReverse;
     }else{
@@ -99,10 +69,6 @@
             weakself.currentIndex = index;
         }];
     }
-    
-    
-    
-    
 }
 - (NSUInteger)numberOfTabsForViewPager:(ZBViewPagerController *)viewPager;
 {
@@ -139,37 +105,25 @@
             return fabuTuijianVC;
         }
             break;
-
         default:
             break;
     }
     return [UIViewController new];
 }
-
 - (void)setCurrentIndex:(NSInteger)currentIndex
 {
-    
     _currentIndex = currentIndex;
     [self.titleView updateSelectedIndex:_currentIndex];
 }
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat contentOffsetX = scrollView.contentOffset.x;
-    
-    //    NSLog(@"%f",scrollView.contentOffset.x);
-    
     if (self.currentIndex != 0 && contentOffsetX <= Width * 4) {
         contentOffsetX += Width * self.currentIndex;
     }
-    //        NSLog(@"%f",contentOffsetX);
-    
-    
 }
-
 - (void)scrollEnabled:(BOOL)enabled {
     self.scrollingLocked = !enabled;
-    
     for (UIScrollView *view in self.pageViewController.view.subviews) {
         if ([view isKindOfClass:[UIScrollView class]]) {
             view.scrollEnabled = enabled;
@@ -177,20 +131,7 @@
         }
     }
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

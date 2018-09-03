@@ -1,18 +1,8 @@
-//
-//  ZBDCTabBarController.m
-//  DC_tabbar
-//
-//  Created by WQ_h on 15/12/21.
-//  Copyright (c) 2015年 DC_H. All rights reserved.
-//
-
 #import "ZBDCTabBarController.h"
 #import "ZBFirstViewController.h"
 #import "ZBBifenViewController.h"
 #import "ZBTuijianDTViewController.h"
-//#import "QingbaoFPViewController.h"
 #import "ZBNewQingBaoViewController.h"
-
 #import "ZBOldMineViewController.h"
 #import "UITabBar+badge.h"
 #import "ZBDCNavViewController.h"
@@ -21,22 +11,12 @@
 #import <AFNetworking/AFNetworking.h>
 #import "ZBCustmerTableBar.h"
 #import "ZBLotteryWebViewController.h"
-
-
 NSString *const GQTableBarControllerName = @"GQTableBarControllerName";
-
 NSString *const GQTabBarItemTitle = @"GQTabBarItemTitle";
-
 NSString *const GQTabBarItemImage = @"GQTabBarItemImage";
-
 NSString *const GQTabBarItemSelectedImage = @"GQTabBarItemSelectedImage";
-
 NSString *const GQTabBarItemLoadH5 = @"GQTabBarItemLoadH5";
-
 NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
-
-
-
 @interface ZBDCTabBarController ()<UIGestureRecognizerDelegate, TabBarDelegate>
 {
     ZBDCNavViewController *_firstNav;
@@ -45,85 +25,52 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     ZBDCNavViewController *_forthNav;
     ZBDCNavViewController *_mineNav;
 }
-
 @property (strong, nonatomic)NSTimer *refreshUnreadCountTimer;
-
 @property (nonatomic, copy) NSArray *tableBarItemArray;
-
 @property (nonatomic , strong) UIView *recordView;
-
 @property (nonatomic , copy) NSDictionary *activityDic;
-
 @property (nonatomic , strong) ZBCustmerTableBar *taBar;
-
-
-//是否正在请求跳转分析页的接口
 @property (nonatomic, assign) BOOL isToFenxi;
-
-
-
 @end
-
 static CGFloat imageHeight = 76.f;
-
 @implementation ZBDCTabBarController
-
 - (instancetype)initWithItemArray:(NSArray *)itemArray {
     if (self) {
         _tableBarItemArray = [itemArray copy];
     }
     return self;
 }
-
 - (void)viewDidLoad {
      [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openOrCloseRefreshUnreadCountTimer:) name:NotificationOpenMainTableBarTimer object:nil];
-    
-    //推送跳转新闻页
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToNewsWeb:) name:NotificationpushToNewsWeb object:nil];
-    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(configActivityEntrance) name:@"reloadTableBarActivity" object:nil];
-    
-    // 状态栏(statusbar)
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
-    NSLog(@"status width - %f", rectStatus.size.width); // 宽度
-    NSLog(@"status height - %f", rectStatus.size.height);   // 高度
-    
-    // 导航栏（navigationbar）
-    
+    NSLog(@"status width - %f", rectStatus.size.width); 
+    NSLog(@"status height - %f", rectStatus.size.height);   
     UINavigationController *nav = [[UINavigationController alloc] init];
     CGRect rectNav = nav.navigationBar.frame;
-//    NSLog(@"nav width - %f", rectNav.size.width); // 宽度
-//    NSLog(@"nav height - %f", rectNav.size.height);   // 高度
-    
     self.height_myStateBar = rectStatus.size.height;
     self.height_myNavigationBar = rectStatus.size.height + rectNav.size.height;
     self.height_myTabBar = self.tabBar.frame.size.height;
-
     [self setupTabbarItems];
     [self setupTabBarStyle];
     if ([ZBMethods login]) {
         [self creatRefreshUnreadCountTimer];
     }
-
-     [self configActivityEntrance]; //  配置活动入口
+     [self configActivityEntrance]; 
      [self update];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
-
 - (void)update {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_update] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         NSString *code = responseOrignal[@"code"];
         if ([code isEqualToString:@"200"]) {
@@ -141,15 +88,12 @@ static CGFloat imageHeight = 76.f;
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
                     }];
                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        
                     }];
-                    [alertController addAction:okAction];           // A
+                    [alertController addAction:okAction];           
                     [alertController addAction:cancelAction];
                 } else {
-                    
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-                        
                     }];
                     [alertController addAction:okAction];
                 }
@@ -157,12 +101,9 @@ static CGFloat imageHeight = 76.f;
             }
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        
     }];
 }
-
 #pragma mark - Config Activity
-
 - (void)configActivityEntrance {
     if (self.recordView) {
         [self.recordView removeFromSuperview];
@@ -199,11 +140,9 @@ static CGFloat imageHeight = 76.f;
         }
     }
 }
-
 - (void)updateUnreadCount:(NSNotification *)notification
 {
     NSNumber *unreadNumber = [notification.userInfo objectForKey:@"unreadCount"];
-    //角标
     _forthNav.tabBarItem.badgeValue = unreadNumber.integerValue>Zero? unreadNumber.stringValue :nil;
 }
 - (void)openOrCloseRefreshUnreadCountTimer:(NSNotification *)notification{
@@ -219,191 +158,107 @@ static CGFloat imageHeight = 76.f;
 }
 - (void)creatRefreshUnreadCountTimer
 {
-    
     if (!self.refreshUnreadCountTimer) {
         self.refreshUnreadCountTimer = [NSTimer scheduledTimerWithTimeInterval:RefreshTokenAndUnreadCountTimer target:self selector:@selector(loadUreadNotificationNum) userInfo:nil repeats:YES];
     }
 }
-
 -  (void)loadUreadNotificationNum
 {
-    
-//    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"refreshToken"]) {
-//        [self requestRefreshToken];
-//
-//    }
-    
     if ([ZBMethods login]) {
-        
-//        if ([[NSUserDefaults standardUserDefaults] doubleForKey:@"refreshTokentime"] != 0) {
-        
-            // Token 过期
             if (([[NSUserDefaults standardUserDefaults] doubleForKey:@"refreshTokentime"]) < ([[NSDate date] timeIntervalSince1970]*1000)) {
-                
                 NSLog(@"token 过期");
                 [self requestRefreshToken];
             }
-//        }
-        
-//        if ([[NSUserDefaults standardUserDefaults] doubleForKey:@"OutOfRefreshTokenTime"] != 0) {
-//            
-//            // refreshToken 过期
-//            if (([[NSUserDefaults standardUserDefaults] doubleForKey:@"OutOfRefreshTokenTime"]) <= ([[NSDate date] timeIntervalSince1970]*1000)) {
-//                
-//                NSLog(@"RefreshToken 过期");
-////                [self OutOfRefreshTokenTimeFunc];
-//            }
-//        }
-
-    
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:@"1" forKey:@"flag"];
     [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_noticedo] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             NSNumber *unreadNoticeCount = [responseOrignal objectForKey:@"data"];
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationupdateUnreadLabNum object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:unreadNoticeCount,@"unreadNoticeCount", nil]];
             if ([unreadNoticeCount integerValue]>0) {
                 [self.tabBar showBadgeOnItemIndex:4];
-
             }else{
                 [self.tabBar hideBadgeOnItemIndex:4];
             }
         }else{
-//            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-//        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
-    
     }
-    
 }
 - (void)loadUreadNotificationNumInMineView
 {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:@"1" forKey:@"flag"];
     [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_noticedo] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             NSNumber *unreadNoticeCount = [responseOrignal objectForKey:@"data"];
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationupdateUnreadLabNum object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:unreadNoticeCount,@"unreadNoticeCount", nil]];
             if ([unreadNoticeCount integerValue]>0) {
                 [self.tabBar showBadgeOnItemIndex:4];
-                
             }else{
                 [self.tabBar hideBadgeOnItemIndex:4];
             }
         }else{
-            //            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        //        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
-    
-    
-
 }
 -  (void)requestRefreshToken
 {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    
-    
     NSString *refreshToken = [ZBMethods getTokenModel].refreshToken;
     if (!refreshToken) {
         refreshToken = @"";
     }
-    
-    [parameter setObject:refreshToken forKey:@"refreshToken"]; //refreshToken
-    
-    
-    
+    [parameter setObject:refreshToken forKey:@"refreshToken"]; 
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_refreshtoken] ArrayFile:nil Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-//            ZBTokenModel *model = [ZBTokenModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
-        
             NSString *tokenStr = [[responseOrignal objectForKey:@"data"] objectForKey:@"token"];
             NSString *refreshTokenStr = [[responseOrignal objectForKey:@"data"] objectForKey:@"refreshToken"];
             ZBTokenModel *tokenModel =  [ZBMethods getTokenModel];
             tokenModel.token = tokenStr;
             tokenModel.refreshToken = refreshTokenStr;
-            
             [ZBMethods updateTokentModel:tokenModel];
-            
             [[NSUserDefaults standardUserDefaults] setDouble:[[responseOrignal objectForKey:@"time"] doubleValue] forKey:@"refreshTokentime"];
             [[NSUserDefaults standardUserDefaults] setDouble:[[responseOrignal objectForKey:@"time"] doubleValue] + OutOfRefreshTokenTime forKey:@"OutOfRefreshTokenTime"];
-            
         }else{
-                       
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
     }];
-    
-    
-    
 }
-
 #pragma mark - refreshToken 过期 -  
 - (void)OutOfRefreshTokenTimeFunc {
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"登陆过期" preferredStyle:UIAlertControllerStyleAlert];
-    
     NSMutableAttributedString *hogan = [[NSMutableAttributedString alloc] initWithString:@"重新登录"];
     [hogan addAttribute:NSFontAttributeName value:font16 range:NSMakeRange(0, [[hogan string] length])];
     [hogan addAttribute:NSForegroundColorAttributeName value:color33 range:NSMakeRange(0, [[hogan string] length])];
     [alertController setValue:hogan forKey:@"attributedTitle"];
-    
     UIAlertAction *alertOne = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationOpenMainTableBarTimer object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"close",@"timer", nil]];
         [self.navigationController popViewControllerAnimated:YES];
-        
         ZBTokenModel *tokenModel = [ZBMethods getTokenModel];
         tokenModel.token = @"";
         tokenModel.refreshToken = @"";
         [ZBMethods updateTokentModel:tokenModel];
-
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"refreshToken"];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"refreshTokenTime"];
-//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"OutOfRefreshTokenTime"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-
-//        [ZBMethods toLogin];
-        
     }];
-    
     [alertOne setValue:color33 forKey:@"_titleTextColor"];
-//    UIAlertAction *alertTwo = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-//    [alertTwo setValue:color33 forKey:@"_titleTextColor"];
-//    [alertController addAction:alertTwo];
     [alertController addAction:alertOne];
-    
     [self presentViewController:alertController animated:YES completion:nil];
-    
 }
-
-
 - (BOOL)tabBar:(ZBCustmerTableBar *)tabBar selectedFrom:(NSInteger)from to:(NSInteger)to {
     self.selectedIndex = to;
     self.tabBar.hidden = NO;
     [self.viewControllers[self.selectedIndex] popToRootViewControllerAnimated:NO];
     return YES;
 }
-
 - (void)setupTabbarItems {
     [_tableBarItemArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSDictionary *dic = (NSDictionary *)obj;
@@ -413,22 +268,14 @@ static CGFloat imageHeight = 76.f;
         } else {
             [self addChildControllerWithVcStr:dic[GQTableBarControllerName] imageName:dic[GQTabBarItemImage] selectedImage:dic[GQTabBarItemSelectedImage] title:dic[GQTabBarItemTitle] tag:idx];
         }
-        
     }];
-    
 }
-
-
-//  自定义 tableBar 暂时未用
-
 - (void)loadTableBarViewWithArray:(NSMutableArray *)array {
     [self.tabBar removeAllSubViews];
     _taBar.itemsArr = [array copy];
-    //添加到系统自带的tabBar上, 这样可以用的的事件方法. 而不必自己去写
     BOOL weatherAddBarView = NO;
     for (UIView *view in [self.tabBar subviews]) {
         if ([view isKindOfClass:[ZBCustmerTableBar class]]) {
-            
             weatherAddBarView = YES;
             break;
         }
@@ -437,7 +284,6 @@ static CGFloat imageHeight = 76.f;
         [self.tabBar addSubview:_taBar];
     }
 }
-
 - (void)addChildControllerWithVcStr:(NSString *)vcStr
                           imageName:(UIImage *)defaultImage
                       selectedImage:(UIImage *)selectedImage
@@ -456,7 +302,6 @@ static CGFloat imageHeight = 76.f;
     [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
     [self addChildViewController:nav];
 }
-
 - (void)addChildWebControllerWithVcStr:(NSString *)vcStr
                              imageName:(UIImage *)defaultImage
                          selectedImage:(UIImage *)selectedImage
@@ -477,18 +322,15 @@ static CGFloat imageHeight = 76.f;
     [target.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:UIColorFromRGBWithOX(0x646464)} forState:UIControlStateNormal];
     [self addChildViewController:nav];
 }
-
 - (void)setupTabBarStyle
 {
     self.delegate = self;
 }
-
 - (void)p_didSelectCenterTabBarItem
 {
     if (![self.selectedViewController isKindOfClass:[UINavigationController class]]) {
         return;
     }
-
     Class targetCalss = NSClassFromString(self.activityDic[@"n"]);
     ZBToolWebViewController *target =[[targetCalss alloc] init];
     UINavigationController *nc = (UINavigationController *)self.selectedViewController;
@@ -502,17 +344,12 @@ static CGFloat imageHeight = 76.f;
     [nc pushViewController:target animated:YES];
     [MobClick event:@"syjc2" label:@""];
 }
-
-//主页面切换的动画效果
 #pragma mark -- UITabBarControllerDelegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    
     if ([self.viewControllers indexOfObject:viewController] == 2 && self.recordView) {
         [self p_didSelectCenterTabBarItem];
         return NO;
     }
-    
-    
     if ([self.viewControllers indexOfObject:viewController] == 0) {
         [MobClick event:@"faxian" label:@""];
     } else if ([self.viewControllers indexOfObject:viewController] == 1) {
@@ -524,7 +361,6 @@ static CGFloat imageHeight = 76.f;
     } else if ([self.viewControllers indexOfObject:viewController] == 4) {
         [MobClick event:@"wode" label:@""];
     }
-    
     if (self.selectedIndex == [self.viewControllers indexOfObject:viewController]) {
         switch (tabBarController.selectedIndex) {
             case 0:
@@ -534,7 +370,6 @@ static CGFloat imageHeight = 76.f;
                 break;
             case 1:
             {
-                
             }
                 break;
             case 2:
@@ -546,40 +381,30 @@ static CGFloat imageHeight = 76.f;
             {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NotificationsetForthTableViewContentOffsetZero object:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:NotificationsetForth2TableViewContentOffsetZero object:nil];
-
             }
                 break;
             case 4:
             {
-                
             }
                 break;
-                
             default:
                 break;
         }
-
-        
         return NO;
     }
-    
     CATransition *animation  = [CATransition animation];
     [animation setType:kCATransitionFade];
     [animation setDuration:0.25];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [self.view.window.layer addAnimation:animation forKey:@"fadeTransition"];
-    
     return YES;
 }
-
-
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 }
 - (void)pushToViewController:(UIViewController *__nonnull)viewController animated:(BOOL)animated {
     if([self.selectedViewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigation = (UINavigationController *)self.selectedViewController;
         [navigation pushViewController:viewController animated:animated];
-//        self.hidesBottomBarWhenPushed = NO;
     }
 }
 - (void)presentToViewController:(UIViewController *__nonnull)viewController animated:(BOOL)animated completion:(void (^ __nullable)(void))completion {
@@ -588,27 +413,18 @@ static CGFloat imageHeight = 76.f;
         [navigation presentViewController:viewController animated:animated completion:completion];
     }
 }
-
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-//通知跳转页面
 - (void)pushToNewsWeb:(NSNotification *)nofication
 {
-    
-    
     NSDictionary *pushInfo = nofication.userInfo;
      UIViewController *currentControl = [ZBMethods help_getCurrentVC];
-    
     if ([pushInfo objectForKey:@"catalog"]== nil) {
-        
     }else{
         NSInteger eventID = [[pushInfo objectForKey:@"catalog"]integerValue];
         switch (eventID) {
@@ -621,7 +437,6 @@ static CGFloat imageHeight = 76.f;
             {
                 [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:3 toItemIndex:0];
             }
-                
                 break;
             case 1://情报
             {
@@ -629,7 +444,6 @@ static CGFloat imageHeight = 76.f;
             }
                 break;
             case 3://新闻呢
-                //跳转网页
             {
                 ZBWebDetailViewController *webDetailVC = [[ZBWebDetailViewController alloc] init];
                 webDetailVC.urlTitle = [pushInfo objectForKey:@"title"];
@@ -638,36 +452,21 @@ static CGFloat imageHeight = 76.f;
                 webDetailVC.hidesBottomBarWhenPushed = YES;
                 [currentControl.navigationController pushViewController:webDetailVC animated:YES];
             }
-                
                 break;
             case 4://直播
             {
                 [ self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:4 toItemIndex:0];
             }
-                
                 break;
-                
-                
-                
             case 5:
             {
-                
                 ZBTuijianDetailVC *tuijianDT = [[ZBTuijianDetailVC alloc] init];
                 tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
                 tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellDanchang;
                 tuijianDT.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
-                
-//                ZBWebModel *webModel = [[ZBWebModel alloc]init];
-//                webModel.title = @"";
-//                webModel.webUrl = [NSString stringWithFormat:@"%@/appH5/message.html?index=0", APPDELEGATE.url_ip];
-//                ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
-//                control.model = webModel;
-//                webModel.hideNavigationBar = YES;
-//                [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
             case 6: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"胜平负";
@@ -678,7 +477,6 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
             case 7: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"亚盘";
@@ -689,7 +487,6 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
             case 8: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"大小球";
@@ -700,23 +497,18 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
             case 9: {
                 [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:2 toItemIndex:0];
             }
                 break;
-                
             case 10: {
                 [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:0 toItemIndex:0];
             }
-                
                 break;
-                
             case 11: {
                 [self toFenxiWithMatchId:[pushInfo objectForKey:@"targetid"] toPageindex:1 toItemIndex:0];
             }
                 break;
-                
             case 12: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"胜平负";
@@ -727,7 +519,6 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
             case 13: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"亚盘";
@@ -738,8 +529,6 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
-                
             case 14: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"";
@@ -750,7 +539,6 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
             case 15: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"";
@@ -761,7 +549,6 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
             case 16: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"爆冷";
@@ -772,23 +559,15 @@ static CGFloat imageHeight = 76.f;
                 [currentControl.navigationController pushViewController:control animated:YES];
             }
                 break;
-                
-                
-            
             default:
                 break;
         }
     }
 }
-
-//loop 跳转分析页
 - (void)toFenxiWithMatchId:(NSString *)idID toPageindex:(NSInteger)pageIndex toItemIndex:(NSInteger)itemIndex;
 {
-    //index 1 基本面 2 情报面 3 推荐
-    
     if (!_isToFenxi == YES) {
         _isToFenxi = YES;
-        
         NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
         if (idID== nil) {
             idID = @"";
@@ -796,41 +575,23 @@ static CGFloat imageHeight = 76.f;
         [parameter setObject:@"3" forKey:@"flag"];
         [parameter setObject:idID forKey:@"sid"];
         [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveScores] Start:^(id requestOrignal) {
-            
         } End:^(id responseOrignal) {
-            
         } Success:^(id responseResult, id responseOrignal) {
             if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-                
                 ZBLiveScoreModel *model = [ZBLiveScoreModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
-                //从首页跳转分析页的时候不用反转
                 model.neutrality = NO;
                 ZBFenxiPageVC *fenxiVC = [[ZBFenxiPageVC alloc] init];
                 fenxiVC.model = model;
-                
                 fenxiVC.segIndex = itemIndex;
                 fenxiVC.currentIndex = pageIndex;
-
                 UIViewController *currentControl = [ZBMethods help_getCurrentVC];
                 [currentControl.navigationController pushViewController:fenxiVC animated:YES];
-                
-                
             }
             _isToFenxi = NO;
-            
-            
         } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
             _isToFenxi = NO;
-            
         }];
-
     }else{
-        
-        
     }
-    
-    
 }
-
-
 @end

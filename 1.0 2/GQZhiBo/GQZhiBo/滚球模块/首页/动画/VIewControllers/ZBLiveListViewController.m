@@ -1,42 +1,23 @@
-//
-//  ZBLiveListViewController.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/2.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBLiveListViewController.h"
 #import "ZBMatchListViewModel.h"
 #import "ZBLiveListTableViewCell.h"
 #import "ZBToolWebViewController.h"
-
 @interface ZBLiveListViewController () <UITableViewDelegate, UITableViewDataSource>
-
 @property (nonatomic, strong) UITableView *tableView;
-
 @property (nonatomic, strong) ZBMatchListViewModel *matchListViewModel;
-
 @property (nonatomic , strong) LiveListArrayModel *listModel;
-
 @end
-
 @implementation ZBLiveListViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configUI];
     [self loadData];
     [self setupHeaderView];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
@@ -50,9 +31,7 @@
     header.stateLabel.font = font13;
     self.tableView.mj_header = header;
 }
-
 #pragma mark - Load Data
-
 - (void)loadData {
     [self.matchListViewModel fetchMatchDateInterfaceWithParameter:_dayID callBack:^(BOOL isSuccess, id response) {
         [self.tableView.mj_header endRefreshing];
@@ -68,27 +47,20 @@
         }
     }];
 }
-
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   
     return self.listModel.data.count;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBLiveListModel *liveListModel = self.listModel.data[indexPath.row];
     ZBLiveListTableViewCell *cell = [ZBLiveListTableViewCell cellForTableView:tableView];
     [cell refreshContentData:liveListModel];
     return cell;
 }
-
 #pragma mark - UITableViewDelegate
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [ZBLiveListTableViewCell heightForCell];
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBLiveListModel *contentModel =self.listModel.data[indexPath.row];
     ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
@@ -96,9 +68,7 @@
     webDetailVC.urlPath = [NSString stringWithFormat:@"http://api.live.gunqiu.com:88/radarpage/%@.html",contentModel.mid];
     [self.navigationController pushViewController:webDetailVC animated:YES];
 }
-
 #pragma mark - Lazy Load
-
 - (UITableView *)tableView
 {
     if (!_tableView)
@@ -113,12 +83,10 @@
     }
     return _tableView;
 }
-
 - (ZBMatchListViewModel *)matchListViewModel {
     if (_matchListViewModel == nil) {
         _matchListViewModel = [[ZBMatchListViewModel alloc]init];
     }
     return _matchListViewModel;
 }
-
 @end

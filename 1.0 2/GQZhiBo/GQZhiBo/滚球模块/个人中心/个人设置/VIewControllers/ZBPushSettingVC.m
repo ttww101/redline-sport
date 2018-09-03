@@ -1,31 +1,17 @@
-//
-//  ZBPushSettingVC.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/30.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBPushSettingVC.h"
-
 @interface ZBPushSettingVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-//记录有没有推送过
 @property (nonatomic, strong) NSMutableArray *arrData;
 @end
-
 @implementation ZBPushSettingVC
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     self.navigationController.navigationBarHidden = YES;
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 #pragma mark -- setnavView
 - (void)setNavView
@@ -39,47 +25,27 @@
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
     [self.view addSubview:nav];
 }
-
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
         [self requestPushSetting];
     }else if(index == 2){
-        //right
-        
-        
     }
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     _arrData = [NSMutableArray arrayWithObjects:@"0",@"0",@"0",@"0",@"0", nil];
     self.view.backgroundColor = [UIColor whiteColor];
     [self setNavView];
     [self loadPushIndex];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changePushSwitch) name:NotificationchangePushSwitch object:nil];
-
 }
-
-
 - (void)changePushSwitch
 {
-//    if ([[UIApplication sharedApplication] currentUserNotificationSettings].types == 0) {
-//        _switchBtn.on = NO;
-//    }else{
-//        
-//        _switchBtn.on = YES;
-//    }
-//    
-    
     [self.tableView reloadData];
 }
 #pragma mark -- UITableViewDataSource
-
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -93,8 +59,6 @@
     }
     return _tableView;
 }
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
@@ -129,11 +93,9 @@
             labTitle.textColor = redcolor;
             labTitle.text = @"我关注的比赛";
             [header addSubview:labTitle];
-
             return header;
         }
             break;
-
         default:
             break;
     }
@@ -162,7 +124,6 @@
     }
     return 0.000001;
 }
-
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     switch (section) {
@@ -175,27 +136,20 @@
             labDetail.font = font10;
             labDetail.textColor = color66;
             labDetail.text = @"要开启或者关闭滚球体育的推送通知,请在iphone的\"设置\"-\"通知\"中找到滚球体育进行设置";
-            
-            
             NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:labDetail.text];
-            
             NSRange redRange = NSMakeRange([[noteStr string] rangeOfString:@"设置"].location, [[noteStr string] rangeOfString:@"设置"].length);
             [noteStr addAttribute:NSForegroundColorAttributeName value:color07BDEB range:redRange];
             [noteStr addAttribute:NSFontAttributeName value:font10 range:redRange];
-            
             NSRange redRange1 = NSMakeRange([[noteStr string] rangeOfString:@"通知"].location, [[noteStr string] rangeOfString:@"通知"].length);
             [noteStr addAttribute:NSForegroundColorAttributeName value:color07BDEB range:redRange1];
             [noteStr addAttribute:NSFontAttributeName value:font10 range:redRange1];
-
             NSRange redRange2 = NSMakeRange([[noteStr string] rangeOfString:@"滚球"].location, [[noteStr string] rangeOfString:@"滚球"].length);
             [noteStr addAttribute:NSForegroundColorAttributeName value:color07BDEB range:redRange2];
             [noteStr addAttribute:NSFontAttributeName value:font10 range:redRange2];
-
             labDetail.attributedText = noteStr;
             UIView *viewline = [[UIView alloc] initWithFrame:CGRectMake(0, 59.5, Width - 0, 0.5)];
             viewline.backgroundColor = colorCellLine;
             [footer addSubview:viewline];
-
             [footer addSubview:labDetail];
             return footer;
         }
@@ -212,7 +166,6 @@
             return header;
         }
             break;
-            
         default:
             break;
     }
@@ -226,13 +179,11 @@
             return 60;
         }
             break;
-            
         default:
             break;
     }
     return 0.000001;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
@@ -251,7 +202,6 @@
             return 4;
         }
             break;
-
         default:
             break;
     }
@@ -263,57 +213,41 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     while ([cell.contentView.subviews lastObject]!= nil) {
         [[cell.contentView.subviews lastObject] removeFromSuperview];
     }
-    
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, Width - 40, 44)];
     lab.textColor = color33;
     lab.font = font16;
     [cell.contentView addSubview:lab];
-    
     UIView *viewline = [[UIView alloc] initWithFrame:CGRectMake(0, 43.5, Width - 0, 0.5)];
     viewline.backgroundColor = colorCellLine;
     [cell.contentView addSubview:viewline];
-    
-    
     UISwitch *switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(Width - 60, 0, 51, 31)];
     switchBtn.center = CGPointMake(switchBtn.center.x, 22);
     switchBtn.onTintColor = redcolor;
     switchBtn.on = NO;
     [switchBtn addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
     [cell.contentView addSubview:switchBtn];
-
-    
-    
     if (indexPath.section == 0) {
-        
         lab.text = @"接收推送通知";
-        
         viewline.backgroundColor = [UIColor clearColor];
         switchBtn.userInteractionEnabled = NO;
         switchBtn.tag = 0;
         if ([[UIApplication sharedApplication] currentUserNotificationSettings].types == 0) {
             switchBtn.on = NO;
         }else{
-            
             switchBtn.on = YES;
         }
-        
     }else if (indexPath.section == 1){
         lab.text = @"分析师推荐";
-        
-//        viewline.backgroundColor = [UIColor clearColor];
         switchBtn.on = [[_arrData objectAtIndex:0] isEqualToString:@"1"]? YES:NO;
         switchBtn.tag = 10;
-
     }else{
         switch (indexPath.row) {
             case 0:
@@ -321,55 +255,38 @@
                 lab.text = @"开赛推送";
                 switchBtn.tag = 20;
                 switchBtn.on = [[_arrData objectAtIndex:1] isEqualToString:@"1"]? YES:NO;
-
             }
                 break;
             case 1:
             {
                 lab.text = @"进球推送";
-//                viewline.backgroundColor = [UIColor clearColor];
                 switchBtn.tag = 21;
                 switchBtn.on = [[_arrData objectAtIndex:2] isEqualToString:@"1"]? YES:NO;
-
             }
                 break;
             case 2:
             {
                 lab.text = @"红牌推送";
-//                viewline.backgroundColor = [UIColor clearColor];
                 switchBtn.tag = 22;
                 switchBtn.on = [[_arrData objectAtIndex:3] isEqualToString:@"1"]? YES:NO;
-
-
             }
                 break;
             case 3:
             {
                 lab.text = @"完场推送";
-//                viewline.backgroundColor = [UIColor clearColor];
                 switchBtn.tag = 23;
                 switchBtn.on = [[_arrData objectAtIndex:4] isEqualToString:@"1"]? YES:NO;
-
-
             }
                 break;
-
             default:
                 break;
         }
-
    }
-    
-    
     return cell;
-    
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
 }
-
 - (void)changeSwitch:(UISwitch *)switchBtn
 {
     switch (switchBtn.tag) {
@@ -398,77 +315,44 @@
             [_arrData replaceObjectAtIndex:4 withObject:switchBtn.on?@"1":@"0"];
         }
             break;
-
         default:
             break;
     }
 }
-
-
-
 - (void)requestPushSetting
 {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    
     NSString *pushType = @"";
-
-    
     for (int i = 0; i<_arrData.count; i++) {
-        
         if ([[_arrData objectAtIndex:i] isEqualToString:@"1"]) {
             pushType = [NSString stringWithFormat:@"%@%d,",pushType,(int)powl(2, i)];
-
         }
     }
-    
     if ([pushType isEqualToString:@""]) {
         pushType = @"0";
     }
-    
     [parameter setObject:pushType forKey:@"pushTypes"];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post"  WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_push_setting]  ArrayFile:nil Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
-        
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-//            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推送设置设置成功"];
         }else{
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
-
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-
     }];
 }
-
-
 - (void)loadPushIndex
 {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    
-    
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post"  WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_push_index]  ArrayFile:nil Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
-        
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-            //            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推送设置设置成功"];
-            
-            
-            
-            
             NSArray *arrIndex= [NSArray arrayWithArray:[responseOrignal objectForKey:@"data"]];
-            
             for (int i = 0; i<arrIndex.count; i++) {
-                
                 NSInteger index = [[arrIndex objectAtIndex:i] integerValue];
-                
                 if (index == 1) {
                     [_arrData replaceObjectAtIndex:0 withObject:@"1"];
                 }else if (index == 2) {
@@ -480,55 +364,17 @@
                 }else if (index == 16) {
                     [_arrData replaceObjectAtIndex:4 withObject:@"1"];
                 }
-                
             }
-            
-            
-            
             [self.view addSubview:self.tableView];
-
             [self.tableView reloadData];
-            
         }else{
-//            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
             [self.view addSubview:self.tableView];
-
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-//        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
         [self.view addSubview:self.tableView];
-
     }];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

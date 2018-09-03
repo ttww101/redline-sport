@@ -1,40 +1,17 @@
-//
-//  ZBOptionView.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/16.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBOptionView.h"
-
 NSString *const PayMentLeftIcon = @"PayMentLeftIcon";
-
 NSString *const PayMentTitle = @"PayMentTitle";
-
 NSString *const PayMentType = @"PayMentType";
-
 NSString *const CouponCount = @"CouponCount";
-
 @interface ZBOptionView ()
-
 @property (nonatomic , copy) NSDictionary *dic;
-
 @property (nonatomic , copy) UIImageView *leftIcon;
-
 @property (nonatomic, strong) UIView *lineView;
-
 @property (nonatomic, strong) UILabel *titleLabel;
-
 @property (nonatomic, strong) UILabel *couponCountLabel;
-
 @property (nonatomic , strong) UIButton *selectBtn;
-
-
 @end
-
 @implementation ZBOptionView
-
 - (instancetype)initWithFrame:(CGRect)frame  configDictionary:(NSDictionary *)dic {
     self = [super initWithFrame:frame];
     if (self) {
@@ -44,31 +21,24 @@ NSString *const CouponCount = @"CouponCount";
     }
     return self;
 }
-
 #pragma mark - Open Method
-
 - (void)hideBottormLine {
     self.lineView.hidden = YES;
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.backgroundColor = [UIColor whiteColor];
-    
     [self addSubview:self.leftIcon];
     [self.leftIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(15);
         make.centerY.equalTo(self.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(24, 24));
     }];
-    
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftIcon.mas_right).offset(15);
         make.centerY.equalTo(self.mas_centerY);
     }];
-    
     [self addSubview:self.lineView];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom).offset(-0.5);
@@ -76,21 +46,18 @@ NSString *const CouponCount = @"CouponCount";
         make.right.equalTo(self.mas_right);
         make.height.mas_equalTo(0.5);
     }];
-    
     [self addSubview:self.selectBtn];
     [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.right.equalTo(self.mas_right).offset(-15);
         make.size.mas_equalTo(CGSizeMake(19, 19));
     }];
-    
     [self addSubview:self.couponCountLabel];
     [self.couponCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel.mas_right).offset(5);
         make.centerY.equalTo(self.mas_centerY);
     }];
 }
-
 - (void)setData {
     self.leftIcon.image = [UIImage imageNamed:_dic[PayMentLeftIcon]];
     self.titleLabel.text = _dic[PayMentTitle];
@@ -106,18 +73,14 @@ NSString *const CouponCount = @"CouponCount";
         self.couponCountLabel.attributedText = attStr;
     }
 }
-
 #pragma mark - Events
-
 - (void)selectAction:(UIButton *)sender {
     sender.tag = [_dic[PayMentType] integerValue];
     if (_deleate && [_deleate respondsToSelector:@selector(didSelectAction:)]) {
         [_deleate didSelectAction:sender];
     }
 }
-
 #pragma mark - Lazy Load
-
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [UIView new];
@@ -125,7 +88,6 @@ NSString *const CouponCount = @"CouponCount";
     }
     return _lineView;
 }
-
 - (UIImageView *)leftIcon {
     if (_leftIcon == nil) {
         _leftIcon = [UIImageView new];
@@ -133,7 +95,6 @@ NSString *const CouponCount = @"CouponCount";
     }
     return _leftIcon;
 }
-
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [UILabel new];
@@ -142,7 +103,6 @@ NSString *const CouponCount = @"CouponCount";
     }
     return _titleLabel;
 }
-
 - (UILabel *)couponCountLabel {
     if (_couponCountLabel == nil) {
         _couponCountLabel = [UILabel new];
@@ -150,7 +110,6 @@ NSString *const CouponCount = @"CouponCount";
     }
     return _couponCountLabel;
 }
-
 - (UIButton *)selectBtn {
     if (_selectBtn == nil) {
         _selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -160,6 +119,4 @@ NSString *const CouponCount = @"CouponCount";
     }
     return _selectBtn;
 }
-
-
 @end

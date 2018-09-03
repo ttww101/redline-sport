@@ -1,43 +1,19 @@
-//
-//  ZBLiveListTableViewCell.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/2.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBLiveListTableViewCell.h"
-
 @interface ZBLiveListTableViewCell ()
-
 @property (nonatomic, strong) UIView *lineView;
-
 @property (nonatomic, strong) UIView *verticalLineView;
-
 @property (nonatomic, strong) UILabel *metchTypeName;
-
 @property (nonatomic, strong) UIImageView *homeTermIcon;
-
 @property (nonatomic, strong) UILabel *homeTermLabel;
-
 @property (nonatomic, strong)  UIImageView *VisitingTermIcon;
-
 @property (nonatomic, strong) UILabel *VisitingTermLabel;
-
 @property (nonatomic, strong) UILabel *matchTimeLabel;
-
 @property (nonatomic, strong) UIImageView *liveImageView;
-
 @end
-
 @implementation ZBLiveListTableViewCell
-
 static CGFloat cell_Height = 100.f;
-
 static NSString *identifier = @"listCell";
-
 static CGFloat imageHeight = 20;
-
 + (ZBLiveListTableViewCell *)cellForTableView:(UITableView *)tableView {
     ZBLiveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -46,7 +22,6 @@ static CGFloat imageHeight = 20;
     }
     return cell;
 }
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -54,14 +29,10 @@ static CGFloat imageHeight = 20;
     }
     return self;
 }
-
-
 #pragma mark - Open Method
-
 + (CGFloat)heightForCell {
     return cell_Height;
 }
-
 - (void)refreshContentData:(ZBLiveListModel *)model {
     self.matchTimeLabel.text = [ZBMethods formatHHSSStamp:model.startTime];
     self.homeTermLabel.text = model.home;
@@ -72,31 +43,25 @@ static CGFloat imageHeight = 20;
     [self.VisitingTermIcon sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://ls.sportradar.com/ls/crest/small/%@.png",model.awayUid]] placeholderImage:[ZBMethods defaultPlaceHolderImage:@"default_home_icon"]];
     self.liveImageView.image = [UIImage imageNamed:[self getMatchStatusImageName:model.statusId]];
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.contentView.backgroundColor = UIColorFromRGBWithOX(0xffffff);
-    
     [self.contentView addSubview:self.lineView];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-0.5);
         make.left.equalTo(self.contentView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 0.5));
     }];
-    
     [self.contentView addSubview:self.metchTypeName];
     [self.metchTypeName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(10);
         make.top.equalTo(self.contentView.mas_top).offset(10);
     }];
-    
     [self.contentView addSubview:self.matchTimeLabel];
     [self.matchTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-30);
         make.left.equalTo(self.contentView.mas_left).offset(20);
     }];
-    
     [self.contentView addSubview:self.verticalLineView];
     [self.verticalLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(40);
@@ -104,33 +69,28 @@ static CGFloat imageHeight = 20;
         make.width.mas_equalTo(1);
         make.left.equalTo(self.matchTimeLabel.mas_right).offset(20);
     }];
-    
     [self.contentView addSubview:self.homeTermIcon];
     [self.homeTermIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.verticalLineView.mas_right).offset(20);
         make.top.equalTo(self.verticalLineView.mas_top);
         make.size.mas_equalTo(CGSizeMake(imageHeight, imageHeight));
     }];
-    
     [self.contentView addSubview:self.homeTermLabel];
     [self.homeTermLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.homeTermIcon.mas_centerY);
         make.left.equalTo(self.homeTermIcon.mas_right).offset(10);
     }];
-    
     [self.contentView addSubview:self.VisitingTermIcon];
     [self.VisitingTermIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.homeTermIcon.mas_left);
         make.bottom.equalTo(self.verticalLineView.mas_bottom);
         make.size.mas_equalTo(CGSizeMake(imageHeight, imageHeight));
     }];
-    
     [self.contentView addSubview:self.VisitingTermLabel];
     [self.VisitingTermLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.VisitingTermIcon.mas_centerY);
         make.left.equalTo(self.VisitingTermIcon.mas_right).offset(10);
     }];
-    
     [self.contentView addSubview:self.liveImageView];
     [self.liveImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-15);
@@ -138,9 +98,7 @@ static CGFloat imageHeight = 20;
         make.size.mas_equalTo(CGSizeMake(35, 35));
     }];
 }
-
 #pragma mark - Private Method
-
 - (NSString *)getMatchStatusImageName:(NSString *)matchStatus {
     if (matchStatus) {
         if ([matchStatus isEqualToString:@"-10"]) {
@@ -163,9 +121,7 @@ static CGFloat imageHeight = 20;
     }
     return @"nolive";
 }
-
 #pragma mark - Lazy Load
-
 - (UIView *)lineView {
     if (_lineView == nil) {
         _lineView = [UIView new];
@@ -173,7 +129,6 @@ static CGFloat imageHeight = 20;
     }
     return _lineView;
 }
-
 - (UIView *)verticalLineView {
     if (_verticalLineView == nil) {
         _verticalLineView = [UIView new];
@@ -181,7 +136,6 @@ static CGFloat imageHeight = 20;
     }
     return _verticalLineView;
 }
-
 - (UILabel *)metchTypeName {
     if (_metchTypeName == nil) {
         _metchTypeName = [UILabel new];
@@ -192,7 +146,6 @@ static CGFloat imageHeight = 20;
     }
     return _metchTypeName;
 }
-
 - (UILabel *)homeTermLabel {
     if (_homeTermLabel == nil) {
         _homeTermLabel = [UILabel new];
@@ -203,7 +156,6 @@ static CGFloat imageHeight = 20;
     }
     return _homeTermLabel;
 }
-
 - (UILabel *)matchTimeLabel {
     if (_matchTimeLabel == nil) {
         _matchTimeLabel = [UILabel new];
@@ -214,7 +166,6 @@ static CGFloat imageHeight = 20;
     }
     return _matchTimeLabel;
 }
-
 - (UIImageView *)homeTermIcon {
     if (_homeTermIcon == nil) {
         _homeTermIcon = [UIImageView new];
@@ -226,7 +177,6 @@ static CGFloat imageHeight = 20;
     }
     return _homeTermIcon;
 }
-
 - (UIImageView *)VisitingTermIcon {
     if (_VisitingTermIcon == nil) {
         _VisitingTermIcon = [UIImageView new];
@@ -238,7 +188,6 @@ static CGFloat imageHeight = 20;
     }
     return _VisitingTermIcon;
 }
-
 - (UILabel *)VisitingTermLabel {
     if (_VisitingTermLabel == nil) {
         _VisitingTermLabel = [UILabel new];
@@ -249,7 +198,6 @@ static CGFloat imageHeight = 20;
     }
     return _VisitingTermLabel;
 }
-
 - (UIImageView *)liveImageView {
     if (_liveImageView == nil) {
         _liveImageView = [UIImageView new];
@@ -258,5 +206,4 @@ static CGFloat imageHeight = 20;
     }
     return _liveImageView;
 }
-
 @end

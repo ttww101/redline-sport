@@ -1,11 +1,3 @@
-//
-//  ZBTuijianSelectedItemTitleView.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/24.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 @protocol TuijianSelectedItemTitleViewDelegate<NSObject>
 @optional

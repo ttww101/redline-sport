@@ -1,46 +1,22 @@
-//
-//  ZBNewQBTableViewCell.m
-//  GQapp
-//
-//  Created by WQ_h on 16/5/9.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBNewQBTableViewCell.h"
 @interface ZBNewQBTableViewCell ()
-//是否添加过约束
 @property (nonatomic, assign) BOOL didSetupConstraints;
-
 @property (nonatomic, strong) UIView *basicView;
-//主队或者客队
 @property (nonatomic, strong) UILabel *labHomeOrAway;
-//标题
 @property (nonatomic, strong) UILabel *labtitle;
-//具体内容
 @property (nonatomic, strong) UILabel *labContent;
-//日期
 @property (nonatomic, strong) UILabel *labdate;
-//事件和状态之间的竖线
 @property (nonatomic, strong) UIView *LineV;
-//竖线右
 @property (nonatomic, strong) UIView *LineVRight;
-//横线线
 @property (nonatomic, strong) UIView *LineH;
-
 @property (nonatomic, strong) UIImageView *imgType;
-
 @end
 @implementation ZBNewQBTableViewCell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 - (void)setModel:(ZBInfoListModel *)model
 {
@@ -63,7 +39,6 @@
     switch (model.mark) {
         case 1:{
             self.imgType.image = [UIImage imageNamed:@"QBTypeDuJia"];
-            
         }
             break;
         case 2:{
@@ -82,17 +57,14 @@
             self.imgType.image = [UIImage imageNamed:@"QBTypeNeiMu"];
         }
             break;
-            
         default:{
             self.imgType.image = [UIImage imageNamed:@"clear"];
         }
             break;
     }
-    
     if (!_didSetupConstraints) {
         _didSetupConstraints = YES;
         [self addAutoLayoutToCell];
-        
     }
 }
 - (UIView *)basicView
@@ -111,15 +83,11 @@
     }
     return _basicView;
 }
-
-
 - (UILabel *)labHomeOrAway
 {
     if (!_labHomeOrAway) {
         _labHomeOrAway = [[UILabel alloc] init];
         _labHomeOrAway.textColor = [UIColor whiteColor];
-//        _labHomeOrAway.layer.cornerRadius = 3;
-//        _labHomeOrAway.layer.masksToBounds = YES;
         _labHomeOrAway.textAlignment = NSTextAlignmentCenter;
         _labHomeOrAway.font = font12;
     }
@@ -132,7 +100,6 @@
         _labtitle.font = font20;
         _labtitle.textColor = color33;
         _labtitle.numberOfLines = 2;
-//        [_labtitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:25]];
     }
     return _labtitle;
 }
@@ -146,7 +113,6 @@
     }
     return _labContent;
 }
-
 - (UILabel *)labdate
 {
     if (!_labdate) {
@@ -187,19 +153,15 @@
         make.bottom.equalTo(self.contentView.mas_bottom);
         make.right.equalTo(self.contentView.mas_right);
     }];
-    
     [self.labdate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.basicView.mas_top).offset(12.5);
-
     }];
-    
     [self.LineV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labdate.mas_right).offset(5);
         make.centerY.equalTo(self.labdate.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(0.5, 10));
     }];
-    
     [self.labHomeOrAway mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.LineV.mas_right).offset(5);
         make.centerY.equalTo(self.labdate.mas_centerY);
@@ -208,16 +170,12 @@
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labdate.mas_bottom).offset(10);
         make.right.equalTo(self.basicView.mas_right).offset(-15);
-        
     }];
-    
     [self.labContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labtitle.mas_bottom).offset(10);
         make.right.equalTo(self.basicView.mas_right).offset(-15);
-//        make.bottom.equalTo(self.basicView.mas_bottom).offset(-12.5);
     }];
-    
     [self.LineH mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(0);
         make.right.equalTo(self.basicView.mas_right).offset(0);
@@ -228,29 +186,8 @@
         make.top.mas_equalTo(self.labtitle.mas_top).offset(5);
         make.right.mas_equalTo(self.basicView.mas_right);
     }];
-    
 }
-
 - (void)pushToDetailVC
 {
-//    InfoDetailViewController *infoVC = [[InfoDetailViewController alloc] init];
-//    infoVC.hidesBottomBarWhenPushed = YES;
-//    infoVC.model = _model;
-//    infoVC.typedVC = typedVCBaoliao;
-//    infoVC.superVC = pushFromSuperOtherlVC;
-//    
-//    [APPDELEGATE.customTabbar pushToViewController:infoVC animated:YES];
-    
 }
-
-
-
-
-
-
-
-
-
-
-
 @end

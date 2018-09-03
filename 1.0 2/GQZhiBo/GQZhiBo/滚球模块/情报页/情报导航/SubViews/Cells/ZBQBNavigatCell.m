@@ -1,13 +1,4 @@
-//
-//  ZBQBNavigatCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/6/30.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBQBNavigatCell.h"
-
 @interface ZBQBNavigatCell()
 @property (nonatomic, strong)UIView *basView;
 @property (nonatomic, strong)UILabel *labHome;
@@ -15,15 +6,10 @@
 @property (nonatomic, strong)UILabel *labGues;
 @property (nonatomic, strong)UILabel *labLeague;
 @property (nonatomic, strong)UILabel *labTime;
-@property (nonatomic, strong)UILabel *labNum;//情报数
+@property (nonatomic, strong)UILabel *labNum;
 @property (nonatomic, strong)UIView *lineView;
-
-
 @end
-
 @implementation ZBQBNavigatCell
-
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.basView];
@@ -35,7 +21,6 @@
         [self.basView addSubview:self.labNum];
         [self.basView addSubview:self.lineView];
         [self setMas];
-        
     }
     return self;
 }
@@ -111,35 +96,25 @@
     }
     return _lineView;
 }
-
 - (void)setModel:(ZBNavigationModel *)model{
     _model = model;
-    
     NSString *home = _model.hometeam;
     NSString *guest = _model.guestteam;
-    
-    
     if (isOniPhone4 || isOniPhone5) {
-        
         if (home.length>5) {
             home = [NSString stringWithFormat:@"%@…",[home substringToIndex:5]];
         }
         if (guest.length>5) {
             guest = [NSString stringWithFormat:@"%@…",[guest substringToIndex:5]];
         }
-        
     }else{
-        
         if (home.length>7) {
             home = [NSString stringWithFormat:@"%@…",[home substringToIndex:7]];
         }
         if (guest.length>7) {
             guest = [NSString stringWithFormat:@"%@…",[guest substringToIndex:7]];
         }
-        
     }
-
-    
     self.labHome.text = home;
     self.labGues.text = guest;
     self.labLeague.text = model.league;
@@ -180,25 +155,16 @@
         make.width.mas_offset(42);
         make.height.mas_offset(19);
     }];
-    
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.basView.mas_left);
         make.right.mas_equalTo(self.basView.mas_right);
         make.height.mas_offset(0.5);
     }];
-    
-    
 }
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 @end

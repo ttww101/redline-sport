@@ -1,13 +1,4 @@
-//
-//  ZBPeiLvDetailModel.m
-//  GQapp
-//
-//  Created by Marjoice on 09/08/2017.
-//  Copyright © 2017 GQXX. All rights reserved.
-//
-
 #import "ZBPeiLvDetailModel.h"
-
 @implementation ZBPeiLvDetailModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {

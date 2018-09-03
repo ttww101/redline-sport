@@ -1,34 +1,14 @@
-//
-//  ZBUserViewofMyBuyTuijian.m
-//  GQapp
-//
-//  Created by WQ on 2017/10/16.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBUserViewofMyBuyTuijian.h"
 @interface ZBUserViewofMyBuyTuijian()
 @property (nonatomic, assign) BOOL isAddlayout;
-
 @property (nonatomic, strong) UIView *basicView;
 @property (nonatomic, strong) UIImageView *imagePic;
 @property (nonatomic, strong) UILabel *labName;
 @property (nonatomic, strong) UILabel *labStateTitle;
 @property (nonatomic, strong) UILabel *labState;
 @property (nonatomic, strong) UIView *viewLine;
-
 @end
 @implementation ZBUserViewofMyBuyTuijian
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-
 - (void)setModel:(ZBTuijiandatingModel *)model
 {
     _model = model;
@@ -37,18 +17,11 @@
         _isAddlayout = YES;
         [self addLayout];
     }
-    
     [_imagePic sd_setImageWithURL:[NSURL URLWithString:_model.pic] placeholderImage:[UIImage imageNamed:@"defaultPic"]];
     _labName.text = _model.nickname;
-    
-    
-    
         _labStateTitle.text = @"状态:";
         _labState.text = _model.paystatus;
-    
-
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -61,8 +34,6 @@
     }
     return _basicView;
 }
-
-
 - (UIImageView *)imagePic
 {
     if (!_imagePic) {
@@ -72,7 +43,6 @@
     }
     return _imagePic;
 }
-
 - (UILabel *)labName
 {
     if (!_labName) {
@@ -82,7 +52,6 @@
     }
     return _labName;
 }
-
 - (UILabel *)labStateTitle
 {
     if (!_labStateTitle) {
@@ -92,7 +61,6 @@
     }
     return _labStateTitle;
 }
-
 - (UILabel *)labState
 {
     if (!_labState) {
@@ -102,8 +70,6 @@
     }
     return _labState;
 }
-
-
 - (UIView *)viewLine
 {
     if (!_viewLine) {
@@ -112,8 +78,6 @@
     }
     return _viewLine;
 }
-
-
 - (void)addLayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,50 +85,28 @@
         make.top.equalTo(self.mas_top);
         make.right.equalTo(self.mas_right);
         make.bottom.equalTo(self.mas_bottom);
-        
     }];
-    
     [self.imagePic mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.centerY.equalTo(self.basicView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(21, 21));
     }];
-    
     [self.labName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imagePic.mas_right).offset(10);
         make.centerY.equalTo(self.basicView.mas_centerY);
-
     }];
-    
-    
     [self.labState mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-15);
         make.centerY.equalTo(self.basicView.mas_centerY);
     }];
-    
     [self.labStateTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.labState.mas_left).offset(-5);
         make.centerY.equalTo(self.basicView.mas_centerY);
     }];
-
     [self.viewLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left);
         make.bottom.equalTo(self.basicView.mas_bottom);
         make.size.mas_equalTo(CGSizeMake(Width, 0.5));
     }];
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
 @end

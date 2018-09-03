@@ -1,28 +1,10 @@
-//
-//  ZBSucessViewOfSignatureView.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/28.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBSucessViewOfSignatureView.h"
 @interface ZBSucessViewOfSignatureView()
 @property (nonatomic, strong)UIImageView *img;
-@property (nonatomic, strong)UILabel *labSucc;//申请成功
-@property (nonatomic, strong)UILabel *labContent;//描述
-//@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong)UILabel *labSucc;
+@property (nonatomic, strong)UILabel *labContent;
 @end
 @implementation ZBSucessViewOfSignatureView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self == [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
@@ -33,36 +15,27 @@
         NSString *seconds = [NSString stringWithFormat:@"%d秒",3];
         _labContent.text = [NSString stringWithFormat:@"%@后返回",seconds];
         _labContent.attributedText = [ZBMethods withContent:_labContent.text WithColorText:seconds textColor:redcolor strFont:font14];
-
-       
-        
     }
     return self;
 }
-
 - (void)sucessBack:(void(^)(BOOL sucessed))block
 {
     __block int  i = 0;
     [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
         if (i==3) {
             block(YES);
-            //            [time invalidate];
             [timer invalidate];
         }
-
         NSString *seconds = [NSString stringWithFormat:@"%d秒",2-i];
         _labContent.text = [NSString stringWithFormat:@"%@后返回",seconds];
         _labContent.attributedText = [ZBMethods withContent:_labContent.text WithColorText:seconds textColor:redcolor strFont:font14];
         i++;
     }];
 }
-
-
 - (UIImageView *)img{
     if (!_img) {
         _img = [[UIImageView alloc] init];
         _img.image = [UIImage imageNamed:@"successful"];
-        //        [_img size];
     }
     return _img;
 }
@@ -82,10 +55,7 @@
         _labContent.textColor = color99;
     }
     return _labContent;
-    
 }
-
-
 - (void)subAotoMasnary{
     [self.img mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(30);
@@ -101,11 +71,6 @@
     [self.labContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.labSucc.mas_bottom).offset(10);
         make.centerX.equalTo(self.img.mas_centerX);
-        //        make.bottom.mas_equalTo(self.mas_bottom).offset(-30);
     }];
-    
-    
 }
-
-
 @end

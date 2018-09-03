@@ -1,33 +1,16 @@
-//
-//  ZBAppManger.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/19.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBAppManger.h"
 #import "ZBWebModel.h"
 #import "ZBToolWebViewController.h"
 #import "ZBDCTabBarController.h"
 #import <YYModel/YYModel.h>
 #import "ArchiveFile.h"
-
-
 @interface ZBAppManger ()
-
 @property (nonatomic , strong) UIWebView *webView;
-
 @property (nonatomic , strong) WKWebView *wkWebView;
-
 @property (nonatomic , strong) WebViewJavascriptBridge *bridge;
-
 @property (nonatomic , copy) GQJSHandler gqHandler;
-
 @end
-
 @implementation ZBAppManger
-
 + (instancetype)shareInstance {
     static ZBAppManger *manger;
     static dispatch_once_t onceToken;
@@ -36,11 +19,8 @@
     });
     return manger;
 }
-
 - (void)initialize {
-    
 }
-
 - (WebViewJavascriptBridge *)registerJSTool:(UIWebView *)webView hannle:(GQJSHandler)jsHandle {
     if (webView) {
         self.webView = webView;
@@ -51,7 +31,6 @@
     [self initJavaScriptObservers];
     return self.bridge;
 }
-
 - (WebViewJavascriptBridge *)WK_RegisterJSTool:(WKWebView *)webView hannle:(GQJSHandler)jsHandle {
     if (webView) {
         self.wkWebView = webView;
@@ -62,17 +41,13 @@
     [self initJavaScriptObservers];
     return self.bridge;
 }
-
 - (void)initJavaScriptObservers {
     if (self.webView) {
         self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
     } else {
          self.bridge = [WebViewJavascriptBridge bridgeForWebView:_wkWebView];
     }
-    
     __weak ZBAppManger *weakSelf = self;
-    
-    // 获取当前页面链接
     [self.bridge registerHandler:@"currentPage" handler:^(id data, WVJBResponseCallback responseCallback) {
         ZBJSModel *model =  [ZBJSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"currentPage:",
@@ -80,20 +55,15 @@
         weakSelf.gqHandler(model, ^(id responseData) {
         });
     }];
-    
-    // 注册token
     [self.bridge registerHandler:@"getToken" handler:^(id data, WVJBResponseCallback responseCallback) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             NSString *currentToken = [ZBMethods getTokenModel].token;
             NSString *valueJson = [self getJSONMessage:@{@"token":PARAM_IS_NIL_ERROR(currentToken)}];
             NSString *parameter = [self getJSONMessage:@{@"id":@"getToken", @"val":PARAM_IS_NIL_ERROR(valueJson)}];
             [weakSelf.bridge callHandler:@"jsCallBack" data:parameter responseCallback:^(id responseData) {
-                
             }];
         });
     }];
-    
-    // 注册设备信息
     [self.bridge registerHandler:@"info" handler:^(id data, WVJBResponseCallback responseCallback) {
         ZBUserModel *model =[ZBMethods getUserModel];
         NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
@@ -118,15 +88,11 @@
                                   @"User-Agent": @"GQLive",
                                   @"h5Path":webPath
                                   };
-        
         NSString *jsonInfo = [self getJSONMessage:infoDic];
         NSString *jsonParameter = [self getJSONMessage:@{@"id":@"info", @"val":jsonInfo}];
         [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-            
         }];
     }];
-    
-    //  H5跳转
     [self.bridge registerHandler:@"openH5" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -143,9 +109,6 @@
         [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
         return ;
     }];
-    
-    
-    // H5统计事件
     [self.bridge registerHandler:@"UMAnalytics" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -153,21 +116,14 @@
                                                             options:NSJSONReadingMutableContainers
                                                               error:&err];
         [MobClick event:PARAM_IS_NIL_ERROR(dic[@"eventID"]) label:PARAM_IS_NIL_ERROR(dic[@"label"])];
-        
     }];
-    
-    // 复制事件
     [self.bridge registerHandler:@"txtCopy" handler:^(id data, WVJBResponseCallback responseCallback) {
         UIPasteboard *paste = [UIPasteboard generalPasteboard];
         paste.string = data;
         [SVProgressHUD showSuccessWithStatus:@"复制成功"];
     }];
-    
-    // 获取状态
     [self.bridge registerHandler:@"getState" handler:^(id data, WVJBResponseCallback responseCallback) {
     }];
-    
-    //  0  原生可以退出    1  原生不可退出
     [self.bridge registerHandler:@"back" handler:^(id data, WVJBResponseCallback responseCallback) {
         ZBJSModel *model =  [ZBJSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"back:",
@@ -176,13 +132,10 @@
             NSString *jsonUrlPath = [self getJSONMessage:@{@"imagePath":responseData}];
             NSString *jsonParameter = [self getJSONMessage:@{@"id":@"back", @"val":jsonUrlPath}];
             [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                
             }];
         });
         responseCallback(@"Response from testObjcCallback");
     }];
-    
-    // 输出
     [self.bridge registerHandler:@"dialog" handler:^(id data, WVJBResponseCallback responseCallback) {
         ZBJSModel *model =  [ZBJSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"dialog:",
@@ -191,13 +144,9 @@
             NSString *jsonUrlPath = [self getJSONMessage:@{@"imagePath":responseData}];
             NSString *jsonParameter = [self getJSONMessage:@{@"id":@"back", @"val":jsonUrlPath}];
             [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                
             }];
         });
-        
     }];
-    
-    // 弹出框
     [self.bridge registerHandler:@"toast" handler:^(id data, WVJBResponseCallback responseCallback) {
         if (data == nil) {
             return ;
@@ -210,8 +159,6 @@
         [SVProgressHUD showSuccessWithStatus:dic[@"text"]];
         [SVProgressHUD dismissWithDelay:[dic[@"time"] integerValue] / 1000];
     }];
-    
-    // 读取本地资源
     [self.bridge registerHandler:@"getResource" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"00" ofType:@"png"];
         NSURL *urlPath = [NSURL fileURLWithPath:path];
@@ -220,8 +167,6 @@
         [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
         }];
     }];
-    
-    // 1 登陆 3不满10元提现 4满10元提现 5我的优惠券列表 调用原生的方式
     [self.bridge registerHandler:@"open" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSInteger type = [data integerValue];
         NSString *className = nil;
@@ -231,28 +176,20 @@
                 return;
             }
         } else if (type == 2) {
-            
         } else if (type == 3) {
-            
         } else if (type == 4) {
             className = @"ZBLiveQuizWithDrawalViewController";
         } else if (type == 5) {
             className = @"ZBCouponListViewController";
         }
-        
         ZBJSModel *model =  [ZBJSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"open:",
                                                             @"parameterData":className}];
         self.gqHandler(model, ^(id responseData) {
-            
         });
-        
         responseCallback(@"Response from testObjcCallback");
     }];
-    
-    // 分享事件
     [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
-        
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
@@ -266,9 +203,7 @@
         if (!(type.length > 0)) {
             type = @"link";
         }
-        
         [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            
             switch (platformType) {
                 case UMSocialPlatformType_Sina: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Sina]) {
@@ -277,7 +212,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_WechatSession: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatSession]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
@@ -285,7 +219,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_WechatTimeLine: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatTimeLine]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
@@ -293,7 +226,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_QQ: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_QQ]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
@@ -301,7 +233,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_Qzone: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Qzone]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
@@ -309,62 +240,40 @@
                     }
                 }
                     break;
-                    
-                    
-                    
                 default:
                     break;
             }
-            
-            //创建分享消息对象
             UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
             if ([type isEqualToString:@"link"]) {
-                //创建网页内容对象
                 UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:des thumImage:picurl];
-                //设置网页地址
                 shareObject.webpageUrl = linkurl;
-                //分享消息对象设置分享内容对象
                 messageObject.shareObject = shareObject;
             } else if ([type isEqualToString:@"pic"]) {
-                //创建图片内容对象
                 UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
-                //如果有缩略图，则设置缩略图
                 shareObject.thumbImage = [UIImage imageNamed:@"icon"];
                 [shareObject setShareImage:picurl];
-                //分享消息对象设置分享内容对象
                 messageObject.shareObject = shareObject;
             } else if ([type isEqualToString:@"richText"]) {
-               //设置文本
                 messageObject.text = title;
-                //创建图片内容对象
                 UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
-                //如果有缩略图，则设置缩略图
                 shareObject.thumbImage = [UIImage imageNamed:@"icon"];
                 [shareObject setShareImage:picurl];
-                //分享消息对象设置分享内容对象
                 messageObject.shareObject = shareObject;
             }
-            
-            //调用分享接口
             [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:[ZBMethods help_getCurrentVC] completion:^(id data, NSError *error) {
                 if (error) {
                     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareFailed", @"val":@(platformType)}];
                     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                        
                     }];
                 }else{
                     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareSuccess", @"val":@(platformType)}];
                     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                        
                     }];
                 }
             }];
         }];
-        
         return;
-        
     }];
-    
     [self.bridge registerHandler:@"toLogin" handler:^(id data, WVJBResponseCallback responseCallback) {
         if (![ZBMethods login]) {
             [ZBMethods toLogin];
@@ -373,11 +282,8 @@
                                                             @"methdName":@"toLogin:",
                                                             @"parameterData":@{@"type":@"123"}}];
         weakSelf.gqHandler(model, ^(id responseData) {
-            
         });
     }];
-    
-    
     [self.bridge registerHandler:@"payAction" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -390,7 +296,6 @@
         weakSelf.gqHandler(model, ^(id responseData) {
         });
     }];
-    
     [self.bridge registerHandler:@"openNative" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -401,11 +306,8 @@
                                                             @"methdName":@"openNative:",
                                                             @"parameterData":dic}];
         weakSelf.gqHandler(model, ^(id responseData) {
-            
         });
     }];
-    
-
     [self.bridge registerHandler:@"nav" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -416,10 +318,8 @@
                                                            @"methdName":@"nav:",
                                                            @"parameterData":dic}];
         weakSelf.gqHandler(model, ^(id responseData) {
-            
         });
     }];
-    
     [self.bridge registerHandler:@"pay" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -433,31 +333,24 @@
             if ([responseData integerValue] == 1) {
                 NSString *jsonParameter = [self getJSONMessage:@{@"id":@"paySuccess", @"val":@(1)}];
                 [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                    
                 }];
             } else {
                 NSString *jsonParameter = [self getJSONMessage:@{@"id":@"payFailed", @"val":@(0)}];
                 [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                    
                 }];
             }
         });
     }];
-    
-    
     [self.bridge registerHandler:@"closeWin" handler:^(id data, WVJBResponseCallback responseCallback) {
         ZBJSModel *model =  [ZBJSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"closeWin:",
                                                             @"parameterData":@{@"type":@"123"}}];
         weakSelf.gqHandler(model, ^(id responseData) {
-            
         });
     }];
-    
     [self.bridge registerHandler:@"openBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[data stringValue]]];
     }];
-    
     [self.bridge registerHandler:@"pagetoolbar" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;
@@ -469,37 +362,20 @@
                                                             @"parameterData":dic}];
         self.gqHandler(model, ^(id responseData) {
             if ([responseData integerValue] == 1) {
-                
-                //                NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareSuccess", @"val":@(platformType)}];
-                //                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                //
-                //                }];
-                
-                
             } else {
-                //                NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareFailed", @"val":@(platformType)}];
-                //                [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                //
-                //                }];
             }
         });
     }];
-    
-    
 }
-
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     NSRange range = {0,jsonString.length};
-    //去掉字符串中的空格
     [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
     NSRange range2 = {0,mutStr.length};
-    //去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
 }
-
 @end

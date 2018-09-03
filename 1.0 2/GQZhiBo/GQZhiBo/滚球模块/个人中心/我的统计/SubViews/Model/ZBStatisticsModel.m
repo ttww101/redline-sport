@@ -1,13 +1,5 @@
-//
-//  ZBStatisticsModel.m
-//  GQapp
-//
-//  Created by WQ_h on 16/4/1.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
 #import "ZBUsermarkModel.h"
 #import "ZBMedalsModel.h"
-
 #import "ZBStatisticsModel.h"
 @implementation ZBStatisticsModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
@@ -36,7 +28,6 @@
              @"usertitle" : @"usertitle",
              @"arrUsertitle" : @"usertitle",
              @"medals" : @"medals",
-
              };
 }
 + (NSValueTransformer *)goodPlayJSONTransformer {
@@ -48,26 +39,16 @@
 + (NSValueTransformer *)RecoommandmodelJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[ZBTuijiandatingModel class]];
 }
-
-
 + (NSValueTransformer *)arrTotalrateJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBTotalrateModel class]];
-    
 }
-
-
-
-
 + (NSValueTransformer *)arrUsertitleJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBUsermarkModel class]];
-    
 }
 + (NSValueTransformer *)medalsJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBMedalsModel class]];
-    
 }
-
 @end

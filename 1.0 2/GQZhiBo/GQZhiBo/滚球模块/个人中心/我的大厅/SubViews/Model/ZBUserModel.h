@@ -1,20 +1,10 @@
-//
-//  ZBUserModel.h
-//  GQapp
-//
-//  Created by WQ_h on 16/3/29.
-//  strongright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBUserModel : ZBBasicModel
 @property (nonatomic, strong) NSString *cnickid;
 @property (nonatomic, strong) NSString *createTime;
 @property (nonatomic, strong) NSString *ip;
 @property (nonatomic, strong) NSString *mobile;
 @property (nonatomic, strong) NSString *showmobile;
-
 @property (nonatomic, strong) NSString *nickname;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *pic;
@@ -35,9 +25,7 @@
 @property (nonatomic, strong) NSString *userinfo;
 @property (nonatomic, strong) NSString *usertitle;
 @property (nonatomic, assign)NSInteger mode;
-//头衔
 @property (nonatomic, strong) NSArray *medals;
-
 @property (nonatomic, assign)NSInteger analyst;
 @property (nonatomic, assign)NSInteger autonym;
 @property (nonatomic, strong)NSString *qq;
@@ -47,26 +35,14 @@
 @property (nonatomic, strong)NSString *cardid;
 @property (nonatomic, strong)NSString *skill;
 @property (nonatomic, strong)NSString *failreason;
-//几连红
 @property (nonatomic, strong)NSString *remarkContinuous;
-//几种几
 @property (nonatomic, strong)NSString *remarkWinNum;
 @property (nonatomic, strong)NSString *token;
 @property (nonatomic, strong)NSString *refreshToken;
-//分析师球币
 @property (nonatomic, assign)NSInteger balance;
-//是否达到每日推荐上限
 @property (nonatomic, assign) BOOL reachLimit;
-
 @property (nonatomic , assign) NSInteger analysttype;
-
-// 金币数量
 @property (nonatomic , copy) NSNumber *coin;
-
-// 红包金额
 @property (nonatomic , copy) NSString *redpackage;
-
-
 @property (nonatomic , copy) NSDictionary *userDetail;
-
 @end

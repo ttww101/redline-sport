@@ -1,13 +1,4 @@
-//
-//  ZBFansModel.m
-//  GQapp
-//
-//  Created by WQ_h on 16/3/31.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBFansModel.h"
-
 @implementation ZBFansModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {

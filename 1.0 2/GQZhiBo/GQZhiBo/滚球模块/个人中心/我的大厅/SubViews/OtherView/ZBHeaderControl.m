@@ -1,23 +1,10 @@
-//
-//  ZBHeaderControl.m
-//  newGQapp
-//
-//  Created by genglei on 2018/5/29.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBHeaderControl.h"
-
 @interface ZBHeaderControl ()
-
 @property (nonatomic , strong) UILabel *label;
-
 @end
-
 @implementation ZBHeaderControl {
     NSString *_content;
 }
-
 - (instancetype)initWithFrame:(CGRect)frame
                       content:(NSString *)content showRightLine:(BOOL)show {
     self = [super initWithFrame:frame];
@@ -33,7 +20,6 @@
             make.centerX.equalTo(self.mas_centerX);
             make.centerY.equalTo(self.mas_centerY);
         }];
-        
         UIImageView *lineView = [[UIImageView alloc]init];
         lineView.backgroundColor = [UIColor whiteColor];
         lineView.hidden = show;
@@ -47,7 +33,6 @@
     }
     return self;
 }
-
 - (void)setContent:(NSString *)content {
     NSArray *strArray = [content componentsSeparatedByString:@":"];
     NSString *lastStr = [strArray lastObject];
@@ -57,5 +42,4 @@
     [att addAttribute:NSFontAttributeName value:font15 range:[content rangeOfString:lastStr]];
     _label.attributedText = att;
 }
-
 @end

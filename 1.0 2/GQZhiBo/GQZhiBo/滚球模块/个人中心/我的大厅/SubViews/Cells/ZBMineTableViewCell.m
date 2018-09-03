@@ -1,32 +1,13 @@
-//
-//  ZBMineTableViewCell.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/27.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBMineTableViewCell.h"
-
 @interface ZBMineTableViewCell ()
-
 @property (nonatomic, strong) UIImageView *leftImageView;
-
 @property (nonatomic, strong) UILabel *contentLabel;
-
 @property (nonatomic, strong) UIImageView *rightArrorImageView;
-
 @property (nonatomic, strong) UILabel *rightContentLabel;
-
 @end
-
 @implementation ZBMineTableViewCell
-
 static CGFloat cell_Height = 44;
-
 static NSString *identifier = @"listCell";
-
-
 + (ZBMineTableViewCell *)cellForTableView:(UITableView *)tableView {
     ZBMineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -35,7 +16,6 @@ static NSString *identifier = @"listCell";
     }
     return cell;
 }
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -43,14 +23,10 @@ static NSString *identifier = @"listCell";
     }
     return self;
 }
-
-
 #pragma mark - Open Method
-
 + (CGFloat)heightForCell {
     return cell_Height;
 }
-
 - (void)refreshContentData:(ZBMineModel *)model; {
     self.leftImageView.image = [UIImage imageNamed:model.leftImageName];
     self.contentLabel.text = model.leftContent;
@@ -62,9 +38,7 @@ static NSString *identifier = @"listCell";
         self.rightContentLabel.hidden = YES;
     }
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.contentView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.leftImageView];
@@ -73,29 +47,24 @@ static NSString *identifier = @"listCell";
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(18, 17));
     }];
-    
     [self.contentView addSubview:self.contentLabel];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.leftImageView.mas_right).offset(15);
     }];
-    
     [self.contentView addSubview:self.rightArrorImageView];
     [self.rightArrorImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-15);
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(7, 14));
     }];
-    
     [self.contentView addSubview:self.rightContentLabel];
     [self.rightContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.right.equalTo(self.rightArrorImageView.mas_leftMargin).offset(-15);
     }];
 }
-
 #pragma mark - Lazy Load
-
 - (UIImageView *)leftImageView {
     if (_leftImageView == nil) {
         _leftImageView = [UIImageView new];
@@ -103,7 +72,6 @@ static NSString *identifier = @"listCell";
     }
     return _leftImageView;
 }
-
 - (UILabel *)contentLabel {
     if (_contentLabel == nil) {
         _contentLabel = [UILabel new];
@@ -112,7 +80,6 @@ static NSString *identifier = @"listCell";
     }
     return _contentLabel;
 }
-
 - (UILabel *)rightContentLabel {
     if (_rightContentLabel == nil) {
         _rightContentLabel = [UILabel new];
@@ -121,7 +88,6 @@ static NSString *identifier = @"listCell";
     }
     return _rightContentLabel;
 }
-
 - (UIImageView *)rightArrorImageView {
     if (_rightArrorImageView == nil) {
         _rightArrorImageView = [UIImageView new];
@@ -129,5 +95,4 @@ static NSString *identifier = @"listCell";
     }
     return _rightArrorImageView;
 }
-
 @end

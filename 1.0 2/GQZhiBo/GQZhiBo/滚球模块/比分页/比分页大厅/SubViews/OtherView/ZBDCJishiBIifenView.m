@@ -1,52 +1,22 @@
-//
-//  ZBDCJishiBIifenView.m
-//  GQapp
-//
-//  Created by WQ_h on 16/5/14.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBDCJishiBIifenView.h"
 @interface ZBDCJishiBIifenView()
 @property (nonatomic, strong) UIView *basicView;
 @property (nonatomic, strong) UIImageView *bgView;
-
 @property (strong, nonatomic)  UILabel *labTime;
-//@property (strong, nonatomic)  UILabel *labVS;
-
 @property (strong, nonatomic)  UIImageView *imageHome;
 @property (strong, nonatomic)  UIImageView *imageGuest;
-
-
 @property (strong, nonatomic)  UILabel *labHome;
 @property (strong, nonatomic)  UILabel *labGuest;
-
-
 @property (strong, nonatomic)  UILabel *labtitleTop;
 @property (strong, nonatomic)  UILabel *labtitleBottom;
-
-
 @property (strong, nonatomic)  UILabel *labHomeScore;
 @property (strong, nonatomic)  UILabel *labGuestScore;
-
 @property (strong, nonatomic) UIView *viewLine;
-
-
-
 @property (strong, nonatomic)  UILabel *labRedTeam;
 @property (strong, nonatomic)  UILabel *labRedCard;
-
 @property (strong, nonatomic)  UILabel *labLeague;
 @end
 @implementation ZBDCJishiBIifenView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -55,12 +25,6 @@
     }
     return self;
 }
-//- (void)setFrame:(CGRect)frame
-//{
-////    _labRedCard.layer.cornerRadius = 3;
-////    _labRedCard.layer.masksToBounds = YES;
-//
-//}
 - (void)setIshome:(BOOL)ishome
 {
     _ishome = ishome;
@@ -69,156 +33,90 @@
 {
     _model = model;
     _labTime.text = _model.time;
-    
-
     _labHome.text = _model.home;
     _labGuest.text = _model.guest;
-
-
-    
-    
-//    _labLeague.text = _model.league;
-//
-//    _labRedTeam.text = _model.RedTeam;
-    
-    
     if (_ishome) {
-        
-        
-        
         _labHome.font = BoldFont4(fontSize14);
         _labtitleTop.font = BoldFont4(fontSize13);
         _labHomeScore.font = BoldFont4(fontSize14);
-        
         _labGuest.font = font12;
         _labtitleBottom.font = font12;
         _labGuestScore.font = font12;
-        
-        
         _labHome.textColor = color33;
         _labtitleTop.textColor = color33;
         _labHomeScore.textColor = color33;
-        
         _labGuest.textColor = color66;
         _labtitleBottom.textColor = color66;
         _labGuestScore.textColor = color66;
-
-        
-        
-        
-        
         if (_isRed) {
-            
             _imageHome.image = [UIImage imageNamed:@"bifenRedCard"];
             _imageGuest.image = [UIImage imageNamed:@"clear"];
-
             _labtitleTop.text = @"红牌";
             _labtitleBottom.text = @"";
-
             _labHomeScore.text = _model.redHome;
             _labGuestScore.text = _model.redGuest;
-
-            
-
-            
-            
         }else{
-        
             _imageHome.image = [UIImage imageNamed:@"bifenJinqiu"];
             _imageGuest.image = [UIImage imageNamed:@"clear"];
             _labtitleTop.text = @"进球";
             _labtitleBottom.text = @"";
-
             _labHomeScore.text = _model.homeScore;
             _labGuestScore.text = _model.guestScore;
-
         }
-        
-
-        
     }else{
-        
-        
-        
         _labHome.font = font12;
         _labtitleTop.font = font12;
         _labHomeScore.font = font12;
-        
         _labGuest.font = BoldFont4(fontSize14);
         _labtitleBottom.font = BoldFont4(fontSize13);
         _labGuestScore.font = BoldFont4(fontSize14);
-        
-        
         _labHome.textColor = color66;
         _labtitleTop.textColor = color66;
         _labHomeScore.textColor = color66;
-        
         _labGuest.textColor = color33;
         _labtitleBottom.textColor = color33;
         _labGuestScore.textColor = color33;
-
-        
         if (_isRed) {
-            
             _imageGuest.image = [UIImage imageNamed:@"bifenRedCard"];
             _imageHome.image = [UIImage imageNamed:@"clear"];
             _labtitleTop.text = @"";
             _labtitleBottom.text = @"红牌";
-
             _labHomeScore.text = _model.redHome;
             _labGuestScore.text = _model.redGuest;
-
         }else{
-            
             _imageGuest.image = [UIImage imageNamed:@"bifenJinqiu"];
             _imageHome.image = [UIImage imageNamed:@"clear"];
             _labtitleTop.text = @"";
             _labtitleBottom.text = @"进球";
-
             _labHomeScore.text = _model.homeScore;
             _labGuestScore.text = _model.guestScore;
-
         }
-        
-        
-        
     }
-    
-
     [self setNeedsLayout];
 }
-
 - (void)layoutSubviews
 {
     if (_model) {
            }
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
         _basicView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
         [_basicView addSubview:self.bgView];
-        
         [_basicView addSubview:self.labTime];
-        
         [_basicView addSubview:self.labHome];
         [_basicView addSubview:self.labGuest];
-        
         [_basicView addSubview:self.imageHome];
         [_basicView addSubview:self.imageGuest];
-
         [_basicView addSubview:self.labtitleTop];
         [_basicView addSubview:self.labtitleBottom];
-        
         [_basicView addSubview:self.viewLine];
-        
         [_basicView addSubview:self.labHomeScore];
         [_basicView addSubview:self.labGuestScore];
     }
     return _basicView;
 }
-
 - (UIImageView *)bgView
 {
     if (!_bgView) {
@@ -227,7 +125,6 @@
     }
     return _bgView;
 }
-
 - (UILabel *)labTime
 {
     if (!_labTime) {
@@ -237,31 +134,25 @@
         _labTime.textColor = color33;
     }
     return _labTime;
-    
 }
-
 - (UILabel *)labHome
 {
     if (!_labHome) {
         _labHome = [[UILabel alloc] initWithFrame:CGRectMake(_labTime.right + (15 + 18 + 15)*Scale_Ratio_width, 8, 150*Scale_Ratio_width, 24)];
         _labHome.font = font14;
         _labHome.textColor = colorFFD8D6;
-        
     }
     return _labHome;
 }
-
 - (UILabel *)labGuest
 {
     if (!_labGuest) {
         _labGuest = [[UILabel alloc] initWithFrame:CGRectMake(_labHome.x, _labHome.bottom, _labHome.width, _labHome.height)];
         _labGuest.font = font14;
         _labGuest.textColor = colorFFD8D6;
-
     }
     return _labGuest;
 }
-
 - (UIImageView *)imageHome
 {
     if (!_imageHome) {
@@ -270,7 +161,6 @@
     }
     return _imageHome;
 }
-
 - (UIImageView *)imageGuest
 {
     if (!_imageGuest) {
@@ -279,7 +169,6 @@
     }
     return _imageGuest;
 }
-
 - (UILabel *)labtitleTop
 {
     if (!_labtitleTop) {
@@ -290,7 +179,6 @@
     }
     return _labtitleTop;
 }
-
 - (UILabel *)labtitleBottom
 {
     if (!_labtitleBottom) {
@@ -301,7 +189,6 @@
     }
     return _labtitleBottom;
 }
-
 - (UILabel *)labHomeScore
 {
     if (!_labHomeScore) {
@@ -312,7 +199,6 @@
     }
     return _labHomeScore;
 }
-
 - (UILabel *)labGuestScore
 {
     if (!_labGuestScore) {
@@ -331,20 +217,4 @@
     }
     return _viewLine;
 }
-
-
-
-
-
-
-
 @end
-
-
-
-
-
-
-
-
-

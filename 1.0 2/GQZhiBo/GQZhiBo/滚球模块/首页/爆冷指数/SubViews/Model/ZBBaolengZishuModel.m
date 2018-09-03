@@ -1,13 +1,4 @@
-//
-//  ZBBaolengZishuModel.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/8.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBaolengZishuModel.h"
-
 @implementation ZBBaolengZishuModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -27,7 +18,6 @@
              @"lose" : @"lose",
              @"historyresult" : @"historyresult",
              @"num" : @"num",
-
             };
 }
 @end

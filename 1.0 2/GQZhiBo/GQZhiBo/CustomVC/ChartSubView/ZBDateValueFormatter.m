@@ -1,13 +1,4 @@
-//
-//  ZBDateValueFormatter.m
-//  无限滚动
-//
-//  Created by caoting on 2016/11/30.
-//  Copyright © 2016年 admin. All rights reserved.
-//
-
 #import "ZBDateValueFormatter.h"
-
 @interface ZBDateValueFormatter()
 {
     NSArray * _arr;
@@ -19,7 +10,6 @@
     if (self)
     {
         _arr = arr;
-        
     }
     return self;
 }
@@ -30,11 +20,7 @@
     }
     if ((NSInteger)value >_arr.count-1) {
         return @"";
-
     }
-    
     return _arr[(NSInteger)value];
 }
-
-
 @end

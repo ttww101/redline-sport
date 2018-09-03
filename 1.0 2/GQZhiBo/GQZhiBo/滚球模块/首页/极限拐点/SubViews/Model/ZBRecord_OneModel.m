@@ -1,15 +1,5 @@
-//
-//  ZBRecord_OneModel.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 16/6/24.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBRecord_OneModel.h"
-
 @implementation ZBRecord_OneModel
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
     return @{
@@ -31,7 +21,6 @@
              @"historymostresult":@"historymostresult",
              @"type":@"type",
              @"sortone" : @"sortone",
-
              };
 }
 @end

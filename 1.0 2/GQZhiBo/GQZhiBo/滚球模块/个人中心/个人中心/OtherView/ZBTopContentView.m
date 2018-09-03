@@ -1,42 +1,20 @@
-//
-//  ZBTopContentView.m
-//  newGQapp
-//
-//  Created by genglei on 2018/6/27.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBTopContentView.h"
 #import "ZBMessageControl.h"
 #import "ZBDC_JZAPhotoVC.h"
 #import "ZBUserTuijianVC.h"
-
 @interface ZBTopContentView ()
-
 @property (nonatomic , strong) CALayer *redLayer;
-
 @property (nonatomic , strong) UIView *contentView;
-
 @property (nonatomic, strong) UIImageView *avatarImageView;
-
 @property (nonatomic, strong) UIImageView *levealImageView;
-
 @property (nonatomic, strong) UILabel *nameLabel;
-
 @property (nonatomic, strong) UILabel *desLabel;
-
 @property (nonatomic , strong) UIButton *followBtn;
-
 @property (nonatomic, strong) NSMutableArray *recordArray;
-
 @end
-
 static CGFloat imageHeight = 50;
-
 @implementation ZBTopContentView
-
 #pragma mark - View Life Cycle
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:CGRectMake(0, 64, Width, 130)];
     if (self) {
@@ -44,9 +22,7 @@ static CGFloat imageHeight = 50;
     }
     return self;
 }
-
 #pragma mark - Open Method
-
 - (void)setModel:(ZBUserModel *)model {
     _model = model;
     if (_model == nil) {
@@ -55,26 +31,22 @@ static CGFloat imageHeight = 50;
      [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_model.pic] placeholderImage:[UIImage imageNamed:@"defaultPic"]];
     NSString *imageName = [ZBMethods getPersonLeavelImageName:_model.analysttype];
     self.levealImageView.image = [UIImage imageNamed:imageName];
-    
     NSDictionary *dic = _model.userDetail;
     NSString *text = [NSString stringWithFormat:@"%@| %@", _model.nickname ,dic[@"levelName"]];
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:text];
     [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.f] range:[text rangeOfString:_model.nickname]];
     [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0x666666) range:[text rangeOfString:_model.nickname]];
-    
     [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.f] range:[text rangeOfString:dic[@"levelName"]]];
     [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0x999999) range:[text rangeOfString:@"|"]];
     [att addAttribute:NSForegroundColorAttributeName value:UIColorFromRGBWithOX(0x999999) range:[text rangeOfString:dic[@"levelName"]]];
     self.nameLabel.attributedText = att;
     self.desLabel.text = _model.userinfo;
-    
     if (self.recordArray.count > 0) {
         [self.recordArray enumerateObjectsUsingBlock:^(ZBMessageControl *obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [obj removeFromSuperview];
             obj = nil;
         }];
     }
-    
     NSArray *titleArray = @[@"拥有粉丝", @"关注", @"发表推荐"];
     NSArray *contentArray = @[@(_model.followerCount), @(_model.focusCount), @(_model.recommendCount)];
     CGFloat width = (self.contentView.width - 90)/ 3;
@@ -85,13 +57,11 @@ static CGFloat imageHeight = 50;
         [self.contentView addSubview:control];
         [self.recordArray addObject:control];
     }
-    
     if (_model.focused) {
         [self.followBtn setSelected:YES];
     } else {
         [self.followBtn setSelected:false];
     }
-    
     ZBUserModel *userModel = [ZBMethods getUserModel];
     if (userModel.idId == model.idId) {
         self.followBtn.hidden = YES;
@@ -99,41 +69,34 @@ static CGFloat imageHeight = 50;
         self.followBtn.hidden = false;
     }
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.backgroundColor = UIColorFromRGBWithOX(0xeeeeee);
     [self.layer addSublayer:self.redLayer];
     [self addSubview:self.contentView];
-    
     [self.contentView addSubview:self.avatarImageView];
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(5);
         make.left.equalTo(self.contentView.mas_left).offset(5);
         make.size.mas_equalTo(CGSizeMake(imageHeight, imageHeight));
     }];
-    
     [self.contentView addSubview:self.levealImageView];
     [self.levealImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(40);
         make.left.equalTo(self.contentView.mas_left).offset(40);
         make.size.mas_equalTo(CGSizeMake(16, 16));
     }];
-    
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(8);
         make.left.equalTo(self.avatarImageView.mas_right).offset(15);
     }];
-    
     [self.contentView addSubview:self.desLabel];
     [self.desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLabel.mas_bottom).offset(8);
         make.left.equalTo(self.nameLabel.mas_left);
         make.right.equalTo(self.contentView.mas_right).offset(0);
     }];
-    
     [self.contentView addSubview:self.followBtn];
     [self.followBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView.mas_right).offset(-5);
@@ -141,23 +104,18 @@ static CGFloat imageHeight = 50;
         make.size.mas_equalTo(CGSizeMake(20, 20));
     }];
 }
-
 #pragma mark - Events
-
 - (void)focusAction:(UIButton *)sender {
     if (_delegate && [_delegate respondsToSelector:@selector(addAtention:)]) {
         [_delegate addAtention:sender.selected];
     }
 }
-
 - (void)avatarClick {
     ZBDC_JZAPhotoVC *album = [[ZBDC_JZAPhotoVC alloc] init];
-    album.imgArr = [NSMutableArray arrayWithObject:_model.pic];//可以是图片的url字符串数组，亦可以是UIImage
+    album.imgArr = [NSMutableArray arrayWithObject:_model.pic];
     [APPDELEGATE.customTabbar presentToViewController:album animated:YES completion:^{
-        
     }];
 }
-
 - (void)controlAction:(ZBMessageControl *)sender {
     if (sender.tag == 0) {
         ZBFriendsVC *friend = [[ZBFriendsVC alloc] init];
@@ -179,9 +137,7 @@ static CGFloat imageHeight = 50;
         [APPDELEGATE.customTabbar pushToViewController:tuijian animated:YES];
     }
 }
-
 #pragma mark - Lazy Load
-
 - (CALayer *)redLayer {
     if (_redLayer == nil) {
         _redLayer = [CALayer layer];
@@ -190,7 +146,6 @@ static CGFloat imageHeight = 50;
     }
     return _redLayer;
 }
-
 - (UIView *)contentView {
     if (_contentView == nil) {
         _contentView = [[UIView alloc]initWithFrame:CGRectMake(10, 0, self.width - 20, self.height - 10)];
@@ -200,7 +155,6 @@ static CGFloat imageHeight = 50;
     }
     return _contentView;
 }
-
 - (UIImageView *)avatarImageView {
     if (_avatarImageView == nil) {
         _avatarImageView = [UIImageView new];
@@ -211,18 +165,15 @@ static CGFloat imageHeight = 50;
         _avatarImageView.layer.borderColor = UIColorFromRGBWithOX(0xffffff).CGColor;
         [_avatarImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarClick)]];
         _avatarImageView.userInteractionEnabled = YES;
-        
     }
     return _avatarImageView;
 }
-
 - (UIImageView *)levealImageView {
     if (_levealImageView == nil) {
         _levealImageView = [UIImageView new];
     }
     return _levealImageView;
 }
-
 - (UILabel *)nameLabel {
     if (_nameLabel == nil) {
         _nameLabel = [UILabel new];
@@ -230,7 +181,6 @@ static CGFloat imageHeight = 50;
     }
     return _nameLabel;
 }
-
 - (UILabel *)desLabel {
     if (_desLabel == nil) {
         _desLabel = [UILabel new];
@@ -241,7 +191,6 @@ static CGFloat imageHeight = 50;
     }
     return _desLabel;
 }
-
 - (UIButton *)followBtn {
     if (_followBtn == nil) {
         _followBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -251,7 +200,6 @@ static CGFloat imageHeight = 50;
     }
     return _followBtn;
 }
-
 - (NSMutableArray *)recordArray {
     if (_recordArray == nil) {
         _recordArray = [NSMutableArray new];

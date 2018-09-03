@@ -1,13 +1,4 @@
-//
-//  ZBInfoListModel.h
-//  GunQiuLive
-//
-//  Created by WQ_h on 16/3/14.
-//  Copyright © 2016年 WQ_h. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBInfoListModel : ZBBasicModel
 @property (nonatomic, copy) NSString *GuestTeam;
 @property (nonatomic, copy) NSString *Name_JS;
@@ -33,15 +24,11 @@
 @property (nonatomic, assign) int share_weibo_count;
 @property (nonatomic, assign) int idId;
 @property (nonatomic, copy) NSString *profit_rate;
-//场数
 @property (nonatomic, copy) NSString *recommend_count;
 @property (nonatomic, copy) NSString *info_count;
-
 @property (nonatomic, assign) int like_count;
 @property (nonatomic, assign) int hate_count;
-
 @property (nonatomic, assign) int user_id;
-//粉丝数
 @property (nonatomic, assign) NSInteger follower_count;
 @property (nonatomic, assign) NSInteger focus_count;
 @property (nonatomic, assign) BOOL focused;
@@ -53,15 +40,11 @@
 @property (nonatomic, copy) NSString *HomeScore;
 @property (nonatomic, copy) NSString *company;
 @property (nonatomic, copy) NSString *multiple;
-//头像右边的头衔
 @property (nonatomic, copy) NSString *usertitle;
-// 球队id
 @property (nonatomic, assign) NSInteger GuestTeamID;
 @property (nonatomic, assign) NSInteger HomeTeamID;
-//头衔
 @property (nonatomic, strong) NSArray *medals;
 @property (nonatomic, strong)NSString *newsTypeName;
 @property (nonatomic, strong)NSString *newsTypeColor;
 @property (nonatomic, assign)NSInteger mark;
-
 @end

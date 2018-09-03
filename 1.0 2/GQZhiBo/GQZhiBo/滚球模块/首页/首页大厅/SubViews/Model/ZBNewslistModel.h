@@ -1,15 +1,4 @@
-//
-//  ZBNewslistModel.h
-//  GQapp
-//
-//  Created by WQ on 16/11/1.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
-//newslist  &   column 都用的这个model
-
 #import "ZBBasicModel.h"
-
 @interface ZBNewslistModel : ZBBasicModel
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *createtime;
@@ -28,12 +17,9 @@
 @property (nonatomic, copy) NSString *time;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *userpic;
-
 @property (nonatomic, assign) NSInteger commentcount;
 @property (nonatomic, assign) NSInteger Idid;
 @property (nonatomic, assign) NSInteger itop;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) NSInteger userid;
-
-
 @end

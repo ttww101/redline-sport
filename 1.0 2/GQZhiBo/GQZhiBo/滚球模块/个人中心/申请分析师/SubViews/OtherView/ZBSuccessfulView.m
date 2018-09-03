@@ -1,15 +1,5 @@
-//
-//  ZBSuccessfulView.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/5/4.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBSuccessfulView.h"
-
 @implementation ZBSuccessfulView
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self == [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
@@ -18,24 +8,18 @@
         [self addSubview:self.labContent];
         [self addSubview:self.btn];
         [self subAotoMasnary];
-        
-        
-        
     }
     return self;
 }
 - (void)tapClick{
     if (self.delegate && [self.delegate respondsToSelector:@selector(backView)]) {
         [self.delegate backView];
-        
     }
 }
-
 - (UIImageView *)img{
     if (!_img) {
         _img = [[UIImageView alloc] init];
         _img.image = [UIImage imageNamed:@"successful"];
-//        [_img size];
     }
     return _img;
 }
@@ -54,7 +38,6 @@
         _labContent.textColor = color99;
     }
     return _labContent;
-    
 }
 - (UIButton *)btn{
     if (!_btn) {
@@ -65,7 +48,6 @@
     }
     return _btn;
 }
-
 - (UILabel *)labContentTwo{
     if (!_labContentTwo) {
         _labContentTwo = [[UILabel alloc] init];
@@ -73,7 +55,6 @@
         _labContentTwo.textColor = color99;
     }
     return _labContentTwo;
-    
 }
 - (void)subAotoMasnary{
     [self.img mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,22 +71,10 @@
     [self.labContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.labSucc.mas_bottom).offset(10);
         make.centerX.mas_equalTo(self.img.mas_centerX);
-//        make.bottom.mas_equalTo(self.mas_bottom).offset(-30);
     }];
-    
     [self.btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.labContent.mas_left).offset(95);
         make.centerY.mas_equalTo(self.labContent.mas_centerY);
     }];
-
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 @end

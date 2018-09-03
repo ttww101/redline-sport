@@ -1,16 +1,7 @@
-//
-//  ZBDan_StringMatchsModel.h
-//  GQapp
-//
-//  Created by 叶忠阳 on 16/9/5.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
 #import "ZBDxModel.h"
 #import "ZBPriceListModel.h"
 @interface ZBDan_StringMatchsModel : ZBBasicModel
-
 @property (nonatomic, assign)NSInteger sid;
 @property (nonatomic, strong)NSString *hometeam;
 @property (nonatomic, strong)NSString *guestteam;
@@ -36,7 +27,6 @@
 @property (nonatomic, strong)NSString *dxcompany;
 @property (nonatomic, strong)NSString *rqcompany;
 @property (nonatomic, strong)NSString *spfcompany;
-
 @property (nonatomic, strong)NSArray *spf;
 @property (nonatomic, strong)NSArray *rq;
 @property (nonatomic, strong)NSArray *dx;

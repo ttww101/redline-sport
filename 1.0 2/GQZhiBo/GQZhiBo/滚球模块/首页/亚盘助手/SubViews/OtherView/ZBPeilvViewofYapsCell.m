@@ -1,11 +1,3 @@
-//
-//  ZBPeilvViewofYapsCell.m
-//  GQapp
-//
-//  Created by WQ on 2017/10/12.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBPeilvViewofYapsCell.h"
 @interface ZBPeilvViewofYapsCell()
 @property (nonatomic, strong) UIView *basicView;
@@ -18,41 +10,21 @@
 @property (nonatomic, strong) UILabel *labCP1;
 @property (nonatomic, strong) UILabel *labCP2;
 @property (nonatomic, strong) UILabel *labCP3;
-
 @property (nonatomic, strong) UILabel *labTimeCP;
 @property (nonatomic, strong) UILabel *labTimeJP;
-
-
 @property (nonatomic, strong) UILabel *labchangeNum;
 @property (nonatomic, strong) UILabel *labchangeTitle;
-
-
 @property (nonatomic, strong) UIView *viewProcess;
-
 @end
-
 @implementation ZBPeilvViewofYapsCell
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (void)setModel:(ZBPlycModel *)model
 {
     _model = model;
-    
-    
     [self addSubview:self.basicView];
-    
-    
     if (!_isaddLayout) {
         _isaddLayout = YES;
         [self addlayout];
     }
-    
     [self.viewProcess mas_updateConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(Width- 80, _model.panProcess.count*20));
     }];
@@ -60,69 +32,28 @@
     _labJP1.text  = _model.finalWin;
     _labJP2.text  = _model.finalDraw;
     _labJP3.text  = _model.finalLose;
-    
     if (!isNUll(_model.finalTimeCn)&& ![_model.finalTimeCn isEqualToString:@"全部"]) {
         _labTimeJP.text = _model.finalTimeCn;
-        
     }else{
         _labTimeJP.text = [ZBMethods timeToNowWith:_model.finalTime];
-        
     }
-    
-    
-    
     _labCPTitle.text = @"初赔:";
     _labCP1.text  = _model.firstWin;
     _labCP2.text  = _model.firstDraw;
     _labCP3.text  = _model.firstLose;
     _labTimeCP.text = [ZBMethods timeToNowWith:_model.firstTime];
-    
-//    if ([_model.finalWin floatValue] > [_model.firstWin floatValue]) {
-//        _labJP1.textColor = redcolor;
-//    }else if ([_model.finalWin floatValue] < [_model.firstWin floatValue]){
-//        _labJP1.textColor = greencolor;
-//        
-//    }else{
-//        _labJP1.textColor = color33;
-//        
-//    }
-    
-    
-    
-    
-//    if ([_model.finalLose floatValue] > [_model.firstLose floatValue]) {
-//        _labJP3.textColor = redcolor;
-//    }else if ([_model.finalLose floatValue] < [_model.firstLose floatValue]){
-//        _labJP3.textColor = greencolor;
-//        
-//    }else{
-//        _labJP3.textColor = color33;
-//        
-//    }
-    
     _labchangeTitle.text = @"变化次数";
-
     _labchangeNum.text = [NSString stringWithFormat:@"%ld次",_model.changeNum];
-    
-    
-    
-    
     _labJPTitle.frame = CGRectMake(0, _labCPTitle.bottom + 6.5  + _model.panProcess.count*20, 35, 13);
     _labJP1.center = CGPointMake(_labJP1.center.x, _labJPTitle.center.y);
     _labJP2.center = CGPointMake(_labJP2.center.x, _labJPTitle.center.y);
     _labJP3.center = CGPointMake(_labJP3.center.x, _labJPTitle.center.y);
     _labTimeJP.center = CGPointMake(_labTimeJP.center.x, _labJPTitle.center.y);
-
-    
     [_viewProcess removeAllSubViews];
-    
     for (int i = 0; i<_model.panProcess.count; i++) {
-        
         ZBPanProcessModel *process = [_model.panProcess objectAtIndex:i];
-        
         UIView *viewP  = [[UIView alloc] initWithFrame:CGRectMake(0, i*20, Width - 80, 20)];
         [_viewProcess addSubview:viewP];
-        
         UILabel *lab1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 31.5, 12.5)];
         lab1.textColor = color33;
         lab1.font = font10;
@@ -130,10 +61,7 @@
         lab1.layer.borderWidth = 0.6;
         lab1.textAlignment = NSTextAlignmentCenter;
         lab1.text = [NSString stringWithFormat:@"%@",process.upodds] ;
-//        lab1.text = @"1.2";
         [viewP addSubview:lab1];
-        
-        
         UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(lab1.right, 0, 35, 12.5)];
         lab2.center = CGPointMake(lab2.center.x, lab1.center.y);
         lab2.textColor = color33;
@@ -143,64 +71,43 @@
         lab2.adjustsFontSizeToFitWidth = YES;
         lab2.text = process.goal;
         [viewP addSubview:lab2];
-        
-        
-        
         UILabel *lab3 = [[UILabel alloc] initWithFrame:CGRectMake( lab2.right,0, 31.5, 12.5)];
         lab3.center = CGPointMake(lab3.center.x, lab1.center.y);
-
         lab3.textColor = color33;
         lab3.font = font10;
         lab3.layer.borderColor = colorE8.CGColor;
         lab3.layer.borderWidth = 0.6;
         lab3.textAlignment = NSTextAlignmentCenter;
         lab3.text = [NSString stringWithFormat:@"%@",process.downodds] ;
-//        lab3.text = @"1.3";
-
         [viewP addSubview:lab3];
-        
-
-        
-        
        UILabel *labTime = [[UILabel alloc] initWithFrame:CGRectMake(lab3.right + 8.5, 0, 50, 10)];
         labTime.center = CGPointMake(labTime.center.x, lab1.center.y);
         labTime.textColor = color99;
         labTime.font = font7;
         labTime.text = [ZBMethods timeToNowWith:process.modifyTime];
-
         [viewP addSubview:labTime];
     }
-    
-    
-    
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
         _basicView = [[UIView alloc] init];
-//        _basicView.backgroundColor = redcolor;
         [_basicView addSubview:self.labCPTitle];
         [_basicView addSubview:self.labCP1];
         [_basicView addSubview:self.labCP2];
         [_basicView addSubview:self.labCP3];
         [_basicView addSubview:self.labTimeCP];
-        
         [_basicView addSubview:self.labJPTitle];
         [_basicView addSubview:self.labJP1];
         [_basicView addSubview:self.labJP2];
         [_basicView addSubview:self.labJP3];
         [_basicView addSubview:self.labTimeJP];
-        
-        
         [_basicView addSubview:self.labchangeNum];
         [_basicView addSubview:self.labchangeTitle];
         [_basicView addSubview:self.viewProcess];
     }
     return _basicView;
 }
-
-
 - (UILabel *)labJPTitle
 {
     if (!_labJPTitle) {
@@ -248,7 +155,6 @@
         _labJP3.font = font10;
         _labJP3.layer.borderColor = colorE8.CGColor;
         _labJP3.layer.borderWidth = 0.6;
-        
         _labJP3.textAlignment = NSTextAlignmentCenter;
     }
     return _labJP3;
@@ -260,13 +166,9 @@
         _labTimeJP.center = CGPointMake(_labTimeJP.center.x, _labJPTitle.center.y);
         _labTimeJP.textColor = color99;
         _labTimeJP.font = font7;
-        
     }
     return _labTimeJP;
 }
-
-
-
 - (UILabel *)labCPTitle
 {
     if (!_labCPTitle) {
@@ -286,7 +188,6 @@
         _labCP1.font = font10;
         _labCP1.layer.borderColor = colorE8.CGColor;
         _labCP1.layer.borderWidth = 0.6;
-        
         _labCP1.textAlignment = NSTextAlignmentCenter;
     }
     return _labCP1;
@@ -302,7 +203,6 @@
         _labCP2.layer.borderWidth = 0.6;
         _labCP2.backgroundColor = colorTableViewBackgroundColor;
         _labCP2.adjustsFontSizeToFitWidth = YES;
-        
         _labCP2.textAlignment = NSTextAlignmentCenter;
     }
     return _labCP2;
@@ -316,13 +216,10 @@
         _labCP3.font = font10;
         _labCP3.layer.borderColor = colorE8.CGColor;
         _labCP3.layer.borderWidth = 0.6;
-        
         _labCP3.textAlignment = NSTextAlignmentCenter;
     }
     return _labCP3;
 }
-
-
 - (UILabel *)labTimeCP
 {
     if (!_labTimeCP) {
@@ -330,11 +227,9 @@
         _labTimeCP.center = CGPointMake(_labTimeCP.center.x, _labCPTitle.center.y);
         _labTimeCP.textColor = color99;
         _labTimeCP.font = font7;
-        
     }
     return _labTimeCP;
 }
-
 - (UILabel *)labchangeNum
 {
     if (!_labchangeNum) {
@@ -353,16 +248,13 @@
     }
     return _labchangeTitle;
 }
-
 - (UIView *)viewProcess
 {
     if (!_viewProcess) {
         _viewProcess = [[UIView alloc] init];
-//        _viewProcess.backgroundColor = yellowcolor;
     }
     return _viewProcess;
 }
-
 - (void)addlayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -371,7 +263,6 @@
         make.top.equalTo(self.mas_top);
         make.bottom.equalTo(self.mas_bottom);
     }];
-    
     [self.viewProcess mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(31);
         make.left.equalTo(self.basicView.mas_left).offset(40);
@@ -384,10 +275,6 @@
     [self.labchangeTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-22);
         make.bottom.equalTo(self.basicView.mas_bottom).offset(-12);
-        
     }];
-    
-    
 }
-
 @end

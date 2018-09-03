@@ -1,24 +1,12 @@
-//
-//  ZBBettingCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/6/20.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBettingCell.h"
 @interface ZBBettingCell()
-
 @property (nonatomic, strong)UIView *basicView;
-
-@property (nonatomic, strong)UILabel *labType;//胜平负
-@property (nonatomic, strong)UILabel *labPeLv;//赔率
-@property (nonatomic, strong)UILabel *labgaiLv;//概率
-@property (nonatomic, strong)UILabel *labTZB;//投注比
-@property (nonatomic, strong)UILabel *labWuCha;//误差
+@property (nonatomic, strong)UILabel *labType;
+@property (nonatomic, strong)UILabel *labPeLv;
+@property (nonatomic, strong)UILabel *labgaiLv;
+@property (nonatomic, strong)UILabel *labTZB;
+@property (nonatomic, strong)UILabel *labWuCha;
 @property (nonatomic, strong)UIView *lineView;
-
-
 @property (nonatomic, strong) UILabel *labQici;
 @property (nonatomic, strong) UILabel *labLeague;
 @property (nonatomic, strong) UILabel *labTime;
@@ -30,13 +18,7 @@
 @property (nonatomic, strong) UILabel *labPeilvUp;
 @property (nonatomic, strong) UILabel *labpeilvGoal;
 @property (nonatomic, strong) UILabel *labPeilvDown;
-
-
-
-
 @end
-
-
 @implementation ZBBettingCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -48,7 +30,6 @@
         [self.basicView addSubview:self.labPeLv];
         [self.basicView addSubview:self.labType];
         [self.basicView addSubview:self.lineView];
-        
         [_basicView addSubview:self.labQici];
         [_basicView addSubview:self.labLeague];
         [_basicView addSubview:self.labTime];
@@ -60,12 +41,9 @@
         [_basicView addSubview:self.labPeilvUp];
         [_basicView addSubview:self.labpeilvGoal];
         [_basicView addSubview:self.labPeilvDown];
-        
         [self setMas];
     }
-    
     return self;
-    
 }
 - (UIView *)basicView{
     if (!_basicView) {
@@ -74,7 +52,6 @@
     }
     return _basicView;
 }
-
 - (UILabel *)labQici
 {
     if (!_labQici) {
@@ -84,7 +61,6 @@
     }
     return _labQici;
 }
-
 - (UILabel *)labLeague
 {
     if (!_labLeague) {
@@ -94,7 +70,6 @@
     }
     return _labLeague;
 }
-
 - (UILabel *)labTime
 {
     if (!_labTime) {
@@ -104,7 +79,6 @@
     }
     return _labTime;
 }
-
 - (UILabel *)labHomteam
 {
     if (!_labHomteam) {
@@ -177,9 +151,6 @@
     }
     return _labPeilvDown;
 }
-
-
-
 - (UILabel *)labType{
     if (!_labType) {
         _labType = [[UILabel alloc] init];
@@ -188,7 +159,6 @@
         _labType.text = @"胜";
         _labType.textAlignment = NSTextAlignmentCenter;
     }
-    
     return _labType;
 }
 - (UILabel *)labPeLv{
@@ -240,140 +210,43 @@
 }
 -(void)setModel:(ZBTouZhuModel *)model{
     _model = model;
-    
-    
-    
-    
     _labQici.text =isNUll(_model.sort)?@"" :[NSString stringWithFormat:@"%@ ",_model.sort] ;
     _labLeague.text = _model.league;
-//    _labLeague.textColor = [ZBMethods getColor:_model.sclassColor];
     _labTime.text = _model.mtime;
-    
-//    if ([_model.hometeam isEqualToString:_model.teamname]) {
-//        _labHomteam.textColor = redcolor;
-//    }else{
-//        _labHomteam.textColor = color33;
-//        
-//    }
-    
-//    if ([_model.guestteam isEqualToString:_model.teamname]) {
-//        _labGuestteam.textColor = redcolor;
-//    }else{
-//        _labGuestteam.textColor = color33;
-//        
-//    }
-
     NSString *home = _model.hometeam;
     NSString *guest = _model.guestteam;
-    
-    
     if (isOniPhone4 || isOniPhone5) {
-        
         if (home.length>3) {
             home = [NSString stringWithFormat:@"%@…",[home substringToIndex:3]];
         }
         if (guest.length>3) {
             guest = [NSString stringWithFormat:@"%@…",[guest substringToIndex:3]];
         }
-        
     }else{
-        
         if (home.length>5) {
             home = [NSString stringWithFormat:@"%@…",[home substringToIndex:5]];
         }
         if (guest.length>5) {
             guest = [NSString stringWithFormat:@"%@…",[guest substringToIndex:5]];
         }
-        
     }
-    
     _labHomteam.text = home;
     _labVS.text = @"vs";
     _labGuestteam.text = guest;
-//    _labCompany.text = _model.company;
     _labCompany.text = @"";
-    
-    
     _labPankou.text = @"";
     _labPeilvUp.text = @"";
     _labpeilvGoal.text = @"";
     _labPeilvDown.text = @"";
-    
     [self.labQici mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(22.5);
     }];
     [self.labLeague mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(22.5);
-        
     }];
     [self.labTime mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(22.5);
-        
     }];
-
-    
-//    if (isNUll(_model.win)) {
-//        _labPankou.text = @"";
-//        _labPeilvUp.text = @"";
-//        _labpeilvGoal.text = @"";
-//        _labPeilvDown.text = @"";
-//        
-//        [self.labQici mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.basicView.mas_top).offset(22.5);
-//        }];
-//        [self.labLeague mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.basicView.mas_top).offset(22.5);
-//            
-//        }];
-//        [self.labTime mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.basicView.mas_top).offset(22.5);
-//            
-//        }];
-//        
-//        
-//        
-//    }else{
-//        
-//        [self.labQici mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.basicView.mas_top).offset(14.5);
-//        }];
-//        [self.labLeague mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.basicView.mas_top).offset(14.5);
-//            
-//        }];
-//        [self.labTime mas_updateConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(self.basicView.mas_top).offset(14.5);
-//            
-//        }];
-//        
-//        
-//        
-//        
-//        if (_type == 0) {
-//            _labPankou.text = @"初赔";
-//            
-//        }else{
-//            _labPankou.text = @"初盘";
-//            
-//        }
-//        _labPeilvUp.text = _model.win;
-//        _labpeilvGoal.text = _model.draw;
-//        _labPeilvDown.text = _model.lose;
-//        
-//    }
-//    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     switch ([model.deal[@"type"] integerValue]) {
         case 3:
             self.labType.text = @"胜";
@@ -384,11 +257,9 @@
         case 0:
             self.labType.text = @"负";
             break;
-            
         default:
             break;
     }
-    
     self.labPeLv.text = model.deal[@"price"];
     self.labgaiLv.text = model.deal[@"returnRate"];
     self.labTZB.text = model.deal[@"profit"];
@@ -400,8 +271,6 @@
     }else{
         self.labWuCha.textColor = redcolor;
     }
-    
-    
 }
 - (void)setMas{
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -417,19 +286,15 @@
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labQici.mas_right).offset(0);
         make.top.equalTo(self.basicView.mas_top).offset(14.5);
-        
     }];
     [self.labTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labLeague.mas_right).offset(5);
         make.top.equalTo(self.basicView.mas_top).offset(14.5);
-        
     }];
-    
     [self.labHomteam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labTime.mas_bottom).offset(6.5);
     }];
-    
     [self.labVS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labHomteam.mas_right).offset(5);
         make.centerY.equalTo(self.labHomteam.mas_centerY);
@@ -437,20 +302,15 @@
     [self.labGuestteam mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labVS.mas_right).offset(5);
         make.centerY.equalTo(self.labHomteam.mas_centerY);
-        
     }];
-    
     [self.labCompany mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labHomteam.mas_bottom).offset(6.5);
     }];
-    
     [self.labPankou mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labCompany.mas_right).offset(0);
         make.top.equalTo(self.labHomteam.mas_bottom).offset(6.5);
     }];
-    
-    
     [self.labPeilvUp mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labPankou.mas_right).offset(5);
         make.centerY.equalTo(self.labPankou.mas_centerY);
@@ -463,11 +323,6 @@
         make.left.equalTo(self.labpeilvGoal.mas_right).offset(5);
         make.centerY.equalTo(self.labPankou.mas_centerY);
     }];
-    
-    
-    
-    
-    
     [self.labWuCha mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.basicView.mas_right);
         make.centerY.mas_equalTo(self.basicView.mas_centerY);
@@ -483,7 +338,6 @@
         make.centerY.mas_equalTo(self.labTZB.mas_centerY);
         make.width.mas_offset(35 * Scale_Ratio);
     }];
-    
     [self.labType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.labgaiLv.mas_left);
         make.bottom.mas_equalTo(self.basicView.mas_centerY);
@@ -494,25 +348,17 @@
         make.top.mas_equalTo(self.basicView.mas_centerY).offset(5);
         make.width.mas_offset(40 * Scale_Ratio);
     }];
-    
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.basicView.mas_bottom);
         make.left.mas_equalTo(self.basicView.mas_left);
         make.right.mas_equalTo(self.basicView.mas_right);
         make.height.mas_offset(0.5);
     }];
-    
 }
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 @end

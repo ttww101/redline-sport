@@ -1,14 +1,4 @@
-//
-//  ZBUsercatestatisModel.m
-//  GQapp
-//
-//  Created by WQ on 2017/1/9.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-/*
- */
 #import "ZBUsercatestatisModel.h"
-
 @implementation ZBUsercatestatisModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -41,83 +31,52 @@
 + (NSValueTransformer *)goodsclassJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[ZBGoodsclassModel class]];
 }
-
 + (NSValueTransformer *)totalrateJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBTotalrateModel class]];
-    
 }
 + (NSValueTransformer *)sclassStatisJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)playStatis0JSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)playStatis1JSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)playStatis2JSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)playStatis3JSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)yaPanStatisJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)ouPanStatisJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)dxPanStatisJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)timeStatisJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)monthGroupJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 + (NSValueTransformer *)weekGroupJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBStatisticsSectionTwoModel class]];
-    
 }
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

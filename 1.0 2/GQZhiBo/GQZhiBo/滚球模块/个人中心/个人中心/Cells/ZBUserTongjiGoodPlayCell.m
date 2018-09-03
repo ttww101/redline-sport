@@ -1,23 +1,13 @@
-//
-//  ZBUserTongjiGoodPlayCell.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/21.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
 #import "DCImageViewRoundCorner.h"
 #import "ZBUserTongjiGoodPlayCell.h"
 @interface ZBUserTongjiGoodPlayCell()
 @property (nonatomic, assign) BOOL isaddlayout;
 @property (nonatomic, strong) UIView *basicView;
-
 @property (nonatomic, strong) UIView *viewSqureTen;
 @property (nonatomic, strong) UILabel *labTen;
 @property (nonatomic, strong) UIView *viewTen;
-//远近
 @property (nonatomic, strong) UILabel *labYuan;
 @property (nonatomic, strong) UILabel *labJin;
-
 @property (nonatomic, strong) UILabel *labgoodLeague;
 @property (nonatomic, strong) UILabel *lableague1;
 @property (nonatomic, strong) UILabel *lableague2;
@@ -28,125 +18,91 @@
 @property (nonatomic, strong) UILabel *labplay2;
 @property (nonatomic, strong) UILabel *labplay3;
 @property (nonatomic, strong) UILabel *labplay4;
-
 @property (nonatomic, strong) UIView *viewLine;
 @end
 @implementation ZBUserTongjiGoodPlayCell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 - (void)setModel:(ZBUserTongjiModel *)model
 {
     _model = model;
     [self.contentView addSubview:self.basicView];
-    
     if (!_isaddlayout) {
         _isaddlayout = YES;
         [self addLayout];
     }
     _labgoodLeague.text = @"擅长赛事";
-
     if (_model.goodSclass.count == 0) {
         _lableague1.text = @"无";
         _lableague1.textColor = color66;
     }else{
         _lableague1.textColor = redcolor;
-
     }
-    
     for (int i= 0; i<_model.goodSclass.count; i++) {
-        
         switch (i) {
             case 0:
             {
                 _lableague1.text = [_model.goodSclass objectAtIndex:i];
-
             }
                 break;
             case 1:
             {
                 _lableague2.text = [_model.goodSclass objectAtIndex:i];
-
             }
                 break;
             case 2:
             {
                 _lableague3.text = [_model.goodSclass objectAtIndex:i];
-
             }
                 break;
             case 3:
             {
                 _lableague4.text = [_model.goodSclass objectAtIndex:i];
-
             }
                 break;
- 
             default:
                 break;
         }
     }
-    
-    
-    
-    
     _labgoodPlay.text = @"擅长玩法";
-    
     if (_model.goodPlays.count == 0) {
         _labplay1.text = @"无";
     }
-
     for (int i= 0; i<_model.goodPlays.count; i++) {
-        
         switch (i) {
             case 0:
             {
                 _labplay1.text = [_model.goodPlays objectAtIndex:i];
-                
             }
                 break;
             case 1:
             {
                 _lableague2.text = [_model.goodPlays objectAtIndex:i];
-                
             }
                 break;
             case 2:
             {
                 _lableague3.text = [_model.goodPlays objectAtIndex:i];
-                
             }
                 break;
             case 3:
             {
                 _lableague4.text = [_model.goodPlays objectAtIndex:i];
-                
             }
                 break;
-                
             default:
                 break;
         }
     }
-    
-    
     _labTen.text = @"输赢走势";
     _labYuan.text = @"近";
     _labJin.text = @"远";
-
-    
     [_viewTen removeAllSubViews];
     NSArray *arrNearTen = _recent;
-    
     CGFloat labWinSpace = (Width -26*2 - 20*arrNearTen.count)/(arrNearTen.count + 1);
     for (int i = 0; i<arrNearTen.count; i++) {
         UILabel *labWin = [[UILabel alloc] init];
@@ -157,47 +113,33 @@
             imageCorner.image = [UIImage imageNamed:@"red"];
             [imageCorner addCornerRadius:imageCorner.size.width/2];
             [labWin addSubview:imageCorner];
-            
         }else if ([[arrNearTen objectAtIndex:i] isEqualToString:@"输"]){
             DCImageViewRoundCorner *imageCorner = [[DCImageViewRoundCorner alloc] initWithFrame:labWin.bounds];
             imageCorner.image = [UIImage imageNamed:@"colorGreen"];
             [imageCorner addCornerRadius:imageCorner.size.width/2];
             [labWin addSubview:imageCorner];
-            
-            
         }else if ([[arrNearTen objectAtIndex:i] isEqualToString:@"走"]){
             DCImageViewRoundCorner *imageCorner = [[DCImageViewRoundCorner alloc] initWithFrame:labWin.bounds];
             imageCorner.image = [UIImage imageNamed:@"color99"];
             [imageCorner addCornerRadius:imageCorner.size.width/2];
             [labWin addSubview:imageCorner];
-            
-            
         }else{
             DCImageViewRoundCorner *imageCorner = [[DCImageViewRoundCorner alloc] initWithFrame:labWin.bounds];
             imageCorner.image = [UIImage imageNamed:@"red"];
             [imageCorner addCornerRadius:imageCorner.size.width/2];
             [labWin addSubview:imageCorner];
-            
-            
         }
-        
         labWin.textColor = [UIColor whiteColor];
         labWin.font = font12;
         labWin.text = [arrNearTen objectAtIndex:i];
         labWin.textAlignment = NSTextAlignmentCenter;
-        
         [_viewTen addSubview:labWin];
     }
-
-    
-
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
         _basicView = [[UIView alloc] init];
-        
         [_basicView addSubview:self.labgoodLeague];
         [_basicView addSubview:self.lableague1];
         [_basicView addSubview:self.lableague2];
@@ -209,18 +151,14 @@
         [_basicView addSubview:self.labplay3];
         [_basicView addSubview:self.labplay4];
         [_basicView addSubview:self.viewLine];
-
         [_basicView addSubview:self.viewSqureTen];
         [_basicView addSubview:self.labTen];
         [_basicView addSubview:self.viewTen];
         [_basicView addSubview:self.labYuan];
         [_basicView addSubview:self.labJin];
-
-
     }
     return _basicView;
 }
-
 - (UIView *)viewSqureTen
 {
     if (!_viewSqureTen) {
@@ -229,7 +167,6 @@
     }
     return _viewSqureTen;
 }
-
 - (UILabel *)labTen
 {
     if (!_labTen) {
@@ -239,7 +176,6 @@
     }
     return _labTen;
 }
-
 - (UIView *)viewTen
 {
     if (!_viewTen) {
@@ -247,7 +183,6 @@
     }
     return _viewTen;
 }
-
 - (UILabel *)labYuan
 {
     if (!_labYuan) {
@@ -284,7 +219,6 @@
     }
     return _lableague1;
 }
-
 - (UILabel *)lableague2
 {
     if (!_lableague2) {
@@ -294,7 +228,6 @@
     }
     return _lableague2;
 }
-
 - (UILabel *)lableague3
 {
     if (!_lableague3) {
@@ -304,7 +237,6 @@
     }
     return _lableague3;
 }
-
 - (UILabel *)lableague4
 {
     if (!_lableague4) {
@@ -314,7 +246,6 @@
     }
     return _lableague4;
 }
-
 - (UILabel *)labgoodPlay
 {
     if (!_labgoodPlay) {
@@ -324,7 +255,6 @@
     }
     return _labgoodPlay;
 }
-
 - (UILabel *)labplay1
 {
     if (!_labplay1) {
@@ -361,7 +291,6 @@
     }
     return _labplay4;
 }
-
 - (UIView *)viewLine
 {
     if (!_viewLine) {
@@ -370,8 +299,6 @@
     }
     return _viewLine;
 }
-
-
 - (void)addLayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -380,35 +307,28 @@
         make.top.equalTo(self.contentView.mas_top);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
-    
     [self.labTen mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.basicView.mas_top).offset(12.5);
     }];
-    
     [self.viewSqureTen mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(6);
         make.centerY.equalTo(self.labTen.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(5, 5));
     }];
-    
     [self.viewTen mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(0);
         make.top.equalTo(self.basicView.mas_top).offset(30);
         make.size.mas_equalTo(CGSizeMake(Width, 30));
     }];
-    
     [self.labYuan mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(17);
         make.centerY.equalTo(self.viewTen.mas_centerY);
     }];
-    
     [self.labJin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-17);
         make.centerY.equalTo(self.viewTen.mas_centerY);
     }];
-
-    
     [self.labgoodLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.basicView.mas_top).offset(11.5 + 60);
@@ -429,17 +349,14 @@
         make.left.equalTo(self.lableague3.mas_right).offset(15);
         make.centerY.equalTo(self.labgoodLeague.mas_centerY).offset(0);
     }];
-
     [self.labgoodPlay mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.bottom.equalTo(self.basicView.mas_bottom).offset(-20);
     }];
-    
     [self.labplay1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labgoodPlay.mas_right).offset(12.5);
         make.centerY.equalTo(self.labgoodPlay.mas_centerY).offset(0);
     }];
-
     [self.labplay2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labplay1.mas_right).offset(12.5);
         make.centerY.equalTo(self.labgoodPlay.mas_centerY).offset(0);
@@ -452,30 +369,10 @@
         make.left.equalTo(self.labplay3.mas_right).offset(12.5);
         make.centerY.equalTo(self.labgoodPlay.mas_centerY).offset(0);
     }];
-
     [self.viewLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.basicView.mas_bottom);
         make.left.equalTo(self.basicView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 10));
     }];
-    
-    
-    
-    
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

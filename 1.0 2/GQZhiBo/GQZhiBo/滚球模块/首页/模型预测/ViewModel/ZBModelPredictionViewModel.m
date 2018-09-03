@@ -1,16 +1,5 @@
-
-//
-//  ZBModelPredictionViewModel.m
-//  newGQapp
-//
-//  Created by genglei on 2018/3/30.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBModelPredictionViewModel.h"
-
 @implementation ZBModelPredictionViewModel
-
 + (NSArray *)createModelListArray {
     NSArray *imageArray = @[@"winorfail", @"yapan", @"daxiaoqiu"];
     NSArray *titleArray = @[@"胜平负", @"亚盘", @"大小球"];
@@ -24,5 +13,4 @@
     }];
     return array;
 }
-
 @end

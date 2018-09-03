@@ -1,41 +1,23 @@
-//
-//  ZBLiveViewController.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/2.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBLiveViewController.h"
 #import "ZBLiveListViewController.h"
-
 @interface ZBLiveViewController () <TYTabPagerControllerDataSource, TYTabPagerControllerDelegate, TYTabPagerBarDelegate>
-
 @property (nonatomic, strong) NSArray *newsPageInfos;
-
-
 @end
-
 @implementation ZBLiveViewController
-
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        
         [self configurePagerStyles];
     }
     return self;
 }
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super initWithCoder:aDecoder]) {
-        
         [self configurePagerStyles];
     }
     return self;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configUI];
@@ -43,26 +25,19 @@
     [self configureTabButtonPager];
     [self loadData];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:false animated:YES];
 }
-
 - (void)dealloc {
-
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 - (void)configurePagerStyles
 {
     self.tabBarHeight = 44;
 }
-
 - (void)configureTabButtonPager {
     self.dataSource = self;
     self.delegate = self;
@@ -80,15 +55,11 @@
     self.tabBar.layout.cellSpacing = 20;
     self.tabBar.layout.progressColor = UIColorFromRGBWithOX(0x37B1DA);
 }
-
 #pragma mark - load data
-
 - (void)loadData{
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:@"http://api.live.gunqiu.com:88/radar?action=getDays" Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         NSDictionary *dic = (NSDictionary *)responseOrignal;
         NSString *code = [dic[@"code"] stringValue];
@@ -107,48 +78,34 @@
          [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
 }
-
-/**
- 重新刷新
- */
-
 - (void)tryAgainAtExceptionView {
     [self loadData];
 }
-
 #pragma mark - TYTabPagerBarDelegate
-
 - (CGFloat)pagerTabBar:(TYTabPagerBar *)pagerTabBar widthForItemAtIndex:(NSInteger)index {
     NSDictionary *newsPageInfo = _newsPageInfos[index];
     CGFloat width = [ZBMethods widthForString:newsPageInfo[@"name"] fontSize:17.f andHeight:0];
     return width;
 }
-
 #pragma mark - TYPagerControllerDataSource
-
 - (NSInteger)numberOfControllersInTabPagerController
 {
     return _newsPageInfos.count;
 }
-
 - (NSString *)tabPagerController:(TYTabPagerController *)tabPagerController titleForIndex:(NSInteger)index
 {
     NSDictionary *newsPageInfo = _newsPageInfos[index];
     NSString *title = [newsPageInfo objectForKey:@"name"];
     return title ? title : @"";
 }
-
 - (UIViewController *)tabPagerController:(TYTabPagerController *)tabPagerController controllerForIndex:(NSInteger)index prefetching:(BOOL)prefetching {
     NSDictionary *newsPageInfo = _newsPageInfos[index];
     ZBLiveListViewController *control = [[ZBLiveListViewController alloc]init];
     control.dayID = newsPageInfo[@"day"];
     return control;
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.navigationItem.title = @"足球";
 }
-
 @end

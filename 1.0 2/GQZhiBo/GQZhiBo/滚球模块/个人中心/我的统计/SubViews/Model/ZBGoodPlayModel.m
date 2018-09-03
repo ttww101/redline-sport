@@ -1,13 +1,4 @@
-//
-//  ZBGoodPlayModel.m
-//  GQapp
-//
-//  Created by WQ_h on 16/8/15.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBGoodPlayModel.h"
-
 @implementation ZBGoodPlayModel
 +(NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -19,8 +10,6 @@
              @"losenum" : @"losenum",
              @"recommendCount" : @"recommendCount",
              @"winnum" : @"winnum",
-
              };
 }
-
 @end

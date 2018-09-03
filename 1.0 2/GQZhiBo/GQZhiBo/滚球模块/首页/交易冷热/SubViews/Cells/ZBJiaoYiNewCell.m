@@ -1,33 +1,18 @@
-//
-//  ZBJiaoYiNewCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/6/20.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBJiaoYiNewCell.h"
 @interface ZBJiaoYiNewCell()
-@property (nonatomic, strong)UILabel *strLab;//时间赛事日期
+@property (nonatomic, strong)UILabel *strLab;
 @property (nonatomic, strong)UILabel *homeName;
 @property (nonatomic, strong)UILabel *labVS;
 @property (nonatomic, strong)UILabel *labGuesName;
-
 @property (nonatomic, strong)UIView *viewOne;
 @property (nonatomic, strong)UIView *viewTwo;
 @property (nonatomic, strong)UIView *viewThree;
-
 @property (nonatomic, strong)UIView *lineView;
 @property (nonatomic, strong)UIView  *basView;
-
 @end
-
 @implementation ZBJiaoYiNewCell
-
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
         [self.contentView addSubview:self.basView];
         [self.basView addSubview:self.strLab];
         [self.basView addSubview:self.homeName];
@@ -37,20 +22,15 @@
         [self.basView addSubview:self.viewTwo];
         [self.basView addSubview:self.viewThree];
         [self.basView addSubview:self.lineView];
-        
-        
         [self setMas];
     }
     return self;
-    
-    
 }
 - (UIView *)basView{
     if (!_basView) {
         _basView = [[UIView alloc] init];
         _basView.backgroundColor = [UIColor clearColor];
     }
-
     return _basView;
 }
 - (UILabel *)strLab{
@@ -68,7 +48,6 @@
         _homeName.font = BoldFont4(fontSize16);
         _homeName.text = @"FC爱媛";
         _homeName.textColor = color33;
-        
     }
     return _homeName;
 }
@@ -127,17 +106,14 @@
     labOne.textAlignment = NSTextAlignmentCenter;
     labOne.text = dataOne;
     [backView addSubview:labOne];
-    
     UILabel *labTwo = [[UILabel alloc] initWithFrame:CGRectMake(labOne.right,0, wid+10,10)];
     labTwo.font = font11;
     labTwo.textColor = color33;
     labTwo.textAlignment = NSTextAlignmentCenter;
     labTwo.text = dataTwo;
     [backView addSubview:labTwo];
-    
     UILabel *labThree = [[UILabel alloc] initWithFrame:CGRectMake(labTwo.right,0, wid + 10,10)];
     labThree.font = font11;
-    
     if (self.type ==3) {
         NSLog(@"%@",dataThree);
         labThree.text = [NSString stringWithFormat:@"%@",dataThree];
@@ -158,13 +134,8 @@
         NSLog(@"%@",dataThree);
         labThree.text = dataThree;
     }
-    
-    
     labThree.textAlignment = NSTextAlignmentCenter;
-   
     [backView addSubview:labThree];
-    
-
 }
 - (void)setModel:(ZBJiaoYiModel *)model{
     _model = model;
@@ -175,8 +146,6 @@
     }else if(self.homeName.text.length > 6){
         self.homeName.text = [NSString stringWithFormat:@"%@...",[self.homeName.text substringToIndex:6]];
     }
-    
-    
     self.labVS.text = model.deal[1][@"name"];
     self.labGuesName.text = model.deal[2][@"name"];
     if (self.labGuesName.text.length > 4 && (isOniPhone4 || isOniPhone5)) {
@@ -184,102 +153,19 @@
     }else if(self.labGuesName.text.length > 6){
         self.labGuesName.text = [NSString stringWithFormat:@"%@...",[self.labGuesName.text substringToIndex:6]];
     }
-    
-    
-    
     if (self.type ==3) {
-        
         [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:@"" color:color33];
-        
         [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:color33];
         [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:@"" color:color33];
     }else if(self.type == 1){
-//        double one = [[model.deal[0][@"profit"] stringByReplacingOccurrencesOfString:@"," withString:@""] doubleValue];
-//        NSLog(@"%.2f",one);//-7696
-//        double two = [[model.deal[1][@"profit"] stringByReplacingOccurrencesOfString:@"," withString:@""] doubleValue];
-//        NSLog(@"%.2f",two);//80028
-//        double three = [[model.deal[2][@"profit"] stringByReplacingOccurrencesOfString:@"," withString:@""] doubleValue];
-//        NSLog(@"%.2f",three);//25241
-        
-        
-        //        if (one > two && one > three) {
-        //            [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:redcolor];
-        //            [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:color33];
-        //            [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:color33];
-        //
-        //        }else{
-        //            if (two > one && two > three) {
-        //                [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:color33];
-        //                [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:redcolor];
-        //                [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:color33];
-        //            }else{
-        //                if (three > one && three > two) {
-        //                    [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:redcolor];
-        //                    [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:color33];
-        //                    [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:color33];
-        //                }else{
-        //
-        //                }
-        //            }
-        //
-        //        }
-        
-        
-        
-        
         [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:redcolor];
         [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:redcolor];
         [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:redcolor];
-        
     }else{
-//        double one = [[model.deal[0][@"profit"] stringByReplacingOccurrencesOfString:@"," withString:@""] doubleValue];
-//        double two = [[model.deal[1][@"profit"] stringByReplacingOccurrencesOfString:@"," withString:@""] doubleValue];
-//        double three = [[model.deal[2][@"profit"] stringByReplacingOccurrencesOfString:@"," withString:@""] doubleValue];
-        
-        //        if (one < two  && three > one) {
-        //            [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:greencolor];
-        //            [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:color33];
-        //            [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:color33];
-        //        }else{
-        //            if (two < one  && two < three) {
-        //                [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:greencolor];
-        //                [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:color33];
-        //                [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:color33];
-        //            }else{
-        //                if (three < one && three < two) {
-        //                    [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:greencolor];
-        //                    [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:color33];
-        //                    [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:color33];
-        //                }else{
-        //                    [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:color33];
-        //                    [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:color33];
-        //                    [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:color33];
-        //
-        //                }
-        //            }
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //        }
-        
-        
-        
         [self createLab:self.viewOne dataOne:model.deal[0][@"price"] dataTwo:model.deal[0][@"deal"] dataThree:model.deal[0][@"profit"] color:greencolor];
         [self createLab:self.viewTwo dataOne:model.deal[1][@"price"] dataTwo:model.deal[1][@"deal"] dataThree:model.deal[1][@"profit"] color:greencolor];
         [self createLab:self.viewThree dataOne:model.deal[2][@"price"] dataTwo:model.deal[2][@"deal"] dataThree:model.deal[2][@"profit"] color:greencolor];
-        
     }
-    
-    
-    
-    
-    
-    
 }
 - (void)setMas{
     [self.basView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -304,14 +190,12 @@
         make.left.mas_equalTo(self.strLab.mas_left);
         make.top.mas_equalTo(self.labVS.mas_bottom).offset(5.5);
     }];
-    
     [self.viewOne mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.homeName.mas_centerY);
         make.right.mas_equalTo(self.basView.mas_right).offset(-15);
         make.width.mas_offset(200);
         make.height.mas_offset(10);
     }];
-    
     [self.viewTwo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.labVS.mas_centerY);
         make.right.mas_equalTo(self.basView.mas_right).offset(-15);
@@ -324,26 +208,17 @@
         make.width.mas_offset(200);
         make.height.mas_offset(10);
     }];
-    
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.basView.mas_right);
         make.left.mas_equalTo(self.basView.mas_left);
         make.bottom.mas_equalTo(self.basView.mas_bottom);
         make.height.mas_offset(0.5);
     }];
-    
 }
-
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 @end

@@ -1,49 +1,26 @@
-//
-//  ZBBuyViewofTuijianView.m
-//  GQapp
-//
-//  Created by WQ on 2017/7/25.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBuyViewofTuijianView.h"
 @interface ZBBuyViewofTuijianView()
 @property (nonatomic, assign) BOOL isaddLayout;
 @property (nonatomic, strong) UIView *basicView;
 @property (nonatomic, strong) UIView *viewline;
-
 @property (nonatomic, strong) UILabel *labbuyNum;
 @property (nonatomic, strong) UILabel *labuytime;
-
 @property (nonatomic, strong) UILabel *labbuyNumtitle;
 @property (nonatomic, strong) UILabel *labuytimetitle;
 @property (nonatomic, strong) UILabel *labbuystate;
 @property (nonatomic, strong) UILabel *labbuyStateTitle;
-
-
 @end
 @implementation ZBBuyViewofTuijianView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (id)init
 {
     self = [super init];
     if (self) {
-        
     }
     return self;
 }
-
 - (void)setModel:(ZBTuijiandatingModel *)model
 {
     _model = model;
-    
     [self addSubview:self.basicView];
     if (!_isaddLayout) {
         _isaddLayout = YES;
@@ -53,20 +30,7 @@
     _labbuyNum.text = [NSString stringWithFormat:@"%ld",_model.oid];
     _labuytimetitle.text = @"购买时间:";
     _labuytime.text = _model.paytime;
-//    _labbuyStateTitle.text = @"状态:";
-//    _labbuystate.text = _model.paystatus;
-
-//    if (_model.pay_status == YES) {
-//        _labbuystate.text = @"购买成功";
-//
-//    }else{
-//        _labbuystate.text = @"撤单退款";
-//
-//    }
-
 }
-
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -74,16 +38,13 @@
         [_basicView addSubview:self.labbuyNum];
         [_basicView addSubview:self.labuytime];
         [_basicView addSubview:self.viewline];
-
         [_basicView addSubview:self.labbuyNumtitle];
         [_basicView addSubview:self.labuytimetitle];
-
         [_basicView addSubview:self.labbuystate];
         [_basicView addSubview:self.labbuyStateTitle];
     }
     return _basicView;
 }
-
 - (UIView *)viewline
 {
     if (!_viewline) {
@@ -128,7 +89,6 @@
     }
     return _labuytimetitle;
 }
-
 - (UILabel *)labbuystate
 {
     if (!_labbuystate) {
@@ -138,7 +98,6 @@
     }
     return _labbuystate;
 }
-
 - (UILabel *)labbuyStateTitle
 {
     if (!_labbuyStateTitle) {
@@ -148,7 +107,6 @@
     }
     return _labbuyStateTitle;
 }
-
 - (void)addlayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -156,7 +114,6 @@
         make.top.equalTo(self.mas_top);
         make.right.equalTo(self.mas_right);
         make.bottom.equalTo(self.mas_bottom);
-
     }];
     [self.viewline mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left);
@@ -166,68 +123,26 @@
     [self.labbuyNumtitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.centerY.equalTo(self.basicView.mas_centerY);
-//        make.height.mas_equalTo(20);
     }];
-    
     [self.labbuyNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labbuyNumtitle.mas_right).offset(5);
         make.centerY.equalTo(self.basicView.mas_centerY);
-//        make.height.mas_equalTo(20);
     }];
     [self.labuytimetitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.labuytime.mas_left).offset(-5);
         make.centerY.equalTo(self.basicView.mas_centerY);
-//        make.height.mas_equalTo(20);
     }];
     [self.labuytime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-15);
         make.centerY.equalTo(self.basicView.mas_centerY);
-//        make.height.mas_equalTo(20);
     }];
     [self.labbuystate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-15);
         make.top.equalTo(self.labuytimetitle.mas_top).offset(0);
-//        make.height.mas_equalTo(20);
     }];
     [self.labbuyStateTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.labbuystate.mas_left).offset(-5);
         make.top.equalTo(self.labuytimetitle.mas_top).offset(0);
-//        make.height.mas_equalTo(20);
     }];
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

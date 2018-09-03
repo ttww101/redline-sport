@@ -1,15 +1,6 @@
-//
-//  ZBHttpString.m
-//  GunQiuLive
-//
-//  Created by WQ_h on 16/1/27.
-//  Copyright © 2016年 WQ_h. All rights reserved.
-//
-
 #import "ZBHttpString.h"
 @interface ZBHttpString()
 @end
-
 @implementation ZBHttpString
 + (NSString *)getBackStringByCode:(NSString *)code
 {
@@ -22,28 +13,21 @@
     if ([code isEqualToString:@"500"]) {
         return @"服务器处理错误";
     }
-    
     if ([code isEqualToString:@"1000"]) {
-//请求参数不规范,请参考接口中对应的参数
         return @"请求参数不规范";
     }
     if ([code isEqualToString:@"1001"]) {
-        // 当前只支持1.0版本,请输入正确的version值
         return @"当前只支持1.0版本";
     }
     if ([code isEqualToString:@"1002"]) {
-        //用户的key 不存在,请输入正确的apikey值
         return @"用户的key 不存在";
     }
     if ([code isEqualToString:@"1003"]) {
-        //该url已过期,请重新生成timestamp值
         return @"该url已过期";
     }
     if ([code isEqualToString:@"1004"]) {
-        //用户签名无效,请重新申城apisign值
         return @"用户签名无效";
     }
-    
     if ([code isEqualToString:@"2000"]) {
         return @"用户不存在!";
     }
@@ -73,7 +57,6 @@
     {
         return @"用户没有权限";
     }
-    
     else{
     return @"加载失败";
     }
@@ -81,14 +64,10 @@
 + (NSDictionary *)getCommenParemeter
 {
     NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
-
     if ([ZBMethods login]) {
         ZBUserModel *model =[ZBMethods getUserModel];
-//        }
         return [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"platform",@"1",@"visit",[NSString stringWithFormat:@"%ld",(long)model.idId],@"cnickid",[NSString stringWithFormat:@"%ld",(long)model.idId],@"userId",version,@"version", nil];
-
     }
     return [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"platform",@"1",@"visit",version,@"version", nil];
-    
 }
 @end

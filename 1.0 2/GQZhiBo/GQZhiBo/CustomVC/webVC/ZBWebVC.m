@@ -1,39 +1,23 @@
-//
-//  ZBWebVC.m
-//  GQapp
-//
-//  Created by WQ on 2016/11/30.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBWebVC.h"
-
 @interface ZBWebVC ()
 @property (nonatomic, strong) UIWebView *webView;
-
 @end
-
 @implementation ZBWebVC
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     self.navigationController.navigationBarHidden = YES;
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self.view addSubview:self.webView];
     self.navigationItem.title = _strtitle;
     [self setNavView];
 }
-
 #pragma mark -- setnavView
 - (void)setNavView
 {
@@ -46,22 +30,13 @@
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
     [self.view addSubview:nav];
 }
-
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
-        //right
-        
-        
     }
 }
-
-
-
 - (UIWebView *)webView
 {
     if (!_webView) {
@@ -71,26 +46,10 @@
         _webView.backgroundColor = [UIColor whiteColor];
         _webView.scrollView.showsVerticalScrollIndicator = NO;
         [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_strurl]]];
-        //        NSLog(@"%@",_url);
-        
     }
     return _webView;
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

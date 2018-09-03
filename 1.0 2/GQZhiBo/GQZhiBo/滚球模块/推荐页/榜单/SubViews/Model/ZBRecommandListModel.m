@@ -1,11 +1,3 @@
-//
-//  ZBRecommandListModel.m
-//  GQapp
-//
-//  Created by WQ_h on 16/7/6.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBRecommandListModel.h"
 #import "ZBMedalsModel.h"
 @implementation ZBRecommandListModel
@@ -32,10 +24,8 @@
              @"winNum" : @"winNum",
              @"goNum" : @"goNum",
              @"loseNum" : @"loseNum",
-
              };
 }
-
 + (NSValueTransformer *)rankJSONTransformer
 {
     return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
@@ -53,8 +43,5 @@
 + (NSValueTransformer *)medalsJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBMedalsModel class]];
-    
 }
-
-
 @end

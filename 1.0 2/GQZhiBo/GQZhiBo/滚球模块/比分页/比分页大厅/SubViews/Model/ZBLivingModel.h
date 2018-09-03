@@ -1,13 +1,4 @@
-//
-//  ZBLivingModel.h
-//  GunQiuLive
-//
-//  Created by WQ_h on 16/2/24.
-//  Copyright © 2016年 WQ_h. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBLivingModel : ZBBasicModel
 @property (nonatomic ,assign) int code;
 @property (nonatomic ,assign) int gsc;
@@ -19,5 +10,4 @@
 @property (nonatomic ,assign) int hsc;
 @property (nonatomic ,assign) int sid;
 @property (nonatomic ,copy) NSString *htime;
-
 @end

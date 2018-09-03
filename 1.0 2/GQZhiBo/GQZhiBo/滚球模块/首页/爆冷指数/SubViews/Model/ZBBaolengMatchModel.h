@@ -1,13 +1,4 @@
-//
-//  ZBBaolengMatchModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/9.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBBaolengMatchModel : ZBBasicModel
 @property (nonatomic, assign) NSTimeInterval matchtime;
 @property (nonatomic, strong) NSString * FirstGuestWin;

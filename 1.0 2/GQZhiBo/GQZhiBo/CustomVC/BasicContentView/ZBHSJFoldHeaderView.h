@@ -1,27 +1,12 @@
-//
-//  ZBHSJFoldHeaderView.h
-//  GQapp
-//
-//  Created by Marjoice on 10/08/2017.
-//  Copyright © 2017 GQXX. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
-
-// tableView Section headerView 
 typedef NS_ENUM(NSInteger, HerderStyle) {
-
     HerderStyleNone,
     HerderStyleTotal
 };
-
 @protocol FoldSectionHeaderViewDelegate <NSObject>
 - (void)foldHeaderInSection:(NSInteger)SectionHeader;
-
 @end
-
 @interface ZBHSJFoldHeaderView : UITableViewHeaderFooterView
-
 @property(nonatomic, assign) BOOL fold;
 @property(nonatomic, assign) NSInteger section;
 @property(nonatomic, weak) id<FoldSectionHeaderViewDelegate> delegate;
@@ -33,8 +18,5 @@ typedef NS_ENUM(NSInteger, HerderStyle) {
 @property(nonatomic, strong) UIColor    *backGrColor;
 @property (nonatomic, strong) UIImage    *clickView;
 @property (nonatomic, assign) BOOL      isRedRo;
-
 - (void)setFoldSectionHeaderViewWithTitle:(NSString *)title detail:(NSString *)detail type:(HerderStyle)type section:(NSInteger)section canFold:(BOOL)canFold;
-
-
 @end

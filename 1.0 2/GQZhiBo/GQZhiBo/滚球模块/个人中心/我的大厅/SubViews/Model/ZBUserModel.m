@@ -1,11 +1,3 @@
-//
-//  ZBUserModel.m
-//  GQapp
-//
-//  Created by WQ_h on 16/3/29.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBUserModel.h"
 #import "ZBMedalsModel.h"
 @implementation ZBUserModel
@@ -55,19 +47,10 @@
     @"showmobile" : @"showmobile",
     @"coin":@"coin",
     @"redpackage":@"redpackage"
-
     };
 }
-//+ (NSValueTransformer *)idIdJSONTransformer
-//{
-//    return [MTLValueTransformer reversibleTransformerWithBlock:^id(NSNumber *number) {
-//        return [NSString stringWithFormat:@"%@",number];
-//    }];
-//}
 + (NSValueTransformer *)medalsJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBMedalsModel class]];
-    
 }
-
 @end

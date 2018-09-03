@@ -1,46 +1,28 @@
-//
-//  ZBDCPageViewController.m
-//  CCAV5
-//
-//  Created by WQ on 2017/3/20.
-//  Copyright © 2017年 Gunqiu. All rights reserved.
-//
-
 #import "ZBDCPageViewController.h"
-
 @interface ZBDCPageViewController ()<UIPageViewControllerDelegate,UIPageViewControllerDataSource>
 {
-    NSInteger totalVC;         //VC的总数量
-    NSArray *VCArray;          //存放VC的数组
-    NSArray *buttonArray;      //存放VC Button的数组
-    UIView *headerView;        //头部视图
-    CGRect oldRect;            //用来保存title布局的Rect
+    NSInteger totalVC;         
+    NSArray *VCArray;          
+    NSArray *buttonArray;      
+    UIView *headerView;        
+    CGRect oldRect;            
     XLBasePageTitleButton *oldButton;
-    NSInteger currentVCIndex;  //当前VC索引
-    
+    NSInteger currentVCIndex;  
 }
 @property (nonatomic,strong) UIPageViewController *pageViewController;
 @property (nonatomic,strong) UIScrollView *titleBGScroll;
-
 @end
-
 @implementation ZBDCPageViewController
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.lineHeight = self.lineHeight>0?self.lineHeight:1.5;
     self.titleFont = self.titleFont?self.titleFont:[UIFont systemFontOfSize:14.0];
     self.defaultColor = self.defaultColor?self.defaultColor:[UIColor blackColor];
     self.chooseColor = self.chooseColor?self.chooseColor:[UIColor redColor];
-    
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
     [self.view addSubview:self.titleBGScroll];
-    
 }
-
 -(UIPageViewController *)pageViewController
 {
     if (!_pageViewController) {
@@ -50,7 +32,6 @@
     }
     return _pageViewController;
 }
-
 -(UIScrollView *)titleBGScroll
 {
     if (!_titleBGScroll) {
@@ -61,13 +42,10 @@
     }
     return _titleBGScroll;
 }
-
 -(void)setDataSource:(id<DCPageViewControllerDataSource>)dataSource
 {
     _dataSource = dataSource;
-    //[self reloadScrollPage];
 }
-
 -(void)reloadScrollPage
 {
     if ([self.dataSource respondsToSelector:@selector(numberViewControllersInViewPager:)]) {
@@ -77,13 +55,11 @@
         NSMutableArray *buttonList = [NSMutableArray array];
         for (int i = 0; i<totalVC; i++) {
             if ([self.dataSource respondsToSelector:@selector(viewPager:indexViewControllers:)]) {
-                
                 id viewcontroller = [self.dataSource viewPager:self indexViewControllers:i];
                 if ([viewcontroller isKindOfClass:[UIViewController class]]) {
                     [VCList addObject:viewcontroller];
                 }
             }
-            
             if ([self.dataSource respondsToSelector:@selector(viewPager:titleWithIndexViewControllers:)]) {
                 NSString *buttonTitle = [self.dataSource viewPager:self titleWithIndexViewControllers:i];
                 if (buttonArray.count > i) {
@@ -96,22 +72,15 @@
                         button = [self.dataSource viewPager:self titleButtonStyle:i];
                     }
                 }else{
-                    
                     XLBasePageTitleButton *autoButton = [[XLBasePageTitleButton alloc] init];
-                    
                     autoButton.buttonlineHeight = self.lineHeight;
                     autoButton.buttonlineWidth = self.lineWidth;
-
                     [autoButton.titleLabel setFont:self.titleFont];
                     [autoButton setTitleColor:self.defaultColor forState:UIControlStateNormal];
                     [autoButton setTitleColor:self.chooseColor forState:UIControlStateSelected];
-                    
                     button = autoButton;
-                    
                 }
                 [button addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-                
-                
                 button.frame = CGRectMake(oldRect.origin.x+oldRect.size.width, 0, [self textString:buttonTitle withFontHeight:20], [self.dataSource respondsToSelector:@selector(heightForTitleViewPager:)]?[self.dataSource heightForTitleViewPager:self]:0);
                 oldRect = button.frame;
                 [button setTitle:buttonTitle forState:UIControlStateNormal];
@@ -123,11 +92,9 @@
                 }
             }
         }
-        //给标题加上一条底边上的线
         UIView *viewLine = [[UIView alloc] initWithFrame:CGRectMake(0, _titleBGScroll.frame.size.height -1, _titleBGScroll.frame.size.width, 1)];
         viewLine.backgroundColor = colorDE;
         [_titleBGScroll addSubview:viewLine];
-        //当所有按钮尺寸小于屏幕宽度的时候要重新布局
         if (buttonList.count && ((UIButton *)buttonList.lastObject).frame.origin.x + ((UIButton *)buttonList.lastObject).frame.size.width<self.view.frame.size.width)
         {
             oldRect = CGRectZero;
@@ -149,7 +116,6 @@
         [_pageViewController setViewControllers:@[VCArray[self.selectIndex]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     }
 }
-
 -(void)titleButtonClick:(XLBasePageTitleButton *)sender
 {
     oldButton.selected = NO;
@@ -159,16 +125,13 @@
     [_pageViewController setViewControllers:@[VCArray[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     [self scrollViewOffset:sender];
 }
-
 -(void)titleButtonConvert:(XLBasePageTitleButton *)sender
 {
     oldButton.selected = NO;
     sender.selected = YES;
     oldButton = sender;
     [self scrollViewOffset:sender];
-    
 }
-
 -(void)scrollViewOffset:(UIButton *)button
 {
     if (!(_titleBGScroll.contentSize.width>CGRectGetWidth(self.view.frame))) {
@@ -186,7 +149,6 @@
         [_titleBGScroll setContentOffset:CGPointMake(0, 0) animated:YES];
     }
 }
-
 #pragma mark -UIPageViewControllerDelegate
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed
 {
@@ -197,10 +159,8 @@
                 [self.delegate viewPagerViewController:self didFinishScrollWithCurrentViewController:[VCArray objectAtIndex:currentVCIndex]];
             }
         }
-        
     }
 }
-
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers
 {
     currentVCIndex = [VCArray indexOfObject:pendingViewControllers[0]];
@@ -208,52 +168,41 @@
         [self.delegate viewPagerViewController:self willScrollerWithCurrentViewController:pageViewController.viewControllers[0]];
     }
 }
-
 #pragma mark -UIPageViewControllerDataSource
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSInteger index = [VCArray indexOfObject:viewController];
     if (index == 0 || index == NSNotFound) {
         return nil;
-        
     }else{
         return VCArray[--index];
     }
 }
-
 - (nullable UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     NSInteger index = [VCArray indexOfObject:viewController];
     if (index == VCArray.count-1 || index == NSNotFound) {
         return nil;
-        
     }else{
         return VCArray[++index];
     }
 }
-
 -(void)chooseTitleIndex:(NSInteger)index
 {
     [self titleButtonConvert:buttonArray[index]];
 }
-
 -(void)viewDidLayoutSubviews
 {
     headerView.frame = CGRectMake(0, 0, self.view.frame.size.width,[self.dataSource respondsToSelector:@selector(heightForHeaderViewPager:)]?[self.dataSource heightForHeaderViewPager:self]:0);
-    
     _titleBGScroll.frame = CGRectMake(0, (headerView.frame.size.height)?headerView.frame.origin.y+headerView.frame.size.height:0, self.view.frame.size.width,[self.dataSource respondsToSelector:@selector(heightForTitleViewPager:)]?[self.dataSource heightForTitleViewPager:self]:0);
-    
     if (buttonArray.count) {
-        
         _titleBGScroll.contentSize = CGSizeMake(((UIButton *)buttonArray.lastObject).frame.size.width+((UIButton *)buttonArray.lastObject).frame.origin.x, _titleBGScroll.frame.size.height);
     }
-    
     _pageViewController.view.frame = CGRectMake(0, _titleBGScroll.frame.origin.y+_titleBGScroll.frame.size.height, self.view.frame.size.width, self.view.frame.size.height-(_titleBGScroll.frame.origin.y+_titleBGScroll.frame.size.height));
     for (UIViewController *vc in VCArray) {
         vc.view.frame = _pageViewController.view.bounds;
     }
 }
-
 #pragma mark 计算字体宽度
 -(CGFloat)textString:(NSString *)text withFontHeight:(CGFloat)height
 {
@@ -262,32 +211,16 @@
     CGSize fontSize = [text boundingRectWithSize:CGSizeMake(MAXFLOAT, height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:fontAttribute context:nil].size;
     return fontSize.width+padding;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-
 @end
-
-
 #pragma mark 标题按钮的属性设置
 @implementation XLBasePageTitleButton
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        
     }
     return self;
 }
-
 -(void)drawRect:(CGRect)rect
 {
     if (self.selected) {
@@ -296,22 +229,14 @@
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         CGContextSetStrokeColorWithColor(ctx, color);
         CGContextSetLineWidth(ctx, lineHeight);
-        
         if (self.buttonlineWidth>0) {
-            
             CGContextMoveToPoint(ctx, self.frame.size.width/2 - self.buttonlineWidth/2, self.frame.size.height-lineHeight);
             CGContextAddLineToPoint(ctx, self.frame.size.width/2 + self.buttonlineWidth/2, self.frame.size.height-lineHeight);
-
         }else{
             CGContextMoveToPoint(ctx, 0, self.frame.size.height-lineHeight);
             CGContextAddLineToPoint(ctx, self.frame.size.width, self.frame.size.height-lineHeight );
-
         }
-        
-        
-        
         CGContextStrokePath(ctx);
     }
 }
-
 @end

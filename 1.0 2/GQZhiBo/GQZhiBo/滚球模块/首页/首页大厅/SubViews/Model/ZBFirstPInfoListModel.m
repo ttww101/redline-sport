@@ -1,11 +1,3 @@
-//
-//  ZBFirstPInfoListModel.m
-//  GQapp
-//
-//  Created by WQ on 16/11/1.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBFirstPInfoListModel.h"
 @implementation ZBFirstPInfoListModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
@@ -50,25 +42,18 @@
              @"recommand" : @"recommand",
              @"info" : @"info",
              @"matchtime2" : @"matchtime2",
-             
              };
 }
-
 + (NSValueTransformer *)yaJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[ZBDxModel class]];
-    
 }
 + (NSValueTransformer *)dxJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[ZBDxModel class]];
-    
 }
 + (NSValueTransformer *)spfJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[ZBDxModel class]];
-    
 }
-
-
 @end

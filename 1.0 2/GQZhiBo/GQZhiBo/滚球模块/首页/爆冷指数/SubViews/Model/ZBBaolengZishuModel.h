@@ -1,17 +1,7 @@
-//
-//  ZBBaolengZishuModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/8.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBBaolengZishuModel : ZBBasicModel
 @property (nonatomic, assign) NSInteger sort;
 @property (nonatomic, strong) NSString *sortone;
-
 @property (nonatomic, assign) NSInteger idId;
 @property (nonatomic, assign) NSInteger teamid;
 @property (nonatomic, strong) NSString *teamname;
@@ -25,5 +15,4 @@
 @property (nonatomic, strong) NSString *lose;
 @property (nonatomic, assign) NSInteger historyresult;
 @property (nonatomic, assign) NSInteger num;
-
 @end

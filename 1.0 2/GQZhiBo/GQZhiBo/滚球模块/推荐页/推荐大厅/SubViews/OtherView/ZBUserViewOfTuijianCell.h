@@ -1,10 +1,3 @@
-//
-//  ZBUserViewOfTuijianCell.h
-//  GQapp
-//
-//  Created by WQ on 16/11/3.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
 #import "ZBTuijiandatingModel.h"
 #import <UIKit/UIKit.h>
 typedef NS_ENUM(NSInteger, typeTuijianCell)
@@ -15,7 +8,6 @@ typedef NS_ENUM(NSInteger, typeTuijianCell)
     typeTuijianCellTuijianDetail = 3,
     typeTuijianCellFirstPage = 4,
     typeTuijianCellMybuy = 5
-
 };
 @interface ZBUserViewOfTuijianCell : UIView
 - (void)setValueWithUserTitle:(NSString *)title
@@ -33,5 +25,4 @@ typedef NS_ENUM(NSInteger, typeTuijianCell)
                      dayRange:(NSString *)dayRange
                     WithModel:(ZBTuijiandatingModel *)model
 ;
-
 @end

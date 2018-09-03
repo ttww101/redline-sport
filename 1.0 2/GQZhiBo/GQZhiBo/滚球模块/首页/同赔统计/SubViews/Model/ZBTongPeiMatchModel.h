@@ -1,13 +1,4 @@
-//
-//  ZBTongPeiMatchModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/9.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBTongPeiMatchModel : ZBBasicModel
 @property (nonatomic, strong) NSString *sclassName;
 @property (nonatomic, strong) NSString *sclassColor;
@@ -24,5 +15,4 @@
 @property (nonatomic, strong) NSString *finalLose;
 @property (nonatomic, strong) NSString *result;
 @property (nonatomic, strong) NSString *resultColor;
-
 @end

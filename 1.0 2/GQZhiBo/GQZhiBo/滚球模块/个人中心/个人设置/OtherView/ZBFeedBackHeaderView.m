@@ -1,30 +1,15 @@
-//
-//  ZBFeedBackHeaderView.m
-//  GQapp
-//
-//  Created by Marjoice on 19/09/2017.
-//  Copyright © 2017 GQXX. All rights reserved.
-//
-
 #import "ZBFeedBackHeaderView.h"
-
 @interface ZBFeedBackHeaderView ()
-
 @property (nonatomic, strong) UIView                        *basicView;
 @property (nonatomic, strong) UITextView                    *feedTextView;
 @property (nonatomic, strong) UILabel                       *textViewPlaceholder;
-
 @property (nonatomic, strong) UIView                        *addImgBackView;
 @property (nonatomic, strong) UIButton                      *addImgBtn;
 @property (nonatomic, strong) UILabel                       *addImgeLab;
-
 @property (nonatomic, strong) UILabel                       *telphoneLab;
 @property (nonatomic, strong) UITextField                   *telPhoneTextField;
-
 @end
-
 @implementation ZBFeedBackHeaderView
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -34,9 +19,7 @@
     }
     return self;
 }
-
 - (UIView *)basicView {
-    
     if (!_basicView) {
         _basicView = [UIView new];
         _basicView.backgroundColor = colorTableViewBackgroundColor;
@@ -51,15 +34,12 @@
     return _basicView;
 }
 - (UITextView *)feedTextView {
-    
     if (!_feedTextView) {
         _feedTextView = [UITextView new];
-        
     }
     return _feedTextView;
 }
 - (UILabel *)textViewPlaceholder {
-    
     if (!_textViewPlaceholder) {
         _textViewPlaceholder = [UILabel new];
         _textViewPlaceholder.text = @"请提出您的宝贵意见，我们第一时间回复您！！";
@@ -69,24 +49,19 @@
     return _textViewPlaceholder;
 }
 - (UIView *)addImgBackView {
-    
     if (!_addImgBackView) {
         _addImgBackView = [UIView new];
-       
     }
     return _addImgBackView;
 }
 - (UIButton *)addImgBtn {
-    
     if (!_addImgBtn) {
         _addImgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _addImgBtn.imageView.image = [UIImage imageNamed:@"addImg"];
-
     }
     return _addImgBtn;
 }
 - (UILabel *)addImgeLab {
-    
     if (!_addImgeLab) {
         _addImgeLab = [UILabel new];
         _addImgeLab.text = @"添加图片";
@@ -95,7 +70,6 @@
     return _addImgeLab;
 }
 -(UILabel *)telphoneLab {
-    
     if (!_telphoneLab) {
         _telphoneLab = [UILabel new];
         _telphoneLab.text = @"手机号码";
@@ -104,21 +78,15 @@
     return _telphoneLab;
 }
 - (UITextField *)telPhoneTextField {
-    
     if (!_telPhoneTextField) {
         _telPhoneTextField = [UITextField new];
-    
     }
     return _telPhoneTextField;
 }
-
-
 - (void)addAutolayout {
-
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
     }];
-    
     [self.feedTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(14);
         make.leading.equalTo(self).offset(15);
@@ -131,7 +99,6 @@
         make.trailing.equalTo(self.feedTextView).offset(-5);
         make.height.mas_equalTo(10);
     }];
-    
     [self.addImgBackView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.feedTextView.mas_bottom);
         make.leading.equalTo(self).offset(15);
@@ -149,7 +116,6 @@
         make.height.mas_equalTo(12);
         make.width.mas_equalTo(200);
     }];
-    
     [self.telphoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.addImgBackView.mas_bottom).offset(60);
         make.leading.equalTo(self).offset(25.5);
@@ -162,8 +128,4 @@
         make.centerY.equalTo(self.telphoneLab);
     }];
 }
-
-
 @end
-
-

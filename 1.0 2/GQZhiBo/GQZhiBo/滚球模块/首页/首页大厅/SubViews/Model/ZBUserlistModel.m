@@ -1,13 +1,4 @@
-//
-//  ZBUserlistModel.m
-//  GQapp
-//
-//  Created by WQ on 16/11/1.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBUserlistModel.h"
-
 @implementation ZBUserlistModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -18,8 +9,6 @@
              @"userid" : @"id",
              @"userintro" : @"userintro",
              @"newRecommendCount" : @"newRecommendCount",
-
-             
              };
 }
 @end

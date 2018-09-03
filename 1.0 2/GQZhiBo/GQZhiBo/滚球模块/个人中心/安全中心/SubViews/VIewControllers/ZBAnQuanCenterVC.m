@@ -1,11 +1,3 @@
-//
-//  ZBAnQuanCenterVC.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/4/25.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBAnQuanCenterVC.h"
 #import "ZBRealNameCerVC.h"
 #import "ZBChangePassWordVC.h"
@@ -13,14 +5,8 @@
 #import "ZBBangAccountVC.h"
 @interface ZBAnQuanCenterVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic, strong)UITableView *tableView;
-
-
-
 @end
-
 @implementation ZBAnQuanCenterVC
-
-
 - (void)viewWillAppear:(BOOL)animated{
     _model = [ZBMethods getUserModel];
     [self.tableView reloadData];
@@ -28,23 +14,14 @@
     self.navigationController.navigationBarHidden = YES;
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
-//- (void)setModel:(ZBUserModel *)model{
-//    _model = model;
-//    [self.tableView reloadData];
-//}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setNavView];
     [self.view addSubview:self.tableView];
-    // Do any additional setup after loading the view.
 }
-
 #pragma mark -- setnavView
 - (void)setNavView{
         ZBNavView *nav = [[ZBNavView alloc] init];
@@ -59,13 +36,8 @@
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
-        //right
-        
-        
     }
 }
 - (UITableView *)tableView
@@ -83,9 +55,8 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1; //2
+    return 1; 
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
@@ -94,12 +65,6 @@
             return 3;
         }
             break;
-//        case 1:
-//        {
-//            return 1;
-//        }
-//            break;
-//            
         default:
             break;
     }
@@ -115,7 +80,6 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     return 44;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -124,25 +88,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
     while ([cell.contentView.subviews lastObject]!= nil) {
         [[cell.contentView.subviews lastObject] removeFromSuperview];
     }
-    
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, Width - 40, 44)];
     lab.textColor = color33;
     lab.font = font16;
     [cell.contentView addSubview:lab];
-    
     UIImageView *imageMore = [[UIImageView alloc] initWithFrame:CGRectMake(Width - 15 - 7, 0, 7, 14)];
     imageMore.center = CGPointMake(imageMore.center.x, lab.center.y);
     imageMore.image = [UIImage imageNamed:@"meRight"];
     [cell.contentView addSubview:imageMore];
-    
     UIView *viewline = [[UIView alloc] initWithFrame:CGRectMake(20, 43, Width - 20, 0.5)];
     viewline.backgroundColor = colorCellLine;
     [cell.contentView addSubview:viewline];
-    
     UILabel *labStr = [[UILabel alloc] init];
     labStr.font = font12;
     labStr.textAlignment = NSTextAlignmentRight;
@@ -154,7 +113,6 @@
         make.height.mas_offset(44);
         make.width.mas_offset(50);
     }];
-    
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
@@ -165,7 +123,6 @@
                 }else{
                     labStr.text = @"未认证";
                 }
-               
             }
                 break;
             case 1:
@@ -185,21 +142,10 @@
                 viewline.backgroundColor = [UIColor clearColor];
             }
                 break;
-                
             default:
                 break;
         }
-        
     }
-//    else{
-//        lab.text = @"我的资料";
-//        labStr.text = @"修改";
-//        viewline.backgroundColor = [UIColor clearColor];
-//        
-//    }
-//    
-    
-    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -211,51 +157,25 @@
                 realNameVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:realNameVC animated:YES];
             }
-                
                 break;
             case 1:{
-                
                 ZBBangAccountVC *bangVC = [[ZBBangAccountVC alloc] init];
                 bangVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:bangVC animated:YES];
             }
-                
                 break;
             case 2:{
-                
                 ZBChangePassWordVC *psssWordVC = [[ZBChangePassWordVC alloc] init];
                 psssWordVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:psssWordVC animated:YES];
-                
             }
-                
                 break;
-                
             default:
                 break;
         }
     }
-//    else{
-//        ZBMyProfileVC *myProfile = [[ZBMyProfileVC alloc] init];
-//        myProfile.hidesBottomBarWhenPushed = YES;
-//        [APPDELEGATE.customTabbar pushToViewController:myProfile animated:YES];
-//        
-//    }
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

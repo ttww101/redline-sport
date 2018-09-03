@@ -1,42 +1,24 @@
-//
-//  ZBRealNameCerVC.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/4/25.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBRealNameCerVC.h"
 #import "ZBSuccessfulView.h"
-
 @interface ZBRealNameCerVC ()
-
-
-@property (nonatomic, strong)UIView *bkView;//背景View
-@property (nonatomic, strong)UIView *bkSureView;//认证成功后第一个view
+@property (nonatomic, strong)UIView *bkView;
+@property (nonatomic, strong)UIView *bkSureView;
 @property (nonatomic, strong)UILabel *labName;
 @property (nonatomic, strong)UILabel *labCarNum;
 @property (nonatomic, strong)UILabel *labStr;
-
 @property (nonatomic, strong)UITextField *textName;
 @property (nonatomic, strong)UITextField *textCarNum;
-
 @property (nonatomic, strong)ZBSuccessfulView *succView;
 @property (nonatomic, strong)ZBNavView *nav;
 @property (nonatomic, strong)ZBUserModel *model;
 @property (nonatomic, strong)NSTimer *timerl;
 @property (nonatomic, strong)UIButton *sureBtn;
-
-@property (nonatomic, assign)NSInteger timeNUm;//倒计时的显示数字
-
+@property (nonatomic, assign)NSInteger timeNUm;
 @end
-
 @implementation ZBRealNameCerVC
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,36 +36,17 @@
         self.labStr.text = @"真实姓名和身份证是结算和认证的依据，请填写真实信息，认证后不可修改";
         [_sureBtn setTitle:@"" forState:UIControlStateHighlighted];
         _sureBtn.hidden = YES;
-        //然后这里要把数据填进来，并且不可编辑
         self.textName.text = [NSString stringWithFormat:@"%@**",[_model.realname substringToIndex:1]];
         self.textCarNum.text = [NSString stringWithFormat:@"%@***************",[_model.cardid substringToIndex:3]];
         self.textName.enabled = NO;
         self.textCarNum.enabled = NO;
     }
-    
     [self setAotView];
-    
-    
-    
-    
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [btn setTitle:@"提交认证" forState:UIControlStateNormal];
-//    btn.titleLabel.font = font14;
-//    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(sureBtnCilck) forControlEvents:UIControlEventTouchUpInside];
-//    btn.frame = CGRectMake(0, 0, 44, 44);
-//    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
-//    self.navigationItem.rightBarButtonItem = item;
-    
-    
-    // Do any additional setup after loading the view.
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.view endEditing:YES];
@@ -103,44 +66,32 @@
     _sureBtn.titleLabel.font  = font14;
     [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_sureBtn addTarget:self action:@selector(sureBtnCilck) forControlEvents:UIControlEventTouchUpInside];
-    
     [_nav addSubview:_sureBtn];
     [self.view addSubview:_nav];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScrollView)];
     [_nav addGestureRecognizer:tap];
 }
 - (void)sureBtnCilck{
-    
     if (isNUll(_textName.text) || isNUll(_textCarNum.text)) {
-        
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"应填项不能为空"];
         return;
     }
-    
-    
     if (_textName.text.length == 0 || ![ZBMethods isNameValid:_textName.text]) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"真实姓名有误"];
         return;
     }
-    
     if (![ZBMethods chk18PaperId:_textCarNum.text]) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"身份证号码有误"];
         return;
     }
-    
-    //right
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:@"16"forKey:@"flag"];
     [parameter setObject:_textName.text forKey:@"realname"];
     [parameter setObject:_textCarNum.text forKey:@"cardid"];
     [parameter setObject:@"0" forKey:@"type"];
-    
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_loginAndRegister] ArrayFile:nil Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
-        
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             _model.autonym = 1;
             _model.cardid = _textCarNum.text;
@@ -151,17 +102,13 @@
             self.labStr.hidden = YES;
             [_sureBtn setTitle:@"" forState:UIControlStateNormal];
             _timerl = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(delayMethod) userInfo:nil repeats:YES];
-            
         }else{
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:responseOrignal[@"msg"]];
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         NSLog(@"%@",responseOrignal);
         NSLog(@"%@",errorDict);
     }];
-    
-    
 }
 - (UIView *)bkSureView{
     if (!_bkSureView) {
@@ -173,7 +120,6 @@
         lab.font = font14;
         [_bkSureView addSubview:lab];
         UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(Width - 40, 9.5, 25, 25)];
-//        img.center = CGPointMake(img.center.x, _bkSureView.center.y);
         img.image = [UIImage imageNamed:@"successful"];
         [_bkSureView addSubview:img];
     }
@@ -187,38 +133,29 @@
         _succView.labContent.text = @"3秒后返回安全中心";
         _succView.labContent.attributedText = [ZBMethods withContent:_succView.labContent.text contentColor:color99 WithColorText:@"3秒" textColor:redcolor];
         [_succView.btn setTitle:@"" forState:UIControlStateNormal];
-        
     }
     return _succView;
 }
 - (void)tapScrollView
 {
     [self.view endEditing:YES];
-    
 }
-
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
-         [_timerl invalidate];//如果手动返回的，这个要取消掉这个定时器
+         [_timerl invalidate];
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
     }
-    
 }
 - (void)delayMethod{
     _timeNUm --;
     self.succView.labContent.text = [NSString stringWithFormat:@"%ld秒后返回安全中心",_timeNUm];
     self.succView.labContent.attributedText = [ZBMethods withContent:self.succView.labContent.text contentColor:color99 WithColorText:[NSString stringWithFormat:@"%ld秒",_timeNUm] textColor:redcolor];
-    
     if (_timeNUm == 0) {
         [_timerl invalidate];
         [self.navigationController popViewControllerAnimated:YES];
     }
-    
-    
 }
 - (UIView *)bkView{
     if (!_bkView) {
@@ -236,9 +173,7 @@
         _labName.text = @"真实姓名";
         _labName.textColor = color66;
         _labName.font = font14;
-
     }
-    
     return _labName;
 }
 - (UITextField *)textName{
@@ -247,23 +182,18 @@
         _textName.font = font14;
         _textName.textColor = color33;
         _textName.placeholder = @"提款的依据，提交后不可修改";
-
     }
     return _textName;
 }
-
 - (UILabel *)labCarNum{
     if (!_labCarNum) {
         _labCarNum = [[UILabel alloc] init];
         _labCarNum.text = @"身份证号";
         _labCarNum.textColor = color66;
         _labCarNum.font = font14;
-
     }
-    
     return _labCarNum;
 }
-
 - (UITextField *)textCarNum{
     if (!_textCarNum) {
         _textCarNum = [[UITextField alloc] init];
@@ -322,17 +252,5 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

@@ -1,13 +1,4 @@
-//
-//  ZBDan_StringMatchsModel.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 16/9/5.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBDan_StringMatchsModel.h"
-
 @implementation ZBDan_StringMatchsModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -41,30 +32,22 @@
              @"dxcompany":@"dxcompany",
              @"leagueColor":@"leagueColor",
              @"priceList":@"priceList",
-             
              };
 }
-
 + (NSValueTransformer *)dxJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBDxModel class]];
-    
 }
 + (NSValueTransformer *)priceListJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBPriceListModel class]];
-    
 }
-
 + (NSValueTransformer *)rqJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBDxModel class]];
-    
 }
 + (NSValueTransformer *)spfJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBDxModel class]];
-    
 }
-
 @end

@@ -1,11 +1,3 @@
-//
-//  ZBFansCell.m
-//  GQapp
-//
-//  Created by WQ on 2017/4/25.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBFansCell.h"
 @interface ZBFansCell()
 @property (nonatomic, assign) BOOL addAuto;
@@ -18,22 +10,14 @@
 @property (nonatomic, strong) UIView *viewLine;
 @property (nonatomic, strong) UIButton *btnAttention;
 @property (nonatomic, strong) UIView *viewLineBottom;
-
-
 @end
 @implementation ZBFansCell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 - (void)setModel:(ZBFansModel *)model
 {
     _model = model;
@@ -43,12 +27,8 @@
     _labFocus.attributedText = [ZBMethods withContent:[NSString stringWithFormat:@"关注%ld",_model.focus_count] contentColor:color33 WithColorText:@"关注" textColor:color99];
     _labfollower.attributedText = [ZBMethods withContent:[NSString stringWithFormat:@"粉丝%ld",_model.follower_count] contentColor:color33 WithColorText:@"粉丝" textColor:color99];
     _btnAttention.selected = _model.focused;
-    
-    
     ZBUserModel *user = [ZBMethods getUserModel];
-    
     if (user.idId == model.idId) {
-        
         _btnAttention.hidden = YES;
     }else{
         _btnAttention.hidden = NO;
@@ -58,7 +38,6 @@
         [self addAutoLayout];
     }
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -74,21 +53,17 @@
         [_basicView addSubview:self.labfollower];
         [_basicView addSubview:self.btnAttention];
         [_basicView addSubview:self.viewLineBottom];
-
     }
     return _basicView;
 }
-
 - (void)tapBasicView
 {
     if (_model.idId == 1) {
         return;
     }
-
     ZBUserViewController *user = [[ZBUserViewController alloc] init];
     user.userId = _model.idId;
     user.userName = _model.nickname;
-
     user.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:user animated:YES];
 }
@@ -107,7 +82,6 @@
         _labName = [[UILabel alloc] init];
         _labName.textColor = color33;
         _labName.font = font14;
-        
     }
     return _labName;
 }
@@ -119,7 +93,6 @@
     }
     return _viewCenter;
 }
-
 - (UILabel *)labfollower
 {
     if (!_labfollower) {
@@ -146,38 +119,22 @@
     }
     return _labFocus;
 }
-
 - (UIButton *)btnAttention
 {
     if (!_btnAttention) {
         _btnAttention = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [_btnAttention setBackgroundImage:[UIImage imageNamed:@"focusonUser"] forState:UIControlStateNormal];
-//        [_btnAttention setBackgroundImage:[UIImage imageNamed:@"focus"] forState:UIControlStateSelected];
-        
-        
         [_btnAttention setBackgroundImage:[UIImage imageNamed:@"focusonUserUserV"] forState:UIControlStateNormal];
         [_btnAttention setBackgroundImage:[UIImage imageNamed:@"focusGrayUserV"] forState:UIControlStateSelected];
-
         [_btnAttention addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnAttention;
 }
 - (void)btnClick:(UIButton *)btn
 {
-    
     if (![ZBMethods login]) {
         [ZBMethods toLogin];
-        
-        
         return;
     }
-    //    /focusAdd 新增关注
-    //    param.put("followerId", "3"); //跟随者
-    //    param.put("leaderId", "5"); //被跟随者
-    //
-    //    /focusRemove 删除关注
-    //    param.put("followerId", "3"); //跟随者
-    //    param.put("leaderId", "5"); //被跟随者
     NSMutableDictionary *paremeter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     ZBUserModel *user = [ZBMethods getUserModel];
     NSString *url;
@@ -186,35 +143,25 @@
     }else{
         url = url_focusAdd;
     }
-    
     [paremeter setObject:[NSString stringWithFormat:@"%ld",(long)user.idId] forKey:@"followerId"];
     [paremeter setObject:[NSString stringWithFormat:@"%ld",(long)_model.idId] forKey:@"leaderId"];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:paremeter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             if ((NSInteger)[[responseOrignal objectForKey:@"data"] integerValue] >0) {
-                
                 if (btn.selected) {
                     _model.follower_count = _model.follower_count -1;
                     user.focusCount = user.focusCount -1;
                 }else{
                     _model.follower_count = _model.follower_count +1;
                     user.focusCount = user.focusCount +1;
-                    
                 }
-                
-                
-                //更新关注之后的数据
                 _model.focused = !_model.focused;
                 _labFocus.attributedText = [ZBMethods withContent:[NSString stringWithFormat:@"关注%ld",_model.focus_count] contentColor:color33 WithColorText:@"关注" textColor:color99];
                 _labfollower.attributedText = [ZBMethods withContent:[NSString stringWithFormat:@"粉丝%ld",_model.follower_count] contentColor:color33 WithColorText:@"粉丝" textColor:color99];
                 _btnAttention.selected = _model.focused;
-
                 [ZBMethods updateUsetModel:user];
-                
-                
             }else{
                 [SVProgressHUD showImage:[UIImage imageNamed:@""] status:btn.selected? @"取消关注失败":@"关注失败"];
             }
@@ -224,11 +171,8 @@
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:btn.selected? @"取消关注失败":@"关注失败"];
-        
     }];
 }
-
-
 - (UIView *)viewLineBottom
 {
     if (!_viewLineBottom) {
@@ -245,30 +189,24 @@
         make.right.equalTo(self.contentView.mas_right);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
-    
-    
     [self.imagePic mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.centerY.equalTo(self.basicView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(60, 60));
     }];
-    
     [self.viewCenter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imagePic.mas_right).offset(15);
         make.centerY.equalTo(self.basicView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(100, 1));
     }];
-    
     [self.labName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.viewCenter.mas_top).offset(-3.5);
         make.left.equalTo(self.imagePic.mas_right).offset(15);
     }];
-    
     [self.labFocus mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewCenter.mas_bottom).offset(3.5);
         make.left.equalTo(self.imagePic.mas_right).offset(15);
     }];
-
     [self.viewLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labFocus.mas_right).offset(9);
         make.centerY.equalTo(self.labFocus.mas_centerY);
@@ -278,33 +216,14 @@
         make.left.equalTo(self.viewLine.mas_right).offset(9);
         make.centerY.equalTo(self.labFocus.mas_centerY);
     }];
-    
     [self.btnAttention mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-15);
         make.bottom.equalTo(self.labFocus.mas_bottom);
-//        make.size.mas_equalTo(CGSizeMake(60, 29));
     }];
-    
     [self.viewLineBottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.basicView.mas_bottom);
         make.left.equalTo(self.basicView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 0.5));
     }];
 }
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

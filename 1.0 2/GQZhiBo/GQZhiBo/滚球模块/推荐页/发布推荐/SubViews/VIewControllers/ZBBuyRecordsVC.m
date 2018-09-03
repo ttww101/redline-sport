@@ -1,100 +1,63 @@
-//
-//  ZBBuyRecordsVC.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/7/25.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBuyRecordsVC.h"
 #import "ZBBuyerModel.h"
-
 @interface ZBBuyRecordsVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)UITableViewCell *seleCell;
 @property (nonatomic, assign)NSInteger limitStart;
 @property (nonatomic, strong) MJRefreshAutoNormalFooter *footer;
 @property (nonatomic, strong)NSMutableArray *arrData;
-
 @end
-
 @implementation ZBBuyRecordsVC
-
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = YES;
     [super viewWillAppear:animated];
-    
 }
-
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavView];
-
     self.defaultFailure = @"暂无付费用户";
     [self.view addSubview:self.tableView];
     [self setupHeader];
     [self setupFooter];
     _limitStart = 0;
     [self .tableView.mj_header beginRefreshing];
-    
-    // Do any additional setup after loading the view.
 }
 #pragma mark ----------请求数据
 - (void)loadData
 {
-    
-    
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:@(_limitStart) forKey:@"limitStart"];
     [parameter setObject:@"20" forKey:@"limitNum"];
-    
     [parameter setObject:@(self.newsID) forKey:@"newsId"];
-    
-    
     [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_BuyersUrl] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
         [self.tableView.mj_footer endRefreshing];
         [self.tableView.mj_header endRefreshing];
     } Success:^(id responseResult, id responseOrignal) {
-        
-        //        self.defaultFailure = [responseOrignal objectForKey:@"msg"];
-        
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             NSLog(@"%@",responseOrignal);
             if (_limitStart == 0) {
                 _arrData = [[NSMutableArray alloc] initWithArray:[ZBBuyerModel arrayOfEntitiesFromArray: [responseOrignal objectForKey:@"data"]]];
             }else{
                 NSArray *arr = [[NSMutableArray alloc] initWithArray:[ZBBuyerModel arrayOfEntitiesFromArray: [responseOrignal objectForKey:@"data"]]];
-                
                 if (arr.count == 0) {
                     [self.tableView.mj_footer endRefreshingWithNoMoreData];
                 }else{
                     [_arrData addObjectsFromArray:arr];
                 }
             }
-            
-            
         }else{
-            
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
-            
         }
         self.defaultFailure = @"暂无付费用户";
-        
         [self.tableView reloadData];
-        
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         self.defaultFailure = errorDict;
-        
         [self.tableView reloadData];
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
@@ -110,7 +73,6 @@
     [self.view addSubview:nav];
 }
 - (UITableView *)tableView{
-    
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar) style:UITableViewStyleGrouped];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -120,11 +82,8 @@
         _tableView.dataSource = self;
         _tableView.emptyDataSetSource = self;
         _tableView.emptyDataSetDelegate = self;
-        
-        //        [self setupTableViewMJHeader];
     }
     return _tableView;
-    
 }
 - (void)setupHeader
 {
@@ -132,12 +91,10 @@
     header.stateLabel.font = font13;
     header.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = header;
-    
 }
 - (void)setupFooter
 {
     _footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreDataByfooter)];
-//    _footer.automaticallyHidden = YES;
 }
 #pragma mark ---- 下啦刷新
 - (void)refreshDataByHeader{
@@ -149,16 +106,13 @@
     _limitStart += 20;
     [self loadData];
 }
-//Data Source 实现方法
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
     if ([self.defaultFailure isEqualToString:@"似乎已断开与互联网的连接。"]) {
         return [UIImage imageNamed:@"dNotnet"];
-        
     }
     return [UIImage imageNamed:@"d1"];
 }
-//返回标题文字
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
 {
     NSString *text = self.defaultFailure;
@@ -168,16 +122,13 @@
 - (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView{
     return YES;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
     return _arrData.count;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     return 70;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -193,7 +144,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:acell];
     }
     [cell.contentView removeAllSubViews];
-    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor = colorF5;
@@ -204,19 +154,13 @@
     UIImageView *imgPhoto = [[UIImageView alloc] init];
     imgPhoto.layer.cornerRadius = 20;
     imgPhoto.layer.masksToBounds = YES;
-//    imgPhoto.image = [UIImage imageNamed:@"defaultPic"];
-    
     [imgPhoto sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",model.extension2 ]] placeholderImage:[UIImage imageNamed:@"defaultPic"]];
-    
     [basView addSubview:imgPhoto];
     [imgPhoto mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(basView.mas_left).offset(15);
         make.centerY.equalTo(basView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(40, 40));
     }];
-    
-    
-    
     UILabel *labName = [[UILabel alloc] init];
     labName.font = font14;
     labName.textColor = color33;
@@ -226,29 +170,22 @@
         make.left.equalTo(imgPhoto.mas_right).offset(10);
         make.centerY.equalTo(basView.mas_centerY);
     }];
-    
     UILabel *labTime = [[UILabel alloc] init];
     labTime.font = font13;
     labTime.textColor = color99;
     labTime.text = [NSString stringWithFormat:@"%@",[ZBMethods getDateByStyle:@"MM-dd HH:mm" withDate:[NSDate dateWithTimeIntervalSince1970:[model.created doubleValue]/1000]]];;
     [basView addSubview:labTime];
-    
     [labTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(basView.mas_right).offset(-15);
         make.centerY.equalTo(labName.mas_centerY);
     }];
-    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 69.5, Width, 0.5)];
     lineView.backgroundColor = colorDD;
     [basView addSubview:lineView];
-    
     [cell.contentView addSubview:basView];
-    
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
     ZBBuyerModel *model = self.arrData[indexPath.row];
     ZBUserViewController *userVC = [[ZBUserViewController alloc] init];
     userVC.userId = model.userId;
@@ -257,22 +194,15 @@
     userVC.Number=1;
     userVC.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:userVC animated:YES];
-    
 }
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    
-    
     CGPoint point = [scrollView.panGestureRecognizer locationInView:self.tableView];
-    
     NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
     _seleCell=[self.tableView cellForRowAtIndexPath:indexPath];
     _seleCell.backgroundColor = colorF5;
-    
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     _seleCell.backgroundColor = [UIColor whiteColor];
-    
 }
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath
 {
@@ -281,7 +211,6 @@
     }else{
         tableView.mj_footer = nil;
     }
-    
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -290,33 +219,15 @@
     }else{
         tableView.mj_footer = nil;
     }
-    
 }
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
-        //right
-        
-        
     }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

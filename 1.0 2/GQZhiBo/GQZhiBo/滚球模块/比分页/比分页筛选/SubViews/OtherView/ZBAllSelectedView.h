@@ -1,11 +1,3 @@
-//
-//  ZBAllSelectedView.h
-//  GQapp
-//
-//  Created by WQ_h on 16/8/25.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 @protocol AllSelectedViewDelegate<NSObject>
 @optional

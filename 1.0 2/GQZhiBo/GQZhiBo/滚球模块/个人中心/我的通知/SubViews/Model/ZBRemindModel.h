@@ -1,13 +1,4 @@
-//
-//  ZBRemindModel.h
-//  GQapp
-//
-//  Created by WQ on 16/10/10.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBRemindModel : ZBBasicModel
 @property (nonatomic, assign) NSTimeInterval time;
 @property (nonatomic, strong) NSString *nickname;
@@ -18,7 +9,5 @@
 @property (nonatomic, assign) NSInteger mid;
 @property (nonatomic, assign) NSInteger newsid;
 @property (nonatomic, assign) NSInteger type;
-
 @property (nonatomic, assign) BOOL iread;
-
 @end

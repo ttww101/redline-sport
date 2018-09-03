@@ -1,15 +1,5 @@
-//
-//  ZBToolKitViewModel.m
-//  newGQapp
-//
-//  Created by genglei on 2018/3/30.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBToolKitViewModel.h"
-
 @implementation ZBToolKitViewModel
-
 + (NSArray *)createModelListArray {
     NSArray *imageArray = @[@"baolengzhishu", @"lishitongpei", @"yapanzhushou",@"pailvyichang", @"jixianguaidian", @"panwangzhishu", @"jiaoyilengre",@"touzhuyichang"];
     NSArray *titleArray = @[@"爆冷指数", @"历史同赔", @"亚盘助手", @"赔率异常", @"极限拐点", @"盘王指数", @"交易冷热", @"投注异常"];
@@ -23,5 +13,4 @@
     }];
     return array;
 }
-
 @end

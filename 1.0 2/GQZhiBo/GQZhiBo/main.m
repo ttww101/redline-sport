@@ -1,14 +1,5 @@
-//
-//  main.m
-//  GQapp
-//
-//  Created by WQ_h on 16/3/28.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import "ZBAppDelegate.h"
-
 int main(int argc, char * argv[]) {
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([ZBAppDelegate class]));

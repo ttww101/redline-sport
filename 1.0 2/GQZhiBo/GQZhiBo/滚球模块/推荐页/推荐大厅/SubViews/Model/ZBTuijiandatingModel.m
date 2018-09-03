@@ -1,11 +1,3 @@
-//
-//  ZBTuijiandatingModel.m
-//  GQapp
-//
-//  Created by WQ_h on 16/8/15.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBTuijiandatingModel.h"
 #import "ZBUsermarkModel.h"
 #import "ZBMedalsModel.h"
@@ -19,8 +11,8 @@
              @"leagueName" : @"leagueName",
              @"Name_JS" : @"Name_JS",
              @"choice" : @"choice",
-             @"nickName" : @"nickName", // new
-              @"nickname" : @"nickname", // old
+             @"nickName" : @"nickName", 
+              @"nickname" : @"nickname", 
              @"fans" : @"fans",
              @"win_rate" : @" ",
              @"share_count" : @"share_count",
@@ -93,116 +85,94 @@
              @"buyCount":@"buyCount",
              @"showPrice": @"showPrice",
              @"showBuyCount":@"showBuyCount"
-
              };
 }
-
 - (void)setHomeTeam:(NSString *)homeTeam {
     _homeTeam = homeTeam;
     if (_HomeTeam == nil) {
         _HomeTeam = _homeTeam;
     }
 }
-
 - (void)setGuestTeam:(NSString *)guestTeam {
     _guestTeam = guestTeam;
     if (_GuestTeam == nil) {
         _GuestTeam = _guestTeam;
     }
 }
-
 - (void)setGuestScore:(NSInteger)guestScore {
     _guestScore = guestScore;
     if (_GuestScore == 0 && _guestScore > 0) {
         _GuestScore = _guestScore;
     }
 }
-
 - (void)setHomeScore:(NSInteger)homeScore {
     _homeScore = homeScore;
     if (_HomeScore == 0 && _homeScore > 0) {
         _HomeScore = _homeScore;
     }
 }
-
 - (void)setGuestTeamID:(NSInteger)guestTeamID {
     _guestTeamID = guestTeamID;
     if (_GuestTeamID == 0 && _guestTeamID > 0) {
         _GuestTeamID = _guestTeamID;
     }
 }
-
 - (void)setHomeTeamID:(NSInteger)homeTeamID {
     _homeTeamID = homeTeamID;
     if (_HomeTeamID == 0 && _homeTeamID > 0) {
         _HomeTeamID = _homeTeamID;
     }
 }
-
 - (void)setLeagueName:(NSString *)leagueName {
     _leagueName = leagueName;
     _Name_JS = _leagueName;
 }
-
 - (void)setAvatar:(NSString *)avatar {
     _avatar = avatar;
     _pic = _avatar;
 }
-
 - (void)setNickName:(NSString *)nickName {
     _nickName = nickName;
     _nickname = _nickName;
 }
-
 - (void)setmatchTime:(NSString *)matchTime {
     _matchTime = matchTime;
     _MatchTime = _matchTime;
 }
-
 - (void)setNewsId:(NSInteger)newsId {
     _newsId = newsId;
     _idId = _newsId;
 }
-
 - (void)setRecommendResult:(NSString *)recommendResult {
     _recommendResult = recommendResult;
     _result = _recommendResult;
 }
-
 - (void)setUserId:(NSInteger)userId {
     _userId = userId;
     _user_id = _userId;
 }
-
 - (void)setmatchState:(NSInteger)matchState {
     _matchState = matchState;
     _MatchState = _matchState;
 }
-
 - (void)setCanSee:(BOOL)canSee {
     _canSee = canSee;
     _see = _canSee;
 }
-
 - (void)setPlayType:(NSInteger)playType {
     _playType = playType;
     _playtype = _playType;
 }
-
 + (NSValueTransformer *)arrUsermarkJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBUsermarkModel class]];
-    
 }
 + (NSValueTransformer *)medalsJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBMedalsModel class]];
-    
 }
 + (NSValueTransformer *)payUsersJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBpayUserModel class]];
-    
 }
-
 @end

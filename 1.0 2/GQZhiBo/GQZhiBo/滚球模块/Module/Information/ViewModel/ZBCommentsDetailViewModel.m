@@ -1,20 +1,8 @@
-//
-//  ZBCommentsDetailViewModel.m
-//  newGQapp
-//
-//  Created by genglei on 2018/7/19.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBCommentsDetailViewModel.h"
-
 @implementation ZBCommentsDetailViewModel
-
 - (void)fetchCommentsListWithParams:(NSDictionary *)params callBack:(requestCallBack)response {
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:params PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,info_url] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
             response(true, responseOrignal);
@@ -25,5 +13,4 @@
         response(false, responseOrignal);
     }];
 }
-
 @end

@@ -1,11 +1,3 @@
-//
-//  ZBTeamViewOfPlycCell.m
-//  GQapp
-//
-//  Created by WQ on 2017/9/28.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBTeamViewOfPlycCell.h"
 @interface ZBTeamViewOfPlycCell()
 @property (nonatomic, assign) BOOL isAddlayout;
@@ -19,48 +11,27 @@
 @property (nonatomic, strong) UILabel *labNum;
 @property (nonatomic, strong) UILabel *labTitle;
 @property (nonatomic, strong) UIImageView *imageNum;
-
 @property (nonatomic, strong) UIView *viewNum;
 @property (nonatomic, strong) UIView *viewLine;
 @end
 @implementation ZBTeamViewOfPlycCell
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (void)setModel:(ZBPlycModel *)model
 {
     _model = model;
-    
     [self addSubview:self.basicView];
-    
     if (!_isAddlayout) {
         _isAddlayout = YES;
         [self addLayout];
     }
-    
     _labHome.text = _model.homeTeam;
     _labGuest.text = _model.guestTeam;
     _labVS.text = @"VS";
-    
-    
-    
-    
     _labLeague.text = [NSString stringWithFormat:@"%@ ",_model.sclassName];
     if ([_model.matchTime isKindOfClass:[NSString class]]) {
         _labTime.text = _model.matchTime;
-
     }else{
         _labTime.text = @"";
-
     }
-
-    
     switch (_type) {
         case 1:
         {
@@ -74,18 +45,14 @@
                 case 3:
                     _labTitle.text = @"负赔幅度";
                     break;
-                    
                 default:
                     break;
             }
             if ([[NSUserDefaults standardUserDefaults] integerForKey:@"peilvyichangshouIndex"] == 0 ) {
                 _labQici.text = @"";
-
             }else{
                 _labQici.text = [NSString stringWithFormat:@"%@ ",_model.symbol];
-
             }
-
         }
             break;
         case 2:
@@ -93,10 +60,8 @@
             _labTitle.text = @"盘口变动";
             if ([[NSUserDefaults standardUserDefaults] integerForKey:@"yapanzhushouIndex"] == 0 ) {
                 _labQici.text = @"";
-                
             }else{
                 _labQici.text = [NSString stringWithFormat:@"%@ ",_model.symbol];
-                
             }
         }
             break;
@@ -105,61 +70,40 @@
             _labTitle.text = @"水位变化";
             if ([[NSUserDefaults standardUserDefaults] integerForKey:@"yapanzhushouIndex"] == 0 ) {
                 _labQici.text = @"";
-                
             }else{
                 _labQici.text = [NSString stringWithFormat:@"%@ ",_model.symbol];
-                
             }
         }
             break;
-
         default:
             break;
     }
-    
-    
     _labNum.text = _model.amp;
     if ([_model.amp containsString:@"-"]) {
         _viewNum.backgroundColor = greencolor;
         _imageNum.image = [UIImage imageNamed:@"plycWhiteDown"];
-
-        
         if (_type == 2) {
             _labNum.text = [NSString stringWithFormat:@"%@个盘口",[_model.amp substringFromIndex:1]];
-
-            
         }else{
             _labNum.text = [NSString stringWithFormat:@"%@%%",_model.amp];
-
         }
-        
     }else{
-    
         _viewNum.backgroundColor = redcolor;
         _imageNum.image = [UIImage imageNamed:@"plycWhiteup"];
-
         if (_type == 2) {
             _labNum.text = [NSString stringWithFormat:@"%@个盘口",_model.amp];
             if ([_model.amp isEqualToString:@"0"]) {
                 _imageNum.image = [UIImage imageNamed:@"clear"];
                 _labNum.text = [NSString stringWithFormat:@"%@个盘口",_model.amp];
                 _viewNum.backgroundColor = color99;
-
             }
-
         }else{
             _labNum.text = [NSString stringWithFormat:@"+%@%%",_model.amp];
-
         }
     }
-    
-    
-    
 }
-
 - (UIView *)basicView
 {
-    
     if (!_basicView) {
         _basicView = [[UIView alloc] init];
         [_basicView addSubview:self.labHome];
@@ -170,17 +114,12 @@
         [_basicView addSubview:self.labTime];
         [_basicView addSubview:self.viewNum];
         [_basicView addSubview:self.imageNum];
-
         [_basicView addSubview:self.labNum];
         [_basicView addSubview:self.labTitle];
         [_basicView addSubview:self.viewLine];
-
-        
     }
     return _basicView;
 }
-
-
 - (UILabel *)labHome
 {
     if (!_labHome) {
@@ -190,7 +129,6 @@
     }
     return _labHome;
 }
-
 - (UILabel *)labGuest
 {
     if (!_labGuest) {
@@ -269,7 +207,6 @@
     }
     return _viewNum;
 }
-
 - (UIView *)viewLine
 {
     if (!_viewLine) {
@@ -278,7 +215,6 @@
     }
     return _viewLine;
 }
-
 - (void)addLayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -287,54 +223,43 @@
         make.top.equalTo(self.mas_top);
         make.bottom.equalTo(self.mas_bottom);
     }];
-    
     [self.labHome mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.left.equalTo(self.basicView.mas_left).offset(13);
         make.top.equalTo(self.basicView.mas_top).offset(9);
     }];
-    
     [self.labVS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labHome.mas_right).offset(3);
         make.centerY.equalTo(self.labHome.mas_centerY);
     }];
-    
     [self.labGuest mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labVS.mas_right).offset(3);
         make.centerY.equalTo(self.labHome.mas_centerY);
     }];
-
     [self.labQici mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(13);
         make.top.equalTo(self.labHome.mas_bottom).offset(4);
     }];
-    
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labQici.mas_right).offset(0);
         make.top.equalTo(self.labHome.mas_bottom).offset(4);
     }];
-
     [self.labTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labLeague.mas_right).offset(0);
         make.top.equalTo(self.labHome.mas_bottom).offset(4);
     }];
-
     [self.viewNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-14);
         make.top.equalTo(self.basicView.mas_top).offset(14);
         make.size.mas_equalTo(CGSizeMake(68, 20));
     }];
-    
     [self.labNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.viewNum.mas_centerY);
         make.centerX.equalTo(self.viewNum.mas_centerX).offset(4);
     }];
-    
     [self.imageNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labNum.mas_centerY);
         make.right.equalTo(self.labNum.mas_left).offset(-4);
     }];
-    
     [self.labTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.viewNum.mas_bottom).offset(3);
         make.centerX.equalTo(self.viewNum.mas_centerX);
@@ -344,43 +269,5 @@
         make.left.equalTo(self.basicView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 0.5));
     }];
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

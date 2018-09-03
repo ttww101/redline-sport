@@ -1,11 +1,3 @@
-//
-//  ZBWebView.m
-//  newGQapp
-//
-//  Created by genglei on 2018/6/6.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBWebView.h"
 #import "WebViewJavascriptBridge.h"
 #import "ZBAppManger.h"
@@ -13,25 +5,16 @@
 #import "ZBToolWebViewController.h"
 #import "ArchiveFile.h"
 #import "ZBWebviewProgressLine.h"
-
 @interface ZBWebView () <UIWebViewDelegate>
-
 @property (nonatomic , copy) GQJSResponseCallback callBack;
-
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
-
 @property (nonatomic , strong) ZBWebviewProgressLine *progressLine;
-
-
 @end
-
 @implementation ZBWebView
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = colorTableViewBackgroundColor;
-        // 设置摇一摇功能
         [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
         [self becomeFirstResponder];
         [self loadBradgeHandler];
@@ -41,31 +24,24 @@
     }
     return self;
 }
-
 - (void)dealloc {
     [self resignFirstResponder];
 }
-
 - (BOOL)canBecomeFirstResponder {
     return YES;
 }
-
 - (void)setModel:(ZBWebModel *)model {
     _model = model;
      [self loadData];
 }
-
 - (void)reloadData {
     [self loadData];
 }
-
 - (void)jsReoload {
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-        
     }];
 }
-
 - (void)loadBradgeHandler {
     __weak ZBWebView *weakSelf = self;
     ZBAppManger *manger = [[ZBAppManger alloc]init];
@@ -86,15 +62,12 @@
     [bridge setWebViewDelegate:self];
     self.bridge = bridge;
 }
-
 #pragma mark - Load Data
-
 - (void)loadData {
     if (_model) {
         self.urlPath = _model.webUrl;
         self.html5Url = _model.htmlUrl;
     }
-    
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
@@ -107,9 +80,7 @@
         [self loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
     }
 }
-
 #pragma mark - JS Handle
-
 - (void)openNative:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
         [self closeWin:@""];
@@ -130,7 +101,6 @@
                 [keyArray addObject:propertyName];
             }
             free(propertys);
-            
             NSDictionary *parameterDic = dataDic[@"v"];
             if (parameterDic.allKeys.count > 0) {
                 NSArray *array = parameterDic.allKeys;
@@ -145,83 +115,59 @@
         }
     }
 }
-
 - (void)closeWin:(id)data {
     if (_webDelegate && [_webDelegate respondsToSelector:@selector(webClose:)]) {
         [_webDelegate webClose:@"关闭"];
     }
 }
-
 - (void)toLogin:(id)data {
     [self closeWin:@""];
 }
-
 #pragma mark - UIWebViewDelegate
-
 - (void)webViewDidStartLoad:(UIWebView *)webView {
  [self.progressLine startLoadingAnimation];
-    
 }
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self.progressLine endLoadingAnimation];
 }
-
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self.progressLine endLoadingAnimation];
 }
-
 #pragma mark - ShakeToEdit 摇动手机之后的回调方法
-
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         [self shake_start];
     }
 }
-
 - (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-   
 }
-
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake){
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         [self shake_end];
     }
-    
 }
-
 #pragma mark - Open Method
-
 - (void)shake_start {
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"shake_start"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-        
     }];
 }
-
 - (void)shake_end {
-    
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"shake_end"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-        
     }];
 }
-
 #pragma mark - Private Method
-
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     NSRange range = {0,jsonString.length};
-    //去掉字符串中的空格
     [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
     NSRange range2 = {0,mutStr.length};
-    //去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
 }
-
 @end

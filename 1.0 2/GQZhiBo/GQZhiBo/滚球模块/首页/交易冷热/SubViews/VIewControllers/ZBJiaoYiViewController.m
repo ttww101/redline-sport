@@ -1,11 +1,3 @@
-//
-//  ZBJiaoYiViewController.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/6/20.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBJiaoYiViewController.h"
 #import "ZBTitleIndexView.h"
 #import "ZBPageScrollView.h"
@@ -18,30 +10,19 @@
 @property (nonatomic, retain) ZBJiaoYiNewTabelView *tableView1;
 @property (nonatomic, retain) ZBJiaoYiNewTabelView *tableView2;
 @property (nonatomic, retain) ZBJiaoYiNewTabelView *tableView3;
-
-//分享
-
-//@property (nonatomic, assign) NSInteger shareIndex;
-
 @end
-
 @implementation ZBJiaoYiViewController
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
-    
     [super viewWillAppear:animated];
 }
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.hidden = false;
 }
-
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,7 +32,6 @@
     _selectedIndex = 0;
     _titleView = [[ZBTitleIndexView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 44)];
     _titleView.selectedIndex = 0;
-//    _shareIndex = 3;
     _titleView.nalColor = colorFFD8D6;
     _titleView.seletedColor = [UIColor whiteColor];
     _titleView.lineColor = [UIColor whiteColor];
@@ -59,56 +39,20 @@
     _titleView.arrData = @[@"总交易量",@"庄家盈利",@"庄家亏损"];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
-    
-    
     _scrollView = [[ZBPageScrollView alloc] initWithFrame:CGRectMake(0, _titleView.bottom, Width, Height - _titleView.bottom)];
     _scrollView.dateSource = self;
     _scrollView.pageDelegate = self;
     _scrollView.selectedIndex = 0;
     [self.view addSubview:_scrollView];
     [_scrollView reloadData];
-
-    // Do any additional setup after loading the view.
 }
-
-
 - (void)didSelectedAtIndex:(NSInteger)index
 {
     [_scrollView updateSelectedIndex:index];
-//    switch (index) {
-//        case 0:
-//            _shareIndex = 3;
-//            break;
-//        case 1:
-//            _shareIndex = 1;
-//            break;
-//        case 2:
-//            _shareIndex = 2;
-//            break;
-//            
-//            
-//        default:
-//            break;
-//    }
 }
 - (void)scrollToPageIndex:(NSInteger)index
 {
     [_titleView updateSelectedIndex:index];
-//    switch (index) {
-//        case 0:
-//            _shareIndex = 3;
-//            break;
-//        case 1:
-//            _shareIndex = 1;
-//            break;
-//        case 2:
-//            _shareIndex = 2;
-//            break;
-//            
-//            
-//        default:
-//            break;
-//    }
 }
 - (ZBJiaoYiNewTabelView *)tableView1
 {
@@ -134,17 +78,12 @@
 - (UITableView *)pageScrollView:(ZBPageScrollView *)pageScroll tableViewForIndex:(NSInteger)index
 {
     if (index== 0) {
-        
         [self.tableView1 updateWithType:3];
         return self.tableView1;
-        
     }else if(index == 1){
-        
         [self.tableView2 updateWithType:1];
         return self.tableView2;
-        
     }else{
-
         [self.tableView3 updateWithType:2];
         return self.tableView3;
     }
@@ -160,47 +99,16 @@
     nav.labTitle.text = @"交易冷热";
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateNormal];
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateHighlighted];
-    
-//    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shareWhite"] forState:UIControlStateNormal];
-//    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shareWhite"] forState:UIControlStateHighlighted];
-    
     [self.view addSubview:nav];
-    
 }
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
-//        NSLog(@"%@",[NSString stringWithFormat:@"%@/share/v5.0/jiaoyi.html?type=%ld",APPDELEGATE.url_jsonHeader,_shareIndex]);
-//        if (![ZBMethods login]) {
-//            [ZBMethods toLogin];
-//            return;
-//        }
-//        _shareViews = [[ShareView alloc] initWithViewController:self];
-//        _shareViews.shareWebUrl = [NSString stringWithFormat:@"%@%@jiaoyi.html?type=%ld",APPDELEGATE.url_jsonHeader,url_share,_shareIndex];
-//        _shareViews.shareImageUrl = [NSString stringWithFormat:@"%@%@",APPDELEGATE.url_jsonHeader,url_shareImage(@"applogo")];
-//        _shareViews.shareTitle = @"交易冷热【滚球体育】";
-//        _shareViews.shareContent = @"更多数据、情报、推荐资讯请下载滚球体育";
-//        [_shareViews shareViewShow];
     }
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

@@ -1,10 +1,3 @@
-//
-//  ZBMyBuyTuijianVC.m
-//  GQapp
-//
-//  Created by WQ on 2017/7/25.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
 #define cellMyBuyTuijianVC @"cellMyBuyTuijianVC"
 #import "ZBMyBuyTuijianVC.h"
 #import "ZBTuijianDatingCell.h"
@@ -14,33 +7,25 @@
 @property (nonatomic, strong) NSMutableArray *arrdata;
 @property (nonatomic, assign) NSInteger limitStart;
 @end
-
 @implementation ZBMyBuyTuijianVC
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     self.navigationController.navigationBarHidden = YES;
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.defaultFailure = @"";
     [self setNavView];
     [self.view addSubview:self.tableView];
     [self lodaRecommandDataType:loadDataFirst];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    
 }
 #pragma mark -- setnavView
 - (void)setNavView
@@ -54,22 +39,14 @@
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
     [self.view addSubview:nav];
 }
-
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
-        //right
-        
-        
     }
 }
-
 #pragma mark -- UITableViewDataSource
-
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -77,7 +54,6 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         [_tableView registerClass:[ZBTuijianDatingCell class] forCellReuseIdentifier:cellMyBuyTuijianVC];
-        
         _tableView.delegate =self;
         _tableView.dataSource = self;
         _tableView.emptyDataSetSource = self;
@@ -87,14 +63,12 @@
     }
     return _tableView;
 }
-
 - (void)setupHeader
 {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshDataByHeader)];
     header.stateLabel.font = font13;
     header.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = header;
-    
 }
 - (void)setupFooter
 {
@@ -106,48 +80,35 @@
 - (void)refreshDataByHeader
 {
     [self lodaRecommandDataType:loadDataHeaderRefesh];
-
  }
 - (void)loadMoreDataByfooter
 {
     [self lodaRecommandDataType:loadDataMoredata];
-
  }
-//Data Source 实现方法
-//Data Source 实现方法
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    
     if ([self.defaultFailure isEqualToString:@""]) {
         return [UIImage imageNamed:@"white"];
-        
     }
     if ([self.defaultFailure isEqualToString:@"似乎已断开与互联网的连接。"]) {
         return [UIImage imageNamed:@"dNotnet"];
-        
     }
     return [UIImage imageNamed:@"d1"];
 }
-//返回标题文字
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
 {
     if ([self.defaultFailure isEqualToString:@""]) {
         NSString *text = @"暂无数据";
         NSDictionary *attributes = @{NSFontAttributeName: font12, NSForegroundColorAttributeName: [UIColor clearColor]};
         return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-        
     }
-    
     NSString *text = self.defaultFailure;
     NSDictionary *attributes = @{NSFontAttributeName: font12, NSForegroundColorAttributeName: [UIColor grayColor]};
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
-
-//是否允许滚动 (默认是 NO) :
 - (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView{
     return YES;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _arrdata.count;
@@ -160,7 +121,6 @@
             cell.model = [_arrdata objectAtIndex:indexPath.row];
         }
     }];
-    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -169,33 +129,21 @@
         cell = [[ZBTuijianDatingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellMyBuyTuijianVC];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    //    while ([cell.contentView.subviews lastObject]!= nil) {
-    //        [[cell.contentView.subviews lastObject] removeFromSuperview];
-    //    }
     cell.type = typeTuijianCellMybuy;
     cell.model = [_arrdata objectAtIndex:indexPath.row];
     return cell;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
 }
-
-
 - (void)lodaRecommandDataType:(loadDataType)loadType
 {
-    
-    
-    
     [self.tableView.mj_footer resetNoMoreData];
     switch (loadType) {
         case loadDataFirst:
         {
             _limitStart = 0;
             _arrdata = [NSMutableArray array];
-            //                    [ZBLodingAnimateView showLodingView];
         }
             break;
         case loadDataMoredata:
@@ -209,12 +157,9 @@
             _arrdata = [NSMutableArray array];
         }
             break;
-            
         default:
             break;
     }
-
-    
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:[NSString stringWithFormat:@"%ld",(long)self.userId] forKey:@"userId"];
     [parameter setObject:[NSString stringWithFormat:@"%ld",(long)_limitStart] forKey:@"limitStart"];
@@ -223,34 +168,21 @@
     } End:^(id responseOrignal) {
         [_tableView.mj_header endRefreshing];
         [_tableView.mj_footer endRefreshing];
-
-        
     } Success:^(id responseResult, id responseOrignal) {
-        
-        
-        
         if ([[responseOrignal objectForKey:@"code"] integerValue]==200) {
             self.defaultFailure = @"暂无购买推荐记录";
             NSLog(@"responseOrignal=%@",responseOrignal);
             NSArray *arr = [ZBTuijiandatingModel arrayOfEntitiesFromArray:[responseOrignal objectForKey:@"data"]];
-            
             if (arr.count == 0) {
                 if (loadType != loadDataMoredata){
                     _arrdata = [[NSMutableArray alloc] initWithArray:arr];
                 }else{
                     [_tableView.mj_footer endRefreshingWithNoMoreData];
                 }
-                
                 [self.tableView reloadData];
             }else{
-                
-                
-                
                 [_arrdata addObjectsFromArray:arr];
-                
                 [self.tableView reloadData];
-                
-                
             }
         }else{
             if (loadType != loadDataMoredata) {
@@ -258,30 +190,23 @@
             }
             self.defaultFailure = [responseOrignal objectForKey:@"msg"];
             [self.tableView reloadData];
-
         }
-        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        
         self.defaultFailure =errorDict;
         if (loadType != loadDataMoredata) {
             [_arrdata removeAllObjects];
         }
         [self.tableView reloadData];
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-
     }];
 }
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    
         if (tableView.contentSize.height > tableView.frame.size.height) {
             tableView.mj_footer.hidden = NO;
         }else{
             tableView.mj_footer.hidden = YES;
         }
-        
-    
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -290,18 +215,5 @@
         }else{
             tableView.mj_footer.hidden = YES;
         }
-        
-    
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

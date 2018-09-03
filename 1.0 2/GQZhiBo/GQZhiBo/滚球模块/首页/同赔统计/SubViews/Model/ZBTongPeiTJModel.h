@@ -1,13 +1,4 @@
-//
-//  ZBTongPeiTJModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/7.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBTongPeiTJModel : ZBBasicModel
 @property (nonatomic, assign) NSInteger scheduleId;
 @property (nonatomic, strong) NSString *symbol;

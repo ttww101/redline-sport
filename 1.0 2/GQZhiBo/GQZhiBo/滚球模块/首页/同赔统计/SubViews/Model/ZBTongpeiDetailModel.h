@@ -1,11 +1,3 @@
-//
-//  ZBTongpeiDetailModel.h
-//  GQapp
-//
-//  Created by WQ on 2017/8/7.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
 #import "ZBTongPeiMatchModel.h"
 @interface ZBTongpeiDetailModel : ZBBasicModel
@@ -22,8 +14,6 @@
 @property (nonatomic, strong) NSString *drawRateDesc;
 @property (nonatomic, strong) NSString *loseRateDesc;
 @property (nonatomic, strong) NSArray *matchs;
-
 @property (nonatomic, strong) NSString *homeTeam;
 @property (nonatomic, strong) NSString *guestTeam;
-
 @end

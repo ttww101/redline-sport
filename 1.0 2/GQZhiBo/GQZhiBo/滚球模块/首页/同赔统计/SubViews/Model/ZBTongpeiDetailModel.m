@@ -1,13 +1,4 @@
-//
-//  ZBTongpeiDetailModel.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/7.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBTongpeiDetailModel.h"
-
 @implementation ZBTongpeiDetailModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -27,14 +18,10 @@
              @"matchs" : @"matchs",
              @"homeTeam" : @"homeTeam",
              @"guestTeam" : @"guestTeam",
-
              };
 }
-
-
 + (NSValueTransformer *)matchsJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBTongPeiMatchModel class]];
-    
 }
 @end

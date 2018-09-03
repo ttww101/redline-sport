@@ -1,13 +1,4 @@
-//
-//  ZBJSPLDownMode.m
-//  GQapp
-//
-//  Created by Marjoice on 14/08/2017.
-//  Copyright © 2017 GQXX. All rights reserved.
-//
-
 #import "ZBJSPLDownMode.h"
-
 @implementation ZBJSPLDownMode
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -20,5 +11,4 @@
              @"Js_Guest" : @"Js_Guest",
              };
 }
-
 @end

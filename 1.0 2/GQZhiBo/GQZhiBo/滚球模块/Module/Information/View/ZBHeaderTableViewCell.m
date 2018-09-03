@@ -1,31 +1,13 @@
-//
-//  ZBHeaderTableViewCell.m
-//  newGQapp
-//
-//  Created by genglei on 2018/7/18.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBHeaderTableViewCell.h"
-
 @interface ZBHeaderTableViewCell ()
-
 @property (nonatomic , strong) CALayer *lineLayer;
-
 @property (nonatomic, strong) UIImageView *iconImageView;
-
 @property (nonatomic, strong) UILabel *titleLabel;
-
 @end
-
 @implementation ZBHeaderTableViewCell
-
 static CGFloat cell_Height = 44;
-
 static NSString *identifier = @"headerCell";
-
 static CGFloat imageHeight = 15;
-
 + (ZBHeaderTableViewCell *)cellForTableView:(UITableView *)tableView {
     ZBHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -34,7 +16,6 @@ static CGFloat imageHeight = 15;
     }
     return cell;
 }
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -42,20 +23,15 @@ static CGFloat imageHeight = 15;
     }
     return self;
 }
-
 #pragma mark - Open Method
-
 + (CGFloat)heightForCell {
     return cell_Height;
 }
-
 - (void)setTitle:(NSString *)title {
     _title = title;
     self.titleLabel.text = _title;
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.contentView.backgroundColor = [UIColor whiteColor];
      [self.contentView.layer addSublayer:self.lineLayer];
@@ -65,16 +41,13 @@ static CGFloat imageHeight = 15;
         make.left.equalTo(self.contentView.mas_left).offset(15);
         make.size.mas_equalTo(CGSizeMake(imageHeight, imageHeight));
     }];
-    
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.iconImageView.mas_right).offset(7);
     }];
 }
-
 #pragma mark - Lazy Load
-
 - (CALayer *)lineLayer {
     if (_lineLayer == nil) {
         _lineLayer = [CALayer layer];
@@ -83,7 +56,6 @@ static CGFloat imageHeight = 15;
     }
     return _lineLayer;
 }
-
 - (UIImageView *)iconImageView {
     if (_iconImageView == nil) {
         _iconImageView = [UIImageView new];
@@ -92,7 +64,6 @@ static CGFloat imageHeight = 15;
     }
     return _iconImageView;
 }
-
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
         _titleLabel = [UILabel new];
@@ -101,5 +72,4 @@ static CGFloat imageHeight = 15;
     }
     return _titleLabel;
 }
-
 @end

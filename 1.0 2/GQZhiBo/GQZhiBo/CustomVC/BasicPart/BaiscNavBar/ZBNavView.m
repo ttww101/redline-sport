@@ -1,28 +1,9 @@
-//
-//  ZBNavView.m
-//  GQapp
-//
-//  Created by WQ on 2017/4/21.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBNavView.h"
-
 @implementation ZBNavView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (id)init
 {
     self = [super init];
     if (self) {
-        
         self.frame = CGRectMake(0, 0, Width, APPDELEGATE.customTabbar.height_myNavigationBar);
         self.backgroundColor = redcolor;
         [self addSubview:self.bgView];
@@ -33,7 +14,6 @@
     }
     return self;
 }
-
 - (UIView *)bgView
 {
     if (!_bgView) {
@@ -42,7 +22,6 @@
     }
     return _bgView;
 }
-
 - (UIButton *)btnLeft
 {
     if (!_btnLeft) {
@@ -56,7 +35,6 @@
     }
     return _btnLeft;
 }
-
 - (UIButton *)btnRight
 {
     if (!_btnRight) {
@@ -66,12 +44,10 @@
         _btnRight.titleLabel.font = font14;
         _btnRight.tag = 2;
         [_btnRight.titleLabel adjustsFontSizeToFitWidth];
-
         [_btnRight addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnRight;
 }
-
 - (UILabel *)labTitle
 {
     if (!_labTitle) {
@@ -83,49 +59,21 @@
     }
     return _labTitle;
 }
-
 - (UIView *)viewLine
 {
     if (!_viewLine) {
         _viewLine = [[UIView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar -1, Width, 1)];
         _viewLine.backgroundColor = [UIColor clearColor];
-        
     }
     return _viewLine;
 }
-
-
-
 - (void)btnClick:(UIButton *)btn
 {
     if (_delegate && [_delegate respondsToSelector:@selector(navViewTouchButton:)]) {
-        
         [_delegate navViewTouchButton:btn];
     }
-
     if (_delegate && [_delegate respondsToSelector:@selector(navViewTouchAnIndex:)]) {
-        
         [_delegate navViewTouchAnIndex:btn.tag];
     }
-    
-
 }
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

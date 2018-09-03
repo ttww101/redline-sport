@@ -1,30 +1,16 @@
-//
-//  ZBFeedbackVC.m
-//  GQapp
-//
-//  Created by WQ on 2017/4/21.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBFeedbackVC.h"
 #import "ZBFeedBackHeaderView.h"
 #import "ZBFeedBackCell.h"
 #import "ZBFeedBackModel.h"
 #import "ZBTFFileUploadManager.h"
 #import "AFNetworking.h"
-
-
 @interface ZBFeedbackVC ()<UITextViewDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITableView  *tableView;
-//@property (nonatomic, strong) UITextField *textTitle;
 @property (nonatomic, strong) UITextView *textContent;
-//@property (nonatomic, strong) UILabel *labPlaceholderTitle;
 @property (nonatomic, strong) UILabel *labPlaceholderContent;
 @property (nonatomic, strong) UIView *viewContent;
-//完成之后的View
 @property (nonatomic, strong) UIView *viewComplete;
-//添加图片容器
 @property (nonatomic, strong) UIView                            *addImgView;
 @property (nonatomic, strong) UIImageView                       *addImgeBtn;
 @property (nonatomic, strong) UITextField                       *telPhoneTextField;
@@ -34,49 +20,36 @@
 @property (nonatomic, strong) NSMutableArray                   *feedArr;
 @property (nonatomic, strong) NSString                          *urlStr;
 @end
-
 @implementation ZBFeedbackVC
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
     self.navigationController.navigationBarHidden = YES;
 }
 - (void)viewDidAppear:(BOOL)animated {
-    
     [super viewDidAppear:animated];
     if ([ZBMethods login]) {
-        
         _scrollView.contentSize = CGSizeMake(Width, _tableView.bottom);
     }else{
-
         _scrollView.contentSize = CGSizeMake(Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar);
     }
-
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
-
 {
     return UIStatusBarStyleLightContent;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-
     if ([ZBMethods login]) {
-        
         [self getComments];
     }
     [self setNavView];
     [self setupSubView];
     self.tableView.estimatedRowHeight = 80.0f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-//    [self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardHide:) name:UIKeyboardWillHideNotification object:nil];
-
 }
 #pragma mark -- setnavView
 - (void)setNavView
@@ -88,38 +61,25 @@
     [_nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateHighlighted];
     [_nav.btnRight setTitle:@"提交  " forState:UIControlStateNormal];
     _nav.tag = 10;
-//    [nav.btnRight mas_remakeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(nav.mas_right).offset(-15);
-//        make.centerY.equalTo(nav.btnLeft.mas_centerY);
-//    }];
     _nav.btnRight.titleLabel.font = font14;
     [_nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     [_nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
     [self.view addSubview:_nav];
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScrollView)];
     [_nav addGestureRecognizer:tap];
 }
-
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
     [self.view endEditing:YES];
-    
-    
     if (index == 1) {
-        //left
         [self.navigationController popViewControllerAnimated:YES];
-        
     }else if(index == 2){
         if (_nav.tag == 11) {
-//            [self.navigationController popViewControllerAnimated:YES];
             _scrollView.hidden = NO;
             _viewComplete.hidden = YES;
             _textContent.text = @"";
             _image = [UIImage imageNamed:@""];
-            //_telPhoneTextField.text = @"";
             if ([ZBMethods login]) {
-                
                 [self getComments];
             }
             [_nav.btnRight setTitle:@"提交  " forState:UIControlStateNormal];
@@ -128,24 +88,15 @@
             return;
         }
         [self.view endEditing:YES];
-//        if (_textTitle.text.length==0) {
-//            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入简单描述意见"];
-//            return;
-//        }
         if (_textContent.text.length == 0) {
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请输入您的意见和反馈"];
             return;
         }
-        
-        
-        
         if (_image) {
             [self upLoadImage];
         }else{
             [self feedBack];
         }
-        
-        
     }
 }
 - (void)navViewTouchButton:(UIButton *)btn
@@ -154,33 +105,23 @@
             [self.navigationController popViewControllerAnimated:YES];
     }
 }
-
 - (void)setupSubView
 {
-    
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar)];
-//    _scrollView.backgroundColor = colorTableViewBackgroundColor;
     _scrollView.backgroundColor = [UIColor whiteColor];
-//    _scrollView.backgroundColor = [UIColor redColor];
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.scrollEnabled = YES;
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapScrollView)];
     [_scrollView addGestureRecognizer:tap];
     [self.view addSubview:_scrollView];
-    
     _viewContent = [[UIView alloc] init];
-//    _viewContent.backgroundColor = [UIColor orangeColor];
     [_scrollView addSubview:_viewContent];
-    
     [_viewContent mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(viewTitle.mas_bottom).offset(10);
         make.top.equalTo(_scrollView.mas_top);
         make.left.equalTo(_scrollView.mas_left);
         make.trailing.equalTo(_scrollView.mas_trailing);
         make.height.mas_equalTo(331);
     }];
-    
     _textContent = [[UITextView alloc] init];
     _textContent.textColor = color33;
     _textContent.font = font14;
@@ -188,71 +129,54 @@
     _textContent.layer.borderWidth = 2;
     _textContent.layer.borderColor = colorf3f4f5.CGColor;
     [_viewContent addSubview:_textContent];
-    
     [_textContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_viewContent.mas_top).offset(14);
         make.left.equalTo(_viewContent.mas_left).offset(15);
         make.right.equalTo(_viewContent.mas_right).offset(-15);
-//        make.bottom.equalTo(_viewContent.mas_bottom).offset(-15);
         make.size.mas_equalTo(CGSizeMake(Width -30, 98));
     }];
-    
     _labPlaceholderContent = [[UILabel alloc] init];
     _labPlaceholderContent.textColor = color999999;
     _labPlaceholderContent.font = font14;
     _labPlaceholderContent.text = @"请提出你的宝贵意见，我们第一时间回复你！";
     [_viewContent addSubview:_labPlaceholderContent];
-    
     [_labPlaceholderContent mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_textContent.mas_left).offset(10); //9
-        make.top.equalTo(_textContent.mas_top).offset(10);  //22
+        make.left.equalTo(_textContent.mas_left).offset(10); 
+        make.top.equalTo(_textContent.mas_top).offset(10);  
     }];
-    
-    
     _addImgView = [UIView new];
     _addImgView.layer.borderWidth = 2;
     _addImgView.layer.borderColor = colorf3f4f5.CGColor;
     [_viewContent addSubview:_addImgView];
-    
     _addImgeBtn = [UIImageView new];
     _addImgeBtn.image = [UIImage imageNamed:@"addImg"];
     _addImgeBtn.userInteractionEnabled = YES;
     UITapGestureRecognizer *addImgTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addImgBtnClick)];
     [_addImgeBtn addGestureRecognizer:addImgTap];
     [_addImgView addSubview:_addImgeBtn];
-    
     UILabel *addImageLab = [UILabel new];
-//    addImageLab.backgroundColor = redcolor;
     addImageLab.text = @"添加图片 ";
     addImageLab.textColor = color999999;
     addImageLab.font = font14;
     [_addImgView addSubview:addImageLab];
-    
     UILabel *telPhoneLab = [UILabel new];
     telPhoneLab.text = @"手机号码: ";
     telPhoneLab.font = font15;
     telPhoneLab.textColor = colorf66666;
     [_viewContent addSubview:telPhoneLab];
-    
     _telPhoneTextField = [UITextField new];
     _telPhoneTextField.placeholder = @"请输入你的手机号";
     _telPhoneTextField.userInteractionEnabled = NO;
     if ([ZBMethods login]) {
         _telPhoneTextField.text = [ZBMethods getUserModel].showmobile;
-
     }else{
-    
         _telPhoneTextField.hidden = YES;
         telPhoneLab.hidden = YES;
     }
-    
-
     [_telPhoneTextField setValue:font14 forKeyPath:@"_placeholderLabel.font"];
-//    _telPhoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [_viewContent addSubview:_telPhoneTextField];
-    
     [_addImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_textContent.mas_bottom).offset(-2); //layer +2
+        make.top.equalTo(_textContent.mas_bottom).offset(-2); 
         make.left.equalTo(_scrollView.mas_left).offset(15);
         make.right.equalTo(_scrollView.mas_right).offset(-15);
         make.height.mas_equalTo(71);
@@ -276,39 +200,25 @@
     [_telPhoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(telPhoneLab.mas_top);
         make.left.equalTo(telPhoneLab.mas_right).offset(8);
-//        make.centerY.equalTo(telPhoneLab);
         make.width.mas_equalTo(207);
         make.height.mas_equalTo(30);
     }];
-    
     if ([ZBMethods login]) {
-        
         [_scrollView addSubview:self.tableView];
         _scrollView.contentSize = CGSizeMake(Width, _tableView.bottom);
     }
-    
-
-    
-    
-    
-    
-    
     _viewComplete = [[UIView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar)];
     _viewComplete.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_viewComplete];
-    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setBackgroundImage:[UIImage imageNamed:@"completerFeedback"] forState:UIControlStateNormal];
     [btn setBackgroundImage:[UIImage imageNamed:@"completerFeedback"] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(completeFeedBack) forControlEvents:UIControlEventTouchUpInside];
     [_viewComplete addSubview:btn];
-    
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-       
         make.top.equalTo(_viewComplete.mas_top).offset(50);
         make.centerX.equalTo(_viewComplete.mas_centerX);
     }];
-    
     UILabel *labComplete = [[UILabel alloc] init];
     labComplete.text = @"反馈成功";
     labComplete.textColor = redcolor;
@@ -318,7 +228,6 @@
         make.top.equalTo(btn.mas_bottom).offset(17.5);
         make.centerX.equalTo(btn.mas_centerX);
     }];
-    
     UILabel *labCC = [[UILabel alloc] init];
     labCC.text = @"您的反馈我们会认真查看，并尽快修复及完善，感谢您对滚球体育一如既往的支持";
     labCC.textColor = color33;
@@ -331,15 +240,11 @@
         make.left.equalTo(_viewComplete.mas_left).offset(45);
         make.right.equalTo(_viewComplete.mas_right).offset(-45);
     }];
-
     _viewComplete.hidden = YES;
-
 }
-
 - (UITableView *)tableView {
-
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  331 - 30, Width,Height - APPDELEGATE.customTabbar.height_myNavigationBar - _viewContent.height ) style:UITableViewStyleGrouped];  // APPDELEGATE.customTabbar.height_myNavigationBar
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,  331 - 30, Width,Height - APPDELEGATE.customTabbar.height_myNavigationBar - _viewContent.height ) style:UITableViewStyleGrouped];  
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = colorf3f4f5;
@@ -350,112 +255,55 @@
     }
     return _tableView;
 }
-
-//- (ZBFeedBackHeaderView *)feedBackHeaderView {
-//    
-//    if(!_feedBackHeaderView) {
-//        _feedBackHeaderView = [[ZBFeedBackHeaderView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar)];
-//    }
-//    return _feedBackHeaderView;
-//}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
     return 1;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.feedArr.count;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     ZBFeedBackCell *feedBackCell = [tableView cellForRowAtIndexPath:indexPath];
     if (!feedBackCell) {
         feedBackCell = [[ZBFeedBackCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"feedBackCell"];
     }
-    
     feedBackCell.feedModeltmp = _feedArr[indexPath.row];
-    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 1)];
     lineView.backgroundColor = colorf3f4f5;
     [feedBackCell.contentView addSubview:lineView];
-
     return feedBackCell;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
     if (section == 0) {
         if (_feedArr.count > 0) {
-            
             return 40;
         }
         return 0.0001;
     }else{
-    
         return 0;
     }
     return 0;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     return 80;
 }
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
     if (section == 0) {
-        
         if (_feedArr.count > 0) {
-            
             UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 40)];
             UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 12.5, Width, 20)];
             titleLab.text = @"反馈记录";
             titleLab.font = font14;
-            
             [titleView addSubview:titleLab];
-            
             return titleView;
         }
         return [UIView new];
     }
-    
     return [UIView new];
 }
-
-
-
 - (void)completeFeedBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;        // return NO to disallow editing.
-//{
-//    
-//    _labPlaceholderTitle.hidden = YES;
-//    
-//    return YES;
-//    
-//}
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;          // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-//{
-//    
-//    if (isNUll(textField.text)) {
-//        _labPlaceholderTitle.hidden = NO;
-//    }else{
-//        _labPlaceholderTitle.hidden = YES;
-//    }
-//    
-//    return YES;
-//}
-
-
-
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     _labPlaceholderContent.hidden = YES;
@@ -468,109 +316,62 @@
     }else{
         _labPlaceholderContent.hidden = YES;
     }
-
     return YES;
 }
-
-
 - (void)textViewDidChange:(UITextView *)textView
 {
     CGRect frame = textView.frame;
     CGSize constraintSize = CGSizeMake(frame.size.width, MAXFLOAT);
     CGSize size = [textView sizeThatFits:constraintSize];
-    
     if (size.height <85) {
         size.height = 85;
     }
     [_textContent mas_updateConstraints:^(MASConstraintMaker *make) {
-        
         make.size.mas_equalTo(CGSizeMake(Width -30, size.height));
-
     }];
-    
     _scrollView.contentSize = CGSizeMake(Width, _viewContent.bottom);
     _tableView.frame = CGRectMake(0, _telPhoneTextField.bottom + 54, Width, 500);
-    
-//    if (_scrollView.contentSize.height > Height - APPDELEGATE.customTabbar.height_myNavigationBar) {
-//        _scrollView.contentOffset = CGPointMake(0, _scrollView.contentSize.height - _scrollView.height);
-//        _tableView.frame = CGRectMake(0, _telPhoneTextField.bottom + 54, Width, 500);
-//
-//    }
-
 }
-
 - (void)KeyboardShow:(NSNotification *)notification
 {
-    
     NSDictionary *userInfo = [notification userInfo];
     CGRect rect =
     [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
     CGFloat keyboardHeight = CGRectGetHeight(rect);
     CGFloat keyboardDuration =
     [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
-    
     [UIView animateWithDuration:keyboardDuration animations:^{
-        
         _scrollView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar - keyboardHeight);
-        
         if (_scrollView.contentSize.height > Height - APPDELEGATE.customTabbar.height_myNavigationBar) {
-//            _scrollView.contentOffset = CGPointMake(0, _scrollView.contentSize.height - _scrollView.height);
         }
-
-        
-        
     }];
-    
-    
 }
 - (void)KeyboardHide:(NSNotification *)notification
 {
     NSDictionary *userInfo = [notification userInfo];
     CGFloat keyboardDuration =[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
     [UIView animateWithDuration:keyboardDuration animations:^{
         _scrollView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar);
-
     }];
 }
-
-
 #pragma mark - action -
 - (void)addImgBtnClick {
-    
     UIImagePickerController *pickerVC = [[UIImagePickerController alloc] init];
     pickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     pickerVC.delegate = self;
     pickerVC.allowsEditing = YES;
     [APPDELEGATE.customTabbar presentToViewController:pickerVC animated:YES completion:^{
-        
     }];
-
 }
-
 #pragma  mark - imagePickerController -
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-
     [picker dismissViewControllerAnimated:YES completion:nil];
     _image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
     _addImgeBtn.image = _image;
-//    [self upLoadImage];
 }
-
-
-//#pragma mark - KVO -
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-//    
-//    NSLog(@"%@",change);
-//}
-
 - (void)tapScrollView
 {
     [self.view endEditing:YES];
-
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -578,29 +379,19 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
 }
-
-
 - (void)getComments {
-    
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:@"2" forKey:@"flag"];
-    
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_feedback] ArrayFile:nil Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-            
             _feedArr = [[NSMutableArray alloc] initWithArray:[ZBFeedBackModel arrayOfEntitiesFromArray:[responseOrignal objectForKey:@"data"]]];
-            
             [self.tableView reloadData];
         }else{
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
@@ -609,65 +400,37 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
 }
-
-
 - (void)upLoadImage {
-    
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:@"feedBack" forKey:@"type"];
     [parameter setObject:@"json" forKey:@"returnfmt"];
-
-//    [ZBDCHttpRequest shareInstance].contentType = @"multipart/form-data";
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_upLoadImg,url_feedBack_upLoadImg] ArrayFile:[NSArray arrayWithObjects:_image, nil]  FileName:@"imagefile"
       Start:^(id requestOrignal) {
-          
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
-       
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-            
             _urlStr = [[responseOrignal objectForKey:@"data"] objectForKey:@"picurl"];
-            
             [self feedBack];
         }else{
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-
-        
     }];
-
-    
-    
  }
-
-
 - (void)feedBack
 {
-
-    
-
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:@"0" forKey:@"flag"];
-    //        [parameter setObject:_textTitle.text forKey:@"title"];
     [parameter setObject:_textContent.text forKey:@"content"];
     if (!isNUll(_urlStr)) {
         [parameter setObject:_urlStr forKey:@"imgurl"];
-
     }
     if (!isNUll(_telPhoneTextField.text)) {
         [parameter setObject:_telPhoneTextField.text forKey:@"mobile"];
- 
     }
-    
-
-    
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_feedback] ArrayFile:nil Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             _scrollView.hidden = YES;
@@ -680,20 +443,5 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
-
-    
-    
-    
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

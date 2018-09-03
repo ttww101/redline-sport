@@ -1,11 +1,3 @@
-//
-//  ZBBaolengDTcell.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/8.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBaolengDTcell.h"
 @interface ZBBaolengDTcell()
 @property (nonatomic, strong) UIView *basicView;
@@ -17,27 +9,18 @@
 @property (nonatomic, strong) UILabel *labPeilvUp;
 @property (nonatomic, strong) UILabel *labpeilvGoal;
 @property (nonatomic, strong) UILabel *labPeilvDown;
-
 @end
 @implementation ZBBaolengDTcell
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 - (void)setModel:(ZBBaolengMatchModel *)model
 {
     _model = model;
     [self.contentView addSubview:self.basicView];
-    
-    
     _labLeague.text = _model.league;
     _labTime.text = [ZBMethods getDateByStyle:DateFormatterYearH withDate:[NSDate dateWithTimeIntervalSince1970:_model.matchtime/1000] ];
     _labHomteam.text = _model.hometeam;
@@ -46,77 +29,41 @@
     _labPeilvUp.text = _model.FirstHomeWin;
     _labpeilvGoal.text = _model.FirstStandoff;
     _labPeilvDown.text = _model.FirstGuestWin;
-    
     _labPeilvUp.backgroundColor = [UIColor whiteColor];
     _labpeilvGoal.backgroundColor = [UIColor whiteColor];
     _labPeilvDown.backgroundColor = [UIColor whiteColor];
     _labPeilvUp.textColor = color66;
     _labpeilvGoal.textColor = color66;
     _labPeilvDown.textColor = color66;
-
-    //主队胜，标主队颜色 ，如果主队赔率最大红色  主队赔率第二黄色 主队赔率第三 白色
     if (_model.homescore> _model.guestscore) {
-       
         if (([_model.FirstHomeWin floatValue]>=[_model.FirstGuestWin floatValue]) && ([_model.FirstHomeWin floatValue]>=[_model.FirstStandoff floatValue])) {
-            
             _labPeilvUp.backgroundColor = redcolor;
             _labPeilvUp.textColor = [UIColor whiteColor];
-            
         }else if (([_model.FirstHomeWin floatValue]>=[_model.FirstGuestWin floatValue]) || ([_model.FirstHomeWin floatValue]>=[_model.FirstStandoff floatValue])){
             _labPeilvUp.backgroundColor = colorD8CB29;
             _labPeilvUp.textColor = [UIColor whiteColor];
-
-        
         }else{
-        
-        
         }
-        
-        
     }else if (_model.homescore< _model.guestscore) {
-      
-//                _labPeilvDown.backgroundColor =
-
         if (([_model.FirstGuestWin floatValue]>=[_model.FirstHomeWin floatValue]) && ([_model.FirstGuestWin floatValue]>=[_model.FirstStandoff floatValue])) {
-            
             _labPeilvDown.backgroundColor = redcolor;
             _labPeilvDown.textColor = [UIColor whiteColor];
-
-            
         }else if (([_model.FirstGuestWin floatValue]>=[_model.FirstHomeWin floatValue]) || ([_model.FirstGuestWin floatValue]>=[_model.FirstStandoff floatValue])){
             _labPeilvDown.backgroundColor = colorD8CB29;
             _labPeilvDown.textColor = [UIColor whiteColor];
-
-            
         }else{
-            
-            
         }
-
-        
     }else{
-    
-//                _labpeilvGoal.backgroundColor =
         if (([_model.FirstStandoff floatValue]>=[_model.FirstGuestWin floatValue]) && ([_model.FirstStandoff floatValue]>=[_model.FirstHomeWin floatValue])) {
-            
             _labpeilvGoal.backgroundColor = redcolor;
             _labpeilvGoal.textColor = [UIColor whiteColor];
-
-            
         }else if (([_model.FirstStandoff floatValue]>=[_model.FirstGuestWin floatValue]) || ([_model.FirstStandoff floatValue]>=[_model.FirstHomeWin floatValue])){
             _labpeilvGoal.backgroundColor = colorD8CB29;
             _labpeilvGoal.textColor = [UIColor whiteColor];
-
-            
         }else{
-            
-            
         }
-
     }
-    
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -132,8 +79,6 @@
     }
     return _basicView;
 }
-
-
 - (UILabel *)labLeague
 {
     if (!_labLeague) {
@@ -143,7 +88,6 @@
     }
     return _labLeague;
 }
-
 - (UILabel *)labTime
 {
     if (!_labTime) {
@@ -153,7 +97,6 @@
     }
     return _labTime;
 }
-
 - (UILabel *)labHomteam
 {
     if (!_labHomteam) {
@@ -180,11 +123,9 @@
         _labVS.font = font12;
         _labVS.textColor = color99;
         _labVS.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labVS;
 }
-
 - (UILabel *)labPeilvUp
 {
     if (!_labPeilvUp) {
@@ -195,7 +136,6 @@
         _labPeilvUp.font = font12;
         _labPeilvUp.textColor = color66;
         _labPeilvUp.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labPeilvUp;
 }
@@ -203,15 +143,12 @@
 {
     if (!_labpeilvGoal) {
         _labpeilvGoal = [[UILabel alloc] initWithFrame:CGRectMake(_labPeilvUp.right + 2, 0, 35, 15)];
-        
         _labpeilvGoal.center = CGPointMake(_labpeilvGoal.center.x, _basicView.center.y);
         _labpeilvGoal.layer.cornerRadius = 3;
         _labpeilvGoal.layer.masksToBounds = YES;
-
         _labpeilvGoal.font = font12;
         _labpeilvGoal.textColor = color66;
         _labpeilvGoal.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labpeilvGoal;
 }
@@ -219,38 +156,13 @@
 {
     if (!_labPeilvDown) {
         _labPeilvDown = [[UILabel alloc] initWithFrame:CGRectMake(_labpeilvGoal.right + 2, 0, 35, 15)];
-        
         _labPeilvDown.center = CGPointMake(_labPeilvDown.center.x, _basicView.center.y);
         _labPeilvDown.layer.cornerRadius = 3;
         _labPeilvDown.layer.masksToBounds = YES;
-
         _labPeilvDown.font = font12;
         _labPeilvDown.textColor = color66;
         _labPeilvDown.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labPeilvDown;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

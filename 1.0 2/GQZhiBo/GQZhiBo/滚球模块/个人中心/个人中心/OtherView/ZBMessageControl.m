@@ -1,15 +1,5 @@
-//
-//  messageControl.m
-//  newGQapp
-//
-//  Created by genglei on 2018/6/27.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBMessageControl.h"
-
 @implementation ZBMessageControl
-
 - (instancetype)initWithFrame:(CGRect)frame
                         title:(NSString *)title
                        amount:(NSString *)content {
@@ -25,7 +15,6 @@
             make.top.equalTo(self.mas_top).offset(0);
             make.centerX.equalTo(self.mas_centerX);
         }];
-
         UILabel *label = [[UILabel alloc]init];
         label.text = title;
         label.font = font14;
@@ -39,5 +28,4 @@
     }
     return self;
 }
-
 @end

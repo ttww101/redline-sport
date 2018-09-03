@@ -1,11 +1,3 @@
-//
-//  ZBRedDanCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/7/4.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBRedDanCell.h"
 #import "DCImageViewRoundCorner.h"
 #import "ZBTuijianDetailVC.h"
@@ -15,31 +7,25 @@
 @property (nonatomic, strong)DCImageViewRoundCorner *imgPhone;
 @property (nonatomic, strong)UIImageView *img;
 @property (nonatomic, strong)UILabel *labName;
-@property (nonatomic, strong)UILabel *labRedNum;//连红数
-@property (nonatomic, strong)UILabel *labSL;//胜率
-@property (nonatomic, strong)UILabel *labSLStr;//近7天的胜率
-@property (nonatomic, strong)UIView *BkView;//背景View
-@property (nonatomic, strong)UILabel *labSPF;//shengpingfu
-@property (nonatomic, strong)UILabel *labType;//这个是胜／平／负
+@property (nonatomic, strong)UILabel *labRedNum;
+@property (nonatomic, strong)UILabel *labSL;
+@property (nonatomic, strong)UILabel *labSLStr;
+@property (nonatomic, strong)UIView *BkView;
+@property (nonatomic, strong)UILabel *labSPF;
+@property (nonatomic, strong)UILabel *labType;
 @property (nonatomic, strong)UIView *lineView;
 @property (nonatomic, strong)UILabel *labHome;
-@property (nonatomic, strong)UILabel *labScroe;//分数
+@property (nonatomic, strong)UILabel *labScroe;
 @property (nonatomic, strong)UILabel *labGues;
-@property (nonatomic, strong)UILabel *labTime;//时间
-
+@property (nonatomic, strong)UILabel *labTime;
 @property (nonatomic, assign) BOOL isaddlayout;
-
 @end
-
 @implementation ZBRedDanCell
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self == [super initWithFrame:frame]) {
-        
     }
     return self;
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -52,22 +38,16 @@
         [self.basicView addSubview:self.labSLStr];
         [self.basicView addSubview:self.BkView];
         [self.BkView addSubview:self.labSPF];
-        //        [self.BkView addSubview:self.lineView];
-        //        [self.BkView addSubview:self.labType];
         [self.BkView addSubview:self.labTime];
         [self.BkView addSubview:self.labScroe];
         [self.BkView addSubview:self.labHome];
         [self.BkView addSubview:self.labGues];
         [self.BkView addSubview:self.img];
-        
         UITapGestureRecognizer *tap  =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFPinfo)];
         [self.basicView addGestureRecognizer:tap];
-
-        
     }
     return _basicView;
 }
-
 - (void)tapFPinfo{
     ZBTuijianDetailVC *infoVC = [[ZBTuijianDetailVC alloc] init];
     infoVC.hidesBottomBarWhenPushed = YES;
@@ -78,7 +58,6 @@
     if (!_basImgView ) {
         _basImgView = [[UIImageView alloc] init];
         _basImgView.image = [UIImage imageNamed:@"redDanBG"];
-    
     }
     return _basImgView;
 }
@@ -86,19 +65,15 @@
     if (!_img) {
         _img = [[UIImageView alloc] init];
         _img.image = [UIImage imageNamed:@"win"];
-//        _img.backgroundColor = yellowcolor;
     }
     return _img;
 }
-
 - (DCImageViewRoundCorner *)imgPhone{
     if (!_imgPhone) {
         _imgPhone = [[DCImageViewRoundCorner alloc] init];
-        
         _imgPhone.image = [UIImage imageNamed:@"defaultPic"];
         _imgPhone.layer.cornerRadius = 23;
         _imgPhone.layer.masksToBounds = YES;
-        
     }
     return _imgPhone;
 }
@@ -129,7 +104,6 @@
         _labSL.font = font24;
         _labSL.textColor = redcolor;
         _labSL.text = @"86%";
-        
     }
     return _labSL;
 }
@@ -145,9 +119,7 @@
 - (UIView *)BkView{
     if (!_BkView) {
         _BkView = [[UIView alloc] init];
-        
         _BkView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4];
-//        _BkView.alpha = 0.4;
     }
     return _BkView;
 }
@@ -215,29 +187,22 @@
 - (void)setModel:(ZBRedDanModel *)model{
     _model = model;
     [self.contentView addSubview:self.basicView];
-    
     if (!_isaddlayout == YES) {
         _isaddlayout = YES;
         [self setMas];
     }
-    
-    
     self.labName.text = model.nickName;
     self.labRedNum.text = [NSString stringWithFormat:@"  %@  ",model.usermark[0][@"remark"]];
     self.labSL.text = model.winRate;
     self.labSL.attributedText = [ZBMethods withContent:self.labSL.text WithColorText:@"%" textColor:redcolor strFont:font17];
-    
     self.labSPF.text = model.play;
     self.labType.text = model.choice;
     self.labHome.text = model.homeTeam;
     self.labGues.text = model.guestTeam;
     self.labScroe.text = [NSString stringWithFormat:@"%ld:%ld",model.homescore,model.guestscore];
     self.labTime.text = [NSString stringWithFormat:@"%@",[ZBMethods getDateByStyle:@"MM-dd" withDate:[NSDate dateWithTimeIntervalSince1970:[model.matchTime doubleValue]/1000]]];
-
     [self.imgPhone sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"defaultPic"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
     }];
-    
     if (model.result == 1) {
         self.img.image = [UIImage imageNamed:@"winhalf"];
     }else{
@@ -245,30 +210,24 @@
     }
 }
 - (void)setMas{
-    
-    
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.mas_left).offset(0);
         make.right.mas_equalTo(self.mas_right).offset(0);
         make.top.mas_equalTo(self.mas_top);
         make.bottom.mas_equalTo(self.mas_bottom);
-
     }];
-    
     [self.basImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.basicView.mas_left).offset(15);
         make.right.mas_equalTo(self.basicView.mas_right).offset(-15);
         make.top.mas_equalTo(self.basicView.mas_top);
         make.bottom.mas_equalTo(self.basicView.mas_bottom);
     }];
-    
     [self.imgPhone mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.basImgView.mas_left).offset(10);
         make.top.mas_equalTo(self.basImgView.mas_top).offset(15);
         make.width.mas_offset(46);
         make.height.mas_offset(46);
     }];
-    
     [self.labName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.imgPhone.mas_right).offset(10);
         make.bottom.mas_equalTo(self.imgPhone.mas_centerY).offset(-3.5);
@@ -286,7 +245,6 @@
         make.right.mas_equalTo(self.labSL.mas_right);
         make.top.mas_equalTo(self.labSL.mas_bottom).offset(5);
     }];
-    
     [self.BkView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.basImgView.mas_left).offset(10);
         make.top.mas_equalTo(self.imgPhone.mas_bottom).offset(10);
@@ -297,17 +255,6 @@
         make.left.mas_equalTo(self.BkView.mas_left).offset(10);
         make.centerY.mas_equalTo(self.BkView.mas_centerY);
     }];
-//    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.labSPF.mas_right).offset(5);
-//        make.width.mas_offset(0.5);
-//        make.top.mas_equalTo(self.BkView.mas_top).offset(5);
-//        make.height.mas_offset(10);
-//    }];
-//    [self.labType mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.lineView.mas_right).offset(5);
-//        make.centerY.mas_equalTo(self.labSPF.mas_centerY);
-//    }];
-//    CGFloat wid = self.BkView.width - 75 - 42;
     [self.labScroe mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.BkView.mas_centerY);
         make.centerX.mas_equalTo(self.BkView.mas_centerX);
@@ -328,14 +275,5 @@
         make.top.mas_equalTo(self.basImgView.mas_top).offset(20);
         make.right.mas_equalTo(self.basImgView.mas_right).offset(-80);
     }];
-    
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 @end

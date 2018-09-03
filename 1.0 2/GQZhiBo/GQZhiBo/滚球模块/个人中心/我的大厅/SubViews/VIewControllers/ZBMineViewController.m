@@ -1,11 +1,3 @@
-//
-//  ZBMineViewController.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/27.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBMineViewController.h"
 #import "ZBBasicTableView.h"
 #import "ZBMineTableViewCell.h"
@@ -17,38 +9,23 @@
 #import "ZBSettingVC.h"
 #import "ZBFriendsVC.h"
 #import "ZBToolWebViewController.h"
-
 @interface ZBMineViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-
 @property (nonatomic, strong) ZBBasicTableView *tableView;
-
 @property (nonatomic, copy) NSArray *contentArray;
-
 @property (nonatomic , strong) ZBMineHeaderView *headerView;
-
 @property (nonatomic, strong) ZBUserModel *userModel;
-
-
-
 @end
-
 @implementation ZBMineViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configUI];
-    
 }
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear: animated];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -57,20 +34,13 @@
     } else {
         self.headerView.height = 210;
     }
-    
     [self loadData];
-   
-    
 }
-
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-    
 }
-
 #pragma mark - Config UI
-
 - (void)configUI {
     self.view.backgroundColor = UIColorFromRGBWithOX(0xebebeb);
     self.tableView.backgroundColor = self.view.backgroundColor;
@@ -79,27 +49,21 @@
     adjustsScrollViewInsets_NO(self.tableView, self);
     [self setupHeader];
 }
-
 - (void)setupHeader
 {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     header.stateLabel.font = font13;
     header.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = header;
-    
 }
-
 #pragma mark - Load Data
-
 - (void)loadData {
     _contentArray = [ZBMineViewModel getMineDataArray];
     if ([ZBMethods login]) {
         _userModel = [ZBMethods getUserModel];
         NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
         [parameter setObject:[NSString stringWithFormat:@"%ld",(long)_userModel.idId] forKey:@"id"];
-        
         [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_usernewinfo] Start:^(id requestOrignal) {
-            
         } End:^(id responseOrignal) {
             [self.tableView.mj_header endRefreshing];
         } Success:^(id responseResult, id responseOrignal) {
@@ -134,33 +98,24 @@
         [self.tableView reloadData];
     }
 }
-
 #pragma mark - UITableViewDataSource
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return _contentArray.count;
 }
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSArray *arrar = _contentArray[section];
     return arrar.count;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *dataArray = _contentArray[indexPath.section];
     ZBMineTableViewCell *cell = [ZBMineTableViewCell cellForTableView:tableView];
     [cell refreshContentData:dataArray[indexPath.row]];
     return cell;
 }
-
 #pragma mark - UITableViewDelegate
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [ZBMineTableViewCell heightForCell];
-    
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 0:{
@@ -193,11 +148,9 @@
             }
         }
             break;
-            
         case 1:{
             if (indexPath.row == 0) {
                 if(![ZBMethods login]) {
-                    
                     [ZBMethods toLogin];
                     return;
                 }
@@ -208,10 +161,8 @@
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-                
             } else if (indexPath.row == 1) {
                 if(![ZBMethods login]) {
-                    
                     [ZBMethods toLogin];
                     return;
                 }
@@ -224,7 +175,6 @@
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
             } else if (indexPath.row == 2) {
                 if(![ZBMethods login]) {
-                    
                     [ZBMethods toLogin];
                     return;
                 }
@@ -243,62 +193,31 @@
             }
         }
             break;
-//
-//        case 2:{
-//            if(![ZBMethods login]) {
-//
-//                [ZBMethods toLogin];
-//                return;
-//            }
-//            if (indexPath.row == 0) {
-//                // 关注
-//                ZBFriendsVC *friend = [[ZBFriendsVC alloc] init];
-//                friend.userId = _userModel.idId;
-//                friend.selectedIndex = 0;
-//                friend.hidesBottomBarWhenPushed = YES;
-//                [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
-//            } else if (indexPath.row == 1) {
-//                // 粉丝
-//                ZBFriendsVC *friend = [[ZBFriendsVC alloc] init];
-//                friend.userId = _userModel.idId;
-//                friend.selectedIndex = 1;
-//                friend.hidesBottomBarWhenPushed = YES;
-//                [APPDELEGATE.customTabbar pushToViewController:friend animated:YES];
-//            }
-//        }
-//            break;
-            
         case 2:{
             if (indexPath.row == 0) {
                 [MobClick event:@"yqhy" label:@""];
                 ZBWebModel *model = [[ZBWebModel alloc]init];
                 model.title = @"邀请好友";
-//                model.webUrl = @"http://people.mozilla.org/~rnewman/fennec/mem.html1";
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/invite-friends.html", APPDELEGATE.url_ip,H5_Host];
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
             } else if (indexPath.row == 1) {
-                //                反馈
                 ZBFeedbackVC *feed = [[ZBFeedbackVC alloc] init];
                 feed.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:feed animated:YES];
             } else if (indexPath.row == 2) {
-//                更所选项
                 ZBSettingVC *setVC = [[ZBSettingVC alloc] init];
                 setVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:setVC animated:YES];
             }
-            
         }
             break;
         default:
             break;
     }
 }
-
 #pragma mark - Lazy Load
-
 - (ZBBasicTableView *)tableView
 {
     if (!_tableView) {
@@ -316,12 +235,10 @@
     }
     return _tableView;
 }
-
 - (ZBMineHeaderView *)headerView {
     if (_headerView == nil) {
         _headerView = [[ZBMineHeaderView alloc]initWithFrame:CGRectMake(0, 0, Width, 210)];
     }
     return _headerView;
 }
-
 @end

@@ -1,48 +1,22 @@
-//
-//  ZBUserTongjiView.m
-//  GQapp
-//
-//  Created by WQ on 2017/5/23.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBUserTongjiView.h"
 @interface ZBUserTongjiView()
 @property (nonatomic, strong) UIView *basicView;
-
 @property (nonatomic, strong) UILabel *labWinRate;
 @property (nonatomic, strong) UILabel *labWinRateTitle;
-
 @property (nonatomic, strong) UILabel *labProfite;
 @property (nonatomic, strong) UILabel *labProfiteTitle;
-
 @property (nonatomic, strong) UILabel *roundTitle;
 @property (nonatomic, strong) UILabel *roundNum;
-
 @property (nonatomic, strong) UILabel *winTitle;
 @property (nonatomic, strong) UILabel *winNum;
-
 @property (nonatomic, strong) UILabel *zouTitle;
 @property (nonatomic, strong) UILabel *zouNum;
-
 @property (nonatomic, strong) UILabel *loseTitle;
 @property (nonatomic, strong) UILabel *loseNum;
-
 @property (nonatomic, strong) UIView *viewCenter;
 @property (nonatomic, strong) UIView *viewBottom;
-
-
 @end
 @implementation ZBUserTongjiView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -52,19 +26,14 @@
     }
     return self;
 }
-
 - (void)setModel:(ZBStatisticsModel *)model
 {
     _model = model;
-    
     _labWinRate.text = [NSString stringWithFormat:@"%@%%",_model.win_rate];
     _labWinRateTitle.text = @"总胜率";
     _labProfite.text = [NSString stringWithFormat:@"%@%%",_model.profit_rate];
     _labProfiteTitle.text = @"总盈利率";
-    
     if ([_model.win_rate floatValue]>0) {
-        
-        
         if ([_labWinRate.text containsString:@"."]) {
             _labWinRate.attributedText = [ZBMethods withContent:_labWinRate.text WithColorText:[_labWinRate.text substringFromIndex:_labWinRate.text.length - 3] textColor:redcolor strFont:font12];
         } else {
@@ -72,32 +41,20 @@
         }
         _labWinRate.textColor = redcolor;
     }else{
-        
-        
         if ([_labWinRate.text containsString:@"."]) {
-            
             _labWinRate.attributedText = [ZBMethods withContent:_labWinRate.text WithColorText:[_labWinRate.text substringFromIndex:_labWinRate.text.length - 3] textColor:color99 strFont:font12];
-            
         } else {
             _labWinRate.attributedText = [ZBMethods withContent:_labWinRate.text WithColorText:@"%" textColor:color99 strFont:font12];
         }
-//        _labWinRate.attributedText = [ZBMethods withContent:_labWinRate.text WithColorText:@"%" textColor:color99 strFont:font12];
         _labWinRate.textColor = color99;
-
     }
     if ([_model.profit_rate floatValue]>0) {
         _labProfite.textColor = redcolor;
-        
-        
         _labProfite.attributedText = [ZBMethods withContent:_labProfite.text WithColorText:[_labProfite.text substringFromIndex:_labProfite.text.length - 3] textColor:redcolor strFont:font12];
-        
     }else{
         _labProfite.textColor = color99;
         _labProfite.attributedText = [ZBMethods withContent:_labProfite.text WithColorText:[_labProfite.text substringFromIndex:_labProfite.text.length - 3] textColor:color99 strFont:font12];
-        
     }
-
-    
     _roundTitle.text = @"共";
     _winTitle.text = @"场，赢";
     _zouTitle.text = @"走";
@@ -106,9 +63,7 @@
     _winNum.text = [NSString stringWithFormat:@"%ld",_model.winnum];
     _zouNum.text = [NSString stringWithFormat:@"%ld",_model.recommend_count - _model.winnum -_model.losenum];
     _loseNum.text = [NSString stringWithFormat:@"%ld",_model.losenum];
-
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -131,8 +86,6 @@
     }
     return _basicView;
 }
-
-
 - (UILabel *)labWinRate
 {
     if (!_labWinRate) {
@@ -142,7 +95,6 @@
     }
     return _labWinRate;
 }
-
 - (UILabel *)labWinRateTitle
 {
     if (!_labWinRateTitle) {
@@ -152,8 +104,6 @@
     }
     return _labWinRateTitle;
 }
-
-
 - (UILabel *)labProfite
 {
     if (!_labProfite) {
@@ -163,7 +113,6 @@
     }
     return _labProfite;
 }
-
 - (UILabel *)labProfiteTitle
 {
     if (!_labProfiteTitle) {
@@ -173,7 +122,6 @@
     }
     return _labProfiteTitle;
 }
-
 - (UILabel *)roundTitle
 {
     if (!_roundTitle) {
@@ -246,7 +194,6 @@
     }
     return _loseNum;
 }
-
 - (UIView *)viewCenter
 {
     if (!_viewCenter) {
@@ -255,7 +202,6 @@
     }
     return _viewCenter;
 }
-
 - (UIView *)viewBottom
 {
     if (!_viewBottom) {
@@ -264,7 +210,6 @@
     }
     return _viewBottom;
 }
-
 - (void)setautolayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -273,8 +218,6 @@
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
     }];
-    
-    
     [self.labWinRate mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.basicView.mas_top).offset(25);
@@ -284,31 +227,25 @@
         make.left.equalTo(self.labWinRate.mas_right).offset(5);
         make.bottom.equalTo(self.labWinRate.mas_bottom).offset(-3);
     }];
-    
     [self.labProfite mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(Width/2 + 15);
         make.top.equalTo(self.labWinRate.mas_top);
         make.height.equalTo(self.labWinRate.mas_height);
     }];
-    
     [self.labProfiteTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labProfite.mas_right).offset(5);
         make.bottom.equalTo(self.labWinRate.mas_bottom).offset(-3);
     }];
-    
     [self.roundTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
         make.height.mas_equalTo(20);
     }];
-    
     [self.roundNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.roundTitle.mas_right).offset(0);
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
         make.height.mas_equalTo(20);
     }];
-    
-    
     [self.winTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.roundNum.mas_right).offset(0);
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
@@ -319,8 +256,6 @@
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
         make.height.mas_equalTo(20);
     }];
-    
-    
     [self.zouTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.winNum.mas_right).offset(0);
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
@@ -331,8 +266,6 @@
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
         make.height.mas_equalTo(20);
     }];
-    
-    
     [self.loseTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.zouNum.mas_right).offset(0);
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
@@ -343,47 +276,15 @@
         make.top.equalTo(self.labWinRate.mas_bottom).offset(0);
         make.height.mas_equalTo(20);
     }];
-
     [self.viewCenter mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.basicView.mas_centerX);
         make.centerY.equalTo(self.basicView.mas_centerY).offset(0);
         make.size.mas_equalTo(CGSizeMake(0.5, 45));
     }];
-    
     [self.viewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.basicView.mas_bottom);
         make.left.equalTo(self.basicView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 10));
-        
     }];
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

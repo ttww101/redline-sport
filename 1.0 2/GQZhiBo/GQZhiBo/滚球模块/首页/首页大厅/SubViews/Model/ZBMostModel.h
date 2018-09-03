@@ -1,13 +1,4 @@
-//
-//  ZBMostModel.h
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/7/6.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBMostModel : ZBBasicModel
 @property (nonatomic, assign)NSInteger sid;
 @property (nonatomic, retain)NSString *league;
@@ -23,5 +14,4 @@
 @property (nonatomic, retain)NSString *sort;
 @property (nonatomic, retain)NSString *name;
 @property (nonatomic, retain)NSString *maxname;
-
 @end

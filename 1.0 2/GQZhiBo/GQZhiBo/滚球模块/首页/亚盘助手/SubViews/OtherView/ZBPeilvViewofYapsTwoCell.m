@@ -1,11 +1,3 @@
-//
-//  ZBPeilvViewofYapsTwoCell.m
-//  GQapp
-//
-//  Created by WQ on 2017/10/12.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBPeilvViewofYapsTwoCell.h"
 @interface ZBPeilvViewofYapsTwoCell()
 @property (nonatomic, strong) UIView *basicView;
@@ -18,107 +10,63 @@
 @property (nonatomic, strong) UILabel *labCP1;
 @property (nonatomic, strong) UILabel *labCP2;
 @property (nonatomic, strong) UILabel *labCP3;
-
 @property (nonatomic, strong) UILabel *labTimeCP;
 @property (nonatomic, strong) UILabel *labTimeJP;
-
-
 @property (nonatomic, strong) UILabel *labchangeCP;
 @property (nonatomic, strong) UILabel *labchangeJP;
 @property (nonatomic, strong) UIImageView *imageChange;
 @property (nonatomic, strong) UILabel *labchangeTitle;
-
-
-
 @end
 @implementation ZBPeilvViewofYapsTwoCell
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (void)setModel:(ZBPlycModel *)model
 {
     _model = model;
-
-    
     [self addSubview:self.basicView];
-    
-    
     if (!_isaddLayout) {
         _isaddLayout = YES;
         [self addlayout];
     }
-    
     _labJPTitle.text = @"即赔:";
     _labJP1.text  = _model.finalWin;
     _labJP2.text  = _model.finalDraw;
     _labJP3.text  = _model.finalLose;
     if (!isNUll(_model.finalTimeCn)&& ![_model.finalTimeCn isEqualToString:@"全部"]) {
         _labTimeJP.text = _model.finalTimeCn;
-        
     }else{
         _labTimeJP.text = [ZBMethods timeToNowWith:_model.finalTime];
-        
     }
-    
-    
     _labCPTitle.text = @"初赔:";
     _labCP1.text  = _model.firstWin;
     _labCP2.text  = _model.firstDraw;
     _labCP3.text  = _model.firstLose;
     _labTimeCP.text = [ZBMethods timeToNowWith:_model.firstTime];
-
     if ([_model.finalWin floatValue] > [_model.firstWin floatValue]) {
         _labJP1.textColor = redcolor;
     }else if ([_model.finalWin floatValue] < [_model.firstWin floatValue]){
         _labJP1.textColor = greencolor;
-        
     }else{
         _labJP1.textColor = color33;
-        
     }
-    
-    
-    
-    
     if ([_model.finalLose floatValue] > [_model.firstLose floatValue]) {
         _labJP3.textColor = redcolor;
     }else if ([_model.finalLose floatValue] < [_model.firstLose floatValue]){
         _labJP3.textColor = greencolor;
-        
     }else{
         _labJP3.textColor = color33;
-        
     }
-
-    
     _imageChange.image = [UIImage imageNamed:@"plycGrayRight"];
-    
     if (_model.changeNum == 1) {
-        
         _labchangeCP.text = _model.firstWin;
         _labchangeJP.text = _model.finalWin;
         _labchangeTitle.text = @"主队水位";
-        
-        
         if ([_model.finalWin floatValue] > [_model.firstWin floatValue]) {
             _labchangeJP.textColor = redcolor;
         }else if ([_model.finalWin floatValue] < [_model.firstWin floatValue]){
             _labchangeJP.textColor = greencolor;
-            
         }else{
             _labchangeJP.textColor = color33;
-            
         }
-
-        
-        
     }else{
-    
         _labchangeCP.text = _model.firstLose;
         _labchangeJP.text = _model.finalLose;
         _labchangeTitle.text = @"客队水位";
@@ -126,19 +74,11 @@
             _labchangeJP.textColor = redcolor;
         }else if ([_model.finalLose floatValue] < [_model.firstLose floatValue]){
             _labchangeJP.textColor = greencolor;
-            
         }else{
             _labchangeJP.textColor = color33;
-            
         }
-
     }
-    
-    
-    
-    
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -148,14 +88,11 @@
         [_basicView addSubview:self.labCP2];
         [_basicView addSubview:self.labCP3];
         [_basicView addSubview:self.labTimeCP];
-
         [_basicView addSubview:self.labJPTitle];
         [_basicView addSubview:self.labJP1];
         [_basicView addSubview:self.labJP2];
         [_basicView addSubview:self.labJP3];
         [_basicView addSubview:self.labTimeJP];
-        
-        
         [_basicView addSubview:self.labchangeCP];
         [_basicView addSubview:self.labchangeJP];
         [_basicView addSubview:self.imageChange];
@@ -163,8 +100,6 @@
     }
     return _basicView;
 }
-
-
 - (UILabel *)labJPTitle
 {
     if (!_labJPTitle) {
@@ -212,7 +147,6 @@
         _labJP3.font = font10;
         _labJP3.layer.borderColor = colorE8.CGColor;
         _labJP3.layer.borderWidth = 0.6;
-
         _labJP3.textAlignment = NSTextAlignmentCenter;
     }
     return _labJP3;
@@ -224,13 +158,9 @@
         _labTimeJP.center = CGPointMake(_labTimeJP.center.x, _labJPTitle.center.y);
         _labTimeJP.textColor = color99;
         _labTimeJP.font = font7;
-        
     }
     return _labTimeJP;
 }
-
-
-
 - (UILabel *)labCPTitle
 {
     if (!_labCPTitle) {
@@ -250,7 +180,6 @@
         _labCP1.font = font10;
         _labCP1.layer.borderColor = colorE8.CGColor;
         _labCP1.layer.borderWidth = 0.6;
-
         _labCP1.textAlignment = NSTextAlignmentCenter;
     }
     return _labCP1;
@@ -266,7 +195,6 @@
         _labCP2.layer.borderWidth = 0.6;
         _labCP2.backgroundColor = colorTableViewBackgroundColor;
         _labCP2.adjustsFontSizeToFitWidth = YES;
-
         _labCP2.textAlignment = NSTextAlignmentCenter;
     }
     return _labCP2;
@@ -280,13 +208,10 @@
         _labCP3.font = font10;
         _labCP3.layer.borderColor = colorE8.CGColor;
         _labCP3.layer.borderWidth = 0.6;
-
         _labCP3.textAlignment = NSTextAlignmentCenter;
     }
     return _labCP3;
 }
-
-
 - (UILabel *)labTimeCP
 {
     if (!_labTimeCP) {
@@ -294,11 +219,9 @@
         _labTimeCP.center = CGPointMake(_labTimeCP.center.x, _labCPTitle.center.y);
         _labTimeCP.textColor = color99;
         _labTimeCP.font = font7;
-        
     }
     return _labTimeCP;
 }
-
 - (UILabel *)labchangeCP
 {
     if (!_labchangeCP) {
@@ -333,7 +256,6 @@
     }
     return _imageChange;
 }
-
 - (void)addlayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -357,12 +279,6 @@
         make.centerX.equalTo(self.imageChange.mas_centerX);
         make.top.equalTo(self.labchangeJP.mas_bottom).offset(5);
         make.bottom.equalTo(self.basicView.mas_bottom).offset(-12);
-
     }];
-
-    
 }
-
-
-
 @end

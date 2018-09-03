@@ -1,50 +1,20 @@
-//
-//  ZBTeamViewofTuijianCell.m
-//  GQapp
-//
-//  Created by WQ on 2017/6/27.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBTeamViewofTuijianCell.h"
 @interface ZBTeamViewofTuijianCell ()
 @property (nonatomic, assign) BOOL isaddlayout;
-
 @property (nonatomic, strong) UIView *basicView;
-//赛事
 @property (nonatomic, strong) UILabel *labSaishi;
-//开始时间
 @property (nonatomic, strong) UILabel *labbeginTime;
 @property (nonatomic, strong) UILabel *labbeginTime1;
-
 @property (nonatomic, strong) UILabel *labMoney;
-
-//主队
 @property (nonatomic, strong) UILabel *labTeamHome;
 @property (nonatomic, strong) UIImageView *imgTeamHome;
-
-//客队
 @property (nonatomic, strong) UILabel *labTeamGuest;
 @property (nonatomic, strong) UIImageView *imgTeamGuest;
-
-//VS 或者比分
 @property (nonatomic, strong) UILabel *labVS;
 @property (nonatomic, strong) UIView *lineV;
-
-//类型:欧赔，大小球,亚盘
 @property (nonatomic, strong)UILabel *labPankou;
-
 @end
 @implementation ZBTeamViewofTuijianCell
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (id)init
 {
     self = [super init];
@@ -53,36 +23,22 @@
     }
     return self;
 }
-
 - (void)setModel:(ZBTuijiandatingModel *)model
 {
     _model = model;
-    
     _labSaishi.text = _model.Name_JS;
     _labSaishi.textColor = [ZBMethods getColor:_model.leagueColor];
-    
-    //    _labbeginTime1.text = @"周四005 ";
     NSInteger timeI =  [ZBMethods formatTimeStr:_model.MatchTime];
     _labbeginTime.text = [ZBMethods formatMMDDWithStamp:timeI / 1000];
-    
-    
-        if (_model.playtype == 1) {//欧赔
+        if (_model.playtype == 1) {
             _labPankou.text = @"胜平负";
-    
-        }else if (_model.playtype == 2){//亚盘
+        }else if (_model.playtype == 2){
             _labPankou.text = @"亚盘";
-    
-    
-        }else if (_model.playtype == 3){//判断大小球
+        }else if (_model.playtype == 3){
             _labPankou.text = @"大小球";
-            
         }
-
-    
-    
     _labTeamHome.text = _model.HomeTeam;
     _labTeamGuest.text = _model.GuestTeam;
-    
     if (isOniPhone5 || isOniPhone4) {
         if (_model.HomeTeam.length > 4) {
             _labTeamHome.text = [NSString stringWithFormat:@"%@...",[_model.HomeTeam substringToIndex:4]];
@@ -90,9 +46,7 @@
         if (_model.GuestTeam.length > 4) {
             _labTeamGuest.text = [NSString stringWithFormat:@"%@...",[_model.GuestTeam substringToIndex:4]];
         }
-        
     }else if (isOniphone6 || isOniphone7){
-        
         if (_model.HomeTeam.length > 6) {
             _labTeamHome.text = [NSString stringWithFormat:@"%@...",[_model.HomeTeam substringToIndex:6]];
         }
@@ -100,12 +54,6 @@
             _labTeamGuest.text = [NSString stringWithFormat:@"%@...",[_model.GuestTeam substringToIndex:6]];
         }
     }
-    
-    
-    
-    
-    
-    
     if (_model.MatchState == -1) {
         _labVS.font = [UIFont boldSystemFontOfSize:fontSize14];
         _labVS.textColor = redcolor;
@@ -118,44 +66,28 @@
         _labVS.font = font14;
         _labVS.textColor = color99;
         _labVS.text = [ZBMethods getTextByMatchState:_model.MatchState];
-        
     }
-    
     [_imgTeamHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.HomeTeamID)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
     [_imgTeamGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.GuestTeamID)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-
-    
     NSLog(@"%ld",_model.amount);
     if (_model.amount == 0) {
         _labMoney.text = @"免费";
         _labMoney.textColor = greencolor;
     }else{
         _labMoney.textColor = redcolor;
-        
         NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
         if (!(str.length > 0)) {
             str = @"球币";
         }
-
         _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
-        
-        
         _labMoney.attributedText = [ZBMethods withContent:_labMoney.text WithColorText:str textColor:color33 strFont:font12];
     }
-    
-//    影藏
     _labMoney.text = @"";
-
-    
-    
     if (!_isaddlayout) {
         _isaddlayout = YES;
         [self addlayout];
     }
-
 }
-
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -173,7 +105,6 @@
     }
     return _basicView;
 }
-
 - (UILabel *)labSaishi
 {
     if (!_labSaishi) {
@@ -183,18 +114,14 @@
     }
     return _labSaishi;
 }
-
 - (UILabel *)labMoney{
     if (!_labMoney) {
         _labMoney = [[UILabel alloc] init];
         _labMoney.font = BoldFont4(fontSize12);
         _labMoney.textColor  = greencolor;
         _labMoney.text = @"免费";
-        
     }
     return _labMoney;
-    
-    
 }
 - (UILabel *)labbeginTime
 {
@@ -214,7 +141,6 @@
     }
     return _labTeamHome;
 }
-
 - (UILabel *)labVS
 {
     if (!_labVS) {
@@ -264,8 +190,6 @@
     }
     return _imgTeamGuest;
 }
-
-
 - (void)addlayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -273,20 +197,15 @@
         make.left.equalTo(self.mas_left).offset(0);
         make.bottom.equalTo(self.mas_bottom);
         make.right.equalTo(self.mas_right).offset(0);
-//        make.width.mas_equalTo(Width - 30);
     }];
-    
     [self.labSaishi mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.basicView.mas_top).offset(2.5);
-        
     }];
-    
     [self.labbeginTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labSaishi.mas_right).offset(5);
         make.top.equalTo(self.basicView.mas_top).offset(2.5);
     }];
-    
     [self.lineV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labbeginTime.mas_right).offset(5);
         make.centerY.equalTo(self.labSaishi.mas_centerY);
@@ -295,9 +214,7 @@
     [self.labPankou mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labbeginTime.mas_right).offset(10);
         make.centerY.equalTo(self.labSaishi.mas_centerY);
-
     }];
-    
     [self.labMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.labPankou.mas_bottom);
         make.right.equalTo(self.basicView.mas_right).offset(-10);
@@ -307,48 +224,22 @@
         make.top.equalTo(self.labSaishi.mas_bottom).offset(10);
         make.size.mas_equalTo(CGSizeMake(0, 0));
     }];
-    
     [self.labTeamHome mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labSaishi.mas_bottom).offset(7.5);
     }];
-    
     [self.imgTeamGuest mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.basicView.mas_right).offset(-10);
         make.centerY.equalTo(self.imgTeamHome.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(0, 0));
-
     }];
-    
     [self.labTeamGuest mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labVS.mas_right).offset(6);
         make.centerY.equalTo(self.labTeamHome.mas_centerY);
-
     }];
-    
     [self.labVS mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labTeamHome.mas_right).offset(6);
         make.centerY.equalTo(self.labTeamHome.mas_centerY);
     }];
-    
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

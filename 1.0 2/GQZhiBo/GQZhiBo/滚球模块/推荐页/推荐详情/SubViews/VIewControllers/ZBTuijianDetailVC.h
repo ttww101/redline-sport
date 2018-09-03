@@ -1,15 +1,6 @@
-//
-//  ZBTuijianDetailVC.h
-//  GQapp
-//
-//  Created by WQ_h on 16/8/3.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicViewController.h"
 #import "ZBTuijiandatingModel.h"
 #import "ZBTuijianDetailTableView.h"
-
 @interface ZBTuijianDetailVC : ZBBasicViewController
 @property (nonatomic, assign) typeTuijianDetailHeaderCell typeTuijianDetailHeader;
 @property (nonatomic, assign) NSInteger modelId;

@@ -1,11 +1,3 @@
-//
-//  ZBRecommendedWKWeb.m
-//  newGQapp
-//
-//  Created by genglei on 2018/6/22.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBRecommendedWKWeb.h"
 #import "WebViewJavascriptBridge.h"
 #import "ZBAppManger.h"
@@ -13,19 +5,12 @@
 #import "ZBToolWebViewController.h"
 #import "ArchiveFile.h"
 #import <WebKit/WebKit.h>
-
 @interface ZBRecommendedWKWeb () <UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate>
-
 @property (nonatomic , copy) GQJSResponseCallback callBack;
-
 @property (nonatomic, strong) UIProgressView *progressView;
-
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
-
 @end
-
 @implementation ZBRecommendedWKWeb
-
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -40,27 +25,20 @@
     }
     return self;
 }
-
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"estimatedProgress"];
 }
-
 #pragma mark - Open Method
-
 - (void)setModel:(ZBWebModel *)model {
     _model = model;
     [self loadData];
 }
-
 - (void)reloadData {
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-        
     }];
 }
-
 #pragma mark - Load Data
-
 - (void)loadBradgeHandler {
     __weak ZBRecommendedWKWeb *weakSelf = self;
     ZBAppManger *manger = [[ZBAppManger alloc]init];
@@ -81,13 +59,11 @@
     [bridge setWebViewDelegate:self];
     self.bridge = bridge;
 }
-
 - (void)loadData {
     if (_model) {
         self.urlPath = _model.webUrl;
         self.html5Url = _model.htmlUrl;
     }
-    
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
@@ -100,50 +76,34 @@
         [self loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
     }
 }
-
 #pragma mark - KVO
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         self.progressView.progress = self.estimatedProgress;
         if (self.progressView.progress == 1) {
-            /*
-             *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
-             *动画时长0.25s，延时0.3s后开始动画
-             *动画结束后将progressView隐藏
-             */
             __weak typeof (self)weakSelf = self;
             [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
                 weakSelf.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
             } completion:^(BOOL finished) {
                 weakSelf.progressView.hidden = YES;
-                
             }];
         }
     }else{
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
-
 #pragma mark - WKDelegate
-
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = NO;
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
 }
-
-
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = YES;
 }
-
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     self.progressView.hidden = YES;
 }
-
-
 #pragma mark - JS Handle
-
 - (void)openNative:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dataDic = (NSDictionary *)data;
@@ -167,7 +127,6 @@
                 [keyArray addObject:propertyName];
             }
             free(propertys);
-            
             NSDictionary *parameterDic = dataDic[@"v"];
             if (parameterDic.allKeys.count > 0) {
                 NSArray *array = parameterDic.allKeys;
@@ -182,36 +141,27 @@
         }
     }
 }
-
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (!_cellCanScroll) {
         scrollView.contentOffset = CGPointZero;
     }
     if (scrollView.contentOffset.y <= 0) {
-        
         _cellCanScroll = NO;
         scrollView.contentOffset = CGPointZero;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTableViewFrame" object:nil];//到顶通知父视图改变状态
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTableViewFrame" object:nil];
     }
 }
-
 #pragma mark - Private Method
-
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     NSRange range = {0,jsonString.length};
-    //去掉字符串中的空格
     [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
     NSRange range2 = {0,mutStr.length};
-    //去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
 }
-
-
 @end

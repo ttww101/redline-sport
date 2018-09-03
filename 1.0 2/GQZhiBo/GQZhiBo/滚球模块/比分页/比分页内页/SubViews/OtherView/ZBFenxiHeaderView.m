@@ -1,11 +1,3 @@
-//
-//  ZBFenxiHeaderView.m
-//  GQapp
-//
-//  Created by WQ on 2017/2/7.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBFenxiHeaderView.h"
 #import "ZBshowVideoView.h"
 @interface ZBFenxiHeaderView ()
@@ -14,26 +6,18 @@
 @property (nonatomic, assign) BOOL isAddAutolayout;
 @property (nonatomic, strong) UIView *basicView;
 @property (nonatomic, strong) UIImageView *imagebg;
-
 @property (nonatomic, strong) UIButton *imageback;
-
 @property (nonatomic, strong) UILabel *labTime;
 @property (nonatomic, strong) UILabel *labLeague;
 @property (nonatomic, strong) UILabel *labState;
-//显示时间的动画
 @property (nonatomic, strong) UIImageView *imageAnimation;
-
 @property (nonatomic, strong) UILabel *labHscore;
 @property (nonatomic, strong) UILabel *labGscore;
 @property (nonatomic, strong) UILabel *labHome;
 @property (nonatomic, strong) UILabel *labGuest;
-//@property (nonatomic, strong) UILabel *labHlist;
-//@property (nonatomic, strong) UILabel *labGlist;
 @property (nonatomic, strong) UIImageView *imageHome;
 @property (nonatomic, strong) UIImageView *imageGuest;
-
 @property (nonatomic, strong) UIImageView           *basicBottomView;
-
 @property (nonatomic, strong) UIImageView           *iconTQ;
 @property (nonatomic, strong) UILabel               *labTQ;
 @property (nonatomic, strong) UILabel               *labTQNum;
@@ -41,21 +25,10 @@
 @property (nonatomic, strong) UILabel               *labAdress;
 @property (nonatomic, strong) UILabel               *labHomeOrder;
 @property (nonatomic, strong) UILabel               *labGuestOrder;
-
 @property (nonatomic, assign) BOOL hideHeader;
-
 @property (nonatomic , strong) UIButton *liveVideoBtn;
-
 @end
 @implementation ZBFenxiHeaderView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -67,102 +40,62 @@
 {
     if ([countTime isEqualToString:@"VS"]) {
         _labState.text = @"";
-
     }else{
         _labState.text = @"";
-
     }
-    
     _labHscore.text = countTime;
-
 }
 - (void)updateScroeWithmodel:(ZBLiveScoreModel *)liviModel
 {
-    
-    
     NSString *time = [ZBMethods getDateByStyle:dateStyleFormatter withDate:[NSDate date]];
-
     if (liviModel.matchstate == 1 || liviModel.matchstate == 3) {
         [_imageAnimation startAnimating];
-        
     }else{
         if ([_imageAnimation isAnimating]) {
             [_imageAnimation stopAnimating];
         }
     }
-    
-    
     if (liviModel.matchstate == -1) {
         _labState.text = @"完";
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", liviModel.homescore,liviModel.guestscore];
     }else if (liviModel.matchstate == 1 ){
-        //上半场
         NSString *timeCha =[ZBMethods intervalFromLastDate:liviModel.matchtime2 toTheDate:time];
-        
         if ([timeCha isEqualToString:@"0"]) {
             _labState.text = @"1";
         }else{
             if ([timeCha intValue]>45) {
                 _labState.text =@"45+";
-                
             }else{
-                
                 _labState.text =timeCha;
             }
         }
-        //        _labState.text =@"比赛中";
-        
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", liviModel.homescore,liviModel.guestscore];
-        
     }else if(liviModel.matchstate == 2){
-        
         _labState.text = @"中场";
-        //        _labState.text =@"比赛中";
-        
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", liviModel.homescore,liviModel.guestscore];
-        
     }else if(liviModel.matchstate == 3){
-        
-        //下半场
         NSString *timeCha =[ZBMethods intervalFromLastDateAnd45:liviModel.matchtime2 toTheDate:time];
-        
         if ([timeCha isEqualToString:@"45"]) {
             _labState.text = @"46";
         }else{
             if ([timeCha intValue]>90) {
                 _labState.text =@"90+";
-                
             }else{
-                
                 _labState.text =timeCha;
             }
         }
-        //        _labState.text =@"比赛中";
-        
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", liviModel.homescore,liviModel.guestscore];
-        
     }else if(liviModel.matchstate == 4){
-        
         _labState.text = @"加时";
-        //        _labState.text =@"比赛中";
-        
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", liviModel.homescore,liviModel.guestscore];
-        
     }else if(liviModel.matchstate == 0){
-        
         _labState.text = @"";
-        
         _labHscore.text = @"VS";
-        
     }else{
         _labState.text = [ZBMethods getTextByMatchState:liviModel.matchstate];
-        
         _labHscore.text = @"VS";
-        
     }
-
 }
-
 - (void)setModel:(ZBLiveScoreModel *)model
 {
     _model = model;
@@ -171,204 +104,93 @@
     [_imageRight setBackgroundImage:[UIImage imageNamed:@"clear"] forState:UIControlStateNormal];
     [_imageback setBackgroundImage:[UIImage imageNamed:@"clear"] forState:UIControlStateHighlighted];
     [_imageRight setBackgroundImage:[UIImage imageNamed:@"clear"] forState:UIControlStateHighlighted];
-//    //年月日 时 周 分
-//    NSArray *arrDate = [ZBMethods getDateByDate:[ZBMethods getDateFromString:_model.matchtime byformat:dateStyleFormatter] withWeekType:weekTypeZhou];
-//    
-//    
-//    
-//    NSString *timeS = [arrDate objectAtIndex:5];
-//    if (timeS.length == 1) {
-//        timeS = [NSString stringWithFormat:@"0%@",timeS];
-//    }
-//    _labTime.text = [NSString stringWithFormat:@"%@月%@号 %@:%@",arrDate[1],arrDate[2],arrDate[3],timeS];
-    
-    
     _labTime.text = [ZBMethods getDateByStyle:dateStyleFormatterMdHm withDate:[ZBMethods getDateFromString:_model.matchtime byformat:dateStyleFormatter]];
     _labLeague.text = _model.league;
     _labHscore.text = @"";
     _labGscore.text = @"";
     NSString *time = [ZBMethods getDateByStyle:dateStyleFormatter withDate:[NSDate date]];
-
-    
-    
-    
     if (_model.matchstate == 1 || _model.matchstate == 3) {
         [_imageAnimation startAnimating];
-        
     }else{
         if ([_imageAnimation isAnimating]) {
             [_imageAnimation stopAnimating];
         }
     }
-
-    
     if (_model.matchstate == -1) {
         _labState.text = @"完";
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", _model.homescore,_model.guestscore];
     }else if (_model.matchstate == 1 ){
-        //上半场
         NSString *timeCha =[ZBMethods intervalFromLastDate:_model.matchtime2 toTheDate:time];
-        
         if ([timeCha isEqualToString:@"0"]) {
             _labState.text = @"1";
         }else{
             if ([timeCha intValue]>45) {
                 _labState.text =@"45+";
-                
             }else{
-                
                 _labState.text =timeCha;
             }
         }
-//        _labState.text =@"比赛中";
-
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", _model.homescore,_model.guestscore];
-    
     }else if(_model.matchstate == 2){
-        
         _labState.text = @"中场";
-//        _labState.text =@"比赛中";
-
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", _model.homescore,_model.guestscore];
-        
     }else if(_model.matchstate == 3){
-        
-        //下半场
         NSString *timeCha =[ZBMethods intervalFromLastDateAnd45:_model.matchtime2 toTheDate:time];
-        
         if ([timeCha isEqualToString:@"45"]) {
             _labState.text = @"46";
         }else{
             if ([timeCha intValue]>90) {
                 _labState.text =@"90+";
-                
             }else{
-                
                 _labState.text =timeCha;
             }
         }
-//        _labState.text =@"比赛中";
-
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", _model.homescore,_model.guestscore];
-        
     }else if(_model.matchstate == 4){
-        
         _labState.text = @"加时";
-//        _labState.text =@"比赛中";
-
         _labHscore.text = [NSString stringWithFormat:@"%ld:%ld", _model.homescore,_model.guestscore];
-        
     }else if(_model.matchstate == 0){
-        
         _labState.text = @"";
-
         _labHscore.text = @"VS";
-
     }else{
         _labState.text = [ZBMethods getTextByMatchState:_model.matchstate];
-
         _labHscore.text = @"VS";
-
     }
-    
-    
-    
-    
-    
     if (_model.homeOrder!= nil && ![_model.homeOrder isEqualToString:@""] && _model.guestOrder!= nil && ![_model.guestOrder isEqualToString:@""]) {
-//        _labHlist.text = _model.homeOrder;
-//        _labGlist.text = _model.guestOrder;
-//        _labHlist.text = @" ";
-//        _labGlist.text = @" ";
     }else{
-//        _labHlist.text = @" ";
-//        _labGlist.text = @" ";
-
     }
-    
     if (_hideHeader) {
         [_imageHome setImage:[UIImage imageNamed:@"clear"]];
         [_imageGuest setImage:[UIImage imageNamed:@"clear"]];
-
         _imageAnimation.hidden = YES;
-        
-        
     }else{
-
-        
         [_imageHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.hometeamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
         [_imageGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.guestteamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-
-
         _imageAnimation.hidden = NO;
-
     }
     _imageHome.contentMode = UIViewContentModeScaleAspectFit;
-    
     _imageGuest.contentMode = UIViewContentModeScaleAspectFit;
-
-
-
-    
-    
     [self setTeamName];
-
-    
-    
-    
     if (!_isAddAutolayout) {
         _isAddAutolayout = YES;
         [self addAutolayout];
     }
-
-    
-    
     if (_model.temperature == nil && _model.weather == nil && _model.location == nil) {
-        
         _basicBottomView.hidden = YES;
     }else{
-        
         if (_model.temperature) {
-            
             _labTQNum.text = _model.temperature;
         }
-        
         if (_model.location) {
-            
             _labPlace.hidden = NO;
             _labAdress.text = _model.location;
         }
         if ([_model.location isEqualToString:@""]) {
             _labAdress.text = @"暂无";
         }
-        
         _labHomeOrder.text = _model.homeOrder;
         _labGuestOrder.text = _model.guestOrder;
-        
-        
-        
-        /*
-         
-         1	天晴
-         2	大致天晴
-         3	间中有云
-         4	多云
-         5	微雨
-         6	大雨
-         7	雪
-         8	雷暴
-         9	地区性雷暴
-         10	有雾
-         11	中雨
-         12	阴天
-         13	雷陣雨
-         
-         */
-
-        
-        //判断 weatheri 区别天气
         if ([_model.weather isEqualToString:@"7"]) {
-            
             _labTQ.text = @"雪";
             _iconTQ.image = [UIImage imageNamed:@"xuetian"];
             _imagebg.image = [UIImage imageNamed:@"xuetianbg"];
@@ -379,7 +201,6 @@
             }else{
                 _labTQ.text = @"地区性雷暴";
             }
-            
             _iconTQ.image = [UIImage imageNamed:@"leidian"];
             _imagebg.image = [UIImage imageNamed:@"leidianbg"];
         }
@@ -390,7 +211,6 @@
             if ([_model.weather isEqualToString:@"2"]) {
                 _labTQ.text = @"大致天晴";
             }
-            
             _iconTQ.image = [UIImage imageNamed:@"qingtian"];
             _imagebg.image = [UIImage imageNamed:@"qingtianbg"];
         }
@@ -407,7 +227,6 @@
             if ([_model.weather isEqualToString:@"13"]) {
                 _labTQ.text = @"雷陣雨";
             }
-            
             _iconTQ.image = [UIImage imageNamed:@"xiayu"];
             _imagebg.image = [UIImage imageNamed:@"xiayubg"];
         }
@@ -421,75 +240,23 @@
             if ([_model.weather isEqualToString:@"12"]) {
                 _labTQ.text = @"阴天";
             }
-            
             _iconTQ.image = [UIImage imageNamed:@"yintian"];
             _imagebg.image = [UIImage imageNamed:@"yintianbg"];
         }
         if ([_model.weather  isEqualToString:@"10"]) {
-            
             _labTQ.text = @"有雾";
             _iconTQ.image = [UIImage imageNamed:@"wutian"];
             _imagebg.image = [UIImage imageNamed:@"wutianbg"];
         }
-        
     }
 }
-
-
-
 - (void)setTeamName
 {
-    
     _labHome.text = _model.hometeam;
     _labGuest.text = _model.guestteam;
-
-//    if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"_currentflag"] isEqualToString:@"0"])
-//    {
-//        if (_model.neutrality) {
-//            
-//            _labHome.text = _model.guestteam;
-//            _labGuest.text = _model.hometeam;
-//            
-//            
-//        }else{
-//            _labHome.text = _model.hometeam;
-//            _labGuest.text = _model.guestteam;
-//            
-//        }
-//        
-//        
-//    }else{
-//        _labHome.text = _model.hometeam;
-//        _labGuest.text = _model.guestteam;
-//        
-//        
-//    }
-    
-    //        if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"_currentflag"] isEqualToString:@"0"]) {
-    //
-    //            if (_model.neutrality) {
-    //
-    //                [_imageHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.guestteamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-    //                [_imageGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.hometeamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-    //
-    //            }else{
-    //                [_imageHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.hometeamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-    //                [_imageGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.guestteamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-    //
-    //            }
-    //
-    //        }else{
-    //            [_imageHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.hometeamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-    //            [_imageGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.guestteamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-    //
-    //        
-    //        }
-
 }
-
 - (void)setTeamNamefor6
 {
-    //队名最长7个字符 要根据每次的名字长度来计算lab宽度
     NSString *home;
     if (_model.hometeam.length>6) {
         home = [NSString stringWithFormat:@"%@…",[_model.hometeam substringToIndex:6]];
@@ -499,38 +266,23 @@
     NSString *away;
     if (_model.guestteam.length>6) {
         away = [NSString stringWithFormat:@"%@…",[_model.guestteam substringToIndex:6]];
-        
-        //        away = [_model.guestteam substringToIndex:6];
     }else{
         away = _model.guestteam;
     }
-    
-    
-    
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"_currentflag"] isEqualToString:@"0"])
     {
         if (_model.neutrality) {
-            
             _labHome.text = away;
             _labGuest.text = home;
-            
-            
         }else{
             _labHome.text = home;
             _labGuest.text = away;
-            
         }
-        
-        
     }else{
         _labHome.text = home;
         _labGuest.text = away;
-        
-        
     }
-
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -539,38 +291,28 @@
         [_basicView addSubview:self.imagebg];
         [_basicView addSubview:self.imageback];
         [_basicView addSubview:self.imageRight];
-
         [_basicView addSubview:self.labLeague];
         [_basicView addSubview:self.labTime];
         [_basicView addSubview:self.imageAnimation];
         [_basicView addSubview:self.labHscore];
         [_basicView addSubview:self.labGscore];
-
         [_basicView addSubview:self.labState];
         [_basicView addSubview:self.imageHome];
         [_basicView addSubview:self.imageGuest];
         [_basicView addSubview:self.labHome];
         [_basicView addSubview:self.labGuest];
-//        [_basicView addSubview:self.labHlist];
-//        [_basicView addSubview:self.labGlist];
         [_basicView addSubview:self.labHomeOrder];
         [_basicView addSubview:self.labGuestOrder];
-        
         [_basicView addSubview:self.basicBottomView];
         [self.basicBottomView addSubview:self.iconTQ];
         [self.basicBottomView addSubview:self.labTQ];
         [self.basicBottomView addSubview:self.labTQNum];
         [self.basicBottomView addSubview:self.labPlace];
         [self.basicBottomView addSubview:self.labAdress];
-        
-        
-        // 直播btn
         [_basicView addSubview:self.liveVideoBtn];
-
     }
     return _basicView;
 }
-
 - (UIImageView *)imageAnimation
 {
     if (!_imageAnimation) {
@@ -578,11 +320,9 @@
         _imageAnimation.animationImages = [NSArray arrayWithObjects:[[UIImage imageNamed:@"clear"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],[UIImage imageNamed:@"white"], nil];
         _imageAnimation.animationDuration = 1;
         _imageAnimation.animationRepeatCount = MAXFLOAT;
-        
     }
     return _imageAnimation;
 }
-
 - (UIImageView *)imagebg
 {
     if (!_imagebg) {
@@ -591,7 +331,6 @@
     }
     return _imagebg;
 }
-
 - (UIButton *)imageback
 {
     if (!_imageback) {
@@ -601,7 +340,6 @@
     }
     return _imageback;
 }
-
 - (UIButton *)imageRight
 {
     if (!_imageRight) {
@@ -616,9 +354,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(backClick:)]) {
         [self.delegate backClick:btn.tag];
     }
-    
 }
-
 - (UILabel *)labTime
 {
     if (!_labTime) {
@@ -628,7 +364,6 @@
     }
     return _labTime;
 }
-
 - (UILabel *)labLeague
 {
     if (!_labLeague) {
@@ -638,7 +373,6 @@
     }
     return _labLeague;
 }
-
 - (UILabel *)labState
 {
     if (!_labState) {
@@ -648,7 +382,6 @@
     }
     return _labState;
 }
-//两个球队的比分或者距开赛时间
 - (UILabel *)labHscore
 {
     if (!_labHscore) {
@@ -658,7 +391,6 @@
     }
     return _labHscore;
 }
-//暂时不用
 - (UILabel *)labGscore
 {
     if (!_labGscore) {
@@ -668,16 +400,13 @@
     }
     return _labGscore;
 }
-
 - (UIImageView *)imageHome
 {
     if (!_imageHome) {
         _imageHome = [[UIImageView alloc] init];
-    
     }
     return _imageHome;
 }
-
 - (UIImageView *)imageGuest
 {
     if (!_imageGuest) {
@@ -685,7 +414,6 @@
     }
     return  _imageGuest;
 }
-
 - (UILabel *)labGuest
 {
     if (!_labGuest) {
@@ -693,11 +421,9 @@
         _labGuest.font = BoldFont4(fontSize12);
         _labGuest.textColor = [UIColor whiteColor];
         _labGuest.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labGuest;
 }
-
 - (UILabel *)labHome
 {
     if (!_labHome) {
@@ -705,31 +431,10 @@
         _labHome.font = BoldFont4(fontSize12);
         _labHome.textColor = [UIColor whiteColor];
         _labHome.textAlignment = NSTextAlignmentCenter;
-
     }
     return _labHome;
 }
-
-//- (UILabel *)labHlist
-//{
-//    if (!_labHlist) {
-//        _labHlist = [[UILabel alloc] init];
-//        _labHlist.font = font11;
-//        _labHlist.textColor = colorD6;
-//    }
-//    return _labHlist;
-//}
-//- (UILabel *)labGlist
-//{
-//    if (!_labGlist) {
-//        _labGlist = [[UILabel alloc] init];
-//        _labGlist.font = font11;
-//        _labGlist.textColor = colorD6;
-//    }
-//    return _labGlist;
-//}
 - (UILabel *)labHomeOrder {
-    
     if (!_labHomeOrder) {
         _labHomeOrder = [UILabel new];
         _labHomeOrder.font = font8;
@@ -738,7 +443,6 @@
     return _labHomeOrder;
 }
 - (UILabel *)labGuestOrder {
-    
     if (!_labGuestOrder) {
         _labGuestOrder = [UILabel new];
         _labGuestOrder.font = font8;
@@ -746,9 +450,7 @@
     }
     return _labGuestOrder;
 }
-
 - (UIImageView *)basicBottomView {
-    
     if (!_basicBottomView) {
         _basicBottomView = [UIImageView new];
         _basicBottomView.image = [UIImage imageNamed:@"bottomView"];
@@ -756,38 +458,28 @@
     return _basicBottomView;
 }
 - (UIImageView *)iconTQ {
-    
     if (!_iconTQ) {
         _iconTQ = [UIImageView new];
-//        _iconTQ.image = [UIImage imageNamed:@"xuetian"];
     }
     return  _iconTQ;
 }
-
 - (UILabel *)labTQ {
-    
     if (!_labTQ) {
         _labTQ = [UILabel new];
-//        _labTQ.text = @"雪天";
         _labTQ.font = font10;
         _labTQ.textColor = [UIColor whiteColor];
     }
     return _labTQ;
 }
-
 - (UILabel *)labTQNum {
-    
     if (!_labTQNum) {
         _labTQNum = [UILabel new];
-//        _labTQNum.text = @"30°C ~ 36°C";
         _labTQNum.font = font10;
         _labTQNum.textColor = [UIColor whiteColor];
     }
     return _labTQNum;
 }
-
 - (UILabel *)labPlace {
-    
     if (!_labPlace) {
         _labPlace = [UILabel new];
         _labPlace.text = @"球场: ";
@@ -796,9 +488,7 @@
     }
     return _labPlace;
 }
-
 - (UILabel *)labAdress {
-    
     if (!_labAdress) {
         _labAdress = [UILabel new];
         _labAdress.text = @"上海体育馆";
@@ -807,7 +497,6 @@
     }
     return _labAdress;
 }
-
 - (UIButton *)liveVideoBtn {
     if (_liveVideoBtn == nil) {
         _liveVideoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -816,12 +505,8 @@
     }
     return _liveVideoBtn;
 }
-
-
 #pragma mark - Live Action
-
 - (void)liveAction {
-    
     if (_model.matchstate == 0) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛未开始"];
         return;
@@ -829,13 +514,10 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛已结束"];
          return;
     }
-    
      NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:[NSString stringWithFormat:@"%zi",_model.mid ] forKey:@"mid"];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_video_live] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         NSDictionary *data = responseOrignal[@"data"];
         NSString *url = data[@"url"];
@@ -849,9 +531,7 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"暂时不能观看"];
     }];
-
 }
-
 - (void)addAutolayout
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -860,15 +540,12 @@
         make.right.equalTo(self.mas_right);
         make.bottom.equalTo(self.mas_bottom);
     }];
-    
     [self.imagebg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top);
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.bottom.equalTo(self.mas_bottom);
-
     }];
-    
     [self.imageback mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(20);
         make.left.equalTo(self.basicView.mas_left).offset(0);
@@ -879,46 +556,31 @@
         make.right.equalTo(self.basicView.mas_right).offset(0);
         make.size.mas_equalTo(CGSizeMake(44, 44));
     }];
-    
     [self.labLeague mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.basicView.mas_centerX);
-//        make.top.equalTo(self.basicView.mas_top).offset(20 + 10);
         make.top.mas_equalTo(30);
     }];
-   
-    //两个球队的比分或者距开赛时间
     [self.labHscore mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.labState.mas_bottom).offset(5);
         make.centerX.equalTo(self.basicView.mas_centerX);
-//        make.centerY.equalTo(self.imageHome.mas_centerY);
         make.top.equalTo(self.labLeague.mas_bottom).offset(5);
     }];
-    
     [self.imageAnimation mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labState.mas_right).offset(2);
         make.top.equalTo(self.labState.mas_top).offset(0);
         make.size.mas_equalTo(CGSizeMake(3, 3));
     }];
-
     [self.labTime mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.labLeague.mas_bottom).offset(5);
         make.top.equalTo(self.labHscore.mas_bottom).offset(5);
         make.centerX.equalTo(self.basicView.mas_centerX);
     }];
-    
     [self.labState mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.basicView.mas_top).offset(20 + 44+ 5);
         make.top.equalTo(self.labTime.mas_bottom).offset(10);
         make.centerX.equalTo(self.basicView.mas_centerX);
     }];
-
-    //暂时不用
     [self.labGscore mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labHscore.mas_centerY);
         make.centerX.equalTo(self.basicView.mas_centerX);
-        
     }];
-
     [self.imageHome mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top).offset(20 + 44 + 5 - 10);
         make.left.equalTo(self.basicView.mas_left).offset((Width - 110)/4- 30);
@@ -929,19 +591,6 @@
         make.right.equalTo(self.basicView.mas_right).offset(-((Width - 110)/4- 30));
         make.size.mas_equalTo(CGSizeMake(60, 60));
     }];
-    
-//    [self.labHlist mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.imageHome.mas_bottom).offset(0);
-//        make.centerX.equalTo(self.imageHome.mas_centerX);
-//    }];
-//    
-//
-//    [self.labGlist mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.imageGuest.mas_bottom).offset(0);
-//        make.centerX.equalTo(self.imageGuest.mas_centerX).offset(10);
-//
-//    }];
-    
     [self.labHome mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.imageHome.mas_bottom).offset(10);
         make.centerX.equalTo(self.imageHome.mas_centerX);
@@ -951,68 +600,51 @@
         make.top.equalTo(self.imageGuest.mas_bottom).offset(10);
         make.centerX.equalTo(self.imageGuest.mas_centerX);
         make.width.mas_equalTo(115*Scale_Ratio_width);
-
     }];
-    
     [self.labHomeOrder mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.labHome.mas_centerX);
         make.top.equalTo(self.labHome.mas_bottom).offset(3);
     }];
-    
     [self.labGuestOrder mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.labGuest.mas_centerX);
         make.top.equalTo(self.labGuest.mas_bottom).offset(3);
     }];
-    
     [self.labHome layoutIfNeeded];
-    
     [self.basicBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.labHome.mas_bottom).offset(15+10);
         make.width.mas_equalTo(Width);
         make.height.mas_equalTo(20);
     }];
-    
     [self.iconTQ mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.basicBottomView);
         make.leading.equalTo(self.basicBottomView).mas_offset(16);
         make.size.mas_equalTo(CGSizeMake(16, 17));
     }];
-    
     [self.labTQ  mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.iconTQ);
         make.leading.equalTo(self.iconTQ.mas_trailing).offset(8);
     }];
-    
     [self.labTQNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labTQ);
         make.leading.equalTo(self.labTQ.mas_trailing).offset(8);
         make.height.equalTo(self.labTQ);
-
     }];
-    
     [self.labAdress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.basicBottomView);
         make.trailing.equalTo(self.basicBottomView).mas_offset(-16);
         make.height.equalTo(self.iconTQ);
-
     }];
-    
     [self.labPlace mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labAdress);
         make.trailing.equalTo(self.labAdress.mas_leading).offset(-4);
         make.height.equalTo(self.iconTQ);
-
     }];
-    
     [self.liveVideoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.basicView.mas_centerX);
         make.top.equalTo(self.labState.mas_bottom).offset(5);
         make.size.mas_equalTo(CGSizeMake(100, 32));
     }];
-
 }
-
-
 - (void)hideBottom
 {
     [self.labState.superview layoutIfNeeded];
@@ -1021,10 +653,7 @@
     _hideHeader = YES;
     _imageAnimation.hidden = YES;
     [self setTeamNamefor6];
-
     [UIView animateWithDuration:1 animations:^{
-        
-        
         [self.labHscore mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.basicView.mas_centerX);
             make.centerY.equalTo(self.imageback.mas_centerY);
@@ -1037,49 +666,33 @@
             make.centerY.equalTo(self.imageback.mas_centerY);
             make.left.equalTo(self.labHscore.mas_right).offset(12);
         }];
-
     }completion:^(BOOL finished) {
-        
         if (finished) {
             _labHscore.font = font14;
             _labHome.font = BoldFont4(fontSize16);
             _labGuest.font = BoldFont4(fontSize16);
         }
-        
     }];
-    
     [self.labState.superview layoutIfNeeded];
     [self.labHome.superview layoutIfNeeded];
     [self.labGuest.superview layoutIfNeeded];
-
-
-    
     _labTime.textColor = [UIColor clearColor];
     _labLeague.textColor = [UIColor clearColor];
-//    _labHlist.textColor = [UIColor clearColor];
-//    _labGlist.textColor = [UIColor clearColor];
     _imageHome.image = [UIImage imageNamed:@"clear"];
     _imageGuest.image = [UIImage imageNamed:@"clear"];
     _labState.textColor = [UIColor clearColor];
     _labGscore.textColor = [UIColor clearColor];
-
-
 }
 - (void)showBottom
 {
-    
     [self.labState.superview layoutIfNeeded];
     [self.labHome.superview layoutIfNeeded];
     [self.labGuest.superview layoutIfNeeded];
-
     [UIView animateWithDuration:1 animations:^{
         [self.labHscore mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.labState.mas_bottom).offset(5);
             make.centerX.equalTo(self.basicView.mas_centerX);
-            
         }];
-        
-        
         [self.labHome mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.imageHome.mas_bottom).offset(6);
             make.centerX.equalTo(self.imageHome.mas_centerX);
@@ -1088,84 +701,35 @@
             make.top.equalTo(self.imageGuest.mas_bottom).offset(6);
             make.centerX.equalTo(self.imageGuest.mas_centerX);
         }];
-        
-
     }completion:^(BOOL finished) {
-        
         _hideHeader = NO;
-        
-
-//        _imageAnimation.hidden = NO;
-
         if (finished) {
             _labHscore.font = font24;
             _labHome.font = font12;
             _labGuest.font = font12;
             [self setTeamName];
-
         }
-
     }];
-
     [self.labState.superview layoutIfNeeded];
     [self.labHome.superview layoutIfNeeded];
     [self.labGuest.superview layoutIfNeeded];
-
-    
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         _labTime.textColor = [UIColor whiteColor];
         _labLeague.textColor = [UIColor whiteColor];
-//        _labHlist.textColor = [UIColor whiteColor];
-//        _labGlist.textColor = [UIColor whiteColor];
         _labState.textColor = [UIColor whiteColor];
         _labGscore.textColor = [UIColor whiteColor];
-        
         if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"_currentflag"] isEqualToString:@"0"]) {
-            
             if (_model.neutrality) {
-                
                 [_imageHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.guestteamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
                 [_imageGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.hometeamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-                
             }else{
                 [_imageHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.hometeamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
                 [_imageGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.guestteamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-                
             }
-            
         }else{
             [_imageHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.hometeamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
             [_imageGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.guestteamid)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-            
-            
         }
-
-
     });
-    
-
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @end

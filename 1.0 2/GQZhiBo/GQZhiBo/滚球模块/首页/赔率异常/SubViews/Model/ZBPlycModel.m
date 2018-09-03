@@ -1,13 +1,4 @@
-//
-//  ZBPlycModel.m
-//  GQapp
-//
-//  Created by WQ on 2017/9/28.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBPlycModel.h"
-
 @implementation ZBPlycModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
@@ -41,13 +32,10 @@
              @"firstTime" : @"firstTime",
              @"oddsId" : @"oddsId",
              @"finalTimeCn" : @"finalTimeCn",
-             
              };
 }
-
 + (NSValueTransformer *)panProcessJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBPanProcessModel class]];
-    
 }
 @end

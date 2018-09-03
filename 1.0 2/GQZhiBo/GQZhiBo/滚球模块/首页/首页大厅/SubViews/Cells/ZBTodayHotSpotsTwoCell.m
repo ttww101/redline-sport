@@ -1,33 +1,16 @@
-//
-//  ZBTodayHotSpotsTwoCell.m
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/7/12.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBTodayHotSpotsTwoCell.h"
-
 @interface ZBTodayHotSpotsTwoCell()
-
 @property (nonatomic, strong)UIView *BGView;
-@property (nonatomic, strong)UILabel *labType;//判断这里的种类：极限、大热、同赔、变盘。。。。
-@property (nonatomic, strong)UILabel *labLeague;//赛事
-@property (nonatomic, strong)UILabel *labTeame;//球队
-//@property (nonatomic, strong)UILabel *labTitle;//标题
-@property (nonatomic, strong)UILabel *labContent;//内容
-@property (nonatomic, strong)UIView *lineView;//底线
-
-@property (nonatomic, strong)UILabel *labRedNum;//红色数字
-@property (nonatomic, strong)UILabel *labRedStr;//当前连胜／其他文字
+@property (nonatomic, strong)UILabel *labType;
+@property (nonatomic, strong)UILabel *labLeague;
+@property (nonatomic, strong)UILabel *labTeame;
+@property (nonatomic, strong)UILabel *labContent;
+@property (nonatomic, strong)UIView *lineView;
+@property (nonatomic, strong)UILabel *labRedNum;
+@property (nonatomic, strong)UILabel *labRedStr;
 @property (nonatomic, assign)BOOL yro;
-
 @end
-
-
 @implementation ZBTodayHotSpotsTwoCell
-
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.BGView];
@@ -38,19 +21,15 @@
         [self.BGView addSubview:self.labRedNum];
         [self.BGView addSubview:self.labRedStr];
         _yro = NO;
-        
     }
     return self;
-    
 }
-
 - (UIView *)BGView{
     if (!_BGView) {
         _BGView = [[UIView alloc] init];
         _BGView.backgroundColor = [UIColor clearColor];
     }
     return _BGView;
-    
 }
 - (UILabel *)labType{
     if (!_labType) {
@@ -72,7 +51,6 @@
         _labLeague.textColor = color66;
         _labLeague.text = @"希腊甲";
     }
-    
     return _labLeague;
 }
 - (UILabel *)labTeame{
@@ -82,9 +60,7 @@
         _labTeame.textColor = color33;
         _labTeame.text = @"新英格兰革";
     }
-    
     return _labTeame;
-    
 }
 - (UILabel *)labContent{
     if (!_labContent) {
@@ -94,7 +70,6 @@
         _labContent.text = @"近期连胜12场，历史最高8场已超过历史极限";
         _labContent.numberOfLines = 2;
     }
-    
     return _labContent;
 }
 - (UILabel *)labRedNum{
@@ -114,10 +89,8 @@
         _labRedStr.textAlignment = NSTextAlignmentCenter;
         _labRedStr.text = @"当前连胜";
     }
-    
     return _labRedStr;
 }
-
 - (UIView *)lineView{
     if (!_lineView) {
         _lineView = [[UIView alloc] init];
@@ -125,34 +98,15 @@
     }
     return _lineView;
 }
-
 -(void)setModel:(ZBMostModel *)model{
-    
-    
-    
     _model = model;
     self.labLeague.text = @"";
-    
-    
     self.labContent.text = model.mark;
     if (!isNUll( self.labContent.text)) {
         self.labContent.attributedText = [ZBMethods setTextStyleWithString:self.labContent.text WithLineSpace:5.5 WithHeaderIndent:200];
-
     }
-    
-    
     switch (self.row) {
         case 0:{
-//            if (model.league.length > 4) {
-//                self.labLeague.text = [NSString stringWithFormat:@"%@",[model.league substringToIndex:4]];
-//            }
-//            self.labType.text = @"极限";
-//            self.labType.textColor = greencolor;
-//            self.labType.layer.borderColor = greencolor.CGColor;
-//            self.labTeame.text = model.teamname;
-//            self.labRedNum.text = [NSString stringWithFormat:@"%ld",model.mostresult];
-//            self.labRedStr.text = model.name;
-//            self.labRedStr.textColor = redcolor;
         }
             break;
         case 1:{
@@ -160,17 +114,13 @@
             self.labType.text = @"大热";
             self.labType.textColor = yellowcolor;
             self.labType.layer.borderColor = yellowcolor.CGColor;
-            
             if (isOniPhone4 || isOniPhone5) {
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam.length > 4 ? [NSString stringWithFormat:@"%@...",[model.hometeam substringToIndex:4]] : model.hometeam,   model.guestteam.length > 4 ? [NSString stringWithFormat:@"%@...",[model.guestteam substringToIndex:4]] : model.guestteam];
-                
             }else if(isOniphone6 || isOniphone7){
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam.length > 6 ? [NSString stringWithFormat:@"%@...",[model.hometeam substringToIndex:6]] : model.hometeam,   model.guestteam.length > 6 ? [NSString stringWithFormat:@"%@...",[model.guestteam substringToIndex:6]] : model.guestteam];
-                
             }else{
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam,model.guestteam];
             }
-            
             self.labRedNum.text = model.sort;
             self.labRedStr.textColor = color66;
             if (!isNUll(self.labRedNum.text) ) {
@@ -182,11 +132,9 @@
                 }else{
                     self.labRedStr.text = @"平局交易占比";
                 }
-
             }else{
             self.labRedStr.text = @"";
             }
-            
         }
             break;
         case 2:{
@@ -196,16 +144,13 @@
             self.labType.layer.borderColor = redcolor.CGColor;
             if (isOniPhone4 || isOniPhone5) {
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam.length > 4 ? [NSString stringWithFormat:@"%@...",[model.hometeam substringToIndex:4]] : model.hometeam,   model.guestteam.length > 4 ? [NSString stringWithFormat:@"%@...",[model.guestteam substringToIndex:4]] : model.guestteam];
-                
             }else if(isOniphone6 || isOniphone7){
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam.length > 6 ? [NSString stringWithFormat:@"%@...",[model.hometeam substringToIndex:6]] : model.hometeam,   model.guestteam.length > 6 ? [NSString stringWithFormat:@"%@...",[model.guestteam substringToIndex:6]] : model.guestteam];
-                
             }else{
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam,model.guestteam];
             }
             self.labRedNum.text = model.sort;
             self.labRedStr.textColor = color66;
-            
             if (!isNUll(self.labRedNum.text) ) {
                 self.labRedNum.attributedText = [ZBMethods withContent:self.labRedNum.text WithColorText:@"%" textColor:redcolor strFont:font17];
                 if (model.type == 3) {
@@ -215,124 +160,88 @@
                 }else{
                     self.labRedStr.text = @"平局误差";
                 }
-
             }else{
                 self.labRedStr.text = @"";
-
             }
-
-            
         }
             break;
         case 3:{
             if (model.league.length > 4) {
-//                self.labLeague.text = [NSString stringWithFormat:@"%@",[model.league substringToIndex:4]];
             }
-            
             self.labType.text = @"盘王";
             self.labType.textColor = bluecolor;
             self.labType.layer.borderColor = bluecolor.CGColor;
             self.labTeame.text = model.teamname;
             if (model.teamname.length > 10) {
-                
                 self.labTeame.text = [NSString stringWithFormat:@"%@...",[model.teamname substringToIndex:10]];
             }
             self.labRedNum.text = model.maxname;
-            
-            
             if (!isNUll(self.labRedNum.text) ) {
                 self.labRedNum.attributedText = [ZBMethods withContent:self.labRedNum.text WithColorText:@"%" textColor:redcolor strFont:font17];
                 self.labRedStr.text = model.name;
-
             }else{
                 self.labRedStr.text = @"";
-
             }
-
             self.labRedStr.textColor = color66;
         }
             break;
         case 4:{
             if (model.league.length > 4) {
-                //                self.labLeague.text = [NSString stringWithFormat:@"%@",[model.league substringToIndex:4]];
             }
-            
             self.labType.text = @"爆冷";
             self.labType.textColor = greencolor;
             self.labType.layer.borderColor = greencolor.CGColor;
             self.labTeame.text = model.teamname;
             if (model.teamname.length > 10) {
-                
                 self.labTeame.text = [NSString stringWithFormat:@"%@...",[model.teamname substringToIndex:10]];
             }
             self.labRedNum.text = model.maxname;
-            
-            
             if (!isNUll(self.labRedNum.text) ) {
                 self.labRedNum.attributedText = [ZBMethods withContent:self.labRedNum.text WithColorText:@"%" textColor:redcolor strFont:font17];
                 self.labRedStr.text = model.name;
-                
             }else{
                 self.labRedStr.text = @"";
-                
             }
-            
             self.labRedStr.textColor = color66;
         }
             break;
         case 5:{
             if (model.league.length > 4) {
-                //                self.labLeague.text = [NSString stringWithFormat:@"%@",[model.league substringToIndex:4]];
             }
-            
             self.labType.text = @"同赔";
             self.labType.textColor = yellowcolor;
             self.labType.layer.borderColor = yellowcolor.CGColor;
             if (isOniPhone4 || isOniPhone5) {
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam.length > 4 ? [NSString stringWithFormat:@"%@...",[model.hometeam substringToIndex:4]] : model.hometeam,   model.guestteam.length > 4 ? [NSString stringWithFormat:@"%@...",[model.guestteam substringToIndex:4]] : model.guestteam];
-                
             }else if(isOniphone6 || isOniphone7){
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam.length > 6 ? [NSString stringWithFormat:@"%@...",[model.hometeam substringToIndex:6]] : model.hometeam,   model.guestteam.length > 6 ? [NSString stringWithFormat:@"%@...",[model.guestteam substringToIndex:6]] : model.guestteam];
-                
             }else{
                 self.labTeame.text = [NSString stringWithFormat:@"%@ vs %@",model.hometeam,model.guestteam];
             }
             self.labRedNum.text = model.maxname;
-            
-            
             if (!isNUll(self.labRedNum.text) ) {
                 self.labRedNum.attributedText = [ZBMethods withContent:self.labRedNum.text WithColorText:@"%" textColor:redcolor strFont:font17];
                 self.labRedStr.text = model.name;
-                
             }else{
                 self.labRedStr.text = @"";
-                
             }
-            
             self.labRedStr.textColor = color66;
         }
             break;
-
         default:
             break;
     }
-    
     if (!_yro) {
         _yro = YES;
         [self setMas];
-        
     }
-    
-    
 }
-
 - (void)setMas{
     [self.BGView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentView.mas_left);
         make.right.mas_equalTo(self.contentView.mas_right);
         make.top.mas_equalTo(self.contentView.mas_top);
         make.bottom.mas_equalTo(self.contentView.mas_bottom);
-        //        make.height.mas_offset(110);
     }];
     [self.labType mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.BGView.mas_left).offset(15);
@@ -344,27 +253,15 @@
         make.left.mas_equalTo(self.labType.mas_left);
         make.top.mas_equalTo(self.labType.mas_bottom).offset(7.5);
     }];
-//    if (self.row == 1 || self.row == 2) {
         [self.labTeame mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.labType.mas_left);
             make.top.mas_equalTo(self.labType.mas_bottom).offset(7.5);
         }];
-//    }else{
-//        [self.labTeame mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.mas_equalTo(self.labLeague.mas_right).offset(7.5);
-//            make.centerY.mas_equalTo(self.labLeague.mas_centerY);
-//        }];
-//    }
-
-    
-    
     [self.labContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.labType.mas_left);
         make.top.mas_equalTo(self.labTeame.mas_bottom).offset(6);
         make.width.mas_offset(210 * Scale_Ratio_width);
-        //        make.bottom.mas_equalTo(self.BGView.mas_bottom);
     }];
-    
     [self.labRedStr mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.BGView.mas_right).offset(-30);
         make.top.mas_equalTo(self.labRedNum.mas_bottom).offset(7.5);
@@ -374,71 +271,13 @@
         make.centerX.mas_equalTo(self.labRedStr.mas_centerX);
         make.top.mas_equalTo(self.BGView.mas_top).offset(37.5);
     }];
-    
-    
 }
-
-
 - (void)cellOneIndexPath:(NSInteger)row{
-//    if (row == 0) {
-//        [self.BGView addSubview:self.labRedNum];
-//        [self.BGView addSubview:self.labRedStr];
-//        [self.BGView addSubview:self.labBlackNum];
-//        [self.BGView addSubview:self.labBlackStr];
-//        [self.BGView addSubview:self.lineView];
-//        
-//        [self.labBlackStr mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.mas_equalTo(self.BGView.mas_right).offset(-15);
-//            make.top.mas_equalTo(self.labBlackNum.mas_bottom).offset(7.5);
-//        }];
-//        [self.labBlackNum mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerX.mas_equalTo(self.labBlackStr.mas_centerX);
-//            make.top.mas_equalTo(self.BGView.mas_top).offset(36);
-//        }];
-//        [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.mas_equalTo(self.labBlackStr.mas_left).offset(-10);
-//            make.top.mas_equalTo(self.BGView.mas_top).offset(38);
-//            make.height.mas_offset(50);
-//            make.width.mas_offset(0.5);
-//        }];
-//        [self.labRedStr mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.mas_equalTo(self.labBlackStr.mas_centerY);
-//            make.right.mas_equalTo(self.lineView.mas_left).offset(-10);
-//        }];
-//        
-//        [self.labRedNum mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerX.mas_equalTo(self.labRedStr.mas_centerX);
-//            make.top.mas_equalTo(self.labBlackNum.mas_top);
-//        }];
-//        
-//    }else{
-//        
-//        [self.BGView addSubview:self.labRedNum];
-//        [self.BGView addSubview:self.labRedStr];
-//        [self.labRedStr mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.mas_equalTo(self.BGView.mas_right).offset(-30);
-//            make.top.mas_equalTo(self.labRedNum.mas_bottom).offset(7.5);
-//            make.width.mas_offset(70);
-//        }];
-//        [self.labRedNum mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerX.mas_equalTo(self.labRedStr.mas_centerX);
-//            make.top.mas_equalTo(self.BGView.mas_top).offset(37.5);
-//        }];
-//        
-//    }
-    
-    
 }
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
-
 @end

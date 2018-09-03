@@ -1,18 +1,8 @@
-//
-//  ZBItemControl.m
-//  newGQapp
-//
-//  Created by genglei on 2018/5/29.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBItemControl.h"
-
 @implementation ZBItemControl {
     NSString *_imageName;
     NSString *_title;
 }
-
 - (instancetype)initWithFrame:(CGRect)frame
                     imageName:(NSString *)imageName
                         title:(NSString *)title
@@ -21,7 +11,6 @@
     if (self) {
         _imageName = [imageName copy];
         _title = [title copy];
-        
         UILabel *label = [[UILabel alloc]init];
         label.text = _title;
         label.font = font12;
@@ -33,7 +22,6 @@
             make.top.equalTo(self.mas_top).offset(10);
             make.right.equalTo(self.mas_right).offset(-rightSpace);
         }];
-        
         UIImageView *iconImageView = [UIImageView new];
         iconImageView.image = [UIImage imageNamed:_imageName];
         [self addSubview:iconImageView];
@@ -42,7 +30,6 @@
             make.size.mas_equalTo(CGSizeMake(14, 14));
             make.right.equalTo(label.mas_left).offset(-5);
         }];
-        
         UIImageView *lineView = [[UIImageView alloc]init];
         lineView.backgroundColor = UIColorFromRGBWithOX(0xD8D8D8);
         [self addSubview:lineView];
@@ -52,7 +39,6 @@
             make.bottom.equalTo(self.mas_bottom).offset(-12);
             make.width.mas_equalTo(1);
         }];
-        
         UILabel *amountLabel = [[UILabel alloc]init];
         amountLabel.text = amount;
         amountLabel.font = font14;
@@ -66,5 +52,4 @@
     }
     return self;
 }
-
 @end

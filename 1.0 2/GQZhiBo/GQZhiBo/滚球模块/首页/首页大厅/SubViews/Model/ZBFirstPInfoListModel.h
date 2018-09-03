@@ -1,14 +1,5 @@
-//
-//  ZBFirstPInfoListModel.h
-//  GQapp
-//
-//  Created by WQ on 16/11/1.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
 #import "ZBDxModel.h"
-
 @interface ZBFirstPInfoListModel : ZBBasicModel
 @property (nonatomic, copy) NSString *color;
 @property (nonatomic, copy) NSString *content;
@@ -25,11 +16,9 @@
 @property (nonatomic, copy) NSString *upodds;
 @property (nonatomic, copy) NSString *weekDayName;
 @property (nonatomic, copy) NSString *matchintro;
-
 @property (nonatomic, assign) NSInteger choice;
 @property (nonatomic, assign) NSTimeInterval createtime;
 @property (nonatomic, assign) NSTimeInterval matchtime;
-
 @property (nonatomic, assign) NSInteger guestrank;
 @property (nonatomic, assign) NSInteger guestscore;
 @property (nonatomic, assign) NSInteger guestteamid;
@@ -51,6 +40,4 @@
 @property (nonatomic, assign) NSInteger info;
 @property (nonatomic, assign) NSInteger recommand;
 @property (nonatomic, copy) NSString *matchtime2;
-
-
 @end

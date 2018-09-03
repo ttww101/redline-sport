@@ -7,10 +7,6 @@
 //
 /*
  
- 打包之前需要做的内容
- 
- 1.关闭测试接口，打开请求正式接口的url
- 2.改变系统版本，两个地方（请求正式接口，请求更新版本接口）
  */
 
 
@@ -113,7 +109,6 @@
     [self isFirstLaunched];
     [self resumePuchase];  // 遗留在本地的内购验证
     [self configPageStatistics];
-    //根据AppStore版本更新,在firstViewController里面实现
     
 
     [self setupUM];
@@ -122,7 +117,6 @@
     [self svPreferrenceConf];
 //    [self setupXGpush:application WithOptions:launchOptions];
     [self setupUPushWith:application WithOptions:launchOptions];
-//    [self setUpRongIMKit];
 //    [self setUpMessageSound];
    // [self setUpFPS];
 //    [self addTimerForHomeAndScore];
@@ -536,93 +530,6 @@
 //
 //    }
 }
-//融云聊天
-- (void)setUpRongIMKit
-{
-    
-}
-//{
-//    
-//    //先注册
-//    [[RCIM sharedRCIM] initWithAppKey:RongIMKitKey];
-//    [RCIM sharedRCIM].userInfoDataSource = RongyunDataSource;
-//    [RCIM sharedRCIM].groupUserInfoDataSource = RongyunDataSource;
-//    
-//    [RCIM sharedRCIM].showUnkownMessage = YES;
-//    [RCIM sharedRCIM].showUnkownMessageNotificaiton = YES;
-//    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
-//
-////    [[RCIMClient sharedRCIMClient] init:RongIMKitKey];
-//    
-//    if ([ZBMethods login]) {
-//        
-//        [[RCIM sharedRCIM] connectWithToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"tokenRongyun"] success:^(NSString *userId) {
-//            
-//            ZBUserModel *userLogin = [ZBMethods getUserModel];
-////            配置当前登录的用户信息，与安卓同步
-//            [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:userLogin.nickname portrait:userLogin.pic];
-//        } error:^(RCConnectErrorCode status) {
-//            NSLog(@"");
-//            
-//        } tokenIncorrect:^{
-//            NSLog(@"");
-//            
-//        }];
-//
-//        
-//    }else{
-//    
-//        
-//        NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [ZBHttpString getCommenParemeter]];
-//        NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-//        NSString *userId = [ZBMethods md5WithString:idfv];
-//
-//        [parameter setObject:userId forKey:@"userId"];
-//        [parameter setObject:@"游客" forKey:@"nickname"];
-//        [parameter setObject:url_defaultUserPic forKey:@"pic"];
-//        
-//        [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_getRonyunUserToken] ArrayFile:nil Start:^(id requestOrignal) {
-//            
-//        } End:^(id responseOrignal) {
-//            
-//        } Success:^(id responseResult, id responseOrignal) {
-//            
-//            
-//            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-//                
-//                NSString *tokenRongyun = [[responseOrignal objectForKey:@"data"] objectForKey:@"token"];
-//                
-//                NSString *userIdRongyun = [[responseOrignal objectForKey:@"data"] objectForKey:@"userId"];
-//                [[NSUserDefaults standardUserDefaults] setObject:userIdRongyun forKey:@"userIdRongyunYouke"];
-//                [[NSUserDefaults standardUserDefaults] setObject:tokenRongyun forKey:@"tokenRongyunYouke"];
-//                //
-//                [[RCIM sharedRCIM] connectWithToken:tokenRongyun success:^(NSString *userId) {
-//                    //配置当前登录的用户信息，与安卓同步
-//                    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"游客" portrait:url_defaultUserPic];
-//
-//                } error:^(RCConnectErrorCode status) {
-//                    NSLog(@"");
-//                    
-//                } tokenIncorrect:^{
-//                    NSLog(@"");
-//                    
-//                }];
-//                
-//                
-//            }
-//            
-//            
-//            
-//        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-//            
-//        }];
-//
-//        
-//    }
-//    
-//
-//}
-
 
 //友盟推送
 

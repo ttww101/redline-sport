@@ -1,11 +1,3 @@
-//
-//  ZBToolWebViewController.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/2.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBToolWebViewController.h"
 #import "WebViewJavascriptBridge.h"
 #import "ZBUserModel.h"
@@ -24,38 +16,21 @@
 #import "ZBCommentsView.h"
 #import "ZBCommentsViewController.h"
 #import "ZBInputViewController.h"
-
 @interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate>
-
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
-
 @property (nonatomic , copy) GQJSResponseCallback callBack;
-
 @property (nonatomic , copy) NSString *recordUrl;
-
 @property (nonatomic , assign) BOOL isToFenxi;
-
 @property (nonatomic, assign) BOOL isBack;
-
 @property (nonatomic , strong) UIView *toastView;
-
 @property (nonatomic , weak) id observer;
-
 @property (nonatomic , strong) ZBWebView *activityWeb;
-
 @property (nonatomic, strong) UIProgressView *progressView;
-
 @property (nonatomic , strong) ZBCommentsView *commentsView;
-
 @property (nonatomic , strong) NSDictionary *commentsDic;
-
-
 @end
-
 #define wxpay @"wx"
-
 @implementation ZBToolWebViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configUI];
@@ -64,107 +39,80 @@
     if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
     }
-    
     self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, Width, 2)];
     self.progressView.progressTintColor = redcolor;
     self.progressView.trackTintColor = [UIColor clearColor];
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
     [self.wkWeb addSubview:self.progressView];
     [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-
 }
-
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     [self configWebHeight];
-    
     if (self.isBack) {
         if (self.progressView.hidden) {
             [self refreshData];
         }
     }
-    
     [MobClick beginLogPageView:PARAM_IS_NIL_ERROR(_model.title)];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         if (_commentsView) {
             [_commentsView loadData];
         }
     });
-    
 }
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.isBack = YES;
     [MobClick endLogPageView:PARAM_IS_NIL_ERROR(_model.title)];
 }
-
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     [self.wkWeb removeObserver:self forKeyPath:@"estimatedProgress"];
     self.wkWeb = nil;
     self.bridge = nil;
 }
-
 #pragma mark - Notification
-
 - (void)refreshResult {
     if ([[NSUserDefaults standardUserDefaults]objectForKey:wxpay]) {
         NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"payResult"}];
         [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-            
         }];
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:wxpay];
         [[NSUserDefaults standardUserDefaults]synchronize];
     }
 }
-
 - (void)refreshData {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
         [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-
         }];
     });
 }
-
 #pragma mark - KVO
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         self.progressView.progress = self.wkWeb.estimatedProgress;
         if (self.progressView.progress == 1) {
-            /*
-             *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
-             *动画时长0.25s，延时0.3s后开始动画
-             *动画结束后将progressView隐藏
-             */
             __weak typeof (self)weakSelf = self;
             [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
                 weakSelf.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.4f);
             } completion:^(BOOL finished) {
                 weakSelf.progressView.hidden = YES;
-                
             }];
         }
     }else{
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
-
 #pragma mark - WKDelegate
-
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *url = navigationAction.request.URL;
     if ([url.absoluteString hasPrefix:@"weixin://"]) {
@@ -174,17 +122,14 @@
     }
     decisionHandler(WKNavigationActionPolicyAllow);
 }
-
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = NO;
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
 }
-
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = YES;
     [self dissMissToastView];
 }
-
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     self.progressView.hidden = YES;
     if (error.code == -999) {
@@ -195,13 +140,10 @@
     }
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
 }
-
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView API_AVAILABLE(macosx(10.11), ios(9.0)); {
     [webView reload];
 }
-
 #pragma mark - CommentsViewDelegate
-
 - (void)commentViewDidSelectCommnetList:(ZBCommentsView *)commentView {
     if (self.commentsDic) {
         NSDictionary *dic = self.commentsDic[@"comment"];
@@ -211,7 +153,6 @@
         [self.navigationController pushViewController:control animated:YES];
     }
 }
-
 - (void)commentViewDidSelectReply:(ZBCommentsView *)commentView {
     if (self.commentsDic) {
         NSDictionary *dic = self.commentsDic[@"comment"];
@@ -222,17 +163,13 @@
         [self.navigationController pushViewController:control animated:YES];
     }
 }
-
 - (void)commentViewDidSelectShare:(ZBCommentsView *)commentView {
     if (self.commentsDic) {
         NSDictionary *dic = self.commentsDic[@"share"];
         [self webShare:dic];
     }
 }
-
-
 #pragma mark - Load Data
-
 - (void)loadBradgeHandler {
     __weak ZBToolWebViewController *weakSelf = self;
     ZBAppManger *manger = [[ZBAppManger alloc]init];
@@ -250,11 +187,9 @@
 #pragma clang diagnostic pop
         }
     }];
-    
     [bridge setWebViewDelegate:self];
     self.bridge = bridge;
 }
-
 - (void)loadData {
     if (_model) {
         self.urlPath = _model.webUrl;
@@ -264,7 +199,6 @@
             self.html5Url = _recordUrl;
         }
     }
-
     if (self.urlPath != nil) {
         self.urlPath = [self.urlPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSURL *url = [NSURL URLWithString:self.urlPath];
@@ -277,9 +211,7 @@
         [self.wkWeb loadHTMLString:htmlString baseURL:[NSURL URLWithString:path]];
     }
 }
-
 #pragma mark - Config UI
-
 - (void)configWebHeight {
     if (self.navigationController.navigationBarHidden) {
         self.wkWeb.frame = CGRectMake(0, 0, self.view.width, Height - (_model.fromTab ? 49:0));
@@ -287,7 +219,6 @@
         self.wkWeb.frame = CGRectMake(0, 0, self.view.width, Height - 64 - (_model.fromTab ? 49:0));
     }
 }
-
 - (void)configUI {
     [self.view addSubview:self.wkWeb];
     self.navigationItem.title = _model.title;
@@ -303,9 +234,7 @@
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buyBtn];
         self.navigationItem.rightBarButtonItem = rightItem;
     }
-    
     if (self.navigationController.navigationBarHidden) {
-        
     } else {
         if ([_model.parameter isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dataDic = _model.parameter;
@@ -334,7 +263,6 @@
                 }
                 self.navigationItem.leftBarButtonItems = [leftItemsArray copy];
             }
-            
             if (rightArray.count > 0) {
                 NSMutableArray *rightItemsArray = [NSMutableArray new];
                 rightArray = [[rightArray reverseObjectEnumerator] allObjects];
@@ -356,27 +284,19 @@
         }
     }
 }
-
-
 #pragma mark - GQWebViewDelegate
-
 - (void)webClose:(id)data {
     if (_activityWeb) {
         [_activityWeb removeFromSuperview];
         _activityWeb = nil;
     }
 }
-
 #pragma mark - JSHandle
-
 - (void)closeWin:(id)data {
-    
 }
-
 - (void)webBack {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 - (void)webShare:(id)data {
     if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
         NSDictionary *dic = (NSDictionary *)data;
@@ -385,7 +305,6 @@
         NSString *des = dic[@"des"];
         NSString *linkurl = dic[@"linkurl"];
         [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-            
             switch (platformType) {
                 case UMSocialPlatformType_Sina: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Sina]) {
@@ -394,7 +313,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_WechatSession: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatSession]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
@@ -402,7 +320,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_WechatTimeLine: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_WechatTimeLine]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装微信客户端"];
@@ -410,7 +327,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_QQ: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_QQ]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
@@ -418,7 +334,6 @@
                     }
                 }
                     break;
-                    
                 case UMSocialPlatformType_Qzone: {
                     if (![[UMSocialManager defaultManager]isInstall:UMSocialPlatformType_Qzone]) {
                         [SVProgressHUD showErrorWithStatus:@"未安装QQ客户端"];
@@ -426,46 +341,32 @@
                     }
                 }
                     break;
-                    
-                    
-                    
                 default:
                     break;
             }
-            
-            
-            //创建分享消息对象
             UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-            //创建网页内容对象
             UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:des thumImage:picurl];
-            //设置网页地址
             shareObject.webpageUrl = linkurl;
-            //分享消息对象设置分享内容对象
             messageObject.shareObject = shareObject;
-            //调用分享接口
             [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:[ZBMethods help_getCurrentVC] completion:^(id data, NSError *error) {
                 if (error) {
                     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareFailed", @"val":@(platformType)}];
                     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                        
                     }];
                 }else{
                     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"shareSuccess", @"val":@(platformType)}];
                     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
-                        
                     }];
                 }
             }];
         }];
     }
 }
-
 - (void)back:(id)parameter {
     if ([parameter integerValue] == 0) {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
-
 - (void)openH5:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dic = (NSDictionary *)data;
@@ -478,7 +379,6 @@
         [self.navigationController pushViewController:control animated:YES];
     }
 }
-
 - (void)openNative:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dataDic = (NSDictionary *)data;
@@ -487,22 +387,18 @@
         if ([className isEqualToString:@"ZBGQMineViewController"]) {
             className = @"ZBMineViewController";
         }
-        
         if ([className isEqualToString:@"ZBFenxiPageVC"]) {
             [self pushToMatchDetail:dataDic];
             return;
         }
-        
         if ([className isEqualToString:@"ZBBifenViewController"]) {
             [self.tabBarController setSelectedIndex:1];
             return;
         }
-        
         if ([className isEqualToString:@"ZBNewQingBaoViewController"]) {
             [self.tabBarController setSelectedIndex:2];
             return;
         }
-        
         if ([className isEqualToString:@"ZBLiveQuizViewController"]) {
             ZBWebModel *model = [[ZBWebModel alloc]init];
             NSDictionary *vDic = dataDic[@"v"];
@@ -514,7 +410,6 @@
             [self.navigationController pushViewController:controller animated:YES];
             return;
         }
-        
         if ([className isEqualToString:@"ZBLotteryWebViewController"]) {
             ZBWebModel *model = [[ZBWebModel alloc]init];
             NSDictionary *vDic = dataDic[@"v"];
@@ -526,7 +421,6 @@
             [self.navigationController pushViewController:controller animated:YES];
             return;
         }
-        
         if ([className isEqualToString:@"GQRedBombActivity"]) {
             ZBWebModel *model = [[ZBWebModel alloc]init];
             NSDictionary *vDic = dataDic[@"v"];
@@ -544,7 +438,6 @@
             _activityWeb = web;
             return;
         }
-        
         if ([className isEqualToString:@"ZBFabuTuijianSelectedItemVC"]) {
             [MobClick event:@"tjdtftj" label:@""];
             if (![ZBMethods login]) {
@@ -552,11 +445,9 @@
                 return;
             }
         }
-        
         if ([className isEqualToString:@"ZBSearchViewController"]) {
             [MobClick event:@"tjdtss" label:@""];
         }
-        
         if ([self containsClassName:className]) {
             UIViewController *controller =[self indexWithClassName:className];
             if (controller) {
@@ -564,7 +455,6 @@
             } else {
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }
-            
         } else {
             Class targetCalss = NSClassFromString(className);
             id target = [[targetCalss alloc] init];
@@ -581,7 +471,6 @@
                     [keyArray addObject:propertyName];
                 }
                 free(propertys);
-                
                 NSDictionary *parameterDic = dataDic[@"v"];
                 if (parameterDic.allKeys.count > 0) {
                     NSArray *array = parameterDic.allKeys;
@@ -597,7 +486,6 @@
         }
     }
 }
-
 - (void)pay:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dataDic = (NSDictionary *)data;
@@ -611,14 +499,14 @@
             req.prepayId = parameter[@"prepayid"];
             req.nonceStr = parameter[@"noncestr"];
             NSUInteger timStamp = [parameter[@"timestamp"] integerValue];
-            req.timeStamp = timStamp;//时间戳，防重发
+            req.timeStamp = timStamp;
             req.package = parameter[@"package"];
-            req.sign = parameter[@"sign"];//签名
+            req.sign = parameter[@"sign"];
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:wxpay];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
                 NSInteger code = [resultDict[@"errCode"] integerValue];
-                if(code == 0){//支付成功
+                if(code == 0){
                     weakSelf.callBack(@"1");
                 } else {
                     weakSelf.callBack(@"0");
@@ -643,7 +531,6 @@
         [SVProgressHUD showErrorWithStatus:@"数据类型报错"];
     }
 }
-
 - (void)nav:(id)data {
     if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
         NSDictionary *dataDic = (NSDictionary *)data;
@@ -670,7 +557,6 @@
                 }
                 self.navigationItem.leftBarButtonItems = [leftItemsArray copy];
             }
-            
             NSArray *rightArray = dataDic[@"right"];
             if (rightArray.count > 0) {
                 NSMutableArray *rightItemsArray = [NSMutableArray new];
@@ -693,7 +579,6 @@
         }
     }
 }
-
 - (void)pagetoolbar:(id)data {
     if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
         self.commentsDic = (NSDictionary *)data;
@@ -706,36 +591,26 @@
         [self.commentsView loadData];
     }
 }
-
 #pragma mark - Private Method
-
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
     NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
     NSRange range = {0,jsonString.length};
-    //去掉字符串中的空格
     [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
     NSRange range2 = {0,mutStr.length};
-    //去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
 }
-
 - (void)pushToMatchDetail:(NSDictionary *)parameter {
     NSDictionary *v = parameter[@"v"];
     [self toFenxiWithMatchId:v[@"id"] toPageindex:[v[@"linkType"] integerValue] toItemIndex:[v[@"currentIndex"] integerValue]];
-    
 }
-//loop 跳转分析页
 - (void)toFenxiWithMatchId:(NSString *)idID toPageindex:(NSInteger)pageIndex toItemIndex:(NSInteger)itemIndex;
 {
-    //index 1 基本面 2 情报面 3 推荐
-    
     if (!_isToFenxi == YES) {
         _isToFenxi = YES;
-        
         NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
         if (idID== nil) {
             idID = @"";
@@ -743,38 +618,25 @@
         [parameter setObject:@"3" forKey:@"flag"];
         [parameter setObject:idID forKey:@"sid"];
         [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_liveScores] Start:^(id requestOrignal) {
-            
         } End:^(id responseOrignal) {
-            
         } Success:^(id responseResult, id responseOrignal) {
             if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-                
                 ZBLiveScoreModel *model = [ZBLiveScoreModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
-                //从首页跳转分析页的时候不用反转
                 model.neutrality = NO;
                 ZBFenxiPageVC *fenxiVC = [[ZBFenxiPageVC alloc] init];
                 fenxiVC.model = model;
-                
                 fenxiVC.segIndex = itemIndex;
                 fenxiVC.currentIndex = pageIndex;
-                
                 fenxiVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:fenxiVC animated:YES];
-                
             }
             _isToFenxi = NO;
-            
-            
         } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
             _isToFenxi = NO;
-            
         }];
-        
     }else{
-
     }
 }
-
 - (void)createNullToastView:(NSString *)text imageName:(NSString *)imageName {
     if (!_toastView) {
          _toastView = [[UIView alloc]initWithFrame:self.wkWeb.bounds];
@@ -791,20 +653,16 @@
         [self.wkWeb addSubview:_toastView];
     }
 }
-
 - (void)dissMissToastView {
     if (_toastView) {
         [_toastView removeFromSuperview];
         _toastView = nil;
     }
 }
-
 #pragma mark - Events
-
 - (void)reloadAction {
     [self loadData];
 }
-
 - (void)tableBarAction:(UITapGestureRecognizer *)tap {
     ZBNavImageView *imageView = (ZBNavImageView *)tap.view;
     if ([imageView.Parameter isKindOfClass:[NSDictionary class]]) {
@@ -819,13 +677,11 @@
         }
     }
 }
-
 - (void)buyAction {
     if(![ZBMethods login]) {
         [ZBMethods toLogin];
         return;
     }
-    
     ZBWebModel *model = [[ZBWebModel alloc]init];
     model.title = @"服务介绍";
     if (self.recordUrl) {
@@ -837,29 +693,22 @@
             NSString *url= [NSString stringWithFormat:@"%@/appH5/%@-pay.html", APPDELEGATE.url_ip,modelStr];
             model.webUrl = url;
         }
-
     } else {
           model.webUrl = [NSString stringWithFormat:@"%@/appH5/%@", APPDELEGATE.url_ip,_model.modelType];
     }
-    
     ZBToolWebViewController *webControl = [[ZBToolWebViewController alloc]init];
     webControl.model = model;
     [self.navigationController pushViewController:webControl animated:YES];
 }
-
-
-
 - (void)currentPage:(id)data {
     self.recordUrl = data;
 }
-
 - (void)payAction:(id)data {
     NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
     if (!(dataArray.count > 0)) {
         [self appleBuyWithData:data];
         return;
     }
-    
     NSString *matchID = data[@"scheduleId"];
     NSMutableArray *array = [NSMutableArray new];
     for (NSInteger i = 0; i < dataArray.count; i ++) {
@@ -876,17 +725,14 @@
                 icon = @"wxicon";
             }
                 break;
-                
             case 2: {
                 icon = @"aliicon";
             }
                 break;
-                
             case 3: {
                 icon = @"coupon";
             }
                 break;
-                
             default:
                 break;
         }
@@ -895,13 +741,10 @@
         } else {
             [array addObject:@{PayMentLeftIcon:icon, PayMentTitle:text, PayMentType:@(type)}];
         }
-        
     }
-    
     if (!matchID) {
         [array removeLastObject];
     }
-    
     __weak ZBToolWebViewController *weakSelf = self;
     [ZBSelectPayMentView showPaymentInfo:[NSString stringWithFormat:@"￥%@",PARAM_IS_NIL_ERROR(data[@"amount"])] options:array  animations:YES selectOption:^(payMentType type) {
         switch (type) {
@@ -909,30 +752,24 @@
                 [weakSelf appleBuyWithData:data];
             }
                 break;
-                
             case payMentTypeWx: {
                 [weakSelf tencentBuyWithData:data];
             }
                 break;
-                
             case payMentTypeAli: {
                 [weakSelf alibuyWithData:data];
             }
                 break;
-                
             case payMentTypeCoupon: {
                 [weakSelf couponBuyWithData:data];
             }
                 break;
-                
             default:
                 break;
         }
     }];
 }
-
 #pragma mark - Buy Type
-
 - (void)tencentBuyWithData:(NSDictionary *)data {
     [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [ZBHttpString getCommenParemeter]];
@@ -941,9 +778,7 @@
     [parameter setObject:@"IOS" forKey:@"resource"];
     [parameter setObject:PARAM_IS_NIL_ERROR(data[@"scheduleId"]) forKey:@"matchId"];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_modelPay] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         [ZBLodingAnimateView dissMissLoadingView];
         NSDictionary *resultDic = (NSDictionary *)responseOrignal;
@@ -955,13 +790,12 @@
             req.prepayId = dataDic[@"prepayid"];
             req.nonceStr = dataDic[@"noncestr"];
             NSUInteger timStamp = [dataDic[@"timestamp"] integerValue];
-            req.timeStamp = timStamp;//时间戳，防重发
+            req.timeStamp = timStamp;
             req.package = dataDic[@"package"];
-            req.sign = dataDic[@"sign"];//签名
-            
+            req.sign = dataDic[@"sign"];
             [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
                 NSInteger code = [resultDict[@"errCode"] integerValue];
-                if(code == 0){//支付成功
+                if(code == 0){
                     [SVProgressHUD showSuccessWithStatus:@"购买成功"];
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {
@@ -974,7 +808,6 @@
         [SVProgressHUD showErrorWithStatus:errorDict];
     }];
 }
-
 - (void)alibuyWithData:(NSDictionary *)data {
     [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter =[NSMutableDictionary dictionaryWithDictionary: [ZBHttpString getCommenParemeter]];
@@ -983,9 +816,7 @@
     [parameter setObject:@"IOS" forKey:@"resource"];
     [parameter setObject:PARAM_IS_NIL_ERROR(data[@"scheduleId"]) forKey:@"matchId"];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_modelPay_ali] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         [ZBLodingAnimateView dissMissLoadingView];
         NSDictionary *resultDic = (NSDictionary *)responseOrignal;
@@ -1006,19 +837,16 @@
         [SVProgressHUD showErrorWithStatus:errorDict];
     }];
 }
-
 - (void)appleBuyWithData:(NSDictionary *)data {
      MBProgressHUD *hud = [[MBProgressHUD alloc]init];
      hud.mode = MBProgressHUDModeIndeterminate;
      hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
      [self.view addSubview:hud];
      [hud show:YES];
-    
     NSDictionary *dic = data;
     NSNumber *ordeId = dic[@"orderId"];
     NSString *productId = dic[@"productId"];
     NSInteger amount = [dic[@"amount"] integerValue];
-    
     [[ZBAppleIAPService sharedInstance]purchase:@{@"product_id":PARAM_IS_NIL_ERROR(productId), @"orderID":ordeId, @"amount":@(amount)} resultBlock:^(NSString *message, NSError *error) {
         [hud hide:YES];
         if (error) {
@@ -1030,7 +858,6 @@
         }
     }];
 }
-
 - (void)couponBuyWithData:(NSDictionary *)data {
     if (!([data[@"couponCount"] integerValue] > 0)) {
         [SVProgressHUD showErrorWithStatus:@"您暂时还未拥有优惠券"];
@@ -1043,9 +870,7 @@
     [parameter setObject:@"IOS" forKey:@"resource"];
     [parameter setObject:PARAM_IS_NIL_ERROR(data[@"scheduleId"]) forKey:@"matchId"];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_modelPay_coupon] Start:^(id requestOrignal) {
-        
     } End:^(id responseOrignal) {
-        
     } Success:^(id responseResult, id responseOrignal) {
         [ZBLodingAnimateView dissMissLoadingView];
         NSDictionary *resultDic = (NSDictionary *)responseOrignal;
@@ -1060,7 +885,6 @@
         [SVProgressHUD showErrorWithStatus:errorDict];
     }];
 }
-
 - (BOOL)containsClassName:(NSString *)className {
     NSArray *classArray = self.navigationController.viewControllers;
     Class targetClass = NSClassFromString(className);
@@ -1073,7 +897,6 @@
     }
     return false;
 }
-
 - (id)indexWithClassName:(NSString *)className {
     NSArray *classArray = self.navigationController.viewControllers;
     Class targetClass = NSClassFromString(className);
@@ -1085,9 +908,7 @@
     }
     return nil;
 }
-
 #pragma mark - Lazy Load
-
 - (WKWebView *)wkWeb {
     if (_wkWeb == nil) {
         _wkWeb = [[WKWebView alloc]initWithFrame:self.view.bounds];
@@ -1100,7 +921,6 @@
     }
     return _wkWeb;
 }
-
 - (ZBCommentsView *)commentsView {
     if (_commentsView == nil) {
         _commentsView = [[ZBCommentsView alloc]init];
@@ -1108,5 +928,4 @@
     }
     return _commentsView;
 }
-
 @end

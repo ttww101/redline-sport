@@ -1,13 +1,4 @@
-//
-//  ZBNewslistModel.m
-//  GQapp
-//
-//  Created by WQ on 16/11/1.
-//  Copyright © 2016年 GQXX. All rights reserved.
-//
-
 #import "ZBNewslistModel.h"
-
 @implementation ZBNewslistModel
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {

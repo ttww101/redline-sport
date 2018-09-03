@@ -1,49 +1,29 @@
-//
-//  ZBTbableConfig.m
-//  newGQapp
-//
-//  Created by genglei on 2018/4/26.
-//  Copyright © 2018年 GQXX. All rights reserved.
-//
-
 #import "ZBTbableConfig.h"
 #import "ArchiveFile.h"
 #import "ZBWebModel.h"
-
 @interface ZBTbableConfig ()
-
-/**
- 
- */
 @property (nonatomic, readwrite, strong) ZBDCTabBarController *tableBarController;
-
 @end
-
 @implementation ZBTbableConfig
-
 - (ZBDCTabBarController *)tableBarController {
     if (_tableBarController == nil) {
         _tableBarController = [[ZBDCTabBarController alloc]initWithItemArray:[self tableBarItemArray]];
     }
     return _tableBarController;
 }
-
 - (NSArray *)tableBarItemArray {
     NSMutableArray *array = [ArchiveFile getDataWithPath:TableConfig];
-//    return [self loadLocalTableBarConfig];
     if (array.count > 0) {
         return [self loadServerTableBarConfigWithArray:array];
     } else {
         return [self loadLocalTableBarConfig];
     }
 }
-
 - (NSArray *)loadServerTableBarConfigWithArray:(NSArray *)array {
     __block NSMutableArray *dataArray = [NSMutableArray new];
     [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *imageUrl = obj[@"defaultImage"];
         NSString *selectImageUrl = obj[@"selectImage"];
-    
         UIImage *defaultImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageUrl];
         UIImage *selectImage = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:selectImageUrl];
         BOOL loadLineImage = false;
@@ -63,7 +43,6 @@
             }
             loadLineImage = YES;
         }
-        
         if (!selectImage) {
             if (idx == 0) {
                 selectImage = [UIImage imageNamed:@"shouye-1"];
@@ -80,7 +59,6 @@
             }
             loadLineImage = YES;
         }
-        
         BOOL loadH5 = [obj[@"loadH5"] integerValue];
         if (loadH5) {
             ZBWebModel *model = [[ZBWebModel alloc]init];
@@ -109,7 +87,6 @@
                                    GQTabBarItemSelectedImage : [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                    }];
         }
-        
         if (idx == array.count - 1) {
             if (loadLineImage) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -120,31 +97,22 @@
     }];
     return dataArray;
 }
-
 - (void)reloadTableBarImage {
     NSMutableArray *array = [ArchiveFile getDataWithPath:TableConfig];
     [array enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *imageUrl = obj[@"defaultImage"];
         NSString *selectImageUrl = obj[@"selectImage"];
         [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         }];
         [[SDWebImageManager sharedManager]downloadImageWithURL:[NSURL URLWithString:selectImageUrl] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-            
         }];
     }];
 }
-
 - (NSArray *)loadLocalTableBarConfig {
-    //    NSDictionary *fifthTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBFirstViewController" title:@"首页" defaultImage:@"shouye" selectImage:@"shouye-1"];
     NSDictionary *firstTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBBifenViewController" title:@"比分" defaultImage:@"bifen" selectImage:@"bifen-1"];
-    
     NSDictionary *thirdTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBNewQingBaoViewController" title:@"情报" defaultImage:@"qingbao" selectImage:@"qingbao-1"];
-    
-    
     ZBWebModel *model = [[ZBWebModel alloc]init];
     model.title = @"发现";
     model.webUrl = [NSString stringWithFormat:@"%@/%@/index.html", APPDELEGATE.url_ip,H5_Host];
@@ -157,14 +125,11 @@
                                                  GQTabBarItemWbebModel : model,
                                                  GQTabBarItemLoadH5 : @(1)
                                                  };
-    
-    
     NSDictionary *secondTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBTuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
     NSDictionary *fourthTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBOldMineViewController" title:@"我的" defaultImage:@"wode" selectImage:@"wode-1"];
     NSArray *array = @[firstTabBarItemsAttributes, secondTabBarItemsAttributes, fifthTabBarItemsAttributes, thirdTabBarItemsAttributes, fourthTabBarItemsAttributes];
     return array;
 }
-
 - (NSDictionary *)tableBarItemControllerName:(NSString *)name
                                        title:(NSString *)title
                                 defaultImage:(NSString *)defaultImaeg
@@ -176,5 +141,4 @@
              GQTabBarItemSelectedImage : [[UIImage imageNamed:selectImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
              };
 }
-
 @end

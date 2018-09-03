@@ -1,13 +1,4 @@
-//
-//  ZBRedDanModel.h
-//  GQapp
-//
-//  Created by 叶忠阳 on 2017/7/5.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBasicModel.h"
-
 @interface ZBRedDanModel : ZBBasicModel
 @property (nonatomic, assign)NSInteger scheduleId;
 @property (nonatomic, retain)NSString *homeTeam;
@@ -26,7 +17,4 @@
 @property (nonatomic, retain)NSString *homeTeamId;
 @property (nonatomic, retain)NSArray *usermark;
 @property (nonatomic, assign)NSInteger result;
-
-
-
 @end

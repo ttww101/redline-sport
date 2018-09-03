@@ -1,11 +1,3 @@
-//
-//  ZBCommentModel.m
-//  GunQiuLive
-//
-//  Created by WQ_h on 16/3/17.
-//  Copyright © 2016年 WQ_h. All rights reserved.
-//
-
 #import "ZBCommentModel.h"
 #import "ZBCommentChildModel.h"
 @implementation ZBCommentModel
@@ -23,13 +15,10 @@
              @"child" : @"child",
              @"likeCount" : @"likeCount",
              @"ilike" : @"ilike",
-
              };
 }
 + (NSValueTransformer *)childJSONTransformer
 {
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBCommentChildModel class]];
-    
 }
-
 @end

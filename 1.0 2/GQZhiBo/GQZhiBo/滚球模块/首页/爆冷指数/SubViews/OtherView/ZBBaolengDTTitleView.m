@@ -1,11 +1,3 @@
-//
-//  ZBBaolengDTTitleView.m
-//  GQapp
-//
-//  Created by WQ on 2017/8/8.
-//  Copyright © 2017年 GQXX. All rights reserved.
-//
-
 #import "ZBBaolengDTTitleView.h"
 @interface ZBBaolengDTTitleView ()
 @property (nonatomic, strong) UIView *basicView;
@@ -15,34 +7,21 @@
 @property (nonatomic, strong) UILabel *labGuestteam;
 @property (nonatomic, strong) UILabel *labVS;
 @property (nonatomic, strong) UILabel *labPeilv;
-
 @end
 @implementation ZBBaolengDTTitleView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.basicView];
-        
         _labLeague.text = @"赛事";
-//        _labTime.text = @"16-04-01";
         _labHomteam.text = @"主队";
         _labVS.text = @"比分";
         _labGuestteam.text = @"客队";
         _labPeilv.text = @"赛果";
-
     }
     return self;
 }
-
 - (UIView *)basicView
 {
     if (!_basicView) {
@@ -56,8 +35,6 @@
     }
     return _basicView;
 }
-
-
 - (UILabel *)labLeague
 {
     if (!_labLeague) {
@@ -67,7 +44,6 @@
     }
     return _labLeague;
 }
-
 - (UILabel *)labTime
 {
     if (!_labTime) {
@@ -77,7 +53,6 @@
     }
     return _labTime;
 }
-
 - (UILabel *)labHomteam
 {
     if (!_labHomteam) {
@@ -104,11 +79,9 @@
         _labVS.font = font12;
         _labVS.textColor = color99;
         _labVS.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _labVS;
 }
-
 - (UILabel *)labPeilv
 {
     if (!_labPeilv) {
@@ -116,9 +89,7 @@
         _labPeilv.font = font12;
         _labPeilv.textColor = color99;
         _labPeilv.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _labPeilv;
 }
-
 @end
