@@ -40,7 +40,7 @@
 #import "WebVC.h"
 #import "UIScrollView+EmptyDataSet.h"
 //#import "JHChartHeader.h"
-#import "GQapp-Bridging-Header.h"
+#import "GQZhiBo-Bridging-Header.h"
 #import "SDCycleScrollView.h"
 
 #import "LMJScrollTextView.h"
