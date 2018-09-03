@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_newGQappVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_newGQappVersionString[];
+FOUNDATION_EXPORT double Pods_GQZhiBoVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_GQZhiBoVersionString[];
 

@@ -2,7 +2,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 
-target 'newGQapp' do
+target 'GQZhiBo' do
     
     pod 'UMCCommon'                           #依赖库
     pod 'UMCSecurityPlugins'                  #依赖库
