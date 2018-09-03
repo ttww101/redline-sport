@@ -6988,7 +6988,7 @@
 			path = "直播";
 			sourceTree = "<group>";
 		};
-		EB8C1C251F21944B00A07863 /* 滚球模块 */ = {
+		EB8C1C251F21944B00A07863 /* Class */ = {
 			isa = PBXGroup;
 			children = (
 				A99166082111B07300FABE68 /* Module */,
@@ -7000,7 +7000,7 @@
 				EB8C1D4F1F21944B00A07863 /* 比分页 */,
 				EB8C1DC51F21944C00A07863 /* 首页 */,
 			);
-			path = "滚球模块";
+			path = Class;
 			sourceTree = "<group>";
 		};
 		EB8C1C261F21944B00A07863 /* 个人中心 */ = {
@@ -9683,7 +9683,7 @@
 				A94D6EA9207F4115002F4310 /* ThirdPart */,
 				A9762882206C89BB007C79D1 /* Purchase */,
 				EBA21DD31DF067A0004E63C5 /* GQZhiBo.entitlements */,
-				EB8C1C251F21944B00A07863 /* 滚球模块 */,
+				EB8C1C251F21944B00A07863 /* Class */,
 				EBC0A2DC1CA92AD700F75E7E /* Image */,
 				EBC0A37F1CA92AD700F75E7E /* Headers */,
 				EBC0A3851CA92AD700F75E7E /* CustomVC */,
@@ -9706,8 +9706,8 @@
 			isa = PBXGroup;
 			children = (
 				A9317BE02081A5D30094500A /* DIN-Bold.TTF */,
-				EBC0A2AC1CA924AE00F75E7E /* ZBAppDelegate.m */,
 				EBC0A2AB1CA924AE00F75E7E /* ZBAppDelegate.h */,
+				EBC0A2AC1CA924AE00F75E7E /* ZBAppDelegate.m */,
 				EBC0A2B11CA924AE00F75E7E /* Main.storyboard */,
 				EB4617721E1611E900A2907E /* ZBFile.swift */,
 				EBC0A2B41CA924AE00F75E7E /* Assets.xcassets */,
