@@ -1,0 +1,38 @@
+//
+//  ZBWebView.h
+//  newGQapp
+//
+//  Created by genglei on 2018/6/6.
+//  Copyright © 2018年 GQXX. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@protocol GQWebViewDelegate <NSObject>
+
+@optional
+
+- (void)webClose:(id)data;
+
+@end
+
+#import "ZBWebModel.h"
+
+
+@interface ZBWebView : UIWebView
+
+@property (nonatomic, weak) id <GQWebViewDelegate> webDelegate;
+
+@property (nonatomic , strong) ZBWebModel *model;
+
+@property (nonatomic, copy) NSString *html5Url;
+
+@property (nonatomic, copy) NSString *urlPath;
+
+@property (nonatomic, assign) BOOL cellCanScroll;
+
+- (void)reloadData;
+
+- (void)jsReoload;
+
+@end

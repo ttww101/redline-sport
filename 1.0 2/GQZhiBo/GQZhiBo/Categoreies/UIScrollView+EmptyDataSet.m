@@ -683,7 +683,7 @@ Class dzn_baseClassToSwizzleForTarget(id target)
 }
 
 
-#pragma mark - UIGestureRecognizerDelegate Methods
+#pragma mark - UIGestureRecognizerDelegate ZBMethods
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -722,7 +722,7 @@ Class dzn_baseClassToSwizzleForTarget(id target)
 @synthesize contentView = _contentView;
 @synthesize titleLabel = _titleLabel, detailLabel = _detailLabel, imageView = _imageView, button = _button;
 
-#pragma mark - Initialization Methods
+#pragma mark - Initialization ZBMethods
 
 - (instancetype)init
 {
@@ -882,7 +882,7 @@ Class dzn_baseClassToSwizzleForTarget(id target)
 }
 
 
-#pragma mark - Action Methods
+#pragma mark - Action ZBMethods
 
 - (void)didTapButton:(id)sender
 {

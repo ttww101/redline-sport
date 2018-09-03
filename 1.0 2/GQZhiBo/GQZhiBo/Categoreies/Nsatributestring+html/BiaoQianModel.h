@@ -6,9 +6,9 @@
 //  Copyright © 2016年 GQXX. All rights reserved.
 //
 
-#import "BasicModel.h"
+#import "ZBBasicModel.h"
 
-@interface BiaoQianModel : BasicModel
+@interface BiaoQianModel : ZBBasicModel
 @property (nonatomic, assign)NSInteger BQid;
 @property (nonatomic, retain)NSString *name;
 @property (nonatomic, retain)NSString *remark;

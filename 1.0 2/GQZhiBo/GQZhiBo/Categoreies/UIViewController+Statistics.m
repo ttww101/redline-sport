@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+Statistics.h"
-#import "GQAspectManager.h"
+#import "ZBAspectManager.h"
 
 @implementation UIViewController (Statistics)
 
@@ -41,7 +41,7 @@
 
 - (void)swiz_viewWillAppear:(BOOL)animated {
     NSString *classNmae = NSStringFromClass([self class]);
-    NSMutableDictionary *dic = [GQAspectManager GQ_PathForPageDic];
+    NSMutableDictionary *dic = [ZBAspectManager GQ_PathForPageDic];
     NSDictionary *pageDic = dic[@"pageDic"];
     NSString *pageName = pageDic[classNmae];
     if (pageName.length > 0 && pageName != nil) {
@@ -52,7 +52,7 @@
 
 - (void)swiz_ViewDisappear:(BOOL)animated {
     NSString *classNmae = NSStringFromClass([self class]);
-    NSMutableDictionary *dic = [GQAspectManager GQ_PathForPageDic];
+    NSMutableDictionary *dic = [ZBAspectManager GQ_PathForPageDic];
     NSDictionary *pageDic = dic[@"pageDic"];
     NSString *pageName = pageDic[classNmae];
     if (pageName.length > 0 && pageName != nil) {

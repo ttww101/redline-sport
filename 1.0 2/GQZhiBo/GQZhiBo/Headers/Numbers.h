@@ -5,7 +5,7 @@
 //  Created by WQ_h on 15/12/22.
 //  Copyright (c) 2015年 WQ_h. All rights reserved.
 //
-#import "Methods.h"
+#import "ZBMethods.h"
 #ifndef GunQiuLive_Numbers_h
 #define GunQiuLive_Numbers_h
 #define Zero             (0)
