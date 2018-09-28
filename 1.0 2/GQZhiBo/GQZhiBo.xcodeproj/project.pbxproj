@@ -51,6 +51,7 @@
 		A920B9C020BD656900867100 /* ZBHeaderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BF20BD656900867100 /* ZBHeaderControl.m */; };
 		A9317BE22081A5D40094500A /* DIN-Bold.TTF in Resources */ = {isa = PBXBuildFile; fileRef = A9317BE02081A5D30094500A /* DIN-Bold.TTF */; };
 		A9317BE52081BACB0094500A /* ZBWithdrawalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9317BE42081BACB0094500A /* ZBWithdrawalModel.m */; };
+		A9363D662150D60E00EB18F9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9363D652150D60E00EB18F9 /* StoreKit.framework */; };
 		A93A4A7420731228007CED8F /* ZBWebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A93A4A7320731228007CED8F /* ZBWebModel.m */; };
 		A93C86B120E61C7900041AD9 /* wuxiaoNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A93C86A720E61C7600041AD9 /* wuxiaoNew@2x.png */; };
 		A93C86B220E61C7900041AD9 /* lose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A93C86A820E61C7600041AD9 /* lose@2x.png */; };
@@ -1800,6 +1801,7 @@
 		A9317BE02081A5D30094500A /* DIN-Bold.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DIN-Bold.TTF"; sourceTree = "<group>"; };
 		A9317BE32081BACB0094500A /* ZBWithdrawalModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWithdrawalModel.h; sourceTree = "<group>"; };
 		A9317BE42081BACB0094500A /* ZBWithdrawalModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWithdrawalModel.m; sourceTree = "<group>"; };
+		A9363D652150D60E00EB18F9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A93A4A7220731228007CED8F /* ZBWebModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWebModel.h; sourceTree = "<group>"; };
 		A93A4A7320731228007CED8F /* ZBWebModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWebModel.m; sourceTree = "<group>"; };
 		A93C86A720E61C7600041AD9 /* wuxiaoNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wuxiaoNew@2x.png"; sourceTree = "<group>"; };
@@ -4527,6 +4529,7 @@
 				A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */,
 				A9E876372080409800480C81 /* Charts.framework in Frameworks */,
 				089A6AAEB5921B3B3FF11925 /* Pods_GQZhiBo.framework in Frameworks */,
+				A9363D662150D60E00EB18F9 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10357,6 +10360,7 @@
 		FC658D28C1ECD243C61D154B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A9363D652150D60E00EB18F9 /* StoreKit.framework */,
 				7ADBF1513C6676E76BF5EF48 /* Pods_GQZhiBo.framework */,
 			);
 			name = Frameworks;
@@ -10399,9 +10403,9 @@
 				TargetAttributes = {
 					EBC0A2A41CA924AE00F75E7E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = A4MC62Y5RA;
+						DevelopmentTeam = 242Y3S46QH;
 						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -12402,9 +12406,9 @@
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
+				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12461,13 +12465,13 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.GunQiuLive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ca34533b-8998-4597-af6f-c9adb280d81c";
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -12483,8 +12487,8 @@
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12541,12 +12545,12 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.GunQiuLive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ca34533b-8998-4597-af6f-c9adb280d81c";
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -12606,8 +12610,8 @@
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A4MC62Y5RA;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -12664,12 +12668,12 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.GunQiuLive;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ca34533b-8998-4597-af6f-c9adb280d81c";
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "ad hoc distribution";

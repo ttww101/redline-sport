@@ -495,6 +495,7 @@
    // 新加
     APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时赔率的
     APPDELEGATE.url_ip = @"http://mobile.gunqiu.com";
+    
 
     //    本地测试环境
 //    APPDELEGATE.url_Server = @"http://10.0.80.95/interface";
@@ -666,7 +667,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSLog(@"%@",[[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
+    NSLog(@"deviceToken + %@ ",[[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
                   stringByReplacingOccurrencesOfString: @">" withString: @""]
                  stringByReplacingOccurrencesOfString: @" " withString: @""]);
 }
