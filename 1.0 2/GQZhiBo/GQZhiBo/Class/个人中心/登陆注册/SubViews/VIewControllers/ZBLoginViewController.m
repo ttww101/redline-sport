@@ -290,6 +290,7 @@
             ZBTokenModel *tokenModel = [ZBTokenModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
             [ZBMethods updateTokentModel:tokenModel];
             [ZBMethods updateUsetModel:model];
+           
             NSLog(@"NSData                  - %f",[[NSDate date] timeIntervalSince1970]*1000);
             NSLog(@"refreshTokentime        - %f",[[NSUserDefaults standardUserDefaults] doubleForKey:@"refreshTokentime"]);
             NSLog(@"OutOfRefreshTokenTime   - %f",[[NSUserDefaults standardUserDefaults] doubleForKey:@"OutOfRefreshTokenTime"]);

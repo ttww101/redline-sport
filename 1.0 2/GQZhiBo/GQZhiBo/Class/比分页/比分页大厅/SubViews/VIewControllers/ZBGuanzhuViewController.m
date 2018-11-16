@@ -173,6 +173,10 @@
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         self.defaultFailure = errorDict;
+        if (self.defaultFailure.length == 0) {
+            self.defaultFailure = @"";
+        }
+        
         [self.tableView reloadData];
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];

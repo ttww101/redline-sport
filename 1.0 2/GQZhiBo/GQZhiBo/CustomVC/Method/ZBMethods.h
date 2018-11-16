@@ -59,6 +59,8 @@ typedef NS_ENUM(NSInteger, weekType)
 + (CGFloat)widthForString:(NSString *)value fontSize:(float)fontSize andHeight:(float)height;
 + (CGFloat) heightForString:(NSString *)value fontSize:(float)fontSize andWidth:(float)width;
 + (UIImage *)defaultPlaceHolderImage:(NSString *)imageName;
+
+
 + (NSString *)formatHHSSStamp:(NSUInteger)timeStamp;
 + (NSString *)formatMMDDWithStamp:(NSUInteger)timeStamp;
 + (NSUInteger)formatTimeStr:(NSString *)timeStr;

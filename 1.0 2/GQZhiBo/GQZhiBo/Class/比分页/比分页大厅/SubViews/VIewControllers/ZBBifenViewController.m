@@ -484,6 +484,7 @@
         [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_bifen_focus] ArrayFile:nil Start:^(id requestOrignal) {
         } End:^(id responseOrignal) {
         } Success:^(id responseResult, id responseOrignal) {
+            
             if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
                 NSArray *arrAttention  = [[NSArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
                 NSMutableArray *arrMid = [NSMutableArray array];
@@ -496,6 +497,7 @@
             }else{
             }
         } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+
         }];
 }
 - (void)stay

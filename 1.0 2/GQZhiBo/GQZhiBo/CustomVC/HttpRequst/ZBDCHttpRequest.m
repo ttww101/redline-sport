@@ -21,7 +21,7 @@ static AFHTTPRequestOperationManager *_afnetManager;
     }else{
         [_afnetManager.requestSerializer setValue:@"" forHTTPHeaderField:@"token"];
     }
-    [_afnetManager.requestSerializer setValue:@"GQLive" forHTTPHeaderField:@"User-Agent"];
+    [_afnetManager.requestSerializer setValue:@"GQTY" forHTTPHeaderField:@"User-Agent"];
     return dcHttpRequset;
     return nil;
 }

@@ -6,6 +6,7 @@
 #import "ZBCommentsViewController.h"
 #import "ZBCommentsDetailViewController.h"
 #import "ZBInputViewController.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 @interface ZBCommentsViewController ()  <UITableViewDataSource, UITableViewDelegate, InfoTableViewCellDelegate>
 @property (nonatomic , strong) ZBInfoViewModel *viewModel;
 @property (nonatomic , strong) UITableView *tableView;

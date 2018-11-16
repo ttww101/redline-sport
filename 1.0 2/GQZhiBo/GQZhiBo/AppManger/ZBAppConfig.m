@@ -51,7 +51,7 @@
     [wkWeb evaluateJavaScript:@"navigator.userAgent" completionHandler:^(id result, NSError *error) {
         NSString *oldAgent = result;
         NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
-        NSString *agent = [NSString stringWithFormat:@" GQLive/%@",version];
+        NSString *agent = [NSString stringWithFormat:@" GQTY/%@",version];
         NSString *newAgent = [oldAgent stringByAppendingString:agent];
         NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
         [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];

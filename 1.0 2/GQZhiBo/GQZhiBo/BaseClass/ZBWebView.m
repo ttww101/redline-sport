@@ -86,6 +86,12 @@
         [self closeWin:@""];
         NSDictionary *dataDic = (NSDictionary *)data;
         NSString *className = dataDic[@"n"];
+        if ([className isEqualToString:@"TuijianDetailVC"]) {
+            className = @"ZBTuijianDetailVC";
+        }
+        if ([className isEqualToString:@"UserTuijianVC"]) {
+            className = @"ZBUserTuijianVC";
+        }
         Class targetCalss = NSClassFromString(className);
         id target = [[targetCalss alloc] init];
         if (target == nil) {
