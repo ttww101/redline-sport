@@ -8,9 +8,10 @@
 
 #import "ForumContentHeader.h"
 
+
 @interface ForumContentHeader ()
 
-@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) BaseImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic , strong) UILabel *dateLabel;
 @property (nonatomic , strong) UILabel *titleLabel;
@@ -40,7 +41,7 @@ CGFloat space = 10;
 
 - (void)setInfoModel:(HeaderInfoModel *)infoModel {
     _infoModel = infoModel;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:infoModel.avaterUrl] placeholderImage:[UIImage imageNamed:@"defaultPic1"]];
+    [self.avatarImageView setImageWithAvatarUrl:[NSURL URLWithString:infoModel.avaterUrl] placeholder:[UIImage imageNamed:@"defaultPic1"]];
     self.dateLabel.text = infoModel.dateStr;
     self.nameLabel.text = infoModel.name;
     self.titleLabel.text = infoModel.title;
@@ -128,15 +129,11 @@ CGFloat space = 10;
 
 #pragma mark - Lazy Load
 
-- (UIImageView *)avatarImageView {
+- (BaseImageView *)avatarImageView {
     if (_avatarImageView == nil) {
-        _avatarImageView = [UIImageView new];
-        _avatarImageView.backgroundColor = [UIColor orangeColor];
-        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _avatarImageView.layer.cornerRadius = imageWidth / 2.f;
-        _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView = [BaseImageView new];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_avatarImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarClick)]];
-        _avatarImageView.backgroundColor = [UIColor orangeColor];
         _avatarImageView.userInteractionEnabled = YES;
     }
     return _avatarImageView;
@@ -184,7 +181,6 @@ CGFloat space = 10;
 - (PicView *)picView {
     if (_picView == nil) {
         _picView = [[PicView alloc]init];
-        _picView.backgroundColor = [UIColor orangeColor];
     }
     return _picView;
 }

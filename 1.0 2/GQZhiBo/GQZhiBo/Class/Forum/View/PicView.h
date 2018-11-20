@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BaseImageView.h"
 
 @interface PicView : UIView
 

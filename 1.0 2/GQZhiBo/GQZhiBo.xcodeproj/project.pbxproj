@@ -105,7 +105,9 @@
 		A9546D0B21A3E09A0097B6E8 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D0A21A3E09A0097B6E8 /* CommentCell.m */; };
 		A9546D0E21A3EF290097B6E8 /* PicView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D0D21A3EF290097B6E8 /* PicView.m */; };
 		A9546D1121A3F1A30097B6E8 /* Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D1021A3F1A30097B6E8 /* Layout.m */; };
-		A9546D1421A3F1EB0097B6E8 /* HeaderInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D1321A3F1EB0097B6E8 /* HeaderInfoModel.m */; };
+		A9546D2121A416490097B6E8 /* BaseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D1E21A416490097B6E8 /* BaseImageView.m */; };
+		A9546D2421A417900097B6E8 /* HeaderInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D2321A417900097B6E8 /* HeaderInfoModel.m */; };
+		A9546D2721A422910097B6E8 /* YYPhotoGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D2621A422910097B6E8 /* YYPhotoGroupView.m */; };
 		A961E43320CF9DFB00000E06 /* ZBWebviewProgressLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A961E43220CF9DFB00000E06 /* ZBWebviewProgressLine.m */; };
 		A96C141D2084875500284E4B /* XHPayWxReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14132084875400284E4B /* XHPayWxReq.m */; };
 		A96C141E2084875500284E4B /* XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14162084875400284E4B /* XHPayKit.m */; };
@@ -1248,8 +1250,12 @@
 		A9546D0D21A3EF290097B6E8 /* PicView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PicView.m; sourceTree = "<group>"; };
 		A9546D0F21A3F1A30097B6E8 /* Layout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
 		A9546D1021A3F1A30097B6E8 /* Layout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Layout.m; sourceTree = "<group>"; };
-		A9546D1221A3F1EB0097B6E8 /* HeaderInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderInfoModel.h; sourceTree = "<group>"; };
-		A9546D1321A3F1EB0097B6E8 /* HeaderInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderInfoModel.m; sourceTree = "<group>"; };
+		A9546D1E21A416490097B6E8 /* BaseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseImageView.m; sourceTree = "<group>"; };
+		A9546D1F21A416490097B6E8 /* BaseImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseImageView.h; sourceTree = "<group>"; };
+		A9546D2221A417900097B6E8 /* HeaderInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderInfoModel.h; sourceTree = "<group>"; };
+		A9546D2321A417900097B6E8 /* HeaderInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderInfoModel.m; sourceTree = "<group>"; };
+		A9546D2521A422910097B6E8 /* YYPhotoGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPhotoGroupView.h; sourceTree = "<group>"; };
+		A9546D2621A422910097B6E8 /* YYPhotoGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPhotoGroupView.m; sourceTree = "<group>"; };
 		A961E43120CF9DFB00000E06 /* ZBWebviewProgressLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWebviewProgressLine.h; sourceTree = "<group>"; };
 		A961E43220CF9DFB00000E06 /* ZBWebviewProgressLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWebviewProgressLine.m; sourceTree = "<group>"; };
 		A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+XHPayKit.h"; sourceTree = "<group>"; };
@@ -2604,6 +2610,7 @@
 				A91D406920C77FC20059D501 /* ZBWebView.m */,
 				A961E43120CF9DFB00000E06 /* ZBWebviewProgressLine.h */,
 				A961E43220CF9DFB00000E06 /* ZBWebviewProgressLine.m */,
+				A9546D1D21A416490097B6E8 /* BaseImageView */,
 			);
 			path = BaseClass;
 			sourceTree = "<group>";
@@ -2837,6 +2844,17 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		A9546D1D21A416490097B6E8 /* BaseImageView */ = {
+			isa = PBXGroup;
+			children = (
+				A9546D1F21A416490097B6E8 /* BaseImageView.h */,
+				A9546D1E21A416490097B6E8 /* BaseImageView.m */,
+				A9546D2521A422910097B6E8 /* YYPhotoGroupView.h */,
+				A9546D2621A422910097B6E8 /* YYPhotoGroupView.m */,
+			);
+			path = BaseImageView;
+			sourceTree = "<group>";
+		};
 		A96C14112084875400284E4B /* XHPayKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2888,6 +2906,8 @@
 		A97DD4D121A290DE00F12FEA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A9546D2221A417900097B6E8 /* HeaderInfoModel.h */,
+				A9546D2321A417900097B6E8 /* HeaderInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2920,8 +2940,6 @@
 			children = (
 				A97DD4DE21A2971400F12FEA /* ForumViewModel.h */,
 				A97DD4DF21A2971400F12FEA /* ForumViewModel.m */,
-				A9546D1221A3F1EB0097B6E8 /* HeaderInfoModel.h */,
-				A9546D1321A3F1EB0097B6E8 /* HeaderInfoModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -7924,8 +7942,11 @@
 				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
 				"${BUILT_PRODUCTS_DIR}/TYPagerController/TYPagerController.framework",
 				"${BUILT_PRODUCTS_DIR}/UITableView+FDTemplateLayoutCell/UITableView_FDTemplateLayoutCell.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
+				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -7942,8 +7963,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TYPagerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITableView_FDTemplateLayoutCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -8225,6 +8249,7 @@
 				EB3E74E41F3C726600C29DA7 /* ZBBaolengDetailModel.m in Sources */,
 				EB8C1E6A1F21944C00A07863 /* ZBUsermarkModel.m in Sources */,
 				EB8C1FC11F219A8C00A07863 /* ZBMethods.m in Sources */,
+				A9546D2121A416490097B6E8 /* BaseImageView.m in Sources */,
 				EB7684321F3AF5800054A705 /* ZBBaolengMatchModel.m in Sources */,
 				A99166252111B07400FABE68 /* ZBInfoViewModel.m in Sources */,
 				EB8C1E401F21944C00A07863 /* ZBFeedbackVC.m in Sources */,
@@ -8239,6 +8264,7 @@
 				EB8C1E8D1F21944C00A07863 /* ZBQiciModel.m in Sources */,
 				EB75EDB21F3D4FEA00B6046C /* ZBDoubleBattleVC.m in Sources */,
 				EB274D441F4AF1B500CB6840 /* ZBUserTongjiGoodPlayCell.m in Sources */,
+				A9546D2421A417900097B6E8 /* HeaderInfoModel.m in Sources */,
 				EB8C1E5E1F21944C00A07863 /* ZBNewQingBaoCell.m in Sources */,
 				EB8C20291F21A10C00A07863 /* ZBUserTongjiView.m in Sources */,
 				A97C522E20E3A668005D0B26 /* ZBMessageControl.m in Sources */,
@@ -8255,7 +8281,6 @@
 				EB8C1E831F21944C00A07863 /* ZBJiBenWebView.m in Sources */,
 				EBF439321E9F56A90050AAE8 /* UIView+Additions.m in Sources */,
 				EBF223301F8E330C00A1E67B /* ZBBangAccountVC.m in Sources */,
-				A9546D1421A3F1EB0097B6E8 /* HeaderInfoModel.m in Sources */,
 				EB75EDB71F3D508700B6046C /* ZBZhiboTableView.m in Sources */,
 				EB6685341F4FF6490082EA34 /* ZBPeilvViewOfTuijianCell.m in Sources */,
 				EB6BDA361F395E3300C9EA73 /* ZBTongpeiDTResultView.m in Sources */,
@@ -8379,6 +8404,7 @@
 				EB8C202F1F21A44D00A07863 /* ZBNewZhiShuWebVC.m in Sources */,
 				EB518D0E1F7B84E100D548BC /* ZBRightSlidetabletableViewCell.m in Sources */,
 				EB3105D81F457F52009E6AE9 /* ZBRoundUserView.m in Sources */,
+				A9546D2721A422910097B6E8 /* YYPhotoGroupView.m in Sources */,
 				A9E8764320807F9700480C81 /* ZBCouponListViewController.m in Sources */,
 				EB8C1E5A1F21944C00A07863 /* ZBForgetPswViewController.m in Sources */,
 				A91C6DF8207C4D240035DFC0 /* ZBOldMineViewController.m in Sources */,
