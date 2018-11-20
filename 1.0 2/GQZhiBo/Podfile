@@ -27,6 +27,7 @@ target 'GQZhiBo' do
     pod 'Bugly', '~> 2.4.6'
     
     pod 'YYModel', '~> 1.0.4'
+    pod 'YYCategories'
     pod 'TYPagerController'
 
     pod 'Masonry', '~> 1.0.1'

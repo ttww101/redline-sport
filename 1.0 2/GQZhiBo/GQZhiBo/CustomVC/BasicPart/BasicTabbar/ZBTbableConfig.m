@@ -8,6 +8,7 @@
 - (ZBDCTabBarController *)tableBarController {
     if (_tableBarController == nil) {
         _tableBarController = [[ZBDCTabBarController alloc]initWithItemArray:[self tableBarItemArray]];
+        [[UITabBar appearance] setTranslucent:false];
     }
     return _tableBarController;
 }

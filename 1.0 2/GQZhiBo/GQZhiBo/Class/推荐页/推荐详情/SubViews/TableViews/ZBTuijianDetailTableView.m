@@ -126,10 +126,12 @@
         return 0;
     }
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.superview endEditing:YES];
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -159,6 +161,7 @@
     }
     return 0;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
@@ -196,6 +199,7 @@
     }
     return nil;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
@@ -258,6 +262,7 @@
     }
     return nil;
 }
+
 - (void)payViewTap {
     NSLog(@"view被点击");
     if ([ZBMethods getUserModel].idId != _headerModel.user_id) {
@@ -273,6 +278,7 @@
     buyerVC.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:buyerVC animated:YES];
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
@@ -280,15 +286,18 @@
     }
     return 0;
 }
+
 - (void)reloadData
 {
     [super reloadData];
     _arrCells = [[NSMutableArray alloc] init];
 }
+
 - (void)didShowMoreBtn
 {    
     [self reloadData];
 }
+
 - (void)touchBasicViewToHideHudViewWithIdid:(NSInteger)Idid
 {
     for (int i = 0; i<_arrCells.count; i++) {
@@ -299,6 +308,7 @@
         }
     }
 }
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.superview endEditing:YES];

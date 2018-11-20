@@ -58,6 +58,9 @@ PODS:
   - UMCShare/UI (6.9.0):
     - UMCCommon
     - UMCShare/Core
+  - YYCategories (1.0.4):
+    - YYCategories/no-arc (= 1.0.4)
+  - YYCategories/no-arc (1.0.4)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -84,10 +87,11 @@ DEPENDENCIES:
   - UMCShare/Social/ReducedSina
   - UMCShare/Social/ReducedWeChat
   - UMCShare/UI
+  - YYCategories
   - YYModel (~> 1.0.4)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Bugly
     - DCPathButton
@@ -108,6 +112,7 @@ SPEC REPOS:
     - UMCPush
     - UMCSecurityPlugins
     - UMCShare
+    - YYCategories
     - YYModel
 
 SPEC CHECKSUMS:
@@ -131,8 +136,9 @@ SPEC CHECKSUMS:
   UMCPush: eabf1963436e16f0578a12d3d8e203f45170d50c
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   UMCShare: 0c406a22c874fe6c9c97784a71db349e7fcea0eb
+  YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 938a4cf1a1953bd90c52d52d771df25c362a17f9
+PODFILE CHECKSUM: ab5450ab9237085bdd3af8754e0970ec50f14419
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.6.0.beta.1

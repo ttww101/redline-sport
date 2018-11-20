@@ -117,6 +117,9 @@
     return [ZBMineTableViewCell heightForCell];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ForumViewController *control = [[ForumViewController alloc]init];
+    [self.navigationController pushViewController:control animated:true];
+    return;
     switch (indexPath.section) {
         case 0:{
             if(![ZBMethods login]) {

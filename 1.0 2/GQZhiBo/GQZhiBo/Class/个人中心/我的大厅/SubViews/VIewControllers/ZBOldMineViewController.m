@@ -174,6 +174,7 @@
     }
     return [UIView new];
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     switch (section) {
