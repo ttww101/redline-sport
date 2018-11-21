@@ -42,6 +42,9 @@
 		8481CE7E1F30156300A766F2 /* backNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7D1F30156300A766F2 /* backNew@2x.png */; };
 		A900863720DB4A9600437F72 /* ZBshowVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A900863620DB4A9600437F72 /* ZBshowVideoView.m */; };
 		A911D66E21A4FA110077CC38 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D66D21A4FA110077CC38 /* ZBAppDelegate.m */; };
+		A911D67121A54BB30077CC38 /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D67021A54BB30077CC38 /* CommentModel.m */; };
+		A911D67521A557950077CC38 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D67421A557950077CC38 /* HeaderView.m */; };
+		A911D67A21A55DA90077CC38 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D67921A55DA90077CC38 /* ItemCell.m */; };
 		A9128A9C20F610FD0012AB4D /* company.png in Resources */ = {isa = PBXBuildFile; fileRef = A9128A9B20F610FD0012AB4D /* company.png */; };
 		A91C6DF8207C4D240035DFC0 /* ZBOldMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* ZBOldMineViewController.m */; };
 		A91C6DFB207C5EE70035DFC0 /* ZBTuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* ZBTuijianDatingCell.m */; };
@@ -1138,6 +1141,12 @@
 		A900863620DB4A9600437F72 /* ZBshowVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBshowVideoView.m; sourceTree = "<group>"; };
 		A911D66C21A4FA100077CC38 /* ZBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
 		A911D66D21A4FA110077CC38 /* ZBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
+		A911D66F21A54BB30077CC38 /* CommentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
+		A911D67021A54BB30077CC38 /* CommentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		A911D67321A557950077CC38 /* HeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
+		A911D67421A557950077CC38 /* HeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		A911D67821A55DA90077CC38 /* ItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
+		A911D67921A55DA90077CC38 /* ItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
 		A9128A9B20F610FD0012AB4D /* company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = company.png; sourceTree = "<group>"; };
 		A91C6DF6207C4D240035DFC0 /* ZBOldMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBOldMineViewController.m; sourceTree = "<group>"; };
 		A91C6DF7207C4D240035DFC0 /* ZBOldMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBOldMineViewController.h; sourceTree = "<group>"; };
@@ -2840,6 +2849,8 @@
 			children = (
 				A9546D0921A3E09A0097B6E8 /* CommentCell.h */,
 				A9546D0A21A3E09A0097B6E8 /* CommentCell.m */,
+				A911D67821A55DA90077CC38 /* ItemCell.h */,
+				A911D67921A55DA90077CC38 /* ItemCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2908,6 +2919,8 @@
 			children = (
 				A9546D2221A417900097B6E8 /* HeaderInfoModel.h */,
 				A9546D2321A417900097B6E8 /* HeaderInfoModel.m */,
+				A911D66F21A54BB30077CC38 /* CommentModel.h */,
+				A911D67021A54BB30077CC38 /* CommentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2921,6 +2934,8 @@
 				A9546D0D21A3EF290097B6E8 /* PicView.m */,
 				A9546D0F21A3F1A30097B6E8 /* Layout.h */,
 				A9546D1021A3F1A30097B6E8 /* Layout.m */,
+				A911D67321A557950077CC38 /* HeaderView.h */,
+				A911D67421A557950077CC38 /* HeaderView.m */,
 				A9546D0821A3E0810097B6E8 /* Cell */,
 			);
 			path = View;
@@ -8151,6 +8166,7 @@
 				A951F99A213D0BB00001B803 /* ZBBasicTableView.m in Sources */,
 				EB8C1E601F21944C00A07863 /* ZBNewQingBaoViewController.m in Sources */,
 				EB8C1E5B1F21944C00A07863 /* ZBLoginViewController.m in Sources */,
+				A911D67121A54BB30077CC38 /* CommentModel.m in Sources */,
 				EB8C20251F21A0AA00A07863 /* ZBTotalrateModel.m in Sources */,
 				EB8C20111F219E7800A07863 /* ZBDxModel.m in Sources */,
 				EBC6E4351F418C34005D1188 /* ZBBisaiTongjiCell.m in Sources */,
@@ -8376,10 +8392,12 @@
 				A900863720DB4A9600437F72 /* ZBshowVideoView.m in Sources */,
 				EB8C1EB11F21944C00A07863 /* ZBJiXianTableView.m in Sources */,
 				A9B52295209321A9001DF9B9 /* ZBMineTableViewCell.m in Sources */,
+				A911D67521A557950077CC38 /* HeaderView.m in Sources */,
 				EB8C1E581F21944C00A07863 /* ZBSuccessfulView.m in Sources */,
 				EB6BDA331F395B1600C9EA73 /* ZBTongpeiDTTitileView.m in Sources */,
 				EB8C1E4F1F21944C00A07863 /* ZBTongjiVC.m in Sources */,
 				EB8C1FCC1F219A8C00A07863 /* ZBLMJScrollTextView.m in Sources */,
+				A911D67A21A55DA90077CC38 /* ItemCell.m in Sources */,
 				EB8C1E851F21944C00A07863 /* ZBNewTuijianHtml.m in Sources */,
 				EB518D011F7B807100D548BC /* ZBFeedBackHeaderView.m in Sources */,
 				EB467B3F1F429EBE00C7299E /* ZBBisaiTHeaderFenxiView.m in Sources */,
@@ -8568,8 +8586,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 242Y3S46QH;
@@ -8631,7 +8649,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -8648,8 +8666,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -8710,7 +8728,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -8770,8 +8788,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -8832,7 +8850,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

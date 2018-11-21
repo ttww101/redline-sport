@@ -9,6 +9,7 @@
 #import "ZBBasicViewController.h"
 #import "ForumContentHeader.h"
 #import "CommentCell.h"
+#import "CommentModel.h"
 
 @interface ForumViewController : ZBBasicViewController
 

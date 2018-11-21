@@ -22,7 +22,7 @@
 @property (nonatomic, assign) CGFloat headerHeight;
 
 /**
- 标题
+ 用户名
  */
 @property(nonatomic, copy) NSString *name;
 

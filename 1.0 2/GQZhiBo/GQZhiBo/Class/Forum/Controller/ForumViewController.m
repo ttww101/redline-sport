@@ -7,11 +7,14 @@
 //
 
 #import "ForumViewController.h"
+#import "HeaderView.h"
 
 @interface ForumViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *headers;
+@property (nonatomic, strong) NSMutableArray<CommentModel *> *comments;
+@property (nonatomic, strong) HeaderView *headerView;
 
 
 @end
@@ -70,12 +73,23 @@ static NSString *const CellID = @"CellID";
         
         [self.headers addObject:model];
     }
+    
+    for (NSInteger i = 0; i < 3; i ++) {
+        CommentModel *model = [[CommentModel alloc]init];
+        model.name = @"耿磊";
+        model.dateStr = @"五分钟前";
+        model.avaterUrl = @"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100";
+        model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了，在这里 面有了一批支持我....";
+        [self.comments addObject:model];
+    }
+    
+    self.tableView.tableHeaderView = self.headerView;
 }
 
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -84,6 +98,7 @@ static NSString *const CellID = @"CellID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID forIndexPath:indexPath];
+    cell.model = self.comments[indexPath.row];
     return  cell;
 }
 
@@ -91,7 +106,9 @@ static NSString *const CellID = @"CellID";
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 0;
+    CommentModel *model = self.comments[indexPath.row];
+    [model calculateCellHeight];
+    return model.cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -137,6 +154,7 @@ static NSString *const CellID = @"CellID";
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [_tableView registerClass:NSClassFromString(@"CommentCell") forCellReuseIdentifier:CellID];
         [_tableView registerClass:NSClassFromString(@"ForumContentHeader") forHeaderFooterViewReuseIdentifier:headerID];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
@@ -146,6 +164,20 @@ static NSString *const CellID = @"CellID";
         _headers = [NSMutableArray array];
     }
     return _headers;
+}
+
+- (NSMutableArray *)comments {
+    if (_comments == nil) {
+        _comments = [NSMutableArray array];
+    }
+    return  _comments;
+}
+
+- (HeaderView *)headerView {
+    if (_headerView == nil) {
+        _headerView = [[HeaderView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 245)];
+    }
+    return _headerView;
 }
 
 @end

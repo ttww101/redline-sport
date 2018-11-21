@@ -112,4 +112,9 @@
 #define colorffba12 UIColorFromRGBWithOX(0xFFBA12)
 #define colorE4a100 UIColorFromRGBWithOX(0xe4a100)
 #define color45c4ee UIColorFromRGBWithOX(0x45c4ee)
+
+#import <YYCategories/YYCategories.h>
+#import <YYModel/YYModel.h>
+#import "BaseImageView.h"
+
 #endif

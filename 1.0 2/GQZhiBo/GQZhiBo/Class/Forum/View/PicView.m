@@ -13,6 +13,7 @@
 
 - (void)setDataSource:(NSArray *)dataSource {
     _dataSource = dataSource;
+    [self removeAllSubviews];
     NSMutableArray *images = [NSMutableArray arrayWithArray:dataSource];
     if (_dataSource.count >= 3) {
         [images removeAllObjects];
