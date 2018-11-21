@@ -41,6 +41,7 @@
 		8481CE7C1F3014EA00A766F2 /* backNew2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7B1F3014EA00A766F2 /* backNew2@2x.png */; };
 		8481CE7E1F30156300A766F2 /* backNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8481CE7D1F30156300A766F2 /* backNew@2x.png */; };
 		A900863720DB4A9600437F72 /* ZBshowVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A900863620DB4A9600437F72 /* ZBshowVideoView.m */; };
+		A911D66E21A4FA110077CC38 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D66D21A4FA110077CC38 /* ZBAppDelegate.m */; };
 		A9128A9C20F610FD0012AB4D /* company.png in Resources */ = {isa = PBXBuildFile; fileRef = A9128A9B20F610FD0012AB4D /* company.png */; };
 		A91C6DF8207C4D240035DFC0 /* ZBOldMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* ZBOldMineViewController.m */; };
 		A91C6DFB207C5EE70035DFC0 /* ZBTuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* ZBTuijianDatingCell.m */; };
@@ -899,7 +900,6 @@
 		EBBA7E351F7A4739004CC168 /* addJingcaiS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBBA7E331F7A4739004CC168 /* addJingcaiS@2x.png */; };
 		EBBA7E371F7A48BD004CC168 /* fabuJingcai@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EBBA7E361F7A48BD004CC168 /* fabuJingcai@2x.png */; };
 		EBC0A2AA1CA924AE00F75E7E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC0A2A91CA924AE00F75E7E /* main.m */; };
-		EBC0A2AD1CA924AE00F75E7E /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC0A2AC1CA924AE00F75E7E /* ZBAppDelegate.m */; };
 		EBC0A2B31CA924AE00F75E7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2B11CA924AE00F75E7E /* Main.storyboard */; };
 		EBC0A2B51CA924AE00F75E7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2B41CA924AE00F75E7E /* Assets.xcassets */; };
 		EBC0A3C21CA92AD700F75E7E /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC0A2DE1CA92AD700F75E7E /* clear.png */; };
@@ -1136,6 +1136,8 @@
 		90183C425C9F0591264B3B84 /* Pods-GQZhiBo.ad hoc distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GQZhiBo.ad hoc distribution.xcconfig"; path = "Pods/Target Support Files/Pods-GQZhiBo/Pods-GQZhiBo.ad hoc distribution.xcconfig"; sourceTree = "<group>"; };
 		A900863520DB4A9600437F72 /* ZBshowVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBshowVideoView.h; sourceTree = "<group>"; };
 		A900863620DB4A9600437F72 /* ZBshowVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBshowVideoView.m; sourceTree = "<group>"; };
+		A911D66C21A4FA100077CC38 /* ZBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
+		A911D66D21A4FA110077CC38 /* ZBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
 		A9128A9B20F610FD0012AB4D /* company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = company.png; sourceTree = "<group>"; };
 		A91C6DF6207C4D240035DFC0 /* ZBOldMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBOldMineViewController.m; sourceTree = "<group>"; };
 		A91C6DF7207C4D240035DFC0 /* ZBOldMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBOldMineViewController.h; sourceTree = "<group>"; };
@@ -2393,8 +2395,6 @@
 		EBBA7E361F7A48BD004CC168 /* fabuJingcai@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fabuJingcai@2x.png"; sourceTree = "<group>"; };
 		EBC0A2A51CA924AE00F75E7E /* GQZhiBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GQZhiBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC0A2A91CA924AE00F75E7E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EBC0A2AB1CA924AE00F75E7E /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
-		EBC0A2AC1CA924AE00F75E7E /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
 		EBC0A2B21CA924AE00F75E7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EBC0A2B41CA924AE00F75E7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EBC0A2B91CA924AE00F75E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -6513,8 +6513,8 @@
 			isa = PBXGroup;
 			children = (
 				A9317BE02081A5D30094500A /* DIN-Bold.TTF */,
-				EBC0A2AB1CA924AE00F75E7E /* ZBAppDelegate.h */,
-				EBC0A2AC1CA924AE00F75E7E /* ZBAppDelegate.m */,
+				A911D66C21A4FA100077CC38 /* ZBAppDelegate.h */,
+				A911D66D21A4FA110077CC38 /* ZBAppDelegate.m */,
 				EBC0A2B11CA924AE00F75E7E /* Main.storyboard */,
 				EB4617721E1611E900A2907E /* ZBFile.swift */,
 				EBC0A2B41CA924AE00F75E7E /* Assets.xcassets */,
@@ -8115,6 +8115,7 @@
 				EB4617731E1611E900A2907E /* ZBFile.swift in Sources */,
 				EB8C1E4D1F21944C00A07863 /* ZBUserTuijianTable.m in Sources */,
 				EB8C1E5F1F21944C00A07863 /* ZBQingBaoFPTwoModel.m in Sources */,
+				A911D66E21A4FA110077CC38 /* ZBAppDelegate.m in Sources */,
 				EB8C1E8E1F21944C00A07863 /* ZBDCindexBtn.m in Sources */,
 				EB8C1E8C1F21944C00A07863 /* ZBLivingModel.m in Sources */,
 				EB8C1E821F21944C00A07863 /* ZBFenxiHeaderView.m in Sources */,
@@ -8159,7 +8160,6 @@
 				EB6BDA541F39C19900C9EA73 /* ZBBaolengDetailVC.m in Sources */,
 				A991662D2111B07400FABE68 /* ZBHeaderTableViewCell.m in Sources */,
 				A9546D0B21A3E09A0097B6E8 /* CommentCell.m in Sources */,
-				EBC0A2AD1CA924AE00F75E7E /* ZBAppDelegate.m in Sources */,
 				EB9DA4F31F4EC75A00DE7FB9 /* ZBTuijianDatingTable.m in Sources */,
 				EB8C1E4B1F21944C00A07863 /* ZBUserTuiianView.m in Sources */,
 				EB8C1EE51F21974000A07863 /* ZBZhumaViewOfFabuTuijian.m in Sources */,
@@ -8568,8 +8568,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 242Y3S46QH;
@@ -8631,7 +8631,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -8648,8 +8648,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -8710,7 +8710,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -8770,8 +8770,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -8832,7 +8832,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

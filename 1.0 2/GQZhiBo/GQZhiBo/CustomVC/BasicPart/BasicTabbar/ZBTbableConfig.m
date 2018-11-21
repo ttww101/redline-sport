@@ -126,8 +126,20 @@
                                                  GQTabBarItemWbebModel : model,
                                                  GQTabBarItemLoadH5 : @(1)
                                                  };
-    NSDictionary *secondTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBTuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
-    NSDictionary *fourthTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBOldMineViewController" title:@"我的" defaultImage:@"wode" selectImage:@"wode-1"];
+//    NSDictionary *secondTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBTuijianDTViewController" title:@"推荐" defaultImage:@"tuijian" selectImage:@"tuijian-1"];
+    ZBWebModel *tuiijanModel = [[ZBWebModel alloc]init];
+    tuiijanModel.title = @"推荐";
+    tuiijanModel.webUrl = [NSString stringWithFormat:@"%@/%@/tuijianIndex.html", APPDELEGATE.url_ip,H5_Host];
+    model.hideNavigationBar = YES;
+    NSDictionary *secondTabBarItemsAttributes = @{
+                                                 GQTableBarControllerName : @"ZBToolWebViewController",
+                                                 GQTabBarItemTitle : @"推荐",
+                                                 GQTabBarItemImage : [[UIImage imageNamed:@"tuijian"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                                 GQTabBarItemSelectedImage : [[UIImage imageNamed:@"tuijian-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal],
+                                                 GQTabBarItemWbebModel : tuiijanModel,
+                                                 GQTabBarItemLoadH5 : @(1)
+                                                 };
+    NSDictionary *fourthTabBarItemsAttributes = [self tableBarItemControllerName:@"ZBMineViewController" title:@"我的" defaultImage:@"wode" selectImage:@"wode-1"];
     NSArray *array = @[firstTabBarItemsAttributes, secondTabBarItemsAttributes, fifthTabBarItemsAttributes, thirdTabBarItemsAttributes, fourthTabBarItemsAttributes];
     return array;
 }
