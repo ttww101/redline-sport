@@ -72,6 +72,7 @@
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeSystem];
         backButton.frame = CGRectMake(0, 0, 44, 44);
         [backButton setImage:backImage forState:UIControlStateNormal];
+        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0);
         backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [backButton addTarget:self action:@selector(leftBtnItemAction) forControlEvents:UIControlEventTouchUpInside];
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];

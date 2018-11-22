@@ -349,7 +349,11 @@
         });
     }];
     [self.bridge registerHandler:@"openBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[data stringValue]]];
+        if ([data isKindOfClass:[NSString class]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data]];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"地址错误"];
+        }
     }];
     [self.bridge registerHandler:@"pagetoolbar" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];

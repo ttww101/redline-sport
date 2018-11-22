@@ -169,6 +169,11 @@
 		A9E876532080BBE100480C81 /* ZBLiveQuizWithDrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E876522080BBE100480C81 /* ZBLiveQuizWithDrawalViewController.m */; };
 		A9E876572080BD4700480C81 /* ZBLiveQuizWithdrawalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E876562080BD4700480C81 /* ZBLiveQuizWithdrawalTableViewCell.m */; };
 		A9E8765B2080C26700480C81 /* ZBWithdrawalView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8765A2080C26700480C81 /* ZBWithdrawalView.m */; };
+		A9EABCCA21A685A2000CF745 /* ForumTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EABCC921A685A2000CF745 /* ForumTypeViewController.m */; };
+		A9EABCCE21A68BE8000CF745 /* TypeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EABCCD21A68BE8000CF745 /* TypeHeaderView.m */; };
+		A9EABCD321A69ECC000CF745 /* ItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EABCD221A69ECC000CF745 /* ItemView.m */; };
+		A9EABCD821A6AC07000CF745 /* SectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EABCD721A6AC07000CF745 /* SectionView.m */; };
+		A9EABCDC21A6B2B7000CF745 /* NavView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EABCDB21A6B2B7000CF745 /* NavView.m */; };
 		EB041C111F177BB100E80C97 /* share03.png in Resources */ = {isa = PBXBuildFile; fileRef = EB041C101F177BB100E80C97 /* share03.png */; };
 		EB076A6D1EC321A000940D64 /* attentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6B1EC321A000940D64 /* attentionNew@2x.png */; };
 		EB076A6E1EC321A000940D64 /* noAttentionNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB076A6C1EC321A000940D64 /* noAttentionNew@2x.png */; };
@@ -1373,6 +1378,16 @@
 		A9E876562080BD4700480C81 /* ZBLiveQuizWithdrawalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLiveQuizWithdrawalTableViewCell.m; sourceTree = "<group>"; };
 		A9E876592080C26700480C81 /* ZBWithdrawalView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWithdrawalView.h; sourceTree = "<group>"; };
 		A9E8765A2080C26700480C81 /* ZBWithdrawalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWithdrawalView.m; sourceTree = "<group>"; };
+		A9EABCC821A685A2000CF745 /* ForumTypeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumTypeViewController.h; sourceTree = "<group>"; };
+		A9EABCC921A685A2000CF745 /* ForumTypeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumTypeViewController.m; sourceTree = "<group>"; };
+		A9EABCCC21A68BE8000CF745 /* TypeHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeHeaderView.h; sourceTree = "<group>"; };
+		A9EABCCD21A68BE8000CF745 /* TypeHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypeHeaderView.m; sourceTree = "<group>"; };
+		A9EABCD121A69ECC000CF745 /* ItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemView.h; sourceTree = "<group>"; };
+		A9EABCD221A69ECC000CF745 /* ItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemView.m; sourceTree = "<group>"; };
+		A9EABCD621A6AC07000CF745 /* SectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionView.h; sourceTree = "<group>"; };
+		A9EABCD721A6AC07000CF745 /* SectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionView.m; sourceTree = "<group>"; };
+		A9EABCDA21A6B2B7000CF745 /* NavView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavView.h; sourceTree = "<group>"; };
+		A9EABCDB21A6B2B7000CF745 /* NavView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavView.m; sourceTree = "<group>"; };
 		AEEFBD7456A6682D19C3A4A4 /* Pods-GQZhiBo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GQZhiBo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GQZhiBo/Pods-GQZhiBo.debug.xcconfig"; sourceTree = "<group>"; };
 		EB041C101F177BB100E80C97 /* share03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share03.png; sourceTree = "<group>"; };
 		EB076A6B1EC321A000940D64 /* attentionNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "attentionNew@2x.png"; sourceTree = "<group>"; };
@@ -2936,6 +2951,14 @@
 				A9546D1021A3F1A30097B6E8 /* Layout.m */,
 				A911D67321A557950077CC38 /* HeaderView.h */,
 				A911D67421A557950077CC38 /* HeaderView.m */,
+				A9EABCCC21A68BE8000CF745 /* TypeHeaderView.h */,
+				A9EABCCD21A68BE8000CF745 /* TypeHeaderView.m */,
+				A9EABCD121A69ECC000CF745 /* ItemView.h */,
+				A9EABCD221A69ECC000CF745 /* ItemView.m */,
+				A9EABCD621A6AC07000CF745 /* SectionView.h */,
+				A9EABCD721A6AC07000CF745 /* SectionView.m */,
+				A9EABCDA21A6B2B7000CF745 /* NavView.h */,
+				A9EABCDB21A6B2B7000CF745 /* NavView.m */,
 				A9546D0821A3E0810097B6E8 /* Cell */,
 			);
 			path = View;
@@ -2946,6 +2969,8 @@
 			children = (
 				A97DD4D821A2922500F12FEA /* ForumViewController.h */,
 				A97DD4D921A2922500F12FEA /* ForumViewController.m */,
+				A9EABCC821A685A2000CF745 /* ForumTypeViewController.h */,
+				A9EABCC921A685A2000CF745 /* ForumTypeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -8099,6 +8124,7 @@
 				EB8C1E411F21944C00A07863 /* ZBSettingVC.m in Sources */,
 				A9C3BC46209ABE96001674D2 /* ZBPayModel.m in Sources */,
 				EB6149D91F3844D10098C2DE /* ZBTongPeiTongjiTable.m in Sources */,
+				A9EABCCA21A685A2000CF745 /* ForumTypeViewController.m in Sources */,
 				A9546D0E21A3EF290097B6E8 /* PicView.m in Sources */,
 				EB2319D31F7C894A00003F3C /* ZBPlycCell.m in Sources */,
 				EB8C1E491F21944C00A07863 /* ZBUsersCell.m in Sources */,
@@ -8115,6 +8141,7 @@
 				EB8EA73A1F62B10000689C16 /* ZBFabuTuijianSelectedItemVC.m in Sources */,
 				EB8C1EC31F21944C00A07863 /* ZBFirstQBView.m in Sources */,
 				EB75EDA61F3D4FCE00B6046C /* ZBBattleModel.m in Sources */,
+				A9EABCCE21A68BE8000CF745 /* TypeHeaderView.m in Sources */,
 				EB75EDAB1F3D4FDE00B6046C /* ZBPeiLvDetailTableVC.m in Sources */,
 				EBCC68481ECAF656000175E4 /* NSString+TextSize.m in Sources */,
 				EB95FEC81F4C2F8600D29161 /* ZBSetValueFormatter.m in Sources */,
@@ -8176,6 +8203,7 @@
 				EB6BDA541F39C19900C9EA73 /* ZBBaolengDetailVC.m in Sources */,
 				A991662D2111B07400FABE68 /* ZBHeaderTableViewCell.m in Sources */,
 				A9546D0B21A3E09A0097B6E8 /* CommentCell.m in Sources */,
+				A9EABCD321A69ECC000CF745 /* ItemView.m in Sources */,
 				EB9DA4F31F4EC75A00DE7FB9 /* ZBTuijianDatingTable.m in Sources */,
 				EB8C1E4B1F21944C00A07863 /* ZBUserTuiianView.m in Sources */,
 				EB8C1EE51F21974000A07863 /* ZBZhumaViewOfFabuTuijian.m in Sources */,
@@ -8202,6 +8230,7 @@
 				EB8C1E4A1F21944C00A07863 /* ZBUserModel.m in Sources */,
 				EB8C1FB51F219A8C00A07863 /* ZBDCNavViewController.m in Sources */,
 				EB8C20221F21A0AA00A07863 /* ZBStatisticsModel.m in Sources */,
+				A9EABCD821A6AC07000CF745 /* SectionView.m in Sources */,
 				EB8C1E6C1F21944C00A07863 /* ZBTeamViewofTuijianCell.m in Sources */,
 				A920B9C020BD656900867100 /* ZBHeaderControl.m in Sources */,
 				A951F986213D062A0001B803 /* TAPageControl.m in Sources */,
@@ -8214,6 +8243,7 @@
 				EB8C1E841F21944C00A07863 /* ZBNewQingbaoTableView.m in Sources */,
 				A98632D020BE56800021DAFA /* ZBRecommendedWebView.m in Sources */,
 				EB8C200D1F219DD100A07863 /* ZBDC_JZAPhotoVC.m in Sources */,
+				A9EABCDC21A6B2B7000CF745 /* NavView.m in Sources */,
 				EB6BDA4B1F39A2B000C9EA73 /* ZBTongpeiPeilvChangeTItleView.m in Sources */,
 				A9546D1121A3F1A30097B6E8 /* Layout.m in Sources */,
 				EBF439301E9F56A90050AAE8 /* DCImageViewRoundCorner.m in Sources */,

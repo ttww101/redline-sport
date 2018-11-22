@@ -8,6 +8,7 @@
 
 #import "HeaderView.h"
 #import "ItemCell.h"
+#import "ForumTypeViewController.h"
 
 @interface HeaderView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -60,6 +61,13 @@ NSString *const idenfitier = @"cellID";
     return cell;
 }
 
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ForumTypeViewController *control = [[ForumTypeViewController alloc]init];
+    [[ZBMethods help_getCurrentVC].navigationController pushViewController:control animated:true];
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,7 +80,6 @@ NSString *const idenfitier = @"cellID";
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     return 0;
 }
-
 
 #pragma mark - Lazy Load
 

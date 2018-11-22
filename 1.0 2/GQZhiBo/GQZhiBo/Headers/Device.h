@@ -11,6 +11,7 @@
 #define Scale_Ratio_width [UIScreen mainScreen].bounds.size.width/375.0
 #define Scale_Ratio_height [UIScreen mainScreen].bounds.size.height/667.0
 #define Scale_Ratio (1)
+#define Scale_Value(a) a * Scale_Ratio_width
 #define _StatusBarHeight (![UIApplication sharedApplication].statusBarHidden ? [UIApplication sharedApplication].statusBarFrame.size.height : 0)
 #define _ScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define _ScrrenWidth ([UIScreen mainScreen].bounds.size.width)
