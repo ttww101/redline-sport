@@ -8,6 +8,8 @@
 
 #import "ForumViewController.h"
 #import "HeaderView.h"
+#import "PublishViewController.h"
+#import "PlayControl.h"
 
 @interface ForumViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -28,6 +30,7 @@ static NSString *const CellID = @"CellID";
     [super viewDidLoad];
     [self loadData];
     [self configUI];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,6 +134,11 @@ static NSString *const CellID = @"CellID";
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 10.f)];
     footerView.backgroundColor = UIColorHex(#EBEBEB);
     return footerView;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    PublishViewController *control = [[PublishViewController alloc]init];
+    [self.navigationController pushViewController:control animated:true];
 }
 
 #pragma mark - Private Method

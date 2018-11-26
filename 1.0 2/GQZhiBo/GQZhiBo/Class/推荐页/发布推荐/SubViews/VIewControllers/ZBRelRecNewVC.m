@@ -10,6 +10,7 @@
 #import "ZBTitleIndexView.h"
 #import "ZBFaBuSucceedVCViewController.h"
 #import "ZBToAnalystsVC.h"
+#import "PlayControl.h"
 @interface ZBRelRecNewVC ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SelectedViewOfFabuTuijianDelegate,ZhumaViewOfFabuTuijianDelegate,TitleIndexViewDelegate>
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) ZBNavView *nav;
@@ -45,14 +46,190 @@
 @property (nonatomic, strong) UILabel  *labRQ;
 @property (nonatomic, strong) UIButton *btnZhu;
 @property (nonatomic, strong) UIButton *btnKe;
+@property (nonatomic, strong) UIButton *yaCenterBtn;
+
 @property (nonatomic, strong) UILabel  *labDXQ;
 @property (nonatomic, strong) UIButton *btnBig;
 @property (nonatomic, strong) UIButton *btnLittle;
+@property (nonatomic, strong) UIButton *dxCenterBtn;
 @property (nonatomic, assign) int tuijianBackID;
 @property (nonatomic , strong) ZBUserModel *user_Model;
 @property (nonatomic , strong) UISwitch *switchBtn;
+
+@property (nonatomic , strong) PlayControl *leftControl;
+@property (nonatomic , strong) PlayControl *centerControl;
+@property (nonatomic , strong) PlayControl *rightControl;
+@property (nonatomic, strong) UIView  *oddsBgView;
+@property (nonatomic, assign) CGFloat  oddsBtnWidth;
+@property (nonatomic, strong) UILabel  *oddsLab;
+
+
+
 @end
 @implementation ZBRelRecNewVC
+
+#pragma mark - Lazy Load
+
+- (UIScrollView *)ScrollView
+{
+    if (!_ScrollView) {
+        _ScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _nav.bottom, Width, Height -_nav.bottom)];
+        _ScrollView.backgroundColor = [UIColor whiteColor];
+        _ScrollView.scrollEnabled = YES;
+        [self addPlayType]; // 添加顶层 玩法切换
+        //        [_ScrollView addSubview:self.viewDetial];
+        [_ScrollView addSubview:self.oddsBgView];
+//        [_ScrollView addSubview:self.dxBaseView];
+        [_ScrollView addSubview:self.ViewTextTitle];
+        [_ScrollView addSubview:self.textView];
+        [_ScrollView addSubview:self.viewZhuma];
+        _ScrollView.contentSize = CGSizeMake(Width, _ViewTextTitle.bottom + _textViewHeight  + 10 + self.viewZhuma.height+ 15 + 20 + 15 );
+        _ScrollView.userInteractionEnabled = true;
+    }
+    return _ScrollView;
+}
+
+- (UIView *)viewDetialTitle
+{
+    if (!_viewDetialTitle) {
+        _viewDetialTitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 42)];
+        _viewDetialTitle.backgroundColor = [UIColor whiteColor];
+        _viewDetialTitle.userInteractionEnabled = true;
+    }
+    return _viewDetialTitle;
+}
+
+- (UIView *)viewDetial
+{
+    if (!_viewDetial) {
+        _arrSelectedView = [NSMutableArray array];
+        _viewDetial = [[UIView alloc] initWithFrame:CGRectMake(0, 30, Width, 34)];
+        _viewDetial.backgroundColor = [UIColor whiteColor];
+        [_viewDetial addSubview:self.btnOne];
+        [_viewDetial addSubview:self.btnTwo];
+        [_viewDetial addSubview:self.btnThree];
+    }
+    return _viewDetial;
+}
+
+
+- (UIView *)rqBaseView {
+    if (!_rqBaseView) {
+        _rqBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, 30, Width, 34)];
+        _rqBaseView.backgroundColor = [UIColor whiteColor];
+        [_rqBaseView addSubview:self.btnZhu];
+        [_rqBaseView addSubview:self.yaCenterBtn];
+        [_rqBaseView addSubview:self.btnKe];
+    }
+    return _rqBaseView;
+}
+
+- (UIView *)dxBaseView {
+    if (!_dxBaseView) {
+        _dxBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, 30 , Width, 34)];
+        [_dxBaseView addSubview:self.btnBig];
+        [_dxBaseView addSubview:self.dxCenterBtn];
+        [_dxBaseView addSubview:self.btnLittle];
+    }
+    return _dxBaseView;
+}
+
+- (UIView *)oddsBgView {
+    if (_oddsBgView == nil) {
+        _oddsBgView = [[UIView alloc] initWithFrame:CGRectMake(0, _viewDetialTitle.bottom, Width, 44+20+20)];
+        [_oddsBgView addSubview:self.labRQ];
+        [_oddsBgView addSubview:self.viewDetial];
+        [_oddsBgView addSubview:self.rqBaseView];
+        [_oddsBgView addSubview:self.dxBaseView];
+        [_oddsBgView addSubview:self.oddsLab];
+        UIView *spaceView = [[UIView alloc]initWithFrame:CGRectMake(0, 74, Width, 10)];
+        spaceView.backgroundColor = UIColorHex(#E5E5E5);
+        [_oddsBgView addSubview:spaceView];
+    }
+    return _oddsBgView;
+}
+
+- (UILabel *)oddsLab {
+    if (_oddsLab == nil) {
+        _oddsLab = [[UILabel alloc]initWithFrame:CGRectMake(15, self.labRQ.bottom + 10, 60, 20)];
+        _oddsLab.textColor = UIColorHex(#6C6C6C);
+        _oddsLab.textAlignment = NSTextAlignmentLeft;
+        _oddsLab.font = [UIFont systemFontOfSize:12];
+    }
+    return _oddsLab;
+}
+
+- (void)addPlayType {
+    [self.ScrollView addSubview:self.viewDetialTitle];
+    CGFloat width = self.view.width / 3;
+    self.leftControl = [[PlayControl alloc]initWithFrame:CGRectMake(0, 0, width, self.viewDetialTitle.height - 1)];
+    self.leftControl.title = @"胜平负";
+    self.leftControl.userInteractionEnabled = true;
+    [self.viewDetialTitle addSubview:self.leftControl];
+    UIButton *leftbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftbtn addTarget:self action:@selector(spfAction) forControlEvents:UIControlEventTouchUpInside];
+    leftbtn.frame = self.leftControl.frame;
+    [self.viewDetialTitle addSubview:leftbtn];
+    
+    self.centerControl = [[PlayControl alloc]initWithFrame:CGRectMake(width, 0, width, self.viewDetialTitle.height - 1)];
+    self.centerControl.title = @"亚盘";
+    [self.viewDetialTitle addSubview:self.centerControl];
+    UIButton *centerbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [centerbtn addTarget:self action:@selector(yapanAction) forControlEvents:UIControlEventTouchUpInside];
+    centerbtn.frame = self.centerControl.frame;
+    [self.viewDetialTitle addSubview:centerbtn];
+    
+    self.rightControl = [[PlayControl alloc]initWithFrame:CGRectMake(2 * width, 0, width, self.viewDetialTitle.height - 1)];
+    self.rightControl.title = @"大小球";
+    [self.viewDetialTitle addSubview:self.rightControl];
+    UIButton *rightbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightbtn addTarget:self action:@selector(dxAction) forControlEvents:UIControlEventTouchUpInside];
+    rightbtn.frame = self.rightControl.frame;
+    [self.viewDetialTitle addSubview:rightbtn];
+    
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, self.viewDetialTitle.height - 1, Width, 1)];
+    line.backgroundColor = UIColorHex(eeeeee);
+    [self.viewDetialTitle addSubview:line];
+    
+    [self spfAction];
+}
+
+#pragma mark - Events
+
+- (void)spfAction {
+    self.leftControl.isSelected = true;
+    self.centerControl.isSelected = false;
+    self.rightControl.isSelected = false;
+    self.viewDetial.hidden = false;
+    self.rqBaseView.hidden = true;
+    self.dxBaseView.hidden = true;
+    
+}
+
+- (void)yapanAction {
+    self.leftControl.isSelected = false;
+    self.centerControl.isSelected = true;
+    self.rightControl.isSelected = false;
+    self.viewDetial.hidden = true;
+    self.rqBaseView.hidden = false;
+    self.dxBaseView.hidden = true;
+}
+
+- (void)dxAction {
+    self.leftControl.isSelected = false;
+    self.centerControl.isSelected = false;
+    self.rightControl.isSelected = true;
+    self.viewDetial.hidden = true;
+    self.rqBaseView.hidden = true;
+    self.dxBaseView.hidden = false;
+}
+
+
+
+#pragma mark - ************  以下高人所写  ************
+
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     self.navigationController.navigationBarHidden = YES;
@@ -118,6 +295,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.oddsBtnWidth = (self.view.width - 90 ) / 3;
     [self updateModel];
     [self setNavView];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -129,6 +307,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapButtomView)];
     [self.view addGestureRecognizer:tap];
 }
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[ZBUMStatisticsMgr sharedInstance] viewStaticsEndWithMarkStr:@"ZBRelRecNewVC"];
@@ -137,9 +316,11 @@
     _model = model;
     [self.view addSubview:self.ScrollView];
     [self.view addSubview:self.buttomView];
+    
     self.viewZhuma.priceList = _model.priceList;
     if (model.spf.count > 0) {
         ZBDxModel *dxModel = model.spf[0];
+        self.oddsLab.text = dxModel.company;
         [self.btnOne setTitle:[NSString stringWithFormat:@"胜        %.2f",[dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
         [self.btnOne setAttributedTitle:[ZBMethods withContent:self.btnOne.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"胜" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
         [self.btnOne setAttributedTitle:[ZBMethods withContent:self.btnOne.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnOne.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
@@ -152,19 +333,36 @@
     }
     if (model.rq.count > 0) {
         ZBDxModel *dxModel = model.rq[0];
-        [self.btnZhu setTitle:[NSString stringWithFormat:@"%@            %.2f",dxModel.homeDesc,[dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
+        self.oddsLab.text = dxModel.company;
+        [self.btnZhu setTitle:[NSString stringWithFormat:@"主        %.2f",[dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
         [self.btnZhu setAttributedTitle:[ZBMethods withContent:self.btnZhu.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"主" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
         [self.btnZhu setAttributedTitle:[ZBMethods withContent:self.btnZhu.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnZhu.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
-        [self.btnKe setTitle:[NSString stringWithFormat:@"%@             %.2f",dxModel.guestDesc,[dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
+        
+        
+        [self.yaCenterBtn setTitle:[NSString stringWithFormat:@"%@",dxModel.Goal] forState:UIControlStateNormal];
+        [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
+        [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.yaCenterBtn.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        
+     
+        
+        [self.btnKe setTitle:[NSString stringWithFormat:@"客        %.2f",[dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
         [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"客" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
         [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnKe.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
     }
     if (model.dx.count > 0) {
         ZBDxModel *dxModel = model.dx[0];
-        [self.btnBig setTitle:[NSString stringWithFormat:@"%@              %.2f",dxModel.homeDesc,[dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
+        self.oddsLab.text = dxModel.company;
+        [self.btnBig setTitle:[NSString stringWithFormat:@"大        %.2f", [dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
         [self.btnBig setAttributedTitle:[ZBMethods withContent:self.btnBig.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"大" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
         [self.btnBig setAttributedTitle:[ZBMethods withContent:self.btnBig.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnBig.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
-        [self.btnLittle setTitle:[NSString stringWithFormat:@"%@              %.2f",dxModel.guestDesc,[dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
+        
+        
+        
+        [self.dxCenterBtn setTitle:[NSString stringWithFormat:@"%@",dxModel.Goal] forState:UIControlStateNormal];
+        [self.dxCenterBtn setAttributedTitle:[ZBMethods withContent:self.dxCenterBtn.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
+        [self.dxCenterBtn setAttributedTitle:[ZBMethods withContent:self.dxCenterBtn.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.dxCenterBtn.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        
+        [self.btnLittle setTitle:[NSString stringWithFormat:@"小        %.2f", [dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
         [self.btnLittle setAttributedTitle:[ZBMethods withContent:self.btnLittle.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"小" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
         [self.btnLittle setAttributedTitle:[ZBMethods withContent:self.btnLittle.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnLittle.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
     }
@@ -216,6 +414,9 @@
         self.viewZhuma. frame = CGRectMake(0, self.textView.bottom + 20, Width, 145);
     }
 }
+
+
+
 - (void)fabuTuijian:(UIButton *)btn
 {
     NSString *text = [_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -254,106 +455,76 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (UIScrollView *)ScrollView
-{
-    if (!_ScrollView) {
-        _ScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _nav.bottom, Width, Height -_nav.bottom)];
-        _ScrollView.backgroundColor = [UIColor whiteColor];
-        _ScrollView.scrollEnabled = YES;
-        [_ScrollView addSubview:self.viewDetialTitle];
-        [_ScrollView addSubview:self.viewDetial];
-        [_ScrollView addSubview:self.rqBaseView];
-        [_ScrollView addSubview:self.dxBaseView];
-        [_ScrollView addSubview:self.ViewTextTitle];
-        [_ScrollView addSubview:self.textView];
-        [_ScrollView addSubview:self.viewZhuma];
-    _ScrollView.contentSize = CGSizeMake(Width, _ViewTextTitle.bottom + _textViewHeight  + 10 + self.viewZhuma.height+ 15 + 20 + 15 );
-    }
-    return _ScrollView;
-}
+
 - (UIView *)testView {
     UIView *lineView  = [[UIView alloc] initWithFrame:CGRectMake(0, self.viewDescribe.bottom + 15, Width, 40)];
     lineView.backgroundColor = colorDD;
     return lineView;
 }
-- (UIView *)viewDetialTitle
-{
-    if (!_viewDetialTitle) {
-        _viewDetialTitle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 42)];
-        _viewDetialTitle.backgroundColor = [UIColor whiteColor];
-        UIView *yellowView = [[UILabel alloc] initWithFrame:CGRectMake(15,0 , 0, 8)];
-        yellowView.center = CGPointMake(yellowView.center.x, _viewDetialTitle.center.y);
-        yellowView.backgroundColor = colorf99c07;
-        [_viewDetialTitle addSubview:yellowView];
-        UILabel *labDetial = [[UILabel alloc] initWithFrame:CGRectMake(yellowView.right + 0, 0, Width - 30, 42)];
-        labDetial.textColor = color33;
-        labDetial.font = [UIFont boldSystemFontOfSize:13];
-        labDetial.text = @"胜平负";
-        [_viewDetialTitle addSubview:labDetial];
-    }
-    return _viewDetialTitle;
-}
-- (UIView *)rqBaseView {
-    if (!_rqBaseView) {
-        _rqBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, _viewDetial.bottom + 10 , Width, 44+20+20)];
-        [_rqBaseView addSubview:self.labRQ];
-        [_rqBaseView addSubview:self.btnZhu];
-        [_rqBaseView addSubview:self.btnKe];
-    }
-    return _rqBaseView;
-}
+
 - (UILabel *)labRQ {
     if (!_labRQ) {
-        _labRQ = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, Width - 120, 30)];
-        _labRQ.text = @"让球";
-        _labRQ.textColor = color33;
-        _labRQ.font = [UIFont boldSystemFontOfSize:13];
+        _labRQ = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, Width - 120, 20)];
+        _labRQ.text = @"推荐选择";
+        _labRQ.textColor = UIColorHex(#4D4D4D);
+        _labRQ.font = [UIFont boldSystemFontOfSize:12];
     }
     return _labRQ;
 }
 - (UIButton *)btnZhu {
     if (!_btnZhu) {
         _btnZhu = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnZhu.frame = CGRectMake(15, self.labRQ.bottom + 5,(Width - 43)/2, 44);
+        _btnZhu.frame = CGRectMake(75, 0, self.oddsBtnWidth, 34);
         _btnZhu.layer.cornerRadius = 2;
         _btnZhu.layer.borderWidth = 0.5;
         _btnZhu.layer.borderColor = colorDD.CGColor;
         [_btnZhu setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_btnZhu setTitleColor:color66 forState:UIControlStateNormal];
-        [_btnZhu setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected3"] forState:UIControlStateSelected];
-        [_btnZhu setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnZhu setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_btnZhu setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
         _btnZhu.titleLabel.font = font14;
         _btnZhu.tag = 4;
         [_btnZhu addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnZhu;
 }
+
 - (UIButton *)btnKe {
     if (!_btnKe) {
         _btnKe = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnKe.frame = CGRectMake(self.btnZhu.right +13, self.labRQ.bottom +5,(Width - 43)/2, 44);
+        _btnKe.frame = CGRectMake(self.yaCenterBtn.right + 5, 0, self.oddsBtnWidth, 34);
         _btnKe.layer.cornerRadius = 2;
         _btnKe.layer.borderWidth = 0.5;
         _btnKe.layer.borderColor = colorDD.CGColor;
         [_btnKe setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_btnKe setTitleColor:color66 forState:UIControlStateNormal];
-        [_btnKe setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected3"] forState:UIControlStateSelected];
-        [_btnKe setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnKe setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_btnKe setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
         _btnKe.titleLabel.font = font14;
         _btnKe.tag = 5;
         [_btnKe addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnKe;
 }
-- (UIView *)dxBaseView {
-    if (!_dxBaseView) {
-        _dxBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, self.rqBaseView.bottom + 10 , Width, 44+20+20)];
-        [_dxBaseView addSubview:self.labDXQ];
-        [_dxBaseView addSubview:self.btnBig];
-        [_dxBaseView addSubview:self.btnLittle];
+
+- (UIButton *)yaCenterBtn {
+    if (!_yaCenterBtn) {
+        _yaCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _yaCenterBtn.frame = CGRectMake(self.btnZhu.right + 5, 0, self.oddsBtnWidth, 34);
+        _yaCenterBtn.layer.cornerRadius = 2;
+        _yaCenterBtn.layer.borderWidth = 0.5;
+        _yaCenterBtn.layer.borderColor = colorDD.CGColor;
+        [_yaCenterBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_yaCenterBtn setTitleColor:color66 forState:UIControlStateNormal];
+        [_yaCenterBtn setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_yaCenterBtn setBackgroundImage:[UIImage imageNamed:@"publish_odds_white"] forState:UIControlStateNormal];
+        _yaCenterBtn.titleLabel.font = font14;
+        _yaCenterBtn.tag = 8;
+        [_yaCenterBtn addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _dxBaseView;
+    return _yaCenterBtn;
 }
+
 - (UILabel *)labDXQ {
     if (!_labDXQ) {
         _labDXQ = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, Width - 120, 30)];
@@ -366,14 +537,14 @@
 - (UIButton *)btnBig {
     if (!_btnBig) {
         _btnBig = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnBig.frame = CGRectMake(15, self.labDXQ.bottom +5,(Width - 43)/2, 44);
+        _btnBig.frame = CGRectMake(75, 0, self.oddsBtnWidth, 34);
         _btnBig.layer.cornerRadius = 2;
         _btnBig.layer.borderWidth = 0.5;
         _btnBig.layer.borderColor = colorDD.CGColor;
         [_btnBig setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_btnBig setTitleColor:color66 forState:UIControlStateNormal];
-        [_btnBig setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected3"] forState:UIControlStateSelected];
-        [_btnBig setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnBig setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_btnBig setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
         _btnBig.titleLabel.font = font14;
         _btnBig.tag = 6;
         [_btnBig addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
@@ -383,43 +554,52 @@
 - (UIButton *)btnLittle {
     if (!_btnLittle) {
         _btnLittle = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnLittle.frame = CGRectMake(self.btnBig.right +13, self.labDXQ.bottom +5,(Width - 43)/2, 44);
+        _btnLittle.frame = CGRectMake(self.dxCenterBtn.right + 5, 0, self.oddsBtnWidth, 34);
         _btnLittle.layer.cornerRadius = 2;
         _btnLittle.layer.borderWidth = 0.5;
         _btnLittle.layer.borderColor = colorDD.CGColor;
         [_btnLittle setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_btnLittle setTitleColor:color66 forState:UIControlStateNormal];
-        [_btnLittle setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected3"] forState:UIControlStateSelected];
-        [_btnLittle setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnLittle setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_btnLittle setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
         _btnLittle.titleLabel.font = font14;
         _btnLittle.tag = 7;
         [_btnLittle addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _btnLittle;
 }
-- (UIView *)viewDetial
-{
-    if (!_viewDetial) {
-        _arrSelectedView = [NSMutableArray array];
-        _viewDetial = [[UIView alloc] initWithFrame:CGRectMake(0, _viewDetialTitle.bottom, Width, 44)];
-        [_viewDetial addSubview:self.btnOne];
-        [_viewDetial addSubview:self.btnTwo];
-        [_viewDetial addSubview:self.btnThree];
+
+- (UIButton *)dxCenterBtn {
+    if (!_dxCenterBtn) {
+        _dxCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _dxCenterBtn.frame = CGRectMake(self.btnBig.right + 5, 0, self.oddsBtnWidth, 34);
+        _dxCenterBtn.layer.cornerRadius = 2;
+        _dxCenterBtn.layer.borderWidth = 0.5;
+        _dxCenterBtn.layer.borderColor = colorDD.CGColor;
+        [_dxCenterBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [_dxCenterBtn setTitleColor:color66 forState:UIControlStateNormal];
+        [_dxCenterBtn setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_dxCenterBtn setBackgroundImage:[UIImage imageNamed:@"publish_odds_white"] forState:UIControlStateNormal];
+        _dxCenterBtn.titleLabel.font = font14;
+        _dxCenterBtn.tag = 9;
+        [_dxCenterBtn addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _viewDetial;
+    return _dxCenterBtn;
 }
+
 - (UIButton *)btnOne{
     if (!_btnOne) {
         _btnOne = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnOne.frame = CGRectMake(15, 0,(Width - 40)/3, 44);
+        _btnOne.frame = CGRectMake(75, 0 , self.oddsBtnWidth, 34);
         _btnOne.layer.cornerRadius = 2;
         _btnOne.layer.borderWidth = 0.5;
         _btnOne.layer.borderColor = colorDD.CGColor;
         [_btnOne setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_btnOne setTitleColor:color66 forState:UIControlStateNormal];
-         [_btnOne setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected];
-        [_btnOne setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+         [_btnOne setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_btnOne setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
         _btnOne.titleLabel.font = font14;
+        _btnOne.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _btnOne.tag = 3;
         [_btnOne addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -428,14 +608,15 @@
 - (UIButton *)btnTwo{
     if (!_btnTwo) {
         _btnTwo = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnTwo.frame = CGRectMake(20 + (Width - 40)/3 , 0,(Width - 40)/3, 44);
+        _btnTwo.frame = CGRectMake(self.btnOne.right + 5 , 0, self.oddsBtnWidth, 34);
         _btnTwo.layer.cornerRadius = 2;
         _btnTwo.layer.borderWidth = 0.5;
         _btnTwo.layer.borderColor = colorDD.CGColor;
         [_btnTwo setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_btnTwo setTitleColor:color66 forState:UIControlStateNormal];
-        [_btnTwo setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected];
-        [_btnTwo setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnTwo setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_btnTwo setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
+        _btnTwo.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _btnTwo.titleLabel.font = font14;
         _btnTwo.tag = 1;
         [_btnTwo addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
@@ -445,15 +626,16 @@
 - (UIButton *)btnThree{
     if (!_btnThree) {
         _btnThree = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnThree.frame = CGRectMake(25 + (Width - 40)/3 * 2, 0,(Width - 40)/3, 44);
+        _btnThree.frame = CGRectMake(self.btnTwo.right + 5, 0, self.oddsBtnWidth, 34);
         _btnThree.layer.cornerRadius = 2;
         _btnThree.layer.borderWidth = 0.5;
         _btnThree.layer.borderColor = colorDD.CGColor;
         [_btnThree setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [_btnThree setTitleColor:color66 forState:UIControlStateNormal];
-        [_btnThree setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected];
-        [_btnThree setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnThree setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected];
+        [_btnThree setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
         _btnThree.titleLabel.font = font14;
+        _btnThree.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _btnThree.tag = 0;
         [_btnThree addTarget:self action:@selector(btnColickOdds:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -479,6 +661,8 @@
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = dxModel.UpOdds;
             }else{
                 self.btnOne.selected = NO;
@@ -488,6 +672,8 @@
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = @"";
             }
         }
@@ -509,6 +695,8 @@
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
                 self.btnTwo.selected = YES;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = dxModel.Goal;
             }else{
                 self.btnOne.selected = NO;
@@ -518,6 +706,8 @@
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = @"";
             }
         }
@@ -539,6 +729,8 @@
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
                 self.btnThree.selected = YES;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = dxModel.DownOdds;
             }else{
                 self.btnOne.selected = NO;
@@ -548,6 +740,8 @@
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = @"";
             }
         }
@@ -570,6 +764,8 @@
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
                 _choiceMultiple = dxModel.UpOdds;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
             }else{
                 self.btnOne.selected = NO;
                 self.btnTwo.selected = NO;
@@ -578,6 +774,8 @@
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = @"";
             }
             break;
@@ -598,6 +796,8 @@
                 self.btnZhu.selected = NO;
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = dxModel.DownOdds;
             }else{
                 self.btnOne.selected = NO;
@@ -606,6 +806,8 @@
                 self.btnZhu.selected = NO;
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 self.btnLittle.selected = NO;
                 _choiceMultiple = @"";
             }
@@ -627,6 +829,8 @@
                 self.btnZhu.selected = NO;
                 self.btnKe.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = dxModel.UpOdds;
             }else{
                 self.btnOne.selected = NO;
@@ -635,6 +839,8 @@
                 self.btnZhu.selected = NO;
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 self.btnLittle.selected = NO;
                 _choiceMultiple = @"";
             }
@@ -656,6 +862,8 @@
                 self.btnZhu.selected = NO;
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = dxModel.DownOdds;
             }else{
                 self.btnOne.selected = NO;
@@ -665,9 +873,35 @@
                 self.btnKe.selected = NO;
                 self.btnBig.selected = NO;
                 self.btnLittle.selected = NO;
+                self.yaCenterBtn.selected = false;
+                self.dxCenterBtn.selected = false;
                 _choiceMultiple = @"";
             }
             break;
+            
+        case 8:
+            btn.selected = !btn.selected;
+            self.btnLittle.selected = false;
+            self.btnOne.selected = NO;
+            self.btnTwo.selected = NO;
+            self.btnThree.selected = NO;
+            self.btnZhu.selected = NO;
+            self.btnKe.selected = NO;
+            self.btnBig.selected = NO;
+            break;
+            
+        case 9:
+             btn.selected = !btn.selected;
+            self.btnLittle.selected = false;
+            self.btnOne.selected = NO;
+            self.btnTwo.selected = NO;
+            self.btnThree.selected = NO;
+            self.btnZhu.selected = NO;
+            self.btnKe.selected = NO;
+            self.btnBig.selected = NO;
+    
+            break;
+            
         default:
             break;
     }
@@ -701,7 +935,7 @@
 - (UIView *)ViewTextTitle
 {
     if (!_ViewTextTitle) {
-        _ViewTextTitle = [[UIView alloc] initWithFrame:CGRectMake(0, self.dxBaseView.bottom, Width, 42)];
+        _ViewTextTitle = [[UIView alloc] initWithFrame:CGRectMake(0, self.oddsBgView.bottom, Width, 42)];
         [_ViewTextTitle setBackgroundColor:[UIColor whiteColor]];
         UIView *yellowView = [[UILabel alloc] initWithFrame:CGRectMake(15,0 , 0, 8)];
         yellowView.center = CGPointMake(yellowView.center.x, _viewDetialTitle.center.y);
