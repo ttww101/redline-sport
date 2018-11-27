@@ -11,8 +11,9 @@
 #import "ZBFaBuSucceedVCViewController.h"
 #import "ZBToAnalystsVC.h"
 #import "PlayControl.h"
-@interface ZBRelRecNewVC ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SelectedViewOfFabuTuijianDelegate,ZhumaViewOfFabuTuijianDelegate,TitleIndexViewDelegate>
+@interface ZBRelRecNewVC ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SelectedViewOfFabuTuijianDelegate,ZhumaViewOfFabuTuijianDelegate,TitleIndexViewDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UITextField *textFiled;
 @property (nonatomic, strong) ZBNavView *nav;
 @property (nonatomic, strong) UIScrollView *ScrollView;
 @property (nonatomic, strong) ZBTitleIndexView *titleView;
@@ -63,10 +64,31 @@
 @property (nonatomic, assign) CGFloat  oddsBtnWidth;
 @property (nonatomic, strong) UILabel  *oddsLab;
 
+@property (nonatomic, strong) UILabel  *adaDetaiLab;
+@property (nonatomic, strong) UILabel  *describeLab;
+@property (nonatomic, strong) BaseImageView *warningIV;
+@property (nonatomic, strong) UIView  *coverView;
 
 
 @end
 @implementation ZBRelRecNewVC
+
+#pragma mark -  UITextFieldDelegate
+
+// 简易写法 限制字数不是很准确
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (string.length == 0) return YES;
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    if (existedLength - selectedLength + replaceLength > 16){
+        return NO;
+    }
+    return YES;
+}
+
+
 
 #pragma mark - Lazy Load
 
@@ -81,10 +103,14 @@
         [_ScrollView addSubview:self.oddsBgView];
 //        [_ScrollView addSubview:self.dxBaseView];
         [_ScrollView addSubview:self.ViewTextTitle];
+        [_ScrollView addSubview:self.textFiled];
+        [_ScrollView addSubview:self.adaDetaiLab];
         [_ScrollView addSubview:self.textView];
+        [_ScrollView addSubview:self.warningIV];
+        [_ScrollView addSubview:self.describeLab];
+        [_ScrollView addSubview:self.coverView];
         [_ScrollView addSubview:self.viewZhuma];
-        _ScrollView.contentSize = CGSizeMake(Width, _ViewTextTitle.bottom + _textViewHeight  + 10 + self.viewZhuma.height+ 15 + 20 + 15 );
-        _ScrollView.userInteractionEnabled = true;
+        _ScrollView.contentSize = CGSizeMake(Width,  self.viewZhuma.bottom);
     }
     return _ScrollView;
 }
@@ -342,9 +368,6 @@
         [self.yaCenterBtn setTitle:[NSString stringWithFormat:@"%@",dxModel.Goal] forState:UIControlStateNormal];
         [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
         [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.yaCenterBtn.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
-        
-     
-        
         [self.btnKe setTitle:[NSString stringWithFormat:@"客        %.2f",[dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
         [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"客" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
         [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnKe.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
@@ -880,6 +903,10 @@
             break;
             
         case 8:
+            dxModel = self.model.rq[0];
+            _choice = @"1";
+            _play = @"ya";
+            _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             btn.selected = !btn.selected;
             self.btnLittle.selected = false;
             self.btnOne.selected = NO;
@@ -891,6 +918,10 @@
             break;
             
         case 9:
+            dxModel = self.model.dx[0];
+            _choice = @"1";
+            _play = @"dx";
+            _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
              btn.selected = !btn.selected;
             self.btnLittle.selected = false;
             self.btnOne.selected = NO;
@@ -909,7 +940,8 @@
 - (ZBZhumaViewOfFabuTuijian *)viewZhuma
 {
     if (!_viewZhuma) {
-        _viewZhuma = [[ZBZhumaViewOfFabuTuijian alloc] initWithFrame:CGRectMake(0, self.textView.bottom + 20, Width, 145)];
+        _viewZhuma = [[ZBZhumaViewOfFabuTuijian alloc] initWithFrame:CGRectMake(0, self.describeLab.bottom + 10, Width, 145)];
+        _viewZhuma.backgroundColor = [UIColor whiteColor];
         _viewZhuma.delegate = self;
     }
     return _viewZhuma;
@@ -941,18 +973,18 @@
         yellowView.center = CGPointMake(yellowView.center.x, _viewDetialTitle.center.y);
         yellowView.backgroundColor = colorf99c07;
         [_ViewTextTitle addSubview:yellowView];
-       UILabel *textViewTitle = [[UILabel alloc] initWithFrame:CGRectMake(yellowView.right + 0, 0, Width - 30, 42)];
+       UILabel *textViewTitle = [[UILabel alloc] initWithFrame:CGRectMake(yellowView.right + 0, 0, 60, 42)];
         textViewTitle.textColor = color33;
         textViewTitle.font = [UIFont boldSystemFontOfSize:13];
-        textViewTitle.text = @"编辑推荐内容";
+        textViewTitle.text = @"发布内容";
         [_ViewTextTitle addSubview:textViewTitle];
-        UISwitch *textSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(Width - 66, 0, 0, 0)];
+        UISwitch *textSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(textViewTitle.right - 5, 5, 0, 0)];
         self.switchBtn = textSwitch;
         textSwitch.onTintColor = redcolor;
         [textSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];   
         textSwitch.transform = CGAffineTransformMakeScale( 0.7, 0.7);
         textSwitch.on = false;
-        self.textViewPlaceholder.text = @"有价值的深度分析内容将会被推送到推荐大厅";
+        self.textViewPlaceholder.text = @"有价值的深度分析内容才会推送到推荐首页";
         self.textView.userInteractionEnabled = false;
         [_ViewTextTitle addSubview:textSwitch];
     }
@@ -965,12 +997,13 @@
         if (isButtonOn) {
             self.textViewPlaceholder.text = @"推荐内容需原创，请提供详细分析或盘赔解读，涉及广告、抄袭等违规或过于简单将取消分析师资格哦！";
             self.textView.userInteractionEnabled = YES;
+            self.coverView.hidden = true;
         }else {
             self.textViewPlaceholder.text = @"有价值的深度分析内容将会被推送到推荐大厅";
             self.textView.userInteractionEnabled = false;
-            self.textView.text = nil;
-            self.textViewPlaceholder.hidden = false;
+            self.coverView.hidden = false;
         }
+    
     } else {
         switchButton.on = false;
         [self toapplyAnalasis];
@@ -1000,10 +1033,12 @@
     [alertController addAction:alertOne];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+
+
 - (UITextView *)textView
 {
     if (!_textView) {
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, _textViewHeight)];
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(15, self.adaDetaiLab.bottom + 10, Width - 30, _textViewHeight)];
         _textView.layer.borderColor = colorCellLine.CGColor;
         _textView.layer.borderWidth = 0.5;
         _textView.layer.cornerRadius = 3;
@@ -1016,6 +1051,69 @@
     }
     return _textView;
 }
+
+- (UITextField *)textFiled {
+    if (_textFiled == nil) {
+        _textFiled = [[UITextField alloc]initWithFrame:CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, 44)];
+         _textFiled.layer.borderColor = colorCellLine.CGColor;
+        _textFiled.layer.borderWidth = 0.5;
+        _textFiled.layer.cornerRadius = 3;
+        _textFiled.layer.masksToBounds= YES;
+        NSString *placeText = @"     一句话宣传你的推荐";
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:placeText];
+        [att addAttribute:NSFontAttributeName value:font12 range:[placeText rangeOfString:placeText]];
+        [att addAttribute:NSForegroundColorAttributeName value:color999999 range:[placeText rangeOfString:placeText]];
+        _textFiled.attributedPlaceholder = att;
+        _textFiled.delegate = self;
+    }
+    return _textFiled;
+}
+
+- (UILabel *)adaDetaiLab {
+    if (_adaDetaiLab == nil) {
+        _adaDetaiLab = [[UILabel alloc]initWithFrame:CGRectMake(15, self.textFiled.bottom + 10, 100, 20)];
+        _adaDetaiLab.textColor = color33;
+        _adaDetaiLab.font = [UIFont boldSystemFontOfSize:13];
+        _adaDetaiLab.text = @"分析详情";
+    }
+    return _adaDetaiLab;
+}
+
+- (UILabel *)describeLab {
+    if (_describeLab == nil) {
+        _describeLab = [[UILabel alloc]initWithFrame:CGRectMake(self.warningIV.right + 5, self.textView.bottom + 10, Width - 48, 40)];
+        _describeLab.textColor = UIColorHex(#898989);
+        _describeLab.font = [UIFont boldSystemFontOfSize:10];
+        _describeLab.text = @"分析内容与本场比赛无关、滥用标点符号与无意义字符、以任何形式留下 联系方式或发布其他违规内容，以及被发现或举报有抄袭、转载行为者，将 直接取消分析师资格！";
+        _describeLab.numberOfLines = 0;
+    }
+    return _describeLab;
+}
+
+- (BaseImageView *)warningIV {
+    if (_warningIV == nil) {
+        _warningIV = [[BaseImageView alloc]initWithFrame:CGRectMake(15,  self.textView.bottom + 15, 13, 13)];
+        _warningIV.image = [UIImage imageNamed:@"Warning"];
+    }
+    return _warningIV;
+}
+
+- (UIView *)coverView {
+    if (_coverView == nil) {
+        _coverView = [[UIView alloc]initWithFrame:CGRectMake(0, self.ViewTextTitle.bottom, self.view.width, self.describeLab.bottom - self.ViewTextTitle.bottom)];
+        _coverView.backgroundColor = [UIColor whiteColor];
+        UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, Width - 30, 30)];
+        lab.textColor = color999999;
+        lab.font = font12;
+        lab.numberOfLines = 2;
+        lab.text = @"有价值的深度分析才会推送到推荐首页";
+        [_coverView addSubview:lab];
+        _coverView.hidden = false;
+    }
+    return _coverView;
+}
+
+
 - (UILabel *)textViewPlaceholder
 {
     if (!_textViewPlaceholder) {
@@ -1027,6 +1125,7 @@
     }
     return _textViewPlaceholder;
 }
+
 - (UIView *)buttomView{
     if (!_buttomView) {
         _buttomView = [[UIView alloc] initWithFrame:CGRectMake(0, Height, Width, 45)];
@@ -1362,6 +1461,7 @@
     [parameter setObject:_multiple forKey:@"multiple"];
     [parameter setObject:contentStr forKey:@"contentInfo"];
     [parameter setObject:@(_projectPrice) forKey:@"amount"];
+    [parameter setObject:PARAM_IS_NIL_ERROR(self.textFiled.text) forKey:@"slogan"];
     [parameter setObject:PARAM_IS_NIL_ERROR([_textView.text stringByReplacingOccurrencesOfString:@"\ufffc" withString:@""])  forKey:@"content"];
     [parameter setObject:@(1) forKey:@"ignore"];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, url_addrecommend] ArrayFile:nil Start:^(id requestOrignal) {
