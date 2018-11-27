@@ -81,7 +81,7 @@ static CGFloat imageHeight = 50;
 #pragma mark - Config UI
 - (void)configUI {
     self.backgroundColor = UIColorFromRGBWithOX(0xebebeb);
-    self.controlWidth = Width / 3.f;
+    self.controlWidth = (Width - 100) / 2.f;
     [self addSubview:self.bgImageView];
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(0);
@@ -94,12 +94,12 @@ static CGFloat imageHeight = 50;
         make.top.equalTo(self.bgImageView.mas_top).offset(30);
         make.centerX.equalTo(self.bgImageView.mas_centerX);
     }];
-    [self.bgImageView addSubview:self.messageBtn];
-    [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.titleLabel.mas_centerY);
-        make.right.equalTo(self.bgImageView.mas_right).offset(-15);
-        make.size.mas_equalTo(CGSizeMake(15, 16));
-    }];
+//    [self.bgImageView addSubview:self.messageBtn];
+//    [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.titleLabel.mas_centerY);
+//        make.right.equalTo(self.bgImageView.mas_right).offset(-15);
+//        make.size.mas_equalTo(CGSizeMake(15, 16));
+//    }];
     [self.bgImageView addSubview:self.avatarImageView];
     [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgImageView.mas_top).offset(60);
@@ -114,7 +114,7 @@ static CGFloat imageHeight = 50;
     }];
     [self.bgImageView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.avatarImageView.mas_top);
+        make.centerY.equalTo(self.avatarImageView.mas_centerY);
         make.left.equalTo(self.avatarImageView.mas_right).offset(15);
         make.right.equalTo(self.bgImageView.mas_right).offset(-10);
     }];
@@ -139,7 +139,7 @@ static CGFloat imageHeight = 50;
         make.left.equalTo(self.nameLabel.mas_left);
         make.top.equalTo(self.nameLabel.mas_bottom).offset(7);
     }];
-    [self addSubview:self.leftControl];
+//    [self addSubview:self.leftControl];
     [self addSubview:self.centerControl];
     [self addSubview:self.rightControl];
 }
@@ -335,14 +335,14 @@ static CGFloat imageHeight = 50;
 }
 - (ZBHeaderControl *)centerControl {
     if (_centerControl == nil) {
-        _centerControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(self.controlWidth, 130, self.controlWidth, 30) content:@"关注:0" showRightLine:false];
+        _centerControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(50, 130, self.controlWidth, 30) content:@"关注:0" showRightLine:false];
         [_centerControl addTarget:self action:@selector(centerControlAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _centerControl;
 }
 - (ZBHeaderControl *)rightControl {
     if (_rightControl == nil) {
-        _rightControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(self.controlWidth * 2, 130, self.controlWidth, 30) content:@"粉丝:0" showRightLine:YES];
+        _rightControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(self.centerControl.right, 130, self.controlWidth, 30) content:@"粉丝:0" showRightLine:YES];
         [_rightControl addTarget:self action:@selector(rightControlAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightControl;

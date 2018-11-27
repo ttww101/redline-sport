@@ -34,7 +34,7 @@
                            ];
     [self removeAllSubViews];
     NSString *str = @"";
-    CGFloat itemWidth = self.width / (itemArray.count + 1);
+    CGFloat itemWidth = self.width / itemArray.count;
     for (NSInteger i = 0; i < itemArray.count; i ++) {
         NSDictionary *dic = itemArray[i];
         if (i == 0) {
@@ -52,11 +52,10 @@
         [self addSubview:control];
     }
     [self addSubview:self.rechargeBtn];
-    CGFloat rightSpace = (itemWidth - 66) / 2;
     [self.rechargeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
-        make.right.equalTo(self.mas_right).offset(-rightSpace);
-        make.size.mas_equalTo(CGSizeMake(66, 38));
+        make.left.equalTo(self.mas_left).offset(itemWidth  - 52);
+        make.size.mas_equalTo(CGSizeMake(42, 21));
     }];
 }
 #pragma mark - Config UI
@@ -183,6 +182,7 @@
         _rechargeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rechargeBtn setBackgroundImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateNormal];
         [_rechargeBtn addTarget:self action:@selector(rechargeAction) forControlEvents:UIControlEventTouchUpInside];
+        _rechargeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _rechargeBtn;
 }

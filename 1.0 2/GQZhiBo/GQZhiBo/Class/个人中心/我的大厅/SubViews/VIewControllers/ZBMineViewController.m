@@ -9,6 +9,7 @@
 #import "ZBSettingVC.h"
 #import "ZBFriendsVC.h"
 #import "ZBToolWebViewController.h"
+#import "ZBToAnalystsVC.h"
 @interface ZBMineViewController () <UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) ZBBasicTableView *tableView;
 @property (nonatomic, copy) NSArray *contentArray;
@@ -88,6 +89,30 @@
             self.tableView.tableHeaderView = self.headerView;
             [self.tableView reloadData];
         }];
+        
+        
+        [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_minemessagecount] Start:^(id requestOrignal) {
+        } End:^(id responseOrignal) {
+            
+        } Success:^(id responseResult, id responseOrignal) {
+            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+                NSString *count = [responseOrignal objectForKey:@"data"];
+                NSArray *array = _contentArray[2];
+                ZBMineModel *model = array[0];
+                model.numbers = count;
+                NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:2];
+                [self.tableView reloadRowAtIndexPath:index withRowAnimation:UITableViewRowAnimationFade];
+            }else{
+              
+            }
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+            NSLog(@"11");
+        }];
+        
+        
+        
+        
+        
     } else {
         [self.tableView.mj_header endRefreshing];
         self.headerView.model = nil;
@@ -117,9 +142,9 @@
     return [ZBMineTableViewCell heightForCell];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ForumViewController *control = [[ForumViewController alloc]init];
-    [self.navigationController pushViewController:control animated:true];
-    return;
+//    ForumViewController *control = [[ForumViewController alloc]init];
+//    [self.navigationController pushViewController:control animated:true];
+//    return;
     switch (indexPath.section) {
         case 0:{
             if(![ZBMethods login]) {
@@ -129,22 +154,31 @@
              if (indexPath.row == 0) {
                  [MobClick event:@"wdjc" label:@""];
                  ZBWebModel *model = [[ZBWebModel alloc]init];
-                 model.title = @"我的竞猜";
-                 model.webUrl = [NSString stringWithFormat:@"%@/goto/jingcai", APPDELEGATE.url_jsonHeader];
+                 model.title = @"账户明细";
+                 model.webUrl = [NSString stringWithFormat:@"%@/%@/account-details.html", APPDELEGATE.url_ip,H5_Host];
                  ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                  webDetailVC.model = model;
                  [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
             } else if (indexPath.row == 1) {
                 ZBWebModel *model = [[ZBWebModel alloc]init];
-                model.title = @"账户明细";
-                model.webUrl = [NSString stringWithFormat:@"%@/%@/account-details.html", APPDELEGATE.url_ip,H5_Host];
+                model.title = @"购买记录";
+                model.webUrl = [NSString stringWithFormat:@"%@/%@/purchase-details.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userModel.idId];
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
             } else if (indexPath.row == 2) {
                 ZBWebModel *model = [[ZBWebModel alloc]init];
-                model.title = @"购买记录";
-                model.webUrl = [NSString stringWithFormat:@"%@/%@/purchase-details.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userModel.idId];
+                model.title = @"分析师收入";
+                model.hideNavigationBar = YES;
+                model.webUrl = [NSString stringWithFormat:@"%@/%@/my-earnings.html", APPDELEGATE.url_ip,H5_Host];
+                ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+                webDetailVC.model = model;
+                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            } else if (indexPath.row == 3) {
+                [MobClick event:@"yhq" label:@""];
+                ZBWebModel *model = [[ZBWebModel alloc]init];
+                model.title = @"优惠券";
+                model.webUrl = [NSString stringWithFormat:@"%@/%@/pay-card.html", APPDELEGATE.url_ip,H5_Host];
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
@@ -157,25 +191,33 @@
                     [ZBMethods toLogin];
                     return;
                 }
-                ZBWebModel *model = [[ZBWebModel alloc]init];
-                model.title = @"分析师收入";
-                model.hideNavigationBar = YES;
-                model.webUrl = [NSString stringWithFormat:@"%@/%@/my-earnings.html", APPDELEGATE.url_ip,H5_Host];
-                ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
-                webDetailVC.model = model;
-                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+                [[ZBDependetNetMethods sharedInstance] loadUserInfocompletion:^(ZBUserModel *userback) {
+                    ZBUserModel *model = [ZBMethods getUserModel];
+                    ZBToAnalystsVC *analysts = [[ZBToAnalystsVC alloc] init];
+                    analysts.hidesBottomBarWhenPushed = YES;
+                    analysts.type = model.analyst;
+                    analysts.model = model;
+                    [APPDELEGATE.customTabbar pushToViewController:analysts animated:YES];
+                } errorMessage:^(NSString *msg) {
+                    ZBUserModel *model = [ZBMethods getUserModel];
+                    ZBToAnalystsVC *analysts = [[ZBToAnalystsVC alloc] init];
+                    analysts.hidesBottomBarWhenPushed = YES;
+                    analysts.type = model.analyst;
+                    analysts.model = model;
+                    [APPDELEGATE.customTabbar pushToViewController:analysts animated:YES];
+                }];
+                
             } else if (indexPath.row == 1) {
                 if(![ZBMethods login]) {
                     [ZBMethods toLogin];
                     return;
                 }
-                [MobClick event:@"yhq" label:@""];
-                ZBWebModel *model = [[ZBWebModel alloc]init];
-                model.title = @"优惠券";
-                model.webUrl = [NSString stringWithFormat:@"%@/%@/pay-card.html", APPDELEGATE.url_ip,H5_Host];
-                ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
-                webDetailVC.model = model;
-                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+                ZBUserTuijianVC *tuijian = [[ZBUserTuijianVC alloc] init];
+                tuijian.userName = self.userModel.nickname;
+                tuijian.userId =  self.userModel.idId;
+                tuijian.hidesBottomBarWhenPushed = YES;
+                [APPDELEGATE.customTabbar pushToViewController:tuijian animated:YES];
+               
             } else if (indexPath.row == 2) {
                 if(![ZBMethods login]) {
                     [ZBMethods toLogin];
@@ -198,6 +240,18 @@
             break;
         case 2:{
             if (indexPath.row == 0) {
+                if(![ZBMethods login]) {
+                    [ZBMethods toLogin];
+                    return;
+                }
+                ZBWebModel *model = [[ZBWebModel alloc]init];
+                model.title = @"消息";
+                model.webUrl = [NSString stringWithFormat:@"%@/%@/message.html", APPDELEGATE.url_ip,H5_Host];
+                ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+                model.hideNavigationBar = YES;
+                webDetailVC.model = model;
+                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            } else if (indexPath.row == 1) {
                 [MobClick event:@"yqhy" label:@""];
                 ZBWebModel *model = [[ZBWebModel alloc]init];
                 model.title = @"邀请好友";
@@ -205,11 +259,11 @@
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 ZBFeedbackVC *feed = [[ZBFeedbackVC alloc] init];
                 feed.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:feed animated:YES];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 ZBSettingVC *setVC = [[ZBSettingVC alloc] init];
                 setVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:setVC animated:YES];

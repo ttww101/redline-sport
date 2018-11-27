@@ -4,6 +4,7 @@
 @property (nonatomic, strong) UILabel *contentLabel;
 @property (nonatomic, strong) UIImageView *rightArrorImageView;
 @property (nonatomic, strong) UILabel *rightContentLabel;
+@property (nonatomic, strong) UILabel *bridgeLab;
 @end
 @implementation ZBMineTableViewCell
 static CGFloat cell_Height = 44;
@@ -31,11 +32,23 @@ static NSString *identifier = @"listCell";
     self.leftImageView.image = [UIImage imageNamed:model.leftImageName];
     self.contentLabel.text = model.leftContent;
     self.rightArrorImageView.image = [UIImage imageNamed:model.rightImageName];
+    
     if (model.rightContent) {
         self.rightContentLabel.hidden = false;
         self.rightContentLabel.text = model.rightContent;
     } else {
         self.rightContentLabel.hidden = YES;
+    }
+    
+    if ([model.numbers integerValue] > 0) {
+        CGFloat width = [model.numbers widthForFont:[UIFont systemFontOfSize:10.f]] + 10;
+        self.bridgeLab.layer.cornerRadius = width / 2;
+        [self.bridgeLab mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(width, width));
+        }];
+        self.bridgeLab.text = model.numbers;
+    } else {
+        self.bridgeLab.hidden = true;
     }
 }
 #pragma mark - Config UI
@@ -63,6 +76,13 @@ static NSString *identifier = @"listCell";
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.right.equalTo(self.rightArrorImageView.mas_leftMargin).offset(-15);
     }];
+    
+    [self.contentView addSubview:self.bridgeLab];
+    [self.bridgeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.right.equalTo(self.rightArrorImageView.mas_leftMargin).offset(-15);
+        make.size.mas_equalTo(CGSizeZero);
+    }];
 }
 #pragma mark - Lazy Load
 - (UIImageView *)leftImageView {
@@ -80,14 +100,28 @@ static NSString *identifier = @"listCell";
     }
     return _contentLabel;
 }
+
 - (UILabel *)rightContentLabel {
     if (_rightContentLabel == nil) {
         _rightContentLabel = [UILabel new];
         _rightContentLabel.font = [UIFont systemFontOfSize:14.f];;
-        _rightContentLabel.textColor = UIColorFromRGBWithOX(0x999999);
+        _rightContentLabel.textColor = UIColorFromRGBWithOX(0xDB2D21);
     }
     return _rightContentLabel;
 }
+
+- (UILabel *)bridgeLab {
+    if (_bridgeLab == nil) {
+        _bridgeLab = [UILabel new];
+        _bridgeLab.font = [UIFont systemFontOfSize:10.f];
+        _bridgeLab.backgroundColor = UIColorFromRGBWithOX(0xDB2D21);
+        _bridgeLab.textColor = [UIColor whiteColor];
+        _bridgeLab.layer.masksToBounds = true;
+        _bridgeLab.textAlignment = NSTextAlignmentCenter;
+    }
+    return _bridgeLab;
+}
+
 - (UIImageView *)rightArrorImageView {
     if (_rightArrorImageView == nil) {
         _rightArrorImageView = [UIImageView new];
