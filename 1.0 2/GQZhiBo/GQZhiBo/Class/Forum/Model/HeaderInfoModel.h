@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Layout.h"
 #import <YYCategories/YYCategories.h>
+#import "CommentModel.h"
 
 @interface HeaderInfoModel : NSObject
 /**
@@ -24,12 +25,12 @@
 /**
  用户名
  */
-@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSString *nickname;
 
 /**
  内容
  */
-@property(nonatomic, copy) NSString *message;
+@property(nonatomic, copy) NSString *content;
 
 /**
  内容富文本
@@ -59,7 +60,7 @@
 /**
  评论数量
  */
-@property(nonatomic, copy) NSString *commentsCount;
+@property(nonatomic, copy) NSString *commentCount;
 
 /**
  查看次数
@@ -69,10 +70,50 @@
 /**
  图片数组
  */
-@property(nonatomic, copy) NSArray *pics;
+@property(nonatomic, copy) NSArray *images;
+
+/**
+ 是否加精
+ */
+@property (nonatomic , copy) NSString *cream;
+
+/**
+ 热门帖子
+ */
+@property (nonatomic , copy) NSString *hot;
+
+/**
+ 发布ID
+ */
+@property (nonatomic , copy) NSString *postId;
+
+/**
+ 发布时间
+ */
+@property (nonatomic , copy) NSString *publishTime;
+
+@property (nonatomic , copy) NSString *top;
+
+/**
+ 用户ID
+ */
+@property (nonatomic , copy) NSString *userId;
+
+/**
+ 查看数量
+ */
+@property (nonatomic , copy) NSString *viewCount;
+
+/**
+ 精选评论
+ */
+@property (nonatomic , strong) CommentModel *comment;
 
 - (void)setupInfo;
 
 @end
+
+
+
 
 

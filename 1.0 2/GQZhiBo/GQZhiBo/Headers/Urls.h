@@ -171,4 +171,11 @@
 #define info_like_url @"/flashnews/like"
 #define info_like_comment @"/flashnews/comment"
 #define info_url_commentcount @"/flashnews/comments/count"
+
+
+#pragma makr  Forum 圈子
+#define url_forum @"/circle/index"
+
+
+
 #endif

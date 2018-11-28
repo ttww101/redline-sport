@@ -18,15 +18,20 @@
 /**
  日期
  */
+@property(nonatomic, copy) NSString *publishTime;
+
+/**
+ 日期
+ */
 @property(nonatomic, copy) NSString *dateStr;
 
 /**
  用户名
  */
-@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSString *nickname;
 
 /**
- n内容
+ 内容
  */
 @property(nonatomic, copy) NSString *content;
 
@@ -40,7 +45,10 @@
  */
 @property (nonatomic, assign) CGFloat contentHeight;
 
-
+/**
+ 用户ID
+ */
+@property (nonatomic , copy) NSString *userId;
 
 - (void)calculateCellHeight;
 

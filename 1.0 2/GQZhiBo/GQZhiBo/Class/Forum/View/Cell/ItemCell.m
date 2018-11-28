@@ -26,6 +26,15 @@
     return self;
 }
 
+#pragma mark Setter
+
+- (void)setModel:(ModulesInfo *)model {
+    _model = model;
+    [self.iconIV setImageWithUrl:[NSURL URLWithString:PARAM_IS_NIL_ERROR(model.icon)] placeholder:nil];
+    self.topic.text = model.name;
+    self.topicCountLab.text = model.count;
+}
+
 #pragma mark - Config UI
 
 - (void)configUI {

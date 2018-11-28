@@ -50,6 +50,9 @@
 		A91C6DFB207C5EE70035DFC0 /* ZBTuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* ZBTuijianDatingCell.m */; };
 		A91D406A20C77FC20059D501 /* ZBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91D406920C77FC20059D501 /* ZBWebView.m */; };
 		A91DCB7D20E9D0EB005B0BC5 /* ZBShowActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91DCB7C20E9D0EB005B0BC5 /* ZBShowActivityView.m */; };
+		A91E8FE221AE803000449B0F /* ChampionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A91E8FE121AE803000449B0F /* ChampionModel.m */; };
+		A91E8FE921AE816400449B0F /* Modules.m in Sources */ = {isa = PBXBuildFile; fileRef = A91E8FE821AE816400449B0F /* Modules.m */; };
+		A91E8FEC21AE824600449B0F /* Excellent.m in Sources */ = {isa = PBXBuildFile; fileRef = A91E8FEB21AE824600449B0F /* Excellent.m */; };
 		A920B9B820BCF02000867100 /* ZBLotteryWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9B720BCF02000867100 /* ZBLotteryWebViewController.m */; };
 		A920B9BB20BD412C00867100 /* ZBItemControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BA20BD412C00867100 /* ZBItemControl.m */; };
 		A920B9C020BD656900867100 /* ZBHeaderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BF20BD656900867100 /* ZBHeaderControl.m */; };
@@ -1164,6 +1167,12 @@
 		A91D406920C77FC20059D501 /* ZBWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWebView.m; sourceTree = "<group>"; };
 		A91DCB7B20E9D0EB005B0BC5 /* ZBShowActivityView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBShowActivityView.h; sourceTree = "<group>"; };
 		A91DCB7C20E9D0EB005B0BC5 /* ZBShowActivityView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBShowActivityView.m; sourceTree = "<group>"; };
+		A91E8FE021AE803000449B0F /* ChampionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChampionModel.h; sourceTree = "<group>"; };
+		A91E8FE121AE803000449B0F /* ChampionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChampionModel.m; sourceTree = "<group>"; };
+		A91E8FE721AE816400449B0F /* Modules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Modules.h; sourceTree = "<group>"; };
+		A91E8FE821AE816400449B0F /* Modules.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Modules.m; sourceTree = "<group>"; };
+		A91E8FEA21AE824600449B0F /* Excellent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Excellent.h; sourceTree = "<group>"; };
+		A91E8FEB21AE824600449B0F /* Excellent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Excellent.m; sourceTree = "<group>"; };
 		A920B9B620BCF02000867100 /* ZBLotteryWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLotteryWebViewController.h; sourceTree = "<group>"; };
 		A920B9B720BCF02000867100 /* ZBLotteryWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLotteryWebViewController.m; sourceTree = "<group>"; };
 		A920B9B920BD412C00867100 /* ZBItemControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBItemControl.h; sourceTree = "<group>"; };
@@ -2945,6 +2954,12 @@
 				A9546D2321A417900097B6E8 /* HeaderInfoModel.m */,
 				A911D66F21A54BB30077CC38 /* CommentModel.h */,
 				A911D67021A54BB30077CC38 /* CommentModel.m */,
+				A91E8FE021AE803000449B0F /* ChampionModel.h */,
+				A91E8FE121AE803000449B0F /* ChampionModel.m */,
+				A91E8FE721AE816400449B0F /* Modules.h */,
+				A91E8FE821AE816400449B0F /* Modules.m */,
+				A91E8FEA21AE824600449B0F /* Excellent.h */,
+				A91E8FEB21AE824600449B0F /* Excellent.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8194,6 +8209,7 @@
 				A941D52E206E171B008CE14F /* ZBModelPredictionViewModel.m in Sources */,
 				A94B67772071E32E00E0748F /* ZBLiveListModel.m in Sources */,
 				EB564C571F4D723B00F4C947 /* ZBPanwangZhishuVC.m in Sources */,
+				A91E8FEC21AE824600449B0F /* Excellent.m in Sources */,
 				EB8C1EE21F21974000A07863 /* ZBDan_StringGuanModel.m in Sources */,
 				A951F96F213D06030001B803 /* WKWebViewJavascriptBridge.m in Sources */,
 				A951F970213D06030001B803 /* WebViewJavascriptBridge.m in Sources */,
@@ -8282,6 +8298,7 @@
 				A941D537206E236A008CE14F /* ZBToolKitViewModel.m in Sources */,
 				EB8C20261F21A0AA00A07863 /* ZBUsercatestatisModel.m in Sources */,
 				A941D52A206E1233008CE14F /* ZBUniversaListCell.m in Sources */,
+				A91E8FE221AE803000449B0F /* ChampionModel.m in Sources */,
 				EB8C1E9E1F21944C00A07863 /* ZBSelectedCCell.m in Sources */,
 				A951F96E213D06030001B803 /* WebViewJavascriptBridgeBase.m in Sources */,
 				EB8C1E611F21944C00A07863 /* ZBQBNavigatCell.m in Sources */,
@@ -8425,6 +8442,7 @@
 				A91DCB7D20E9D0EB005B0BC5 /* ZBShowActivityView.m in Sources */,
 				A9E8764A20809A9000480C81 /* ZBCouponModel.m in Sources */,
 				EB8C1E421F21944C00A07863 /* ZBChangePassWordVC.m in Sources */,
+				A91E8FE921AE816400449B0F /* Modules.m in Sources */,
 				EB8C1E971F21944C00A07863 /* ZBSelecterMatchView.m in Sources */,
 				EB8C1EB71F21944C00A07863 /* ZBfirstHotInfoCycleView.m in Sources */,
 				EB8C1E721F21944C00A07863 /* ZBTuijianDetailHeaderView.m in Sources */,
@@ -8634,8 +8652,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 242Y3S46QH;
@@ -8697,7 +8715,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -8714,8 +8732,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -8776,7 +8794,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -8836,8 +8854,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -8898,7 +8916,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

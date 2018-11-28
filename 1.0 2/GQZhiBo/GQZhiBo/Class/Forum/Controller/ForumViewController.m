@@ -10,11 +10,12 @@
 #import "HeaderView.h"
 #import "PublishViewController.h"
 #import "PlayControl.h"
+#import "Excellent.h"
 
 @interface ForumViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *headers;
+@property (nonatomic, strong) NSMutableArray<HeaderInfoModel *> *headers;
 @property (nonatomic, strong) NSMutableArray<CommentModel *> *comments;
 @property (nonatomic, strong) HeaderView *headerView;
 
@@ -59,40 +60,38 @@ static NSString *const CellID = @"CellID";
 #pragma mark - Load Data
 
 - (void)loadData {
-    for (NSInteger i =0; i < 10; i ++) {
-        HeaderInfoModel *model = [[HeaderInfoModel alloc]init];
-        model.title = @"001马虎大 002盐湖城 《精选2串1》实弹......";
-        model.message = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
-        model.dateStr = @"20分钟前";
-        model.avaterUrl = @"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100";
-        model.name = @"滚球越滚越红";
-        model.commentsCount = @"15";
-        model.seeCount = @"1000";
-        if ((i % 2) == 0) {
-            model.message = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
+     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_forum] Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
+            NSDictionary *data = responseOrignal[@"data"];
+            Modules *modules = [Modules yy_modelWithDictionary:data];
+            ChampionListModel *chamions = [ChampionListModel yy_modelWithDictionary:data];
+            Excellent *excellents = [Excellent yy_modelWithDictionary:data];
+            self.headers = excellents.excellent;
+            self.headerView.champions = chamions.focuspic;
+            self.headerView.modules = modules.modules;
+            self.tableView.tableHeaderView = self.headerView;
+            [self.tableView reloadData];
         } else {
-            model.pics = @[@"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg", @"https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-10/201810419363252338.gif", @"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg"];
+           
         }
-        
-        [self.headers addObject:model];
-    }
-    
-    for (NSInteger i = 0; i < 3; i ++) {
-        CommentModel *model = [[CommentModel alloc]init];
-        model.name = @"耿磊";
-        model.dateStr = @"五分钟前";
-        model.avaterUrl = @"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100";
-        model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了，在这里 面有了一批支持我....";
-        [self.comments addObject:model];
-    }
-    
-    self.tableView.tableHeaderView = self.headerView;
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [SVProgressHUD showErrorWithStatus:errorDict];
+    }];
 }
 
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    HeaderInfoModel *model = self.headers[section];
+    if (model.comment) {
+        return 1;
+    } else {
+        return 0;
+    }
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -101,15 +100,15 @@ static NSString *const CellID = @"CellID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID forIndexPath:indexPath];
-    cell.model = self.comments[indexPath.row];
-    return  cell;
+    cell.model = self.headers[indexPath.section].comment;
+    return cell;
 }
 
 
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommentModel *model = self.comments[indexPath.row];
+    CommentModel *model = self.headers[indexPath.section].comment;
     [model calculateCellHeight];
     return model.cellHeight;
 }

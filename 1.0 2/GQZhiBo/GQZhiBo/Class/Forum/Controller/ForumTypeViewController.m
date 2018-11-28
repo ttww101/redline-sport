@@ -67,16 +67,16 @@ static NSString *const CellID = @"GLCellID";
     for (NSInteger i =0; i < 10; i ++) {
         HeaderInfoModel *model = [[HeaderInfoModel alloc]init];
         model.title = @"001马虎大 002盐湖城 《精选2串1》实弹......";
-        model.message = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
+        model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
         model.dateStr = @"20分钟前";
         model.avaterUrl = @"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100";
-        model.name = @"滚球越滚越红";
-        model.commentsCount = @"15";
+        model.nickname = @"滚球越滚越红";
+        model.viewCount = @"15";
         model.seeCount = @"1000";
         if ((i % 2) == 0) {
-            model.message = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
+            model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
         } else {
-            model.pics = @[@"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg", @"https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-10/201810419363252338.gif", @"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg"];
+            model.images = @[@"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg", @"https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-10/201810419363252338.gif", @"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg"];
         }
         
         [self.headers addObject:model];
@@ -84,8 +84,8 @@ static NSString *const CellID = @"GLCellID";
     
     for (NSInteger i = 0; i < 3; i ++) {
         CommentModel *model = [[CommentModel alloc]init];
-        model.name = @"耿磊";
-        model.dateStr = @"五分钟前";
+        model.nickname = @"耿磊";
+        model.publishTime = @"五分钟前";
         model.avaterUrl = @"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100";
         model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了，在这里 面有了一批支持我....";
         [self.comments addObject:model];

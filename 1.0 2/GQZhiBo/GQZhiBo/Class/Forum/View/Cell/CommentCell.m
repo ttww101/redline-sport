@@ -33,9 +33,8 @@
 
 - (void)setModel:(CommentModel *)model {
     _model = model;
-    self.nameLabel.text = model.name;
+    self.nameLabel.text = model.nickname;
     self.dateLabel.text = model.dateStr;
-    self.contentLabel.text = model.content;
     [self.avatarImageView setImageWithAvatarUrl:[NSURL URLWithString:model.avaterUrl] placeholder:[UIImage imageNamed:@"defaultPic1"]];
     self.contentLabel.text = model.content;
 }
@@ -81,7 +80,7 @@
     [self.bgView addSubview:self.contentLabel];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.avatarImageView.mas_bottom).offset(10);
-        make.left.equalTo(self.bgView.mas_left);
+        make.left.equalTo(self.bgView.mas_left).offset(5);
         make.right.equalTo(self.bgView.mas_right);
         make.bottom.equalTo(self.bgView.mas_bottom);
     }];

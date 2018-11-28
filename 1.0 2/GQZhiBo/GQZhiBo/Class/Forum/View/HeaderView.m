@@ -34,6 +34,20 @@ NSString *const idenfitier = @"cellID";
     return self;
 }
 
+#pragma mark - Setter
+
+- (void)setModules:(NSArray<ModulesInfo *> *)modules {
+    _modules = modules;
+    [self.collectionView reloadData];
+}
+
+- (void)setChampions:(NSArray<ChampionModel *> *)champions {
+    _champions = champions;
+    if (_champions.count > 0) {
+         [_championIV setImageWithUrl:[NSURL URLWithString:PARAM_IS_NIL_ERROR([_champions firstObject].pic)] placeholder:nil];
+    }
+}
+
 #pragma mark - Config UI
 
 - (void)configUI {
@@ -53,11 +67,12 @@ NSString *const idenfitier = @"cellID";
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 8;
+    return self.modules.count;
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ItemCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:idenfitier forIndexPath:indexPath];
+    cell.model = self.modules[indexPath.row];
     return cell;
 }
 
@@ -111,7 +126,6 @@ NSString *const idenfitier = @"cellID";
         _championIV.layer.cornerRadius = 5;
         _championIV.layer.masksToBounds = true;
         _championIV.contentMode = UIViewContentModeScaleAspectFill;
-        [_championIV setImageWithUrl:[NSURL URLWithString:@"https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-10/201810419363252338.gif"] placeholder:nil];
     }
     return _championIV;
 }

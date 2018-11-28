@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Modules.h"
 
 @interface ItemCell : UICollectionViewCell
+
+@property (nonatomic , strong) ModulesInfo *model;
 
 @end
 

@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UILabel *seeCount;
 @property (nonatomic, strong) UILabel *comments;
 @property (nonatomic, strong) UILabel *commentsCount;
+@property (nonatomic, strong) UILabel *bestLab;
+
 
 
 @end
@@ -43,18 +45,34 @@ CGFloat space = 10;
     _infoModel = infoModel;
     [self.avatarImageView setImageWithAvatarUrl:[NSURL URLWithString:infoModel.avaterUrl] placeholder:[UIImage imageNamed:@"defaultPic1"]];
     self.dateLabel.text = infoModel.dateStr;
-    self.nameLabel.text = infoModel.name;
+    self.nameLabel.text = infoModel.nickname;
     self.titleLabel.text = infoModel.title;
     self.messageLabel.attributedText = infoModel.messageAtt;
     [self.messageLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(Width - 30, infoModel.messageAttHeight));
     }];
-    self.picView.dataSource = _infoModel.pics;
+    self.picView.dataSource = _infoModel.images;
     [self.picView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(Width - 30, infoModel.picLayout.height));
     }];
-    self.commentsCount.text = infoModel.commentsCount;
-    self.seeCount.text = infoModel.seeCount;
+    self.commentsCount.text = infoModel.commentCount;
+    self.seeCount.text = infoModel.viewCount;
+    if ([infoModel.cream integerValue] == 1) {
+        self.bestLab.hidden = false;
+        [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.bestLab.mas_right).offset(5);
+            make.top.equalTo(self.avatarImageView.mas_bottom).offset(space);
+            make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
+        }];
+        
+    } else {
+        self.bestLab.hidden = true;
+        [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.avatarImageView.mas_left);
+            make.top.equalTo(self.avatarImageView.mas_bottom).offset(space);
+            make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
+        }];
+    }
 }
 
 #pragma mark - Config UI
@@ -80,16 +98,23 @@ CGFloat space = 10;
         make.bottom.equalTo(self.avatarImageView.mas_bottom);
     }];
     
+    [self addSubview:self.bestLab];
+    [self.bestLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.avatarImageView.mas_left);
+        make.top.equalTo(self.avatarImageView.mas_bottom).offset(space + 2);
+        make.size.mas_equalTo(CGSizeMake(25, 15));
+    }];
+    
     [self addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.avatarImageView.mas_left);
+        make.left.equalTo(self.bestLab.mas_right).offset(5);
         make.top.equalTo(self.avatarImageView.mas_bottom).offset(space);
         make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
     }];
     
     [self addSubview:self.messageLabel];
     [self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.titleLabel.mas_left);
+        make.left.equalTo(self.avatarImageView.mas_left);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(space);
         make.size.mas_equalTo(CGSizeMake(Width - 30, 50));
     }];
@@ -167,13 +192,30 @@ CGFloat space = 10;
     return _titleLabel;
 }
 
+- (UILabel *)bestLab {
+    if (_bestLab == nil) {
+        _bestLab = [UILabel new];
+        _bestLab.font = [UIFont systemFontOfSize:8.f];;
+        _bestLab.textColor = UIColorFromRGBWithOX(0xF34719);
+        _bestLab.backgroundColor = [UIColor whiteColor];
+        _bestLab.layer.borderColor = UIColorHex(#F34719).CGColor;
+        _bestLab.layer.borderWidth = 1;
+        _bestLab.layer.masksToBounds = true;
+        _bestLab.layer.cornerRadius = 2;
+        _bestLab.textAlignment = NSTextAlignmentCenter;
+        _bestLab.text = @"精华";
+    }
+    return _bestLab;
+}
+
 - (UILabel *)messageLabel {
     if (_messageLabel == nil) {
         _messageLabel = [UILabel new];
         _messageLabel.font = [UIFont systemFontOfSize:14.f];;
         _messageLabel.textColor = UIColorFromRGBWithOX(0x828282);
         _messageLabel.numberOfLines = 0;
-        _messageLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        _messageLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _messageLabel.numberOfLines = 2;;
     }
     return _messageLabel;
 }

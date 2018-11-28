@@ -18,6 +18,8 @@
         self.contentHeight = [self.content heightForFont:[UIFont systemFontOfSize:14] width:Width - 30];
     }
     self.cellHeight = 77 + self.contentHeight;
+    self.avaterUrl = [NSString stringWithFormat:@"http://mobile.gunqiu.com/avatar/%@",self.userId];
+    self.dateStr = [ZBMethods compareCurrentTime:self.publishTime];
 }
 
 @end

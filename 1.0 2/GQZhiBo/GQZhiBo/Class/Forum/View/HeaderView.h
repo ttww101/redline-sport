@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ChampionModel.h"
+#import "Modules.h"
 
 @interface HeaderView : UIView
+
+@property (nonatomic , copy) NSArray<ChampionModel *> *champions;
+@property (nonatomic , copy) NSArray<ModulesInfo *> *modules;
 
 @end
 
