@@ -25,6 +25,13 @@
     return self;
 }
 
+#pragma mark -
+
+- (void)setNavTitle:(NSString *)navTitle {
+    _navTitle = navTitle;
+    self.title.text = _navTitle;
+}
+
 #pragma mark - Config UI
 
 - (void)configUI {
@@ -56,7 +63,6 @@
         _title.textAlignment = NSTextAlignmentCenter;
         _title.font = [UIFont systemFontOfSize:17.0];
         _title.adjustsFontSizeToFitWidth = true;
-        _title.text = @"湖人 VS 火箭";
     }
     return _title;
 }

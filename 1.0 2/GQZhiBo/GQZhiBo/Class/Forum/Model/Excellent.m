@@ -11,7 +11,10 @@
 @implementation Excellent
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"excellent" : NSClassFromString(@"HeaderInfoModel") };
+    return @{  @"excellent" : NSClassFromString(@"HeaderInfoModel"),
+               @"all" : NSClassFromString(@"HeaderInfoModel"),
+               @"top" : NSClassFromString(@"HeaderInfoModel")
+               };
 }
 
 @end

@@ -22,6 +22,7 @@
     if (self.headerHeight > 0) {
         return;
     }
+    self.content = [ZBMethods removeHTML:self.content];
     if (self.content) {
          NSMutableParagraphStyle *muStyle = [[NSMutableParagraphStyle alloc]init];
         muStyle.alignment = NSTextAlignmentLeft;

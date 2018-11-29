@@ -13,6 +13,8 @@
 @interface Excellent : NSObject
 
 @property (nonatomic, strong) NSMutableArray <HeaderInfoModel *> *excellent;
+@property (nonatomic, strong) NSMutableArray <HeaderInfoModel *> *all;
+@property (nonatomic, strong) NSMutableArray <HeaderInfoModel *> *top;
 
 @end
 

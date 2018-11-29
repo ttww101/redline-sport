@@ -10,7 +10,7 @@
 
 @interface NavView : UIView
 
-
+@property (nonatomic , copy) NSString *navTitle;
 
 @end
 

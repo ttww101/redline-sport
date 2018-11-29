@@ -53,6 +53,7 @@
 		A91E8FE221AE803000449B0F /* ChampionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A91E8FE121AE803000449B0F /* ChampionModel.m */; };
 		A91E8FE921AE816400449B0F /* Modules.m in Sources */ = {isa = PBXBuildFile; fileRef = A91E8FE821AE816400449B0F /* Modules.m */; };
 		A91E8FEC21AE824600449B0F /* Excellent.m in Sources */ = {isa = PBXBuildFile; fileRef = A91E8FEB21AE824600449B0F /* Excellent.m */; };
+		A91EBCE321AFF4E8008807FC /* CustomPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91EBCE021AFF4E7008807FC /* CustomPopOverView.m */; };
 		A920B9B820BCF02000867100 /* ZBLotteryWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9B720BCF02000867100 /* ZBLotteryWebViewController.m */; };
 		A920B9BB20BD412C00867100 /* ZBItemControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BA20BD412C00867100 /* ZBItemControl.m */; };
 		A920B9C020BD656900867100 /* ZBHeaderControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A920B9BF20BD656900867100 /* ZBHeaderControl.m */; };
@@ -1173,6 +1174,8 @@
 		A91E8FE821AE816400449B0F /* Modules.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Modules.m; sourceTree = "<group>"; };
 		A91E8FEA21AE824600449B0F /* Excellent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Excellent.h; sourceTree = "<group>"; };
 		A91E8FEB21AE824600449B0F /* Excellent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Excellent.m; sourceTree = "<group>"; };
+		A91EBCE021AFF4E7008807FC /* CustomPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopOverView.m; sourceTree = "<group>"; };
+		A91EBCE221AFF4E7008807FC /* CustomPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopOverView.h; sourceTree = "<group>"; };
 		A920B9B620BCF02000867100 /* ZBLotteryWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLotteryWebViewController.h; sourceTree = "<group>"; };
 		A920B9B720BCF02000867100 /* ZBLotteryWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLotteryWebViewController.m; sourceTree = "<group>"; };
 		A920B9B920BD412C00867100 /* ZBItemControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBItemControl.h; sourceTree = "<group>"; };
@@ -2985,6 +2988,8 @@
 				A9EABCDB21A6B2B7000CF745 /* NavView.m */,
 				A95AC76821A7E025009B67B8 /* GL_TextView.h */,
 				A95AC76921A7E025009B67B8 /* GL_TextView.m */,
+				A91EBCE221AFF4E7008807FC /* CustomPopOverView.h */,
+				A91EBCE021AFF4E7008807FC /* CustomPopOverView.m */,
 				A9546D0821A3E0810097B6E8 /* Cell */,
 			);
 			path = View;
@@ -8475,6 +8480,7 @@
 				EB518D251F7B950C00D548BC /* ZBPeilvYichangVC.m in Sources */,
 				A951F985213D062A0001B803 /* TADotView.m in Sources */,
 				EB542DC41F7210E000C051E8 /* UIView+SDAutoLayout.m in Sources */,
+				A91EBCE321AFF4E8008807FC /* CustomPopOverView.m in Sources */,
 				A991662B2111B07400FABE68 /* ZBInfoModel.m in Sources */,
 				EB8C20071F219D7100A07863 /* UITabBar+badge.m in Sources */,
 				A99166322111B62400FABE68 /* ZBCommentsView.m in Sources */,

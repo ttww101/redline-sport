@@ -15,6 +15,8 @@
 
 @interface ForumTypeViewController : ZBBasicViewController
 
+@property (nonatomic , copy) NSString *moduleId;
+
 @end
 
 

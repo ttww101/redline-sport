@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ItemView.h"
+#import "Modules.h"
 
 @interface TypeHeaderView : UIView
 
-@property (nonatomic, copy) NSArray *dataSource;
+@property (nonatomic, copy) NSArray<HeaderInfoModel *> *dataSource;
+@property (nonatomic , strong) ModulesInfo *modelInfo;
+
 
 @end
 

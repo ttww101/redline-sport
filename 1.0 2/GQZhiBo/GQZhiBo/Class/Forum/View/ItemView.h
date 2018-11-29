@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HeaderInfoModel.h"
 
 @interface ItemView : UIView
+
+- (instancetype)initWithFrame:(CGRect)frame;
+
+@property (nonatomic , strong) HeaderInfoModel *model;
+
 
 @end
 

@@ -70,4 +70,5 @@ typedef NS_ENUM(NSInteger, weekType)
 + (NSString *)amountFormater:(NSString *)amountValue;
 + (UIViewController *)help_getCurrentVC;
 + (NSString *)getPersonLeavelImageName:(NSInteger)leavel;
++ (NSString *)removeHTML:(NSString *)html;
 @end

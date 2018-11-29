@@ -14,7 +14,6 @@
 @property (nonatomic, strong) BaseImageView *topIV;
 @property (nonatomic, strong) UIView *spaceView;
 
-
 @end
 
 @implementation TypeHeaderView
@@ -29,17 +28,22 @@
 
 - (void)layoutSubviews {
     self.lineView.frame = CGRectMake(0, self.height - ONE_PX_LINE, self.width, ONE_PX_LINE);
-    
 }
+
+#pragma mark - Setter
+
 
 - (void)setDataSource:(NSArray *)dataSource {
     _dataSource = dataSource;
     for (NSInteger i =0; i < _dataSource.count; i++) {
-        ItemView *item = [[ItemView alloc]init];
-        item.frame = CGRectMake(0, self.topIV.bottom + i * 60, self.width, 60);
+        ItemView *item = [[ItemView alloc]initWithFrame:CGRectMake(0, self.topIV.bottom + i * 60, self.width, 60)];
+        item.model = dataSource[i];
         [self addSubview:item];
     }
-    
+}
+
+- (void)setModelInfo:(ModulesInfo *)modelInfo {
+    _modelInfo = modelInfo;
 }
 
 #pragma mark - Config UI
@@ -49,8 +53,6 @@
     [self addSubview:self.lineView];
     [self addSubview:self.spaceView];
     [self addSubview:self.topIV];
-    
-    
 }
 
 #pragma mark - Lazy Load
@@ -74,10 +76,10 @@
 
 - (BaseImageView *)topIV {
     if (_topIV == nil) {
-        _topIV = [[BaseImageView alloc]initWithFrame:CGRectMake(0, Scale_Value(135), 20, 20)];
+        _topIV = [[BaseImageView alloc]initWithFrame:CGRectMake(0, Scale_Value(135), 71, 26)];
         _topIV.contentMode = UIViewContentModeScaleAspectFit;
         _topIV.clipsToBounds = true;
-        _topIV.backgroundColor = [UIColor orangeColor];
+        _topIV.image = [UIImage imageNamed:@"Top"];
     }
     return _topIV;
 }

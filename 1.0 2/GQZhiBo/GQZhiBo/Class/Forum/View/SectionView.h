@@ -7,8 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlayControl.h"
+
+@protocol SectionViewDelegate <NSObject>
+
+- (void)switchType:(NSInteger)type;
+- (void)loadWithRecent:(NSInteger)select;
+
+
+@end
 
 @interface SectionView : UIView
+
+@property (nonatomic, weak) id <SectionViewDelegate> delegate;
 
 @end
 

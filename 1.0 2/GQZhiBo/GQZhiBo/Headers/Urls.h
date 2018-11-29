@@ -175,7 +175,7 @@
 
 #pragma makr  Forum 圈子
 #define url_forum @"/circle/index"
-
+#define url_forum_Module @"/circle/module"
 
 
 #endif

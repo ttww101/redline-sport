@@ -80,6 +80,7 @@ NSString *const idenfitier = @"cellID";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     ForumTypeViewController *control = [[ForumTypeViewController alloc]init];
+    control.moduleId = self.modules[indexPath.row].moduleId;
     [[ZBMethods help_getCurrentVC].navigationController pushViewController:control animated:true];
 }
 

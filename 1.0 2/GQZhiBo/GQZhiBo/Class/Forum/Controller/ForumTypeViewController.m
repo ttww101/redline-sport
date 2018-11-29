@@ -9,11 +9,12 @@
 #import "ForumTypeViewController.h"
 #import "SectionView.h"
 #import "NavView.h"
+#import "Excellent.h"
 
-@interface ForumTypeViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ForumTypeViewController () <UITableViewDataSource, UITableViewDelegate, SectionViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *headers;
+@property (nonatomic, strong) NSMutableArray<HeaderInfoModel *> *headers;
 @property (nonatomic, strong) NSMutableArray<CommentModel *> *comments;
 @property (nonatomic, strong) BaseImageView *bgIV;
 @property (nonatomic, strong) TypeHeaderView *header;
@@ -23,6 +24,8 @@
 @property (nonatomic, strong) NavView *nav;
 @property (nonatomic, strong) UIButton *backBtn;
 
+@property (nonatomic, assign) NSInteger ord; //排序，0:发布时间，1：最后回复时间
+@property (nonatomic, assign) NSInteger cream; // 0 全部 1 精华帖
 
 
 
@@ -54,7 +57,6 @@ static NSString *const CellID = @"GLCellID";
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    self.tableView.tableHeaderView = self.header;
     [self.view addSubview:self.bgIV];
     [self.view addSubview:self.section];
     [self.view addSubview:self.nav];
@@ -64,45 +66,52 @@ static NSString *const CellID = @"GLCellID";
 #pragma mark - Load Data
 
 - (void)loadData {
-    for (NSInteger i =0; i < 10; i ++) {
-        HeaderInfoModel *model = [[HeaderInfoModel alloc]init];
-        model.title = @"001马虎大 002盐湖城 《精选2串1》实弹......";
-        model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
-        model.dateStr = @"20分钟前";
-        model.avaterUrl = @"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100";
-        model.nickname = @"滚球越滚越红";
-        model.viewCount = @"15";
-        model.seeCount = @"1000";
-        if ((i % 2) == 0) {
-            model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....总结：个人来到滚球这个平台已经不知不觉中2个月了 在这里面有了一批支持我的粉丝，我很开心！也....";
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    [parameter setValue:@(0) forKey:@"limitStart"];
+    [parameter setValue:@(20) forKey:@"limitNum"];
+    [parameter setValue:@(self.cream) forKey:@"cream"];
+    [parameter setValue:@(self.ord) forKey:@"ord"];
+    [parameter setValue:self.moduleId forKey:@"moduleId"];
+    [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_forum_Module] Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
+            NSDictionary *data = responseOrignal[@"data"];
+            self.header.modelInfo = [ModulesInfo yy_modelWithDictionary:data[@"module"]];
+            Excellent *topModel = [Excellent yy_modelWithDictionary:data];
+            Excellent *allModel = [Excellent yy_modelWithDictionary:data];
+            self.headers = allModel.all;
+            CGFloat height = Scale_Value(135) + 60 * topModel.top.count + 70;
+            self.header.dataSource = topModel.top;
+            self.header.height = height;
+            self.section.top = height - self.section.height;
+            _sectionOrigin = self.section.frame;
+          
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.tableView.tableHeaderView = self.header;
+                [self.bgIV setImageWithUrl:[NSURL URLWithString:PARAM_IS_NIL_ERROR(self.header.modelInfo.bgPic)] placeholder:[UIImage imageNamed:@"defaultRun1"]];
+                [self.tableView reloadData];
+                _section.hidden = false;
+                self.nav.navTitle = self.header.modelInfo.name;
+            });
+            
         } else {
-            model.images = @[@"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg", @"https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-10/201810419363252338.gif", @"http://weixintest.ihk.cn/ihkwx_upload/commentPic/20160503/14622764778932thumbnail.jpg"];
+            
         }
-        
-        [self.headers addObject:model];
-    }
-    
-    for (NSInteger i = 0; i < 3; i ++) {
-        CommentModel *model = [[CommentModel alloc]init];
-        model.nickname = @"耿磊";
-        model.publishTime = @"五分钟前";
-        model.avaterUrl = @"http://q.qlogo.cn/qqapp/1104706859/189AA89FAADD207E76D066059F924AE0/100";
-        model.content = @"总结：个人来到滚球这个平台已经不知不觉中2个月了，在这里 面有了一批支持我....";
-        [self.comments addObject:model];
-    }
-    
-    NSArray *array = @[@"1", @"2", @"3"];
-    CGFloat height = Scale_Value(135) + 60 * array.count + 70;
-    self.header.height = height;
-    self.header.dataSource = array;
-     self.section.top = height - self.section.height;
-    _sectionOrigin = self.section.frame;
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [SVProgressHUD showErrorWithStatus:errorDict];
+    }];
 }
 
 #pragma mark UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    HeaderInfoModel *model = self.headers[section];
+    if (model.comment) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -111,7 +120,7 @@ static NSString *const CellID = @"GLCellID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellID forIndexPath:indexPath];
-    cell.model = self.comments[indexPath.row];
+    cell.model = self.headers[indexPath.section].comment;
     return  cell;
 }
 
@@ -119,7 +128,7 @@ static NSString *const CellID = @"GLCellID";
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommentModel *model = self.comments[indexPath.row];
+    CommentModel *model = self.headers[indexPath.section].comment;
     [model calculateCellHeight];
     return model.cellHeight;
 }
@@ -180,6 +189,18 @@ static NSString *const CellID = @"GLCellID";
     self.nav.alpha = alpha;
 }
 
+#pragma mark - SectionViewDelegate
+
+- (void)switchType:(NSInteger)type {
+    self.cream = type;
+    [self loadData];
+}
+
+- (void)loadWithRecent:(NSInteger)select {
+    self.ord = select;
+    [self loadData];
+}
+
 #pragma mark - Events
 
 - (void)backAction {
@@ -227,7 +248,6 @@ static NSString *const CellID = @"GLCellID";
     if (_bgIV == nil) {
         _bgIV = [[BaseImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, Scale_Value(135))];
         _bgIV.contentMode = UIViewContentModeScaleAspectFill;
-        _bgIV.image = [UIImage imageNamed:@"xuetianbg"];
         _bgIV.clipsToBounds = true;
     }
     return _bgIV;
@@ -243,6 +263,8 @@ static NSString *const CellID = @"GLCellID";
 - (SectionView *)section {
     if (_section == nil) {
         _section = [[SectionView alloc]init];
+        _section.hidden = true;
+        _section.delegate = self;
     }
     return _section;
 }
