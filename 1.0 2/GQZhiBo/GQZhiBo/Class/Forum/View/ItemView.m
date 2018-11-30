@@ -7,13 +7,15 @@
 //
 
 #import "ItemView.h"
-
+#import "ZBToolWebViewController.h"
 
 @interface ItemView ()
 @property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
 @property (nonatomic , strong) UILabel *circleLab;
+@property (nonatomic , strong) UIControl *actionControl;
+
 @end
 
 @implementation ItemView
@@ -28,8 +30,9 @@
 
 - (void)setModel:(HeaderInfoModel *)model {
     _model = model;
+    [model setupInfo];
     self.titleLabel.text = _model.title;
-    self.messageLabel.text = @"11";
+    self.messageLabel.text = model.content;
 }
 
 #pragma mark - Config UI
@@ -59,6 +62,22 @@
         make.right.equalTo(self.mas_right).offset(-15);
         make.height.mas_equalTo(20);
     }];
+    
+    [self addSubview:self.actionControl];
+    [self.actionControl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
+}
+
+#pragma mark - Events
+
+- (void)detailAction {
+    ZBWebModel *model = [[ZBWebModel alloc]init];
+    model.title = @"帖子详情";
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/board-show.html?id=%@", APPDELEGATE.url_ip,H5_Host,self.model.postId];
+    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+    webDetailVC.model = model;
+    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
 }
 
 #pragma mark - Lazy Load
@@ -101,6 +120,14 @@
         _circleLab.layer.masksToBounds = true;
     }
     return _circleLab;
+}
+
+- (UIControl *)actionControl {
+    if (_actionControl == nil) {
+        _actionControl = [[UIControl alloc]init];
+        [_actionControl addTarget:self action:@selector(detailAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _actionControl;
 }
 
 @end

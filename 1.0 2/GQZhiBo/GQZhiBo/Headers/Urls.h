@@ -73,7 +73,7 @@
 #define url_modelPay_ali @"/pay/alipay/model"
 #define url_modelPay_coupon @"/pay/couponpay/model"
 #define url_ConfigjSon @"/initx.json"
-#define H5_Host @"appH5/v4"
+#define H5_Host @"appH5/v5"
 #define url_purchase @"/pay/applepay/model" 
 #define url_purchase_recommend @"/payweb/apple/recommend" 
 #define url_verifyPayment @"/applepay/verifyPayment"
@@ -176,6 +176,8 @@
 #pragma makr  Forum 圈子
 #define url_forum @"/circle/index"
 #define url_forum_Module @"/circle/module"
+#define url_topic_comment @"/circle/comment/save"
+#define url_topic_reply @"/circle/comment/replay/save"
 
 
 #endif

@@ -7,6 +7,7 @@
 //
 
 #import "ForumContentHeader.h"
+#import "ZBToolWebViewController.h"
 
 
 @interface ForumContentHeader ()
@@ -22,8 +23,6 @@
 @property (nonatomic, strong) UILabel *comments;
 @property (nonatomic, strong) UILabel *commentsCount;
 @property (nonatomic, strong) UILabel *bestLab;
-
-
 
 @end
 
@@ -150,6 +149,26 @@ CGFloat space = 10;
         make.centerY.equalTo(self.seeImageView.mas_centerY);
         make.right.equalTo(self.comments.mas_left).offset(-3);
     }];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didAction)];
+    [self addGestureRecognizer:tap];
+    self.userInteractionEnabled = true;
+}
+
+#pragma mark - Events
+
+- (void)didAction {
+    ZBWebModel *model = [[ZBWebModel alloc]init];
+    model.title = @"帖子详情";
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/board-show.html?id=%@", APPDELEGATE.url_ip,H5_Host,self.infoModel.postId];
+    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+    webDetailVC.model = model;
+    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+}
+
+- (void)avatarClick {
+    
 }
 
 #pragma mark - Lazy Load

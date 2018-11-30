@@ -84,6 +84,7 @@
         make.right.equalTo(self.bgView.mas_right);
         make.bottom.equalTo(self.bgView.mas_bottom);
     }];
+
 }
 
 #pragma mark - Lazy Load

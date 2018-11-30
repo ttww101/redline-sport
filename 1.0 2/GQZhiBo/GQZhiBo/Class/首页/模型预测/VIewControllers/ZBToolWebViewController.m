@@ -16,6 +16,7 @@
 #import "ZBCommentsView.h"
 #import "ZBCommentsViewController.h"
 #import "ZBInputViewController.h"
+#import "ZBReplyViewController.h"
 @interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate>
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 @property (nonatomic , copy) GQJSResponseCallback callBack;
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) UIProgressView *progressView;
 @property (nonatomic , strong) ZBCommentsView *commentsView;
 @property (nonatomic , strong) NSDictionary *commentsDic;
+@property (nonatomic , strong) UIButton *replyBtn;
+
 @end
 #define wxpay @"wx"
 @implementation ZBToolWebViewController
@@ -581,14 +584,23 @@
 }
 - (void)pagetoolbar:(id)data {
     if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
+
         self.commentsDic = (NSDictionary *)data;
-        [self.view addSubview:self.commentsView];
-        self.wkWeb.height = self.wkWeb.height - self.commentsView.height;
-        self.commentsView.top = self.wkWeb.bottom;
-        NSDictionary *commentDic = self.commentsDic[@"comment"];
-        self.commentsView.newsID =  [NSString stringWithFormat:@"%@",commentDic[@"id"]];
-        self.commentsView.module = [NSString stringWithFormat:@"%@",commentDic[@"module"]];
-        [self.commentsView loadData];
+        if ([self.commentsDic[@"comment"][@"module"]  isEqualToString:@"community"]) {
+            [self.view addSubview:self.replyBtn];
+              self.wkWeb.height = self.wkWeb.height - self.replyBtn.height;
+             self.replyBtn.top = self.wkWeb.bottom;
+        } else {
+            [self.view addSubview:self.commentsView];
+            self.wkWeb.height = self.wkWeb.height - self.commentsView.height;
+            self.commentsView.top = self.wkWeb.bottom;
+            NSDictionary *commentDic = self.commentsDic[@"comment"];
+            self.commentsView.newsID =  [NSString stringWithFormat:@"%@",commentDic[@"id"]];
+            self.commentsView.module = [NSString stringWithFormat:@"%@",commentDic[@"module"]];
+            [self.commentsView loadData];
+        }
+        
+       
     }
 }
 #pragma mark - Private Method
@@ -660,6 +672,21 @@
     }
 }
 #pragma mark - Events
+
+- (void)replyAction {
+    if (![ZBMethods login]) {
+        [ZBMethods toLogin];
+        return;
+    }
+    ZBReplyViewController *control = [[ZBReplyViewController alloc]init];
+    control.postId = self.commentsDic[@"comment"][@"id"];
+    [self.navigationController pushViewController:control animated:true];
+}
+
+- (void)preventFlicker:(UIButton *)button {
+    button.highlighted = NO;
+}
+
 - (void)reloadAction {
     [self loadData];
 }
@@ -769,6 +796,8 @@
         }
     }];
 }
+
+
 #pragma mark - Buy Type
 - (void)tencentBuyWithData:(NSDictionary *)data {
     [ZBLodingAnimateView showLodingView];
@@ -928,4 +957,16 @@
     }
     return _commentsView;
 }
+
+- (UIButton *)replyBtn {
+    if (_replyBtn == nil) {
+        _replyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_replyBtn setBackgroundImage:[UIImage imageNamed:@"replyBtn"] forState:UIControlStateNormal];
+        _replyBtn.frame = CGRectMake(15, Height - 46, Width - 30, 46);
+        [_replyBtn addTarget:self action:@selector(replyAction) forControlEvents:UIControlEventTouchUpInside];
+        [_replyBtn addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
+    }
+    return _replyBtn;
+}
+
 @end
