@@ -60,6 +60,7 @@ static CGFloat imageHeight = 76.f;
     }
      [self configActivityEntrance]; 
      [self update];
+    [[UITabBar appearance]setTranslucent:false];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -425,6 +426,7 @@ static CGFloat imageHeight = 76.f;
     NSDictionary *pushInfo = nofication.userInfo;
      UIViewController *currentControl = [ZBMethods help_getCurrentVC];
     if ([pushInfo objectForKey:@"catalog"]== nil) {
+        [SVProgressHUD showErrorWithStatus:@"请配置正确的内容"];
     }else{
         NSInteger eventID = [[pushInfo objectForKey:@"catalog"]integerValue];
         switch (eventID) {
@@ -560,6 +562,7 @@ static CGFloat imageHeight = 76.f;
             }
                 break;
             default:
+                [SVProgressHUD showErrorWithStatus:@"请配置正确的内容"];
                 break;
         }
     }

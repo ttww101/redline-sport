@@ -258,7 +258,7 @@
     [dictParameter setObject:_telTextF.text forKey:@"username"];
     [dictParameter setObject:[ZBMethods md5WithString:_pswTextF.text] forKey:@"password"];
     [dictParameter setObject:@"1" forKey:@"platform"];
-    [dictParameter setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"deviceTokenStr"] forKey:@"uuid"];
+    [dictParameter setObject:PARAM_IS_NIL_ERROR([[NSUserDefaults standardUserDefaults] objectForKey:@"deviceTokenStr"]) forKey:@"uuid"];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:dictParameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_loginAndRegister] ArrayFile:nil Start:^(id requestOrignal) {
         if (!_prograssHud) {
         _prograssHud = [[MBProgressHUD alloc] initWithView:self.view];

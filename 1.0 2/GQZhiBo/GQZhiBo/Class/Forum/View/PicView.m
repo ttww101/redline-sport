@@ -14,28 +14,19 @@
 - (void)setDataSource:(NSArray *)dataSource {
     _dataSource = dataSource;
     [self removeAllSubviews];
-    NSMutableArray *images = [NSMutableArray arrayWithArray:dataSource];
-    if (_dataSource.count >= 3) {
-        [images removeAllObjects];
-        for (NSInteger i = 0; i < 3; i ++) {
-            [images addObject:dataSource[i]];
-        }
-    }
-    
-    
     CGFloat imageWidth = 0;
     CGFloat viewWidth = Width - 30;
-    if (images.count == 1) {
+    if (_dataSource.count == 1) {
         imageWidth = viewWidth;
-    } else if (images.count == 2) {
+    } else if (_dataSource.count == 2) {
         imageWidth = (viewWidth - 10) / 2;
-    } else if (images.count == 3) {
+    } else if (_dataSource.count == 3) {
         imageWidth = (viewWidth - 20) / 3;
     }
     
-    for (NSInteger i = 0; i < images.count; i ++) {
+    for (NSInteger i = 0; i < _dataSource.count; i ++) {
         BaseImageView *imageView = [[BaseImageView alloc]init];
-        [imageView setImageWithUrl:[NSURL URLWithString:images[i]] placeholder:[UIImage imageNamed:@""]];
+        [imageView setImageWithUrl:[NSURL URLWithString:_dataSource[i]] placeholder:[UIImage imageNamed:@""]];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.layer.masksToBounds = true;
         imageView.userInteractionEnabled = true;

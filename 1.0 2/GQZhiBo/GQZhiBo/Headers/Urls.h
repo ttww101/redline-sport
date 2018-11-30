@@ -73,7 +73,7 @@
 #define url_modelPay_ali @"/pay/alipay/model"
 #define url_modelPay_coupon @"/pay/couponpay/model"
 #define url_ConfigjSon @"/initx.json"
-#define H5_Host @"appH5/v5"
+#define H5_Host @"appH5/v4"
 #define url_purchase @"/pay/applepay/model" 
 #define url_purchase_recommend @"/payweb/apple/recommend" 
 #define url_verifyPayment @"/applepay/verifyPayment"

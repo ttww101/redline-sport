@@ -33,10 +33,10 @@
 @property (nonatomic, strong) ZBNewQingbaoTableView *NewQBTableView;
 @property (nonatomic, strong) ZBTuijianDatingTableView *tuiJianTable;
 @property (nonatomic, strong) ZBJiBenWebView *webView;
-@property (nonatomic, strong) ZBNewTuijianHtml *webViewZhiShu;
+@property (nonatomic, strong) ZBRecommendedWKWeb *webViewZhiShu;
 @property (nonatomic, strong) ZBRecommendedWKWeb *recommendWeb;
 @property (nonatomic , strong) ZBAnalysisWebview *analysisWeb; 
-@property (nonatomic, strong) ZBZhiboTableView *webZhiBo;
+@property (nonatomic, strong) ZBRecommendedWKWeb *webZhiBo;
 @property (nonatomic, assign) NSInteger typeNum;
 @property (nonatomic, assign) CGFloat   temHeight;
 @property (nonatomic, strong) UIButton *btnFabu;
@@ -384,7 +384,7 @@
         [_scrollMainView addSubview:self.NewQBTableView];
         [_scrollMainView addSubview:self.recommendWeb];
         [_scrollMainView addSubview:self.webZhiBo];
-        [self.webZhiBo addSegMent];
+//        [self.webZhiBo addSegMent];
     }
     return _scrollMainView;
 }
@@ -543,6 +543,7 @@
     }
     return _tuiJianTable;
 }
+
 - (ZBRecommendedWKWeb *)recommendWeb {
     if (_recommendWeb == nil) {
         _recommendWeb = [[ZBRecommendedWKWeb alloc]initWithFrame:CGRectMake(Width*3, 0, Width, _scrollMainView.height)];
@@ -553,6 +554,7 @@
     }
     return _recommendWeb;
 }
+
 - (ZBJiBenWebView *)webView{
     if (!_webView) {
         _webView = [[ZBJiBenWebView alloc] initWithFrame:CGRectMake(0, 0, Width, _scrollMainView.height)];
@@ -566,32 +568,35 @@
     if (_analysisWeb == nil) {
         _analysisWeb = [[ZBAnalysisWebview alloc]initWithFrame:CGRectMake(0, 0, Width, _scrollMainView.height)];
         ZBWebModel *model = [[ZBWebModel alloc]init];
-        model.webUrl = [NSString stringWithFormat:@"%@/appH5/fenxi/#/?id=%zi", APPDELEGATE.url_ip,_model.mid];
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/fenxi2/#/?id=%zi", APPDELEGATE.url_ip,H5_Host,_model.mid];
         _analysisWeb.model = model;
         _analysisWeb.tag = 30;
     }
     return _analysisWeb;
 }
-- (ZBNewTuijianHtml *)webViewZhiShu{
-    if (!_webViewZhiShu) {
-        _webViewZhiShu = [[ZBNewTuijianHtml alloc] initWithFrame:CGRectMake(Width, 0, Width, _scrollMainView.height)];
-        if (self.segIndex) {
-            _webViewZhiShu.segIndex = self.segIndex;
-        }
-        _webViewZhiShu.model = self.model;
-        _webViewZhiShu.scrollView.tag = 31;
+
+- (ZBRecommendedWKWeb *)webViewZhiShu {
+    if (_webViewZhiShu == nil) {
+        _webViewZhiShu = [[ZBRecommendedWKWeb alloc]initWithFrame:CGRectMake(Width, 0, Width, _scrollMainView.height)];
+        ZBWebModel *model = [[ZBWebModel alloc]init];
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/fenxi2/#/peilv/?id=%zi", APPDELEGATE.url_ip,H5_Host,_model.mid];
+        _webViewZhiShu.model = model;
+        _webViewZhiShu.tag = 31;
     }
     return _webViewZhiShu;
 }
-- (ZBZhiboTableView *)webZhiBo{
-    if (!_webZhiBo) {
-        _webZhiBo = [[ZBZhiboTableView alloc] initWithFrame:CGRectMake(Width*4,60, Width, _scrollMainView.height - 60)];
-        _webZhiBo.model = _model;
-        _webZhiBo.webSocket=self.webSocket;
+
+- (ZBRecommendedWKWeb *)webZhiBo {
+    if (_webZhiBo == nil) {
+        _webZhiBo = [[ZBRecommendedWKWeb alloc]initWithFrame:CGRectMake(Width*4, 0, Width, _scrollMainView.height)];
+        ZBWebModel *model = [[ZBWebModel alloc]init];
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/fenxi2/#/zhibo/?id=%zi", APPDELEGATE.url_ip,H5_Host,_model.mid];
+        _webZhiBo.model = model;
         _webZhiBo.tag = 34;
     }
     return _webZhiBo;
 }
+
 - (ZBTitleIndexView *)titleView
 {
     if (!_titleView) {

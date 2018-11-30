@@ -348,6 +348,7 @@
         weakSelf.gqHandler(model, ^(id responseData) {
         });
     }];
+    
     [self.bridge registerHandler:@"openBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
         if ([data isKindOfClass:[NSString class]]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data]];
@@ -355,6 +356,7 @@
             [SVProgressHUD showErrorWithStatus:@"地址错误"];
         }
     }];
+
     [self.bridge registerHandler:@"pagetoolbar" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
         NSError *err;

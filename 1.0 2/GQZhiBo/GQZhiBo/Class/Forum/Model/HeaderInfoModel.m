@@ -38,7 +38,7 @@
         self.messageAttHeight = 0;
     }
 
-    if (self.images) {
+    if (self.images.count > 0) {
         self.picLayout.height = 85;
     } else {
         self.picLayout.height = 0;

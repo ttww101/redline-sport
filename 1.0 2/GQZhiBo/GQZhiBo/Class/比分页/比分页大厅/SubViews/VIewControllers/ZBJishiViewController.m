@@ -40,7 +40,7 @@ static SystemSoundID shake_sound_id = 0;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self changeTimer];
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
         if (![[NSUserDefaults standardUserDefaults] boolForKey:@"youjinqiu"]) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -62,6 +62,9 @@ static SystemSoundID shake_sound_id = 0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewData) name:@"NotificationTogetAllJishibifen" object:nil];
     [self loadDataQiciJishiViewController];
     [self creatArr];
+    
+     [self changeTimer];
+   
 }
 - (void)creatArr {
     _foldInfo = [[NSMutableDictionary alloc] initWithDictionary:@{
