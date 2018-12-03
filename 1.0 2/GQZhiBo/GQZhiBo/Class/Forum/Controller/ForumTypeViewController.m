@@ -10,8 +10,11 @@
 #import "SectionView.h"
 #import "NavView.h"
 #import "Excellent.h"
+#import "ZBToolWebViewController.h"
+#import "GeneralFloatingView.h"
+#import "PublishViewController.h"
 
-@interface ForumTypeViewController () <UITableViewDataSource, UITableViewDelegate, SectionViewDelegate>
+@interface ForumTypeViewController () <UITableViewDataSource, UITableViewDelegate, SectionViewDelegate, GeneralFloatingViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<HeaderInfoModel *> *headers;
@@ -27,6 +30,7 @@
 @property (nonatomic, assign) NSInteger ord; //排序，0:发布时间，1：最后回复时间
 @property (nonatomic, assign) NSInteger cream; // 0 全部 1 精华帖
 
+@property (nonatomic , strong) GeneralFloatingView *floatingView;
 
 
 @end
@@ -61,6 +65,7 @@ static NSString *const CellID = @"GLCellID";
     [self.view addSubview:self.section];
     [self.view addSubview:self.nav];
     [self.view addSubview:self.backBtn];
+    [self.view addSubview:self.floatingView];
 }
 
 #pragma mark - Load Data
@@ -155,6 +160,16 @@ static NSString *const CellID = @"GLCellID";
     return footerView;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HeaderInfoModel *infoModel = [self getHeaderInfo:indexPath.section];
+    ZBWebModel *model = [[ZBWebModel alloc]init];
+    model.title = @"帖子详情";
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/board-show.html?id=%@", APPDELEGATE.url_ip,H5_Host, infoModel.postId];
+    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+    webDetailVC.model = model;
+    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+}
+
 #pragma mark - UIScrollview Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -199,6 +214,19 @@ static NSString *const CellID = @"GLCellID";
 - (void)loadWithRecent:(NSInteger)select {
     self.ord = select;
     [self loadData];
+}
+
+
+#pragma mark - GeneralFloatingViewDelegate
+
+- (void)floatingViewDidSelected:(NSInteger)sender {
+    if (sender == 0) {
+        PublishViewController *control = [[PublishViewController alloc]init];
+        control.modelId = self.header.modelInfo.moduleId;
+        [self.navigationController pushViewController:control animated:true];
+    } else {
+        [self loadData];
+    }
 }
 
 #pragma mark - Events
@@ -287,6 +315,14 @@ static NSString *const CellID = @"GLCellID";
         [_backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
+}
+
+- (GeneralFloatingView *)floatingView {
+    if (_floatingView == nil) {
+        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"form_publish", @"formReload"] scale:0.8];
+        _floatingView.delegate = self;
+    }
+    return _floatingView;
 }
 
 @end

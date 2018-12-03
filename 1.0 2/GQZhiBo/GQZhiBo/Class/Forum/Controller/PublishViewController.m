@@ -10,7 +10,7 @@
 #import "GL_TextView.h"
 #import "ZBInputViewController.h"
 
-@interface PublishViewController () <UITextViewDelegate>
+@interface PublishViewController () <UITextViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UITextField *titleTxtFiled;
@@ -32,9 +32,15 @@
     [self loadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:false animated:true];
+}
+
 #pragma mark - Config UI
 
 - (void)configUI {
+    self.navigationItem.title = @"发布推荐";
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightBtn setTitle:@"发表" forState:UIControlStateNormal];
@@ -110,6 +116,21 @@
     }
 }
 
+#pragma mark UITextFieldDelegate
+
+// 简易写法 限制字数不是很准确
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (string.length == 0) return YES;
+    NSInteger existedLength = textField.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    if (existedLength - selectedLength + replaceLength > 20){
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark - Events
 
 - (void)upContent {
@@ -135,6 +156,7 @@
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:[placeText rangeOfString:placeText]];
         [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(#D0CFCF) range:[placeText rangeOfString:placeText]];
         _titleTxtFiled.attributedPlaceholder = att;
+        _titleTxtFiled.delegate = self;
     }
     return _titleTxtFiled;
 }

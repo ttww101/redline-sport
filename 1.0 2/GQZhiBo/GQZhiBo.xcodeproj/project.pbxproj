@@ -138,6 +138,7 @@
 		A97C522E20E3A668005D0B26 /* ZBMessageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C522D20E3A668005D0B26 /* ZBMessageControl.m */; };
 		A97DD4DA21A2922500F12FEA /* ForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97DD4D921A2922500F12FEA /* ForumViewController.m */; };
 		A97DD4E021A2971400F12FEA /* ForumViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A97DD4DF21A2971400F12FEA /* ForumViewModel.m */; };
+		A98129B021B4CC6C00209845 /* GeneralFloatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98129AF21B4CC6C00209845 /* GeneralFloatingView.m */; };
 		A9833D4320E4D1F7008A6F94 /* ZBUserViewOfTuijianCellCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9833D4220E4D1F7008A6F94 /* ZBUserViewOfTuijianCellCopy.m */; };
 		A98632D020BE56800021DAFA /* ZBRecommendedWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98632CF20BE56800021DAFA /* ZBRecommendedWebView.m */; };
 		A98C9694207B7F4A00C308AE /* ZBUserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* ZBUserViewofMyBuyTuijian.m */; };
@@ -1328,6 +1329,8 @@
 		A97DD4D921A2922500F12FEA /* ForumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumViewController.m; sourceTree = "<group>"; };
 		A97DD4DE21A2971400F12FEA /* ForumViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumViewModel.h; sourceTree = "<group>"; };
 		A97DD4DF21A2971400F12FEA /* ForumViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumViewModel.m; sourceTree = "<group>"; };
+		A98129AE21B4CC6C00209845 /* GeneralFloatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralFloatingView.h; sourceTree = "<group>"; };
+		A98129AF21B4CC6C00209845 /* GeneralFloatingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneralFloatingView.m; sourceTree = "<group>"; };
 		A9833D4020E4D1EE008A6F94 /* ZBUserViewOfTuijianCellCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUserViewOfTuijianCellCopy.h; sourceTree = "<group>"; };
 		A9833D4220E4D1F7008A6F94 /* ZBUserViewOfTuijianCellCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUserViewOfTuijianCellCopy.m; sourceTree = "<group>"; };
 		A98632CE20BE56800021DAFA /* ZBRecommendedWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRecommendedWebView.h; sourceTree = "<group>"; };
@@ -2993,6 +2996,8 @@
 				A95AC76921A7E025009B67B8 /* GL_TextView.m */,
 				A91EBCE221AFF4E7008807FC /* CustomPopOverView.h */,
 				A91EBCE021AFF4E7008807FC /* CustomPopOverView.m */,
+				A98129AE21B4CC6C00209845 /* GeneralFloatingView.h */,
+				A98129AF21B4CC6C00209845 /* GeneralFloatingView.m */,
 				A9546D0821A3E0810097B6E8 /* Cell */,
 			);
 			path = View;
@@ -8467,6 +8472,7 @@
 				EB8C1E561F21944C00A07863 /* ZBNoticeViewController.m in Sources */,
 				EB542DC31F7210E000C051E8 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				A900863720DB4A9600437F72 /* ZBshowVideoView.m in Sources */,
+				A98129B021B4CC6C00209845 /* GeneralFloatingView.m in Sources */,
 				EB8C1EB11F21944C00A07863 /* ZBJiXianTableView.m in Sources */,
 				A9B52295209321A9001DF9B9 /* ZBMineTableViewCell.m in Sources */,
 				A911D67521A557950077CC38 /* HeaderView.m in Sources */,

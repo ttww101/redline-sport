@@ -11,6 +11,7 @@
 #import "PublishViewController.h"
 #import "PlayControl.h"
 #import "Excellent.h"
+#import "ZBToolWebViewController.h"
 
 @interface ForumViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -136,8 +137,13 @@ static NSString *const CellID = @"CellID";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    PublishViewController *control = [[PublishViewController alloc]init];
-    [self.navigationController pushViewController:control animated:true];
+    HeaderInfoModel *infoModel = [self getHeaderInfo:indexPath.section];
+    ZBWebModel *model = [[ZBWebModel alloc]init];
+    model.title = @"帖子详情";
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/board-show.html?id=%@", APPDELEGATE.url_ip,H5_Host, infoModel.postId];
+    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+    webDetailVC.model = model;
+    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
 }
 
 #pragma mark - Private Method

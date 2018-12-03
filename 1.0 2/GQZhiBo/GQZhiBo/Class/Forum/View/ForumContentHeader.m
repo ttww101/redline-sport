@@ -10,7 +10,7 @@
 #import "ZBToolWebViewController.h"
 
 
-@interface ForumContentHeader ()
+@interface ForumContentHeader () 
 
 @property (nonatomic, strong) BaseImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -168,7 +168,11 @@ CGFloat space = 10;
 }
 
 - (void)avatarClick {
-    
+    ZBUserViewController *userVC = [[ZBUserViewController alloc] init];
+    userVC.userId = [self.infoModel.userId integerValue];
+    userVC.hidesBottomBarWhenPushed = YES;
+    userVC.Number=1;
+    [APPDELEGATE.customTabbar pushToViewController:userVC animated:YES];
 }
 
 #pragma mark - Lazy Load

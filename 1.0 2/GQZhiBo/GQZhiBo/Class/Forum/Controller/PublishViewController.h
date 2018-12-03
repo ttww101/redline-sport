@@ -10,6 +10,8 @@
 
 @interface PublishViewController : ZBBasicViewController
 
+@property (nonatomic , copy) NSString *modelId;
+
 @end
 
 
