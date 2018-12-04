@@ -32,6 +32,8 @@
 
 @property (nonatomic , strong) GeneralFloatingView *floatingView;
 
+@property (nonatomic , strong) UIRefreshControl *refresh;
+
 
 @end
 
@@ -57,20 +59,27 @@ static NSString *const CellID = @"GLCellID";
     _originRect = CGRectMake(0, 0, self.view.width, Scale_Value(135));
     self.view.backgroundColor = [UIColor whiteColor];
     adjustsScrollViewInsets_NO(self.tableView, self);
+    [self.view addSubview:self.bgIV];
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self.view addSubview:self.bgIV];
     [self.view addSubview:self.section];
     [self.view addSubview:self.nav];
     [self.view addSubview:self.backBtn];
     [self.view addSubview:self.floatingView];
+    
+    UIRefreshControl *refresh = [[UIRefreshControl alloc]init];
+    [refresh addTarget:self action:@selector(loadData) forControlEvents:UIControlEventValueChanged];
+    refresh.tintColor = [UIColor whiteColor];
+    [self.tableView addSubview:refresh];
+    self.refresh = refresh;
 }
 
 #pragma mark - Load Data
 
 - (void)loadData {
+    [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setValue:@(0) forKey:@"limitStart"];
     [parameter setValue:@(20) forKey:@"limitNum"];
@@ -80,6 +89,8 @@ static NSString *const CellID = @"GLCellID";
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_forum_Module] Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
+        [self.refresh endRefreshing];
+        [ZBLodingAnimateView dissMissLoadingView];
         if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
             NSDictionary *data = responseOrignal[@"data"];
             self.header.modelInfo = [ModulesInfo yy_modelWithDictionary:data[@"module"]];
@@ -105,6 +116,8 @@ static NSString *const CellID = @"GLCellID";
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showErrorWithStatus:errorDict];
+        [self.refresh endRefreshing];
+        [ZBLodingAnimateView dissMissLoadingView];
     }];
 }
 
@@ -254,6 +267,7 @@ static NSString *const CellID = @"GLCellID";
         [_tableView registerClass:NSClassFromString(@"CommentCell") forCellReuseIdentifier:CellID];
         [_tableView registerClass:NSClassFromString(@"ForumContentHeader") forHeaderFooterViewReuseIdentifier:headerID];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor clearColor];
     }
     return _tableView;
 }

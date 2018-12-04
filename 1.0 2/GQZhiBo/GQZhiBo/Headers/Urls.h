@@ -178,6 +178,7 @@
 #define url_forum_Module @"/circle/module"
 #define url_topic_comment @"/circle/comment/save"
 #define url_topic_reply @"/circle/comment/replay/save"
+#define url_topic_publish @"/circle/post/save"
 
 
 #endif

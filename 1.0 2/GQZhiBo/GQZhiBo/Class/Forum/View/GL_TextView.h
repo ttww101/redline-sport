@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <YYText/YYText.h>
 
-NS_ASSUME_NONNULL_BEGIN
 
-@interface GL_TextView : UITextView
+@interface GL_TextView : YYTextView
 
 @end
 
-NS_ASSUME_NONNULL_END
+

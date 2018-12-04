@@ -9,22 +9,34 @@
 #import "PublishViewController.h"
 #import "GL_TextView.h"
 #import "ZBInputViewController.h"
+#import "InputAccessoryView.h"
+#import "WBEmoticonInputView.h"
+#import "WBStatusComposeTextParser.h"
+#import "PictureModel.h"
+#import "NSAttributedString+html.h"
 
-@interface PublishViewController () <UITextViewDelegate, UITextFieldDelegate>
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@interface PublishViewController () <UITextViewDelegate, UITextFieldDelegate, YYTextViewDelegate, InputAccessoryViewDelegate, YYTextKeyboardObserver, WBStatusComposeEmoticonViewDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) UITextField *titleTxtFiled;
 @property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) GL_TextView *textview;
-@property (nonatomic, strong) UILabel *placeHolder;
-@property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) UIView *bgView;
-
+@property (nonatomic ,strong) InputAccessoryView *inputView;
+@property (nonatomic, strong) NSMutableArray *picArray;
 
 
 @end
 
 @implementation PublishViewController
+
+- (instancetype)init {
+    self = [super init];
+    [[YYTextKeyboardManager defaultManager] addObserver:self];
+    return self;
+}
+
+- (void)dealloc {
+    [[YYTextKeyboardManager defaultManager] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,67 +65,40 @@
     
     self.navigationItem.title = @"发表帖子";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.scrollView];
-    [self.scrollView addSubview:self.bgView];
+   
     
-    [self.bgView addSubview:self.titleTxtFiled];
+    [self.view addSubview:self.titleTxtFiled];
     [self.titleTxtFiled mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bgView).offset(5);
-        make.left.equalTo(self.bgView).offset(15);
-        make.right.equalTo(self.bgView).offset(-15);
+        make.top.equalTo(self.view).offset(5);
+        make.left.equalTo(self.view).offset(15);
+        make.right.equalTo(self.view).offset(-15);
         make.height.mas_equalTo(44);
     }];
     
-    [self.bgView addSubview:self.lineView];
+    [self.view addSubview:self.lineView];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleTxtFiled.mas_bottom).offset(0);
-        make.left.equalTo(self.bgView);
-        make.right.equalTo(self.bgView);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
         make.height.mas_equalTo(ONE_PX_LINE);
     }];
 
-    [self.bgView addSubview:self.textview];
+    [self.view addSubview:self.textview];
     [self.textview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lineView.mas_bottom).offset(0);
-        make.left.equalTo(self.bgView).offset(15);
-        make.right.equalTo(self.bgView).offset(-15);
-        make.height.mas_equalTo(Scale_Value(300));
-    }];
-
-    [self.textview addSubview:self.placeHolder];
-    [self.placeHolder mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.textview).offset(5);
-        make.left.equalTo(self.textview).offset(0);
-    }];
-
-    [self.bgView addSubview:self.collectionView];
-    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.textview.mas_bottom).offset(0);
-        make.left.equalTo(self.bgView).offset(0);
-        make.right.equalTo(self.bgView).offset(0);
-        make.height.mas_equalTo(100);
+        make.left.equalTo(self.view).offset(15);
+        make.right.equalTo(self.view).offset(-15);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-40);
     }];
     
-    self.scrollView.contentSize = CGSizeMake(Width, Scale_Value(300) + 200);
-    self.bgView.height = self.scrollView.contentSize.height;
+    [self.view addSubview: self.inputView];
+    self.inputView.bottom = self.view.height;
 }
 
 #pragma mark - Load Data
 
 - (void)loadData {
     
-}
-
-#pragma mark - UITextViewDelegate
-
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    self.placeHolder.hidden = true;
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    if (!(textView.text.length > 0)) {
-        self.placeHolder.hidden = false;
-    }
 }
 
 #pragma mark UITextFieldDelegate
@@ -131,22 +116,264 @@
     return YES;
 }
 
+
+#pragma mark - YYTextViewDelegate
+
+- (void)textViewDidChange:(YYTextView *)textView {
+    
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
+#pragma mark @protocol YYTextKeyboardObserver
+
+- (void)keyboardChangedWithTransition:(YYTextKeyboardTransition)transition {
+    CGRect toFrame = [[YYTextKeyboardManager defaultManager] convertRect:transition.toFrame toView:self.view];
+    if (transition.animationDuration == 0) {
+        self.inputView.bottom = CGRectGetMinY(toFrame);
+    } else {
+        [UIView animateWithDuration:transition.animationDuration delay:0 options:transition.animationOption | UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.inputView.bottom = CGRectGetMinY(toFrame);
+        } completion:NULL];
+    }
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSUInteger sourceType = 0;
+    // 判断是否支持相机
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        switch (buttonIndex)
+        {
+            case 2:
+                // 取消
+                return;
+            case 0:
+                // 相机
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                break;
+                
+            case 1:
+                // 相册
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                break;
+        }
+    }
+    else
+    {
+        if (buttonIndex == 1)
+        {
+            return;
+        }
+        else
+        {
+            sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        }
+    }
+    // 跳转到相机或相册页面
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:^{}];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    NSData*imageData =UIImageJPEGRepresentation(image,0.8);
+    image = [UIImage imageWithData:imageData];
+    [ZBLodingAnimateView showLodingView];
+    [[ZBDCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:@{@"type":@"avatar"} PathUrlL:[NSString stringWithFormat:@"http://mobile.gunqiu.com:8897%@",url_uploadAliyun] ArrayFile:[NSArray arrayWithObjects:image, nil] Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
+        if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic = responseOrignal;
+            NSDictionary *contentDic = dic[@"data"];
+            NSString *picUrl = contentDic[@"picurl"];
+            picUrl = [NSString stringWithFormat:@"%@%@",url_pic,picUrl];
+            NSMutableAttributedString *attributText = [self.textview.attributedText mutableCopy];
+            UIFont *font = [UIFont systemFontOfSize:16];
+            UIImage *showImage = [UIImage imageWithCGImage:image.CGImage scale:2 orientation:UIImageOrientationUp];
+            NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:showImage contentMode:UIViewContentModeCenter attachmentSize:showImage.size alignToFont:font alignment:YYTextVerticalAlignmentCenter];
+            [attributText appendAttributedString:attachText];
+            self.textview.attributedText = attributText;
+             [self.picArray addObject:picUrl];
+        }else{
+            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+
+#pragma mark WBStatusComposeEmoticonView
+
+- (void)emoticonInputDidTapText:(NSString *)text {
+    if (text.length) {
+        [self.textview replaceRange:self.textview.selectedTextRange withText:text];
+    }
+}
+
+- (void)emoticonInputDidTapBackspace {
+    [self.textview deleteBackward];
+}
+
+#pragma mark - InputAccessoryViewDelegate
+
+- (void)InputAccessoryViewEmojiAction:(UIButton *)sender {
+    if (self.textview.inputView) {
+        self.textview.inputView = nil;
+        [self.textview reloadInputViews];
+        [self.textview becomeFirstResponder];
+        [sender setBackgroundImage:[UIImage imageNamed:@"emoji"] forState:UIControlStateNormal];
+    } else {
+        WBEmoticonInputView *v = [WBEmoticonInputView sharedView];
+        v.delegate = self;
+        self.textview.inputView = v;
+        [self.textview reloadInputViews];
+        [self.textview becomeFirstResponder];
+        [sender setBackgroundImage:[UIImage imageNamed:@"keyboard"] forState:UIControlStateNormal];
+    }
+}
+
+- (void)InputAccessoryViewPicAction:(UIButton *)sender {
+    UIActionSheet *sheet;
+    // 判断是否支持相机
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        sheet  = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"拍照" otherButtonTitles:@"从相册选择",@"取消", nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"从相册选择" otherButtonTitles:@"取消", nil];
+    }
+    [sheet showInView:self.view];
+}
+
 #pragma mark - Events
 
 - (void)upContent {
-    ZBInputViewController *control = [[ZBInputViewController alloc]init];
-    [self.navigationController pushViewController:control animated:true];
+    
+    if(![ZBMethods login]) {
+        [ZBMethods toLogin];
+        return;
+    }
+    
+    if (self.titleTxtFiled.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"标题不能为空"];
+        return;
+    }
+    
+    if (self.textview.attributedText.length == 0) {
+         [SVProgressHUD showErrorWithStatus:@"内容不能为空"];
+         return;
+    }
+    
+    ZBUserModel *model = [ZBMethods getUserModel];
+    NSString *content = [self replacetagWithImageArray:[self.picArray copy]];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    [parameter setObject:self.modelId forKey:@"modelId"];
+    [parameter setObject:self.titleTxtFiled.text forKey:@"title"];
+    [parameter setObject:content forKey:@"content"];
+    [parameter setObject:@(model.idId) forKey:@"userId"];
+    for (NSInteger i = 0; i < self.picArray.count; i ++) {
+        [parameter setObject:self.picArray[i] forKey:[NSString stringWithFormat:@"image%zi", i + 1]];
+    }
+     [ZBLodingAnimateView showLodingView];
+    [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, url_topic_publish] ArrayFile:nil Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
+        if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+            [self.navigationController popViewControllerAnimated:true];
+        }else{
+            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+         [ZBLodingAnimateView dissMissLoadingView];
+    }];
+}
+
+#pragma mark - Private
+
+#pragma mark -- 拼接图片地址
+-(NSString *)replacetagWithImageArray:(NSArray *)picArr
+{
+    NSMutableAttributedString * contentStr=[[NSMutableAttributedString alloc]initWithAttributedString:self.textview.attributedText];
+    [contentStr enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, contentStr.length)
+                           options:0
+                        usingBlock:^(id value, NSRange range, BOOL *stop) {
+                            if (value && [value isKindOfClass:[YYTextAttachment class]]) {
+                                [contentStr replaceCharactersInRange:range withString:RICHTEXT_IMAGE];
+                            }
+                        }];
+    NSMutableString * mutableStr=[[NSMutableString alloc]initWithString:contentStr.string];
+    NSArray * strArr=[mutableStr  componentsSeparatedByString:RICHTEXT_IMAGE];
+    NSString * newContent=@"";
+    for (int i=0; i<strArr.count; i++) {
+        NSString * imgTag=@"";
+        if (i<picArr.count) {
+
+           imgTag=[NSString stringWithFormat:@"<img src=\"%@\" style='max-width:100%%'/>", picArr[i]];
+        }
+        NSString * cutStr=[strArr objectAtIndex:i];
+        newContent=[NSString stringWithFormat:@"%@%@%@",newContent,cutStr,imgTag];
+    }
+//    [self getPPP:newContent];
+    return newContent;
+}
+
+- (void)getPPP:(NSString *)strHTML{
+    NSArray *arrayOne = [strHTML componentsSeparatedByString:@"<body>"];
+    NSArray *arrayTwo = [arrayOne[1] componentsSeparatedByString:@"</body>"];
+    NSArray *arrTwo = [arrayTwo[0] componentsSeparatedByString:@"</span>"];
+    NSString *str = @"";
+    for (int i = 0; i < arrTwo.count ; i ++) {
+        if ([arrTwo[i] rangeOfString:@"<img"].location ==NSNotFound) {
+            str = [NSString stringWithFormat:@"%@%@",str,arrTwo[i]];
+        }
+    }
+
+}
+-(NSString *)filterHTML:(NSString *)html
+{
+    NSScanner * scanner = [NSScanner scannerWithString:html];
+    NSString * text = nil;
+    while([scanner isAtEnd]==NO)
+    {
+        [scanner scanUpToString:@"<" intoString:nil];
+        [scanner scanUpToString:@">" intoString:&text];
+        NSLog(@"%@",text);
+        if ([text containsString:@"img"]) {
+            continue;
+        }else if ([text containsString:@"<p"]) {
+            html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@",text] withString:@"<p"];
+        }else if ([text isEqualToString:@"</p"]) {
+            html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@",text] withString:@"</p"];
+        }else if ([text isEqualToString:@"\n"]) {
+            html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@",text] withString:@"<br>"];
+        }else{
+            html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
+        }
+    }
+    html = [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    html = [html stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    return html;
 }
 
 #pragma mark - Lazy Load
-
-- (UIScrollView *)scrollView {
-    if (_scrollView == nil) {
-        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
-        _scrollView.backgroundColor = [UIColor whiteColor];
-    }
-    return _scrollView;
-}
 
 - (UITextField *)titleTxtFiled {
     if (_titleTxtFiled == nil) {
@@ -169,41 +396,40 @@
     return _lineView;
 }
 
-- (UIView *)bgView {
-    if (_bgView == nil) {
-        _bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
-        _bgView.backgroundColor = self.scrollView.backgroundColor;
-    }
-    return _bgView;
-}
-
 - (GL_TextView *)textview {
     if (_textview == nil) {
         _textview = [[GL_TextView alloc]init];
         _textview.delegate = self;
+        _textview.placeholderText = @"发表帖子正文";
+        _textview.placeholderTextColor = UIColorHex(#D0CFCF);
+        _textview.placeholderFont = [UIFont systemFontOfSize:14];
+        _textview.allowsPasteImage = true;
+        _textview.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+        _textview.inputAccessoryView = [UIView new];
+        _textview.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+         _textview.textParser = [WBStatusComposeTextParser new];
+        _textview.showsVerticalScrollIndicator = NO;
+        _textview.alwaysBounceVertical = YES;
+        _textview.allowsCopyAttributedString = NO;
+        _textview.extraAccessoryViewHeight = 36;
+        _textview.allowsPasteAttributedString = YES; /// Paste attributed string
     }
     return _textview;
 }
 
-- (UILabel *)placeHolder {
-    if (_placeHolder == nil) {
-        _placeHolder = [[UILabel alloc]init];
-        _placeHolder.text = @"发表帖子正文";
-        _placeHolder.textColor = UIColorHex(#D0CFCF);
-        _placeHolder.font = [UIFont systemFontOfSize:14];
+- (InputAccessoryView *)inputView {
+    if (_inputView == nil) {
+        _inputView = [[InputAccessoryView alloc]init];
+        _inputView.delegate = self;
     }
-    return _placeHolder;
+    return _inputView;
 }
 
-- (UICollectionView *)collectionView {
-    if (_collectionView == nil) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        layout.minimumLineSpacing = 5;
-        layout.minimumInteritemSpacing = 5;
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-        _collectionView.backgroundColor = [UIColor orangeColor];
+- (NSMutableArray *)picArray {
+    if (_picArray == nil) {
+        _picArray = [NSMutableArray new];
     }
-    return _collectionView;
+    return _picArray;
 }
 
 @end

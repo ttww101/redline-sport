@@ -49,7 +49,8 @@
 #pragma mark - Config UI
 
 - (void)configUI {
-    self.backgroundColor = UIColorHex(#EBEBEB);
+//    self.backgroundColor = UIColorHex(#EBEBEB);
+    self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.lineView];
     [self addSubview:self.spaceView];
     [self addSubview:self.topIV];
