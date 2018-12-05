@@ -110,7 +110,6 @@
     [self resumePuchase];  // 遗留在本地的内购验证
     [self configPageStatistics];
     
-
     [self setupUM];
     [self setUMShare];
     [self setUpBugly];
@@ -495,7 +494,7 @@
 //   // 新加
 //    APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时赔率的
 //    APPDELEGATE.url_ip = @"http://mobile.gunqiu.com";
-//
+
 
     //    本地测试环境
 //    APPDELEGATE.url_Server = @"http://10.0.80.95/interface";

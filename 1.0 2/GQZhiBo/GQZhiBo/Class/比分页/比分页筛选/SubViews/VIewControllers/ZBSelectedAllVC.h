@@ -4,13 +4,26 @@ typedef NS_ENUM(NSInteger, typeSaishiSelecterdVC)
     typeSaishiSelecterdVCTuijian = 1,
     typeSaishiSelecterdVCInfo = 2,
 };
+
+typedef NS_ENUM(NSUInteger, PlayType) {
+    PlayTypeAll,
+    PlayTypejingcai,
+    PlayTypezucai,
+    PlayTypebeidan,
+};
 #import "ZBBasicViewController.h"
 @protocol SelectedAllVCDelegate <NSObject>
 @optional
 - (void)confirmSelectedAllWithData:(NSArray *)arrSaveData;
 @end
 @interface ZBSelectedAllVC : ZBBasicViewController
+
 @property (nonatomic, weak) id<SelectedAllVCDelegate> delegate;
 @property (nonatomic, strong) NSArray *arrData;
 @property (nonatomic) typeSaishiSelecterdVC type;
+
+@property (nonatomic) PlayType playType;
+@property (nonatomic) NSString *sub; // jc 竞猜 or zc 足彩 or bd 北单 or all 全部，默认
+@property (nonatomic) NSString *timeline; // live 即时(默认)，old 赛果，new 赛程
+
 @end

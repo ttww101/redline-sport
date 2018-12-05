@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray<HeaderInfoModel *> *headers;
 @property (nonatomic, strong) NSMutableArray<CommentModel *> *comments;
 @property (nonatomic, strong) HeaderView *headerView;
+@property (nonatomic , strong) UIRefreshControl *refresh;
 
 
 @end
@@ -56,15 +57,24 @@ static NSString *const CellID = @"CellID";
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    UIRefreshControl *refresh = [[UIRefreshControl alloc]init];
+    [refresh addTarget:self action:@selector(loadData) forControlEvents:UIControlEventValueChanged];
+//    refresh.tintColor = [UIColor whiteColor];
+    [self.tableView addSubview:refresh];
+    self.refresh = refresh;
 }
 
 #pragma mark - Load Data
 
 - (void)loadData {
+    [ZBLodingAnimateView showLodingView];
      NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_forum] Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
+        [self.refresh endRefreshing];
+        [ZBLodingAnimateView dissMissLoadingView];
         if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
             NSDictionary *data = responseOrignal[@"data"];
             Modules *modules = [Modules yy_modelWithDictionary:data];
@@ -80,6 +90,8 @@ static NSString *const CellID = @"CellID";
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showErrorWithStatus:errorDict];
+        [self.refresh endRefreshing];
+        [ZBLodingAnimateView dissMissLoadingView];
     }];
 }
 

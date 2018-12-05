@@ -3,11 +3,59 @@
 #import "ZBLiveScoreModel.h"
 #import "ZBBIfenSelectedSaishiModel.h"
 #import "ZBJSbifenModel.h"
+
+
+NSString *const FilterAllPageNotification = @"FilterAllPageNotification";
+NSString *const FilterJingCaiPageNotification = @"FilterJingCaiPageNotification";
+NSString *const FilterZuCaiPageNotification = @"FilterZuCaiPageNotification";
+NSString *const FilterBeiDanPageNotification = @"FilterBeiDanPageNotification";
+
+
 @interface ZBSaishiSelecterdVC ()<ViewPagerDelegate,ViewPagerDataSource,TitleIndexViewDelegate,SelectedAllVCDelegate,SelectedJincaiVCDelegate,SelectedChupanVCDelegate,NavViewDelegate>
 @property (nonatomic, strong) ZBTitleIndexView *titleView;
 @property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic , strong) UIButton *saishiBtn;
+@property (nonatomic , strong) UIButton *pankouBtn;
 @end
 @implementation ZBSaishiSelecterdVC
+
+
+- (void)matchAction:(UIButton *)sender {
+    if (sender.selected) {
+        return;
+    }
+    sender.selected = !sender.selected;
+    self.pankouBtn.selected = false;
+    [_titleView removeFromSuperview];
+    _titleView = nil;
+    _titleView = [[ZBTitleIndexView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 44)];
+    _titleView.selectedIndex = 0;
+    _titleView.bottomLineColor = colorDD;
+    _titleView.arrData = @[@"全部",@"竞彩",@"足彩", @"北单"];
+    _titleView.delegate =self;
+    [self.view addSubview:_titleView];
+    [self reloadData];
+}
+
+- (void)panjouAction:(UIButton *)sender {
+    if (sender.selected) {
+        return;
+    }
+    sender.selected = !sender.selected;
+    self.saishiBtn.selected = false;
+    [_titleView removeFromSuperview];
+    _titleView = nil;
+    _titleView = [[ZBTitleIndexView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 44)];
+    _titleView.selectedIndex = 0;
+    _titleView.bottomLineColor = colorDD;
+    _titleView.arrData = @[@"让球",@"大小球"];
+    _titleView.delegate =self;
+    [self.view addSubview:_titleView];
+    [self reloadData];
+}
+
+#pragma mark - ************   ************
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -19,21 +67,14 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"赛事筛选";
+    self.view.backgroundColor = [UIColor whiteColor];
     self.delegate =self;
     self.dataSource = self;
     self.manualLoadData = NO;
     self.scrollingLocked = NO;
     [self.view addSubview:self.titleView];
     self.currentIndex = 0;
-    [self reloadData];
     [self setNavView];
-    _titleView = [[ZBTitleIndexView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 44)];
-    _titleView.selectedIndex = 0;
-    _titleView.bottomLineColor = colorDD;
-    _titleView.arrData = @[@"全部",@"热门",@"初盘"];
-    _titleView.delegate =self;
-    [self.view addSubview:_titleView];
 }
 - (void)didSelectedAtIndex:(NSInteger)index
 {
@@ -56,10 +97,33 @@
 {
     ZBNavView *nav = [[ZBNavView alloc] init];
     nav.delegate = self;
-    nav.labTitle.text = @"赛事筛选";
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateNormal];
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateHighlighted];
     [self.view addSubview:nav];
+    
+    CGFloat halfWidth = Width / 2;
+    
+    
+    UIButton *saishiBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [saishiBtn setTitle:@"赛事" forState:UIControlStateNormal];
+    [saishiBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [saishiBtn setTitleColor:UIColorHex(#F4BCB7) forState:UIControlStateNormal];
+    saishiBtn.titleLabel.font = font17;
+    saishiBtn.frame = CGRectMake(halfWidth - 70, 20, 40, 44);
+    [saishiBtn addTarget:self action:@selector(matchAction:) forControlEvents:UIControlEventTouchUpInside];
+    [nav addSubview:saishiBtn];
+    self.saishiBtn = saishiBtn;
+    
+    UIButton *pankouBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [pankouBtn setTitle:@"盘口" forState:UIControlStateNormal];
+    [pankouBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [pankouBtn setTitleColor:UIColorHex(#F4BCB7) forState:UIControlStateNormal];
+    pankouBtn.titleLabel.font = font17;
+    pankouBtn.frame = CGRectMake(halfWidth + 30, 20, 40, 44);
+    [pankouBtn addTarget:self action:@selector(panjouAction:) forControlEvents:UIControlEventTouchUpInside];
+    [nav addSubview:pankouBtn];
+    self.pankouBtn = pankouBtn;
+    [self matchAction:saishiBtn];
 }
 - (void)navViewTouchAnIndex:(NSInteger)index
 {
@@ -70,35 +134,70 @@
 }
 - (NSUInteger)numberOfTabsForViewPager:(ZBViewPagerController *)viewPager
 {
-    return 3;
+    return _titleView.arrData.count;
 }
 - (UIViewController *)viewPager:(ZBViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index
 {
     switch (index) {
         case 0:
         {
-            ZBSelectedAllVC *SelectedV  = [[ZBSelectedAllVC alloc] init];
-            SelectedV.type = _type;
-            SelectedV.arrData = _arrData;
-            SelectedV.delegate = self;
-            return SelectedV;
+            if (self.saishiBtn.isSelected) {
+                ZBSelectedAllVC *SelectedV  = [[ZBSelectedAllVC alloc] init];
+                SelectedV.type = _type;
+                SelectedV.delegate = self;
+                SelectedV.playType = PlayTypeAll;
+                SelectedV.sub = @"all";
+                SelectedV.timeline =  self.timeline;
+                return SelectedV;
+            } else {
+                ZBSelectedJincaiVC *SelectedV  = [[ZBSelectedJincaiVC alloc] init];
+                SelectedV.type = _type;
+                SelectedV.timeline =  self.timeline;
+                SelectedV.tab = @"pankou_rq";
+                SelectedV.delegate = self;
+                return SelectedV;
+            }
         }
             break;
         case 1:
         {
-            ZBSelectedJincaiVC *SelectedV  = [[ZBSelectedJincaiVC alloc] init];
-            SelectedV.type = _type;
-            SelectedV.arrData = _arrDataJingcai;
-            SelectedV.delegate = self;
-            return SelectedV;
+            if (self.saishiBtn.isSelected) {
+                ZBSelectedAllVC *SelectedV  = [[ZBSelectedAllVC alloc] init];
+                SelectedV.type = _type;
+                SelectedV.delegate = self;
+                SelectedV.playType = PlayTypejingcai;
+                SelectedV.sub = @"jc";
+                SelectedV.timeline =  self.timeline;
+                return SelectedV;
+            } else {
+                ZBSelectedJincaiVC *SelectedV  = [[ZBSelectedJincaiVC alloc] init];
+                SelectedV.type = _type;
+                SelectedV.delegate = self;
+                SelectedV.timeline =  self.timeline;
+                SelectedV.tab = @"pankou_dx";
+                return SelectedV;
+            }
         }
             break;
         case 2:
         {
-            ZBSelectedChupanVC *SelectedV  = [[ZBSelectedChupanVC alloc] init];
+            ZBSelectedAllVC *SelectedV  = [[ZBSelectedAllVC alloc] init];
             SelectedV.type = _type;
-            SelectedV.arrData = _arrDataChupan;
             SelectedV.delegate = self;
+            SelectedV.playType = PlayTypezucai;
+            SelectedV.sub = @"zc";
+            SelectedV.timeline =  self.timeline;
+            return SelectedV;
+        }
+            break;
+        case 3:
+        {
+            ZBSelectedAllVC *SelectedV  = [[ZBSelectedAllVC alloc] init];
+            SelectedV.type = _type;
+            SelectedV.delegate = self;
+            SelectedV.playType = PlayTypebeidan;
+            SelectedV.sub = @"bd";
+            SelectedV.timeline =  self.timeline;
             return SelectedV;
         }
             break;
@@ -249,36 +348,22 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - 盘口带过来数据
+
 - (void)confirmSelectedJincaiWithData:(NSArray *)arrSaveData
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"loadedBifenData"];
     NSMutableArray *arrSend = [NSMutableArray array];
     if (_type == typeSaishiSelecterdVCBifen) {
-        for (int i = 0; i<_arrBifenData.count; i++) {
-            ZBJSbifenModel *jsmodel = [_arrBifenData objectAtIndex:i];
-            ZBJSbifenModel *sendJs = [[ZBJSbifenModel alloc] init];
-            sendJs.time = jsmodel.time;
-            sendJs.data = [NSMutableArray array];
-            [arrSend addObject:sendJs];
-            for (int m = 0; m<jsmodel.data.count; m++) {
-                ZBLiveScoreModel *model = [jsmodel.data objectAtIndex:m];
-                for (int j = 0; j<arrSaveData.count; j++) {
-                    ZBBIfenSelectedSaishiModel *modelSave = [arrSaveData objectAtIndex:j];
-                    if (model.leagueId == modelSave.idId) {
-                        [sendJs.data addObject:model];
-                        break;
-                    }
-                }
-            }
+        NSString *str = @"";
+        if (self.currentIndex == 0) {
+            str = @"pankou_rq";
+        } else {
+            str = @"pankou_dx";
         }
-        NSString *documentPath = [ZBMethods getDocumentsPath];
-        NSString *arrSaveBifenJingcaiSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenJingcaiSelectedPath];
-        [NSKeyedArchiver archiveRootObject:arrSaveData toFile:arrSaveBifenJingcaiSelected];
-        NSString *arrSaveBifenAllSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenAllSelectedPath];
-        [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenAllSelected];
-        NSString *arrSaveBifenChupanSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenChupanSelectedPath];
-        [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenChupanSelected];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationupdateByselectedSaishi object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:arrSend,@"arrData", nil]];
+        NSDictionary *dic = @{@"currentType": self.timeline, @"data":arrSaveData, @"type": str};
+        [[NSNotificationCenter defaultCenter]postNotificationName:FilterAllPageNotification object:nil userInfo:@{@"paramer":dic}];
     }else if (_type == typeSaishiSelecterdVCTuijian)
     {
         for (int i = 0; i<_arrBifenData.count; i++) {
@@ -322,36 +407,17 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - 赛事带过来数据
+
 - (void)confirmSelectedAllWithData:(NSArray *)arrSaveData
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"loadedBifenData"];
     NSMutableArray *arrSend = [NSMutableArray array];
     if (_type == typeSaishiSelecterdVCBifen) {
-        for (int i = 0; i<_arrBifenData.count; i++) {
-            ZBJSbifenModel *jsmodel = [_arrBifenData objectAtIndex:i];
-            ZBJSbifenModel *sendJs = [[ZBJSbifenModel alloc] init];
-            sendJs.time = jsmodel.time;
-            sendJs.data = [NSMutableArray array];
-            [arrSend addObject:sendJs];
-            for (int m = 0; m<jsmodel.data.count; m++) {
-                ZBLiveScoreModel *model = [jsmodel.data objectAtIndex:m];
-                for (int j = 0; j<arrSaveData.count; j++) {
-                    ZBBIfenSelectedSaishiModel *modelSave = [arrSaveData objectAtIndex:j];
-                    if (model.leagueId == modelSave.idId) {
-                        [sendJs.data addObject:model];
-                        break;
-                    }
-                }
-            }
-        }
-        NSString *documentPath = [ZBMethods getDocumentsPath];
-        NSString *arrSaveBifenAllSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenAllSelectedPath];
-        [NSKeyedArchiver archiveRootObject:arrSaveData toFile:arrSaveBifenAllSelected];
-        NSString *arrSaveBifenJingcaiSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenJingcaiSelectedPath];
-        [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenJingcaiSelected];
-        NSString *arrSaveBifenChupanSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenChupanSelectedPath];
-        [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenChupanSelected];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NotificationupdateByselectedSaishi object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:arrSend,@"arrData", nil]];
+        NSDictionary *dic = @{@"currentType": self.timeline, @"data":arrSaveData, @"type": @"sclasss"};
+        [[NSNotificationCenter defaultCenter]postNotificationName:FilterAllPageNotification object:nil userInfo:@{@"paramer":dic}];
+       
     }else if (_type == typeSaishiSelecterdVCTuijian)
     {
         for (int i = 0; i<_arrBifenData.count; i++) {
@@ -394,6 +460,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NotificationupdateByselectedinfo object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:arrSend,@"arrData",@"1",@"type", nil]];
     }
     [self.navigationController popViewControllerAnimated:YES];
+   
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffsetX = scrollView.contentOffset.x;

@@ -13,12 +13,66 @@
 @property (nonatomic, strong) ZBAllSelectedView *allselectedV;
 @property (nonatomic, strong) NSArray *arrViewIndex;
 @property (nonatomic, strong) ZBDSCollectionViewIndex *ViewIndex;
-@property (nonatomic, strong) NSMutableArray *arrSectionData;
-@property (nonatomic, strong) NSMutableArray *arrItemData;
 @property (nonatomic, assign) BOOL allBtnIsSelected;
 @property (nonatomic, strong) UILabel *flotageLabel;
+@property (nonatomic, strong) NSMutableArray<FilterData *> *dataList;
+
 @end
 @implementation ZBSelectedAllVC
+
+#pragma mark - Load Data
+
+- (void)loadData {
+    [ZBLodingAnimateView showLodingView];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    [parameter setValue:PARAM_IS_NIL_ERROR(self.timeline) forKey:@"timeline"];
+    [parameter setValue:@"sclass" forKey:@"tab"];
+    [parameter setValue:PARAM_IS_NIL_ERROR(self.sub) forKey:@"sub"];
+    NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];
+    [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:path Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
+        if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic = responseOrignal[@"data"];
+            FilterModel *model = [FilterModel yy_modelWithDictionary:dic];
+            if (model.hot_items.count > 0) {
+                FilterData *hotModel = [[FilterData alloc]init];
+                hotModel.dataList = model.hot_items;
+                hotModel.title = @"热门赛事";
+                [self.dataList addObject:hotModel];
+            }
+            
+            if (model.other_items.count > 0) {
+                FilterData *allModel = [[FilterData alloc]init];
+                allModel.dataList = model.other_items;
+                allModel.title = @"其它赛事";
+                [self.dataList addObject:allModel];
+            }
+            
+            [self.collectionView reloadData];
+            
+        } else {
+            
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [SVProgressHUD showErrorWithStatus:errorDict];
+        [ZBLodingAnimateView dissMissLoadingView];
+    }];
+    
+}
+
+#pragma mark - Lazy Load
+
+- (NSMutableArray *)dataList {
+    if (_dataList == nil) {
+        _dataList = [NSMutableArray array];
+    }
+    return _dataList;;
+}
+
+#pragma mark - ************  以下高人所写  ************
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -26,8 +80,11 @@
     [self.view addSubview:self.allselectedV];
     self.allselectedV.btnAll.selected = _allBtnIsSelected;
     [self.view addSubview:self.collectionView];
-    [self.view addSubview:self.ViewIndex];
-    [self.view addSubview:self.flotageLabel];
+    
+//    [self.view addSubview:self.ViewIndex];
+//    [self.view addSubview:self.flotageLabel];
+    
+    [self loadData];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -46,63 +103,7 @@
     }
     return _flotageLabel;
 }
-- (void)setArrData:(NSArray *)arrData
-{
-    _arrData = arrData;
-    if (_arrData.count>0) {
-        [self seperateData];
-    }
-}
-- (void)seperateData
-{
-    _arrSectionData = [NSMutableArray array];
-    _arrItemData = [NSMutableArray array];
-    NSString *documentPath = [ZBMethods getDocumentsPath];
-    NSString *PatharrSaveAll = @"";
-    if (_type == typeSaishiSelecterdVCBifen) {
-        PatharrSaveAll = [documentPath stringByAppendingPathComponent:arrSaveBifenAllSelectedPath];
-    }else if (_type == typeSaishiSelecterdVCTuijian)
-    {
-        PatharrSaveAll = [documentPath stringByAppendingPathComponent:arrSaveAllSelectedPathTuijianJingcai];
-    }else if (_type == typeSaishiSelecterdVCInfo)
-    {
-        PatharrSaveAll = [documentPath stringByAppendingPathComponent:arrSaveAllSelectedPathinfo];
-    }
-    NSArray *arrsaveSaishi = [NSKeyedUnarchiver unarchiveObjectWithFile:PatharrSaveAll];
-    for (int i = 0; i<_arrData.count; i++) {
-        ZBBIfenSelectedSaishiModel *model = [_arrData objectAtIndex:i];
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
-            model.isSelected = NO;
-            _allBtnIsSelected = NO;
-        }else{
-            if (arrsaveSaishi.count == 0) {
-                model.isSelected = NO;
-                _allBtnIsSelected = NO;
-            }else{
-            model.isSelected = NO;
-            for (int j = 0; j<arrsaveSaishi.count; j++) {
-                ZBBIfenSelectedSaishiModel *Savemodel = [arrsaveSaishi objectAtIndex:j];
-                if (model.idId == Savemodel.idId) {
-                    model.isSelected = YES;
-                    break;
-                }else{
-                    model.isSelected = NO;
-                }
-            }
-        }
-        }
-        if (![_arrSectionData containsObject:model.index]) {
-            [_arrSectionData addObject:model.index];
-            NSMutableArray *arrItem = [NSMutableArray array];
-            [arrItem addObject:model];
-            [_arrItemData addObject:arrItem];
-        }else{
-            NSInteger index = [_arrSectionData indexOfObject:model.index];
-            NSMutableArray *arrItem = [_arrItemData objectAtIndex:index];
-            [arrItem addObject:model];
-        }
-    }
-}
+
 - (ZBAllSelectedView *)allselectedV
 {
     if (!_allselectedV) {
@@ -111,34 +112,36 @@
     }
     return _allselectedV;
 }
-- (void)didSelectedAtBtnIndex:(NSInteger)index whtherSelected:(BOOL)selected
-{
+- (void)didSelectedAtBtnIndex:(NSInteger)index whtherSelected:(BOOL)selected {
     if (index == 0) {
-        for (int i = 0; i<_arrData.count; i++) {
-            ZBBIfenSelectedSaishiModel *model = [_arrData objectAtIndex:i];
-            model.isSelected = YES;
-        }
+        [self.dataList enumerateObjectsUsingBlock:^(FilterData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj.dataList enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                obj.isSelected = true;
+            }];
+        }];
         [self.collectionView reloadData];
     }else if (index == 1) {
-        for (int i = 0; i<_arrData.count; i++) {
-            ZBBIfenSelectedSaishiModel *model = [_arrData objectAtIndex:i];
-            model.isSelected = NO;
-        }
+        [self.dataList enumerateObjectsUsingBlock:^(FilterData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj.dataList enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                obj.isSelected = false;
+            }];
+        }];
         [self.collectionView reloadData];
     }else if (index == 2) {
         if (_delegate && [_delegate respondsToSelector:@selector(confirmSelectedAllWithData:)]) {
-            NSMutableArray *arrMemory = [NSMutableArray arrayWithArray:_arrData];
             NSMutableArray *arrSend = [NSMutableArray array];
-            for (int i = 0 ;i<arrMemory.count; i++) {
-                ZBBIfenSelectedSaishiModel *model = [arrMemory objectAtIndex:i];
-                if (model.isSelected) {
-                    [arrSend addObject:model];
-                }
-            }
+            [self.dataList enumerateObjectsUsingBlock:^(FilterData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [obj.dataList enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (obj.isSelected) {
+                        [arrSend addObject:obj];
+                    }
+                }];
+            }];
             [_delegate confirmSelectedAllWithData:arrSend];
         }
     }
 }
+
 - (UICollectionView *)collectionView
 {
     if (!_collectionView) {
@@ -158,12 +161,12 @@
 #pragma mark -- uicollectionView
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return _arrSectionData.count;
+    return self.dataList.count;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSMutableArray *arr = [_arrItemData objectAtIndex:section];
-    return arr.count;
+    FilterData *model = self.dataList[section];
+    return model.dataList.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -173,8 +176,8 @@
     }
     else{
     }
-    NSMutableArray *arr = [_arrItemData objectAtIndex:indexPath.section];
-    ZBBIfenSelectedSaishiModel *model = [arr objectAtIndex:indexPath.row];
+    FilterData *dataModel = self.dataList[indexPath.section];
+    ZBBIfenSelectedSaishiModel *model = [dataModel.dataList objectAtIndex:indexPath.row];
     cell.cellSize = CGSizeMake(cellCollectionWidth, cellCollectionHeight);
     cell.model = model;
     cell.selected = model.isSelected;
@@ -182,20 +185,21 @@
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    FilterData *dataModel = self.dataList[indexPath.section];
     UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:CollectionHeaderSelectedAllVC forIndexPath:indexPath];
     headerView.backgroundColor = colorTableViewBackgroundColor;
     [headerView removeAllSubViews];
     UILabel *labTitle = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 24)];
     labTitle.textColor = color33;
     labTitle.font = font12;
-    labTitle.text = _arrSectionData[indexPath.section];
+    labTitle.text = dataModel.title;
     [headerView addSubview:labTitle];
     return headerView;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    NSMutableArray *arr = [_arrItemData objectAtIndex:indexPath.section];
-    ZBBIfenSelectedSaishiModel *model = [arr objectAtIndex:indexPath.row];
+    FilterData *dataModel = self.dataList[indexPath.section];
+    ZBBIfenSelectedSaishiModel *model = [dataModel.dataList objectAtIndex:indexPath.row];
     model.isSelected = !model.isSelected;
     [_allselectedV changeBtnSelectedState:model.isSelected];
     [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]];
@@ -229,11 +233,11 @@
 -(void)collectionViewIndex:(ZBDSCollectionViewIndex *)collectionViewIndex didselectionAtIndex:(NSInteger)index withTitle:(NSString *)title
 {
     _flotageLabel.text = title;
-    if ([_arrSectionData containsObject:title]) {
-        NSInteger sectionIndex = [_arrSectionData indexOfObject:title];
-        NSIndexPath *tableIndexPath = [NSIndexPath indexPathForItem:0 inSection:sectionIndex];
-        [self.collectionView scrollToItemAtIndexPath:tableIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
-    }
+//    if ([_arrSectionData containsObject:title]) {
+//        NSInteger sectionIndex = [_arrSectionData indexOfObject:title];
+//        NSIndexPath *tableIndexPath = [NSIndexPath indexPathForItem:0 inSection:sectionIndex];
+//        [self.collectionView scrollToItemAtIndexPath:tableIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+//    }
 }
 - (void)collectionViewIndexTouchesBegan:(ZBDSCollectionViewIndex *)collectionViewIndex
 {

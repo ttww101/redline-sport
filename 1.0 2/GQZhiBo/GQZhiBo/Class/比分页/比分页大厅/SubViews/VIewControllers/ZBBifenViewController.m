@@ -14,7 +14,9 @@
 #import "ZBSelectedEventView.h"
 #import "ZBHSTabBarContentView.h"
 #import "ArchiveFile.h"
-@interface ZBBifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate,HSTabBarContentViewDataSource>
+#import "GeneralFloatingView.h"
+
+@interface ZBBifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate,HSTabBarContentViewDataSource, GeneralFloatingViewDelegate>
 @property (nonatomic, strong)ZBJishiViewController *jishiVC;
 @property (nonatomic, strong)ZBSaiguoViewController *saiguoVC;
 @property (nonatomic, strong)ZBSaichengViewController *saichengVC;
@@ -30,8 +32,46 @@
 @property (nonatomic, strong) ZBSelecterMatchView *matchView;
 @property (nonatomic, strong) UIButton *btnTitle;
 @property (nonatomic, strong) UIButton *imageV;
+
+@property (nonatomic , strong) GeneralFloatingView *floatingView;
+
 @end
 @implementation ZBBifenViewController
+
+
+#pragma mark - Config UI
+
+- (void)configUI {
+    [self.view addSubview:self.floatingView];
+}
+
+- (GeneralFloatingView *)floatingView {
+    if (_floatingView == nil) {
+        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"filter"] scale:0.8];
+        _floatingView.delegate = self;
+    }
+    return _floatingView;
+}
+
+#pragma mark - GeneralFloatingViewDelegate
+
+- (void)floatingViewDidSelected:(NSInteger)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showJinqiuAnimation"];
+    ZBSaishiSelecterdVC *selectedVC = [[ZBSaishiSelecterdVC alloc] init];
+    selectedVC.type = typeSaishiSelecterdVCBifen;
+    if (self.currentIndex == 0) {
+        selectedVC.timeline = @"live";
+    } else if (self.currentIndex == 1) {
+        selectedVC.timeline = @"old";
+    }  else if (self.currentIndex == 2) {
+        selectedVC.timeline = @"new";
+    }
+    [self.navigationController pushViewController:selectedVC animated:true];
+}
+
+#pragma mark - ************  分割  ************
+
+
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -74,6 +114,7 @@
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
         _titleArr = [NSMutableArray arrayWithObjects:@"全部",@"竞彩",@"北单",@"足彩", nil];
+//        _titleArr = [NSMutableArray array];
     }
     return _titleArr;
 }
@@ -93,27 +134,32 @@
     ZBNavView *nav = [[ZBNavView alloc] init];
     nav.height = 74;
     nav.delegate = self;
-    nav.labTitle.text = @"";
+    nav.labTitle.text = @"滚球体育";
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"shezhiBifen1"] forState:UIControlStateNormal];
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"shezhiBifen1"] forState:UIControlStateHighlighted];
-    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shaixuanBifen1"] forState:UIControlStateNormal];
-    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shaixuanBifen1"] forState:UIControlStateHighlighted];
+    
+//    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shaixuanBifen1"] forState:UIControlStateNormal];
+//    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shaixuanBifen1"] forState:UIControlStateHighlighted];
+    
     UIButton *btnShaixuan = [UIButton buttonWithType:UIButtonTypeCustom];
     btnShaixuan.bounds = nav.btnRight.bounds;
-    btnShaixuan.center = CGPointMake(nav.btnRight.center.x - nav.btnRight.width, nav.btnRight.center.y - 2);
+    btnShaixuan.center = CGPointMake(nav.btnRight.center.x, nav.btnRight.center.y - 2);
     [btnShaixuan setBackgroundImage:[UIImage imageNamed:@"search1"] forState:UIControlStateNormal];
     [btnShaixuan setBackgroundImage:[UIImage imageNamed:@"search1"] forState:UIControlStateHighlighted];
     [btnShaixuan addTarget:self action:@selector(btnSearch) forControlEvents:UIControlEventTouchUpInside];
     [nav addSubview:btnShaixuan];
-    [nav addSubview:self.navTitleView];
+    
+//    [nav addSubview:self.navTitleView];
+    
     [self.view addSubview:nav];
-    [self.navTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(nav.btnLeft.mas_trailing).offset(5);
-        make.trailing.equalTo(btnShaixuan.mas_leading).offset(-5);
-        make.centerY.equalTo(nav.btnRight).offset(8);
-        make.height.equalTo(nav.btnRight);
-    }];
-    [self.navTitleView reloadData];
+    
+//    [self.navTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.leading.equalTo(nav.btnLeft.mas_trailing).offset(5);
+//        make.trailing.equalTo(btnShaixuan.mas_leading).offset(-5);
+//        make.centerY.equalTo(nav.btnRight).offset(8);
+//        make.height.equalTo(nav.btnRight);
+//    }];
+//    [self.navTitleView reloadData];
 }
 - (void)btnSearch
 {
@@ -170,6 +216,7 @@
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showJinqiuAnimation"];
             ZBSaishiSelecterdVC *selectedVC = [[ZBSaishiSelecterdVC alloc] init];
             selectedVC.type = typeSaishiSelecterdVCBifen;
+        /*
             switch (_currentIndex) {
                 case 0:
                 {
@@ -198,6 +245,8 @@
                 default:
                     break;
             }
+         
+         */
             selectedVC.hidesBottomBarWhenPushed = YES;
             [APPDELEGATE.customTabbar pushToViewController:selectedVC animated:YES];
     }
@@ -276,6 +325,8 @@
     NSArray *arrviewcontroller = @[self.jishiVC,self.saiguoVC,self.saichengVC,self.guanzhuVC];
     NSLog(@"%@",arrviewcontroller);
     [self getAttentionNum];
+    
+    [self configUI];
 }
 - (void)updateWhetherShowSort
 {
@@ -471,6 +522,8 @@
 }
 - (void)getAttentionNum
     {
+        
+        return;
         NSString *documentsPath = [ZBMethods getDocumentsPath];
         NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
         NSArray *arrAttentionMid = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:arrayPath]];

@@ -180,5 +180,11 @@
 #define url_topic_reply @"/circle/comment/replay/save"
 #define url_topic_publish @"/circle/post/save"
 
+#pragma mark - 比分
+
+#define url_bifen_filterAll @"/bifen/filter"
+
+
+
 
 #endif

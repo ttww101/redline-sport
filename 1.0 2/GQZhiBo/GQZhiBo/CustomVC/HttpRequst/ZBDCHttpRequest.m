@@ -125,13 +125,15 @@ static AFHTTPRequestOperationManager *_afnetManager;
         [SVProgressHUD setMinimumDismissTimeInterval:1.5];
         [SVProgressHUD setCornerRadius:6];
         start(parameters);
-        NSLog(@"pathUrl---\n%@",pathUrl);
-        NSLog(@"parameters---\n%@",parameters);
+       
         NSMutableString *str = [NSMutableString stringWithFormat:@"%@?",pathUrl];
         [parameters.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [str appendString:[NSString stringWithFormat:@"&%@=%@",obj,[parameters objectForKey:obj]]];
         }];
+        NSLog(@"pathUrl---\n%@",pathUrl);
+        NSLog(@"parameters---\n%@",parameters);
     }
+    
     [_afnetManager GET:pathUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (end) {
             end(operation.responseObject);

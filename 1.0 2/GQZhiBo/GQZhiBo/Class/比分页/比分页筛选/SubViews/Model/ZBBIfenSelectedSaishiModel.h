@@ -8,3 +8,18 @@
 @property (nonatomic, assign) NSInteger order;
 @property (nonatomic, assign) BOOL isSelected;
 @end
+
+@interface FilterModel: NSObject
+
+@property (nonatomic , copy) NSArray<ZBBIfenSelectedSaishiModel *> *hot_items;
+@property (nonatomic , copy) NSArray<ZBBIfenSelectedSaishiModel *> *other_items;
+@property (nonatomic , copy) NSArray<ZBBIfenSelectedSaishiModel *> *items;
+
+@end
+
+@interface FilterData: NSObject
+
+@property (nonatomic, copy) NSArray<ZBBIfenSelectedSaishiModel *> *dataList;
+@property (nonatomic , copy) NSString *title;
+
+@end
