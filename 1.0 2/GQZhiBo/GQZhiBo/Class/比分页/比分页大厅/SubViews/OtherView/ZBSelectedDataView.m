@@ -5,6 +5,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @end
 @implementation ZBSelectedDataView
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -20,12 +21,14 @@
     }
     return self;
 }
+
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
         return NO;
     }
     return YES;
 }
+
 - (void)touchTap
 {
     if (_delegate && [_delegate respondsToSelector:@selector(touchTapView)]) {
@@ -60,14 +63,17 @@
     }
     return _tableView;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _arrData.count;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellSelectedDataView];
@@ -75,8 +81,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellSelectedDataView];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    
+    
     UIView *viewN = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 44)];
     viewN.backgroundColor = [UIColor whiteColor];
+    
     UILabel *labN = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, Width  - 30, 44)];
     labN.textColor = color33;
     labN.font = font16;
@@ -84,9 +93,10 @@
     ZBQiciModel *qici;
     if (_arrData.count >0) {
         qici = [_arrData objectAtIndex:indexPath.row];
-        labN.text = qici.name;
+        labN.text = qici.val;
     }
     [viewN addSubview:labN];
+    
     UIImageView *imageN = [[UIImageView alloc] initWithFrame:CGRectMake(Width - 15  - 20, 0, 18, 13)];
     imageN.center = CGPointMake(imageN.center.x, viewN.height/2);
     imageN.image = [UIImage imageNamed:@"clear"];
@@ -94,26 +104,11 @@
     UIView *viewBN = [[UIView alloc] initWithFrame:CGRectMake(0, 43, Width, 0.5)];
     viewBN.backgroundColor = colorDD;
     [viewN addSubview:viewBN];
-    cell.backgroundView = viewN;
-    UIView *viewS = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 44)];
-    viewS.backgroundColor = [UIColor whiteColor];
-    UILabel *labS = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, Width  - 30, 44)];
-    labS.textColor = redcolor;
-    labS.font = font16;
-    labS.text = qici.name;
-    labS.textAlignment = NSTextAlignmentCenter;
-    [viewS addSubview:labS];
-    UIImageView *imageS = [[UIImageView alloc] initWithFrame:CGRectMake(Width - 15  - 20, 0, 18, 13)];
-    imageS.center = CGPointMake(imageN.center.x, viewN.height/2);
-    imageS.image = [UIImage imageNamed:@"clear"];
-    [viewS addSubview:imageS];
-    UIView *viewBS = [[UIView alloc] initWithFrame:CGRectMake(0, 43, Width, 0.5)];
-    viewBS.backgroundColor = colorDD;
-    [viewS addSubview:viewBS];
-    cell.selectedBackgroundView = viewS;
+    
+    [cell.contentView addSubview:viewN];
     return cell;
-    return nil;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_delegate && [_delegate respondsToSelector:@selector(ZBSelecterMatchView:selectedAtIndex:WithSelectedName:)]) {

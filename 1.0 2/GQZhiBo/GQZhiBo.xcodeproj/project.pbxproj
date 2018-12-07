@@ -110,6 +110,7 @@
 		A951F9A8213D0D840001B803 /* ZBUIAlertController+askForUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F9A6213D0D840001B803 /* ZBUIAlertController+askForUser.m */; };
 		A951F9AD213D0DCA0001B803 /* ZBNSObject+Perform.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F9A9213D0DC90001B803 /* ZBNSObject+Perform.m */; };
 		A951F9AE213D0DCA0001B803 /* ZBNSFileHandle+Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F9AB213D0DCA0001B803 /* ZBNSFileHandle+Utility.m */; };
+		A95440BA21B909B5004305F5 /* DatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A95440B921B909B5004305F5 /* DatePickerView.m */; };
 		A9546D0621A3DFB50097B6E8 /* ForumContentHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D0521A3DFB50097B6E8 /* ForumContentHeader.m */; };
 		A9546D0B21A3E09A0097B6E8 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D0A21A3E09A0097B6E8 /* CommentCell.m */; };
 		A9546D0E21A3EF290097B6E8 /* PicView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D0D21A3EF290097B6E8 /* PicView.m */; };
@@ -1298,6 +1299,8 @@
 		A951F9AA213D0DCA0001B803 /* ZBNSFileHandle+Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZBNSFileHandle+Utility.h"; sourceTree = "<group>"; };
 		A951F9AB213D0DCA0001B803 /* ZBNSFileHandle+Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZBNSFileHandle+Utility.m"; sourceTree = "<group>"; };
 		A951F9AC213D0DCA0001B803 /* ZBNSObject+Perform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZBNSObject+Perform.h"; sourceTree = "<group>"; };
+		A95440B821B909B5004305F5 /* DatePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerView.h; sourceTree = "<group>"; };
+		A95440B921B909B5004305F5 /* DatePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerView.m; sourceTree = "<group>"; };
 		A9546D0421A3DFB50097B6E8 /* ForumContentHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumContentHeader.h; sourceTree = "<group>"; };
 		A9546D0521A3DFB50097B6E8 /* ForumContentHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumContentHeader.m; sourceTree = "<group>"; };
 		A9546D0921A3E09A0097B6E8 /* CommentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
@@ -5607,6 +5610,8 @@
 				EB8C1D821F21944B00A07863 /* Music */,
 				EB8C1D881F21944B00A07863 /* ZBSelectedDataView.h */,
 				EB8C1D891F21944B00A07863 /* ZBSelectedDataView.m */,
+				A95440B821B909B5004305F5 /* DatePickerView.h */,
+				A95440B921B909B5004305F5 /* DatePickerView.m */,
 				EB8C1D8A1F21944B00A07863 /* ZBSelectedDateTitleView.h */,
 				EB8C1D8B1F21944B00A07863 /* ZBSelectedDateTitleView.m */,
 				EB8C1D8C1F21944B00A07863 /* ZBSelectedEventView.h */,
@@ -8576,6 +8581,7 @@
 				EB8C1E561F21944C00A07863 /* ZBNoticeViewController.m in Sources */,
 				EB542DC31F7210E000C051E8 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				A900863720DB4A9600437F72 /* ZBshowVideoView.m in Sources */,
+				A95440BA21B909B5004305F5 /* DatePickerView.m in Sources */,
 				A98129B021B4CC6C00209845 /* GeneralFloatingView.m in Sources */,
 				EB8C1EB11F21944C00A07863 /* ZBJiXianTableView.m in Sources */,
 				A9B52295209321A9001DF9B9 /* ZBMineTableViewCell.m in Sources */,

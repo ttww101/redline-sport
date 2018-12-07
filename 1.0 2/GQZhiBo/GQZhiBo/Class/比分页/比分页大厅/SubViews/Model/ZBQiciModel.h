@@ -2,7 +2,14 @@
 @interface ZBQiciModel : ZBBasicModel
 @property (nonatomic, assign) NSInteger iscurrent;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, retain)NSString *date;
-@property (nonatomic, retain)NSString *week;
-@property (nonatomic, retain)NSString *time;
+@property (nonatomic, copy)NSString *date;
+@property (nonatomic, copy)NSString *week;
+@property (nonatomic, copy)NSString *time;
+
+
+@property (nonatomic, assign) BOOL selected;
+@property (nonatomic, copy)NSString *val;
+@property (nonatomic, copy)NSString *item;
+
+
 @end

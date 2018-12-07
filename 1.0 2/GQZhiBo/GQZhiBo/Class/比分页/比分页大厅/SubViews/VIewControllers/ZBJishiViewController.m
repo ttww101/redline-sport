@@ -57,7 +57,7 @@ static SystemSoundID shake_sound_id = 0;
 
 - (void)loadFilterData:(NSNotification *)notifi {
     self.filterDic = notifi.userInfo[@"paramer"];
-    if ([self.filterDic[@"currentType"] isEqualToString:@"live"]) {
+    if ([self.filterDic[ParamtersTimeline] isEqualToString:@"live"]) {
          [self loadDataQiciJishiViewController];
     }
    
@@ -96,7 +96,7 @@ static SystemSoundID shake_sound_id = 0;
     [self.view addSubview:self.tableView];
     [self addObserver:self forKeyPath:@"cellNum" options:NSKeyValueObservingOptionNew context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewData) name:@"NotificationTogetAllJishibifen" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFilterData:) name:FilterAllPageNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFilterData:) name:FilterPageNotification object:nil];
     [self loadDataQiciJishiViewController];
     [self creatArr];
     
@@ -397,18 +397,14 @@ static SystemSoundID shake_sound_id = 0;
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setValue:@([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"] ? 1 : 0 ) forKey:@"return_fmt"];
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    NSArray *parameters = self.filterDic[@"data"];
+    NSArray *parameters = self.filterDic[ParamtersFilters];
     if (parameters.count > 0) {
-        NSMutableArray *tmpArray = [NSMutableArray array];
-        for (NSInteger i = 0; i < parameters.count; i ++) {
-            ZBBIfenSelectedSaishiModel *model = parameters[i];
-           [tmpArray addObject:@(model.idId)];
-        }
-        [dic setValue:self.filterDic[@"type"] forKey:@"key"];
-        [dic setValue:tmpArray forKey:@"val"];
+        [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
+        [dic setValue:parameters forKey:@"val"];
         [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
     }
-    [parameter setValue:@"all" forKey:@"sub"];
+    [parameter setValue:PARAM_IS_NIL_ERROR(self.filterDic[ParamtersSub]) forKey:@"sub"];
+    
     dispatch_queue_t concurrentqueue=dispatch_queue_create("concurrent", DISPATCH_QUEUE_CONCURRENT);
     dispatch_async(concurrentqueue, ^{
         [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {
@@ -426,7 +422,7 @@ static SystemSoundID shake_sound_id = 0;
                  */
                 
                 
-                NSMutableArray *arrLoad =[[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+                NSMutableArray *arrLoad = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
                 
                 NSMutableArray *arrComplete = [NSMutableArray array];
                 for (int m= 0; m < _memeryArrAllPart.count; m++) {

@@ -4,7 +4,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *tag;
 @property (nonatomic, assign) NSInteger count;
-@property (nonatomic, assign) NSInteger idId;
+@property (nonatomic, copy) NSString *idId;
 @property (nonatomic, assign) NSInteger order;
 @property (nonatomic, assign) BOOL isSelected;
 @end

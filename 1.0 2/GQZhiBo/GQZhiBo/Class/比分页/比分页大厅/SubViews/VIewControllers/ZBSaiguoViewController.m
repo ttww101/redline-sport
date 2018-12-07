@@ -12,9 +12,15 @@
 #import "ZBSelectedDTitleView.h"
 #import "ZBHSInfiniteScrollView.h"
 #import "ZBHSDashLineView.h"
+
+
+#import "ZBSaishiSelecterdVC.h"
+#import "DatePickerView.h"
+
+
 #define COLOR [UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1]
 #define NUMBER_OF_VISIBLE_VIEWS 5
-@interface ZBSaiguoViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,SelecterDateViewDelegate,SelectedDateTitleViewDelegate,DCindexBtnDelegate,SelectedSaiGuoTitleViewDelegate>
+@interface ZBSaiguoViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,SelecterDateViewDelegate,SelectedDateTitleViewDelegate,DCindexBtnDelegate,SelectedSaiGuoTitleViewDelegate, DatePickerViewDelegate>
 @property (nonatomic, strong) NSMutableArray *arrDataQici;
 @property (nonatomic, assign) NSInteger currentFlag;
 @property (nonatomic, assign) NSInteger titleFlag;
@@ -22,15 +28,59 @@
 @property (nonatomic, assign) NSInteger titleTemFlag;
 @property (nonatomic, strong) UIButton *selectedHeaderBtn;
 @property (nonatomic, assign) CGFloat       seletedHeight;
-@property (nonatomic, strong) ZBSelectedDataView *dataView;
 @property (nonatomic, strong) ZBSelectedDateTitleView *dataTitleView;
 @property (nonatomic, strong) ZBSelectedSaiGuoTitleView *saiGuoTitleView;
 @property (nonatomic, assign) CGFloat                         viewSize;
 @property (nonatomic, strong) ZBDCindexBtn *indexBtn;
 @property (nonatomic, strong) UITableViewCell *seleCell;
 @property (nonatomic, strong) UIView        *dataLineView;
+
+
+
+@property (nonatomic, copy) NSDictionary *filterDic; // 记录筛选值 由广播发送过来
+@property (nonatomic , copy) NSString *date;
+
+
 @end
 @implementation ZBSaiguoViewController
+
+#pragma mark - DatePickerViewDelegate
+
+- (void)didSelectedDate:(NSString *)selectDate {
+    _date = [selectDate copy];
+    [self loadDataQiciJishiViewController];
+}
+
+- (void)ZBSelectedDateTitleViewDidAction:(NSArray *)array {
+    DatePickerView *picker =  [DatePickerView showDatePicker:array];
+    picker.delegate = self;
+}
+
+- (NSString *)getJSONMessage:(NSDictionary *)messageDic {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:messageDic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    NSRange range = {0,jsonString.length};
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    NSRange range2 = {0,mutStr.length};
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    return mutStr;
+}
+
+
+#pragma mark - Notification
+
+- (void)loadFilterData:(NSNotification *)notifi {
+    self.filterDic = notifi.userInfo[@"paramer"];
+    if ([self.filterDic[ParamtersTimeline] isEqualToString:@"old"]) {
+        [self loadDataQiciJishiViewController];
+    }
+    
+}
+
+#pragma mark - ************  以下高人所写  ************
+
 - (id)init
 {
     self = [super init];
@@ -40,7 +90,6 @@
         [self.view addSubview:self.tableView];
         [self.view addSubview:self.indexBtn];
         self.view.backgroundColor = [UIColor whiteColor];
-        [[ZBMethods getMainWindow] addSubview:self.dataView];
         [self loadDataQiciJishiViewController];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeShowType) name:@"NSNotificationchangeShowType" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ContenViewTapFresh:) name:biFenTitleChange object:@"biFenChange"];
@@ -53,19 +102,16 @@
     self.navigationController.navigationBarHidden = NO;
     self.viewSize = CGRectGetWidth(self.view.bounds) / NUMBER_OF_VISIBLE_VIEWS;
 }
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [UIView animateWithDuration:0.5 animations:^{
-        _dataView.alpha = 0;
-    }completion:^(BOOL finished) {
-        _dataView.hidden = YES;
-    }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.defaultFailure = @"";
     self.seletedHeight = 60;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFilterData:) name:FilterPageNotification object:nil];
 }
 - (void)changeShowType
 {
@@ -83,127 +129,17 @@
     }
     return _dataLineView;
 }
-#pragma mark - saiGuoTitleViewDelegate -
-- (ZBSelectedSaiGuoTitleView *)saiGuoTitleView {
-    if (!_saiGuoTitleView) {
-        _saiGuoTitleView = [[ZBSelectedSaiGuoTitleView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, 39)];
-        _saiGuoTitleView.delegate = self;
-    }
-    return _saiGuoTitleView;
-}
-- (void)selectedSaiGuoViewIndex:(NSInteger)index {
-    switch (index) {
-        case 1:
-        {
-            [self showOrhideDateView];
-        }
-            break;
-        case 2:
-        {
-            _currentdate--;
-            if (_arrDataQici.count > 0) {
-                ZBQiciModel *model  = [_arrDataQici objectAtIndex:_currentdate];
-                [self loadDataJishiViewControllerWithQici:model];
-                [self clearSelectedSaved];
-                [_dataView updateSelectedIndex:_currentdate];
-            }
-        }
-            break;
-        case 3:
-        {
-            _currentdate++;
-            if (_arrDataQici.count > 0) {
-                ZBQiciModel *model  = [_arrDataQici objectAtIndex:_currentdate];
-                [self loadDataJishiViewControllerWithQici:model];
-                [self clearSelectedSaved];
-                [_dataView updateSelectedIndex:_currentdate];
-            }
-        }
-            break;
-        default:
-            break;
-    }
-}
-#pragma mark - dataTitleViewDelegate -
-- (ZBSelectedDateTitleView *)dataTitleView
-{
+
+- (ZBSelectedDateTitleView *)dataTitleView {
     if (!_dataTitleView) {
         _dataTitleView = [[ZBSelectedDateTitleView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, 39)];
         _dataTitleView.delegate = self;
     }
     return _dataTitleView;
 }
-- (void)selectedDateViewIndex:(NSInteger)index
-{
-    switch (index) {
-        case 1:
-        {
-            [self showOrhideDateView];
-        }
-            break;
-        case 2:
-        {
-            _currentdate--;
-            if (_arrDataQici.count > 0 ) {
-                ZBQiciModel *model  = [_arrDataQici objectAtIndex:_currentdate];
-                [self loadDataJishiViewControllerWithQici:model];
-                [self clearSelectedSaved];
-                [_dataView updateSelectedIndex:_currentdate];
-            }
-        }
-            break;
-        case 3:
-        {
-            _currentdate++;
-            if (_arrDataQici.count > 0) {
-                ZBQiciModel *model  = [_arrDataQici objectAtIndex:_currentdate];
-                [self loadDataJishiViewControllerWithQici:model];
-                [self clearSelectedSaved];
-                [_dataView updateSelectedIndex:_currentdate];
-            }
-        }
-            break;
-        default:
-            break;
-    }
-}
-- (ZBSelectedDataView *)dataView
-{
-    if (!_dataView) {
-        _dataView = [[ZBSelectedDataView alloc] initWithFrame:CGRectMake(0, 0, Width, Height)];
-        _dataView.alpha = 0;
-        _dataView.hidden = YES;
-        _dataView.delegate = self;
-    }
-    return _dataView;
-}
-- (void)ZBSelecterMatchView:(ZBSelectedDataView *)matchView selectedAtIndex:(NSInteger)index WithSelectedName:(NSString *)name
-{
-    _currentdate = index;
-    ZBQiciModel *model  = [_arrDataQici objectAtIndex:_currentdate];
-    [self loadDataJishiViewControllerWithQici:model];
-    [self clearSelectedSaved];
-        [_dataTitleView setDateIndex:_currentdate];
-}
-- (void)touchTapView
-{
-    [self showOrhideDateView];
-}
-- (void)showOrhideDateView
-{
-    if (_dataView.hidden) {
-        _dataView.hidden = NO;
-        [UIView animateWithDuration:0.5 animations:^{
-            _dataView.alpha = 1;
-        }];
-    }else{
-        [UIView animateWithDuration:0.5 animations:^{
-            _dataView.alpha = 0;
-        }completion:^(BOOL finished) {
-            _dataView.hidden = YES;
-        }];
-    }
-}
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -211,7 +147,6 @@
 {
     _currentFlag = flag;
     [self loadDataQiciJishiViewController];
-    [self clearSelectedSaved];
 }
 - (UITableView *)tableView
 {
@@ -319,22 +254,14 @@
     }else{
         [self loadDataQiciJishiViewController];
     }
-    [self clearSelectedSaved];
     [self.tableView.mj_header endRefreshing];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (_arrData.count > 0) {
-        return _arrData.count;
-    }
-    return 0;
+    
+    return 1;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (_arrData.count >0) {
-        ZBJSbifenModel *model = [_arrData objectAtIndex:section];
-        return model.data.count;
-    }
-    return 0;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _arrData.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -343,10 +270,7 @@
         cell = [[ZBSaiTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellSaiguoViewController];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (_arrData.count >0) {
-        ZBJSbifenModel *model = [_arrData objectAtIndex:indexPath.section];
-        cell.ScoreModel = [model.data objectAtIndex:indexPath.row];
-    }
+    cell.ScoreModel = [_arrData objectAtIndex:indexPath.row];
     cell.contentView.backgroundColor = colorfbfafa;
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor = colorF5;
@@ -364,8 +288,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_arrData.count > 0) {
-        ZBJSbifenModel *jsmodel = [_arrData objectAtIndex:indexPath.section];
-        ZBLiveScoreModel *model = [jsmodel.data objectAtIndex:indexPath.row];
+        ZBLiveScoreModel *model = [_arrData objectAtIndex:indexPath.row];
         if (model.remark!= nil && ![model.remark isEqualToString:@""]) {
             return 108;
         }
@@ -373,139 +296,41 @@
     }
     return 0;
 }
-- (void)loadDataQiciJishiViewController
-{
-    if (_currentFlag == 0 || _currentFlag == 1) {
-        _dataTitleView.isBeforeTwo = YES;
-    }else{
-        _dataTitleView.isBeforeTwo = NO;
-    }
-    NSString *urlStage = @"";
-    switch (_currentFlag) {
-        case 0:
-        {
-            urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageAll];
-        }
-            break;
-        case 1:
-        {
-            urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageJC];
-        }
-            break;
-        case 2:
-        {
-            urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageBD];
-        }
-            break;
-        case 3:
-        {
-            urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageZC];
-        }
-            break;
-        default:
-            break;
-    }
-    [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:nil PathUrlL:urlStage Start:^(id requestOrignal) {
-    } End:^(id responseOrignal) {
-    } Success:^(id responseResult, id responseOrignal) {
-        _arrDataQici = [[NSMutableArray alloc] initWithArray:[ZBQiciModel arrayOfEntitiesFromArray:responseOrignal]];
-        if (_arrDataQici.count == 0) {
-            [_arrData removeAllObjects];
-            [self.tableView reloadData];
-            return ;
-        }
-        NSMutableArray *arr = [NSMutableArray array];
-        for (int i = 0; i<_arrDataQici.count; i++) {
-            ZBQiciModel *model = [_arrDataQici objectAtIndex:i];
-            [arr addObject:model];
-            if (model.iscurrent == 1) {
-                int j = i + 1;
-                if (_arrDataQici.count <= j) {
-                    break;
-                }else{
-                    ZBQiciModel * modelToday = [_arrDataQici objectAtIndex:j];
-                    [arr addObject:modelToday];
-                }
-                break;
-            }
-        }
-        if (arr.count>1) {
-            [arr removeLastObject];
-        }
-        _arrDataQici = [NSMutableArray arrayWithArray:[[arr reverseObjectEnumerator] allObjects]];
-        ZBQiciModel *model;
-        if (_arrDataQici.count > 0) {
-            model = [_arrDataQici firstObject];
-        }
-        _currentdate = 0;
-        _dataView.arrData = _arrDataQici;
-        _dataTitleView.isSaiguo = YES;
-        _dataTitleView.arrData = _arrDataQici;
-        [self loadDataJishiViewControllerWithQici:model];
-    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        self.defaultFailure = errorDict;
-        [self.tableView reloadData];
-        [_arrData removeAllObjects];
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-    }];
+
+- (void)loadDataQiciJishiViewController{
+    [self loadDataJishiViewControllerWithQici:nil];
 }
+
 - (void)loadDataJishiViewControllerWithQici:(ZBQiciModel *)model
 {
-    NSString *urlJsbf = @"";
-    switch (_currentFlag) {
-        case 0:
-        {
-            NSString *urlLeague = @"";
-            if (![[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaishijian"]) {
-                urlLeague = @"league/";
-            }
-            urlJsbf = [NSString stringWithFormat:@"%@%@%@/%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_all_result,urlLeague,model.name,url_jsbf_json];
-            NSLog(@"%@",urlJsbf);
-        }
-            break;
-        case 1:
-        {
-            urlJsbf = [NSString stringWithFormat:@"%@%@%@/%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_jc_result,model.name,url_jsbf_json];
-        }
-            break;
-        case 2:
-        {
-            urlJsbf = [NSString stringWithFormat:@"%@%@%@/%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_bd,model.name,url_jsbf_json];
-        }
-            break;
-        case 3:
-        {
-            urlJsbf = [NSString stringWithFormat:@"%@%@%@/%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_zc,model.name,url_jsbf_json];
-        }
-            break;
-        default:
-            break;
+    NSString *urlStage = @"http://120.55.30.173:8809/bifen/matchs";
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    NSArray *parameters = self.filterDic[ParamtersFilters];
+    if (parameters.count > 0) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
+        [dic setValue:parameters forKey:@"val"];
+        [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
     }
-    [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:nil PathUrlL:urlJsbf Start:^(id requestOrignal) {
+    [parameter setValue:@"old" forKey:@"timeline"];
+    [parameter setValue:PARAM_IS_NIL_ERROR(_date) forKey:@"date"];
+    
+    [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
-        NSMutableArray *arrLoad =[[NSMutableArray alloc] initWithArray:[ZBJSbifenModel arrayOfEntitiesFromArray:[responseOrignal  objectForKey:@"matchs"]]];
-                _arrSelectedSaishi = [[NSArray alloc] initWithArray:[ZBBIfenSelectedSaishiModel arrayOfEntitiesFromArray:[responseOrignal  objectForKey:@"allindex"]]];
-                _arrSelectedSaishiJingcai = [[NSArray alloc] initWithArray:[ZBBIfenSelectedSaishiModel arrayOfEntitiesFromArray:[responseOrignal   objectForKey:@"jcindex"]]];
-                _arrSelectedSaishiChupan = [[NSArray alloc] initWithArray:[ZBBIfenSelectedSaishiModel arrayOfEntitiesFromArray:[responseOrignal  objectForKey:@"oddsindex"]]];
-        NSMutableArray *arr = [[NSMutableArray alloc] init];
-        for (int i = 0; i<arrLoad.count; i++) {
-            ZBJSbifenModel *jsmodel = [arrLoad objectAtIndex:i];
-            ZBJSbifenModel *sendJs = [[ZBJSbifenModel alloc] init];
-            sendJs.time = jsmodel.time;
-            sendJs.data = [NSMutableArray array];
-            [arr addObject:sendJs];
-            for (int m = 0; m<jsmodel.data.count; m++) {
-                ZBLiveScoreModel *model = [jsmodel.data objectAtIndex:m];
-                if (model.matchstate == -1 ||model.matchstate == -11 ||model.matchstate == -12 ||model.matchstate == -13 ||model.matchstate == -14 ||model.matchstate ==  -10)
-                {
-                    [sendJs.data addObject:model];
-                }
+        if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+            _arrData = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+            _arrDataQici = [[NSMutableArray alloc] initWithArray:[ZBQiciModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"dates"]]];
+            if (_arrDataQici.count == 0) {
+                [_arrData removeAllObjects];
+                [self.tableView reloadData];
+                return ;
             }
+            _dataTitleView.arrData = _arrDataQici;
+            [self.tableView reloadData];
         }
-        _arrData = [NSMutableArray arrayWithArray:arr];
-        _memeryArrAllPart = [[NSMutableArray alloc] initWithArray:arr];
-        [self.tableView reloadData];
+       
+        
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         self.defaultFailure = errorDict;
         [self.tableView reloadData];
@@ -513,15 +338,10 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
 }
-- (void)clearSelectedSaved
-{
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
-    NSString *documentPath = [ZBMethods getDocumentsPath];
-    NSString *arrSaveBifenAllSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenAllSelectedPath];
-    [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenAllSelected];
-    NSString *arrSaveBifenJingcaiSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenJingcaiSelectedPath];
-    [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenJingcaiSelected];
-    NSString *arrSaveBifenChupanSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenChupanSelectedPath];
-    [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenChupanSelected];
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
 @end

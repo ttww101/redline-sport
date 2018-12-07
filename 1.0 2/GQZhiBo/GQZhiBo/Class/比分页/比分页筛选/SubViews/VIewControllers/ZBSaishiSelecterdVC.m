@@ -5,10 +5,13 @@
 #import "ZBJSbifenModel.h"
 
 
-NSString *const FilterAllPageNotification = @"FilterAllPageNotification";
-NSString *const FilterJingCaiPageNotification = @"FilterJingCaiPageNotification";
-NSString *const FilterZuCaiPageNotification = @"FilterZuCaiPageNotification";
-NSString *const FilterBeiDanPageNotification = @"FilterBeiDanPageNotification";
+NSString *const FilterPageNotification = @"FilterPageNotification";
+NSString *const ParamtersTab = @"tab";
+NSString *const ParamtersSub = @"sub";
+NSString *const ParamtersTimeline = @"timeline";
+NSString *const ParamtersFilters = @"filter";
+NSString *const ParamtersType = @"Type";
+
 
 
 @interface ZBSaishiSelecterdVC ()<ViewPagerDelegate,ViewPagerDataSource,TitleIndexViewDelegate,SelectedAllVCDelegate,SelectedJincaiVCDelegate,SelectedChupanVCDelegate,NavViewDelegate>
@@ -362,8 +365,18 @@ NSString *const FilterBeiDanPageNotification = @"FilterBeiDanPageNotification";
         } else {
             str = @"pankou_dx";
         }
-        NSDictionary *dic = @{@"currentType": self.timeline, @"data":arrSaveData, @"type": str};
-        [[NSNotificationCenter defaultCenter]postNotificationName:FilterAllPageNotification object:nil userInfo:@{@"paramer":dic}];
+        NSMutableArray *matchIDs = [NSMutableArray array];
+        [arrSaveData enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel  * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [matchIDs addObject:@([obj.idId floatValue])];
+        }];
+     
+         NSDictionary *dic = @{
+                               ParamtersTimeline: self.timeline,
+                               ParamtersFilters:matchIDs,
+                               ParamtersTab: str,
+                               ParamtersType: str
+                               };
+        [[NSNotificationCenter defaultCenter]postNotificationName:FilterPageNotification object:nil userInfo:@{@"paramer":dic}];
     }else if (_type == typeSaishiSelecterdVCTuijian)
     {
         for (int i = 0; i<_arrBifenData.count; i++) {
@@ -415,8 +428,27 @@ NSString *const FilterBeiDanPageNotification = @"FilterBeiDanPageNotification";
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"loadedBifenData"];
     NSMutableArray *arrSend = [NSMutableArray array];
     if (_type == typeSaishiSelecterdVCBifen) {
-        NSDictionary *dic = @{@"currentType": self.timeline, @"data":arrSaveData, @"type": @"sclasss"};
-        [[NSNotificationCenter defaultCenter]postNotificationName:FilterAllPageNotification object:nil userInfo:@{@"paramer":dic}];
+        NSString *str = @"all";
+        if (self.currentIndex == 0) {
+            str = @"all";
+        } else if (self.currentIndex == 1){
+            str = @"jc";
+        } else if (self.currentIndex == 2){
+            str = @"zc";
+        }  else if (self.currentIndex == 3){
+            str = @"bd";
+        }
+        NSMutableArray *matchIDs = [NSMutableArray array];
+        [arrSaveData enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel  * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [matchIDs addObject:@([obj.idId floatValue])];
+        }];
+        NSDictionary *dic = @{
+                              ParamtersTimeline: self.timeline,
+                              ParamtersFilters:matchIDs,
+                              ParamtersSub:str,
+                              ParamtersType: @"sclasss"
+                              };
+        [[NSNotificationCenter defaultCenter]postNotificationName:FilterPageNotification object:nil userInfo:@{@"paramer":dic}];
        
     }else if (_type == typeSaishiSelecterdVCTuijian)
     {
