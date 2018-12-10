@@ -14,4 +14,6 @@ typedef NS_ENUM(NSInteger, typeTuijianDetailHeaderCell)
 @property (nonatomic, strong) ZBTuijiandatingModel *tuijianModel;
 @property (nonatomic, strong) ZBpayUserModel *payUsersModel;
 @property (nonatomic ,strong) NSArray *arrPic;
+@property (nonatomic , strong) NSMutableArray *recs;
+
 @end

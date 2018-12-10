@@ -3,10 +3,13 @@
 #import "ZBTuijianDetailCommentCell.h"
 #import "ZBTuijiandatingModel.h"
 #import "ZBBuyRecordsVC.h"
+#import "ZBTuijianDatingCell.h"
+
 #define CellTuijianDetZucaiHeader @"CellTuijianDetZucaiHeader"
 #define CellTuijianDetChuanGuanHeader @"CellTuijianDetChuanGuanHeader"
 #define CellTuijianDetailHeader @"CellTuijianDetailHeader"
 #define CellTuijianDetailComment @"CellTuijianDetailComment"
+#define CellTuijianDating @"CellTuijianDatingDetail"
 @interface ZBTuijianDetailTableView()<UITableViewDelegate,UITableViewDataSource,TuijianDetailCommentCellDelegate,UIWebViewDelegate>
 @property (nonatomic ,strong) NSMutableArray *arrCells;
 @property (nonatomic, assign) CGFloat cellWebhight;
@@ -27,6 +30,7 @@
         }
         [self registerClass:[ZBTuijianDetailHeaderView class] forCellReuseIdentifier:CellTuijianDetailHeader];
         [self registerClass:[ZBTuijianDetailCommentCell class] forCellReuseIdentifier:CellTuijianDetailComment];
+        [self registerClass:NSClassFromString(@"ZBTuijianDatingCell") forCellReuseIdentifier:CellTuijianDating];
     }
     return self;
 }
@@ -100,10 +104,11 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return _arrData.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    DetailGroupModel *model = _arrData[section];
     if (section == 0) {
         if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
             if (_headerModel) {
@@ -114,15 +119,11 @@
         }else{
         }
         return 1;
-    }else if (section == 1){
-        if (!_headerModel.see) {
-            return 0;
-        }
-        if (_arrData.count == 0) {
-            return 0;
-        }
-        return _arrData.count;
-    }else{
+    }else if (section == 2){
+        return model.dataList.count;
+    } else if (section == 1){
+        return model.dataList.count;
+    } else{
         return 0;
     }
 }
@@ -133,7 +134,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{  DetailGroupModel *model = _arrData[indexPath.section];
     if (indexPath.section == 0) {
         if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
             return [tableView fd_heightForCellWithIdentifier:CellTuijianDetailHeader configuration:^(ZBTuijianDetailHeaderView* cell) {
@@ -143,7 +144,7 @@
         }else if(_typeTuijianDetailHeader == typeTuijianDetailHeaderCellChuanGuan){
         }else if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellZucai){
         }
-    }else if (indexPath.section == 1){
+    }else if (indexPath.section == 2){
         if (!_headerModel.see) {
             return 0;
         }
@@ -152,18 +153,19 @@
         }
         return [tableView fd_heightForCellWithIdentifier:CellTuijianDetailComment cacheByIndexPath:indexPath configuration:^(ZBTuijianDetailCommentCell* cell) {
             cell.type = typeCommentCellTuijian;
-            if (_arrData.count >0) {
-                cell.model = [_arrData objectAtIndex:indexPath.row];
+            if (model.dataList.count >0) {
+                cell.model = [model.dataList objectAtIndex:indexPath.row];
             }
         }];
-    }else{
-        return 0.5;
+    }else if (indexPath.section == 1){
+        return 190;
     }
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+     DetailGroupModel *model = _arrData[indexPath.section];
     if (indexPath.section == 0) {
         if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
              ZBTuijianDetailHeaderView   *cell = [[ZBTuijianDetailHeaderView alloc] init];
@@ -175,22 +177,20 @@
         }else if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellZucai){
         }
         return nil;
-    }else if(indexPath.section == 1){
-        if (!_headerModel.see) {
-            return [UITableViewCell new];
-        }
-        if (_arrData.count == 0) {
-            return [UITableViewCell new];
-        }
-        ZBTuijianDetailCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellTuijianDetailComment];
-        if (!cell) {
-            cell = [[ZBTuijianDetailCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellTuijianDetailComment];
-        }
+    } else if (indexPath.section == 1) {
+        ZBTuijianDatingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellTuijianDating forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.type = typeTuijianCellDating;
+        cell.model = [model.dataList objectAtIndex:indexPath.row];
+        return cell;
+        
+    } else if(indexPath.section == 2){
+        ZBTuijianDetailCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellTuijianDetailComment forIndexPath:indexPath];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
         cell.type = typeCommentCellTuijian;
         if (_arrData.count >0) {
-            cell.model = [_arrData objectAtIndex:indexPath.row];
+            cell.model = [model.dataList objectAtIndex:indexPath.row];
         }
         if (![_arrCells containsObject:cell]) {
             [_arrCells addObject:cell];
@@ -198,66 +198,40 @@
         return cell;
     }
     return nil;
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (section == 1) {
-        CGFloat headerHeight = _headerModel.amount == 0? 45 : 91;
-        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, headerHeight)];
+    DetailGroupModel *model = _arrData[section];
+    if (section == 2) {
+        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 45)];
         header.backgroundColor = [UIColor whiteColor];
-        CGFloat paySeeViewHeight = _headerModel.amount == 0? 0: 45;
-        UIView *paySeeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, paySeeViewHeight)];
-        _payNum = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, (Width- 30) * 0.3, paySeeViewHeight)];
-        _payNum.text = [NSString stringWithFormat:@"付费查看%ld人",(long)_headerModel.payUsers_count];
-        _payNum.font = font14;
-        _payNum.textColor = color33;
-        _payNum.attributedText = [ZBMethods withContent:_payNum.text WithColorText:[NSString stringWithFormat:@"%zi",_headerModel.payUsers_count] textColor:redcolor strFont:font14];
-        paySeeView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *payViewTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(payViewTap)];
-        if (_headerModel.payUsers_count >0) {
-            [paySeeView addGestureRecognizer:payViewTap];
-        }
-        if (self.picArray != 0) {
-            for (int i = 0; i < self.picArray.count; i++) {
-                UIImageView *userImage = [[UIImageView alloc] init];
-                [userImage sd_setImageWithURL:self.picArray[i] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                }];
-                userImage.layer.cornerRadius = 15;
-                userImage.layer.masksToBounds = YES;
-                [paySeeView addSubview:userImage];
-                [userImage mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(30, 30));
-                    make.right.equalTo(paySeeView.mas_right).offset(-40 - 30*i);
-                    make.centerY.mas_equalTo(paySeeView.mas_centerY);
-                }];
-            }
-        }
-        UIImageView *rightImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"meRight"]];
-        UIView *viewLineUp = [[UIView alloc] initWithFrame:CGRectMake(0, paySeeView.bottom, Width, 0.5)];
-        viewLineUp.backgroundColor = colorDD;
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, paySeeView.bottom , Width - 30, 45)];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 0 , Width - 30, 45)];
         lab.font = font14;
         lab.textColor = color33;
-        lab.text = [NSString stringWithFormat:@"评论%ld条",_headerModel.comment_count];
+        lab.text = [NSString stringWithFormat:@"评论%ld条",model.dataList.count];
         [lab setAttributedText:[ZBMethods withContent:lab.text WithColorText:[NSString stringWithFormat:@"%ld",_headerModel.comment_count] textColor:redcolor strFont:font14]];
         UIView *viewLineDown = [[UIView alloc] initWithFrame:CGRectMake(0, lab.bottom, Width, 0.5)];
         viewLineDown.backgroundColor = colorDD;
-        [paySeeView addSubview:self.payNum];
-        if (_headerModel.payUsers_count > 0  ) {
-            [paySeeView addSubview:rightImageView];
-            [rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.trailing.equalTo(paySeeView).offset(-15);
-                make.centerY.equalTo(paySeeView);
-                make.size.mas_equalTo(CGSizeMake(9, 18));
-            }];
-        }
-        if (_headerModel.amount != 0) {
-            [header addSubview:paySeeView];
-        }
-        [header addSubview:viewLineUp];
         [header addSubview:lab];
         [header addSubview:viewLineDown];
+        return header;
+    } else if (section == 1) {
+         UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 45)];
+        header.backgroundColor = [UIColor whiteColor];
+        UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(15, 7.5, ONE_PX_LINE, 30)];
+        verticalLine.backgroundColor = UIColorHex(#EF4131);
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(verticalLine.right + 15, 0 , Width - 30, 45)];
+        lab.font = font14;
+        lab.textColor = color33;
+        lab.text = model.title;
+        UIView *viewLineDown = [[UIView alloc] initWithFrame:CGRectMake(0, lab.bottom, Width, 0.5)];
+        viewLineDown.backgroundColor = colorDD;
+        [header addSubview:verticalLine];
+        [header addSubview:lab];
+        [header addSubview:viewLineDown];
+        
         return header;
     }
     return nil;
@@ -279,10 +253,12 @@
     [APPDELEGATE.customTabbar pushToViewController:buyerVC animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 1) {
-        return _headerModel.amount >0 ? 91 : 45;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+     DetailGroupModel *model = _arrData[section];
+    if (section == 2 && model.dataList.count > 0) {
+        return 45;
+    } else if (section == 1 && model.dataList.count > 0) {
+        return 45;
     }
     return 0;
 }

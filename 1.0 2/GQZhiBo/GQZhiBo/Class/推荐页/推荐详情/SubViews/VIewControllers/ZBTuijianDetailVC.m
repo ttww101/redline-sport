@@ -155,7 +155,7 @@
 - (ZBTuijianDetailTableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[ZBTuijianDetailTableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, _status == 1? (Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49):(Height - APPDELEGATE.customTabbar.height_myNavigationBar)) style:UITableViewStylePlain];
+        _tableView = [[ZBTuijianDetailTableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, _status == 1? (Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49):(Height - APPDELEGATE.customTabbar.height_myNavigationBar - self.bottomView.height)) style:UITableViewStylePlain];
         _tableView.typeTuijianDetailHeader = _typeTuijianDetailHeader;
         _tableView.hidden = YES;
     }
@@ -550,11 +550,37 @@
         [ZBLodingAnimateView dissMissLoadingView];
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-            _tableView.arrData = [[NSArray alloc] initWithArray:[ZBCommentModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"comments"]]];
-            _buyerArr = [ZBpayUserModel arrayOfEntitiesFromArray:[[[responseOrignal objectForKey:@"data"] objectForKey:@"news"] objectForKey:@"payUsers"]];
-            _tableView.arrPic = _buyerArr;
+            NSDictionary *news = [[responseOrignal objectForKey:@"data"] objectForKey:@"news"];
             _model=nil;
-            _model= [ZBTuijiandatingModel entityFromDictionary:[[responseOrignal objectForKey:@"data"] objectForKey:@"news"]];
+            _model= [ZBTuijiandatingModel entityFromDictionary:news];
+            NSArray *recoommentArray = [[NSArray alloc] initWithArray:[ZBCommentModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"comments"]]];
+           
+            NSMutableArray *recods = [NSMutableArray array];
+            
+            DetailGroupModel *groupModel1 = [[DetailGroupModel alloc]init];
+            [recods addObject:groupModel1];
+            
+            
+            NSArray *arr = [ZBTuijiandatingModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"recs"]];
+            DetailGroupModel *groupModel2 = [[DetailGroupModel alloc]init];
+            groupModel2.title = @"相关推荐";
+            groupModel2.showVerticalLine = true;
+            groupModel2.dataList = [arr mutableCopy];
+            [recods addObject:groupModel2];
+            
+            
+            
+            DetailGroupModel *groupModel3 = [[DetailGroupModel alloc]init];
+            groupModel3.title = @"评论";
+            groupModel3.showVerticalLine = true;
+            groupModel3.dataList = [recoommentArray mutableCopy];
+            [recods addObject:groupModel3];
+            _tableView.arrData = recods;
+            
+            // 购买人数暂时不加
+//            _buyerArr = [ZBpayUserModel arrayOfEntitiesFromArray:[news objectForKey:@"payUsers"]];
+//            _tableView.arrPic = _buyerArr;
+          
             if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
                 _tableView.typeTuijianDetailHeader = _typeTuijianDetailHeader;
                 _tableView.headerModel = _model;
@@ -562,10 +588,9 @@
                 }
                 self.tableView.hidden = NO;
                 if (!_model.see) {
-                    NSLog(@"---不可见");
                     self.payView.hidden = NO;
                     self.bottomView.hidden = YES;
-                    self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width,_status == 1? (Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49):(Height - APPDELEGATE.customTabbar.height_myNavigationBar));
+                    self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width,_status == 1? (Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49):(Height - APPDELEGATE.customTabbar.height_myNavigationBar - self.bottomView.height));
                     _labCommentNum.text = [NSString stringWithFormat:@"%ld",(long)_model.like_count];
                     _labComment.selected = _model.liked;
                     _labCommentNum1.text = [NSString stringWithFormat:@"%ld",(long)_model.hate_count];

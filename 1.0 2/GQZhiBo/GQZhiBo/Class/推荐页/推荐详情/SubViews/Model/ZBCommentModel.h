@@ -13,3 +13,13 @@
 @property (nonatomic, assign) BOOL showMoreCommentChild;
 @property (nonatomic, assign) NSInteger ilike;
 @end
+
+
+@interface DetailGroupModel : NSObject
+
+@property (nonatomic , copy) NSString *title;
+@property (nonatomic , strong) NSMutableArray *dataList;
+@property (nonatomic , assign) BOOL showVerticalLine;
+
+
+@end

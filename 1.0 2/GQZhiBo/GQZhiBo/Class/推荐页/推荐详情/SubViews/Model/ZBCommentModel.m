@@ -22,3 +22,8 @@
     return [MTLValueTransformer mtl_JSONArrayTransformerWithModelClass:[ZBCommentChildModel class]];
 }
 @end
+
+@implementation DetailGroupModel
+
+@end
+
