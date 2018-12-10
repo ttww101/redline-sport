@@ -141,11 +141,12 @@
     header.stateLabel.font = font13;
     self.tableView.mj_header = header;
 }
-- (void)headerRefreshData
-{
+
+- (void)headerRefreshData{
+    [self getAttention];
     [self.tableView.mj_header endRefreshing];
-    [self.tableView reloadData];
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.arrData.count;
@@ -194,19 +195,30 @@
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-            _arrData = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+            _arrData = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matches"]]];
              _arrDataQici = [[NSMutableArray alloc] initWithArray:[ZBQiciModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"dates"]]];
-            
             if (_arrDataQici.count == 0) {
                 [_arrData removeAllObjects];
                 [self.tableView reloadData];
                 return ;
             }
+            NSString *nums = [[[responseOrignal objectForKey:@"date"] objectForKey:@"focusNum"] stringValue];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"attentionNum" object:nil userInfo:@{@"num":PARAM_IS_NIL_ERROR(nums)}];
             _dataTitleView.arrData = _arrDataQici;
-            
             [self.tableView reloadData];
-          
-    
+            
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSString *documentsPath = [ZBMethods getDocumentsPath];
+                NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
+                NSMutableArray *attentionArray = [NSMutableArray array];
+                for (NSInteger i = 0; i < _arrData.count; i ++) {
+                    ZBLiveScoreModel *model = _arrData[i];
+                    [attentionArray addObject:[NSString stringWithFormat:@"%ld",model.mid]];
+                }
+                 [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
+            });
+            
         }else{
             self.defaultFailure = [responseOrignal objectForKey:@"msg"];
             [self.tableView reloadData];

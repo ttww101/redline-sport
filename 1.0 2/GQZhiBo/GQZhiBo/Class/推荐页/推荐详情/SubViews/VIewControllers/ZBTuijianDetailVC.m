@@ -539,7 +539,7 @@
     }else{
         [parameter setObject:[NSString stringWithFormat:@"%ld",(long)_modelId] forKey:@"newsId"];
     }
-    [parameter setObject:[NSString stringWithFormat:@"%ld",[[NSUserDefaults standardUserDefaults] integerForKey:@"oddstypeDetail"]] forKey:@"oddstype"];
+    [parameter setObject:@"0" forKey:@"oddstype"];
     NSString *url;
     url = url_recommendshow;
     [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url] Start:^(id requestOrignal) {

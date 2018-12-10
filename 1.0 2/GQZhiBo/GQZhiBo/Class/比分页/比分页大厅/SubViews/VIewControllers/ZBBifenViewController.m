@@ -36,6 +36,9 @@
 @end
 @implementation ZBBifenViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 #pragma mark - Config UI
 
@@ -289,13 +292,13 @@
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"didSelectedbifen"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settableViewContentOffsetZero) name:NotificationsetSecondTableViewContentOffsetZero object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attentionClick) name:@"attentionClick" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateByselectedsaishi:) name:NotificationupdateByselectedSaishi object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWhetherShowSort) name:@"NSNotificationCenterupdateWhetherShowSort" object:nil];
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",0] forKey:@"_currentflag"];
     NSArray *arrviewcontroller = @[self.jishiVC,self.saiguoVC,self.saichengVC,self.guanzhuVC];
-    NSLog(@"%@",arrviewcontroller);
-    [self getAttentionNum];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAttentionNum:) name:@"attentionNum" object:nil];
+    
+
     
     [self configUI];
 }
@@ -306,9 +309,7 @@
     [self.saichengVC.tableView reloadData];
     [self.guanzhuVC.tableView reloadData];
 }
-- (void)attentionClick{
-    [self getAttentionNum];
-}
+
 - (void)settableViewContentOffsetZero
 {
     switch (_currentIndex) {
@@ -491,38 +492,9 @@
             break;
     }
 }
-- (void)getAttentionNum
-    {
-        
-        return;
-        NSString *documentsPath = [ZBMethods getDocumentsPath];
-        NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
-        NSArray *arrAttentionMid = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:arrayPath]];
-        if (arrAttentionMid.count == 0) {
-            _TitleView.attentionNum = @"0";
-            return;
-        }
-        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-        NSString *ids = [arrAttentionMid componentsJoinedByString:@","];
-        [parameter setObject:ids forKey:@"ids"];
-        [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_bifen_focus] ArrayFile:nil Start:^(id requestOrignal) {
-        } End:^(id responseOrignal) {
-        } Success:^(id responseResult, id responseOrignal) {
-            
-            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-                NSArray *arrAttention  = [[NSArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
-                NSMutableArray *arrMid = [NSMutableArray array];
-                for (int i = 0; i<arrAttention.count; i++) {
-                    ZBLiveScoreModel *liveM = [arrAttention objectAtIndex:i];
-                    [arrMid addObject:[NSString stringWithFormat:@"%ld",liveM.mid]];
-                }
-                [NSKeyedArchiver archiveRootObject:arrMid toFile:arrayPath];
-                _TitleView.attentionNum = [NSString stringWithFormat:@"%ld",arrAttention.count];
-            }else{
-            }
-        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-
-        }];
+- (void)getAttentionNum:(NSNotification *)notifi {
+    _TitleView.attentionNum = notifi.userInfo[@"num"];
+    
 }
 - (void)stay
 {

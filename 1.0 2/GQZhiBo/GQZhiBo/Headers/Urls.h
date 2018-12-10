@@ -56,7 +56,7 @@
 #define url_newlistrecommend @"/v22/recommend/listIndex"
 #define url_listrecommendquerycg @"/recommend/querycg"
 #define url_infoshow @"/info/show"
-#define url_recommendshow @"/recommend/show"
+#define url_recommendshow @"/rec/detail"
 #define url_reviewNewsshow @"/reviewNews/show"
 #define url_recommendinfocg @"/recommend/infocg"
 #define url_quizaddQuiz @"/quiz/addQuiz"

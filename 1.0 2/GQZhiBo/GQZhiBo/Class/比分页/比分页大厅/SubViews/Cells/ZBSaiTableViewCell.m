@@ -1109,42 +1109,46 @@
     }];
 }
 
-- (void)attention:(UIButton *)btn
-{
+- (void)attention:(UIButton *)btn {
     NSString *documentsPath = [ZBMethods getDocumentsPath];
     NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
     NSMutableArray *attentionArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:arrayPath]];
-    if (!btn.selected) {
-        [attentionArray addObject:[NSString stringWithFormat:@"%ld",_ScoreModel.mid]];
-        NSString *info = @"关注成功";
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
-    }else{
-        for (int i = 0; i<attentionArray.count; i++) {
-            NSInteger LmodelMid = [[attentionArray objectAtIndex:i] integerValue];
-            if (LmodelMid == _ScoreModel.mid) {
-                [attentionArray removeObjectAtIndex:i];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    [parameter setObject:[NSString stringWithFormat:@"%ld", _ScoreModel.mid] forKey:@"scheduleId"];
+    [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, btn.isSelected? url_attention :url_cancle_attention] ArrayFile:nil Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+             btn.selected = ! btn.selected;
+            if (btn.isSelected) {
+                [attentionArray addObject:[NSString stringWithFormat:@"%ld",_ScoreModel.mid]];
+                NSString *info = @"关注成功";
+                [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
+                 [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
+            } else {
                 NSString *info = @"关注已取消";
                 [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
-                break;
+                for (int i = 0; i<attentionArray.count; i++) {
+                    NSInteger LmodelMid = [[attentionArray objectAtIndex:i] integerValue];
+                    if (LmodelMid == _ScoreModel.mid) {
+                        [attentionArray removeObjectAtIndex:i];
+                        break;
+                    }
+                }
+                 [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
             }
         }
-    }
-    [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
-    btn.selected = !btn.selected;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"attentionClick" object:nil userInfo:nil];
-    [self UpdateAttentionWithId:_ScoreModel.mid whetherSelected:btn.selected];
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        NSString *info = @"关注失败";
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
+    }];
     
+   
 }
 
 - (void)UpdateAttentionWithId:(NSInteger )scheduleId whetherSelected:(BOOL)selected
 {
-    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    [parameter setObject:[NSString stringWithFormat:@"%ld",(long)scheduleId] forKey:@"scheduleId"];
-    [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, selected? url_attentionSchedule_add :url_attentionSchedule_del] ArrayFile:nil Start:^(id requestOrignal) {
-    } End:^(id responseOrignal) {
-    } Success:^(id responseResult, id responseOrignal) {
-    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-    }];
+    
 }
 
 - (void)toFenxiye
