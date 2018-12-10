@@ -39,6 +39,8 @@
 @property (nonatomic, strong) UILabel               *labTJ;
 @property (nonatomic, strong) UILabel               *labTJNum;
 @property (nonatomic, assign) BOOL isToFenxi;
+
+
 @end
 @implementation ZBSaiTableViewCell
 - (void)awakeFromNib {
@@ -209,15 +211,15 @@
     }
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"banchang"]) {
         if ( _ScoreModel.matchstate == 3) {
-            _halfScore.text = [NSString stringWithFormat:@"%ld:%ld",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
+            _halfScore.text = [NSString stringWithFormat:@"(%ld:%ld)",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
         }else if(_ScoreModel.matchstate == 2){
-            _halfScore.text = [NSString stringWithFormat:@"%ld:%ld",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
+            _halfScore.text = [NSString stringWithFormat:@"(%ld:%ld)",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
             _peilvAwayLab.textAlignment = NSTextAlignmentRight;
         }else if(_ScoreModel.matchstate == 4){
-            _halfScore.text = [NSString stringWithFormat:@"%ld:%ld",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
+            _halfScore.text = [NSString stringWithFormat:@"(%ld:%ld)",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
             _peilvAwayLab.textAlignment = NSTextAlignmentRight;
         }else if(_ScoreModel.matchstate == -1){
-            _halfScore.text = [NSString stringWithFormat:@"%ld:%ld",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
+            _halfScore.text = [NSString stringWithFormat:@"(%ld:%ld)",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
             _peilvAwayLab.textAlignment = NSTextAlignmentRight;
         }
         else{
@@ -281,10 +283,11 @@
     switch (_ScoreModel.matchstate) {
         case 0:
         {
+            _labstate.text = @"未";
             _VSlab.text = @"vs";
             _VSlab.textColor = colorCC;
-            _labstate.text = @"";
             _VSlab.font = font17;
+            _labstate.textColor = UIColorHex(666666);
         }
             break;
         case 1:
@@ -397,6 +400,7 @@
         default:
         {
             _labstate.text = [NSString stringWithFormat:@"%ld", (long)_ScoreModel.matchstate];
+//            _labstate.text = @"未";
             _VSlab.text = @"vs";
             _VSlab.textColor = redcolor;
             _labstate.textColor = redcolor;
@@ -552,6 +556,22 @@
     if (isNUll(_listAwayLab.text)) {
         _listAwayLab.text = @""; 
     }
+    
+    if (self.labQB.alpha == 1) {
+        [self.labQB mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(20, 10));
+        }];
+        [self.labTJ mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.labQB.mas_left).offset(-3);
+        }];
+    } else {
+        [self.labQB mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(0, 0));
+        }];
+        [self.labTJ mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.labQB.mas_left);
+        }];
+    }
 }
 - (UIView *)basicView
 {
@@ -587,10 +607,15 @@
         [_basicView addSubview:self.imageJiaoqiu];
         [_basicView addSubview:self.viewline];
         [_basicView addSubview:self.labTJ];
-        [_basicView addSubview:self.labTJNum];
+        
+        
+//        [_basicView addSubview:self.labTJNum];
+        
         [_basicView addSubview:self.viewLineR];
         [_basicView addSubview:self.labQB];
-        [_basicView addSubview:self.labQBNum];
+        
+        
+//        [_basicView addSubview:self.labQBNum];
     }
     return _basicView;
 }
@@ -622,8 +647,12 @@
     if (!_labQB) {
         _labQB = [[UILabel alloc] init];
         _labQB.text = @"情报";
-        _labQB.textColor = color34AAF2;
-        _labQB.font = font10;
+        _labQB.textColor = UIColorHex(#398EFF);
+        _labQB.font = font7;
+        _labQB.layer.cornerRadius = 2;
+        _labQB.layer.borderWidth = ONE_PX_LINE;
+        _labQB.layer.borderColor = UIColorHex(#398EFF).CGColor;
+        _labQB.textAlignment = NSTextAlignmentCenter;
     }
     return _labQB;
 }
@@ -638,7 +667,7 @@
 -(UIView *)viewLineR {
     if (!_viewLineR) {
         _viewLineR = [[UIView alloc] init];
-        _viewline.hidden = YES;
+        _viewLineR.hidden = YES;
         _viewLineR.backgroundColor = color99;
     }
     return _viewLineR;
@@ -647,8 +676,13 @@
     if (!_labTJ) {
         _labTJ = [[UILabel alloc] init];
         _labTJ.text = @"推荐";
-        _labTJ.textColor = redcolor;
-        _labTJ.font = font10;
+        _labTJ.textColor = UIColorHex(#FF9E9C);
+        _labTJ.font = font7;
+        _labTJ.layer.cornerRadius = 2;
+        _labTJ.layer.borderWidth = ONE_PX_LINE;
+        _labTJ.layer.borderColor = UIColorHex(#FF9E9C).CGColor;
+        _labTJ.textAlignment = NSTextAlignmentCenter;
+        
     }
     return _labTJ;
 }
@@ -1036,28 +1070,37 @@
         make.left.equalTo(self.basicView.mas_left);
         make.size.mas_equalTo(CGSizeMake(Width, 0.6));
     }];
-    [self.labTJ mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.basicView).offset(-10);
-        make.centerY.equalTo(self.labstate.mas_centerY).offset(2.5);
-    }];
-    [self.labTJNum mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.labTJ.mas_centerX);
-        make.bottom.equalTo(self.labTJ.mas_top);
-    }];
-    [self.viewLineR mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.labTJ.mas_leading).offset(-1);
-        make.height.mas_equalTo(self.labTJ.mas_height).offset(-4);
-        make.centerY.equalTo(self.labTJ);
-        make.width.mas_equalTo(1);
-    }];
+    
     [self.labQB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.viewLineR.mas_leading).offset(-1);
-        make.centerY.equalTo(self.viewLineR);
+        make.trailing.equalTo(self.basicView).offset(-10);
+        make.centerY.equalTo(self.labstate.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(20, 10));
     }];
-    [self.labQBNum mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.labQB);
-        make.bottom.equalTo(self.labQB.mas_top);
+    
+    [self.labTJ mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.labQB.mas_centerY);
+        make.right.equalTo(self.labQB.mas_left).offset(-5);
+        make.size.mas_equalTo(CGSizeMake(20, 10));
     }];
+    
+//    [self.labTJNum mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.labTJ.mas_centerX);
+//        make.bottom.equalTo(self.labTJ.mas_top);
+//    }];
+    
+//    [self.viewLineR mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.trailing.equalTo(self.labTJ.mas_leading).offset(-1);
+//        make.height.mas_equalTo(self.labTJ.mas_height).offset(-4);
+//        make.centerY.equalTo(self.labTJ);
+//        make.width.mas_equalTo(1);
+//    }];
+   
+    
+//    [self.labQBNum mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self.labQB);
+//        make.bottom.equalTo(self.labQB.mas_top);
+//    }];
+    
     [self.labRemark mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(0);
         make.right.equalTo(self.basicView.mas_right).offset(0);
@@ -1065,6 +1108,7 @@
         make.height.mas_equalTo(0).priority(750);
     }];
 }
+
 - (void)attention:(UIButton *)btn
 {
     NSString *documentsPath = [ZBMethods getDocumentsPath];
@@ -1089,7 +1133,9 @@
     btn.selected = !btn.selected;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"attentionClick" object:nil userInfo:nil];
     [self UpdateAttentionWithId:_ScoreModel.mid whetherSelected:btn.selected];
+    
 }
+
 - (void)UpdateAttentionWithId:(NSInteger )scheduleId whetherSelected:(BOOL)selected
 {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
@@ -1100,6 +1146,7 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
     }];
 }
+
 - (void)toFenxiye
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showJinqiuAnimation"];

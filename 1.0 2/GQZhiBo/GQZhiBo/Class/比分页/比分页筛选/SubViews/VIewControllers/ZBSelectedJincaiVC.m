@@ -20,6 +20,9 @@
 - (void)loadData {
     [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    if (![self.timeline isEqualToString:@"live"]) {
+        [parameter setValue:PARAM_IS_NIL_ERROR(self.filterParameters) forKey:@"filter"];
+    }
     [parameter setValue:PARAM_IS_NIL_ERROR(self.timeline) forKey:@"timeline"];
     [parameter setValue:self.tab forKey:@"tab"];
     NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];

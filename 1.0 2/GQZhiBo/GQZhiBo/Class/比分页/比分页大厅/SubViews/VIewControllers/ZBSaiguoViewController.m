@@ -38,7 +38,6 @@
 
 
 @property (nonatomic, copy) NSDictionary *filterDic; // 记录筛选值 由广播发送过来
-@property (nonatomic , copy) NSString *date;
 
 
 @end
@@ -310,7 +309,9 @@
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
         [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
         [dic setValue:parameters forKey:@"val"];
-        [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
+        NSString *json = [self getJSONMessage:dic];
+        [parameter setValue:json forKey:@"filter"];
+        self.filterParameters = json;
     }
     [parameter setValue:@"old" forKey:@"timeline"];
     [parameter setValue:PARAM_IS_NIL_ERROR(_date) forKey:@"date"];

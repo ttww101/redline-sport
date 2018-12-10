@@ -2,14 +2,57 @@
 #import "ZBSaiTableViewCell.h"
 #import "ZBLiveScoreModel.h"
 #import "ZBGuanzhuViewController.h"
-@interface ZBGuanzhuViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+#import "ZBSelectedDateTitleView.h"
+#import "DatePickerView.h"
+
+
+@interface ZBGuanzhuViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate, SelectedDateTitleViewDelegate, DatePickerViewDelegate>
+
 @property (nonatomic, strong) NSMutableArray *arrData;
+@property (nonatomic, strong) ZBSelectedDateTitleView *dataTitleView;
+@property (nonatomic, strong) NSMutableArray *arrDataQici;
+
+
+
 @end
+
 @implementation ZBGuanzhuViewController
+
+#pragma mark - DatePickerViewDelegate
+
+- (void)didSelectedDate:(NSString *)selectDate {
+    _date = [selectDate copy];
+    [self getAttention];
+    
+}
+
+#pragma mark SelectedDateTitleViewDelegate
+
+- (void)ZBSelectedDateTitleViewDidAction:(NSArray *)array {
+    DatePickerView *picker =  [DatePickerView showDatePicker:array];
+    picker.delegate = self;
+}
+
+
+#pragma mark - Lazy Load
+
+- (ZBSelectedDateTitleView *)dataTitleView
+{
+    if (!_dataTitleView) {
+        _dataTitleView = [[ZBSelectedDateTitleView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, 60 / 2 + 9)];
+        _dataTitleView.delegate = self;
+    }
+    return _dataTitleView;
+}
+
+#pragma mark - ************  以下高人所写  ************
+
+
 - (id)init
 {
     self = [super init];
     if (self) {
+        [self.view addSubview:self.dataTitleView];
         [self.view addSubview:self.tableView];
         self.view.backgroundColor = [UIColor whiteColor];
     }
@@ -23,6 +66,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.defaultFailure = @"";
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -30,7 +74,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar-14) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44 + 39+ 14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar - 39- 14) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[ZBSaiTableViewCell class] forCellReuseIdentifier:cellGuanzhuViewController];
         [self setupHeaderView];
@@ -141,32 +185,28 @@
     }
     return 0;
 }
+
 - (void)getAttention
 {
-    NSString *documentsPath = [ZBMethods getDocumentsPath];
-    NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
-    NSArray *arrAttentionMid = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:arrayPath]];
-    if (arrAttentionMid.count == 0) {
-        _arrData = [NSMutableArray array];
-        self.defaultFailure = default_noGame;
-        [self.tableView reloadData];
-        return;
-    }
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    NSString *ids = [arrAttentionMid componentsJoinedByString:@","];
-    [parameter setObject:ids forKey:@"ids"];
-    [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_bifen_focus] ArrayFile:nil Start:^(id requestOrignal) {
+    [parameter setValue:PARAM_IS_NIL_ERROR(_date) forKey:@"day"];
+    [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_focusd_matches] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             _arrData = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
-            [self.tableView reloadData];
-            NSMutableArray *arrMid = [NSMutableArray array];
-            for (int i = 0; i<_arrData.count; i++) {
-                ZBLiveScoreModel *liveM = [_arrData objectAtIndex:i];
-                [arrMid addObject:[NSString stringWithFormat:@"%ld",liveM.mid]];
+             _arrDataQici = [[NSMutableArray alloc] initWithArray:[ZBQiciModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"dates"]]];
+            
+            if (_arrDataQici.count == 0) {
+                [_arrData removeAllObjects];
+                [self.tableView reloadData];
+                return ;
             }
-            [NSKeyedArchiver archiveRootObject:arrMid toFile:arrayPath];
+            _dataTitleView.arrData = _arrDataQici;
+            
+            [self.tableView reloadData];
+          
+    
         }else{
             self.defaultFailure = [responseOrignal objectForKey:@"msg"];
             [self.tableView reloadData];

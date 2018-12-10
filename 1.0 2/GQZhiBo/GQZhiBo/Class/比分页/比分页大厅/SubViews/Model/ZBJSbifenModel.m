@@ -4,7 +4,8 @@
 {
     return @{
              @"time" : @"time",
-             @"data" : @"data",
+             @"data" : @"items",
+             @"label" : @"label"
              };
 }
 + (NSValueTransformer *)dataJSONTransformer

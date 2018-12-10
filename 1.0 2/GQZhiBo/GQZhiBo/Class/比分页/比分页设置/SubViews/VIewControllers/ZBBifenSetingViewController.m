@@ -183,7 +183,7 @@ static SystemSoundID shake_sound_id = 0;
             switch (indexPath.row) {
                 case 0:
                 {
-                    lab.text = @"显示方式";
+                    lab.text = @"显示方式(即时)";
                     switchBtn.tag = 0;
                     switchBtn.hidden = YES;
                     NSArray *arrXianShi = [[NSUserDefaults standardUserDefaults] arrayForKey:@"beforeXianShi"];

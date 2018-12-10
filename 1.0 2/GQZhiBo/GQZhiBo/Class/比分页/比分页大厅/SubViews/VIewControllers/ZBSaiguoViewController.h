@@ -7,4 +7,9 @@
 @property (nonatomic, strong) NSArray *arrSelectedSaishiJingcai;
 @property (nonatomic, strong) NSArray *arrSelectedSaishiChupan;
 - (void)refreshDataByChangeFlag:(NSInteger)flag;
+
+
+@property (nonatomic , copy) NSString *date;
+@property (nonatomic , copy) NSString *filterParameters;
+
 @end

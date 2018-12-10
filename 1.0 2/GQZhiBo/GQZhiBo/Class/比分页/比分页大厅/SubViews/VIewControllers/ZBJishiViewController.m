@@ -118,6 +118,7 @@ static SystemSoundID shake_sound_id = 0;
 }
 - (void)getNewData
 {
+    [_memeryArrAllPart removeAllObjects];
     [self loadDataQiciJishiViewController];
 }
 - (void)refreshDataByChangeFlag:(NSInteger)flag
@@ -162,24 +163,56 @@ static SystemSoundID shake_sound_id = 0;
     }
 }
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    if (_arrData.count > 0 ) {
-//        return _arrData.count;
-//    }
-//    return 0;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+         return _arrData.count;
+     } else {
+         return 1;
+     }
+   
+}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]&&(_currentFlag == 1||_currentFlag == 2||_currentFlag == 3)) {
+            return 0;
+        }
+        return 24;
+    } else {
+        return  0 ;
+    }
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [UIView new];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+        ZBJSbifenModel *model = [_arrData objectAtIndex:section];
+        if (model.data.count == 0) {
+            return nil;
+        }else{
+            UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 24)];
+            header.backgroundColor = UIColorHex(#EBEBEB);
+            UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, Width - 10, 24)];
+            lab.font = font10;
+            lab.text = [NSString stringWithFormat:@"%@",model.label];
+            lab.textColor = [ZBMethods getColor:model.leagueColor];
+            [header addSubview:lab];
+            return header;
+        }
+    }else{
+        return [UIView new];
+    }
+    
+    return nil;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return _arrData.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"])  {
+        ZBJSbifenModel *model = [_arrData objectAtIndex:section];
+        self.cellNum = model.data.count;
+        return model.data.count;
+    } else {
+        return _arrData.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -188,38 +221,41 @@ static SystemSoundID shake_sound_id = 0;
         cell = [[ZBSaiTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellJishiViewController];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    ZBJSbifenModel *model;
-    if (_arrData.count > 0) {
-        cell.ScoreModel = [_arrData objectAtIndex:indexPath.row];
+   
+    ZBLiveScoreModel *model;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+        ZBJSbifenModel *bifenModel = [_arrData objectAtIndex:indexPath.section];
+       model =  [bifenModel.data objectAtIndex:indexPath.row];
+       
+    } else {
+         model = [_arrData objectAtIndex:indexPath.row];
     }
+    cell.ScoreModel = model;
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor = colorF5;
     cell.backgroundColor = [UIColor whiteColor];
     cell.opaque = YES;
     cell.contentView.opaque = YES;
-    if (_arrData.count > 1) {
-        if (indexPath.section < model.data.count - 1) {
-            UIView *marginView = [UIView new];
-            marginView.backgroundColor = colorfbfafa;
-            [cell.contentView addSubview:marginView];
-            [marginView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.leading.bottom.trailing.equalTo(cell.contentView);
-                make.height.mas_equalTo(5);
-            }];
-        }
-    }
     return cell;
     return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_arrData.count > 0) {
-       
-        ZBLiveScoreModel *model = [_arrData objectAtIndex:indexPath.row];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+        ZBJSbifenModel *jsmodel = [_arrData objectAtIndex:indexPath.section];
+        ZBLiveScoreModel *model = [jsmodel.data objectAtIndex:indexPath.row];
         if (model.remark!= nil && ![model.remark isEqualToString:@""]) {
             return 108;
         }
         return 80;
+    } else {
+        if (_arrData.count > 0) {
+            ZBLiveScoreModel *model = [_arrData objectAtIndex:indexPath.row];
+            if (model.remark!= nil && ![model.remark isEqualToString:@""]) {
+                return 108;
+            }
+            return 80;
+        }
     }
     return 0;
 }
@@ -325,180 +361,226 @@ static SystemSoundID shake_sound_id = 0;
 - (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView{
     return YES;
 }
-- (void)loadDataQiciJishiViewController
-{
-    if (_currentFlag == 0) {
-        ZBQiciModel *qici = [[ZBQiciModel alloc] init];
-        qici.name = @"live";
-        [self loadDataJishiViewControllerWithQici:qici];
-    }else{
-        NSString *urlStage = @"";
-        switch (_currentFlag) {
-            case 0:
-            {
-                urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageAll];
-            }
-                break;
-            case 1:
-            {
-                urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageJC];
-            }
-                break;
-            case 2:
-            {
-                urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageBD];
-            }
-                break;
-            case 3:
-            {
-                urlStage = [NSString stringWithFormat:@"%@%@%@",APPDELEGATE.url_jsonHeader,@"/jsbf",url_jsbf_stageZC];
-            }
-                break;
-            default:
-                break;
-        }
-        [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:nil PathUrlL:urlStage Start:^(id requestOrignal) {
-        } End:^(id responseOrignal) {
-        } Success:^(id responseResult, id responseOrignal) {
-            self.defaultFailure = @"";
-            _arrDataQici = [[NSArray alloc] initWithArray:[ZBQiciModel arrayOfEntitiesFromArray:responseOrignal]];
-            if (_arrDataQici.count == 0) {
-                [_arrData removeAllObjects];
-                [self reloadTableView];
-                return ;
-            }
-            for (int i = 0; i<_arrDataQici.count; i++) {
-                ZBQiciModel *model = [_arrDataQici objectAtIndex:i];
-                if (model.iscurrent == 1) {
-                    ZBQiciModel *model = [_arrDataQici objectAtIndex:i];
-                    [self loadDataJishiViewControllerWithQici:model];
-                    break;
-                }else{
-                    if (i==_arrDataQici.count -1) {
-                        ZBQiciModel *model = [_arrDataQici objectAtIndex:i];
-                        [self loadDataJishiViewControllerWithQici:model];
-                    }
-                }
-            }
-        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-            self.defaultFailure = errorDict;
-            [_arrData removeAllObjects];
-            [self reloadTableView];
-            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-        }];
-    }
+- (void)loadDataQiciJishiViewController {
+    [self loadDataJishiViewControllerWithQici:nil];
 }
 
 - (void)loadDataJishiViewControllerWithQici:(ZBQiciModel *)model
 {
-    
-    //        NSString *urlStage = [NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_bifen_jsbfnew];
-    NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
-    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    [parameter setValue:@([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"] ? 1 : 0 ) forKey:@"return_fmt"];
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    NSArray *parameters = self.filterDic[ParamtersFilters];
-    if (parameters.count > 0) {
-        [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
-        [dic setValue:parameters forKey:@"val"];
-        [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
+    NSString *sub = @"all";
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jingcaibifen"]) {
+        sub = @"jc";
     }
-    [parameter setValue:PARAM_IS_NIL_ERROR(self.filterDic[ParamtersSub]) forKey:@"sub"];
     
-    dispatch_queue_t concurrentqueue=dispatch_queue_create("concurrent", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_async(concurrentqueue, ^{
-        [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {
-        } End:^(id responseOrignal) {
-            [self.tableView.mj_header endRefreshing];
-        } Success:^(id responseResult, id responseOrignal) {
-            self.defaultFailure = @"";
-            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
-                
-
-                /*
-                 _arrSelectedSaishi = [[NSArray alloc] initWithArray:[ZBBIfenSelectedSaishiModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"allindex"]]];
-                 _arrSelectedSaishiJingcai = [[NSArray alloc] initWithArray:[ZBBIfenSelectedSaishiModel arrayOfEntitiesFromArray:[[responseOrignal  objectForKey:@"data"] objectForKey:@"jcindex"]]];
-                 _arrSelectedSaishiChupan = [[NSArray alloc] initWithArray:[ZBBIfenSelectedSaishiModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"oddsindex"]]];
-                 */
-                
-                
-                NSMutableArray *arrLoad = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+       
+        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+        [parameter setValue:@(1) forKey:@"return_fmt"];
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        NSArray *parameters = self.filterDic[ParamtersFilters];
+        if (parameters.count > 0) {
+            [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
+            [dic setValue:parameters forKey:@"val"];
+            [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
+        }
+        [parameter setValue:sub forKey:@"sub"];
+        
+        dispatch_queue_t concurrentqueue=dispatch_queue_create("concurrent", DISPATCH_QUEUE_CONCURRENT);//并行线程队列
+        dispatch_async(concurrentqueue, ^{
+            [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {
+              
+            } End:^(id responseOrignal) {
+                [self.tableView.mj_header endRefreshing];
+            } Success:^(id responseResult, id responseOrignal) {
+                self.defaultFailure = @"";
+    
+                NSMutableArray *arrLoad = [[NSMutableArray alloc] initWithArray:[ZBJSbifenModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
                 
                 NSMutableArray *arrComplete = [NSMutableArray array];
-                for (int m= 0; m < _memeryArrAllPart.count; m++) {
-                    ZBLiveScoreModel *model = [_memeryArrAllPart objectAtIndex:m];
-                    if (model.matchstate != 0){
-                        for (int n = 0; n<arrLoad.count; n++) {
-                            ZBLiveScoreModel *loadModel = [arrLoad objectAtIndex:n];
-                            if (model.mid == loadModel.mid) {
-                                if (loadModel.matchstate != model.matchstate) {
-                                    if (!(loadModel.matchstate==0 ||loadModel.matchstate==1 ||loadModel.matchstate==2 ||loadModel.matchstate==3 ||
-                                          loadModel.matchstate==4)) {
-                                        [arrComplete addObject:loadModel];
+                for (int i = 0; i<_memeryArrAllPart.count; i++) {
+                    ZBJSbifenModel *jsmodel = [_memeryArrAllPart objectAtIndex:i];
+                    for (int m= 0; m<jsmodel.data.count; m++) {
+                        ZBLiveScoreModel *model = [jsmodel.data objectAtIndex:m];
+                        if (model.matchstate != 0){
+                            for (int j= 0; j<arrLoad.count; j++) {
+                                ZBJSbifenModel *jsloadmodel = [arrLoad objectAtIndex:j];
+                                for (int n = 0; n<jsloadmodel.data.count; n++) {
+                                    ZBLiveScoreModel *loadModel = [jsloadmodel.data objectAtIndex:n];
+                                    if (model.mid == loadModel.mid) {
+                                        if (loadModel.matchstate != model.matchstate) {
+                                            if (!(loadModel.matchstate==0 ||loadModel.matchstate==1 ||loadModel.matchstate==2 ||loadModel.matchstate==3 ||
+                                                  loadModel.matchstate==4)) {
+                                                [arrComplete addObject:loadModel];
+                                            }
+                                            loadModel.matchstate = model.matchstate;
+                                        }
+                                        if (loadModel.homescore < model.homescore) {
+                                            loadModel.homescore = model.homescore;
+                                        }
+                                        if (loadModel.guestscore< model.guestscore) {
+                                            loadModel.guestscore = model.guestscore;
+                                        }
+                                        if (loadModel.guestRed <model.guestRed) {
+                                            loadModel.guestRed = model.guestRed;
+                                        }
+                                        if (loadModel.homeRed <model.homeRed) {
+                                            loadModel.homeRed = model.homeRed;
+                                        }
+                                        
+                                        if (loadModel.guestYellow <model.guestYellow) {
+                                            loadModel.guestYellow = model.guestYellow;
+                                        }
+                                        if (loadModel.homeYellow <model.homeYellow) {
+                                            loadModel.homeYellow = model.homeYellow;
+                                        }
+                                        if (![loadModel.matchtime isEqualToString:model.matchtime]) {
+                                            loadModel.matchtime = model.matchtime;
+                                        }
+                                        if (![loadModel.matchtime2 isEqualToString:model.matchtime2]) {
+                                            loadModel.matchtime2 = model.matchtime2;
+                                        }
+                   
                                     }
-                                    loadModel.matchstate = model.matchstate;
-                                }
-                                if (loadModel.homescore < model.homescore) {
-                                    loadModel.homescore = model.homescore;
-                                }
-                                if (loadModel.guestscore< model.guestscore) {
-                                    loadModel.guestscore = model.guestscore;
-                                }
-                                if (loadModel.guestRed <model.guestRed) {
-                                    loadModel.guestRed = model.guestRed;
-                                }
-                                if (loadModel.homeRed <model.homeRed) {
-                                    loadModel.homeRed = model.homeRed;
-                                }
-                                if (loadModel.guestYellow <model.guestYellow) {
-                                    loadModel.guestYellow = model.guestYellow;
-                                }
-                                if (loadModel.homeYellow <model.homeYellow) {
-                                    loadModel.homeYellow = model.homeYellow;
-                                }
-                                if (![loadModel.matchtime isEqualToString:model.matchtime]) {
-                                    loadModel.matchtime = model.matchtime;
-                                }
-                                if (![loadModel.matchtime2 isEqualToString:model.matchtime2]) {
-                                    loadModel.matchtime2 = model.matchtime2;
+                    
                                 }
                             }
                         }
+                        
                     }
+    }
+
+                //重新写一个arr，防止是全部数据里面完场的比赛加到竞彩，北单，足彩里面
+                NSMutableArray *arrRemove = [NSMutableArray array];
+                
+                for (ZBLiveScoreModel *completeModel in arrComplete) {
+                    
+                    for (int i = 0; i<arrLoad.count; i++) {
+                        
+                        ZBJSbifenModel *jsmodel = [arrLoad objectAtIndex:i];
+                        
+                        if ([jsmodel.data containsObject:completeModel]) {
+                            [arrRemove addObject:completeModel];
+                            [jsmodel.data removeObject:completeModel];
+                        }
+                        
+                    }
+                    
                 }
+                ZBJSbifenModel *lastModel = [arrLoad lastObject];
+                [lastModel.data addObjectsFromArray:arrRemove];
+                
+                
+                //         如果是全部的赛事，就把内存中储存的大对阵换掉
                 if(0 == _currentFlag){
                     _memeryArrAllPart = [[NSMutableArray alloc] initWithArray:arrLoad];
+                    
                 }
+            
                 _arrData = [[NSMutableArray alloc] initWithArray:arrLoad];
 
                 [self reloadTableView];
                 
                 
-                
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
+               
                 
-                NSString *documentPath = [ZBMethods getDocumentsPath];
-                NSString *arrSaveBifenAllSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenAllSelectedPath];
-                [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenAllSelected];
-                NSString *arrSaveBifenJingcaiSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenJingcaiSelectedPath];
-                [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenJingcaiSelected];
-                NSString *arrSaveBifenChupanSelected = [documentPath stringByAppendingPathComponent:arrSaveBifenChupanSelectedPath];
-                [NSKeyedArchiver archiveRootObject:[NSArray array] toFile:arrSaveBifenChupanSelected];
+            } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+                self.defaultFailure = errorDict;
+                
+                [_arrData removeAllObjects];
+                //        [self.tableView reloadData];
+                [self reloadTableView];
+                [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+                
                 NSTimeInterval timerinterVal = [[NSDate date] timeIntervalSince1970] + 10;
                 [[NSUserDefaults standardUserDefaults] setDouble:timerinterVal forKey:@"bifenchangeSaveTime"];
                 
-            }
-        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-            self.defaultFailure = errorDict;
-            [_arrData removeAllObjects];
-            [self reloadTableView];
-            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
-            NSTimeInterval timerinterVal = [[NSDate date] timeIntervalSince1970] + 10;
-            [[NSUserDefaults standardUserDefaults] setDouble:timerinterVal forKey:@"bifenchangeSaveTime"];
-        }];
-    });
-
-
+            }];
+            
+        });
+    } else {
+        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+        [parameter setValue:@(0) forKey:@"return_fmt"];
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        NSArray *parameters = self.filterDic[ParamtersFilters];
+        if (parameters.count > 0) {
+            [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
+            [dic setValue:parameters forKey:@"val"];
+            [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
+        }
+        [parameter setValue:sub forKey:@"sub"];
+        
+        dispatch_queue_t concurrentqueue=dispatch_queue_create("concurrent", DISPATCH_QUEUE_CONCURRENT);
+        dispatch_async(concurrentqueue, ^{
+            [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {
+            } End:^(id responseOrignal) {
+                [self.tableView.mj_header endRefreshing];
+            } Success:^(id responseResult, id responseOrignal) {
+                self.defaultFailure = @"";
+                if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+                    NSMutableArray *arrLoad = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+                    
+                    NSMutableArray *arrComplete = [NSMutableArray array];
+                    for (int m= 0; m < _memeryArrAllPart.count; m++) {
+                        ZBLiveScoreModel *model = [_memeryArrAllPart objectAtIndex:m];
+                        if (model.matchstate != 0){
+                            for (int n = 0; n<arrLoad.count; n++) {
+                                ZBLiveScoreModel *loadModel = [arrLoad objectAtIndex:n];
+                                if (model.mid == loadModel.mid) {
+                                    if (loadModel.matchstate != model.matchstate) {
+                                        if (!(loadModel.matchstate==0 ||loadModel.matchstate==1 ||loadModel.matchstate==2 ||loadModel.matchstate==3 ||
+                                              loadModel.matchstate==4)) {
+                                            [arrComplete addObject:loadModel];
+                                        }
+                                        loadModel.matchstate = model.matchstate;
+                                    }
+                                    if (loadModel.homescore < model.homescore) {
+                                        loadModel.homescore = model.homescore;
+                                    }
+                                    if (loadModel.guestscore< model.guestscore) {
+                                        loadModel.guestscore = model.guestscore;
+                                    }
+                                    if (loadModel.guestRed <model.guestRed) {
+                                        loadModel.guestRed = model.guestRed;
+                                    }
+                                    if (loadModel.homeRed <model.homeRed) {
+                                        loadModel.homeRed = model.homeRed;
+                                    }
+                                    if (loadModel.guestYellow <model.guestYellow) {
+                                        loadModel.guestYellow = model.guestYellow;
+                                    }
+                                    if (loadModel.homeYellow <model.homeYellow) {
+                                        loadModel.homeYellow = model.homeYellow;
+                                    }
+                                    if (![loadModel.matchtime isEqualToString:model.matchtime]) {
+                                        loadModel.matchtime = model.matchtime;
+                                    }
+                                    if (![loadModel.matchtime2 isEqualToString:model.matchtime2]) {
+                                        loadModel.matchtime2 = model.matchtime2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if(0 == _currentFlag){
+                        _memeryArrAllPart = [[NSMutableArray alloc] initWithArray:arrLoad];
+                    }
+                    _arrData = [[NSMutableArray alloc] initWithArray:arrLoad];
+                    [self reloadTableView];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
+                }
+            } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+                self.defaultFailure = errorDict;
+                [_arrData removeAllObjects];
+                [self reloadTableView];
+                [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+                NSTimeInterval timerinterVal = [[NSDate date] timeIntervalSince1970] + 10;
+                [[NSUserDefaults standardUserDefaults] setDouble:timerinterVal forKey:@"bifenchangeSaveTime"];
+            }];
+        });
+    }
 }
 
 #pragma mark - FoldSectionHeaderViewDelegate -

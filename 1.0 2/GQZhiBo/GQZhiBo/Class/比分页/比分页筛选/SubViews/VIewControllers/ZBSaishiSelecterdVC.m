@@ -151,6 +151,8 @@ NSString *const ParamtersType = @"Type";
                 SelectedV.playType = PlayTypeAll;
                 SelectedV.sub = @"all";
                 SelectedV.timeline =  self.timeline;
+                SelectedV.date = self.date;
+                SelectedV.filterParameters = self.filterParameters;
                 return SelectedV;
             } else {
                 ZBSelectedJincaiVC *SelectedV  = [[ZBSelectedJincaiVC alloc] init];
@@ -158,6 +160,8 @@ NSString *const ParamtersType = @"Type";
                 SelectedV.timeline =  self.timeline;
                 SelectedV.tab = @"pankou_rq";
                 SelectedV.delegate = self;
+                SelectedV.date = self.date;
+                SelectedV.filterParameters = self.filterParameters;
                 return SelectedV;
             }
         }
@@ -171,6 +175,8 @@ NSString *const ParamtersType = @"Type";
                 SelectedV.playType = PlayTypejingcai;
                 SelectedV.sub = @"jc";
                 SelectedV.timeline =  self.timeline;
+                SelectedV.date = self.date;
+                SelectedV.filterParameters = self.filterParameters;
                 return SelectedV;
             } else {
                 ZBSelectedJincaiVC *SelectedV  = [[ZBSelectedJincaiVC alloc] init];
@@ -178,6 +184,8 @@ NSString *const ParamtersType = @"Type";
                 SelectedV.delegate = self;
                 SelectedV.timeline =  self.timeline;
                 SelectedV.tab = @"pankou_dx";
+                SelectedV.date = self.date;
+                SelectedV.filterParameters = self.filterParameters;
                 return SelectedV;
             }
         }
@@ -190,6 +198,8 @@ NSString *const ParamtersType = @"Type";
             SelectedV.playType = PlayTypezucai;
             SelectedV.sub = @"zc";
             SelectedV.timeline =  self.timeline;
+            SelectedV.date = self.date;
+            SelectedV.filterParameters = self.filterParameters;
             return SelectedV;
         }
             break;
@@ -201,6 +211,8 @@ NSString *const ParamtersType = @"Type";
             SelectedV.playType = PlayTypebeidan;
             SelectedV.sub = @"bd";
             SelectedV.timeline =  self.timeline;
+            SelectedV.date = self.date;
+            SelectedV.filterParameters = self.filterParameters;
             return SelectedV;
         }
             break;

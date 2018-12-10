@@ -16,14 +16,12 @@
 #import "ArchiveFile.h"
 #import "GeneralFloatingView.h"
 
-@interface ZBBifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate,HSTabBarContentViewDataSource, GeneralFloatingViewDelegate>
+@interface ZBBifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate, GeneralFloatingViewDelegate>
 @property (nonatomic, strong)ZBJishiViewController *jishiVC;
 @property (nonatomic, strong)ZBSaiguoViewController *saiguoVC;
 @property (nonatomic, strong)ZBSaichengViewController *saichengVC;
 @property (nonatomic, strong)ZBGuanzhuViewController *guanzhuVC;
 @property (nonatomic, strong) ZBSelectedEventView*TitleView;
-@property (nonatomic, strong) ZBHSTabBarContentView       *navTitleView;
-@property (nonatomic, strong) NSMutableArray            *titleArr;
 @property (nonatomic, assign)NSInteger currentIndex;
 @property (nonatomic, assign)NSInteger currentflag;
 @property (nonatomic, strong) NSArray *arrSelectedSaishi;
@@ -63,8 +61,12 @@
         selectedVC.timeline = @"live";
     } else if (self.currentIndex == 1) {
         selectedVC.timeline = @"old";
+        selectedVC.date = _saiguoVC.date;
+        selectedVC.filterParameters = _saiguoVC.filterParameters;
     }  else if (self.currentIndex == 2) {
         selectedVC.timeline = @"new";
+        selectedVC.date = _saichengVC.date;
+        selectedVC.filterParameters = _saichengVC.filterParameters;
     }
     [self.navigationController pushViewController:selectedVC animated:true];
 }
@@ -88,14 +90,7 @@
     }else{
         [UIApplication sharedApplication].idleTimerDisabled =NO;
     }
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"allbifen"]) {
-        self.navTitleView.selectedIndex = 0 ;
-    }
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jingcaibifen"]) {
-        self.navTitleView.selectedIndex = 1;
-    }
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
-    }
+    
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -111,23 +106,7 @@
 {
     [super viewDidDisappear:animated];
 }
-- (NSMutableArray *)titleArr {
-    if (!_titleArr) {
-        _titleArr = [NSMutableArray arrayWithObjects:@"全部",@"竞彩",@"北单",@"足彩", nil];
-//        _titleArr = [NSMutableArray array];
-    }
-    return _titleArr;
-}
-- (ZBHSTabBarContentView *)navTitleView {
-    if (!_navTitleView) {
-        _navTitleView = [[ZBHSTabBarContentView alloc] init];
-        _navTitleView.delegate = self;
-        _navTitleView.dataSource = self;
-        _navTitleView.bottomLineHide = YES;
-        _navTitleView.titleFont = 15;
-    }
-    return _navTitleView;
-}
+
 #pragma mark -- setnavView
 - (void)setNavView
 {
@@ -194,16 +173,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:biFenTitleChange object:@"biFenChange" userInfo:bifenDic];
     [self ZBSelecterMatchView:nil selectedAtIndex:index];
 }
-#pragma mark - HSTabBarContentViewDataSource -
-- (NSInteger)numberOfItemsInTabBarContentView:(ZBHSTabBarContentView *)tabBarContentView {
-    return self.titleArr.count;
-}
-- (NSString *)tabBarContentView:(ZBHSTabBarContentView *)tabBarContentView titleForItemAtIndex:(NSInteger)index {
-    return [NSString stringWithFormat:@"%@",self.titleArr[index]];;
-}
-- (UIView *)tabBarContentView:(ZBHSTabBarContentView *)tabBarContentView contentViewAtIndex:(NSInteger)index {
-    return nil;
-}
+
+
 #pragma mark - matchView -
 - (void)navViewTouchAnIndex:(NSInteger)index
 {

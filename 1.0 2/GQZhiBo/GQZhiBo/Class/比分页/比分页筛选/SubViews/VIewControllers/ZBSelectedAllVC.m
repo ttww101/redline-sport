@@ -25,9 +25,13 @@
 - (void)loadData {
     [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+    if (![self.timeline isEqualToString:@"live"]) {
+        [parameter setValue:PARAM_IS_NIL_ERROR(self.filterParameters) forKey:@"filter"];
+    }
     [parameter setValue:PARAM_IS_NIL_ERROR(self.timeline) forKey:@"timeline"];
     [parameter setValue:@"sclass" forKey:@"tab"];
     [parameter setValue:PARAM_IS_NIL_ERROR(self.sub) forKey:@"sub"];
+    [parameter setValue:PARAM_IS_NIL_ERROR(self.date) forKey:@"date"];
     NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:path Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
