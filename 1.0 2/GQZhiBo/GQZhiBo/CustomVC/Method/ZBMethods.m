@@ -938,6 +938,7 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     long long firstStamp = (long long)[lastDate timeIntervalSince1970] * 1000;
     return firstStamp;
 }
+
 + (NSString *)formatMMDDWithStamp:(NSUInteger)timeStamp {
     NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
     [stampFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
@@ -946,6 +947,16 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     NSString *timeText = [stampFormatter stringFromDate:stampDate];
     return timeText;
 }
+
++ (NSString *)formatYYMMDDWithStamp:(NSUInteger)timeStamp {
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    [stampFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+    NSString *timeText = [stampFormatter stringFromDate:stampDate];
+    return timeText;
+}
+
 + (NSString *)compareCurrentTime:(NSString *)str
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -972,6 +983,10 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     }
     return result;
 }
+
+
+
+
 + (NSInteger)amountWithProductId:(NSString *)productId {
     NSInteger amount = 0;
     if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian8"]) {

@@ -88,5 +88,8 @@
 @property (nonatomic , copy) NSString *recommendTime;
 @property (nonatomic , copy) NSString *buyCount; 
 @property (nonatomic, assign) BOOL showPrice; 
-@property (nonatomic, assign) BOOL showBuyCount; 
+@property (nonatomic, assign) BOOL showBuyCount;
+
+@property (nonatomic, assign) NSInteger red;
+
 @end

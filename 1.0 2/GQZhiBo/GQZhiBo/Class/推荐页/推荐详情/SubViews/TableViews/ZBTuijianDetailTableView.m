@@ -21,6 +21,7 @@
 {
     self = [super initWithFrame:frame style:style];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         self.delegate = self;
         self.dataSource = self;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -142,6 +143,7 @@
                 cell.model = _headerModel;
             }];
         }else if(_typeTuijianDetailHeader == typeTuijianDetailHeaderCellChuanGuan){
+            
         }else if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellZucai){
         }
     }else if (indexPath.section == 2){

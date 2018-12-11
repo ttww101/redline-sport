@@ -46,11 +46,20 @@
 @property (nonatomic, strong)UIButton *allBtn;
 @property (nonatomic, assign) BOOL isToFenxi;
 @property (nonatomic, strong) UILabel *labcontentPart;
-@property (nonatomic, strong) UIImageView *imgcontentPart;
 @property (nonatomic, strong) UIImageView *imghidecontent;
-@property (nonatomic, strong) UILabel *labhidecontentPartDetail;
 @property (nonatomic, strong) UILabel *labcontentPartDetail;
 @property (nonatomic, strong) UILabel *labMoney;
+
+
+@property (nonatomic , strong) UIView *lineView;
+@property (nonatomic , strong) UILabel *priceLab;
+@property (nonatomic, strong) BaseImageView *timeIV;
+@property (nonatomic , strong) UILabel *timeLab;
+@property (nonatomic, strong) BaseImageView *eyeIV;
+@property (nonatomic , strong) UILabel *eyeLab;
+
+
+
 @end
 @implementation ZBTuijianDetailHeaderView
 - (void)awakeFromNib {
@@ -62,6 +71,9 @@
 - (void)setModel:( ZBTuijiandatingModel*)model
 {
     _model = model;
+    NSString *time = [ZBMethods formatYYMMDDWithStamp:model.create_time / 1000];
+    self.timeLab.text = [ZBMethods compareCurrentTime:time];
+    self.eyeLab.text = [NSString stringWithFormat:@"%zi",model.red];
     if (_model.see) {
         _type = TuijianDetailHeaderViewShowContent;
     }else{
@@ -116,7 +128,12 @@
         if (!(str.length > 0)) {
             str = @"球币";
         }
+        
+        
         _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
+        
+        
+        
     }
     NSString *space = @"";
     if (isOniPhone4 ||  isOniPhone5) {
@@ -237,32 +254,32 @@
         switch ([_model.result integerValue]) {
             case 0:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"wuxiao"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_Invalid"];
             }
                 break;
             case 1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"winhalf"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_winhalf"];
             }
                 break;
             case 2:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"win"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_win"];
             }
                 break;
             case -1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"losehalf"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_losehalf"];
             }
                 break;
             case -2:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"lose"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_lose"];
             }
                 break;
             case -3:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"cheDan"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_go"];
             }
                 break;
             case 10:
@@ -296,15 +313,17 @@
         [_basicView addSubview:self.allBtn];
         [_basicView addSubview:self.viewLineTeamBottom];
         [_basicView addSubview:self.labPankou];
-        [_basicView addSubview:self.labMoney];
         [_basicView addSubview:self.btnWin];
         [_basicView addSubview:self.btnPing];
         [_basicView addSubview:self.btnLose];
         [_basicView addSubview:self.labReason];
         if (_type == TuijianDetailHeaderViewShowContent) {
+            [_basicView addSubview:self.priceLab];
+            [_basicView addSubview:self.labMoney];
             [_basicView addSubview:self.labMultipleTitle];
             [_basicView addSubview:self.imageMultiple];
             [_basicView addSubview:self.labMultiple];
+            [_basicView addSubview:self.lineView];
             [_basicView addSubview:self.labCompany];
             [_basicView addSubview:self.redView];
             [_basicView addSubview:self.redView1];
@@ -320,14 +339,22 @@
             [_basicView addSubview:self.labZanNum];
             [_basicView addSubview:self.btnZan];
         }else{
+            [_basicView addSubview:self.labMultipleTitle];
+            [_basicView addSubview:self.imageMultiple];
+            [_basicView addSubview:self.labMultiple];
+            [_basicView addSubview:self.lineView];
             [_basicView addSubview:self.imageViewWin];
             [_basicView addSubview:self.labcontentPart];
             [_basicView addSubview:self.imghidecontent];
-            [_basicView addSubview:self.imgcontentPart];
-            [_basicView addSubview:self.labcontentPartDetail];
-            [_basicView addSubview:self.labhidecontentPartDetail];
-            [_basicView addSubview:self.labCreatTime];
+            
         }
+        
+        [_basicView addSubview:self.timeIV];
+        [_basicView addSubview:self.timeLab];
+        [_basicView addSubview:self.eyeIV];
+        [_basicView addSubview:self.eyeLab];
+        
+        [_basicView addSubview:self.labcontentPartDetail];
         [_basicView addSubview:self.viewLineBasicViewBottom];
     }
     return _basicView;
@@ -542,7 +569,7 @@
 {
     if (!_labMultiple) {
         _labMultiple = [[UILabel alloc] init];
-        _labMultiple.textColor = color33;
+        _labMultiple.textColor = UIColorHex(#FE6359);
         _labMultiple.font = font12;
     }
     return _labMultiple;
@@ -593,8 +620,8 @@
 {
     if (!_labContent) {
         _labContent = [[UILabel alloc] init];
-        _labContent.font = font14;
-        _labContent.textColor = color52;
+        _labContent.font = font12;
+        _labContent.textColor = UIColorHex(#DB2D21);
         _labContent.numberOfLines = 0;
     }
     return _labContent;
@@ -604,7 +631,7 @@
     if (!_labcontentPart) {
         _labcontentPart = [[UILabel alloc] init];
         _labcontentPart.font = font14;
-        _labcontentPart.textColor = color33;
+        _labcontentPart.textColor = UIColorHex(#DB2D21);
         _labcontentPart.numberOfLines = 1;
     }
     return _labcontentPart;
@@ -621,42 +648,36 @@
     }
     return _labcontentPartDetail;
 }
-- (UILabel *)labhidecontentPartDetail
-{
-    if (!_labhidecontentPartDetail) {
-        _labhidecontentPartDetail = [[UILabel alloc] init];
-        _labhidecontentPartDetail.font = font12;
-        _labhidecontentPartDetail.textColor = color33;
-        _labhidecontentPartDetail.textAlignment = NSTextAlignmentCenter;
-        _labhidecontentPartDetail.text = @"投注内容和推荐理由，付费后才能查看";
-    }
-    return _labhidecontentPartDetail;
-}
-- (UIImageView *)imgcontentPart
-{
-    if (!_imgcontentPart) {
-        _imgcontentPart = [[UIImageView alloc] init];
-        _imgcontentPart.image = [UIImage imageNamed:@"hideImge"];
-    }
-    return _imgcontentPart;
-}
+
+
 - (UIImageView *)imghidecontent
 {
     if (!_imghidecontent) {
         _imghidecontent = [[UIImageView alloc] init];
-        _imghidecontent.image = [UIImage imageNamed:@"hideContent"];
+        _imghidecontent.image = [UIImage imageNamed:@"cover"];
     }
     return _imghidecontent;
 }
 - (UILabel *)labMoney{
     if (!_labMoney) {
         _labMoney = [[UILabel alloc] init];
-        _labMoney.font = BoldFont4(fontSize12);
+        _labMoney.font = font12;
         _labMoney.textColor  = greencolor;
         _labMoney.text = @"免费";
     }
     return _labMoney;
 }
+
+- (UILabel *)priceLab {
+    if (!_priceLab) {
+        _priceLab = [[UILabel alloc] init];
+        _priceLab.font = font12;
+        _priceLab.textColor  = UIColorHex(#646464);
+        _priceLab.text = @"价格";
+    }
+    return _priceLab;
+}
+
 - (UIWebView *)webView
 {
     if (!_webView) {
@@ -671,6 +692,43 @@
     }
     return _webView;
 }
+
+- (BaseImageView *)timeIV {
+    if (_timeIV == nil) {
+        _timeIV = [[BaseImageView alloc]init];
+        _timeIV.image = [UIImage imageNamed:@"recommend_time"];
+    }
+    return _timeIV;
+}
+
+- (UILabel *)timeLab {
+    if (!_timeLab) {
+        _timeLab = [[UILabel alloc] init];
+        _timeLab.font = font10;
+        _timeLab.textColor  = UIColorHex(#999999);
+        _timeLab.text = @"1312312";
+    }
+    return _timeLab;
+}
+
+- (BaseImageView *)eyeIV {
+    if (_eyeIV == nil) {
+        _eyeIV = [[BaseImageView alloc]init];
+        _eyeIV.image = [UIImage imageNamed:@"recommend_eye"];
+    }
+    return _eyeIV;
+}
+
+- (UILabel *)eyeLab {
+    if (!_eyeLab) {
+        _eyeLab = [[UILabel alloc] init];
+        _eyeLab.font = font10;
+        _eyeLab.textColor  = UIColorHex(#999999);
+        _eyeLab.text = @"1312312";
+    }
+    return _eyeLab;
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if ([request.URL.scheme isEqualToString:@"image-preview"]) {
         NSString* path = [request.URL.absoluteString substringFromIndex:[@"image-preview:" length]];
@@ -794,6 +852,15 @@
     }
     return _viewLineBasicViewBottom;
 }
+
+- (UIView *)lineView {
+    if (_lineView == nil) {
+        _lineView = [UIView new];
+        _lineView.backgroundColor = UIColorHex(eeeeee);
+    }
+    return _lineView;
+}
+
 - (void)addAutoLayoutToCell
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -802,6 +869,7 @@
         make.right.equalTo(self.contentView.mas_right).offset(-0);
         make.bottom.equalTo(self.contentView).offset(-0);
     } ];
+    
     [self.headerUser mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.basicView.mas_top);
         make.left.equalTo(self.basicView.mas_left);
@@ -856,10 +924,7 @@
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.viewLineTeamBottom.mas_top).offset(21.5);
     }];
-    [self.labMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.labPankou.mas_right).offset(15);
-        make.centerY.equalTo(self.labPankou.mas_centerY);
-    }];
+    
     [self.btnWin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labPankou.mas_bottom).offset(11.5);
@@ -878,20 +943,34 @@
         make.width.equalTo(self.btnWin.mas_width);
         make.height.mas_equalTo(44);
     }];
+    
     [self.viewLineAuthorBottom mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.btnWin.mas_bottom).offset(29);
+        make.top.equalTo(self.btnWin.mas_bottom).offset(17);
         make.centerX.equalTo(self.basicView.mas_centerX);
         make.width.mas_equalTo(Width);
         make.height.mas_equalTo(0.5);
     }];
+    
     [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.viewLineAuthorBottom.mas_centerY).offset(20);
-        make.centerX.equalTo(self.viewLineAuthorBottom.mas_centerX);
+        make.right.equalTo(self.basicView.mas_right).offset(-15);
+        make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(12);
     }];
+    
     if (_type == TuijianDetailHeaderViewShowContent) {
+        
+        [self.priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(6);
+            make.left.equalTo(self.labPankou.mas_left);
+        }];
+        
+        [self.labMoney mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(6);
+            make.left.equalTo(self.priceLab.mas_right).offset(5);
+        }];
+        
         [self.labMultipleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.basicView.mas_left).offset(15);
-            make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(21.5);
+            make.top.equalTo(self.labMoney.mas_bottom).offset(8);
         }];
         [self.imageMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.labMultipleTitle.mas_left).offset(0);
@@ -900,74 +979,114 @@
             make.height.mas_equalTo(0);
         }];
         [self.labMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.labMultipleTitle.mas_right).offset(0);
+            make.left.equalTo(self.labMultipleTitle.mas_right).offset(5);
             make.centerY.equalTo(self.labMultipleTitle.mas_centerY);
         }];
+        
         [self.labReason mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.labMultiple.mas_bottom).offset(6.5);
+            make.top.equalTo(self.labMultiple.mas_bottom).offset(8);
             make.left.equalTo(self.basicView.mas_left).offset(15);
         }];
+        
+        [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.basicView.mas_left);
+            make.right.equalTo(self.basicView.mas_right);
+            make.height.mas_equalTo(1);
+            make.top.equalTo(self.labReason.mas_bottom).offset(8);
+        }];
+        
         [self.labContent mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.basicView.mas_left).offset(15);
-            make.top.equalTo(self.labReason.mas_bottom).offset(6.5);
+            make.top.equalTo(self.lineView.mas_bottom).offset(6.5);
             make.right.equalTo(self.basicView.mas_right).offset(-15);
         }];
+        
         [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.basicView.mas_left).offset(15);
-            make.top.equalTo(self.labReason.mas_bottom).offset(6.5);
+            make.top.equalTo(self.labContent.mas_bottom).offset(6.5);
             make.right.equalTo(self.basicView.mas_right).offset(-15);
             make.height.mas_equalTo(0).priority(750);
         }];
-        [self.labCreatTime mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.basicView.mas_right).offset(-15);
-            make.top.equalTo(self.webView.mas_bottom).offset(15.5);
-        }];
-        [self.viewLineBasicViewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.basicView.mas_centerX);
-            make.top.equalTo(self.labCreatTime.mas_bottom).offset(25);
-            make.bottom.equalTo(self.basicView.mas_bottom).offset(0);
-            make.width.equalTo(self.basicView.mas_width);
-            make.height.mas_equalTo(10);
-        }];
-    }else{
-        [self.viewLineBasicViewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.basicView.mas_centerX);
-            make.top.equalTo(self.btnWin.mas_bottom).offset(20);
-            make.bottom.equalTo(self.basicView.mas_bottom).offset(-(10 + 30 + 20 + 102 + 35));
-            make.width.equalTo(self.basicView.mas_width);
-            make.height.mas_equalTo(10);
-        }];
-        [self.labReason mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.viewLineBasicViewBottom.mas_bottom).offset(10);
+    
+        
+        [self.timeIV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.self.webView.mas_bottom).offset(20);
             make.left.equalTo(self.basicView.mas_left).offset(15);
-            make.height.mas_equalTo(30);
         }];
+
+        
+    }else{
+        
+        [self.labMultipleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.basicView.mas_left).offset(15);
+            make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(6);
+        }];
+        
+        [self.imageMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.labMultipleTitle.mas_left).offset(0);
+            make.centerY.equalTo(self.labMultipleTitle.mas_centerY);
+            make.width.mas_equalTo(0);
+            make.height.mas_equalTo(0);
+        }];
+        
+        [self.labMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.labMultipleTitle.mas_right).offset(5);
+            make.centerY.equalTo(self.labMultipleTitle.mas_centerY);
+        }];
+        
+        [self.labReason mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.labMultiple.mas_bottom).offset(8);
+            make.left.equalTo(self.basicView.mas_left).offset(15);
+        }];
+        
+        [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.basicView.mas_left);
+            make.right.equalTo(self.basicView.mas_right);
+            make.height.mas_equalTo(1);
+            make.top.equalTo(self.labReason.mas_bottom).offset(8);
+        }];
+        
         [self.labcontentPart mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.basicView.mas_left).offset(15);
-            make.top.equalTo(self.labReason.mas_bottom).offset(0);
+            make.top.equalTo(self.lineView.mas_bottom).offset(5);
             make.right.equalTo(self.basicView.mas_right).offset(-15);
             make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
         }];
-        [self.imgcontentPart mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.labcontentPart.mas_bottom).offset(20);
-            make.centerX.equalTo(self.basicView.mas_centerX);
-            make.size.mas_equalTo(CGSizeMake(23, 23));
-        }];
+        
         [self.imghidecontent mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.labcontentPart.mas_bottom).offset(10);
-            make.centerX.equalTo(self.basicView.mas_centerX);
             make.width.mas_equalTo(Width - 30);
+            make.height.mas_equalTo(100);
         }];
-        [self.labhidecontentPartDetail mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.imgcontentPart.mas_bottom).offset(15);
-            make.centerX.equalTo(self.basicView.mas_centerX);
-        }];
-        [self.labcontentPartDetail mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.basicView.mas_bottom);
-            make.left.equalTo(self.basicView.mas_left);
-            make.size.mas_equalTo(CGSizeMake(Width, 35));
+        
+        
+        [self.timeIV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.imghidecontent.mas_bottom).offset(20);
+            make.left.equalTo(self.basicView.mas_left).offset(15);
         }];
     }
+    
+    [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.timeIV.mas_centerY);
+        make.left.equalTo(self.timeIV.mas_right).offset(5);
+    }];
+    
+    [self.eyeLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.timeIV.mas_centerY);
+        make.right.equalTo(self.basicView.mas_right).offset(-15);
+    }];
+    
+    [self.eyeIV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.imghidecontent.mas_bottom).offset(20);
+        make.right.equalTo(self.eyeLab.mas_left).offset(-5);
+    }];
+    
+    [self.labcontentPartDetail mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.timeIV.mas_bottom).offset(15);
+        make.bottom.equalTo(self.basicView.mas_bottom).offset(0);
+        make.left.equalTo(self.basicView.mas_left);
+        make.size.mas_equalTo(CGSizeMake(Width, 35));
+    }];
 }
 - (void)addLikedHated:(UIButton *)btn
 {

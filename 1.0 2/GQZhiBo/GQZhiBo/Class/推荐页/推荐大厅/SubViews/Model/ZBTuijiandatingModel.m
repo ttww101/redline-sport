@@ -84,7 +84,8 @@
              @"playType":@"playType",
              @"buyCount":@"buyCount",
              @"showPrice": @"showPrice",
-             @"showBuyCount":@"showBuyCount"
+             @"showBuyCount":@"showBuyCount",
+             @"red":@"red"
              };
 }
 - (void)setHomeTeam:(NSString *)homeTeam {

@@ -68,6 +68,7 @@ typedef NS_ENUM(NSInteger, weekType)
 + (NSString *)compareCurrentTime:(NSString *)str;
 + (NSString*)iphoneType;
 + (NSString *)amountFormater:(NSString *)amountValue;
++ (NSString *)formatYYMMDDWithStamp:(NSUInteger)timeStamp;
 + (UIViewController *)help_getCurrentVC;
 + (NSString *)getPersonLeavelImageName:(NSInteger)leavel;
 + (NSString *)removeHTML:(NSString *)html;

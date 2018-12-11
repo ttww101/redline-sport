@@ -576,10 +576,7 @@
             groupModel3.dataList = [recoommentArray mutableCopy];
             [recods addObject:groupModel3];
             _tableView.arrData = recods;
-            
-            // 购买人数暂时不加
-//            _buyerArr = [ZBpayUserModel arrayOfEntitiesFromArray:[news objectForKey:@"payUsers"]];
-//            _tableView.arrPic = _buyerArr;
+
           
             if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
                 _tableView.typeTuijianDetailHeader = _typeTuijianDetailHeader;
@@ -590,7 +587,12 @@
                 if (!_model.see) {
                     self.payView.hidden = NO;
                     self.bottomView.hidden = YES;
-                    self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width,_status == 1? (Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49):(Height - APPDELEGATE.customTabbar.height_myNavigationBar - self.bottomView.height));
+                    self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width , 0);
+                    if (_status == 1) {
+                        self.tableView.height = _status == Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49;
+                    } else {
+                        self.tableView.height = Height - APPDELEGATE.customTabbar.height_myNavigationBar - 55;
+                    }
                     _labCommentNum.text = [NSString stringWithFormat:@"%ld",(long)_model.like_count];
                     _labComment.selected = _model.liked;
                     _labCommentNum1.text = [NSString stringWithFormat:@"%ld",(long)_model.hate_count];
@@ -603,7 +605,6 @@
                     _labelQiuBi.font = font14;
                     _labelQiuBi.attributedText = [ZBMethods withContent:_labelQiuBi.text WithColorText:[NSString stringWithFormat:@"%ld",_model.amount/100] textColor:redcolor strFont:font18];
                 }else{
-                     NSLog(@"---可见");
                     self.bottomView.hidden = NO;
                     self.payView.hidden = YES;
                     self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, _status == 1? (Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49):(Height - APPDELEGATE.customTabbar.height_myNavigationBar));
