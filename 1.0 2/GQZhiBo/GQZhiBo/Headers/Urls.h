@@ -1,7 +1,7 @@
 #ifndef GunQiuLive_Urls_h
 #define GunQiuLive_Urls_h
 #define url_imageTeam(teamId) [NSString stringWithFormat:@"http://www.gunqiu.com/static/img/team/mobile/team_%ld.png",teamId]
-#define url_pic @"http://pic.gunqiu.com/"
+#define url_pic @"https://pic.gunqiu.com/"
 #define url_shareImage(shareType) [NSString stringWithFormat:@"/share/v8.0/img/%@.png",shareType]
 #define url_share_interface @"/interface/v8.0/"
 #define url_share @"/share/v8.0/"

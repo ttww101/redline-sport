@@ -46,7 +46,9 @@
     @"reachLimit" : @"reachLimit",
     @"showmobile" : @"showmobile",
     @"coin":@"coin",
-    @"redpackage":@"redpackage"
+    @"redpackage":@"redpackage",
+    @"cardPic1": @"cardPic1",
+    @"cardPic2": @"cardPic2"
     };
 }
 + (NSValueTransformer *)medalsJSONTransformer

@@ -3,7 +3,7 @@
 #import "ZBChangePhoneNumVC.h"
 #import "ZBAnalystsEventFilterVC.h"
 #import "ZBPictureView.h"
-@interface ZBToAnalystsVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,SuccessfulViewDelegate,AnalystsEventFilterVCDelegate>
+@interface ZBToAnalystsVC ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate,SuccessfulViewDelegate,AnalystsEventFilterVCDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong)UITextField *txtName;
 @property (nonatomic, strong)UITextField *txtCarNum;
 @property (nonatomic, strong)UITextView *txtReson;
@@ -27,8 +27,158 @@
 @property (nonatomic, strong) ZBPictureView *picView2;
 @property (nonatomic, strong) ZBPictureView *picView3;
 @property (nonatomic, assign) BOOL keyBShow;
+
+@property (nonatomic, strong) BaseImageView *IDCard1;
+@property (nonatomic, strong) BaseImageView *IDCard0;
+
+@property (nonatomic, assign) NSInteger isCard1;
+@property (nonatomic , copy) NSString *card1Pic;
+@property (nonatomic , copy) NSString *card0Pic;
+
+
 @end
 @implementation ZBToAnalystsVC
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSUInteger sourceType = 0;
+    // 判断是否支持相机
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        switch (buttonIndex)
+        {
+            case 2:
+                // 取消
+                return;
+            case 0:
+                // 相机
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                break;
+                
+            case 1:
+                // 相册
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                break;
+        }
+    }
+    else
+    {
+        if (buttonIndex == 1)
+        {
+            return;
+        }
+        else
+        {
+            sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        }
+    }
+    // 跳转到相机或相册页面
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:^{}];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *originImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    NSData*imageData =UIImageJPEGRepresentation(originImage,0.8);
+    UIImage * image = [UIImage imageWithData:imageData];
+    [ZBLodingAnimateView showLodingView];
+    [[ZBDCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:@{@"type":@"avatar"} PathUrlL:[NSString stringWithFormat:@"http://mobile.gunqiu.com:8897%@",url_uploadAliyun] ArrayFile:[NSArray arrayWithObjects:image, nil] Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
+        if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic = responseOrignal;
+            NSDictionary *contentDic = dic[@"data"];
+            NSString *picUrl = contentDic[@"picurl"];
+            picUrl = [NSString stringWithFormat:@"%@%@",url_pic,picUrl];
+            if (self.isCard1) {
+                self.IDCard1.image = originImage;
+                self.card1Pic = picUrl;
+            } else {
+                self.IDCard0.image = originImage;
+                self.card0Pic = picUrl;
+            }
+            
+           
+        }else{
+            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
+        }
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+    }];
+
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+#pragma mark - Events
+
+- (void)cardOneAction {
+    self.isCard1 = true;
+    UIActionSheet *sheet;
+    // 判断是否支持相机
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        sheet  = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"拍照" otherButtonTitles:@"从相册选择",@"取消", nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"从相册选择" otherButtonTitles:@"取消", nil];
+    }
+    [sheet showInView:self.view];
+}
+
+- (void)cardZeroAction {
+    self.isCard1 = false;
+    UIActionSheet *sheet;
+    // 判断是否支持相机
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        sheet  = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"拍照" otherButtonTitles:@"从相册选择",@"取消", nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"从相册选择" otherButtonTitles:@"取消", nil];
+    }
+    [sheet showInView:self.view];
+}
+
+#pragma mark - Lazy Load
+
+- (BaseImageView *)IDCard1 {
+    if (_IDCard1 == nil) {
+        _IDCard1 = [[BaseImageView alloc]init];
+        _IDCard1.contentMode = UIViewContentModeScaleAspectFill;
+        _IDCard1.userInteractionEnabled = true;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cardOneAction)];
+        [_IDCard1 addGestureRecognizer:tap];
+        _IDCard1.clipsToBounds = true;
+        _IDCard1.image = [UIImage imageNamed:@"add_IDCard"];
+        
+    }
+    return _IDCard1;
+}
+
+- (BaseImageView *)IDCard0 {
+    if (_IDCard0 == nil) {
+        _IDCard0 = [[BaseImageView alloc]init];
+        _IDCard0.contentMode = UIViewContentModeScaleAspectFill;
+        _IDCard0.userInteractionEnabled = true;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cardZeroAction)];
+        [_IDCard0 addGestureRecognizer:tap];
+        _IDCard0.clipsToBounds = true;
+        _IDCard0.image = [UIImage imageNamed:@"add_IDCard"];
+    }
+    return _IDCard0;
+}
+
+#pragma mark - ************  以下高人所写  ************
+
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
     [super viewWillAppear:animated];
@@ -120,6 +270,12 @@
         self.txtCarNum.text = self.model.cardid;
         self.txtQQ.text = self.model.qq;
         self.txtWeiXin.text = self.model.wechat;
+        self.card0Pic = self.model.cardPic2;
+        self.card1Pic = self.model.cardPic1;
+        
+        [self.IDCard1 setImageWithUrl:[NSURL URLWithString:self.card1Pic] placeholder:[UIImage imageNamed:@"add_IDCard"]];
+        [self.IDCard0 setImageWithUrl:[NSURL URLWithString:self.card1Pic] placeholder:[UIImage imageNamed:@"add_IDCard"]];
+        
         if (self.model.userinfo.length > 0) {
             self.labPlaceholder.hidden = YES;
         }
@@ -293,6 +449,17 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"身份证号码有误"];
         return;
     }
+    
+    if (!self.card1Pic) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请添加身份证照片"];
+        return;
+    }
+    
+    if (!self.card0Pic) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请添加身份证照片"];
+        return;
+    }
+    
     if (self.txtReson.text.length == 0) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"申请理由不能为空"];
         return;
@@ -316,6 +483,8 @@
     [parameter setObject:@"" forKey:@"league"];
     [parameter setObject:@"0" forKey:@"type"];
     [parameter setObject:@"account_shenqingfenxishi" forKey:@"tag"];
+    [parameter setObject:self.card1Pic forKey:@"cardPic1"];
+    [parameter setObject:self.card0Pic forKey:@"cardPic2"];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_loginAndRegister] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
@@ -433,10 +602,160 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 && indexPath.row == 2) {
-        return 0; 
+        return 140;
     }
     return 73;
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *acell = @"cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:acell];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:acell];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    while ([cell.contentView.subviews lastObject]!= nil) {
+        [[cell.contentView.subviews lastObject] removeFromSuperview];
+    }
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = colorCellLine;
+    [cell.contentView addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(cell.contentView.mas_bottom);
+        make.left.equalTo(cell.contentView.mas_left);
+        make.size.mas_equalTo(CGSizeMake(Width, 0.6));
+    }];
+    UILabel *labStr = [[UILabel alloc] init];
+    labStr.font = font14;
+    labStr.textColor = color99;
+    [cell.contentView addSubview:labStr];
+    [labStr mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
+        make.top.mas_equalTo(cell.contentView.mas_top).offset(10);
+        make.height.mas_offset(20);
+    }];
+    UILabel *labRealStr = [[UILabel alloc] init];
+    labRealStr.font = font13;
+    labRealStr.textColor = redcolor;
+    labRealStr.text = @" *必填";
+    [cell.contentView addSubview:labRealStr];
+    [labRealStr mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(labStr.mas_right);
+        make.centerY.mas_equalTo(labStr.mas_centerY);
+    }];
+    UIImageView *imageMore = [[UIImageView alloc] initWithFrame:CGRectMake(Width - 15 - 7, 73/2 + 8, 7, 14)];
+    imageMore.image = [UIImage imageNamed:@"meRight"];
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:{
+                labStr.text = @"真实姓名";
+                [cell.contentView addSubview:self.txtName];
+                [self.txtName mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
+                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
+                    make.top.mas_offset(73 / 2);
+                    make.height.mas_offset(30);
+                }];
+            }
+                break;
+            case 1:{
+                labStr.text = @"身份证号";
+                [cell.contentView addSubview:self.txtCarNum];
+                [self.txtCarNum mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
+                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
+                    make.top.mas_offset(73 / 2);
+                    make.height.mas_offset(30);
+                }];
+            }
+                break;
+            case 2:{
+                labStr.text = @"上传身份证";
+                [cell.contentView addSubview:self.IDCard1];
+                [cell.contentView addSubview:self.IDCard0];
+                CGFloat space = ( Width - 300 - 10) / 2;
+                self.IDCard1.frame = CGRectMake(space, 73 / 2, 150, 80);
+                self.IDCard0.frame = CGRectMake(self.IDCard1.right + 10, 73 / 2, 150, 80);
+            }
+                break;
+                
+            case 3:{
+                labStr.text = @"申请理由";
+                self.txtReson.frame =CGRectMake(11, 40 , Width - 22, _textViewHeight );
+                [cell.contentView addSubview:self.txtReson];
+                [self.txtReson addSubview:self.labPlaceholder];
+                lineView.hidden = YES;
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    else{
+        switch (indexPath.row) {
+            case 0:{
+                labStr.text = @"手机号码";
+                [cell.contentView addSubview:self.txtTelPhone];
+                [self.txtTelPhone mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
+                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
+                    make.top.mas_offset(73 / 2);
+                    make.height.mas_offset(30);
+                }];
+                [cell.contentView addSubview:imageMore];
+                _btnPhone = [UIButton  buttonWithType:UIButtonTypeCustom];
+                _btnPhone.frame = CGRectMake(0, 0, Width, 73);
+                _btnPhone.tag = 2;
+                [cell.contentView addSubview:_btnPhone];
+                [_btnPhone addTarget:self action:@selector(clickPhone:) forControlEvents:UIControlEventTouchUpInside];
+            }
+                break;
+            case 1:{
+                labStr.text = @"QQ";
+                [cell.contentView addSubview:self.txtQQ];
+                [self.txtQQ mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
+                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
+                    make.top.mas_offset(73 / 2);
+                    make.height.mas_offset(30);
+                }];
+                labRealStr.hidden = YES;
+            }
+                break;
+            case 2:{
+                labStr.text = @"微信";
+                [cell.contentView addSubview:self.txtWeiXin];
+                [self.txtWeiXin mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
+                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
+                    make.top.mas_offset(73 / 2);
+                    make.height.mas_offset(30);
+                }];
+                labRealStr.hidden = YES;
+                lineView.hidden = YES;
+            }
+                break;
+            default:
+                break;
+        }
+    }
+    if (self.model.analyst == 1) {
+        self.txtName.enabled = NO;
+        self.txtCarNum.enabled = NO;
+        self.txtWeiXin.enabled = NO;
+        self.txtQQ.enabled = NO;
+        self.txtReson.editable = NO;
+        imageMore.hidden = YES;
+        _btnPhone.enabled = NO;
+    }
+    if (self.model.autonym == 1) {
+        self.txtName.enabled = NO;
+        self.txtCarNum.enabled = NO;
+    }
+    return cell;
+}
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         if (self.model.analyst == 3) {
@@ -558,147 +877,7 @@
     }
     return _txtWeiXin;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *acell = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:acell];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:acell];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    while ([cell.contentView.subviews lastObject]!= nil) {
-        [[cell.contentView.subviews lastObject] removeFromSuperview];
-    }
-    UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = colorCellLine;
-    [cell.contentView addSubview:lineView];
-    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(cell.contentView.mas_bottom);
-        make.left.equalTo(cell.contentView.mas_left);
-        make.size.mas_equalTo(CGSizeMake(Width, 0.6));
-    }];
-    UILabel *labStr = [[UILabel alloc] init];
-    labStr.font = font14;
-    labStr.textColor = color99;
-    [cell.contentView addSubview:labStr];
-    [labStr mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
-        make.top.mas_equalTo(cell.contentView.mas_top).offset(10);
-        make.height.mas_offset(20);
-    }];
-    UILabel *labRealStr = [[UILabel alloc] init];
-    labRealStr.font = font13;
-    labRealStr.textColor = redcolor;
-    labRealStr.text = @" *必填";
-    [cell.contentView addSubview:labRealStr];
-    [labRealStr mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(labStr.mas_right);
-        make.centerY.mas_equalTo(labStr.mas_centerY);
-    }];
-    UIImageView *imageMore = [[UIImageView alloc] initWithFrame:CGRectMake(Width - 15 - 7, 73/2 + 8, 7, 14)];
-    imageMore.image = [UIImage imageNamed:@"meRight"];
-    if (indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0:{
-                labStr.text = @"真实姓名";
-                [cell.contentView addSubview:self.txtName];
-                [self.txtName mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
-                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
-                    make.top.mas_offset(73 / 2);
-                    make.height.mas_offset(30);
-                }];
-            }
-                break;
-            case 1:{
-                labStr.text = @"身份证号";
-                [cell.contentView addSubview:self.txtCarNum];
-                [self.txtCarNum mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
-                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
-                    make.top.mas_offset(73 / 2);
-                    make.height.mas_offset(30);
-                }];
-            }
-                break;
-            case 2:{
-                labRealStr.hidden = YES;
-            }
-                break;
-            case 3:{
-                labStr.text = @"申请理由";
-                self.txtReson.frame =CGRectMake(11, 40 , Width - 22, _textViewHeight );
-                [cell.contentView addSubview:self.txtReson];
-                [self.txtReson addSubview:self.labPlaceholder];
-                lineView.hidden = YES;
-            }
-                break;
-            default:
-                break;
-        }
-    }
-    else{
-        switch (indexPath.row) {
-            case 0:{
-                labStr.text = @"手机号码";
-                [cell.contentView addSubview:self.txtTelPhone];
-                [self.txtTelPhone mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
-                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
-                    make.top.mas_offset(73 / 2);
-                    make.height.mas_offset(30);
-                }];
-                [cell.contentView addSubview:imageMore];
-                _btnPhone = [UIButton  buttonWithType:UIButtonTypeCustom];
-                _btnPhone.frame = CGRectMake(0, 0, Width, 73);
-                _btnPhone.tag = 2;
-                [cell.contentView addSubview:_btnPhone];
-                [_btnPhone addTarget:self action:@selector(clickPhone:) forControlEvents:UIControlEventTouchUpInside];
-            }
-                break;
-            case 1:{
-                labStr.text = @"QQ";
-                [cell.contentView addSubview:self.txtQQ];
-                [self.txtQQ mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
-                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
-                    make.top.mas_offset(73 / 2);
-                    make.height.mas_offset(30);
-                }];
-                labRealStr.hidden = YES;
-            }
-                break;
-            case 2:{
-                labStr.text = @"微信";
-                [cell.contentView addSubview:self.txtWeiXin];
-                [self.txtWeiXin mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.mas_equalTo(cell.contentView.mas_left).offset(15);
-                    make.right.mas_equalTo(cell.contentView.mas_right).offset(-15);
-                    make.top.mas_offset(73 / 2);
-                    make.height.mas_offset(30);
-                }];
-                labRealStr.hidden = YES;
-                lineView.hidden = YES;
-            }
-                break;
-            default:
-                break;
-        }
-    }
-    if (self.model.analyst == 1) {
-        self.txtName.enabled = NO;
-        self.txtCarNum.enabled = NO;
-        self.txtWeiXin.enabled = NO;
-        self.txtQQ.enabled = NO;
-        self.txtReson.editable = NO;
-        imageMore.hidden = YES;
-        _btnPhone.enabled = NO;
-    }
-    if (self.model.autonym == 1) {
-        self.txtName.enabled = NO;
-        self.txtCarNum.enabled = NO;
-    }
-    return cell;
-}
+
 - (void)clickPhone:(UIButton *)btn{
     if (self.model.analyst == 1) {
         return;

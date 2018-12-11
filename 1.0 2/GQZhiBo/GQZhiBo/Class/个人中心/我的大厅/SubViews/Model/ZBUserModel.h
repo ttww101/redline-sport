@@ -45,4 +45,7 @@
 @property (nonatomic , copy) NSNumber *coin;
 @property (nonatomic , copy) NSString *redpackage;
 @property (nonatomic , copy) NSDictionary *userDetail;
+
+@property (nonatomic , copy) NSString *cardPic1;
+@property (nonatomic , copy) NSString *cardPic2;
 @end
