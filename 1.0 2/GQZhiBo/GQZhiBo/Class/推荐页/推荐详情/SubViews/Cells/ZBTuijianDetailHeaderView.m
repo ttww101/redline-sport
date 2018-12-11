@@ -1,12 +1,13 @@
 #import "ZBTuijianDetailHeaderView.h"
-#import "ZBUserViewOfTuijianCell.h"
 #import "ZBDC_JZAPhotoVC.h"
 #import "ZBLiveScoreModel.h"
 #import "ZBFenxiPageVC.h"
+#import "ZBUserViewOfTuijianCellCopy.h"
+
 @interface ZBTuijianDetailHeaderView()<UIWebViewDelegate>
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @property (nonatomic, strong) UIView *basicView;
-@property (nonatomic, strong) ZBUserViewOfTuijianCell *headerUser;
+@property (nonatomic, strong) ZBUserViewOfTuijianCellCopy *headerUser;
 @property (nonatomic, strong) UIView *viewLineAuthorBottom;
 @property (nonatomic, strong) UILabel *labSaishi;
 @property (nonatomic, strong) UILabel *labbeginTime;
@@ -41,7 +42,6 @@
 @property (nonatomic, strong) UILabel *labConmmentNum;
 @property (nonatomic, strong) UIImageView *imageViewWin;
 @property (nonatomic, strong) UIButton *btnReport;
-@property (nonatomic, strong) UIView *viewLineBasicViewBottom;
 @property (nonatomic, strong)UIButton *btnToBiFen;
 @property (nonatomic, strong)UIButton *allBtn;
 @property (nonatomic, assign) BOOL isToFenxi;
@@ -346,23 +346,20 @@
             [_basicView addSubview:self.imageViewWin];
             [_basicView addSubview:self.labcontentPart];
             [_basicView addSubview:self.imghidecontent];
-            
         }
         
         [_basicView addSubview:self.timeIV];
         [_basicView addSubview:self.timeLab];
         [_basicView addSubview:self.eyeIV];
         [_basicView addSubview:self.eyeLab];
-        
         [_basicView addSubview:self.labcontentPartDetail];
-        [_basicView addSubview:self.viewLineBasicViewBottom];
     }
     return _basicView;
 }
-- (ZBUserViewOfTuijianCell *)headerUser
+- (ZBUserViewOfTuijianCellCopy *)headerUser
 {
     if (!_headerUser) {
-        _headerUser = [[ZBUserViewOfTuijianCell alloc] init];
+        _headerUser = [[ZBUserViewOfTuijianCellCopy alloc] init];
     }
     return _headerUser;
 }
@@ -844,14 +841,6 @@
     }
     return _imageViewWin;
 }
-- (UIView *)viewLineBasicViewBottom
-{
-    if (!_viewLineBasicViewBottom) {
-        _viewLineBasicViewBottom = [[UIView alloc] init];
-        _viewLineBasicViewBottom.backgroundColor = colorTableViewBackgroundColor;
-    }
-    return _viewLineBasicViewBottom;
-}
 
 - (UIView *)lineView {
     if (_lineView == nil) {
@@ -1077,7 +1066,7 @@
     }];
     
     [self.eyeIV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imghidecontent.mas_bottom).offset(20);
+        make.centerY.equalTo(self.timeIV.mas_centerY);
         make.right.equalTo(self.eyeLab.mas_left).offset(-5);
     }];
     

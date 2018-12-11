@@ -106,25 +106,31 @@
                 break;
         }
     }];
+    
     if ([model.remark containsString:@":"]) {
-        _labRemark1.hidden = false;
-        _labRemark2.hidden = false;
-        _userWin.hidden = YES;
         NSArray *titleArray = [model.remark componentsSeparatedByString:@":"];
         NSString *firstStr = [titleArray firstObject];
         NSString *lastStr = [titleArray lastObject];
         _labRemark2.text = firstStr;
         _labRemark1.text = lastStr;
+        [self.goodPlay mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
+        }];
+        
     } else {
-        _labRemark1.hidden = YES;
-        _labRemark2.hidden = YES;
+        _userWin.text = model.remark;
+        CGFloat width = [_userWin.text widthForFont:font10];
         if (model.remark.length > 0) {
-            _userWin.hidden = false;
-            _userWin.text = model.remark;
-        } else {
-            _userWin.hidden = YES;
+            width += 10;
         }
+        [self.userWin mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(width, 15));
+        }];
+        [self.goodPlay mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.userWin.mas_right).offset(9);
+        }];
     }
+    
     NSString *goodPlay = @"擅长:";
     NSString *firstStr = nil;
     NSString *secondStr = nil;
@@ -338,11 +344,11 @@
 {
     if (!_userWin) {
         _userWin = [[UILabel alloc] init];
-        _userWin.font = font14;
+        _userWin.font = font10;
         _userWin.textColor = [UIColor whiteColor];
         _userWin.layer.cornerRadius =3;
         _userWin.layer.masksToBounds = YES;
-        _userWin.backgroundColor = redcolor;
+        _userWin.backgroundColor = UIColorHex(#F96153);
         _userWin.textAlignment = NSTextAlignmentCenter;
     }
     return _userWin;
@@ -446,19 +452,18 @@
         make.right.equalTo(self.basicView.mas_right).offset(-26);
         make.top.equalTo(self.basicView.mas_top).offset(10);
     }];
-    [self.userWin mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.basicView.mas_right).offset(-26);
-        make.top.equalTo(self.basicView.mas_top).offset(20);
-        make.height.mas_equalTo(20);
-        make.width.mas_equalTo(50);
-    }];
     [self.labRemark2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.labRemark1.mas_right);
         make.top.equalTo(self.labRemark1.mas_bottom).offset(0);
     }];
-    [self.goodPlay mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.userWin mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
         make.top.equalTo(self.btnAuthor.mas_bottom).offset(10);
+        make.size.mas_equalTo(CGSizeMake(0, 10));
+    }];
+    [self.goodPlay mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.userWin.mas_right).offset(9);
+        make.centerY.equalTo(self.userWin.mas_centerY);
     }];
     [self.imageRecommendTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);

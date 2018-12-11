@@ -568,8 +568,6 @@
             groupModel2.dataList = [arr mutableCopy];
             [recods addObject:groupModel2];
             
-            
-            
             DetailGroupModel *groupModel3 = [[DetailGroupModel alloc]init];
             groupModel3.title = @"评论";
             groupModel3.showVerticalLine = true;
@@ -578,6 +576,7 @@
             _tableView.arrData = recods;
 
           
+
             if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
                 _tableView.typeTuijianDetailHeader = _typeTuijianDetailHeader;
                 _tableView.headerModel = _model;
@@ -607,7 +606,12 @@
                 }else{
                     self.bottomView.hidden = NO;
                     self.payView.hidden = YES;
-                    self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, _status == 1? (Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49):(Height - APPDELEGATE.customTabbar.height_myNavigationBar));
+                    self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 0);
+                    if (_status == 1) {
+                        self.tableView.height = Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49;
+                    } else {
+                        self.tableView.height = Height - APPDELEGATE.customTabbar.height_myNavigationBar - 44;
+                    }
                 }
             }else{
             }

@@ -208,6 +208,7 @@
     DetailGroupModel *model = _arrData[section];
     if (section == 2) {
         UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 45)];
+        
         header.backgroundColor = [UIColor whiteColor];
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(15, 0 , Width - 30, 45)];
         lab.font = font14;
@@ -218,6 +219,15 @@
         viewLineDown.backgroundColor = colorDD;
         [header addSubview:lab];
         [header addSubview:viewLineDown];
+        if (_headerModel.see && model.dataList.count == 0) {
+            header.height = 145;
+            UILabel *showMessageLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 82, Width, 25)];
+            showMessageLab.text = @"暂无评论，赶紧来抢个沙发吧";
+            showMessageLab.font = font14;
+            showMessageLab.textColor = UIColorHex(#646464);
+            showMessageLab.textAlignment = NSTextAlignmentCenter;
+            [header addSubview:showMessageLab];
+        }
         return header;
     } else if (section == 1) {
          UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 45)];
@@ -257,8 +267,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
      DetailGroupModel *model = _arrData[section];
-    if (section == 2 && model.dataList.count > 0) {
-        return 45;
+    if (section == 2) {
+        if (_headerModel.see && model.dataList.count == 0) {
+            return 145;
+        } else {
+            if (model.dataList.count > 0) {
+                return 45;
+            }
+        }
     } else if (section == 1 && model.dataList.count > 0) {
         return 45;
     }
@@ -278,8 +294,10 @@
 
 - (void)touchBasicViewToHideHudViewWithIdid:(NSInteger)Idid
 {
+    
     for (int i = 0; i<_arrCells.count; i++) {
-        ZBCommentModel *model = [_arrData objectAtIndex:i];
+        DetailGroupModel *group = _arrData[2];
+        ZBCommentModel *model = [group.dataList objectAtIndex:i];
         if (model.Idid != Idid) {
             ZBTuijianDetailCommentCell *cell = [_arrCells objectAtIndex:i];
             [cell hideHudView];
