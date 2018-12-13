@@ -11,10 +11,10 @@
 @property (nonatomic , copy) NSString *content;
 @property (nonatomic , copy) NSString *extension1;
 @property (nonatomic , copy) NSString *extension2;
-@property (nonatomic , copy) NSString *linkType;
+@property (nonatomic , assign) NSInteger linkType;
 @property (nonatomic , copy) NSString *pic;
 @property (nonatomic , copy) NSString *status;
-@property (nonatomic , copy) NSString *tabType;
+@property (nonatomic , assign) NSInteger tabType;
 @property (nonatomic , copy) NSString *title;
 @property (nonatomic , copy) NSString *updateTime;
 @property (nonatomic , copy) NSString *url;

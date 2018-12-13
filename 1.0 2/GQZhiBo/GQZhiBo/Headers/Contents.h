@@ -69,9 +69,28 @@
 #define default_22 @"本场无数据"
 #define RICHTEXT_IMAGE (@"[UIImageView]")
 #define isNUll(str) (str == nil || [str isEqualToString:@""])
-#endif 
+
+
+// 程序进入退出前台时 发送通知记录当前输入内容
+#define ResignActiveNotificarion @"savePublishContent"
+#define RecordsFormEditContentPath [NSString stringWithFormat:@"%@/FormEdit.plist",[ZBMethods getDocumentsPath]]
+#define RecordsRecommendEditContentPath [NSString stringWithFormat:@"%@/RecommendEdit.plist",[ZBMethods getDocumentsPath]]
+
+
+#endif
 #ifdef DEBUG
 #define NSLog(format, ...) printf("\n[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
 #else
 #define NSLog(format, ...)
+
+
+
+
+
+
+
+
+
+
+
 #endif

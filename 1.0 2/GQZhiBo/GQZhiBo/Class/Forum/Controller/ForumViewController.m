@@ -46,12 +46,14 @@ static NSString *const CellID = @"CellID";
 - (void)configUI {
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"圈子";
-    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
-    searchBtn.frame = CGRectMake(0, 0, 44, 44);
-    searchBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [searchBtn addTarget:self action:@selector(seachAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:searchBtn];
+    
+//    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+//    searchBtn.frame = CGRectMake(0, 0, 44, 44);
+//    searchBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//    [searchBtn addTarget:self action:@selector(seachAction) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:searchBtn];
+    
     adjustsScrollViewInsets_NO(self.tableView, self);
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

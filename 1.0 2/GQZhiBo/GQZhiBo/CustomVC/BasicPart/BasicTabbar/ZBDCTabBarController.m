@@ -421,6 +421,7 @@ static CGFloat imageHeight = 76.f;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 - (void)pushToNewsWeb:(NSNotification *)nofication
 {
     NSDictionary *pushInfo = nofication.userInfo;
