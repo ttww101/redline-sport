@@ -12,8 +12,6 @@
 @property (nonatomic, strong) ZBSelectedDateTitleView *dataTitleView;
 @property (nonatomic, strong) NSMutableArray *arrDataQici;
 
-
-
 @end
 
 @implementation ZBGuanzhuViewController
@@ -58,15 +56,15 @@
     }
     return self;
 }
-- (void)viewWillAppear:(BOOL)animated
-{
+
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self getAttention];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.defaultFailure = @"";
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

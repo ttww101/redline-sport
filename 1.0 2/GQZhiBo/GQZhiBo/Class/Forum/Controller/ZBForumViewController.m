@@ -6,14 +6,14 @@
 //  Copyright © 2018年 GQXX. All rights reserved.
 //
 
-#import "ForumViewController.h"
+#import "ZBForumViewController.h"
 #import "HeaderView.h"
 #import "PublishViewController.h"
 #import "PlayControl.h"
 #import "Excellent.h"
 #import "ZBToolWebViewController.h"
 
-@interface ForumViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ZBForumViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray<HeaderInfoModel *> *headers;
@@ -27,7 +27,7 @@
 static NSString *const headerID = @"headerID";
 static NSString *const CellID = @"CellID";
 
-@implementation ForumViewController
+@implementation ZBForumViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

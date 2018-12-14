@@ -1178,8 +1178,18 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
         // replace the found tag with a space
         //(you can filter multi-spaces out later if you wish)
         html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@""];
+        html = [html stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        html = [html stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        html = [html stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@""];
     }
     return html;
+}
+
++ (NSString *)filterHTML:(NSString *)html {
+    NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"@／：；（）¥「」＂、[]{}#%-*+=_\\|~＜＞$€^•'@#$%^&*()_+'\""];
+    NSString *trimmedString = [html stringByTrimmingCharactersInSet:set];
+    NSString *str = [trimmedString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return str;
 }
 
 @end

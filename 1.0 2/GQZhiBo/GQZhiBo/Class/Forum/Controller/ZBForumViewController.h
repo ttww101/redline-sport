@@ -11,7 +11,7 @@
 #import "CommentCell.h"
 #import "CommentModel.h"
 
-@interface ForumViewController : ZBBasicViewController
+@interface ZBForumViewController : ZBBasicViewController
 
 @end
 

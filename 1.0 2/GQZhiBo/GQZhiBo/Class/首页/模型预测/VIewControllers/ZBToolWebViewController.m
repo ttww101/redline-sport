@@ -116,6 +116,7 @@
     }
 }
 #pragma mark - WKDelegate
+
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     NSURL *url = navigationAction.request.URL;
     if ([url.absoluteString hasPrefix:@"weixin://"]) {
@@ -123,16 +124,25 @@
     } else if ([url.absoluteString hasPrefix:@"alipay://"]) {
         [[UIApplication sharedApplication]openURL:url];
     }
-    decisionHandler(WKNavigationActionPolicyAllow);
+
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
 }
+
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = NO;
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
 }
+
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = YES;
     [self dissMissToastView];
 }
+
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     self.progressView.hidden = YES;
     if (error.code == -999) {
@@ -143,9 +153,11 @@
     }
     [self createNullToastView:@"" imageName:@"nodataFirstP"];
 }
+
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView API_AVAILABLE(macosx(10.11), ios(9.0)); {
     [webView reload];
 }
+
 #pragma mark - CommentsViewDelegate
 - (void)commentViewDidSelectCommnetList:(ZBCommentsView *)commentView {
     if (self.commentsDic) {

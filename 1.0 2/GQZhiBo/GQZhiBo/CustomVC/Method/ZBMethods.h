@@ -72,4 +72,6 @@ typedef NS_ENUM(NSInteger, weekType)
 + (UIViewController *)help_getCurrentVC;
 + (NSString *)getPersonLeavelImageName:(NSInteger)leavel;
 + (NSString *)removeHTML:(NSString *)html;
++ (NSString *)filterHTML:(NSString *)html;
+
 @end

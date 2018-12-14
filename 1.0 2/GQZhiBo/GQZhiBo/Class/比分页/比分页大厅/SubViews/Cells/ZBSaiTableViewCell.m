@@ -1110,6 +1110,11 @@
 }
 
 - (void)attention:(UIButton *)btn {
+    
+    if (![ZBMethods login]) {
+        [ZBMethods toLogin];
+    }
+    
     NSString *documentsPath = [ZBMethods getDocumentsPath];
     NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
     NSMutableArray *attentionArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:arrayPath]];
@@ -1142,8 +1147,6 @@
         NSString *info = @"关注失败";
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
     }];
-    
-   
 }
 
 - (void)UpdateAttentionWithId:(NSInteger )scheduleId whetherSelected:(BOOL)selected

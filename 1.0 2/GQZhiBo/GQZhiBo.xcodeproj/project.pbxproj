@@ -137,7 +137,7 @@
 		A97A2A0A20A0527600A9A83F /* ZBNavImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A2A0920A0527600A9A83F /* ZBNavImageView.m */; };
 		A97C522B20E3974E005D0B26 /* ZBTopContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C522A20E3974E005D0B26 /* ZBTopContentView.m */; };
 		A97C522E20E3A668005D0B26 /* ZBMessageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C522D20E3A668005D0B26 /* ZBMessageControl.m */; };
-		A97DD4DA21A2922500F12FEA /* ForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97DD4D921A2922500F12FEA /* ForumViewController.m */; };
+		A97DD4DA21A2922500F12FEA /* ZBForumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A97DD4D921A2922500F12FEA /* ZBForumViewController.m */; };
 		A97DD4E021A2971400F12FEA /* ForumViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A97DD4DF21A2971400F12FEA /* ForumViewModel.m */; };
 		A98129B021B4CC6C00209845 /* GeneralFloatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98129AF21B4CC6C00209845 /* GeneralFloatingView.m */; };
 		A98129B721B5310F00209845 /* InputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98129B621B5310F00209845 /* InputAccessoryView.m */; };
@@ -1349,8 +1349,8 @@
 		A97C522A20E3974E005D0B26 /* ZBTopContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTopContentView.m; sourceTree = "<group>"; };
 		A97C522C20E3A668005D0B26 /* ZBMessageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBMessageControl.h; sourceTree = "<group>"; };
 		A97C522D20E3A668005D0B26 /* ZBMessageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBMessageControl.m; sourceTree = "<group>"; };
-		A97DD4D821A2922500F12FEA /* ForumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumViewController.h; sourceTree = "<group>"; };
-		A97DD4D921A2922500F12FEA /* ForumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumViewController.m; sourceTree = "<group>"; };
+		A97DD4D821A2922500F12FEA /* ZBForumViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBForumViewController.h; sourceTree = "<group>"; };
+		A97DD4D921A2922500F12FEA /* ZBForumViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBForumViewController.m; sourceTree = "<group>"; };
 		A97DD4DE21A2971400F12FEA /* ForumViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForumViewModel.h; sourceTree = "<group>"; };
 		A97DD4DF21A2971400F12FEA /* ForumViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForumViewModel.m; sourceTree = "<group>"; };
 		A98129AE21B4CC6C00209845 /* GeneralFloatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralFloatingView.h; sourceTree = "<group>"; };
@@ -3059,8 +3059,8 @@
 		A97DD4D321A290DE00F12FEA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A97DD4D821A2922500F12FEA /* ForumViewController.h */,
-				A97DD4D921A2922500F12FEA /* ForumViewController.m */,
+				A97DD4D821A2922500F12FEA /* ZBForumViewController.h */,
+				A97DD4D921A2922500F12FEA /* ZBForumViewController.m */,
 				A9EABCC821A685A2000CF745 /* ForumTypeViewController.h */,
 				A9EABCC921A685A2000CF745 /* ForumTypeViewController.m */,
 				A95AC76321A7D632009B67B8 /* PublishViewController.h */,
@@ -8495,7 +8495,7 @@
 				EB2E28171F5838CB00086052 /* ZBBaolengTable.m in Sources */,
 				EB8C1E811F21944C00A07863 /* ZBInfoListModel.m in Sources */,
 				EB8C1E3D1F21944C00A07863 /* ZBUserOfOtherCell.m in Sources */,
-				A97DD4DA21A2922500F12FEA /* ForumViewController.m in Sources */,
+				A97DD4DA21A2922500F12FEA /* ZBForumViewController.m in Sources */,
 				EB8C1E701F21944C00A07863 /* ZBTuijianDTViewController.m in Sources */,
 				A98C9694207B7F4A00C308AE /* ZBUserViewofMyBuyTuijian.m in Sources */,
 				EB8C1E781F21944C00A07863 /* ZBSearchVCZhujiaCell.m in Sources */,

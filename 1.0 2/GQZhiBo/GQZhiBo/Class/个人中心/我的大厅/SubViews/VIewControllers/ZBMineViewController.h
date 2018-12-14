@@ -1,6 +1,5 @@
 #import "ZBBasicViewController.h"
-#import "ForumViewController.h"
-#import "PublishViewController.h"
+#import "ZBForumViewController.h"
 
 @interface ZBMineViewController : ZBBasicViewController
 

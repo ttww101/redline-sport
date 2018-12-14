@@ -39,6 +39,7 @@
     [super didReceiveMemoryWarning];
 }
 #pragma mark -
+
 - (void)defaultSettings {
     _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
                                                           navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
@@ -48,6 +49,7 @@
     _pageViewController.delegate = self;
     self.animatingToTab = NO;
 }
+
 - (void)reloadData {
     _currentIndex = 0;
     _canLimitBounce = YES;
@@ -79,6 +81,7 @@
                                    animated:NO
                                  completion:nil];
 }
+
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index {
     if (index >= _tabCount) {
         return nil;
@@ -95,22 +98,27 @@
     }
     return [_contents objectAtIndex:index];
 }
+
 - (NSUInteger)indexForViewController:(UIViewController *)viewController {
     return [_contents indexOfObject:viewController];
 }
+
 #pragma mark - UIPageViewControllerDataSource
+
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     NSUInteger index = [self indexForViewController:viewController];
     self.currentIndex = index;
     index++;
     return [self viewControllerAtIndex:index];
 }
+
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     NSUInteger index = [self indexForViewController:viewController];
     self.currentIndex = index;
     index--;
     return [self viewControllerAtIndex:index];
 }
+
 - (void)pageViewController:(UIPageViewController *)pageViewController
        didFinishAnimating:(BOOL)finished
   previousViewControllers:(NSArray *)previousViewControllers
@@ -119,7 +127,9 @@
         self.currentIndex = [_contents indexOfObject:[pageViewController.viewControllers lastObject]];
     }
 }
+
 #pragma mark - UIScrollViewDelegate, Responding to Scrolling and Dragging
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.scrollingLocked) {
         return;

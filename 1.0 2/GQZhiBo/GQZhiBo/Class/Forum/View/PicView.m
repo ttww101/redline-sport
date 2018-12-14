@@ -14,19 +14,11 @@
 - (void)setDataSource:(NSArray *)dataSource {
     _dataSource = dataSource;
     [self removeAllSubviews];
-    CGFloat imageWidth = 0;
-    CGFloat viewWidth = Width - 30;
-    if (_dataSource.count == 1) {
-        imageWidth = viewWidth;
-    } else if (_dataSource.count == 2) {
-        imageWidth = (viewWidth - 10) / 2;
-    } else if (_dataSource.count == 3) {
-        imageWidth = (viewWidth - 20) / 3;
-    }
-    
+     CGFloat viewWidth = Width - 30;
+     CGFloat imageWidth = (viewWidth - 20) / 3;
     for (NSInteger i = 0; i < _dataSource.count; i ++) {
         BaseImageView *imageView = [[BaseImageView alloc]init];
-        [imageView setImageWithUrl:[NSURL URLWithString:_dataSource[i]] placeholder:[UIImage imageNamed:@""]];
+        [imageView setImageWithUrl:[NSURL URLWithString:_dataSource[i]] placeholder:[UIImage imageNamed:@"placeHolder"]];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.layer.masksToBounds = true;
         imageView.userInteractionEnabled = true;
@@ -41,8 +33,6 @@
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageAction:)];
         [imageView addGestureRecognizer:singleTap];
     }
-    
-    
 }
 
 -(void)tapImageAction:(UITapGestureRecognizer *)tap{

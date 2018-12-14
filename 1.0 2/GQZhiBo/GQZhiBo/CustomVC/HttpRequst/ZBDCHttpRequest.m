@@ -21,7 +21,7 @@ static AFHTTPRequestOperationManager *_afnetManager;
     }else{
         [_afnetManager.requestSerializer setValue:@"" forHTTPHeaderField:@"token"];
     }
-    [_afnetManager.requestSerializer setValue:@"GQTY" forHTTPHeaderField:@"User-Agent"];
+    [_afnetManager.requestSerializer setValue:@"GQLive" forHTTPHeaderField:@"User-Agent"];
     return dcHttpRequset;
     return nil;
 }
@@ -186,9 +186,9 @@ static AFHTTPRequestOperationManager *_afnetManager;
                     code = [code stringValue];
                 }
                 if ([code isEqualToString:@"2008"]) {
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationOpenMainTableBarTimer object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"close",@"timer", nil]];
-                    [ZBMethods toLogin];
+//                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"login"];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationOpenMainTableBarTimer object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"close",@"timer", nil]];
+//                    [ZBMethods toLogin];
                 }
                 success(@"请求成功",dict);
             }

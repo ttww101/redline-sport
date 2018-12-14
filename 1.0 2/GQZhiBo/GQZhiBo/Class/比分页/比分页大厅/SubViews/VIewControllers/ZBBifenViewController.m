@@ -412,6 +412,7 @@
     }
     return _guanzhuVC;
 }
+
 - (UIViewController *)viewPager:(ZBViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index
 {
     switch (index) {
@@ -456,7 +457,10 @@
     if (self.currentIndex != 0 && contentOffsetX <= Width * 4) {
         contentOffsetX += Width * self.currentIndex;
     }
+    
+    
 }
+
 - (void)scrollEnabled:(BOOL)enabled {
     self.scrollingLocked = !enabled;
     for (UIScrollView *view in self.pageViewController.view.subviews) {
@@ -466,6 +470,7 @@
         }
     }
 }
+
 - (void)updateByselectedsaishi:(NSNotification *)notification
 {
     switch (_currentIndex) {
@@ -492,6 +497,7 @@
             break;
     }
 }
+
 - (void)getAttentionNum:(NSNotification *)notifi {
     _TitleView.attentionNum = notifi.userInfo[@"num"];
     

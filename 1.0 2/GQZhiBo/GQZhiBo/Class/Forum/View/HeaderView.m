@@ -51,7 +51,7 @@ NSString *const idenfitier = @"cellID";
 - (void)setChampions:(NSArray<ChampionModel *> *)champions {
     _champions = champions;
     if (_champions.count > 0) {
-         [_championIV setImageWithUrl:[NSURL URLWithString:PARAM_IS_NIL_ERROR([_champions firstObject].pic)] placeholder:nil];
+         [_championIV setImageWithUrl:[NSURL URLWithString:PARAM_IS_NIL_ERROR([_champions firstObject].pic)] placeholder:[UIImage imageNamed:@"placeHolder"]];
     }
 }
 
@@ -335,7 +335,6 @@ NSString *const idenfitier = @"cellID";
         _championIV.layer.cornerRadius = 5;
         _championIV.layer.masksToBounds = true;
         _championIV.contentMode = UIViewContentModeScaleAspectFill;
-        _championIV.backgroundColor = [UIColor orangeColor];
         [_championIV setUserInteractionEnabled:YES];
     }
     return _championIV;
