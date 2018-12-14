@@ -2,7 +2,7 @@
 @implementation ZBToolKitViewModel
 + (NSArray *)createModelListArray {
     NSArray *imageArray = @[@"baolengzhishu", @"lishitongpei", @"yapanzhushou",@"pailvyichang", @"jixianguaidian", @"panwangzhishu", @"jiaoyilengre",@"touzhuyichang"];
-    NSArray *titleArray = @[@"爆冷指数", @"历史同赔", @"亚盘助手", @"赔率异常", @"极限拐点", @"盘王指数", @"交易冷热", @"投注异常"];
+    NSArray *titleArray = @[@"爆冷指数", @"历史同赔", @"亚指助手", @"指数异常", @"极限拐点", @"盘王指数", @"交易冷热", @"投注异常"];
     NSMutableArray *array = [NSMutableArray array];
     [imageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UniversaListCellModel *model = [[UniversaListCellModel alloc]init];

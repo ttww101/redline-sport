@@ -4,7 +4,7 @@
 {
     self= [super initWithFrame:frame];
     if (self) {
-        NSArray *arrTitle = [NSArray arrayWithObjects:@"亚盘助手",@"赔率异常",@"深度大小",@"历史同赔",@"爆冷指数",@"极限拐点",@"盘王指数",@"交易冷热",@"投注异常",@"更多", nil];
+        NSArray *arrTitle = [NSArray arrayWithObjects:@"亚指助手",@"指数异常",@"深度大小",@"历史同赔",@"爆冷指数",@"极限拐点",@"盘王指数",@"交易冷热",@"投注异常",@"更多", nil];
         for (int i = 0; i<arrTitle.count; i++) {
             CGFloat originX = 0;
             CGFloat originY = 0;

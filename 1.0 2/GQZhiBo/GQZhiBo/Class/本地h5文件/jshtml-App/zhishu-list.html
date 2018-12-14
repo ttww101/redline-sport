@@ -28,12 +28,12 @@
      <th>平局</th>
      <th>主负</th>
      {{else if flag=="5"}}
-     <th>赢盘</th>
-     <th>走盘</th>
-     <th>输盘</th>
+     <th>让球胜</th>
+     <th>本金返还</th>
+     <th>让球负</th>
      {{else}}
      <th>大球</th> 
-     <th>走盘</th> 
+     <th>本金返还</th> 
      <th>小球</th> 
      {{/if}}
      </tr>
@@ -56,12 +56,12 @@
 
 <div class="zsmore"id = "btn_submit" >{{if see}}  <span>查看统计明细 》</span> {{/if}}</div>
 
- <div class="tit3"><span>赔率变化</span> </div> 
+ <div class="tit3"><span>指数变化</span> </div> 
 {{if flag=="4"}}
 <table class="zstable1" cellspacing="0" cellpadding="0">
 <thead>
 <tr>
-<th>赔率</th> 
+<th>指数</th> 
 <th>凯利指数</th> 
 <th>返还率</th> 
 <th>时间</th> 
@@ -94,7 +94,7 @@
 <table class="zstable1" cellspacing="0" cellpadding="0">
 <thead>
 <tr>
-<th>赔率</th>  
+<th>指数</th>  
 <th>时间</th> 
 </tr>
 </thead>

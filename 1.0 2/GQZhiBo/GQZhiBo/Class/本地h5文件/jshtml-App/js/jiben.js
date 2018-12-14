@@ -266,7 +266,7 @@ var teamstatics= function(data,homename,guestname,homeid,guestid){
 							$(".gjwidth").width('50%')
 							$(".fswidth").width('50%')
 							}
-					//赛前赔率
+					//赛前指数
 					var preMatch=array.preMatchOdds;
 					 if(preMatch==undefined||preMatch.company==undefined||preMatch==null){
 						  $('#prelist').hide();  
@@ -274,7 +274,7 @@ var teamstatics= function(data,homename,guestname,homeid,guestid){
 					      $('#preMatch').next().html('');   
 					 }else{   
 						 $('#prelist').show();
-                         $('#prelist h3 i').text(preMatch.company+'赛前赔率');
+                         $('#prelist h3 i').text(preMatch.company+'赛前指数');
 					     var predata={list:preMatch}   
 					    $('#preMatch').next().html(template('preMatch',predata)); 
 					 }
@@ -827,7 +827,7 @@ var teamstatics= function(data,homename,guestname,homeid,guestid){
 						$('#twoTeam').next().html(template('twoTeam',twoTeamdata));
 					 }
 					 
-			        //相同历史盘口
+			        //历史相同指数
 					var sameHisTory=array.sameHisToryHandicap;
 					if(sameHisTory.guestMatchs.length==0&&sameHisTory.homeMatchs.length==0){
 						$("#sameHislist").hide() 

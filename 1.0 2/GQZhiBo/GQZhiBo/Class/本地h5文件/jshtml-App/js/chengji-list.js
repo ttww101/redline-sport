@@ -13,8 +13,8 @@
 				 playYa:json.playYaStatis,
 				 playDx:json.playDxStatis,
 				 playOu:json.playOuStatis,
-				 yastatis:json.yaPanStatis, //亚盘统计 
-				 dxstatis:json.dxPanStatis,  //大小球盘口统计
+				 yastatis:json.yaPanStatis, //亚指统计 
+				 dxstatis:json.dxPanStatis,  //进球数盘口统计
 				 timestatis:json.timeStatis, //发布时间统计
 				 groupMonth:json.groupTimeMonthStatis,//月赛事统计
 				 groupWeek:json.groupTimeWeekStatis //每日赛事统计
@@ -25,8 +25,8 @@
 				 playYa:[],
 				 playDx:[],
 				 playOu:[],
-				 yastatis:[], //亚盘统计 
-				 dxstatis:[],  //大小球盘口统计
+				 yastatis:[], //亚指统计 
+				 dxstatis:[],  //进球数盘口统计
 				 timestatis:[], //发布时间统计
 				 groupMonth:[],//月赛事统计
 				 groupWeek:[] //每日赛事统计

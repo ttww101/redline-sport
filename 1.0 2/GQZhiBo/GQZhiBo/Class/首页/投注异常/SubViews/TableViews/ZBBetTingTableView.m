@@ -102,7 +102,7 @@
     UILabel *labPL = [[UILabel alloc] initWithFrame:CGRectMake(Width - 155, 0, 40, 30)];
     labPL.font = font12;
     labPL.textColor = color99;
-    labPL.text = @"赔率";
+    labPL.text = @"指数";
     labPL.textAlignment = NSTextAlignmentCenter;
     [basView addSubview:labPL];
     UIView *lienView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, Width, 0.5)];

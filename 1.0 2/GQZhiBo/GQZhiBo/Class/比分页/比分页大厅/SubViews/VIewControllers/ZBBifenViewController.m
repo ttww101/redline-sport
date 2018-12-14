@@ -146,7 +146,6 @@
 - (void)btnSearch
 {
     ZBSearchMatchVC *searchVC = [[ZBSearchMatchVC alloc] init];
-    searchVC.arrAlldata = self.jishiVC.memeryArrAllPart;
     searchVC.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:searchVC animated:YES];
 }

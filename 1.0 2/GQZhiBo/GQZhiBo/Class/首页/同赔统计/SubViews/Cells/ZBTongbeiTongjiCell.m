@@ -93,7 +93,7 @@
         if (_type == 0) {
             _labPankou.text = @"初赔";
         }else{
-            _labPankou.text = @"初盘";
+            _labPankou.text = @"初指";
         }
         _labPeilvUp.text = _model.win;
         _labpeilvGoal.text = _model.draw;

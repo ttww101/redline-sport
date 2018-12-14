@@ -296,7 +296,7 @@
     [_arrSelectedMathch removeAllObjects];
     [self.tabView reloadData];
 }
-#pragma mark ----------初盘筛选
+#pragma mark ----------初指筛选
 - (void)shaixuanRQ:(NSArray *)arrChooes{
     NSArray *arrDataT = [[NSArray alloc] initWithArray:self.arrDataAll];
     _arrData  = [[NSMutableArray alloc] initWithCapacity:0];

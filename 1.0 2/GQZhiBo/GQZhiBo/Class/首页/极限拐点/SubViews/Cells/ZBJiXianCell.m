@@ -264,15 +264,15 @@
                 break;
         }
     }else if (self.type == 1){
-        _labPankou.text = @"初盘";
+        _labPankou.text = @"初指";
         switch (model.type) {
             case 1:
-                self.labNumOneStr.text = @"连续赢盘";
+                self.labNumOneStr.text = @"连续让球胜";
                 _labNumOneStr.textColor = redcolor;
                 _labNumOne.textColor = redcolor;
                 break;
             case 3:
-                self.labNumOneStr.text = @"连续输盘";
+                self.labNumOneStr.text = @"连续让球负";
                 _labNumOneStr.textColor = greencolor;
                 _labNumOne.textColor = greencolor;
                 break;
@@ -280,7 +280,7 @@
                 break;
         }
     }else{
-        _labPankou.text = @"初盘";
+        _labPankou.text = @"初指";
         switch (model.type) {
             case 1:
                 self.labNumOneStr.text = @"连续大球";
@@ -324,7 +324,7 @@
         if (_type == 0) {
             _labPankou.text = @"初赔";
         }else{
-            _labPankou.text = @"初盘";
+            _labPankou.text = @"初指";
         }
         _labPeilvUp.text = _model.win;
         _labpeilvGoal.text = _model.draw;

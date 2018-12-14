@@ -163,7 +163,7 @@ NSString *const idenfitier = @"cellID";
                 
             case 7: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
-                webModel.title = @"大小球";
+                webModel.title = @"进球数";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/%@/dxmode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
@@ -184,7 +184,7 @@ NSString *const idenfitier = @"cellID";
                 
             case 9: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
-                webModel.title = @"临场亚盘";
+                webModel.title = @"临场亚指";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/yamode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
@@ -203,7 +203,7 @@ NSString *const idenfitier = @"cellID";
                 break;
             case 12: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
-                webModel.title = @"初盘胜平负";
+                webModel.title = @"初指胜平负";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/cpspfmode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
@@ -214,7 +214,7 @@ NSString *const idenfitier = @"cellID";
                 
             case 13: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
-                webModel.title = @"初盘亚盘";
+                webModel.title = @"初指亚指";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/cpyamode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];

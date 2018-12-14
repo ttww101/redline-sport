@@ -190,7 +190,7 @@
 - (UILabel *)labLName {
     if (!_labLName) {
         _labLName = [UILabel new];
-        _labLName.text = @"初盘";
+        _labLName.text = @"初指";
         _labLName.font = font12;
         _labLName.textAlignment = NSTextAlignmentCenter;
     }

@@ -51,7 +51,7 @@ NSString *const ParamtersType = @"Type";
     _titleView = [[ZBTitleIndexView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 44)];
     _titleView.selectedIndex = 0;
     _titleView.bottomLineColor = colorDD;
-    _titleView.arrData = @[@"让球",@"大小球"];
+    _titleView.arrData = @[@"让球",@"进球数"];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
     [self reloadData];

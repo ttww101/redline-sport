@@ -27,7 +27,7 @@
 {
     ZBNavView *nav = [[ZBNavView alloc] init];
     nav.delegate = self;
-    nav.labTitle.text = @"Bet365赔率详情";
+    nav.labTitle.text = @"Bet365指数详情";
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateNormal];
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateHighlighted];
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
@@ -111,7 +111,7 @@
                     labT.text = @"主队";
                     break;
                 case 2:
-                    labT.text = @"走盘";
+                    labT.text = @"本金返还";
                     break;
                 case 3:
                     labT.text = @"客队";
@@ -128,7 +128,7 @@
     UILabel *labTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 100, 35)];
     labTitle.textColor = color33;
     labTitle.font = font12;
-    labTitle.text = @"赔率变化";
+    labTitle.text = @"指数变化";
     [header addSubview:labTitle];
     ZBTongpeiPeilvChangeTItleView *viewListTitle = [[ZBTongpeiPeilvChangeTItleView alloc] initWithFrame:CGRectMake(0, labTitle.bottom, Width, 30)];
     [header addSubview:viewListTitle];

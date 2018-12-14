@@ -47,7 +47,7 @@
             } else if (_playType == 2) {
                 playTetx = @"让球";
             } else if (_playType == 3) {
-                playTetx = @"大小球";
+                playTetx = @"进球数";
             }
             [self selectedWithItem:0 WithIndex:_playType WithTitle:playTetx];
             self.selectedView.play = _playType;

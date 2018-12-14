@@ -61,30 +61,30 @@
 </div>
 </dd>
 
-<!--SB赛前赔率--> 
+<!--SB赛前指数--> 
   <dd id="prelist"> 
- <h3><span class="line"></span>   <i>SB赛前赔率</i>  <b class="down"></b>  </h3> 
+ <h3><span class="line"></span>   <i>SB赛前指数</i>  <b class="down"></b>  </h3> 
  <div class="col toggle">  
  <script id="preMatch" type="text/html">  
   <table cellpadding="0" cellspacing="0" class="tablefx">
 <thead>
 <tr>
-<th width="50">赔率</th>
-<th>初盘</th>
+<th width="50">指数</th>
+<th>初指</th>
 <th>即时</th> 
 </tr>
 </thead>
 <tbody>
 <tr>
  {{if list.spf!=undefined}}
-<td>欧赔</td>
+<td>欧指</td>
 <td><i>{{list.spf.firstWin}}</i> <i>{{list.spf.firstDraw}}</i> <i>{{list.spf.firstLose}}</i></td>
 <td><i style="color:{{list.spf.winColor}}">{{list.spf.finalWin}}</i> <i  style="color:{{list.spf.drawColor}}">{{list.spf.finalDraw}}</i> <i  style="color:{{list.spf.loseColor}}">{{list.spf.finalLose}}</i></td> 
 </tr>
 {{/if}}
  {{if list.ya!=undefined}}
 <tr>
-<td>亚盘</td>
+<td>亚指</td>
 <td><i>{{list.ya.firstWin}}</i> <i>{{list.ya.firstDraw}}</i> <i>{{list.ya.firstLose}}</i></td>
 <td><i style="color:{{list.ya.winColor}}">{{list.ya.finalWin}}</i> <i  style="color:{{list.ya.drawColor}}">{{list.ya.finalDraw}}</i> <i  style="color:{{list.ya.loseColor}}">{{list.ya.finalLose}}</i></td> 
 
@@ -92,7 +92,7 @@
 {{/if}}
  {{if list.dx!=undefined}}
 <tr>
-<td>大小球</td>
+<td>进球数</td>
 <td><i>{{list.dx.firstWin}}</i> <i>{{list.dx.firstDraw}}</i> <i>{{list.dx.firstLose}}</i></td>
 <td><i style="color:{{list.dx.winColor}}">{{list.dx.finalWin}}</i> <i  style="color:{{list.dx.drawColor}}">{{list.dx.finalDraw}}</i> <i  style="color:{{list.dx.loseColor}}">{{list.dx.finalLose}}</i></td> 
 
@@ -287,7 +287,7 @@
        <ul>
        <li> <span class="red-bg" style="width:{{hisimg.winrate}}%"> </span> <span style="width:{{hisimg.drawrate}}%"> </span> <span class="green-bg"  style="width:{{hisimg.lostrate}}%"> </span>  </li>
        <li><i class="red-color">胜{{hisimg.lswin}}场</i> <i class="blue-color">平{{hisimg.lsdraw}}场</i> <i class="green-color">负{{hisimg.lslost}}场</i></li> 
-       </ul> <p>近{{hisimg.totalMatch}}场交锋， 胜率<em class="red-color">{{hisimg.spfRate}}</em> 赢盘率<em class="red-color">{{hisimg.yaRate}}</em> 大球率<em class="red-color">{{hisimg.dxRate}}</em></p>
+       </ul> <p>近{{hisimg.totalMatch}}场交锋， 胜率<em class="red-color">{{hisimg.spfRate}}</em> 让球胜率<em class="red-color">{{hisimg.yaRate}}</em> 大球率<em class="red-color">{{hisimg.dxRate}}</em></p>
       </div> 
          
        <table cellpadding="0" cellspacing="0" class="tablelsjf mt-10">
@@ -324,7 +324,7 @@
        <ul>
        <li> <span class="red-bg" style="width:{{hisimg.winrate}}%"> </span> <span style="width:{{hisimg.drawrate}}%"> </span> <span class="green-bg"  style="width:{{hisimg.lostrate}}%"> </span>  </li>
        <li><i class="red-color">胜{{hisimg.lswin}}场</i> <i class="blue-color">平{{hisimg.lsdraw}}场</i> <i class="green-color">负{{hisimg.lslost}}场</i></li> 
-       </ul> <p>近{{hisimg.totalMatch}}场交锋， 胜率<em class="red-color">{{hisimg.spfRate}}</em> 赢盘率<em class="red-color">{{hisimg.yaRate}}</em> 大球率<em class="red-color">{{hisimg.dxRate}}</em></p>
+       </ul> <p>近{{hisimg.totalMatch}}场交锋， 胜率<em class="red-color">{{hisimg.spfRate}}</em> 让球胜率<em class="red-color">{{hisimg.yaRate}}</em> 大球率<em class="red-color">{{hisimg.dxRate}}</em></p>
       </div> 
          
        <table cellpadding="0" cellspacing="0" class="tablelsjf mt-10">
@@ -367,7 +367,7 @@
  <script id="nearMacth" type="text/html"> 
  <div id="one">
 			{{if homeAll.list!=undefined}}
- <div class="jftit"><span>{{homename}}</span><p>近{{homeAll.totalMatch}}场，<em class="red-color">胜{{homeAll.win}}</em><em class="blue-color">平{{homeAll.draw}}</em><em class="green-color">负{{homeAll.lose}}</em>，胜率<em class="red-color">{{homeAll.spfRate}}</em> 赢盘率<em class="red-color">{{homeAll.yaRate}}</em> 大球率<em class="red-color">{{homeAll.dxRate}}</em></p> </div>
+ <div class="jftit"><span>{{homename}}</span><p>近{{homeAll.totalMatch}}场，<em class="red-color">胜{{homeAll.win}}</em><em class="blue-color">平{{homeAll.draw}}</em><em class="green-color">负{{homeAll.lose}}</em>，胜率<em class="red-color">{{homeAll.spfRate}}</em> 让球胜率<em class="red-color">{{homeAll.yaRate}}</em> 大球率<em class="red-color">{{homeAll.dxRate}}</em></p> </div>
   
        <table cellpadding="0" cellspacing="0" class="tablelsjf">
             <thead>
@@ -395,7 +395,7 @@
      </table>  
 		  {{/if}}
 			{{if guestAll.list!=undefined}}
-   <div class="jftit"><span>{{guestname}}</span><p>近{{guestAll.totalMatch}}场，<em class="red-color">胜{{guestAll.win}}</em><em class="blue-color">平{{guestAll.draw}}</em><em class="green-color">负{{guestAll.lose}}</em>，胜率<em class="red-color">{{guestAll.spfRate}}</em> 赢盘率<em class="red-color">{{guestAll.yaRate}}</em> 大球率<em class="red-color">{{guestAll.dxRate}}</em></p> </div>
+   <div class="jftit"><span>{{guestname}}</span><p>近{{guestAll.totalMatch}}场，<em class="red-color">胜{{guestAll.win}}</em><em class="blue-color">平{{guestAll.draw}}</em><em class="green-color">负{{guestAll.lose}}</em>，胜率<em class="red-color">{{guestAll.spfRate}}</em> 让球胜率<em class="red-color">{{guestAll.yaRate}}</em> 大球率<em class="red-color">{{guestAll.dxRate}}</em></p> </div>
      <table cellpadding="0" cellspacing="0" class="tablelsjf"> 
             <thead>
             <tr>
@@ -424,7 +424,7 @@
  </div>  
  <div id="two" style="display:none">
 			{{if home.list!=undefined}}
-  <div class="jftit"><span>{{homename}}</span><p>近{{home.totalMatch}}场，<em class="red-color">胜{{home.win}}</em><em class="blue-color">平{{home.draw}}</em><em class="green-color">负{{home.lose}}</em>，胜率<em class="red-color">{{home.spfRate}}</em> 赢盘率<em class="red-color">{{home.yaRate}}</em> 大球率<em class="red-color">{{home.dxRate}}</em></p> </div>
+  <div class="jftit"><span>{{homename}}</span><p>近{{home.totalMatch}}场，<em class="red-color">胜{{home.win}}</em><em class="blue-color">平{{home.draw}}</em><em class="green-color">负{{home.lose}}</em>，胜率<em class="red-color">{{home.spfRate}}</em> 让球胜率<em class="red-color">{{home.yaRate}}</em> 大球率<em class="red-color">{{home.dxRate}}</em></p> </div>
 
        <table cellpadding="0" cellspacing="0" class="tablelsjf">
             <thead>
@@ -452,7 +452,7 @@
      </table>  
 		  {{/if}}
 			{{if guest.list!=undefined}}
-   <div class="jftit"><span>{{guestname}}</span><p>近{{guest.totalMatch}}场，<em class="red-color">胜{{guest.win}}</em><em class="blue-color">平{{guest.draw}}</em><em class="green-color">负{{guest.lose}}</em>，胜率<em class="red-color">{{guest.spfRate}}</em> 赢盘率<em class="red-color">{{guest.yaRate}}</em> 大球率<em class="red-color">{{guest.dxRate}}</em></p> </div>
+   <div class="jftit"><span>{{guestname}}</span><p>近{{guest.totalMatch}}场，<em class="red-color">胜{{guest.win}}</em><em class="blue-color">平{{guest.draw}}</em><em class="green-color">负{{guest.lose}}</em>，胜率<em class="red-color">{{guest.spfRate}}</em> 让球胜率<em class="red-color">{{guest.yaRate}}</em> 大球率<em class="red-color">{{guest.dxRate}}</em></p> </div>
   <table cellpadding="0" cellspacing="0" class="tablelsjf">
 
             <thead>
@@ -483,7 +483,7 @@
  
  <div id="three" style="display:none">
 	 {{if hallSclass.list!=undefined}}
-  <div class="jftit"><span>{{homename}}</span><p>近{{hallSclass.totalMatch}}场，<em class="red-color">胜{{hallSclass.win}}</em><em class="blue-color">平{{hallSclass.draw}}</em><em class="green-color">负{{hallSclass.lose}}</em>，胜率<em class="red-color">{{hallSclass.spfRate}}</em> 赢盘率<em class="red-color">{{hallSclass.yaRate}}</em> 大球率<em class="red-color">{{hallSclass.dxRate}}</em></p> </div>
+  <div class="jftit"><span>{{homename}}</span><p>近{{hallSclass.totalMatch}}场，<em class="red-color">胜{{hallSclass.win}}</em><em class="blue-color">平{{hallSclass.draw}}</em><em class="green-color">负{{hallSclass.lose}}</em>，胜率<em class="red-color">{{hallSclass.spfRate}}</em> 让球胜率<em class="red-color">{{hallSclass.yaRate}}</em> 大球率<em class="red-color">{{hallSclass.dxRate}}</em></p> </div>
 
        <table cellpadding="0" cellspacing="0" class="tablelsjf">
             <thead>
@@ -511,7 +511,7 @@
      </table>  
 	 {{/if}}
 	 {{if gallSclass.list!=undefined}}
-   <div class="jftit"><span>{{guestname}}</span><p>近{{gallSclass.totalMatch}}场，<em class="red-color">胜{{gallSclass.win}}</em><em class="blue-color">平{{gallSclass.draw}}</em><em class="green-color">负{{gallSclass.lose}}</em>，胜率<em class="red-color">{{gallSclass.spfRate}}</em> 赢盘率<em class="red-color">{{gallSclass.yaRate}}</em> 大球率<em class="red-color">{{gallSclass.dxRate}}</em></p> </div>
+   <div class="jftit"><span>{{guestname}}</span><p>近{{gallSclass.totalMatch}}场，<em class="red-color">胜{{gallSclass.win}}</em><em class="blue-color">平{{gallSclass.draw}}</em><em class="green-color">负{{gallSclass.lose}}</em>，胜率<em class="red-color">{{gallSclass.spfRate}}</em> 让球胜率<em class="red-color">{{gallSclass.yaRate}}</em> 大球率<em class="red-color">{{gallSclass.dxRate}}</em></p> </div>
      <table cellpadding="0" cellspacing="0" class="tablelsjf">
 
             <thead>
@@ -543,7 +543,7 @@
  
  <div id="four" style="display:none"> 
 	 {{if hSclass.list!=undefined}}
-  <div class="jftit"><span>{{homename}}</span><p>近{{hSclass.totalMatch}}场，<em class="red-color">胜{{hSclass.win}}</em><em class="blue-color">平{{hSclass.draw}}</em><em class="green-color">负{{hSclass.lose}}</em>，胜率<em class="red-color">{{hSclass.spfRate}}</em> 赢盘率<em class="red-color">{{hSclass.yaRate}}</em> 大球率<em class="red-color">{{hSclass.dxRate}}</em></p> </div>
+  <div class="jftit"><span>{{homename}}</span><p>近{{hSclass.totalMatch}}场，<em class="red-color">胜{{hSclass.win}}</em><em class="blue-color">平{{hSclass.draw}}</em><em class="green-color">负{{hSclass.lose}}</em>，胜率<em class="red-color">{{hSclass.spfRate}}</em> 让球胜率<em class="red-color">{{hSclass.yaRate}}</em> 大球率<em class="red-color">{{hSclass.dxRate}}</em></p> </div>
 
        <table cellpadding="0" cellspacing="0" class="tablelsjf">
             <thead>
@@ -571,7 +571,7 @@
      </table> 
 	 {{/if}}
 	 {{if gSclass.list!=undefined}} 
-   <div class="jftit"><span>{{guestname}}</span><p>近{{gSclass.totalMatch}}场，<em class="red-color">胜{{gSclass.win}}</em><em class="blue-color">平{{gSclass.draw}}</em><em class="green-color">负{{gSclass.lose}}</em>，胜率<em class="red-color">{{gSclass.spfRate}}</em> 赢盘率<em class="red-color">{{gSclass.yaRate}}</em> 大球率<em class="red-color">{{gSclass.dxRate}}</em></p> </div>
+   <div class="jftit"><span>{{guestname}}</span><p>近{{gSclass.totalMatch}}场，<em class="red-color">胜{{gSclass.win}}</em><em class="blue-color">平{{gSclass.draw}}</em><em class="green-color">负{{gSclass.lose}}</em>，胜率<em class="red-color">{{gSclass.spfRate}}</em> 让球胜率<em class="red-color">{{gSclass.yaRate}}</em> 大球率<em class="red-color">{{gSclass.dxRate}}</em></p> </div>
      <table cellpadding="0" cellspacing="0" class="tablelsjf">
 
             <thead>
@@ -831,9 +831,9 @@
   
   </div>
   </dd>
-   <!--相同历史盘口--> 
+   <!--历史相同指数--> 
    <dd id="sameHislist"> 
- <h3><span class="line"></span>   <i>相同历史盘口</i>  <b class="down"></b>  </h3>   
+ <h3><span class="line"></span>   <i>历史相同指数</i>  <b class="down"></b>  </h3>   
   <div class="col toggle"> 
   <script id="sameHisTory" type="text/html"> 
   {{if homeMatchs.length>0}}
@@ -844,7 +844,7 @@
 <th>日期</th>
 <th>赛事</th>
 <th class="home">主队</th>
-<th>初盘</th>
+<th>初指</th>
 <th class="guest">客队</th>
 <th>比分</th>
 <th>赛果</th> 
@@ -873,7 +873,7 @@
 <th>日期</th>
 <th>赛事</th>
 <th class="home">主队</th>
-<th>初盘</th>
+<th>初指</th>
 <th class="guest">客队</th>
 <th>比分</th>
 <th>赛果</th> 

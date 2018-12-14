@@ -79,7 +79,7 @@
     ZBNavView *nav = [[ZBNavView alloc] init];
     nav.delegate = self;
     if (_typeOdd == 0) {
-        nav.labTitle.text = @"亚盘助手";
+        nav.labTitle.text = @"亚指助手";
     }else{
         nav.labTitle.text = @"深度大小";
     }

@@ -45,7 +45,7 @@
 #define default_noMatch @"没有比赛，休息一下哦"
 #define default_isLoading @"载入数据中，稍候"
 #define default_noGame @"没有关注的比赛"
-#define default_1 @"等待赔率更新"
+#define default_1 @"等待指数更新"
 #define default_2 @"等待阵容公布"
 #define default_3 @"球队无伤停，给力"
 #define default_4 @"本场暂无比赛统计"

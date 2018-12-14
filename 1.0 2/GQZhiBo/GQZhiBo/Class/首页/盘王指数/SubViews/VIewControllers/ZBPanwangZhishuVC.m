@@ -28,7 +28,7 @@
     _titleView.seletedColor = [UIColor whiteColor];
     _titleView.lineColor = [UIColor whiteColor];
     _titleView.backgroundColor = redcolor;
-    _titleView.arrData = @[@"亚盘",@"大小球",@"胜平负",];
+    _titleView.arrData = @[@"亚指",@"进球数",@"胜平负",];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
     [NSFileManager defaultManager];

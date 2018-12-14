@@ -114,7 +114,7 @@
 {
     ZBNavView *nav = [[ZBNavView alloc] init];
     nav.delegate = self;
-    nav.labTitle.text = @"赔率异常";
+    nav.labTitle.text = @"指数异常";
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateNormal];
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"backNew"] forState:UIControlStateHighlighted];
     [nav.btnRight setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];

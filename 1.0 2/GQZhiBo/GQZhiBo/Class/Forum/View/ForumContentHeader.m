@@ -60,6 +60,7 @@ CGFloat space = 10;
         self.bestLab.hidden = false;
         [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.bestLab.mas_right).offset(5);
+            make.right.equalTo(self.mas_right).offset(-15);
             make.top.equalTo(self.avatarImageView.mas_bottom).offset(space);
             make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
         }];
@@ -70,6 +71,7 @@ CGFloat space = 10;
             make.left.equalTo(self.avatarImageView.mas_left);
             make.top.equalTo(self.avatarImageView.mas_bottom).offset(space);
             make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
+            make.right.equalTo(self.mas_right).offset(-15);
         }];
     }
 }

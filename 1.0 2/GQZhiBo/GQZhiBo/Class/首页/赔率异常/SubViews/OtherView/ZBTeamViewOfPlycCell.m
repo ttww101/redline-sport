@@ -67,7 +67,7 @@
             break;
         case 3:
         {
-            _labTitle.text = @"水位变化";
+            _labTitle.text = @"奖金变化";
             if ([[NSUserDefaults standardUserDefaults] integerForKey:@"yapanzhushouIndex"] == 0 ) {
                 _labQici.text = @"";
             }else{

@@ -33,7 +33,7 @@
     _titleView.seletedColor = [UIColor whiteColor];
     _titleView.lineColor = [UIColor whiteColor];
     _titleView.backgroundColor = redcolor;
-    _titleView.arrData = @[@"胜平负",@"亚盘",@"大小球"];
+    _titleView.arrData = @[@"胜平负",@"亚指",@"进球数"];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
     _scrollView = [[ZBPageScrollView alloc] initWithFrame:CGRectMake(0, _titleView.bottom , Width, Height - _titleView.bottom)];

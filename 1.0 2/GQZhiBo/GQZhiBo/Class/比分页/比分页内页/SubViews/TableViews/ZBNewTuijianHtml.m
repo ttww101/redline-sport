@@ -17,7 +17,7 @@
         UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 65)];
         viewHeader.backgroundColor = [UIColor whiteColor];
         [self addSubview:viewHeader];
-        _segment = [[UISegmentedControl alloc] initWithItems:@[@"欧赔",@"亚盘",@"大小球",@"凯利",@"必发"]];
+        _segment = [[UISegmentedControl alloc] initWithItems:@[@"欧指",@"亚指",@"进球数",@"凯利",@"必发"]];
         _segment.frame = CGRectMake(0, 15, 60*5, 30);
         _segment.center = CGPointMake(Width/2, _segment.center.y);
         _segment.tintColor = redcolor;

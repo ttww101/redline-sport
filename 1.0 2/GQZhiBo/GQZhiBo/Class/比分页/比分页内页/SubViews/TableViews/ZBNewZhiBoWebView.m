@@ -12,7 +12,7 @@
         UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 65)];
         viewHeader.backgroundColor = [UIColor whiteColor];
         [self addSubview:viewHeader];
-        UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"即时赔率",@"比赛统计",@"双方阵容"]];
+        UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"即时指数",@"比赛统计",@"双方阵容"]];
         UIFont *font = [UIFont boldSystemFontOfSize:12.0f];
         NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
         [segment setTitleTextAttributes:attributes forState:UIControlStateNormal];

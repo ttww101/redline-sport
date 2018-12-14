@@ -482,7 +482,7 @@ static CGFloat imageHeight = 76.f;
                 break;
             case 7: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
-                webModel.title = @"亚盘";
+                webModel.title = @"亚指";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/%@/yamode.html", APPDELEGATE.url_ip,H5_Host];;
                 webModel.showBuyBtn = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
@@ -492,7 +492,7 @@ static CGFloat imageHeight = 76.f;
                 break;
             case 8: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
-                webModel.title = @"大小球";
+                webModel.title = @"进球数";
                 webModel.webUrl = [NSString stringWithFormat:@"%@/%@/dxmode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
@@ -524,7 +524,7 @@ static CGFloat imageHeight = 76.f;
                 break;
             case 13: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
-                webModel.title = @"亚盘";
+                webModel.title = @"亚指";
                 webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/cpyamode.html", APPDELEGATE.url_ip,H5_Host];
                 webModel.showBuyBtn = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];

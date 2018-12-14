@@ -33,7 +33,7 @@
         _labPeilv.font  = font12;
         _labPeilv.textColor = color99;
         _labPeilv.textAlignment = NSTextAlignmentCenter;
-        _labPeilv.text = @"赔率";
+        _labPeilv.text = @"指数";
     }
     return _labPeilv;
 }

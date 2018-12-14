@@ -198,7 +198,7 @@
                 {
                     cell.labGaiLv.textColor = redcolor;
                     cell.labGaiLvTitle.textColor = redcolor;
-                    cell.labGaiLvTitle.text = @"赢盘";
+                    cell.labGaiLvTitle.text = @"让球胜";
                 }
                     break;
                 case 2:
@@ -212,7 +212,7 @@
                 {
                     cell.labGaiLv.textColor = greencolor;
                     cell.labGaiLvTitle.textColor = greencolor;
-                    cell.labGaiLvTitle.text = @"输盘";
+                    cell.labGaiLvTitle.text = @"让球负";
                 }
                     break;
                 default:

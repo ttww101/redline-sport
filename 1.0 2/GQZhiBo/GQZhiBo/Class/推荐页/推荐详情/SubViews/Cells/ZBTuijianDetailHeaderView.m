@@ -173,7 +173,7 @@
         _model.see ? ([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
         _model.see ? ([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
     }else if (_model.dx.count>0){
-        _labPankou.text = @"大小球推荐";
+        _labPankou.text = @"进球数推荐";
         NSArray* arr = _model.dx;
         [_btnWin setTitle:[NSString stringWithFormat:@"大%@%@",space,[arr objectAtIndex:0]] forState:UIControlStateNormal];
         [_btnPing setTitle:[arr objectAtIndex:1] forState:UIControlStateNormal];

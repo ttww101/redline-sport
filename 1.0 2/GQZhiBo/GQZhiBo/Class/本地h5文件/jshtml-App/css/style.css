@@ -146,7 +146,7 @@ dd>h3 span.checkcount i:last-child{border-top-right-radius:2px; border-bottom-ri
 .zhsl ul li span.count i:first-child{background:#EA4335; border-right:3px solid #fff;} 
 .zhsl p{ width:100%; color:#999; text-align:center; padding-top:7px; padding-bottom:17px;float: left; font-size:1.2em;}
 
- /*SB赛前赔率 */
+ /*SB赛前指数 */
 .tablefx {text-align:center;  float:left; width:100%;   margin-bottom:17px; font-size:1.2em; }  
 .tablefx tr{ background:#fff; color:#333;  } 
 .tablefx th  { background:#fff; font-weight:normal; color:#999;   padding:7px 0; border-bottom:1px solid #f2f2f2; } 

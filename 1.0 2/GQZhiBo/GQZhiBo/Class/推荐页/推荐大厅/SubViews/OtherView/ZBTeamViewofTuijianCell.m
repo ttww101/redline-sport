@@ -33,9 +33,9 @@
         if (_model.playtype == 1) {
             _labPankou.text = @"胜平负";
         }else if (_model.playtype == 2){
-            _labPankou.text = @"亚盘";
+            _labPankou.text = @"亚指";
         }else if (_model.playtype == 3){
-            _labPankou.text = @"大小球";
+            _labPankou.text = @"进球数";
         }
     _labTeamHome.text = _model.HomeTeam;
     _labTeamGuest.text = _model.GuestTeam;

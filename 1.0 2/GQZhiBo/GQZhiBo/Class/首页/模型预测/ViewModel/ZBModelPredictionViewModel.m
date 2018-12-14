@@ -2,7 +2,7 @@
 @implementation ZBModelPredictionViewModel
 + (NSArray *)createModelListArray {
     NSArray *imageArray = @[@"winorfail", @"yapan", @"daxiaoqiu"];
-    NSArray *titleArray = @[@"胜平负", @"亚盘", @"大小球"];
+    NSArray *titleArray = @[@"胜平负", @"亚指", @"进球数"];
     NSMutableArray *array = [NSMutableArray array];
     [imageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UniversaListCellModel *model = [[UniversaListCellModel alloc]init];

@@ -17,7 +17,7 @@
 }
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = [NSMutableArray arrayWithObjects:@"让分即时赔率",@"大小即时赔率",@"角球让球赔率",@"角球大小赔率", nil];
+        _titleArr = [NSMutableArray arrayWithObjects:@"让分即时指数",@"大小即时指数",@"角球让球指数",@"角球大小指数", nil];
     }
     return _titleArr;
 }

@@ -198,7 +198,7 @@
     [self.viewDetialTitle addSubview:leftbtn];
     
     self.centerControl = [[PlayControl alloc]initWithFrame:CGRectMake(width, 0, width, self.viewDetialTitle.height - 1)];
-    self.centerControl.title = @"亚盘";
+    self.centerControl.title = @"亚指";
     [self.viewDetialTitle addSubview:self.centerControl];
     UIButton *centerbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [centerbtn addTarget:self action:@selector(yapanAction) forControlEvents:UIControlEventTouchUpInside];
@@ -206,7 +206,7 @@
     [self.viewDetialTitle addSubview:centerbtn];
     
     self.rightControl = [[PlayControl alloc]initWithFrame:CGRectMake(2 * width, 0, width, self.viewDetialTitle.height - 1)];
-    self.rightControl.title = @"大小球";
+    self.rightControl.title = @"进球数";
     [self.viewDetialTitle addSubview:self.rightControl];
     UIButton *rightbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightbtn addTarget:self action:@selector(dxAction) forControlEvents:UIControlEventTouchUpInside];
@@ -551,7 +551,7 @@
 - (UILabel *)labDXQ {
     if (!_labDXQ) {
         _labDXQ = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, Width - 120, 30)];
-        _labDXQ.text = @"大小球";
+        _labDXQ.text = @"进球数";
         _labDXQ.textColor = color33;
         _labDXQ.font = [UIFont boldSystemFontOfSize:13];
     }
@@ -674,7 +674,7 @@
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
                 if ([dxModel.UpOdds floatValue] < 1.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于1.6"];
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于1.6"];
                     return;
                 }
                 self.btnOne.selected = YES;
@@ -708,7 +708,7 @@
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
                 if ([dxModel.Goal floatValue] < 1.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于1.6"];
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于1.6"];
                     return;
                 }
                 self.btnOne.selected = NO;
@@ -742,7 +742,7 @@
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
                 if ([dxModel.DownOdds floatValue] < 1.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于1.6"];
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于1.6"];
                     return;
                 }
                 self.btnOne.selected = NO;
@@ -776,7 +776,7 @@
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
                 if ([dxModel.UpOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于0.6"];
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
                     return;
                 }
                 self.btnZhu.selected = YES;
@@ -809,7 +809,7 @@
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
                 if ([dxModel.DownOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于0.6"];
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
                     return;
                 }
                 self.btnKe.selected = YES;
@@ -842,7 +842,7 @@
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
                 if ([dxModel.UpOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于0.6"];
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
                     return;
                 }
                 self.btnBig.selected = YES;
@@ -875,7 +875,7 @@
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
                 if ([dxModel.DownOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐赔率不能低于0.6"];
+                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
                     return;
                 }
                 self.btnLittle.selected = YES;

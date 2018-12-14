@@ -74,7 +74,7 @@
             break;
         case 1: {
             ZBWebModel *model = [[ZBWebModel alloc]init];
-            model.title = @"亚盘";
+            model.title = @"亚指";
             model.webUrl = [NSString stringWithFormat:@"%@/appH5/cpyamode.html", APPDELEGATE.url_ip];
             model.showBuyBtn = YES;
             ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
@@ -85,7 +85,7 @@
             break;
         case 2: {
             ZBWebModel *model = [[ZBWebModel alloc]init];
-            model.title = @"大小球";
+            model.title = @"进球数";
             model.webUrl = [NSString stringWithFormat:@"%@/appH5/dxmode.html", APPDELEGATE.url_ip];
             model.showBuyBtn = YES;
             model.modelType = @"dxmode-pay.html";

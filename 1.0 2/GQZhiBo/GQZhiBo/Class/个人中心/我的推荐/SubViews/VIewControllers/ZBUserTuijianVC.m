@@ -22,7 +22,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _titleView = [[ZBTitleIndexView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, 44)];
     _titleView.selectedIndex = 0;
-    _titleView.arrData = @[@"全部",@"胜平负",@"亚盘",@"大小球"];
+    _titleView.arrData = @[@"全部",@"胜平负",@"亚指",@"进球数"];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
     _scrollView = [[ZBPageScrollView alloc] initWithFrame:CGRectMake(0, _titleView.bottom, Width, Height - _titleView.bottom)];

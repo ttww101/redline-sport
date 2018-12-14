@@ -144,7 +144,7 @@
         } else if (model.goodPlay == 2) {
             playType = @"让球:";
         } else if (model.goodPlay == 3) {
-            playType = @"大小球:";
+            playType = @"进球数:";
         }
         secondStr = [NSString stringWithFormat:@"%@%@%%",playType,model.playWinRate];
     }

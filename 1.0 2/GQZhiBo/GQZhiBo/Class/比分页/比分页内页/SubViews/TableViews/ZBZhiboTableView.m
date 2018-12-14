@@ -115,7 +115,7 @@ typedef NS_ENUM(NSInteger,zhiboSegMenttype)
 }
 - (NSMutableArray *)titleArr {
     if (!_titleArr) {
-        _titleArr = [NSMutableArray arrayWithObjects:@"让分即时赔率",@"大小即时赔率",@"角球让球赔率",@"角球大小赔率", nil];
+        _titleArr = [NSMutableArray arrayWithObjects:@"让分即时指数",@"大小即时指数",@"角球让球指数",@"角球大小指数", nil];
     }
     return _titleArr;
 }
@@ -142,7 +142,7 @@ typedef NS_ENUM(NSInteger,zhiboSegMenttype)
     UIView *viewHeader = [[UIView alloc] initWithFrame:CGRectMake(Width*4, 0, Width, 60)];
     viewHeader.backgroundColor = [UIColor whiteColor];
     [self.superview addSubview:viewHeader];
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"即时赔率",@"比赛统计",@"双方阵容"]];
+    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:@[@"即时指数",@"比赛统计",@"双方阵容"]];
     UIFont *font = [UIFont boldSystemFontOfSize:12.0f];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
     [segment setTitleTextAttributes:attributes forState:UIControlStateNormal];
@@ -957,13 +957,13 @@ typedef NS_ENUM(NSInteger,zhiboSegMenttype)
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadJiShiPLData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSString *lsURl = [NSString stringWithFormat:@"%@%@%ld",APPDELEGATE.url_ServerQiuTan,url_JiShiPeiLv,(long)self.model.mid];
-    NSLog(@"即使赔率请求链接=%@",lsURl);
+    NSLog(@"即使指数请求链接=%@",lsURl);
     [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:nil PathUrlL:lsURl Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             self.defaultTitle = @"";
-            NSLog(@"即使赔率请求结果=%@",responseOrignal);
+            NSLog(@"即使指数请求结果=%@",responseOrignal);
             _jsplDownone = [ZBJSPLDownMode entityFromDictionary:[[[responseOrignal objectForKey:@"data"] objectForKey:@"CornerOdds"] objectForKey:@"Rf_Odds"]];
             _jsplDownTwo = [ZBJSPLDownTwoModel entityFromDictionary:[[[responseOrignal objectForKey:@"data"] objectForKey:@"CornerOdds"] objectForKey:@"Dx_Odds"]];
             _LetGoalOddsString = [NSString stringWithString:[[responseOrignal objectForKey:@"data"] objectForKey:@"LetGoalOddsString"]];

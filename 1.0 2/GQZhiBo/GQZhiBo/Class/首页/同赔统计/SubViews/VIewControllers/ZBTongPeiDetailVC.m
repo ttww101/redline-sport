@@ -38,7 +38,7 @@
     _titleView.lineColor = [UIColor whiteColor];
     _titleView.bottomLineColor = [UIColor whiteColor];
     _titleView.nalColor = color33;
-    _titleView.arrData = @[@"胜平负",@"亚盘",@"大小球",];
+    _titleView.arrData = @[@"胜平负",@"亚指",@"进球数",];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
     _imageRedAngle = [[UIImageView alloc] initWithFrame:CGRectMake(Width/3/2 - 17/2, 44 - 9, 17, 9)];

@@ -93,7 +93,7 @@
             }
             _labPeilv.attributedText = [ZBMethods withContent:_labPeilv.text WithColorText:@"@" textColor:color33 strFont:font14];
         }else if (_model.dx.count>0){
-            _labPankou.text = @"大小球:";
+            _labPankou.text = @"进球数:";
             NSArray* arr = _model.dx;
             switch (_model.choice) {
                 case 3:
@@ -104,7 +104,7 @@
                     break;
                 case 1:
                 {
-                    [_labchoice setText:@"大小球" ];
+                    [_labchoice setText:@"进球数" ];
                     [_labPeilv setText:[NSString stringWithFormat:@"@%@",[arr objectAtIndex:1]] ];
                 }
                     break;

@@ -105,24 +105,17 @@
     }
     return _tableView;
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _arrData.count;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    ZBJSbifenModel *model = [_arrData objectAtIndex:section];
-    return model.data.count;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ZBLiveScoreModel *model;
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (_arrData.count > 0) {
-        ZBJSbifenModel *jsmodel = [_arrData objectAtIndex:indexPath.section];
-        model = [jsmodel.data objectAtIndex:indexPath.row];
-    }
-    if (model.remark!= nil && ![model.remark isEqualToString:@""]) {
-        return 108;
+        ZBLiveScoreModel *model = [_arrData objectAtIndex:indexPath.row];
+        if (model.remark!= nil && ![model.remark isEqualToString:@""]) {
+            return 108;
+        }
     }
     return 80;
 }
@@ -134,42 +127,42 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (_arrData.count >0) {
-        ZBJSbifenModel *model = [_arrData objectAtIndex:indexPath.section];
-        cell.ScoreModel = [model.data objectAtIndex:indexPath.row];
+        cell.ScoreModel = [_arrData objectAtIndex:indexPath.row];
     }
     return cell;
     return nil;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 }
-- (void)searchMatchWithName:(NSString *)searchStr
-{
-    int count = 0;
-    _arrData = [NSMutableArray array];
-    for (int i = 0; i< _arrAlldata.count; i++) {
-        ZBJSbifenModel *jsmodel = [_arrAlldata objectAtIndex:i];
-        ZBJSbifenModel *sendJs = [[ZBJSbifenModel alloc] init];
-        sendJs.time = jsmodel.time;
-        sendJs.data = [NSMutableArray array];
-        [_arrData addObject:sendJs];
-        for (int m = 0; m<jsmodel.data.count; m++) {
-            ZBLiveScoreModel *model = [jsmodel.data objectAtIndex:m];
-            if ([model.hometeam containsString:searchStr] ||[model.guestteam containsString:searchStr]||[model.league containsString:searchStr] )
-            {
-                [sendJs.data addObject:model];
-                count ++;
-            }
+
+- (void)searchMatchWithName:(NSString *)searchStr {
+    NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+   [parameter setValue:@(0) forKey:@"return_fmt"];
+    [parameter setValue:PARAM_IS_NIL_ERROR(searchStr) forKey:@"query"];
+    [parameter setValue:@"all" forKey:@"sub"];
+    [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {
+    } End:^(id responseOrignal) {
+    } Success:^(id responseResult, id responseOrignal) {
+        if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+           _arrData = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+            [self.tableView reloadData];
         }
-    }
-    if (count == 0) {
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"未找到比赛"];
-    }else{
+        
+    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        self.defaultFailure = errorDict;
+        [_arrData removeAllObjects];
+        self.defaultFailure = default_noMatch;
         [self.tableView reloadData];
-        [_searchBar resignFirstResponder];
-    }
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+    }];
+
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
 @end
