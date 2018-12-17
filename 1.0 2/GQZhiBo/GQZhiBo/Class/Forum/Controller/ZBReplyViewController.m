@@ -211,9 +211,11 @@ NSInteger maxValue = 1000;
         [parameter setValue:@(model.idId) forKey:@"userId"];
     }
     
+    [ZBLodingAnimateView showLodingView];
     [[ZBDCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,urlPath] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
         if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
             self.recordText = self.textView.text;
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"发表成功"];
@@ -223,6 +225,7 @@ NSInteger maxValue = 1000;
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:responseOrignal[@"msg"]];
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+         [ZBLodingAnimateView dissMissLoadingView];
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:responseOrignal[@"msg"]];
     }];
      

@@ -80,6 +80,7 @@
         _type = TuijianDetailHeaderViewHideContent;
     }
     [self.contentView addSubview:self.basicView];
+    
     if (!_didSetupConstraints) {
         _didSetupConstraints = YES;
         [self addAutoLayoutToCell];

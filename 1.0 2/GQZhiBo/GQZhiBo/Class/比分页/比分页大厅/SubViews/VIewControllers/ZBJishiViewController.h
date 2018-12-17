@@ -14,4 +14,9 @@
 
 
 - (void)refreshDataByChangeFlag:(NSInteger)flag;
+
+
+@property (nonatomic , copy) NSString *filterParameters;
+
+
 @end

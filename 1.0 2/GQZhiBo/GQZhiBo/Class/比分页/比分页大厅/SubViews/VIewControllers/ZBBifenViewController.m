@@ -57,11 +57,16 @@
 #pragma mark - GeneralFloatingViewDelegate
 
 - (void)floatingViewDidSelected:(NSInteger)sender {
+    if (self.currentIndex == 3) {
+        [SVProgressHUD showErrorWithStatus:@"关注不可筛选"];
+        return;
+    }
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"showJinqiuAnimation"];
     ZBSaishiSelecterdVC *selectedVC = [[ZBSaishiSelecterdVC alloc] init];
     selectedVC.type = typeSaishiSelecterdVCBifen;
     if (self.currentIndex == 0) {
         selectedVC.timeline = @"live";
+         selectedVC.filterParameters = _jishiVC.filterParameters;
     } else if (self.currentIndex == 1) {
         selectedVC.timeline = @"old";
         selectedVC.date = _saiguoVC.date;

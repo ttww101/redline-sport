@@ -33,7 +33,7 @@
         model.leftImageName = imageArra4[i];
         model.rightImageName = @"meRight";
         if (i == 1) {
-            model.rightContent = @"邀请好友得滚球币";
+            model.rightContent = @"邀请好友得50滚球币";
         }
         [array4 addObject:model];
     }

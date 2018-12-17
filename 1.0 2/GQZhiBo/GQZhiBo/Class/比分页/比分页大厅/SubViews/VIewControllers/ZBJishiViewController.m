@@ -374,18 +374,22 @@ static SystemSoundID shake_sound_id = 0;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
        
-        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
+//        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
+        NSString *urlStage = [NSString stringWithFormat:@"%@/bifen/live",APPDELEGATE.url_Server];
         NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
         [parameter setValue:@(1) forKey:@"return_fmt"];
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-        NSArray *parameters = self.filterDic[ParamtersFilters];
-        if (parameters.count > 0) {
+        if (self.filterDic[ParamtersFilters]) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            NSArray *parameters = self.filterDic[ParamtersFilters];
             [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
             [dic setValue:parameters forKey:@"val"];
-            [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
+            NSString *json = [self getJSONMessage:dic];
+            [parameter setValue:json forKey:@"filter"];
+            self.filterParameters = json;
+        } else {
+            self.filterParameters = nil;
         }
         [parameter setValue:sub forKey:@"sub"];
-        
         dispatch_queue_t concurrentqueue=dispatch_queue_create("concurrent", DISPATCH_QUEUE_CONCURRENT);//并行线程队列
         dispatch_async(concurrentqueue, ^{
             [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {
@@ -500,18 +504,24 @@ static SystemSoundID shake_sound_id = 0;
             
         });
     } else {
-        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
+        //        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
+        NSString *urlStage = [NSString stringWithFormat:@"%@/bifen/live",APPDELEGATE.url_Server];
         NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
         [parameter setValue:@(0) forKey:@"return_fmt"];
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-        NSArray *parameters = self.filterDic[ParamtersFilters];
-        if (parameters.count > 0) {
+        
+        if (self.filterDic[ParamtersFilters]) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            NSArray *parameters = self.filterDic[ParamtersFilters];
             [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
             [dic setValue:parameters forKey:@"val"];
-            [parameter setValue:[self getJSONMessage:dic] forKey:@"filter"];
+            NSString *json = [self getJSONMessage:dic];
+            [parameter setValue:json forKey:@"filter"];
+            self.filterParameters = json;
+        } else {
+            self.filterParameters = nil;
         }
-        [parameter setValue:sub forKey:@"sub"];
         
+        [parameter setValue:sub forKey:@"sub"];
         dispatch_queue_t concurrentqueue=dispatch_queue_create("concurrent", DISPATCH_QUEUE_CONCURRENT);
         dispatch_async(concurrentqueue, ^{
             [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:urlStage Start:^(id requestOrignal) {

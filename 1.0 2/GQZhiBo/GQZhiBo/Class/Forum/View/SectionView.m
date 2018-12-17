@@ -54,7 +54,7 @@
     
     self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.btn.frame = CGRectMake(self.width - 100, 0, 70, 40);
-    [self.btn setTitle:@"按最新回复" forState:UIControlStateNormal];
+    [self.btn setTitle:@"按发表时间" forState:UIControlStateNormal];
     [self.btn setTitleColor:UIColorHex(#383838) forState:UIControlStateNormal];
     self.btn.titleLabel.font = font12;
     [self.btn addTarget:self action:@selector(recentAction:) forControlEvents:UIControlEventTouchUpInside];

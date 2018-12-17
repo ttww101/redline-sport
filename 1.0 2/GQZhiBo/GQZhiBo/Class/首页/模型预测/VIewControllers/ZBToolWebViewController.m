@@ -974,7 +974,7 @@
     if (_replyBtn == nil) {
         _replyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_replyBtn setBackgroundImage:[UIImage imageNamed:@"replyBtn"] forState:UIControlStateNormal];
-        _replyBtn.frame = CGRectMake(15, Height - 46, Width - 30, 46);
+        _replyBtn.frame = CGRectMake(0, Height - 46, Width, 46);
         [_replyBtn addTarget:self action:@selector(replyAction) forControlEvents:UIControlEventTouchUpInside];
         [_replyBtn addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
     }

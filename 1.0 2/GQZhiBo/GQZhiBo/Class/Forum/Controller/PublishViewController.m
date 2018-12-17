@@ -274,6 +274,10 @@
 }
 
 - (void)InputAccessoryViewPicAction:(UIButton *)sender {
+    if (self.picArray.count >= 3) {
+        [SVProgressHUD showErrorWithStatus:@"最多只能选择三张图片"];
+        return;
+    }
     UIActionSheet *sheet;
     // 判断是否支持相机
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -462,7 +466,7 @@
 - (UITextField *)titleTxtFiled {
     if (_titleTxtFiled == nil) {
         _titleTxtFiled = [[UITextField alloc]init];
-        NSString *placeText = @"标题（最多36个字符）";
+        NSString *placeText = @"标题（最多20个字符）";
         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:placeText];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:[placeText rangeOfString:placeText]];
         [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(#D0CFCF) range:[placeText rangeOfString:placeText]];

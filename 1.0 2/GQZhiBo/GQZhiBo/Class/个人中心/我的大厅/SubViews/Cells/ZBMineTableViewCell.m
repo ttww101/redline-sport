@@ -5,6 +5,10 @@
 @property (nonatomic, strong) UIImageView *rightArrorImageView;
 @property (nonatomic, strong) UILabel *rightContentLabel;
 @property (nonatomic, strong) UILabel *bridgeLab;
+@property (nonatomic , strong) UIView *bascView;
+@property (nonatomic , strong) UIView *lineView;
+
+
 @end
 @implementation ZBMineTableViewCell
 static CGFloat cell_Height = 44;
@@ -53,36 +57,58 @@ static NSString *identifier = @"listCell";
 }
 #pragma mark - Config UI
 - (void)configUI {
-    self.contentView.backgroundColor = [UIColor whiteColor];
-    [self.contentView addSubview:self.leftImageView];
-    [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.contentView.backgroundColor = UIColorHex(#F3F4F6);
+    
+    [self.contentView addSubview:self.bascView];
+    
+    [self.bascView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(15);
+        make.top.equalTo(self.contentView.mas_top).offset(0);
+         make.bottom.equalTo(self.contentView.mas_bottom).offset(0);
+        make.right.equalTo(self.contentView.mas_right).offset(-15);
+    }];
+    
+    [self.bascView addSubview:self.leftImageView];
+    [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bascView.mas_left).offset(15);
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(18, 17));
     }];
-    [self.contentView addSubview:self.contentLabel];
+    
+    [self.bascView addSubview:self.contentLabel];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.centerY.equalTo(self.bascView.mas_centerY);
         make.left.equalTo(self.leftImageView.mas_right).offset(15);
     }];
-    [self.contentView addSubview:self.rightArrorImageView];
+    
+    [self.bascView addSubview:self.rightArrorImageView];
     [self.rightArrorImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView.mas_right).offset(-15);
-        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.right.equalTo(self.bascView.mas_right).offset(-15);
+        make.centerY.equalTo(self.bascView.mas_centerY);
         make.size.mas_equalTo(CGSizeMake(7, 14));
     }];
-    [self.contentView addSubview:self.rightContentLabel];
+    
+    [self.bascView addSubview:self.rightContentLabel];
     [self.rightContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.centerY.equalTo(self.bascView.mas_centerY);
         make.right.equalTo(self.rightArrorImageView.mas_leftMargin).offset(-15);
     }];
     
-    [self.contentView addSubview:self.bridgeLab];
+    [self.bascView addSubview:self.bridgeLab];
     [self.bridgeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.centerY.equalTo(self.bascView.mas_centerY);
         make.right.equalTo(self.rightArrorImageView.mas_leftMargin).offset(-15);
         make.size.mas_equalTo(CGSizeZero);
     }];
+    
+    [self.bascView addSubview:self.lineView];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bascView.mas_left).offset(15);
+        make.bottom.equalTo(self.bascView.mas_bottom).offset(0);
+        make.right.equalTo(self.bascView.mas_right).offset(0);
+        make.height.mas_equalTo(ONE_PX_LINE);
+    }];
+    
 }
 #pragma mark - Lazy Load
 - (UIImageView *)leftImageView {
@@ -129,4 +155,23 @@ static NSString *identifier = @"listCell";
     }
     return _rightArrorImageView;
 }
+
+- (UIView *)bascView {
+    if (_bascView == nil) {
+        _bascView = [[UIView alloc]init];
+        _bascView.backgroundColor = [UIColor whiteColor];
+        _bascView.layer.cornerRadius = 4;
+        _bascView.layer.masksToBounds = true;
+    }
+    return _bascView;
+}
+
+- (UIView *)lineView {
+    if (_lineView == nil) {
+        _lineView = [[UIView alloc]init];
+        _lineView.backgroundColor = UIColorHex(#F2F2F2);
+    }
+    return _lineView;
+}
+
 @end

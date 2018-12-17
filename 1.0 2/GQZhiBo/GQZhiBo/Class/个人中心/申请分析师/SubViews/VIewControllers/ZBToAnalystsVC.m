@@ -279,12 +279,11 @@
         if (self.model.userinfo.length > 0) {
             self.labPlaceholder.hidden = YES;
         }
-        self.txtReson.text = @"";
+        self.txtReson.text = self.model.applyreason;
         self.txtReson.frame = CGRectMake(0, 0, Width - 30, 33);
         CGRect frame = self.txtReson.frame;
         CGSize constraintSize = CGSizeMake(frame.size.width, MAXFLOAT);
         CGSize size = [self.txtReson sizeThatFits:constraintSize];
-        NSLog(@"%lf",size.height);
         _textViewHeight = size.height;
     }
     if (self.model.autonym == 1) {
@@ -323,10 +322,8 @@
     CGFloat keyboardHeight = CGRectGetHeight(rect);
     CGFloat keyboardDuration =
     [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    if (!_keyBShow) {
-        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width, self.tableView.contentSize.height + keyboardHeight);
-        _keyBShow = YES;
-    }
+    
+     self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width, self.tableView.contentSize.height + keyboardHeight);
     if (self.model.analyst == 3) {
         [self.tableView setContentOffset:CGPointMake(0.0, keyboardHeight) animated:NO];
     }
@@ -347,10 +344,8 @@
     CGRect rect =
     [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat keyboardHeight = CGRectGetHeight(rect);
-    if (_keyBShow) {
-        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width, self.tableView.contentSize.height - keyboardHeight);
-        _keyBShow = NO;
-    }
+    
+    self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width, self.tableView.contentSize.height - keyboardHeight);
     [UIView animateWithDuration:keyboardDuration animations:^{
         [self.tableView setContentOffset:CGPointMake(0.0, 0.0) animated:NO];
     }];
@@ -563,6 +558,7 @@
         _tableView.backgroundColor = colorTableViewBackgroundColor;
         _tableView.delegate =self;
         _tableView.dataSource = self;
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _tableView;
 }
@@ -739,19 +735,22 @@
                 break;
         }
     }
-    if (self.model.analyst == 1) {
-        self.txtName.enabled = NO;
-        self.txtCarNum.enabled = NO;
-        self.txtWeiXin.enabled = NO;
-        self.txtQQ.enabled = NO;
-        self.txtReson.editable = NO;
-        imageMore.hidden = YES;
-        _btnPhone.enabled = NO;
-    }
-    if (self.model.autonym == 1) {
-        self.txtName.enabled = NO;
-        self.txtCarNum.enabled = NO;
-    }
+    
+//    if (self.model.analyst == 1) {
+//        self.txtName.enabled = NO;
+//        self.txtCarNum.enabled = NO;
+//        self.txtWeiXin.enabled = NO;
+//        self.txtQQ.enabled = NO;
+//        self.txtReson.editable = NO;
+//        imageMore.hidden = YES;
+//        _btnPhone.enabled = NO;
+//    }
+//    if (self.model.autonym == 1) {
+//        self.txtName.enabled = NO;
+//        self.txtCarNum.enabled = NO;
+//    }
+    
+    
     return cell;
 }
 

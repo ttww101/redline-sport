@@ -77,6 +77,8 @@ static CGFloat imageHeight = 50;
         self.centerControl.hidden = YES;
         self.rightControl.hidden = YES;
     }
+    
+    self.applyBtn.hidden = true;
 }
 #pragma mark - Config UI
 - (void)configUI {
@@ -257,6 +259,7 @@ static CGFloat imageHeight = 50;
         _applyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_applyBtn setBackgroundImage:[UIImage imageNamed:@"applyBtn"] forState:UIControlStateNormal];
         [_applyBtn addTarget: self action:@selector(applyAction) forControlEvents:UIControlEventTouchUpInside];
+        _applyBtn.hidden = true;
     }
     return _applyBtn;
 }

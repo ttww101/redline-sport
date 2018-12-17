@@ -32,7 +32,7 @@
     _model = model;
     [self.iconIV setImageWithUrl:[NSURL URLWithString:PARAM_IS_NIL_ERROR(model.icon)] placeholder:nil];
     self.topic.text = model.name;
-    self.topicCountLab.text = model.count;
+    self.topicCountLab.text = [NSString stringWithFormat:@"%@帖子",model.count];
 }
 
 #pragma mark - Config UI
@@ -86,7 +86,7 @@
         _topicCountLab = [UILabel new];
         _topicCountLab.font = [UIFont systemFontOfSize:11.f];;
         _topicCountLab.textColor = UIColorFromRGBWithOX(0x878787);
-        _topicCountLab.text = @"120万帖子";
+        _topicCountLab.text = @"120";
         _topicCountLab.textAlignment = NSTextAlignmentCenter;
     }
     return _topicCountLab;

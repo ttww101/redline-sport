@@ -381,14 +381,23 @@ NSString *const ParamtersType = @"Type";
         [arrSaveData enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel  * obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [matchIDs addObject:@([obj.idId floatValue])];
         }];
-     
-         NSDictionary *dic = @{
-                               ParamtersTimeline: self.timeline,
-                               ParamtersFilters:matchIDs,
-                               ParamtersTab: str,
-                               ParamtersType: str
-                               };
+        NSDictionary *dic;
+        if (arrSaveData) {
+            dic = @{
+                    ParamtersTimeline: self.timeline,
+                    ParamtersFilters:matchIDs,
+                    ParamtersTab: str,
+                    ParamtersType: str
+                    };
+        } else {
+            dic = @{
+                    ParamtersTimeline: self.timeline,
+                    ParamtersTab: str,
+                    ParamtersType: str
+                    };
+        }
         [[NSNotificationCenter defaultCenter]postNotificationName:FilterPageNotification object:nil userInfo:@{@"paramer":dic}];
+        
     }else if (_type == typeSaishiSelecterdVCTuijian)
     {
         for (int i = 0; i<_arrBifenData.count; i++) {
@@ -450,16 +459,27 @@ NSString *const ParamtersType = @"Type";
         }  else if (self.currentIndex == 3){
             str = @"bd";
         }
+        
         NSMutableArray *matchIDs = [NSMutableArray array];
         [arrSaveData enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel  * obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [matchIDs addObject:@([obj.idId floatValue])];
         }];
-        NSDictionary *dic = @{
-                              ParamtersTimeline: self.timeline,
-                              ParamtersFilters:matchIDs,
-                              ParamtersSub:str,
-                              ParamtersType: @"sclasss"
-                              };
+        
+        NSDictionary *dic;
+        if (arrSaveData) {
+            dic = @{
+                    ParamtersTimeline: self.timeline,
+                    ParamtersFilters:matchIDs,
+                    ParamtersSub:str,
+                    ParamtersType: @"sclasss"
+                    };
+        } else {
+            dic = @{
+                    ParamtersTimeline: self.timeline,
+                    ParamtersSub:str,
+                    ParamtersType: @"sclasss"
+                    };
+        }
         [[NSNotificationCenter defaultCenter]postNotificationName:FilterPageNotification object:nil userInfo:@{@"paramer":dic}];
        
     }else if (_type == typeSaishiSelecterdVCTuijian)

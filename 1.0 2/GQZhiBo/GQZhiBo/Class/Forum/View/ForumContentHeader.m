@@ -162,7 +162,7 @@ CGFloat space = 10;
 
 - (void)didAction {
     ZBWebModel *model = [[ZBWebModel alloc]init];
-    model.title = @"帖子详情";
+    model.title = self.infoModel.navTitle;
     model.webUrl = [NSString stringWithFormat:@"%@/%@/board-show.html?id=%@", APPDELEGATE.url_ip,H5_Host,self.infoModel.postId];
     ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
     webDetailVC.model = model;
@@ -185,6 +185,8 @@ CGFloat space = 10;
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_avatarImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarClick)]];
         _avatarImageView.userInteractionEnabled = YES;
+        _avatarImageView.layer.cornerRadius = imageWidth / 2;
+        _avatarImageView.layer.masksToBounds = true;
     }
     return _avatarImageView;
 }

@@ -359,12 +359,12 @@
 
 
 - (void)loadDataJishiViewControllerWithQici:(ZBQiciModel *)model {
-    
-    NSString *urlStage = @"http://120.55.30.173:8809/bifen/matchs";
+    //      NSString *urlStage = @"http://120.55.30.173:8809/bifen/matchs";
+    NSString *urlStage = [NSString stringWithFormat:@"%@/bifen/matchs",APPDELEGATE.url_Server];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    NSArray *parameters = self.filterDic[ParamtersFilters];
-    if (parameters.count > 0) {
+    if (self.filterDic[ParamtersFilters]) {
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        NSArray *parameters = self.filterDic[ParamtersFilters];
         [dic setValue:self.filterDic[ParamtersType] forKey:@"key"];
         [dic setValue:parameters forKey:@"val"];
         NSString *json = [self getJSONMessage:dic];

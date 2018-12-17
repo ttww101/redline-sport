@@ -25,14 +25,14 @@
 - (void)loadData {
     [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    if (![self.timeline isEqualToString:@"live"]) {
-        [parameter setValue:PARAM_IS_NIL_ERROR(self.filterParameters) forKey:@"filter"];
-    }
+    [parameter setValue:PARAM_IS_NIL_ERROR(self.filterParameters) forKey:@"filter"];
     [parameter setValue:PARAM_IS_NIL_ERROR(self.timeline) forKey:@"timeline"];
     [parameter setValue:@"sclass" forKey:@"tab"];
     [parameter setValue:PARAM_IS_NIL_ERROR(self.sub) forKey:@"sub"];
     [parameter setValue:PARAM_IS_NIL_ERROR(self.date) forKey:@"date"];
-    NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];
+//    NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];
+     NSString *path = [NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_bifen_filterAll];
+    
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:path Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
@@ -53,8 +53,8 @@
                 allModel.title = @"其它赛事";
                 [self.dataList addObject:allModel];
             }
-            
             [self.collectionView reloadData];
+            [self checkoutAllSelected];
             
         } else {
             
@@ -64,6 +64,21 @@
         [ZBLodingAnimateView dissMissLoadingView];
     }];
     
+}
+
+- (void)checkoutAllSelected {
+    BOOL isAllSelected = true;
+    for (NSInteger i = 0; i < self.dataList.count; i ++) {
+        FilterData *model = self.dataList[i];
+        for (NSInteger j = 0 ; j < model.dataList.count; j ++) {
+            ZBBIfenSelectedSaishiModel *bifenmodel = model.dataList[j];
+            if (!bifenmodel.isSelected) {
+                isAllSelected = false;
+                break;
+            }
+        }
+    }
+    _allselectedV.btnAll.selected = isAllSelected;
 }
 
 #pragma mark - Lazy Load
@@ -117,7 +132,7 @@
     return _allselectedV;
 }
 - (void)didSelectedAtBtnIndex:(NSInteger)index whtherSelected:(BOOL)selected {
-    if (index == 0) {
+     if (index == 0) {
         [self.dataList enumerateObjectsUsingBlock:^(FilterData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [obj.dataList enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 obj.isSelected = true;
@@ -133,15 +148,19 @@
         [self.collectionView reloadData];
     }else if (index == 2) {
         if (_delegate && [_delegate respondsToSelector:@selector(confirmSelectedAllWithData:)]) {
-            NSMutableArray *arrSend = [NSMutableArray array];
-            [self.dataList enumerateObjectsUsingBlock:^(FilterData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [obj.dataList enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (obj.isSelected) {
-                        [arrSend addObject:obj];
-                    }
+            if (_allselectedV.btnAll.selected && [self.timeline isEqualToString:@"live"]) {
+                [_delegate confirmSelectedAllWithData:nil];
+            } else {
+                NSMutableArray *arrSend = [NSMutableArray array];
+                [self.dataList enumerateObjectsUsingBlock:^(FilterData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [obj.dataList enumerateObjectsUsingBlock:^(ZBBIfenSelectedSaishiModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if (obj.isSelected) {
+                            [arrSend addObject:obj];
+                        }
+                    }];
                 }];
-            }];
-            [_delegate confirmSelectedAllWithData:arrSend];
+                 [_delegate confirmSelectedAllWithData:arrSend];
+            }
         }
     }
 }
@@ -200,13 +219,13 @@
     [headerView addSubview:labTitle];
     return headerView;
 }
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;{
     FilterData *dataModel = self.dataList[indexPath.section];
     ZBBIfenSelectedSaishiModel *model = [dataModel.dataList objectAtIndex:indexPath.row];
     model.isSelected = !model.isSelected;
     [_allselectedV changeBtnSelectedState:model.isSelected];
     [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]];
+    [self checkoutAllSelected];
 }
 #pragma mark --  UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -234,6 +253,7 @@
     }
     return _ViewIndex;
 }
+
 -(void)collectionViewIndex:(ZBDSCollectionViewIndex *)collectionViewIndex didselectionAtIndex:(NSInteger)index withTitle:(NSString *)title
 {
     _flotageLabel.text = title;
@@ -243,6 +263,7 @@
 //        [self.collectionView scrollToItemAtIndexPath:tableIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
 //    }
 }
+
 - (void)collectionViewIndexTouchesBegan:(ZBDSCollectionViewIndex *)collectionViewIndex
 {
     _flotageLabel.alpha = 1;

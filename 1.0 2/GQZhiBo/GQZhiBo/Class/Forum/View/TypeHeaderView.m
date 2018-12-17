@@ -35,11 +35,18 @@
 
 - (void)setDataSource:(NSArray *)dataSource {
     _dataSource = dataSource;
-    for (NSInteger i =0; i < _dataSource.count; i++) {
-        ItemView *item = [[ItemView alloc]initWithFrame:CGRectMake(0, self.topIV.bottom + i * 60, self.width, 60)];
-        item.model = dataSource[i];
-        [self addSubview:item];
+    if (_dataSource.count > 0) {
+        for (NSInteger i =0; i < _dataSource.count; i++) {
+            ItemView *item = [[ItemView alloc]initWithFrame:CGRectMake(0, self.topIV.bottom + i * 60, self.width, 60)];
+            item.model = dataSource[i];
+            [self addSubview:item];
+        }
+        self.topIV.hidden = false;
+    } else {
+        self.topIV.hidden = true;
     }
+   
+    
 }
 
 - (void)setModelInfo:(ModulesInfo *)modelInfo {

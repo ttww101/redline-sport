@@ -33,7 +33,14 @@
         [messageAtt addAttribute:NSParagraphStyleAttributeName value:muStyle range:[self.content rangeOfString:self.content]];
         self.messageAtt = messageAtt;
         self.messageAttHeight = [self.messageAtt.string boundingRectWithSize:CGSizeMake(Width - 30, CGFLOAT_MAX) font:[UIFont systemFontOfSize:14] lineSpacing:3.0].height + 0.5;
-         self.messageAttHeight = 40;
+        if (self.content.length == 0) {
+            self.messageAttHeight = 0;
+        } else if (self.content.length < 20) {
+            self.messageAttHeight = 20;
+        } else {
+            self.messageAttHeight = 40;
+        }
+        
     } else {
         self.messageAttHeight = 0;
     }
@@ -47,6 +54,14 @@
     self.dateStr = [ZBMethods compareCurrentTime:self.publishTime];
     self.avaterUrl = [NSString stringWithFormat:@"http://mobile.gunqiu.com/avatar/%@",self.userId];
     self.headerHeight = 135 + self.messageAttHeight + self.picLayout.height;
+    
+    if ([self.cream isEqualToString:@"1"]) {
+        self.navTitle = @"精华帖";
+    } else if ([self.top isEqualToString:@"1"]) {
+        self.navTitle = @"置顶帖";
+    } else {
+        self.navTitle = @"主题帖";
+    }
     
 }
 

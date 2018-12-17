@@ -73,7 +73,7 @@
 
 - (void)detailAction {
     ZBWebModel *model = [[ZBWebModel alloc]init];
-    model.title = @"帖子详情";
+    model.title = self.model.navTitle;
     model.webUrl = [NSString stringWithFormat:@"%@/%@/board-show.html?id=%@", APPDELEGATE.url_ip,H5_Host,self.model.postId];
     ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
     webDetailVC.model = model;

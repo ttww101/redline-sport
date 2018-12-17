@@ -109,6 +109,11 @@
  */
 @property (nonatomic , strong) CommentModel *comment;
 
+/**
+ 精选评论
+ */
+@property (nonatomic , strong) NSString *navTitle;
+
 - (void)setupInfo;
 
 @end

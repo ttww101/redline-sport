@@ -73,10 +73,12 @@
                 [ZBMethods updateUsetModel:_userModel];
                 self.headerView.model = _userModel;
                 self.tableView.tableHeaderView = self.headerView;
-                [self.tableView reloadData];
+               
                 if (_userModel == nil) {
                     self.headerView.height = 210;
                 }
+                 [self.tableView reloadData];
+                
             }else{
                 _userModel = [ZBMethods getUserModel];
                 self.headerView.model = _userModel;
@@ -138,6 +140,14 @@
     return cell;
 }
 #pragma mark - UITableViewDelegate
+
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
+        ((UITableViewHeaderFooterView *)view).backgroundView.backgroundColor = UIColorHex(#F3F4F6);
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [ZBMineTableViewCell heightForCell];
 }
@@ -188,7 +198,9 @@
                     [ZBMethods toLogin];
                     return;
                 }
+                [ZBLodingAnimateView showLodingView];
                 [[ZBDependetNetMethods sharedInstance] loadUserInfocompletion:^(ZBUserModel *userback) {
+                    [ZBLodingAnimateView dissMissLoadingView];
                     ZBUserModel *model = [ZBMethods getUserModel];
                     ZBToAnalystsVC *analysts = [[ZBToAnalystsVC alloc] init];
                     analysts.hidesBottomBarWhenPushed = YES;
@@ -196,6 +208,7 @@
                     analysts.model = model;
                     [APPDELEGATE.customTabbar pushToViewController:analysts animated:YES];
                 } errorMessage:^(NSString *msg) {
+                    [ZBLodingAnimateView dissMissLoadingView];
                     ZBUserModel *model = [ZBMethods getUserModel];
                     ZBToAnalystsVC *analysts = [[ZBToAnalystsVC alloc] init];
                     analysts.hidesBottomBarWhenPushed = YES;
@@ -286,6 +299,8 @@
         _tableView.emptyDataSetDelegate = self;
         _tableView.sectionHeaderHeight = 0;
         _tableView.sectionFooterHeight = 10;
+        _tableView.backgroundColor = UIColorHex(#F3F4F6);
+        _tableView.separatorColor = [UIColor clearColor];
     }
     return _tableView;
 }

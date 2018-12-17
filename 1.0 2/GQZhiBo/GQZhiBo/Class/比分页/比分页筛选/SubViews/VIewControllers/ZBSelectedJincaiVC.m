@@ -20,12 +20,11 @@
 - (void)loadData {
     [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    if (![self.timeline isEqualToString:@"live"]) {
-        [parameter setValue:PARAM_IS_NIL_ERROR(self.filterParameters) forKey:@"filter"];
-    }
+    [parameter setValue:PARAM_IS_NIL_ERROR(self.filterParameters) forKey:@"filter"];
     [parameter setValue:PARAM_IS_NIL_ERROR(self.timeline) forKey:@"timeline"];
     [parameter setValue:self.tab forKey:@"tab"];
-    NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];
+//    NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];
+     NSString *path = [NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_bifen_filterAll];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:path Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
@@ -33,9 +32,9 @@
         if ([responseOrignal[@"code"] isEqualToString:@"200"]) {
             NSDictionary *dic = responseOrignal[@"data"];
             FilterModel *model = [FilterModel yy_modelWithDictionary:dic];
-            self.dataList = model.items;
+            self.dataList = [model.items mutableCopy];
             [self.collectionView reloadData];
-            
+            [self checkoutAllSelected];
         } else {
 
         }
@@ -44,6 +43,18 @@
         [ZBLodingAnimateView dissMissLoadingView];
     }];
     
+}
+
+- (void)checkoutAllSelected {
+    BOOL isAllSelected = true;
+    for (NSInteger i = 0; i < self.dataList.count; i ++) {
+        ZBBIfenSelectedSaishiModel *bifenmodel = self.dataList[i];
+        if (!bifenmodel.isSelected) {
+            isAllSelected = false;
+            break;
+        }
+    }
+    _allselectedV.btnAll.selected = isAllSelected;
 }
 
 #pragma mark - Lazy Load
@@ -91,16 +102,20 @@
         }];
         [self.collectionView reloadData];
     }else if (index == 2) {
-        if (_delegate && [_delegate respondsToSelector:@selector(confirmSelectedJincaiWithData:)]) {
-            NSMutableArray *arrMemory = [NSMutableArray arrayWithArray:self.dataList];
-            NSMutableArray *arrSend = [NSMutableArray array];
-            for (int i = 0 ;i<arrMemory.count; i++) {
-                ZBBIfenSelectedSaishiModel *model = [arrMemory objectAtIndex:i];
-                if (model.isSelected) {
-                    [arrSend addObject:model];
+        if (_allselectedV.btnAll.selected && [self.timeline isEqualToString:@"live"]) {
+            [_delegate confirmSelectedJincaiWithData:nil];
+        } else {
+            if (_delegate && [_delegate respondsToSelector:@selector(confirmSelectedJincaiWithData:)]) {
+                NSMutableArray *arrMemory = [NSMutableArray arrayWithArray:self.dataList];
+                NSMutableArray *arrSend = [NSMutableArray array];
+                for (int i = 0 ;i<arrMemory.count; i++) {
+                    ZBBIfenSelectedSaishiModel *model = [arrMemory objectAtIndex:i];
+                    if (model.isSelected) {
+                        [arrSend addObject:model];
+                    }
                 }
+                [_delegate confirmSelectedJincaiWithData:arrSend];
             }
-            [_delegate confirmSelectedJincaiWithData:arrSend];
         }
     }
 }
@@ -157,6 +172,7 @@
     model.isSelected = !model.isSelected;
     [_allselectedV changeBtnSelectedState:model.isSelected];
     [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil]];
+    [self checkoutAllSelected];
 }
 #pragma mark --  UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
