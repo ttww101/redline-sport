@@ -58,6 +58,8 @@
 @property (nonatomic, strong) BaseImageView *eyeIV;
 @property (nonatomic , strong) UILabel *eyeLab;
 
+@property (nonatomic , strong) UILabel *noPublicLab;
+
 
 
 @end
@@ -127,14 +129,11 @@
         _labMoney.textColor = redcolor;
         NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
         if (!(str.length > 0)) {
-            str = @"球币";
+            str = @"钻石";
         }
         
         
         _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
-        
-        
-        
     }
     NSString *space = @"";
     if (isOniPhone4 ||  isOniPhone5) {
@@ -226,27 +225,37 @@
             [self.webView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.height.mas_equalTo(_webViewHight).priority(750);
             }];
-            NSString *htmls = [NSString stringWithFormat:@"<html> \n"
-                               "<head> \n"
-                               "<style type=\"text/css\"> \n"
-                               "*{padding:0;margin:0;}p{line-height:22px;width:100%%; padding-bottom:0px;float:left;}"
-                               "</style> \n"
-                               "</head> \n"
-                               "<body>"
-                               "<script type='text/javascript'>"
-                               "window.onload = function(){\n"
-                               "var $img = document.getElementsByTagName('img');\n"
-                               "for(var p in  $img){\n"
-                               " $img[p].style.maxWidth = '100%%';\n"
-                               "$img[p].style.height ='auto'\n"
-                               "}\n"
-                               "}"
-                               "</script>%@"
-                               "</body>"
-                               "</html>",_model.contentInfo];
-            [self.webView loadHTMLString:htmls baseURL:nil];
+            
+            if (_model.contentInfo.length > 0) {
+                NSString *htmls = [NSString stringWithFormat:@"<html> \n"
+                                   "<head> \n"
+                                   "<style type=\"text/css\"> \n"
+                                   "*{padding:0;margin:0;}p{line-height:22px;width:100%%; padding-bottom:0px;float:left;}"
+                                   "</style> \n"
+                                   "</head> \n"
+                                   "<body>"
+                                   "<script type='text/javascript'>"
+                                   "window.onload = function(){\n"
+                                   "var $img = document.getElementsByTagName('img');\n"
+                                   "for(var p in  $img){\n"
+                                   " $img[p].style.maxWidth = '100%%';\n"
+                                   "$img[p].style.height ='auto'\n"
+                                   "}\n"
+                                   "}"
+                                   "</script>%@"
+                                   "</body>"
+                                   "</html>",_model.contentInfo];
+                [self.webView loadHTMLString:htmls baseURL:nil];
+            }
+            
+           
         }else{
             [_labContent setAttributedText:[ZBMethods setTextStyleWithString:_model.content WithLineSpace:5 WithHeaderIndent:0]];
+            [self.webView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(100);
+            }];
+            self.noPublicLab.hidden = false;
+
         }
     }else{
         _labcontentPart.text =_model.slogan;
@@ -384,6 +393,7 @@
     }
     return _labSaishi;
 }
+
 - (UILabel *)labbeginTime
 {
     if (!_labbeginTime) {
@@ -393,6 +403,20 @@
     }
     return _labbeginTime;
 }
+
+- (UILabel *)noPublicLab
+{
+    if (!_noPublicLab) {
+        _noPublicLab = [[UILabel alloc] init];
+        _noPublicLab.font = font14;
+        _noPublicLab.textColor = UIColorHex(#646464);
+        _noPublicLab.textAlignment = NSTextAlignmentCenter;
+        _noPublicLab.text = @"该推荐未发表分析内容！";
+        _noPublicLab.hidden = true;
+    }
+    return _noPublicLab;
+}
+
 - (UILabel *)labQici
 {
     if (!_labQici) {
@@ -993,12 +1017,21 @@
             make.right.equalTo(self.basicView.mas_right).offset(-15);
         }];
         
+        
+        
         [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.basicView.mas_left).offset(15);
             make.top.equalTo(self.labContent.mas_bottom).offset(6.5);
             make.right.equalTo(self.basicView.mas_right).offset(-15);
             make.height.mas_equalTo(0).priority(750);
         }];
+        
+        [self.webView addSubview:self.noPublicLab];
+        [self.noPublicLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.webView.mas_centerY);
+            make.centerX.equalTo(self.webView.mas_centerX);
+        }];
+        
     
         
         [self.timeIV mas_makeConstraints:^(MASConstraintMaker *make) {

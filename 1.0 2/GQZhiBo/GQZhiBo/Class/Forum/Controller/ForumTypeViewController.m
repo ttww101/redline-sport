@@ -333,7 +333,7 @@ static NSString *const CellID = @"GLCellID";
 
 - (GeneralFloatingView *)floatingView {
     if (_floatingView == nil) {
-        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"form_publish", @"formReload"] scale:0.8];
+        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"form_publish", @"formReload"] scale:0.8 ignoreTabBar:false];
         _floatingView.delegate = self;
     }
     return _floatingView;

@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) NSArray *imagesPath;
 @property (nonatomic, assign) CGFloat scale;
+@property (nonatomic, assign) BOOL ignoreTab;
 
 
 @end
@@ -20,11 +21,13 @@
 @implementation GeneralFloatingView
 
 - (instancetype)initWithImages:(NSArray *)images
-                         scale:(CGFloat)scale {
+                         scale:(CGFloat)scale
+                  ignoreTabBar:(BOOL)isIgnoreTabBar {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _imagesPath = [images copy];
         _scale = scale;
+        _ignoreTab = isIgnoreTabBar;
         [self configUI];
     }
     return self;
@@ -36,7 +39,7 @@
     CGPoint origin  = self.origin;
     CGSize size = self.size;
     origin.x = Width * _scale;
-    origin.y = Height * _scale;
+    origin.y = (_ignoreTab ? Height - 78 : Height) * _scale;
     size.width = 41;
     size.height = _imagesPath.count * 41;
     self.origin = origin;

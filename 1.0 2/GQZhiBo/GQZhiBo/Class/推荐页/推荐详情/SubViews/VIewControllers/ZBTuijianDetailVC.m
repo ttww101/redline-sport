@@ -661,9 +661,11 @@
     }
     NSString *content = _textView.text;
     [parameter setObject:content forKey:@"content"];
+    [ZBLodingAnimateView showLodingView];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_addComment] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
         if ([[ responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             _textView.text = nil;
             _currentTextViewText = nil;
@@ -682,6 +684,7 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
         [self.view endEditing:YES];
+        [ZBLodingAnimateView dissMissLoadingView];
     }];
 }
 - (void)addLiked:(UIButton *)btn

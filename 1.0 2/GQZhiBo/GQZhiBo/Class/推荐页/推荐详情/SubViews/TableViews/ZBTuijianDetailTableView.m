@@ -232,7 +232,7 @@
     } else if (section == 1) {
          UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Width, 45)];
         header.backgroundColor = [UIColor whiteColor];
-        UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(15, 7.5, ONE_PX_LINE, 30)];
+        UIView *verticalLine = [[UIView alloc] initWithFrame:CGRectMake(15, 15, 3, 15)];
         verticalLine.backgroundColor = UIColorHex(#EF4131);
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(verticalLine.right + 15, 0 , Width - 30, 45)];
         lab.font = font14;

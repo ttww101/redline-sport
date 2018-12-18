@@ -17,7 +17,8 @@
 @interface GeneralFloatingView : UIView
 
 - (instancetype)initWithImages:(NSArray *)images
-                         scale:(CGFloat)scale;
+                         scale:(CGFloat)scale
+                  ignoreTabBar:(BOOL)isIgnoreTabBar;
 
 @property (nonatomic, weak) id <GeneralFloatingViewDelegate> delegate;
 

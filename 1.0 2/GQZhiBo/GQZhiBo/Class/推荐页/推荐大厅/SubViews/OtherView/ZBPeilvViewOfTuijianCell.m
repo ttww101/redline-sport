@@ -149,7 +149,7 @@
         _labPankou.text = @"付费查看";
         NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
         if (!(str.length > 0)) {
-            str = @"球币";
+            str = @"钻石";
         }
         _labchoice.text = [NSString stringWithFormat:@"%ld%@",(long)_model.amount/100,str];
     }

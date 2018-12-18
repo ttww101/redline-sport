@@ -48,7 +48,7 @@
 
 - (GeneralFloatingView *)floatingView {
     if (_floatingView == nil) {
-        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"filter"] scale:0.8];
+        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"filter"] scale:0.8 ignoreTabBar:false];
         _floatingView.delegate = self;
     }
     return _floatingView;

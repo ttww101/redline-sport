@@ -17,7 +17,9 @@
 #import "ZBCommentsViewController.h"
 #import "ZBInputViewController.h"
 #import "ZBReplyViewController.h"
-@interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate>
+#import "GeneralFloatingView.h"
+
+@interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate, GeneralFloatingViewDelegate>
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 @property (nonatomic , copy) NSString *recordUrl;
@@ -30,6 +32,8 @@
 @property (nonatomic , strong) ZBCommentsView *commentsView;
 @property (nonatomic , strong) NSDictionary *commentsDic;
 @property (nonatomic , strong) UIButton *replyBtn;
+@property (nonatomic , strong) GeneralFloatingView *floatingView;
+
 
 @end
 #define wxpay @"wx"
@@ -48,6 +52,12 @@
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
     [self.wkWeb addSubview:self.progressView];
     [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    
+
+    if ([self.model.webUrl containsString:@"tuijianIndex"]) {
+        [self.view addSubview:self.floatingView];
+    }
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -306,12 +316,22 @@
         _activityWeb = nil;
     }
 }
+
+#pragma mark - GeneralFloatingViewDelegate
+
+- (void)floatingViewDidSelected:(NSInteger)sender {
+    ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
+    [self.navigationController pushViewController:control animated:true];
+}
+
 #pragma mark - JSHandle
 - (void)closeWin:(id)data {
 }
+
 - (void)webBack {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)webShare:(id)data {
     if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
         NSDictionary *dic = (NSDictionary *)data;
@@ -979,6 +999,14 @@
         [_replyBtn addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllTouchEvents];
     }
     return _replyBtn;
+}
+
+- (GeneralFloatingView *)floatingView {
+    if (_floatingView == nil) {
+        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"publish_btn"] scale:0.8 ignoreTabBar:true];
+        _floatingView.delegate = self;
+    }
+    return _floatingView;
 }
 
 @end
