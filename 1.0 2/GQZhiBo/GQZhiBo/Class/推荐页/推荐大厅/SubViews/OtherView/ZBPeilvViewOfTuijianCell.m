@@ -7,8 +7,25 @@
 @property (nonatomic, strong) UILabel *labPeilv;
 @property (nonatomic, strong) UILabel *labZhuma;
 @property (nonatomic, strong) UIImageView *stateImageView;
+@property (nonatomic, strong) UILabel *palyType;;
+
+
 @end
 @implementation ZBPeilvViewOfTuijianCell
+
+#pragma mark - Lazy Load
+
+- (UILabel *)palyType {
+    if (!_palyType) {
+        _palyType = [[UILabel alloc] init];
+        _palyType.textColor = UIColorHex(#787878);
+        _palyType.font = font12;
+    }
+    return _palyType;
+}
+
+#pragma mark - ************  以下高人所写  ************
+
 - (id)init
 {
     self = [super init];
@@ -31,11 +48,15 @@
     _labPankou.text = @"推荐玩法:";
     if (model.playtype == 1) {
         _stateImageView.image = [UIImage imageNamed:@"ic_type_spf"];
+        self.palyType.text = @"胜平负";
     } else if (model.playType == 2) {
         _stateImageView.image = [UIImage imageNamed:@"ic_type_rq"];
+         self.palyType.text = @"让球";
     } else if (model.playType == 3) {
         _stateImageView.image = [UIImage imageNamed:@"ic_type_dxq"];
+        self.palyType.text = @"进球数";
     }
+    
     return;
     if (_model.see) {
         if (_model.spf.count>0) {
@@ -142,6 +163,7 @@
         [_basicView addSubview:self.labPeilv];
         [_basicView addSubview:self.labZhuma];
         [_basicView addSubview:self.stateImageView];
+        [_basicView addSubview:self.palyType];
     }
     return _basicView;
 }
@@ -149,8 +171,8 @@
 {
     if (!_labPankou) {
         _labPankou = [[UILabel alloc] init];
-        _labPankou.textColor = color33;
-        _labPankou.font = font14;
+        _labPankou.textColor = UIColorHex(#666666);
+        _labPankou.font = font12;
     }
     return _labPankou;
 }
@@ -200,11 +222,17 @@
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.centerY.equalTo(self.basicView.mas_centerY);
     }];
-    [self.stateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.labPankou.mas_right).offset(5);
+    
+    [self.palyType mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.labPankou.mas_right).offset(3);
         make.centerY.equalTo(self.labPankou.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(50, 20));
     }];
+    
+//    [self.stateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.labPankou.mas_right).offset(5);
+//        make.centerY.equalTo(self.labPankou.mas_centerY);
+//        make.size.mas_equalTo(CGSizeMake(50, 20));
+//    }];
     [self.labchoice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.labPankou.mas_right).offset(10);
         make.centerY.equalTo(self.basicView.mas_centerY);

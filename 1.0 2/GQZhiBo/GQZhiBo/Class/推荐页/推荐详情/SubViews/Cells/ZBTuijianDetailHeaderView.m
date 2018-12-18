@@ -249,7 +249,7 @@
             [_labContent setAttributedText:[ZBMethods setTextStyleWithString:_model.content WithLineSpace:5 WithHeaderIndent:0]];
         }
     }else{
-        _labcontentPart.text =_model.content;
+        _labcontentPart.text =_model.slogan;
     }
     if (_model.result!= nil) {
         switch ([_model.result integerValue]) {
@@ -340,9 +340,10 @@
             [_basicView addSubview:self.labZanNum];
             [_basicView addSubview:self.btnZan];
         }else{
-            [_basicView addSubview:self.labMultipleTitle];
-            [_basicView addSubview:self.imageMultiple];
-            [_basicView addSubview:self.labMultiple];
+//            [_basicView addSubview:self.labMultipleTitle];
+//            [_basicView addSubview:self.imageMultiple];
+//            [_basicView addSubview:self.labMultiple];
+            
             [_basicView addSubview:self.lineView];
             [_basicView addSubview:self.imageViewWin];
             [_basicView addSubview:self.labcontentPart];
@@ -653,6 +654,7 @@
     if (!_imghidecontent) {
         _imghidecontent = [[UIImageView alloc] init];
         _imghidecontent.image = [UIImage imageNamed:@"cover"];
+        _imghidecontent.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _imghidecontent;
 }
@@ -1007,25 +1009,25 @@
         
     }else{
         
-        [self.labMultipleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.basicView.mas_left).offset(15);
-            make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(6);
-        }];
-        
-        [self.imageMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.labMultipleTitle.mas_left).offset(0);
-            make.centerY.equalTo(self.labMultipleTitle.mas_centerY);
-            make.width.mas_equalTo(0);
-            make.height.mas_equalTo(0);
-        }];
-        
-        [self.labMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.labMultipleTitle.mas_right).offset(5);
-            make.centerY.equalTo(self.labMultipleTitle.mas_centerY);
-        }];
+//        [self.labMultipleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.basicView.mas_left).offset(15);
+//            make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(6);
+//        }];
+//
+//        [self.imageMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.basicView.mas_left).offset(0);
+//            make.centerY.equalTo(self.labMultipleTitle.mas_centerY);
+//            make.width.mas_equalTo(0);
+//            make.height.mas_equalTo(0);
+//        }];
+//
+//        [self.labMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.labMultipleTitle.mas_right).offset(5);
+//            make.centerY.equalTo(self.labMultipleTitle.mas_centerY);
+//        }];
         
         [self.labReason mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.labMultiple.mas_bottom).offset(8);
+            make.top.equalTo(self.viewLineAuthorBottom.mas_bottom).offset(6);
             make.left.equalTo(self.basicView.mas_left).offset(15);
         }];
         
@@ -1040,7 +1042,7 @@
             make.left.equalTo(self.basicView.mas_left).offset(15);
             make.top.equalTo(self.lineView.mas_bottom).offset(5);
             make.right.equalTo(self.basicView.mas_right).offset(-15);
-            make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
+//            make.size.mas_equalTo(CGSizeMake(Width - 30, 20));
         }];
         
         [self.imghidecontent mas_makeConstraints:^(MASConstraintMaker *make) {

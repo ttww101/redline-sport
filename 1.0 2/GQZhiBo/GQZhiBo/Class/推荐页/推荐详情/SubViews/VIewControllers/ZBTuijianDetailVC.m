@@ -109,8 +109,9 @@
         make.width.mas_equalTo(120);
     }];
     [self.btnPay mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.trailing.bottom.equalTo(self.payView);
-        make.width.mas_equalTo(100);
+        make.centerY.equalTo(self.payView.mas_centerY);
+        make.right.equalTo(self.payView.mas_right).offset(-15);
+        make.size.mas_equalTo(CGSizeMake(94, 28));
     }];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.tableView.mas_left);
@@ -190,7 +191,7 @@
 - (void)payViewpayl {
     if (!_payView) {
         _payView = [[UIView alloc] init];
-        _payView.backgroundColor = colorf5f5f5;
+        _payView.backgroundColor = [UIColor whiteColor];
         _payView.layer.borderColor = colorDD.CGColor;
         _payView.layer.borderWidth = 0.6;
         _payView.userInteractionEnabled = YES;
@@ -311,11 +312,11 @@
 - (UIButton *)btnPay {
     if (!_btnPay) {
         _btnPay = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_btnPay setBackgroundImage:[UIImage imageNamed:@"paynow"] forState:UIControlStateNormal];
+        [_btnPay addTarget:self action:@selector(payBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_btnPay setTitle:@"立即支付" forState:UIControlStateNormal];
         [_btnPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_btnPay setBackgroundColor:redcolor];
-        [_btnPay.titleLabel setFont:font16];
-        [_btnPay addTarget:self action:@selector(payBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _btnPay.titleLabel.font = font14;
     }
     return _btnPay;
 }
@@ -598,7 +599,7 @@
                     _labComment1.selected = _model.hated;
                     NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
                     if (!(str.length > 0)) {
-                        str = @"球币";
+                        str = @"钻石";
                     }
                     _labelQiuBi.text = [NSString stringWithFormat:@"需支付%ld%@",_model.amount/100,str];
                     _labelQiuBi.font = font14;

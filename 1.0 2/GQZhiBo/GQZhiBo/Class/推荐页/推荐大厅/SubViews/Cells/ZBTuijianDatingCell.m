@@ -27,6 +27,11 @@
 @property (nonatomic , strong) UILabel *goldLabel;
 @property (nonatomic , strong) UILabel *buyNumLabel;
 @property (nonatomic , strong) UIImageView *buyImageView;
+@property (nonatomic, strong) BaseImageView *lockIV;
+
+@property (nonatomic, strong) UIView *lockView;
+
+
 @end
 @implementation ZBTuijianDatingCell
 - (void)awakeFromNib {
@@ -67,7 +72,7 @@
         if (!_model.see) {
             NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
             if (!(str.length > 0)) {
-                str = @"球币";
+                str = @"钻石";
             }
             _labMoney.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
         } else {
@@ -83,7 +88,7 @@
         if (!_model.see) {
             NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
             if (!(str.length > 0)) {
-                str = @"球币";
+                str = @"钻石";
             }
             _goldLabel.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
             _goldLabel.hidden = false;
@@ -215,7 +220,10 @@
         [_basicView addSubview:self.btnNoZan];
         [_basicView addSubview:self.labZanNum];
         [_basicView addSubview:self.btnZan];
-        [_basicView addSubview:self.goldLabel];
+        
+        [_basicView addSubview:self.lockView];
+        [self.lockView addSubview:self.goldLabel];
+        [self.lockView addSubview:self.lockIV];
     }
     return _basicView;
 }
@@ -353,16 +361,33 @@
 - (UILabel *)goldLabel {
     if (_goldLabel == nil) {
         _goldLabel = [UILabel new];
-        _goldLabel.backgroundColor = UIColorFromRGBWithOX(0xD1A425);
-        _goldLabel.layer.cornerRadius = 3;
-        _goldLabel.layer.masksToBounds = YES;
         _goldLabel.text = @"50金币";
         _goldLabel.textColor = [UIColor whiteColor];
-        _goldLabel.font = font15;
+        _goldLabel.font = font12;
         _goldLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _goldLabel;
 }
+
+- (BaseImageView *)lockIV {
+    if (_lockIV == nil) {
+        _lockIV = [[BaseImageView alloc]init];
+        _lockIV.image = [UIImage imageNamed:@"lock"];
+    }
+    return _lockIV;
+}
+
+- (UIView *)lockView {
+    if (_lockView == nil) {
+        _lockView = [[UIView alloc]init];
+        _lockView.backgroundColor = UIColorFromRGBWithOX(0xE2392D);
+        _lockView.layer.cornerRadius = 12;
+        _lockView.layer.masksToBounds = true;
+    }
+    return _lockView;
+}
+
+
 - (UILabel *)labContent
 {
     if (!_labContent) {
@@ -420,11 +445,23 @@
                 make.top.equalTo(self.headerUser.mas_bottom).offset(20);
                 make.size.mas_equalTo(CGSizeMake(70, 30));
             }];
-            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            [self.lockView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.basicView.mas_right).offset(-20);
                 make.top.equalTo(self.headerUser.mas_bottom).offset(20);
-                make.size.mas_equalTo(CGSizeMake(70, 30));
+                make.size.mas_equalTo(CGSizeMake(70, 25));
             }];
+            
+            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.lockView.mas_right).offset(-3);
+                make.centerY.equalTo(self.lockView.mas_centerY);
+            }];
+            
+            [self.lockIV mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.lockView.mas_left).offset(5);
+                make.centerY.equalTo(self.lockView.mas_centerY);
+            }];
+            
             [self.teamView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.basicView.mas_left);
                 make.right.equalTo(self.basicView.mas_right);
@@ -540,11 +577,24 @@
             break;
         case typeTuijianCellUser:
         {
-            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+
+            
+            [self.lockView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.basicView.mas_right).offset(-20);
                 make.top.equalTo(self.basicView.mas_top).offset(10);
-                make.size.mas_equalTo(CGSizeMake(70, 30));
+                make.size.mas_equalTo(CGSizeMake(70, 25));
             }];
+            
+            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.lockView.mas_right).offset(0);
+                make.centerY.equalTo(self.lockView.mas_centerY);
+            }];
+            
+            [self.lockIV mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.lockView.mas_left).offset(5);
+                make.centerY.equalTo(self.lockView.mas_centerY);
+            }];
+    
             [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.basicView.mas_right).offset(-20);
                 make.centerY.equalTo(self.basicView.mas_centerY);

@@ -131,7 +131,7 @@
         }];
     }
     
-    NSString *goodPlay = @"擅长:";
+    NSString *goodPlay = @"";
     NSString *firstStr = nil;
     NSString *secondStr = nil;
     if (model.sclassWinRate.length > 0) {
@@ -346,7 +346,7 @@
         _userWin = [[UILabel alloc] init];
         _userWin.font = font10;
         _userWin.textColor = [UIColor whiteColor];
-        _userWin.layer.cornerRadius =3;
+        _userWin.layer.cornerRadius = 3;
         _userWin.layer.masksToBounds = YES;
         _userWin.backgroundColor = UIColorHex(#F96153);
         _userWin.textAlignment = NSTextAlignmentCenter;

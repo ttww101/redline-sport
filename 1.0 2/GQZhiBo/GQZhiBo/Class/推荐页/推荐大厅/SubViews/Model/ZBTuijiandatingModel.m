@@ -85,7 +85,8 @@
              @"buyCount":@"buyCount",
              @"showPrice": @"showPrice",
              @"showBuyCount":@"showBuyCount",
-             @"red":@"red"
+             @"red":@"red",
+             @"slogan":@"slogan"
              };
 }
 - (void)setHomeTeam:(NSString *)homeTeam {

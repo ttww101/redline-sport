@@ -64,7 +64,7 @@
         _labVS.text = [NSString stringWithFormat:@"%ld:%ld",(long)_model.HomeScore,(long)_model.GuestScore];
     }else {
         _labVS.font = font14;
-        _labVS.textColor = color99;
+        _labVS.textColor = UIColorHex(#E2392D);
         _labVS.text = [ZBMethods getTextByMatchState:_model.MatchState];
     }
     [_imgTeamHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam(_model.HomeTeamID)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
@@ -77,7 +77,7 @@
         _labMoney.textColor = redcolor;
         NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
         if (!(str.length > 0)) {
-            str = @"球币";
+            str = @"钻石";
         }
         _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
         _labMoney.attributedText = [ZBMethods withContent:_labMoney.text WithColorText:str textColor:color33 strFont:font12];

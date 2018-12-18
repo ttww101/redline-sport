@@ -92,4 +92,6 @@
 
 @property (nonatomic, assign) NSInteger red;
 
+@property (nonatomic , copy) NSString *slogan;
+
 @end
