@@ -391,8 +391,8 @@
         {
             _labstate.text = @"待定";
             _VSlab.text = @"vs";
-            _VSlab.textColor = redcolor;
-            _labstate.textColor = redcolor;
+            _VSlab.textColor = UIColorHex(#969996);
+            _labstate.textColor = UIColorHex(#969996);
             _VSlab.font = font17;
         }
             break;
@@ -418,8 +418,8 @@
         {
             _labstate.text = @"推迟";
             _VSlab.text = @"vs";
-            _VSlab.textColor = redcolor;
-            _labstate.textColor = redcolor;
+            _VSlab.textColor = UIColorHex(#969996);
+            _labstate.textColor = UIColorHex(#969996);
             _VSlab.font = font17;
         }
             break;
@@ -437,8 +437,8 @@
             _labstate.text = [NSString stringWithFormat:@"%ld", (long)_ScoreModel.matchstate];
 //            _labstate.text = @"未";
             _VSlab.text = @"vs";
-            _VSlab.textColor = redcolor;
-            _labstate.textColor = redcolor;
+            _VSlab.textColor = UIColorHex(#969996);
+            _labstate.textColor = UIColorHex(#969996);
             _VSlab.font = font17;
         }
             break;

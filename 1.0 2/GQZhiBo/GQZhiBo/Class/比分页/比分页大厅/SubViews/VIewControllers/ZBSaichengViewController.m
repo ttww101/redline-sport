@@ -67,8 +67,9 @@
 #pragma mark - Notification
 
 - (void)loadFilterData:(NSNotification *)notifi {
-    self.filterDic = notifi.userInfo[@"paramer"];
-    if ([self.filterDic[ParamtersTimeline] isEqualToString:@"new"]) {
+     NSDictionary *dic = notifi.userInfo[@"paramer"];
+    if ([dic[ParamtersTimeline] isEqualToString:@"new"]) {
+        self.filterDic = dic;
         [self loadDataQiciJishiViewController];
     }
     

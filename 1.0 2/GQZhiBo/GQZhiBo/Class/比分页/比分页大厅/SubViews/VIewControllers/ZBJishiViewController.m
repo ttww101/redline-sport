@@ -56,8 +56,9 @@ static SystemSoundID shake_sound_id = 0;
 #pragma mark - Notification
 
 - (void)loadFilterData:(NSNotification *)notifi {
-    self.filterDic = notifi.userInfo[@"paramer"];
-    if ([self.filterDic[ParamtersTimeline] isEqualToString:@"live"]) {
+    NSDictionary *dic = notifi.userInfo[@"paramer"];
+    if ([dic[ParamtersTimeline] isEqualToString:@"live"]) {
+        self.filterDic = dic;
          [self loadDataQiciJishiViewController];
     }
    
