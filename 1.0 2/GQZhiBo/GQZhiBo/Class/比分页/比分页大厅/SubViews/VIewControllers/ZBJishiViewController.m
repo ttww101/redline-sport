@@ -101,7 +101,7 @@ static SystemSoundID shake_sound_id = 0;
     [self loadDataQiciJishiViewController];
     [self creatArr];
     
-//     [self changeTimer];
+     [self changeTimer];
    
 }
 - (void)creatArr {
@@ -692,9 +692,21 @@ static SystemSoundID shake_sound_id = 0;
     NSMutableArray *arrlive = [[NSMutableArray alloc] init];
     NSMutableArray *arrComplete = [NSMutableArray array];
     NSMutableArray *arrSendFenxiPage = [NSMutableArray array];
-    if (self.arrData > 0 ) {
-        for (int i = 0 ; i<self.arrData.count; i++) {
-            ZBJSbifenModel *jsmodel = [self.arrData objectAtIndex:i];
+    
+    
+    NSMutableArray *appendArray = [NSMutableArray array];
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+        appendArray = self.arrData;
+    } else {
+        ZBJSbifenModel *model = [[ZBJSbifenModel alloc]init];
+        model.data = self.arrData;
+        [appendArray addObject:model];
+    }
+    
+    if (appendArray > 0 ) {
+        for (int i = 0 ; i<appendArray.count; i++) {
+            ZBJSbifenModel *jsmodel = [appendArray objectAtIndex:i];
             for (int m = 0; m<jsmodel.data.count; m++) {
                 ZBLiveScoreModel * scoreModel= [jsmodel.data objectAtIndex:m];
                 for (int j= 0; j<arr.count; j++){
@@ -848,8 +860,8 @@ static SystemSoundID shake_sound_id = 0;
         NSLog(@"all ---arrlive.count----%ld",(unsigned long)arrlive.count);
         [self reloadTableView];
     }
-    for (int i = 0 ; i<self.arrData.count; i++) {
-        ZBJSbifenModel *jsmodel = [self.arrData objectAtIndex:i];
+    for (int i = 0 ; i<appendArray.count; i++) {
+        ZBJSbifenModel *jsmodel = [appendArray objectAtIndex:i];
         for (int m = 0; m<jsmodel.data.count; m++) {
             ZBLiveScoreModel * scoreModel= [jsmodel.data objectAtIndex:m];
             for (int j= 0; j<_memeryArrAllPart.count; j++){
@@ -865,19 +877,21 @@ static SystemSoundID shake_sound_id = 0;
     }
     NSMutableArray *arrRemove = [NSMutableArray array];
             for (ZBLiveScoreModel *model in arrComplete) {
-                for (int i = 0; i<self.arrData.count; i++) {
-                    ZBJSbifenModel *jsmodel = [self.arrData objectAtIndex:i];
+                for (int i = 0; i<appendArray.count; i++) {
+                    ZBJSbifenModel *jsmodel = [appendArray objectAtIndex:i];
                     if ([jsmodel.data containsObject:model]) {
                         [arrRemove addObject:model];
                         [jsmodel.data removeObject:model];
                     }
                 }
             }
-    ZBJSbifenModel *jsmodel= [self.arrData lastObject];
+    ZBJSbifenModel *jsmodel= [appendArray lastObject];
     [jsmodel.data addObjectsFromArray:arrRemove];
     if (arrComplete.count>0) {
         [self reloadTableView];
     }
+    
+    
 }
 - (void)jinqiuShowHudWithLivingModel:(ZBLivingModel *)livingModel NowModel:(ZBLiveScoreModel *)scoreModel
 {

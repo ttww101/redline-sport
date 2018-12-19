@@ -44,7 +44,7 @@
     _titleView.lineColor = redcolor;
     _titleView.bottomLineColor = colorCellLine;
     _titleView.backgroundColor = [UIColor whiteColor];
-    _titleView.arrData = @[@"全部",@"竞彩",@"北单",@"足彩"];
+    _titleView.arrData = @[@"竞彩",@"北单",@"足彩",@"全部"];
     _titleView.delegate =self;
     [self.view addSubview:_titleView];
     self.delegate = self;
@@ -80,28 +80,28 @@
         case 0:
         {
             ZBDan_StringGuanVC *fabuTuijianVC = [[ZBDan_StringGuanVC alloc] init];
-            fabuTuijianVC.jsonStr = @"all";
+            fabuTuijianVC.jsonStr = @"jc";
             return fabuTuijianVC;
         }
             break;
         case 1:
         {
             ZBDan_StringGuanVC *fabuTuijianVC = [[ZBDan_StringGuanVC alloc] init];
-            fabuTuijianVC.jsonStr = @"jc";
+            fabuTuijianVC.jsonStr = @"bd";
             return fabuTuijianVC;
         }
             break;
         case 2:
         {
             ZBDan_StringGuanVC *fabuTuijianVC = [[ZBDan_StringGuanVC alloc] init];
-            fabuTuijianVC.jsonStr = @"bd";
+            fabuTuijianVC.jsonStr = @"zc";
             return fabuTuijianVC;
         }
             break;
         case 3:
         {
             ZBDan_StringGuanVC *fabuTuijianVC = [[ZBDan_StringGuanVC alloc] init];
-            fabuTuijianVC.jsonStr = @"zc";
+            fabuTuijianVC.jsonStr = @"all";
             return fabuTuijianVC;
         }
             break;

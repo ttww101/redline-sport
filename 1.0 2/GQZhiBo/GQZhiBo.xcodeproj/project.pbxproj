@@ -181,6 +181,7 @@
 		A9C58F0921B5423F005F7396 /* compose_emotion_table_left_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C58F0021B5423E005F7396 /* compose_emotion_table_left_normal@2x.png */; };
 		A9C58F0A21B5423F005F7396 /* emoticon_keyboard_magnifier@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C58F0121B5423F005F7396 /* emoticon_keyboard_magnifier@3x.png */; };
 		A9C58F0D21B54789005F7396 /* WBStatusComposeTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C58F0B21B54788005F7396 /* WBStatusComposeTextParser.m */; };
+		A9D228E621CA4FB0004434CB /* showMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D228E521CA4FB0004434CB /* showMessageView.m */; };
 		A9D37AA72085C382009BA927 /* ZBLiveQuizViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AA62085C382009BA927 /* ZBLiveQuizViewController.m */; };
 		A9D37AAB2085D371009BA927 /* ZBLiveQuizAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D37AAA2085D371009BA927 /* ZBLiveQuizAlertView.m */; };
 		A9D9494020BBAB2E0031B2F5 /* ZBCustmerTableBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9493F20BBAB2E0031B2F5 /* ZBCustmerTableBar.m */; };
@@ -1426,6 +1427,8 @@
 		A9C58F0121B5423F005F7396 /* emoticon_keyboard_magnifier@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emoticon_keyboard_magnifier@3x.png"; sourceTree = "<group>"; };
 		A9C58F0B21B54788005F7396 /* WBStatusComposeTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBStatusComposeTextParser.m; sourceTree = "<group>"; };
 		A9C58F0C21B54788005F7396 /* WBStatusComposeTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBStatusComposeTextParser.h; sourceTree = "<group>"; };
+		A9D228E421CA4FB0004434CB /* showMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = showMessageView.h; sourceTree = "<group>"; };
+		A9D228E521CA4FB0004434CB /* showMessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = showMessageView.m; sourceTree = "<group>"; };
 		A9D37AA52085C382009BA927 /* ZBLiveQuizViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLiveQuizViewController.h; sourceTree = "<group>"; };
 		A9D37AA62085C382009BA927 /* ZBLiveQuizViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLiveQuizViewController.m; sourceTree = "<group>"; };
 		A9D37AA92085D371009BA927 /* ZBLiveQuizAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLiveQuizAlertView.h; sourceTree = "<group>"; };
@@ -6266,6 +6269,8 @@
 				EB8C1EDB1F21974000A07863 /* ZBZhumaViewOfFabuTuijian.m */,
 				A992872721ABC499003F6137 /* PlayControl.h */,
 				A992872821ABC499003F6137 /* PlayControl.m */,
+				A9D228E421CA4FB0004434CB /* showMessageView.h */,
+				A9D228E521CA4FB0004434CB /* showMessageView.m */,
 			);
 			path = OtherView;
 			sourceTree = "<group>";
@@ -8262,6 +8267,7 @@
 				EB8C1EBC1F21944C00A07863 /* ZBFirstPInfoListModel.m in Sources */,
 				EB75ED9E1F3D4FC200B6046C /* ZBJishiFirstCell.m in Sources */,
 				EB8C20231F21A0AA00A07863 /* ZBStatisticsSectionTwoModel.m in Sources */,
+				A9D228E621CA4FB0004434CB /* showMessageView.m in Sources */,
 				EB8C1EC11F21944C00A07863 /* ZBRollInfoModel.m in Sources */,
 				EB8C1FB91F219A8C00A07863 /* ZBDCScrollVIew.m in Sources */,
 				A951F996213D094F0001B803 /* ZBAppManger.m in Sources */,

@@ -11,6 +11,8 @@
 #import "ZBFaBuSucceedVCViewController.h"
 #import "ZBToAnalystsVC.h"
 #import "PlayControl.h"
+#import "showMessageView.h"
+
 @interface ZBRelRecNewVC ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SelectedViewOfFabuTuijianDelegate,ZhumaViewOfFabuTuijianDelegate,TitleIndexViewDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UITextField *textFiled;
@@ -110,10 +112,12 @@
         [_ScrollView addSubview:self.describeLab];
         [_ScrollView addSubview:self.coverView];
         [_ScrollView addSubview:self.viewZhuma];
+        _ScrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         _ScrollView.contentSize = CGSizeMake(Width,  self.viewZhuma.bottom);
     }
     return _ScrollView;
 }
+
 
 - (UIView *)viewDetialTitle
 {
@@ -181,6 +185,7 @@
         _oddsLab.textColor = UIColorHex(#6C6C6C);
         _oddsLab.textAlignment = NSTextAlignmentLeft;
         _oddsLab.font = [UIFont systemFontOfSize:12];
+        _oddsLab.hidden = true;
     }
     return _oddsLab;
 }
@@ -198,7 +203,7 @@
     [self.viewDetialTitle addSubview:leftbtn];
     
     self.centerControl = [[PlayControl alloc]initWithFrame:CGRectMake(width, 0, width, self.viewDetialTitle.height - 1)];
-    self.centerControl.title = @"亚指";
+    self.centerControl.title = @"让球";
     [self.viewDetialTitle addSubview:self.centerControl];
     UIButton *centerbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [centerbtn addTarget:self action:@selector(yapanAction) forControlEvents:UIControlEventTouchUpInside];
@@ -217,12 +222,22 @@
     line.backgroundColor = UIColorHex(eeeeee);
     [self.viewDetialTitle addSubview:line];
     
-    [self spfAction];
+    self.leftControl.isSelected = true;
+    self.centerControl.isSelected = false;
+    self.rightControl.isSelected = false;
+    self.viewDetial.hidden = false;
+    self.rqBaseView.hidden = true;
+    self.dxBaseView.hidden = true;
+
 }
 
 #pragma mark - Events
 
 - (void)spfAction {
+    if (_model.spf.count == 0) {
+        [showMessageView showMessage:@"胜平负暂无推荐"];
+        return;
+    }
     self.leftControl.isSelected = true;
     self.centerControl.isSelected = false;
     self.rightControl.isSelected = false;
@@ -233,21 +248,32 @@
 }
 
 - (void)yapanAction {
+    if (_model.rq.count == 0) {
+        [showMessageView showMessage:@"让球暂无推荐"];
+        return;
+    }
     self.leftControl.isSelected = false;
     self.centerControl.isSelected = true;
     self.rightControl.isSelected = false;
     self.viewDetial.hidden = true;
     self.rqBaseView.hidden = false;
     self.dxBaseView.hidden = true;
+    self.yaCenterBtn.userInteractionEnabled = false;
 }
 
 - (void)dxAction {
+    if (_model.dx.count == 0) {
+        [showMessageView showMessage:@"进球数暂无推荐"];
+        return;
+    }
     self.leftControl.isSelected = false;
     self.centerControl.isSelected = false;
     self.rightControl.isSelected = true;
     self.viewDetial.hidden = true;
     self.rqBaseView.hidden = true;
     self.dxBaseView.hidden = false;
+    self.dxCenterBtn.userInteractionEnabled = false;
+    
 }
 
 
@@ -348,47 +374,71 @@
         ZBDxModel *dxModel = model.spf[0];
         self.oddsLab.text = dxModel.company;
         [self.btnOne setTitle:[NSString stringWithFormat:@"胜        %.2f",[dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
-        [self.btnOne setAttributedTitle:[ZBMethods withContent:self.btnOne.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"胜" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.btnOne setAttributedTitle:[ZBMethods withContent:self.btnOne.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnOne.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.btnOne setAttributedTitle:[ZBMethods withContent:self.btnOne.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"胜" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.btnOne setAttributedTitle:[ZBMethods withContent:self.btnOne.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.btnOne.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
         [self.btnTwo setTitle:[NSString stringWithFormat:@"平        %.2f",[dxModel.Goal floatValue]] forState:UIControlStateNormal];
-        [self.btnTwo setAttributedTitle:[ZBMethods withContent:self.btnTwo.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"平" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.btnTwo setAttributedTitle:[ZBMethods withContent:self.btnTwo.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnTwo.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.btnTwo setAttributedTitle:[ZBMethods withContent:self.btnTwo.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"平" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.btnTwo setAttributedTitle:[ZBMethods withContent:self.btnTwo.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.btnTwo.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
         [self.btnThree setTitle:[NSString stringWithFormat:@"负        %.2f",[dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
-        [self.btnThree setAttributedTitle:[ZBMethods withContent:self.btnThree.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"负" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.btnThree setAttributedTitle:[ZBMethods withContent:self.btnThree.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnThree.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.btnThree setAttributedTitle:[ZBMethods withContent:self.btnThree.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"负" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.btnThree setAttributedTitle:[ZBMethods withContent:self.btnThree.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.btnThree.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
     }
+    
     if (model.rq.count > 0) {
         ZBDxModel *dxModel = model.rq[0];
         self.oddsLab.text = dxModel.company;
         [self.btnZhu setTitle:[NSString stringWithFormat:@"主        %.2f",[dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
-        [self.btnZhu setAttributedTitle:[ZBMethods withContent:self.btnZhu.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"主" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.btnZhu setAttributedTitle:[ZBMethods withContent:self.btnZhu.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnZhu.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.btnZhu setAttributedTitle:[ZBMethods withContent:self.btnZhu.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"主" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.btnZhu setAttributedTitle:[ZBMethods withContent:self.btnZhu.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.btnZhu.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
         
         
         [self.yaCenterBtn setTitle:[NSString stringWithFormat:@"%@",dxModel.Goal] forState:UIControlStateNormal];
-        [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.yaCenterBtn.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.yaCenterBtn setAttributedTitle:[ZBMethods withContent:self.yaCenterBtn.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.yaCenterBtn.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
         [self.btnKe setTitle:[NSString stringWithFormat:@"客        %.2f",[dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
-        [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"客" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnKe.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"客" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.btnKe setAttributedTitle:[ZBMethods withContent:self.btnKe.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.btnKe.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
     }
+    
     if (model.dx.count > 0) {
         ZBDxModel *dxModel = model.dx[0];
         self.oddsLab.text = dxModel.company;
         [self.btnBig setTitle:[NSString stringWithFormat:@"大        %.2f", [dxModel.UpOdds floatValue]] forState:UIControlStateNormal];
-        [self.btnBig setAttributedTitle:[ZBMethods withContent:self.btnBig.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"大" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.btnBig setAttributedTitle:[ZBMethods withContent:self.btnBig.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnBig.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.btnBig setAttributedTitle:[ZBMethods withContent:self.btnBig.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"大" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.btnBig setAttributedTitle:[ZBMethods withContent:self.btnBig.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.btnBig.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
         
         
         
         [self.dxCenterBtn setTitle:[NSString stringWithFormat:@"%@",dxModel.Goal] forState:UIControlStateNormal];
-        [self.dxCenterBtn setAttributedTitle:[ZBMethods withContent:self.dxCenterBtn.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.dxCenterBtn setAttributedTitle:[ZBMethods withContent:self.dxCenterBtn.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.dxCenterBtn.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.dxCenterBtn setAttributedTitle:[ZBMethods withContent:self.dxCenterBtn.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.dxCenterBtn setAttributedTitle:[ZBMethods withContent:self.dxCenterBtn.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.dxCenterBtn.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
         
         [self.btnLittle setTitle:[NSString stringWithFormat:@"小        %.2f", [dxModel.DownOdds floatValue]] forState:UIControlStateNormal];
-        [self.btnLittle setAttributedTitle:[ZBMethods withContent:self.btnLittle.titleLabel.text WithContColor:colorEa WithContentFont:font15 WithText:@"小" WithTextColor:colorf66666 WithTextFont:font15] forState:UIControlStateNormal];
-        [self.btnLittle setAttributedTitle:[ZBMethods withContent:self.btnLittle.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font15 WithText:self.btnLittle.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font15] forState:UIControlStateSelected];
+        [self.btnLittle setAttributedTitle:[ZBMethods withContent:self.btnLittle.titleLabel.text WithContColor:UIColorHex(#151515) WithContentFont:font12 WithText:@"小" WithTextColor:UIColorHex(#151515) WithTextFont:font12] forState:UIControlStateNormal];
+        [self.btnLittle setAttributedTitle:[ZBMethods withContent:self.btnLittle.titleLabel.text WithContColor:[UIColor whiteColor] WithContentFont:font12 WithText:self.btnLittle.titleLabel.text WithTextColor:[UIColor whiteColor] WithTextFont:font12] forState:UIControlStateSelected];
     }
+    
+    if (model.spf.count == 0) {
+        if (model.rq.count == 0) {
+            self.leftControl.isSelected = false;
+            self.centerControl.isSelected = false;
+            self.rightControl.isSelected = true;
+            self.viewDetial.hidden = true;
+            self.rqBaseView.hidden = true;
+            self.dxBaseView.hidden = false;
+            self.dxCenterBtn.userInteractionEnabled = false;
+        } else {
+            self.leftControl.isSelected = false;
+            self.centerControl.isSelected = true;
+            self.rightControl.isSelected = false;
+            self.viewDetial.hidden = true;
+            self.rqBaseView.hidden = false;
+            self.dxBaseView.hidden = true;
+            self.yaCenterBtn.userInteractionEnabled = false;
+        }
+    }
+    
+    /*
     if (model.spf.count == 0) {
         self.viewDetialTitle.hidden = YES;
         self.viewDetial.hidden = YES;
@@ -398,6 +448,7 @@
         self.textView.frame = CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, _textViewHeight);
         self.viewZhuma. frame = CGRectMake(0, self.textView.bottom + 20, Width, 145);
     }
+    
     if (model.rq.count == 0) {
         self.rqBaseView.hidden = YES;
         self.dxBaseView.frame = CGRectMake(0, self.viewDetial.bottom + 10 , Width, 44+20+20);
@@ -405,12 +456,14 @@
         self.textView.frame = CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, _textViewHeight);
         self.viewZhuma. frame = CGRectMake(0, self.textView.bottom + 20, Width, 145);
     }
+    
     if (model.dx.count == 0) {
         self.dxBaseView.hidden = YES;
         self.ViewTextTitle.frame = CGRectMake(0, self.rqBaseView.bottom, Width, 42);
         self.textView.frame = CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, _textViewHeight);
         self.viewZhuma. frame = CGRectMake(0, self.textView.bottom + 20, Width, 145);
     }
+    
     if (model.spf.count == 0 && model.rq.count ==0) {
         self.viewDetialTitle.hidden = YES;
         self.viewDetial.hidden = YES;
@@ -420,6 +473,7 @@
         self.textView.frame = CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, _textViewHeight);
         self.viewZhuma. frame = CGRectMake(0, self.textView.bottom + 20, Width, 145);
     }
+    
     if (model.spf.count == 0 && model.dx.count ==0) {
         self.viewDetialTitle.hidden = YES;
         self.viewDetial.hidden = YES;
@@ -429,6 +483,7 @@
         self.textView.frame = CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, _textViewHeight);
         self.viewZhuma. frame = CGRectMake(0, self.textView.bottom + 20, Width, 145);
     }
+    
     if (model.rq.count == 0 && model.dx.count == 0) {
         self.rqBaseView.hidden = YES;
         self.dxBaseView.hidden = YES;
@@ -436,6 +491,8 @@
         self.textView.frame = CGRectMake(15, self.ViewTextTitle.bottom, Width - 30, _textViewHeight);
         self.viewZhuma. frame = CGRectMake(0, self.textView.bottom + 20, Width, 145);
     }
+     
+     */
 }
 
 
@@ -673,10 +730,6 @@
             _play = @"spf";
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
-                if ([dxModel.UpOdds floatValue] < 1.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于1.6"];
-                    return;
-                }
                 self.btnOne.selected = YES;
                 self.btnTwo.selected = NO;
                 self.btnThree.selected = NO;
@@ -707,10 +760,6 @@
             _play = @"spf";
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
-                if ([dxModel.Goal floatValue] < 1.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于1.6"];
-                    return;
-                }
                 self.btnOne.selected = NO;
                 self.btnThree.selected = NO;
                 self.btnZhu.selected = NO;
@@ -741,10 +790,6 @@
             _play = @"spf";
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
-                if ([dxModel.DownOdds floatValue] < 1.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于1.6"];
-                    return;
-                }
                 self.btnOne.selected = NO;
                 self.btnTwo.selected = NO;
                 self.btnZhu.selected = NO;
@@ -775,10 +820,6 @@
             _play = @"ya";
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
-                if ([dxModel.UpOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
-                    return;
-                }
                 self.btnZhu.selected = YES;
                 self.btnOne.selected = NO;
                 self.btnTwo.selected = NO;
@@ -808,10 +849,6 @@
             _play = @"ya";
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
-                if ([dxModel.DownOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
-                    return;
-                }
                 self.btnKe.selected = YES;
                 self.btnOne.selected = NO;
                 self.btnTwo.selected = NO;
@@ -841,10 +878,6 @@
             _play = @"dx";
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
-                if ([dxModel.UpOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
-                    return;
-                }
                 self.btnBig.selected = YES;
                 self.btnOne.selected = NO;
                 self.btnTwo.selected = NO;
@@ -874,10 +907,6 @@
             _play = @"dx";
             _playContent = [NSString stringWithFormat:@"[%@,\"%@\",%@]",dxModel.UpOdds,dxModel.Goal,dxModel.DownOdds];
             if (btn.selected == NO) {
-                if ([dxModel.DownOdds floatValue] < 0.6) {
-                    [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"推荐指数不能低于0.6"];
-                    return;
-                }
                 self.btnLittle.selected = YES;
                 self.btnOne.selected = NO;
                 self.btnTwo.selected = NO;
@@ -995,7 +1024,7 @@
     if (_user_Model.analyst == 1) {
         BOOL isButtonOn = [switchButton isOn];
         if (isButtonOn) {
-            self.textViewPlaceholder.text = @"推荐内容需原创，请提供详细分析或盘赔解读，涉及广告、抄袭等违规或过于简单将取消分析师资格哦！";
+            self.textViewPlaceholder.text = @"有价值的深度分析内容将会被推送到推荐大厅";
             self.textView.userInteractionEnabled = YES;
             self.coverView.hidden = true;
         }else {
@@ -1242,8 +1271,7 @@
      }];
     return returnValue;
 }
-- (void)KeyboardShow:(NSNotification *)notification
-{
+- (void)KeyboardShow:(NSNotification *)notification {
     NSDictionary *userInfo = [notification userInfo];
     CGRect rect =
     [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -1255,12 +1283,13 @@
             if (self.ScrollView.height <self.ScrollView.contentSize.height) {
                  if (self.ScrollView.contentSize.height >self.ScrollView.height) {
                  }
-                self.buttomView.frame = CGRectMake(0, Height - self.buttomView.height - keyboardHeight, Width, self.buttomView.height);
+               
+                  self.buttomView.frame = CGRectMake(0, Height - self.buttomView.height - keyboardHeight, Width, self.buttomView.height);
+    
             }
         }];
 }
-- (void)KeyboardHide:(NSNotification *)notification
-{
+- (void)KeyboardHide:(NSNotification *)notification {
     NSDictionary *userInfo = [notification userInfo];
     CGFloat keyboardDuration =[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [UIView animateWithDuration:keyboardDuration animations:^{
@@ -1270,6 +1299,10 @@
 }
 - (void)AddPic:(UIButton *)btn
 {
+    if (self.textFiled.isFirstResponder) {
+        [SVProgressHUD showErrorWithStatus:@"宣传语不可发表图片"];
+        return;
+    }
     UIImagePickerController *pickerVC = [[UIImagePickerController alloc] init];
     pickerVC.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     pickerVC.delegate = self;

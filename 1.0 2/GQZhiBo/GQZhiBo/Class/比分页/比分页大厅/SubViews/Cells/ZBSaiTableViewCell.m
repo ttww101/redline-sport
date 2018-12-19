@@ -237,6 +237,7 @@
         _imageJiaoqiu.image= [UIImage imageNamed:@"clear"];
     }
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"banchang"]) {
+        
         if (!(self.ScoreModel.homehalfscore > 0)) {
             self.ScoreModel.homehalfscore = 0;
         }
@@ -256,8 +257,10 @@
         }else if(_ScoreModel.matchstate == -1){
             _halfScore.text = [NSString stringWithFormat:@"(%ld:%ld)",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
             _peilvAwayLab.textAlignment = NSTextAlignmentRight;
-        }
-        else{
+        } else if(_ScoreModel.matchstate == 1){
+            _halfScore.text = [NSString stringWithFormat:@"(%ld:%ld)",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
+            _peilvAwayLab.textAlignment = NSTextAlignmentRight;
+        } else{
             _halfScore.text = @"";
         }
     }else{

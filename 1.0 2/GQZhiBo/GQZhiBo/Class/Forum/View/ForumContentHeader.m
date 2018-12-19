@@ -187,6 +187,7 @@ CGFloat space = 10;
         _avatarImageView.userInteractionEnabled = YES;
         _avatarImageView.layer.cornerRadius = imageWidth / 2;
         _avatarImageView.layer.masksToBounds = true;
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _avatarImageView;
 }

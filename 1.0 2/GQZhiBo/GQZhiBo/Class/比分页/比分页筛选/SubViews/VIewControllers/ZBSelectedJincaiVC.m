@@ -23,7 +23,7 @@
     [parameter setValue:PARAM_IS_NIL_ERROR(self.filterParameters) forKey:@"filter"];
     [parameter setValue:PARAM_IS_NIL_ERROR(self.timeline) forKey:@"timeline"];
     [parameter setValue:self.tab forKey:@"tab"];
-//    NSString *path = [NSString stringWithFormat:@"http://120.55.30.173:8809%@",url_bifen_filterAll];
+    [parameter setValue:PARAM_IS_NIL_ERROR(self.date) forKey:@"date"];
      NSString *path = [NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_bifen_filterAll];
     [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:path Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
