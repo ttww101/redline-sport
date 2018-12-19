@@ -41,7 +41,9 @@
         NSError *error = [NSError errorWithDomain:@"IAP"
                                              code:-1
                                          userInfo:@{ NSLocalizedDescriptionKey : @"检查是否允许支付功能或者该设备是否支持支付." }];
-        if(self.resultBlock) self.resultBlock(nil,error);
+        if(self.resultBlock) {
+            self.resultBlock(nil,error);
+        }
     }
 }
 #pragma mark - SKProductsRequestDelegate

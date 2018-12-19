@@ -65,10 +65,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.defaultFailure = @"";
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getAttention) name:@"reloadAttention" object:nil];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -200,11 +207,11 @@
                 [self.tableView reloadData];
                 return ;
             }
-            NSString *nums = [[[responseOrignal objectForKey:@"date"] objectForKey:@"focusNum"] stringValue];
+            
+            NSString *nums = [[[responseOrignal objectForKey:@"data"] objectForKey:@"focusNum"] stringValue];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"attentionNum" object:nil userInfo:@{@"num":PARAM_IS_NIL_ERROR(nums)}];
             _dataTitleView.arrData = _arrDataQici;
             [self.tableView reloadData];
-            
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSString *documentsPath = [ZBMethods getDocumentsPath];

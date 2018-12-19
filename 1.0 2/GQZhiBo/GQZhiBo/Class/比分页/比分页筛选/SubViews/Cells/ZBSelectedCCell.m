@@ -3,9 +3,7 @@
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel *labTitle;
 @property (nonatomic, strong) UILabel *labCount;
-@property (nonatomic, strong) UIView *bgSelectedView;
-@property (nonatomic, strong) UILabel *labSelectedTitle;
-@property (nonatomic, strong) UILabel *labSelectedCount;
+
 @end
 @implementation ZBSelectedCCell
 - (void)setCellSize:(CGSize)cellSize
@@ -15,10 +13,7 @@
     _bgView.frame = CGRectMake(0, 0, _cellSize.width, _cellSize.height);
     _labTitle.frame = CGRectMake(5, 0, _cellSize.width - 10, _cellSize.height);
     _labCount.frame = CGRectMake(5, 0, _cellSize.width - 10, _cellSize.height);
-    self.selectedBackgroundView = self.bgSelectedView;
-    _bgSelectedView.frame = CGRectMake(0, 0, _cellSize.width, _cellSize.height);
-    _labSelectedTitle.frame = CGRectMake(5, 0, _cellSize.width - 10, _cellSize.height);
-    _labSelectedCount.frame = CGRectMake(5, 0, _cellSize.width - 10, _cellSize.height);
+    
 }
 - (void)setModel:(ZBBIfenSelectedSaishiModel *)model
 {
@@ -38,32 +33,33 @@
         title = model.name;
     }
     if (model.isSelected) {
-        self.bgView.backgroundColor = redcolor;
-        _labTitle.textColor = [UIColor clearColor];
-        _labCount.textColor = [UIColor clearColor];
+        self.bgView.layer.borderColor = UIColorHex(#FF4043).CGColor;
+        _labTitle.textColor = UIColorHex(#F5534D);
+        _labCount.textColor = UIColorHex(#F5534D);
     }else{
         self.bgView.backgroundColor = [UIColor whiteColor];
-        _labTitle.textColor = color33;
-        _labCount.textColor = color99;
+        self.bgView.layer.borderColor = UIColorHex(#E2E2E2).CGColor;
+        _labTitle.textColor = UIColorHex(#A6A3A3);
+        _labCount.textColor = UIColorHex(#A6A3A3);
     }
     _labTitle.text = title;
     _labCount.text = [NSString stringWithFormat:@"%ld场",(long)_model.count];
-    _labSelectedTitle.text = title;
-    _labSelectedCount.text = [NSString stringWithFormat:@"%ld场",(long)_model.count];
+    
 }
 - (UIView *)bgView
 {
     if (!_bgView) {
         _bgView  = [[UIView alloc] init];
         _bgView.frame = CGRectMake(0, 0, _cellSize.width, _cellSize.height);
-        _bgView.layer.borderColor = colorDD.CGColor;
         _bgView.layer.borderWidth = 0.7;
         _bgView.layer.cornerRadius = 3;
+        _bgView.backgroundColor = [UIColor whiteColor];
         [_bgView addSubview:self.labTitle];
         [_bgView addSubview:self.labCount];
     }
     return _bgView;
 }
+
 - (UILabel *)labTitle
 {
     if (!_labTitle) {
@@ -82,38 +78,5 @@
         _labCount.textAlignment = NSTextAlignmentRight;
     }
     return _labCount;
-}
-- (UIView *)bgSelectedView
-{
-    if (!_bgSelectedView) {
-        _bgSelectedView  = [[UIView alloc] init];
-        _bgSelectedView.frame = CGRectMake(0, 0, _cellSize.width, _cellSize.height);
-        _bgSelectedView.layer.borderColor = redcolor.CGColor;
-        _bgView.backgroundColor = redcolor;
-        _bgSelectedView.layer.borderWidth = 0.7;
-        _bgSelectedView.layer.cornerRadius = 3;
-        [_bgSelectedView addSubview:self.labSelectedTitle];
-        [_bgSelectedView addSubview:self.labSelectedCount];
-    }
-    return _bgSelectedView;
-}
-- (UILabel *)labSelectedTitle
-{
-    if (!_labSelectedTitle) {
-        _labSelectedTitle = [[UILabel alloc] init];
-        _labSelectedTitle.textColor = [UIColor whiteColor];
-        _labSelectedTitle.font = font12;
-    }
-    return _labSelectedTitle;
-}
-- (UILabel *)labSelectedCount
-{
-    if (!_labSelectedCount) {
-        _labSelectedCount = [[UILabel alloc] init];
-        _labSelectedCount.textColor = [UIColor whiteColor];
-        _labSelectedCount.font = font12;
-        _labSelectedCount.textAlignment = NSTextAlignmentRight;
-    }
-    return _labSelectedCount;
 }
 @end

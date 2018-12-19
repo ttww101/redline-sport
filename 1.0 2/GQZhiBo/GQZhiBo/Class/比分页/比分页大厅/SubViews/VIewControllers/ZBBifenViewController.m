@@ -301,9 +301,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",0] forKey:@"_currentflag"];
     NSArray *arrviewcontroller = @[self.jishiVC,self.saiguoVC,self.saichengVC,self.guanzhuVC];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAttentionNum:) name:@"attentionNum" object:nil];
-    
-
-    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadAttention" object:nil];
     [self configUI];
 }
 - (void)updateWhetherShowSort
@@ -453,6 +451,11 @@
 - (void)setCurrentIndex:(NSInteger)currentIndex
 {
     _currentIndex = currentIndex;
+    if (_currentIndex == 3) {
+        self.floatingView.hidden = true;
+    } else {
+        self.floatingView.hidden = false;
+    }
     [self.TitleView updateSelectedIndex:_currentIndex];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

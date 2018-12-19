@@ -41,8 +41,35 @@
 @property (nonatomic, assign) BOOL isToFenxi;
 
 
+//@property (nonatomic, strong) UILabel *homeGrade;
+//@property (nonatomic, strong) UILabel *visitierGrade;
+
+
+
 @end
+
 @implementation ZBSaiTableViewCell
+
+//- (UILabel *)homeGrade {
+//    if (!_homeGrade) {
+//        _homeGrade = [[UILabel alloc] init];
+//        _homeGrade.textColor = UIColorHex(#A1A1A1);
+//        _homeGrade.font = font10;
+//    }
+//    return _homeGrade;
+//}
+//
+//- (UILabel *)visitierGrade {
+//    if (!_visitierGrade) {
+//        _visitierGrade = [[UILabel alloc] init];
+//        _visitierGrade.textColor = UIColorHex(#A1A1A1);
+//        _visitierGrade.font = font10;
+//    }
+//    return _visitierGrade;
+//}
+
+#pragma mark - ************  以下高人所写  ************
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
@@ -199,7 +226,7 @@
     _jiaoqiuScore.text = @"";
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jiaoqiu"]) {
         if (ScoreModel.matchstate == 1 || ScoreModel.matchstate == 2 || ScoreModel.matchstate == 3|| ScoreModel.matchstate == 4|| ScoreModel.matchstate == -1) {
-            _jiaoqiuScore.text = [NSString stringWithFormat:@"%@:%@",_ScoreModel.homeCorner,_ScoreModel.guestCorner];
+            _jiaoqiuScore.text = [NSString stringWithFormat:@"%@:%@",PARAM_IS_NIL_ERROR(_ScoreModel.homeCorner), PARAM_IS_NIL_ERROR(_ScoreModel.guestCorner)];
             _imageJiaoqiu.image= [UIImage imageNamed:@"jiaoqiu"];
         }else{
             _jiaoqiuScore.text = @"";
@@ -210,6 +237,14 @@
         _imageJiaoqiu.image= [UIImage imageNamed:@"clear"];
     }
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"banchang"]) {
+        if (!(self.ScoreModel.homehalfscore > 0)) {
+            self.ScoreModel.homehalfscore = 0;
+        }
+        
+        if (!(self.ScoreModel.guesthalfscore > 0)) {
+            self.ScoreModel.guesthalfscore = 0;
+        }
+        
         if ( _ScoreModel.matchstate == 3) {
             _halfScore.text = [NSString stringWithFormat:@"(%ld:%ld)",(long)self.ScoreModel.homehalfscore,(long)self.ScoreModel.guesthalfscore];
         }else if(_ScoreModel.matchstate == 2){
@@ -425,7 +460,7 @@
     _listHomeLab.text = @"";
     _listAwayLab.text = @"";
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"qiuduipaiming"]) {
-        if ((_ScoreModel.homeOrderNum!= nil && ![_ScoreModel.homeOrderNum isEqualToString:@""])) {
+        if ((_ScoreModel.homeOrder!= nil && ![_ScoreModel.homeOrder isEqualToString:@""])) {
             NSString *listHome = [NSString stringWithFormat:@"[%@]",_ScoreModel.homeOrderNum] ; 
             _listHomeLab.text = listHome;
             NSString *searchText = [NSString stringWithFormat:@"[%@]",_ScoreModel.homeOrderNum];
@@ -438,7 +473,7 @@
         }else{
             _listHomeLab.text = @"";
         }
-        if ((_ScoreModel.guestOrderNum!= nil && ![_ScoreModel.guestOrderNum isEqualToString:@""])) {
+        if ((_ScoreModel.guestOrder!= nil && ![_ScoreModel.guestOrder isEqualToString:@""])) {
             _listAwayLab.text = [NSString stringWithFormat:@"[%@]",_ScoreModel.guestOrderNum]; 
         }else{
             _listHomeLab.text = @"";
@@ -572,6 +607,9 @@
             make.right.equalTo(self.labQB.mas_left);
         }];
     }
+    
+//    self.homeGrade.text = [NSString stringWithFormat:@"[%@]",ScoreModel.homeOrder];
+//    self.visitierGrade.text = [NSString stringWithFormat:@"[%@]",ScoreModel.guestOrder];
 }
 - (UIView *)basicView
 {
@@ -613,6 +651,9 @@
         
         [_basicView addSubview:self.viewLineR];
         [_basicView addSubview:self.labQB];
+        
+//        [_basicView addSubview:self.homeGrade];
+//        [_basicView addSubview:self.visitierGrade];
         
         
 //        [_basicView addSubview:self.labQBNum];
@@ -989,14 +1030,27 @@
         make.centerX.equalTo(self.basicView.mas_centerX).offset(0);
         make.width.mas_equalTo(38);
     }];
+    
     [self.teamHomeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.VSlab.mas_left).offset(0);
         make.top.equalTo(self.basicView.mas_top).offset(33);
     }];
+    
+//    [self.homeGrade mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self.teamHomeLab.mas_left).offset(-2);
+//        make.centerY.equalTo(self.teamHomeLab.mas_centerY);
+//    }];
+    
     [self.teamAwayLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.VSlab.mas_right).offset(0);
         make.centerY.equalTo(self.teamHomeLab.mas_centerY);
     }];
+    
+//    [self.visitierGrade mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.teamAwayLab.mas_right).offset(2);
+//        make.centerY.equalTo(self.teamAwayLab.mas_centerY);
+//    }];
+    
     [self.peiLvHomeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.teamAwayLab.mas_left).offset(0);
         make.top.equalTo(self.teamAwayLab.mas_bottom).offset(3);
@@ -1025,18 +1079,25 @@
         make.trailing.equalTo(self.teamHomeLab.mas_leading);
         make.centerY.equalTo(self.teamHomeLab);
     }];
+    
+    
+    
     [self.redHomeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.listHomeLab.mas_left).offset(0);
         make.centerY.equalTo(self.listHomeLab);
         make.height.mas_equalTo(12);
         make.width.mas_equalTo(0);
     }];
+    
     [self.yellowHomeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.redHomeLab.mas_left).offset(-1);
         make.centerY.equalTo(self.redHomeLab);
         make.height.mas_equalTo(12);
         make.width.mas_equalTo(0);
     }];
+    
+    
+    
     [self.listAwayLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.teamAwayLab.mas_trailing);
         make.centerY.equalTo(self.teamHomeLab);
@@ -1118,18 +1179,22 @@
     NSString *documentsPath = [ZBMethods getDocumentsPath];
     NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
     NSMutableArray *attentionArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithFile:arrayPath]];
+    
+    [ZBLodingAnimateView showLodingView];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:[NSString stringWithFormat:@"%ld", _ScoreModel.mid] forKey:@"scheduleId"];
-    [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, btn.isSelected? url_attention :url_cancle_attention] ArrayFile:nil Start:^(id requestOrignal) {
+    [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, btn.isSelected? url_cancle_attention:url_attention] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadAttention" object:nil];
              btn.selected = ! btn.selected;
             if (btn.isSelected) {
                 [attentionArray addObject:[NSString stringWithFormat:@"%ld",_ScoreModel.mid]];
                 NSString *info = @"关注成功";
                 [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
-                 [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
+                [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
             } else {
                 NSString *info = @"关注已取消";
                 [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
@@ -1140,10 +1205,11 @@
                         break;
                     }
                 }
-                 [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
+                [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
             }
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+        [ZBLodingAnimateView dissMissLoadingView];
         NSString *info = @"关注失败";
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:info];
     }];

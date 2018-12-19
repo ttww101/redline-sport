@@ -45,7 +45,7 @@
     _searchBar.backgroundColor = [UIColor whiteColor];
     _searchBar.barTintColor = redcolor;
     _searchBar.tintColor = [UIColor blackColor];
-    _searchBar.backgroundImage = [UIImage imageNamed:@"red"];
+//    _searchBar.backgroundImage = [UIImage imageNamed:@"red"];
     _searchBar.scopeBarBackgroundImage = [UIImage imageNamed:@"white"];
     _searchBar.delegate = self;
     _searchBar.placeholder = @"搜索比赛";
@@ -102,6 +102,7 @@
         [_tableView registerClass:[ZBSaiTableViewCell class] forCellReuseIdentifier:cellSearchMatchVC];
         _tableView.delegate =self;
         _tableView.dataSource = self;
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _tableView;
 }

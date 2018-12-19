@@ -83,9 +83,9 @@
         _btnConfirm = [UIButton buttonWithType:UIButtonTypeCustom];
         _btnConfirm.frame = CGRectMake(Width - 94 -15, (self.height - 28) / 2, 94, 28);
         [_btnConfirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_btnConfirm setImage:[UIImage imageNamed:@"Confirm"] forState:UIControlStateNormal];
+        [_btnConfirm setImage:[UIImage imageNamed:@"unavailable"] forState:UIControlStateSelected];
+         [_btnConfirm setImage:[UIImage imageNamed:@"Confirm"] forState:UIControlStateNormal];
         _btnConfirm.titleLabel.font = [UIFont boldSystemFontOfSize:fontSize14];
-        _btnConfirm.backgroundColor = redcolor;
         _btnConfirm.tag = 2;
         [_btnConfirm addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -100,6 +100,8 @@
             if (_delegate && [_delegate respondsToSelector:@selector(didSelectedAtBtnIndex:whtherSelected:)]) {
                 [_delegate didSelectedAtBtnIndex:btn.tag whtherSelected:btn.selected];
             }
+            self.btnConfirm.selected = false; //
+            self.btnConfirm.userInteractionEnabled = true; //
         }
     }else if (btn.tag == 1){
         if (!btn.selected) {
@@ -108,6 +110,9 @@
             if (_delegate && [_delegate respondsToSelector:@selector(didSelectedAtBtnIndex:whtherSelected:)]) {
                 [_delegate didSelectedAtBtnIndex:btn.tag whtherSelected:btn.selected];
             }
+            
+            self.btnConfirm.selected = true; // 置灰
+            self.btnConfirm.userInteractionEnabled = false;
         }
     }else if(btn.tag == 2){
         if (_delegate && [_delegate respondsToSelector:@selector(didSelectedAtBtnIndex:whtherSelected:)]) {
@@ -120,6 +125,8 @@
 {
     if (isSelected) {
         _btnNotAll.selected = NO;
+        self.btnConfirm.selected = false; //
+        self.btnConfirm.userInteractionEnabled = true; //
     }else{
         _btnAll.selected = NO;
     }

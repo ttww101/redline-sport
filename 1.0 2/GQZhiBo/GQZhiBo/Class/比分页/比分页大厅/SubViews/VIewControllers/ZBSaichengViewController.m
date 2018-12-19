@@ -387,6 +387,13 @@
              _dataTitleView.arrData = _arrDataQici;
 
              [self.tableView reloadData];
+             
+             [_arrDataQici enumerateObjectsUsingBlock:^(ZBQiciModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                 if (obj.selected) {
+                     _date = obj.val;
+                     *stop = true;
+                 }
+             }];
          }
         
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
