@@ -107,12 +107,15 @@
         }
     }];
     
-    if ([model.remark containsString:@":"]) {
-        NSArray *titleArray = [model.remark componentsSeparatedByString:@":"];
-        NSString *firstStr = [titleArray firstObject];
-        NSString *lastStr = [titleArray lastObject];
-        _labRemark2.text = firstStr;
-        _labRemark1.text = lastStr;
+    if (model.tenWinRate.length > 0) {
+        _labRemark2.text = @"近十场胜率";
+        _labRemark1.text = [NSString stringWithFormat:@"%@%%",model.tenWinRate];
+    } else {
+        _labRemark2.text = @"";
+        _labRemark1.text = @"";
+    }
+    
+    if (model.red == 0 && model.sclassred == 0) {
         _userWin.text = @"";
         [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
@@ -123,47 +126,35 @@
             make.left.equalTo(self.userWin.mas_left);
             make.centerY.equalTo(self.userWin.mas_centerY);
         }];
-    } else {
-        if (model.red == 0 && model.sclassred == 0) {
-            _userWin.text = @"";
-            [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
-                make.top.equalTo(self.btnAuthor.mas_bottom).offset(10);
-                make.size.mas_equalTo(CGSizeMake(0, 0));
-            }];
-            [self.goodPlay mas_remakeConstraints:^(MASConstraintMaker *make) {
-                 make.left.equalTo(self.userWin.mas_left);
-                make.centerY.equalTo(self.userWin.mas_centerY);
-            }];
-        } else if (model.red > model.sclassred) {
-             _userWin.text = [NSString stringWithFormat:@"正在%zi连红",model.red];
-            CGFloat width = [_userWin.text widthForFont:font10];
-             width += 10;
-            [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
-                make.top.equalTo(self.btnAuthor.mas_bottom).offset(10);
-                make.size.mas_equalTo(CGSizeMake(width, 15));
-            }];
-            [self.goodPlay mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.userWin.mas_right).offset(9);
-                make.centerY.equalTo(self.userWin.mas_centerY);
-            }];
-          
-        } else if (model.sclassred > model.red) {
-            _userWin.text = [NSString stringWithFormat:@"%@%zi连红", model.leagueName,model.red];
-            CGFloat width = [_userWin.text widthForFont:font10];
-             width += 10;
-            [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
-                make.top.equalTo(self.btnAuthor.mas_bottom).offset(10);
-                make.size.mas_equalTo(CGSizeMake(width, 15));
-            }];
-            [self.goodPlay mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.userWin.mas_right).offset(9);
-                make.centerY.equalTo(self.userWin.mas_centerY);
-            }];
-        }
+    } else if (model.red > model.sclassred) {
+        _userWin.text = [NSString stringWithFormat:@"正在%zi连红",model.red];
+        CGFloat width = [_userWin.text widthForFont:font10];
+        width += 10;
+        [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
+            make.top.equalTo(self.btnAuthor.mas_bottom).offset(10);
+            make.size.mas_equalTo(CGSizeMake(width, 15));
+        }];
+        [self.goodPlay mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.userWin.mas_right).offset(9);
+            make.centerY.equalTo(self.userWin.mas_centerY);
+        }];
+        
+    } else if (model.sclassred > model.red) {
+        _userWin.text = [NSString stringWithFormat:@"%@%zi连红", model.leagueName,model.red];
+        CGFloat width = [_userWin.text widthForFont:font10];
+        width += 10;
+        [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
+            make.top.equalTo(self.btnAuthor.mas_bottom).offset(10);
+            make.size.mas_equalTo(CGSizeMake(width, 15));
+        }];
+        [self.goodPlay mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.userWin.mas_right).offset(9);
+            make.centerY.equalTo(self.userWin.mas_centerY);
+        }];
     }
+    
     
     NSString *goodPlay = @"";
     NSString *firstStr = nil;

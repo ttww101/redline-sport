@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UILabel *labCreatTime;
 @property (nonatomic, strong) UIButton *btnZan;
 @property (nonatomic, strong) UILabel *labZanNum;
-@property (nonatomic, strong) UIButton *btnNoZan;
+@property (nonatomic, strong) UIImageView *btnNoZan;
 @property (nonatomic, strong) UILabel *labNoZanNum;
 @property (nonatomic, strong) UIButton *btnComment;
 @property (nonatomic, strong) UILabel *labConmmentNum;
@@ -65,7 +65,6 @@
         _labCreatTime.text = @"";
         [_btnComment setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         _labConmmentNum.text = @"";
-        [_btnNoZan setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         _labNoZanNum.text = @"";
         [_btnZan setBackgroundImage:[UIImage imageNamed:@""]forState:UIControlStateNormal];
         _labZanNum.text = @"";
@@ -75,13 +74,14 @@
                 str = @"钻石";
             }
             _labMoney.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
+              self.lockView.hidden = false;
         } else {
             _labMoney.text = nil;
+             self.lockView.hidden = true;
         }
     }else{
         [_btnComment setBackgroundImage:[UIImage imageNamed:@"date"] forState:UIControlStateNormal];
         _labConmmentNum.text = [ZBMethods compareCurrentTime:_model.recommendTime];
-        [_btnNoZan setBackgroundImage:[UIImage imageNamed:@"hated"] forState:UIControlStateNormal];
         _labNoZanNum.text = [NSString stringWithFormat:@"%ld",(long)_model.readCount];
         [_btnZan setBackgroundImage:[UIImage imageNamed:@"clear"]forState:UIControlStateNormal];
         _labZanNum.text = @"";
@@ -92,8 +92,10 @@
             }
             _goldLabel.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
             _goldLabel.hidden = false;
+            self.lockView.hidden = false;
         } else{
             _goldLabel.hidden = YES;
+            self.lockView.hidden = true;
         }
     }
     _labStatus.text = @"";
@@ -174,6 +176,7 @@
                 [_basicView addSubview:self.peilvView];
                 [_basicView addSubview:self.buyNumLabel];
                 [_basicView addSubview:self.buyImageView];
+                
                 [_basicView addSubview:self.lockView];
                 [self.lockView addSubview:self.goldLabel];
                 [self.lockView addSubview:self.lockIV];
@@ -191,6 +194,11 @@
                 [_basicView addSubview:self.peilvView];
                 [_basicView addSubview:self.buyNumLabel];
                 [_basicView addSubview:self.buyImageView];
+                
+                [_basicView addSubview:self.lockView];
+                [self.lockView addSubview:self.goldLabel];
+                [self.lockView addSubview:self.lockIV];
+                
             }
                 break;
             case typeTuijianCellFirstPage:
@@ -319,14 +327,11 @@
     }
     return _labNoZanNum;
 }
-- (UIButton *)btnNoZan
+- (UIImageView *)btnNoZan
 {
     if (!_btnNoZan) {
-        _btnNoZan = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnNoZan.titleLabel.font = font11;
-        [_btnNoZan setTitleColor:color99 forState:UIControlStateNormal];
-        _btnNoZan.tag = 2;
-        _btnZan.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        _btnNoZan = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"re_eye"]];
+        _btnNoZan.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _btnNoZan;
 }
@@ -576,6 +581,22 @@
             break;
         case typeTuijianCellUser:
         {
+            [self.lockView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.basicView.mas_right).offset(-20);
+                make.top.equalTo(self.basicView.mas_top).offset(20);
+                make.size.mas_equalTo(CGSizeMake(70, 25));
+            }];
+            
+            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.lockView.mas_right).offset(-3);
+                make.centerY.equalTo(self.lockView.mas_centerY);
+            }];
+            
+            [self.lockIV mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.lockView.mas_left).offset(5);
+                make.centerY.equalTo(self.lockView.mas_centerY);
+            }];
+            
             [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.basicView.mas_right).offset(-20);
                 make.centerY.equalTo(self.basicView.mas_centerY);
@@ -756,7 +777,6 @@
                     _model.liked = YES;
                     _labZanNum.text = [NSString stringWithFormat:@"%ld",(long)_model.like_count];
                 }else{
-                    _btnNoZan.selected = YES;
                     _model.hate_count = _model.hate_count+1;
                     _model.hated = YES;
                     _labNoZanNum.text = [NSString stringWithFormat:@"%ld",(long)_model.hate_count];

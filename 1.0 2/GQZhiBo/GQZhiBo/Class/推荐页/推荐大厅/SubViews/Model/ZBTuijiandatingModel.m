@@ -87,7 +87,9 @@
              @"showBuyCount":@"showBuyCount",
              @"red":@"red",
              @"sclassred":@"sclassred",
-             @"slogan":@"slogan"
+             @"slogan":@"slogan",
+             @"tenWinRate": @"tenWinRate",
+             @"read_count":@"read_count"
              };
 }
 - (void)setHomeTeam:(NSString *)homeTeam {

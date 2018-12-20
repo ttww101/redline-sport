@@ -92,7 +92,8 @@
 
 @property (nonatomic, assign) NSInteger red;
 @property (nonatomic, assign) NSInteger sclassred;
-
+@property (nonatomic , copy) NSString *tenWinRate;
+@property (nonatomic, assign) NSInteger read_count;
 
 @property (nonatomic , copy) NSString *slogan;
 

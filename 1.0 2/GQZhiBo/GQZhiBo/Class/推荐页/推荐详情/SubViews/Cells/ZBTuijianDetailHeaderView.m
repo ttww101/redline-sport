@@ -74,8 +74,8 @@
 {
     _model = model;
     NSString *time = [ZBMethods formatYYMMDDWithStamp:model.create_time / 1000];
-    self.timeLab.text = [ZBMethods compareCurrentTime:time];
-    self.eyeLab.text = [NSString stringWithFormat:@"%zi",model.red];
+    self.timeLab.text = [NSString stringWithFormat:@"发布于%@",[ZBMethods compareCurrentTime:time]];
+    self.eyeLab.text = [NSString stringWithFormat:@"%zi",model.read_count];
     if (_model.see) {
         _type = TuijianDetailHeaderViewShowContent;
     }else{
@@ -156,9 +156,9 @@
         [_btnWin setAttributedTitle:[ZBMethods withContent:_btnWin.currentTitle WithContColor:_model.see? [UIColor whiteColor]:color33 WithContentFont:font12 WithText:@"胜" WithTextColor:_model.see? [UIColor whiteColor]:color33 WithTextFont:font14] forState:UIControlStateSelected];
         [_btnPing setAttributedTitle:[ZBMethods withContent:_btnPing.currentTitle WithContColor:_model.see? [UIColor whiteColor]:color33 WithContentFont:font12 WithText:@"平" WithTextColor:_model.see? [UIColor whiteColor]:color33 WithTextFont:font14] forState:UIControlStateSelected];
         [_btnLose setAttributedTitle:[ZBMethods withContent:_btnLose.currentTitle WithContColor:_model.see? [UIColor whiteColor]:color33 WithContentFont:font12 WithText:@"负" WithTextColor:_model.see? [UIColor whiteColor]:color33 WithTextFont:font14] forState:UIControlStateSelected];
-        _model.see ? ([_btnPing setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnPing setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
-        _model.see ? ([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
-        _model.see ? ([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnPing setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnPing setBackgroundImage:[UIImage imageNamed:@"publish_odds_white"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnLose setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnLose setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnWin setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnWin setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateSelected]);
     }else if (_model.ya.count>0){
         _labPankou.text = @"让球推荐";
         NSArray* arr = _model.ya;
@@ -169,10 +169,9 @@
         [_btnLose setAttributedTitle:[ZBMethods withContent:_btnLose.currentTitle WithContColor:color66 WithContentFont:font12 WithText:@"客" WithTextColor:color33 WithTextFont:font14] forState:UIControlStateNormal];
         [_btnWin setAttributedTitle:[ZBMethods withContent:_btnWin.currentTitle WithContColor:_model.see? [UIColor whiteColor]:color33 WithContentFont:font12 WithText:@"主" WithTextColor:_model.see? [UIColor whiteColor]:color33 WithTextFont:font14] forState:UIControlStateSelected];
         [_btnLose setAttributedTitle:[ZBMethods withContent:_btnLose.currentTitle WithContColor:_model.see? [UIColor whiteColor]:color33 WithContentFont:font12 WithText:@"客" WithTextColor:_model.see? [UIColor whiteColor]:color33 WithTextFont:font14] forState:UIControlStateSelected];
-        [_btnPing setBackgroundImage:[UIImage imageNamed:@"white"] forState:UIControlStateNormal];
-        _model.see ? ([_btnPing setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnPing setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
-        _model.see ? ([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
-        _model.see ? ([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnPing setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnPing setBackgroundImage:[UIImage imageNamed:@"publish_odds_white"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnLose setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnLose setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnWin setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnWin setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateSelected]);
     }else if (_model.dx.count>0){
         _labPankou.text = @"进球数推荐";
         NSArray* arr = _model.dx;
@@ -183,10 +182,9 @@
         [_btnLose setAttributedTitle:[ZBMethods withContent:_btnLose.currentTitle WithContColor:color66 WithContentFont:font12 WithText:@"小" WithTextColor:color33 WithTextFont:font14] forState:UIControlStateNormal];
         [_btnWin setAttributedTitle:[ZBMethods withContent:_btnWin.currentTitle WithContColor:_model.see? [UIColor whiteColor]:color33 WithContentFont:font12 WithText:@"大" WithTextColor:_model.see? [UIColor whiteColor]:color33 WithTextFont:font14] forState:UIControlStateSelected];
         [_btnLose setAttributedTitle:[ZBMethods withContent:_btnLose.currentTitle WithContColor:_model.see? [UIColor whiteColor]:color33 WithContentFont:font12 WithText:@"小" WithTextColor:_model.see? [UIColor whiteColor]:color33 WithTextFont:font14] forState:UIControlStateSelected];
-        [_btnPing setBackgroundImage:[UIImage imageNamed:@"white"] forState:UIControlStateNormal];
-        _model.see == 1? ([_btnPing setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnPing setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
-        _model.see ? ([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
-        _model.see ? ([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilvSelected2"] forState:UIControlStateSelected]):([_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateSelected]);
+        _model.see == 1? ([_btnPing setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnPing setBackgroundImage:[UIImage imageNamed:@"publish_odds_white"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnLose setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnLose setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateSelected]);
+        _model.see ? ([_btnWin setBackgroundImage:[UIImage imageNamed:@"publish_odds_selected"] forState:UIControlStateSelected]):([_btnWin setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateSelected]);
     }
     switch (_model.choice) {
         case 3:
@@ -540,7 +538,7 @@
         _btnWin.layer.masksToBounds = YES;
         [_btnWin setTitleColor:color33 forState:UIControlStateNormal];
         [_btnWin setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btnWin setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnWin setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
     }
     return _btnWin;
 }
@@ -554,7 +552,7 @@
         _btnPing.titleLabel.font = font14;
         [_btnPing setTitleColor:color33 forState:UIControlStateNormal];
         [_btnPing setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btnPing setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+         [_btnPing setBackgroundImage:[UIImage imageNamed:@"publish_odds_white"] forState:UIControlStateNormal];
     }
     return _btnPing;
 }
@@ -568,7 +566,7 @@
         _btnLose.titleLabel.font = font14;
         [_btnLose setTitleColor:color33 forState:UIControlStateNormal];
         [_btnLose setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [_btnLose setBackgroundImage:[UIImage imageNamed:@"tuijianDTPeilv"] forState:UIControlStateNormal];
+        [_btnLose setBackgroundImage:[UIImage imageNamed:@"publish_odds_default"] forState:UIControlStateNormal];
     }
     return _btnLose;
 }
@@ -698,7 +696,7 @@
         _priceLab = [[UILabel alloc] init];
         _priceLab.font = font12;
         _priceLab.textColor  = UIColorHex(#646464);
-        _priceLab.text = @"价格";
+        _priceLab.text = @"价格:";
     }
     return _priceLab;
 }
@@ -946,19 +944,19 @@
         make.left.equalTo(self.basicView.mas_left).offset(15);
         make.top.equalTo(self.labPankou.mas_bottom).offset(11.5);
         make.width.mas_equalTo((Width - 15*2-10*2)/3);
-        make.height.mas_equalTo(44);
+        make.height.mas_equalTo(34);
     }];
     [self.btnPing mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnWin.mas_right).offset(10);
         make.centerY.equalTo(self.btnWin.mas_centerY);
         make.width.equalTo(self.btnWin.mas_width);
-        make.height.mas_equalTo(44);
+        make.height.mas_equalTo(34);
     }];
     [self.btnLose mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.btnPing.mas_right).offset(10);
         make.centerY.equalTo(self.btnWin.mas_centerY);
         make.width.equalTo(self.btnWin.mas_width);
-        make.height.mas_equalTo(44);
+        make.height.mas_equalTo(34);
     }];
     
     [self.viewLineAuthorBottom mas_makeConstraints:^(MASConstraintMaker *make) {

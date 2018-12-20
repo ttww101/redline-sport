@@ -134,7 +134,7 @@
     } else if ([url.absoluteString hasPrefix:@"alipay://"]) {
         [[UIApplication sharedApplication]openURL:url];
     }
-
+    
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
         [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
         decisionHandler(WKNavigationActionPolicyCancel);
@@ -283,6 +283,7 @@
                     imageV.Parameter = dic;
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
                     [imageV addGestureRecognizer:tap];
+                    imageV.contentMode = UIViewContentModeScaleAspectFit;
                     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:imageV];
                     [leftItemsArray addObject:item];
                 }
@@ -302,6 +303,7 @@
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableBarAction:)];
                     [imageV addGestureRecognizer:tap];
                     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:imageV];
+                    imageV.contentMode = UIViewContentModeScaleAspectFit;
                     [rightItemsArray addObject:item];
                 }
                 self.navigationItem.rightBarButtonItems = rightItemsArray;
