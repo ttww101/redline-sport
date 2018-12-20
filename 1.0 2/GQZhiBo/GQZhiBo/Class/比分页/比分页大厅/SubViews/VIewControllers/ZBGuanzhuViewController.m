@@ -27,7 +27,7 @@
 #pragma mark SelectedDateTitleViewDelegate
 
 - (void)ZBSelectedDateTitleViewDidAction:(NSArray *)array {
-    DatePickerView *picker =  [DatePickerView showDatePicker:array];
+    DatePickerView *picker =  [DatePickerView showDatePicker:array title:@"进七天关注赛事"];
     picker.delegate = self;
 }
 
@@ -211,18 +211,25 @@
             NSString *nums = [[[responseOrignal objectForKey:@"data"] objectForKey:@"focusNum"] stringValue];
             [[NSNotificationCenter defaultCenter]postNotificationName:@"attentionNum" object:nil userInfo:@{@"num":PARAM_IS_NIL_ERROR(nums)}];
             _dataTitleView.arrData = _arrDataQici;
+            
+            NSString *documentsPath = [ZBMethods getDocumentsPath];
+            NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
+            NSMutableArray *attentionArray = [NSMutableArray array];
+            for (NSInteger i = 0; i < _arrData.count; i ++) {
+                ZBLiveScoreModel *model = _arrData[i];
+                [attentionArray addObject:[NSString stringWithFormat:@"%ld",model.mid]];
+            }
+            [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
+            
             [self.tableView reloadData];
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSString *documentsPath = [ZBMethods getDocumentsPath];
-                NSString *arrayPath = [documentsPath stringByAppendingPathComponent:BifenPageAttentionArray];
-                NSMutableArray *attentionArray = [NSMutableArray array];
-                for (NSInteger i = 0; i < _arrData.count; i ++) {
-                    ZBLiveScoreModel *model = _arrData[i];
-                    [attentionArray addObject:[NSString stringWithFormat:@"%ld",model.mid]];
+            [_arrDataQici enumerateObjectsUsingBlock:^(ZBQiciModel * obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj.selected) {
+                    _date = obj.val;
+                    *stop = true;
                 }
-                 [NSKeyedArchiver archiveRootObject:attentionArray toFile:arrayPath];
-            });
+            }];
+            
             
         }else{
             self.defaultFailure = [responseOrignal objectForKey:@"msg"];

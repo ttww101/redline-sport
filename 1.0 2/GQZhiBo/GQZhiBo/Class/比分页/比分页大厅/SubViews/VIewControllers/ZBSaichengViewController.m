@@ -47,7 +47,7 @@
 }
 
 - (void)ZBSelectedDateTitleViewDidAction:(NSArray *)array {
-   DatePickerView *picker =  [DatePickerView showDatePicker:array];
+   DatePickerView *picker =  [DatePickerView showDatePicker:array title:@"进七天未开赛事"];
     picker.delegate = self;
 }
 

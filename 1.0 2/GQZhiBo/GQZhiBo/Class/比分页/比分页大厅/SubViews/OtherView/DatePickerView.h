@@ -17,13 +17,13 @@
 
 @interface DatePickerView : UIView
 
-+ (DatePickerView *)showDatePicker:(NSArray *)dates;
++ (DatePickerView *)showDatePicker:(NSArray *)dates title:(NSString *)title;
 
 @property (nonatomic , strong) UILabel *recentLab;
 
 @property (nonatomic, weak) id <DatePickerViewDelegate> delegate;
 
-- (instancetype)initWithFrame:(CGRect)frame titlesModel:(NSArray *)titlesModel;
+- (instancetype)initWithFrame:(CGRect)frame titlesModel:(NSArray *)titlesModel title:(NSString *)title;
 
 @end
 

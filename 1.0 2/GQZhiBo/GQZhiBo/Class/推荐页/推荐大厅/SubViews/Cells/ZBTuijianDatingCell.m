@@ -114,37 +114,37 @@
         switch ([_model.result integerValue]) {
             case 0:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"ic_invalidic"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_Invalid"];
             }
                 break;
             case 1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"ic_win_half"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_winhalf"];
             }
                 break;
             case 2:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"ic_win"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_win"];
             }
                 break;
             case -1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"ic_loss_half"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_losehalf"];
             }
                 break;
             case -2:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"ic_loss"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_lose"];
             }
                 break;
             case -3:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"ic_invalid"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_go"];
             }
                 break;
             case 10:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"ic_invalid"];
+                _imageViewWin.image = [UIImage imageNamed:@"wuxiaoNew"];
             }
                 break;
             case -10:
@@ -174,6 +174,9 @@
                 [_basicView addSubview:self.peilvView];
                 [_basicView addSubview:self.buyNumLabel];
                 [_basicView addSubview:self.buyImageView];
+                [_basicView addSubview:self.lockView];
+                [self.lockView addSubview:self.goldLabel];
+                [self.lockView addSubview:self.lockIV];
             }
                 break;
             case typeTuijianCellFenxi:
@@ -220,10 +223,6 @@
         [_basicView addSubview:self.btnNoZan];
         [_basicView addSubview:self.labZanNum];
         [_basicView addSubview:self.btnZan];
-        
-        [_basicView addSubview:self.lockView];
-        [self.lockView addSubview:self.goldLabel];
-        [self.lockView addSubview:self.lockIV];
     }
     return _basicView;
 }
@@ -577,28 +576,9 @@
             break;
         case typeTuijianCellUser:
         {
-
-            
-            [self.lockView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.basicView.mas_right).offset(-20);
-                make.top.equalTo(self.basicView.mas_top).offset(10);
-                make.size.mas_equalTo(CGSizeMake(70, 25));
-            }];
-            
-            [self.goldLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.lockView.mas_right).offset(0);
-                make.centerY.equalTo(self.lockView.mas_centerY);
-            }];
-            
-            [self.lockIV mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.lockView.mas_left).offset(5);
-                make.centerY.equalTo(self.lockView.mas_centerY);
-            }];
-    
             [self.imageViewWin mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(self.basicView.mas_right).offset(-20);
                 make.centerY.equalTo(self.basicView.mas_centerY);
-                make.size.mas_equalTo(CGSizeMake(70, 30));
             }];
             [self.teamView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.basicView.mas_left);
@@ -735,7 +715,7 @@
     }else{
         ZBTuijianDetailVC *infoVC = [[ZBTuijianDetailVC alloc] init];
         infoVC.hidesBottomBarWhenPushed = YES;
-        infoVC.status = _model.status;
+        infoVC.status = 2;
         infoVC.modelId = _model.idId;
         [APPDELEGATE.customTabbar pushToViewController:infoVC animated:YES];
     }

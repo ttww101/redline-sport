@@ -865,11 +865,7 @@
             [ZBMethods toLogin];
             return;
         }
-        [[ZBDependetNetMethods sharedInstance] loadUserInfocompletion:^(ZBUserModel *userback) {
-            [self toapplyAnalasis];
-        } errorMessage:^(NSString *msg) {
-            [self toapplyAnalasis];
-        }];
+        [self toapplyAnalasis];
     }
 }
 #pragma mark - Lazy Load

@@ -125,6 +125,7 @@
     if (_model.amount == 0) {
         _labMoney.text = @"";
         _labMoney.textColor = greencolor;
+        _priceLab.text = @"";
     }else{
         _labMoney.textColor = redcolor;
         NSString *str = [[NSUserDefaults standardUserDefaults]objectForKey:@"currency"];
@@ -986,7 +987,7 @@
         
         [self.labMultipleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.basicView.mas_left).offset(15);
-            make.top.equalTo(self.labMoney.mas_bottom).offset(8);
+            make.top.equalTo(self.priceLab.mas_bottom).offset(8);
         }];
         [self.imageMultiple mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.labMultipleTitle.mas_left).offset(0);

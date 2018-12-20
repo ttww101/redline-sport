@@ -19,6 +19,7 @@
 @property (nonatomic , strong) UIButton *recodBtn;
 @property (nonatomic , strong) NSMutableArray *btns;
 @property (nonatomic , strong) DatePickerView *variableView;
+@property (nonatomic , copy) NSString *title;
 
 @end
 
@@ -26,18 +27,19 @@ static CGFloat space = 15;
 
 @implementation DatePickerView
 
-+ (DatePickerView *)showDatePicker:(NSArray *)dates{
++ (DatePickerView *)showDatePicker:(NSArray *)dates title:(NSString *)title;{
     UIWindow *window = [ZBMethods getMainWindow];
-    DatePickerView *pickerView = [[DatePickerView alloc]initWithFrame:window.bounds titlesModel:dates];
+    DatePickerView *pickerView = [[DatePickerView alloc]initWithFrame:window.bounds titlesModel:dates title:title];
     [window addSubview:pickerView];
     return pickerView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame titlesModel:(NSArray *)titlesModel{
+- (instancetype)initWithFrame:(CGRect)frame titlesModel:(NSArray *)titlesModel title:(NSString *)title{
     self = [super initWithFrame:frame];
     if (self) {
          self.variableView = self;
         self.titles = titlesModel;
+        self.title = title;
         [self configUI];
         [self addTitleBtn:titlesModel];
         [self showAnimation];
@@ -62,6 +64,7 @@ static CGFloat space = 15;
         make.centerX.equalTo(self.mas_centerX);
         make.top.equalTo(self.container.mas_top).offset(13);
     }];
+    self.recentLab.text = self.title;
     
     [self.container addSubview:self.closeBtn];
     [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {

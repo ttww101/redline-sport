@@ -122,18 +122,16 @@
     nav.height = 74;
     nav.delegate = self;
     nav.labTitle.text = @"滚球体育";
-    [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"shezhiBifen1"] forState:UIControlStateNormal];
-    [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"shezhiBifen1"] forState:UIControlStateHighlighted];
-    
-//    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shaixuanBifen1"] forState:UIControlStateNormal];
-//    [nav.btnRight setBackgroundImage:[UIImage imageNamed:@"shaixuanBifen1"] forState:UIControlStateHighlighted];
-    
+    [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"bifen_top_setting"] forState:UIControlStateNormal];
+    nav.btnLeft.frame =  CGRectMake(15, 30, 20, 30);
+
     UIButton *btnShaixuan = [UIButton buttonWithType:UIButtonTypeCustom];
     btnShaixuan.bounds = nav.btnRight.bounds;
     btnShaixuan.center = CGPointMake(nav.btnRight.center.x, nav.btnRight.center.y - 2);
-    [btnShaixuan setBackgroundImage:[UIImage imageNamed:@"search1"] forState:UIControlStateNormal];
-    [btnShaixuan setBackgroundImage:[UIImage imageNamed:@"search1"] forState:UIControlStateHighlighted];
+    [btnShaixuan setBackgroundImage:[UIImage imageNamed:@"bifen_top_search"] forState:UIControlStateNormal];
     [btnShaixuan addTarget:self action:@selector(btnSearch) forControlEvents:UIControlEventTouchUpInside];
+    btnShaixuan.imageView.contentMode  = UIViewContentModeScaleAspectFit;
+     btnShaixuan.frame =  CGRectMake(Width - 15 - 20, 30, 20, 30);
     [nav addSubview:btnShaixuan];
     
 //    [nav addSubview:self.navTitleView];

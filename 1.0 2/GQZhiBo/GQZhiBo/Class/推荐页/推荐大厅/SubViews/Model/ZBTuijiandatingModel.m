@@ -86,6 +86,7 @@
              @"showPrice": @"showPrice",
              @"showBuyCount":@"showBuyCount",
              @"red":@"red",
+             @"sclassred":@"sclassred",
              @"slogan":@"slogan"
              };
 }

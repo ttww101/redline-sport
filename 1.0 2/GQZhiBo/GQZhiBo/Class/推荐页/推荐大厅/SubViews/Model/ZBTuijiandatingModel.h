@@ -91,6 +91,8 @@
 @property (nonatomic, assign) BOOL showBuyCount;
 
 @property (nonatomic, assign) NSInteger red;
+@property (nonatomic, assign) NSInteger sclassred;
+
 
 @property (nonatomic , copy) NSString *slogan;
 
