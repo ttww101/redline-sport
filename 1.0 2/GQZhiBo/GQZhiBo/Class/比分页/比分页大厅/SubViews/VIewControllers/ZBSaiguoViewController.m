@@ -51,7 +51,7 @@
 }
 
 - (void)ZBSelectedDateTitleViewDidAction:(NSArray *)array {
-    DatePickerView *picker =  [DatePickerView showDatePicker:array title:@"进7天完场赛事"];
+    DatePickerView *picker =  [DatePickerView showDatePicker:array title:@"近7天完场赛事"];
     picker.delegate = self;
 }
 

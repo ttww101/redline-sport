@@ -158,7 +158,15 @@
                 [ZBMethods toLogin];
                 return;
             }
-             if (indexPath.row == 0) {
+            if (indexPath.row == 0) {
+                [MobClick event:@"wdzh" label:@""];
+                ZBWebModel *model = [[ZBWebModel alloc]init];
+                model.title = @"我的账户";
+                model.webUrl = [NSString stringWithFormat:@"%@/%@/account.html", APPDELEGATE.url_ip,H5_Host];
+                ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+                webDetailVC.model = model;
+                [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+            } else if (indexPath.row == 1) {
                  [MobClick event:@"wdjc" label:@""];
                  ZBWebModel *model = [[ZBWebModel alloc]init];
                  model.title = @"账户明细";
@@ -166,14 +174,14 @@
                  ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                  webDetailVC.model = model;
                  [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 ZBWebModel *model = [[ZBWebModel alloc]init];
                 model.title = @"购买记录";
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/purchase-details.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userModel.idId];
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 ZBWebModel *model = [[ZBWebModel alloc]init];
                 model.title = @"分析师收入";
                 model.hideNavigationBar = YES;
@@ -181,7 +189,7 @@
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 4) {
                 [MobClick event:@"yhq" label:@""];
                 ZBWebModel *model = [[ZBWebModel alloc]init];
                 model.title = @"优惠券";

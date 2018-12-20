@@ -48,7 +48,8 @@
     @"coin":@"coin",
     @"redpackage":@"redpackage",
     @"cardPic1": @"cardPic1",
-    @"cardPic2": @"cardPic2"
+    @"cardPic2": @"cardPic2",
+    @"diamondDesc": @"diamondDesc"
     };
 }
 + (NSValueTransformer *)medalsJSONTransformer

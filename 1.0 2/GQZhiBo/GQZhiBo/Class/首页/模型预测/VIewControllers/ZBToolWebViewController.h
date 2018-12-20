@@ -11,4 +11,6 @@
 @property (nonatomic, copy) NSString *urlPath;
 @property (nonatomic , copy) NSDictionary *parameterDic;
 @property (nonatomic , strong) ZBWebModel *model;
+@property (nonatomic , strong) UIWebView *webView;
+
 @end

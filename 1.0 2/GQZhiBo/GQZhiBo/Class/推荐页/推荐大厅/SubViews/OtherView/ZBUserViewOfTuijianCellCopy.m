@@ -108,7 +108,7 @@
     }];
     
     if (model.tenWinRate.length > 0) {
-        _labRemark2.text = @"近十场胜率";
+        _labRemark2.text = @"近10场胜率";
         _labRemark1.text = [NSString stringWithFormat:@"%@%%",model.tenWinRate];
     } else {
         _labRemark2.text = @"";

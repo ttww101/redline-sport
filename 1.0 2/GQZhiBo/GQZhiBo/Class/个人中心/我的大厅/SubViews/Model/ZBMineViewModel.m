@@ -2,8 +2,8 @@
 @implementation ZBMineViewModel
 + (NSArray *)getMineDataArray {
     NSMutableArray *groupArray = [NSMutableArray array];
-    NSArray *imageArray1 = @[@"image2", @"image3",@"image11", @"image12"];
-    NSArray *leftContentArry1 = @[@"账户明细", @"购买记录",@"分析师收入", @"优惠券"];
+    NSArray *imageArray1 = @[@"image18",@"image2", @"image3",@"image11", @"image12"];
+    NSArray *leftContentArry1 = @[@"我的账户",@"账户明细", @"购买记录",@"分析师收入", @"优惠券"];
     NSMutableArray *array1 = [NSMutableArray new];
     for (NSInteger i = 0; i < imageArray1.count; i ++) {
         ZBMineModel *model = [[ZBMineModel alloc]init];

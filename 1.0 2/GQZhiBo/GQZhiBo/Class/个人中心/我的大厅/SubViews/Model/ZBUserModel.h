@@ -48,4 +48,9 @@
 
 @property (nonatomic , copy) NSString *cardPic1;
 @property (nonatomic , copy) NSString *cardPic2;
+
+
+@property (nonatomic , copy) NSNumber *diamondDesc;
+
+
 @end

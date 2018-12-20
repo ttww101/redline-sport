@@ -27,7 +27,7 @@
 #pragma mark SelectedDateTitleViewDelegate
 
 - (void)ZBSelectedDateTitleViewDidAction:(NSArray *)array {
-    DatePickerView *picker =  [DatePickerView showDatePicker:array title:@"进七天关注赛事"];
+    DatePickerView *picker =  [DatePickerView showDatePicker:array title:@"近七天关注赛事"];
     picker.delegate = self;
 }
 

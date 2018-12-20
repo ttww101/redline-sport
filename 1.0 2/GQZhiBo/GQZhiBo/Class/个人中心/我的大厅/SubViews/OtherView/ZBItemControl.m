@@ -9,27 +9,33 @@
                        amount:(NSString *)amount{
     self = [super initWithFrame:frame];
     if (self) {
+        
         _imageName = [imageName copy];
         _title = [title copy];
-        UILabel *label = [[UILabel alloc]init];
-        label.text = _title;
-        label.font = font12;
-        label.textColor = UIColorFromRGBWithOX(0x323232);
-        label.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:label];
-        CGFloat rightSpace = (self.width - (14 + 40)) / 2;
-        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.mas_top).offset(10);
-            make.right.equalTo(self.mas_right).offset(-rightSpace);
-        }];
+        
+        
+        
         UIImageView *iconImageView = [UIImageView new];
         iconImageView.image = [UIImage imageNamed:_imageName];
         [self addSubview:iconImageView];
         [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(10);
             make.size.mas_equalTo(CGSizeMake(14, 14));
-            make.right.equalTo(label.mas_left).offset(-5);
+            make.left.equalTo(self.mas_left).offset(26);
         }];
+        
+        
+        UILabel *label = [[UILabel alloc]init];
+        label.text = _title;
+        label.font = font12;
+        label.textColor = UIColorFromRGBWithOX(0x323232);
+        label.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:label];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mas_top).offset(10);
+            make.left.equalTo(iconImageView.mas_right).offset(4);
+        }];
+        
         UIImageView *lineView = [[UIImageView alloc]init];
         lineView.backgroundColor = UIColorFromRGBWithOX(0xD8D8D8);
         [self addSubview:lineView];
@@ -39,6 +45,7 @@
             make.bottom.equalTo(self.mas_bottom).offset(-12);
             make.width.mas_equalTo(1);
         }];
+        
         UILabel *amountLabel = [[UILabel alloc]init];
         amountLabel.text = amount;
         amountLabel.font = font14;
@@ -47,7 +54,7 @@
         [self addSubview:amountLabel];
         [amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.mas_bottom).offset(-10);
-            make.centerX.equalTo(self.mas_centerX);
+            make.left.equalTo(label.mas_left);
         }];
     }
     return self;

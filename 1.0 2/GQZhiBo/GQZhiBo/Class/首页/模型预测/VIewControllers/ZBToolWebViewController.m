@@ -19,7 +19,7 @@
 #import "ZBReplyViewController.h"
 #import "GeneralFloatingView.h"
 
-@interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate, GeneralFloatingViewDelegate>
+@interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate, GeneralFloatingViewDelegate, UIWebViewDelegate>
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 @property (nonatomic , copy) NSString *recordUrl;
@@ -33,6 +33,7 @@
 @property (nonatomic , strong) NSDictionary *commentsDic;
 @property (nonatomic , strong) UIButton *replyBtn;
 @property (nonatomic , strong) GeneralFloatingView *floatingView;
+@property (nonatomic, assign) BOOL useWkWeb;
 
 
 @end
@@ -40,20 +41,28 @@
 @implementation ZBToolWebViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if ([self.model.webUrl rangeOfString:@"pay-for.html"].location != NSNotFound) {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
+    }
+    
+    if ([self.model.webUrl containsString:@"index"]) {
+        self.useWkWeb = false;
+        
+    } else {
+        self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, Width, 2)];
+        self.progressView.progressTintColor = redcolor;
+        self.progressView.trackTintColor = [UIColor clearColor];
+        self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
+        [self.wkWeb addSubview:self.progressView];
+        [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+        self.useWkWeb = true;
+    }
+    
+    
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
-    if ([self.urlPath rangeOfString:@"pay-for.html"].location != NSNotFound) {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
-    }
-    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, Width, 2)];
-    self.progressView.progressTintColor = redcolor;
-    self.progressView.trackTintColor = [UIColor clearColor];
-    self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
-    [self.wkWeb addSubview:self.progressView];
-    [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    
-
     if ([self.model.webUrl containsString:@"tuijianIndex"]) {
         [self.view addSubview:self.floatingView];
     }
@@ -168,7 +177,26 @@
     [webView reload];
 }
 
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self dissMissToastView];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    if (error.code == -999) {
+        return;
+    }
+    if (error.code == -1002) {
+        return;
+    }
+    [self createNullToastView:@"" imageName:@"nodataFirstP"];
+}
+
 #pragma mark - CommentsViewDelegate
+
+
 - (void)commentViewDidSelectCommnetList:(ZBCommentsView *)commentView {
     if (self.commentsDic) {
         NSDictionary *dic = self.commentsDic[@"comment"];
@@ -198,20 +226,38 @@
 - (void)loadBradgeHandler {
     __weak ZBToolWebViewController *weakSelf = self;
     ZBAppManger *manger = [[ZBAppManger alloc]init];
-    WebViewJavascriptBridge *bridge = [manger WK_RegisterJSTool:self.wkWeb hannle:^(id data, GQJSResponseCallback responseCallback) {
-        if (responseCallback) {
-            weakSelf.callBack = responseCallback;
-        }
-        ZBJSModel *model = (ZBJSModel *)data;
-        NSString *actionString = model.methdName;
-        SEL action = NSSelectorFromString(actionString);
-        if ([weakSelf respondsToSelector:action]) {
+    WebViewJavascriptBridge *bridge ;
+    if (self.useWkWeb) {
+      bridge = [manger WK_RegisterJSTool:self.wkWeb hannle:^(id data, GQJSResponseCallback responseCallback) {
+            if (responseCallback) {
+                weakSelf.callBack = responseCallback;
+            }
+            ZBJSModel *model = (ZBJSModel *)data;
+            NSString *actionString = model.methdName;
+            SEL action = NSSelectorFromString(actionString);
+            if ([weakSelf respondsToSelector:action]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [weakSelf performSelector:action withObject:model.parameterData];
+                [weakSelf performSelector:action withObject:model.parameterData];
 #pragma clang diagnostic pop
-        }
-    }];
+            }
+        }];
+    } else {
+        bridge = [manger registerJSTool:self.webView hannle:^(id data, GQJSResponseCallback responseCallback) {
+            if (responseCallback) {
+                weakSelf.callBack = responseCallback;
+            }
+            ZBJSModel *model = (ZBJSModel *)data;
+            NSString *actionString = model.methdName;
+            SEL action = NSSelectorFromString(actionString);
+            if ([weakSelf respondsToSelector:action]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                [weakSelf performSelector:action withObject:model.parameterData];
+#pragma clang diagnostic pop
+            }
+        }];
+    }
     [bridge setWebViewDelegate:self];
     self.bridge = bridge;
 }
@@ -229,7 +275,12 @@
         NSURL *url = [NSURL URLWithString:self.urlPath];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
         [request setValue:PARAM_IS_NIL_ERROR([ZBMethods getTokenModel].token) forHTTPHeaderField:@"token"];
-        [self.wkWeb loadRequest:request];
+        if (self.useWkWeb) {
+            [self.wkWeb loadRequest:request];
+        } else {
+            [self.webView loadRequest:request];
+        }
+        
     } else if (self.html5Url != nil) {
         NSString* path = [[NSBundle mainBundle] pathForResource:self.html5Url ofType:@"html"];
         NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -243,11 +294,19 @@
     } else {
         self.wkWeb.frame = CGRectMake(0, 0, self.view.width, Height - 64 - (_model.fromTab ? 49:0));
     }
+    self.webView.frame = self.wkWeb.frame;
 }
 - (void)configUI {
-    [self.view addSubview:self.wkWeb];
+    if (self.useWkWeb) {
+         [self.view addSubview:self.wkWeb];
+         adjustsScrollViewInsets_NO(self.wkWeb.scrollView, self);
+    } else {
+         [self.view addSubview:self.webView];
+         adjustsScrollViewInsets_NO(self.webView.scrollView, self);
+    }
+   
     self.navigationItem.title = _model.title;
-    adjustsScrollViewInsets_NO(self.wkWeb.scrollView, self);
+   
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     if (_model.showBuyBtn) {
         UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -685,7 +744,8 @@
 }
 - (void)createNullToastView:(NSString *)text imageName:(NSString *)imageName {
     if (!_toastView) {
-         _toastView = [[UIView alloc]initWithFrame:self.wkWeb.bounds];
+        CGRect bounds = self.useWkWeb ? self.wkWeb.bounds : self.webView.bounds;
+         _toastView = [[UIView alloc]initWithFrame:bounds];
         UIImageView *toastImageView = [UIImageView new];
         toastImageView.image = [UIImage imageNamed:imageName];
         toastImageView.contentMode = UIViewContentModeScaleToFill;
@@ -696,7 +756,11 @@
         }];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reloadAction)];
         [toastImageView addGestureRecognizer:tap];
-        [self.wkWeb addSubview:_toastView];
+        if (self.useWkWeb) {
+            [self.wkWeb addSubview:_toastView];
+        } else {
+            [self.webView addSubview:_toastView];
+        }
     }
 }
 - (void)dissMissToastView {
@@ -972,6 +1036,19 @@
     return nil;
 }
 #pragma mark - Lazy Load
+
+- (UIWebView *)webView {
+    if (_webView == nil) {
+        _webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+        _webView.delegate = self;
+        _webView.scrollView.showsHorizontalScrollIndicator = false;
+        _webView.scrollView.showsVerticalScrollIndicator = false;
+        _webView.scrollView.keyboardDismissMode  = UIScrollViewKeyboardDismissModeOnDrag;
+        _webView.backgroundColor = [UIColor whiteColor];
+    }
+    return _webView;
+}
+
 - (WKWebView *)wkWeb {
     if (_wkWeb == nil) {
         _wkWeb = [[WKWebView alloc]initWithFrame:self.view.bounds];
@@ -984,6 +1061,7 @@
     }
     return _wkWeb;
 }
+
 - (ZBCommentsView *)commentsView {
     if (_commentsView == nil) {
         _commentsView = [[ZBCommentsView alloc]init];
