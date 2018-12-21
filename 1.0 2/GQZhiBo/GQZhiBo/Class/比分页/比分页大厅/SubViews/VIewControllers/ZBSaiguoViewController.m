@@ -75,6 +75,11 @@
     if ([dic[ParamtersTimeline] isEqualToString:@"old"]) {
         self.filterDic = dic;
         [self loadDataQiciJishiViewController];
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [[NSUserDefaults standardUserDefaults]setObject:dic forKey:localNew];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        });
     }
 }
 
@@ -89,6 +94,7 @@
         [self.view addSubview:self.tableView];
         [self.view addSubview:self.indexBtn];
         self.view.backgroundColor = [UIColor whiteColor];
+         self.filterDic = [[NSUserDefaults standardUserDefaults]objectForKey:localNew];
         [self loadDataQiciJishiViewController];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeShowType) name:@"NSNotificationchangeShowType" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ContenViewTapFresh:) name:biFenTitleChange object:@"biFenChange"];

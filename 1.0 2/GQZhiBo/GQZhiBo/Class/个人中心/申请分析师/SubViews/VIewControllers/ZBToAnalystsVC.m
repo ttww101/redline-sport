@@ -445,8 +445,14 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"身份证不能为空"];
         return;
     }
+    
     if ([self.txtCarNum.text length] != 15 && [self.txtCarNum.text length] != 18) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"身份证号码有误"];
+        return;
+    }
+    
+    if ([self.txtCarNum.text containsString:@"*"]) {
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"请再次输入身份证号码"];
         return;
     }
     

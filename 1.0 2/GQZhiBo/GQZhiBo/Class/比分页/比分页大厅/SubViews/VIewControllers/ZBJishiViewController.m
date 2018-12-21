@@ -59,7 +59,12 @@ static SystemSoundID shake_sound_id = 0;
     NSDictionary *dic = notifi.userInfo[@"paramer"];
     if ([dic[ParamtersTimeline] isEqualToString:@"live"]) {
         self.filterDic = dic;
-         [self loadDataQiciJishiViewController];
+        [self loadDataQiciJishiViewController];
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [[NSUserDefaults standardUserDefaults]setObject:dic forKey:localLive];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        });
     }
    
 }
@@ -74,10 +79,10 @@ static SystemSoundID shake_sound_id = 0;
 {
     return UIStatusBarStyleLightContent;
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+- (void)viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
+    [self changeTimer];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
         if (![[NSUserDefaults standardUserDefaults] boolForKey:@"youjinqiu"]) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -91,6 +96,9 @@ static SystemSoundID shake_sound_id = 0;
     [super viewDidLoad];
     self.defaultFailure = @"";
     [self.tableView.mj_header beginRefreshing];
+    
+    self.filterDic = [[NSUserDefaults standardUserDefaults]objectForKey:localLive];
+    
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"didSelectedbifen"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"youjinqiu"];
@@ -98,10 +106,10 @@ static SystemSoundID shake_sound_id = 0;
     [self addObserver:self forKeyPath:@"cellNum" options:NSKeyValueObservingOptionNew context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewData) name:@"NotificationTogetAllJishibifen" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFilterData:) name:FilterPageNotification object:nil];
-    [self loadDataQiciJishiViewController];
-    [self creatArr];
     
-     [self changeTimer];
+//    [self loadDataQiciJishiViewController];
+    
+    [self creatArr];
    
 }
 - (void)creatArr {

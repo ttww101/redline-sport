@@ -11,6 +11,9 @@ NSString *const ParamtersSub = @"sub";
 NSString *const ParamtersTimeline = @"timeline";
 NSString *const ParamtersFilters = @"filter";
 NSString *const ParamtersType = @"Type";
+NSString *const localLive = @"localLive";
+NSString *const localOld = @"localOld";
+NSString *const localNew = @"localNew";
 
 
 

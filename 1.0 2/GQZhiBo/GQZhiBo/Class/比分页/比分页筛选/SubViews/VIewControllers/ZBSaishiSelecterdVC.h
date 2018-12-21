@@ -12,6 +12,11 @@ UIKIT_EXTERN NSString *const ParamtersTimeline;  // live 即时(默认)，old �
 UIKIT_EXTERN NSString *const ParamtersFilters;  // {“key”:”sclasss” ,”val”:[44,55,66,88]} key 检索项目 sclasss，pankou_rq，pankou_dx 三选一 ,val检索值
 UIKIT_EXTERN NSString *const ParamtersType;
 
+UIKIT_EXTERN NSString *const localLive; // 及时筛选存本地
+UIKIT_EXTERN NSString *const localOld; // 及时筛选存本地
+UIKIT_EXTERN NSString *const localNew; // 及时筛选存本地
+
+
 
 @interface ZBSaishiSelecterdVC : ZBViewPagerController
 @property (nonatomic, strong) NSArray *arrData;
