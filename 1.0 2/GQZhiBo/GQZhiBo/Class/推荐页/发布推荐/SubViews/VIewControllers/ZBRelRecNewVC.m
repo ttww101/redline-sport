@@ -70,6 +70,7 @@
 @property (nonatomic, strong) UILabel  *describeLab;
 @property (nonatomic, strong) BaseImageView *warningIV;
 @property (nonatomic, strong) UIView  *coverView;
+@property (nonatomic , strong) UISwitch *currentSwitch;
 
 
 @end
@@ -90,7 +91,13 @@
     return YES;
 }
 
-
+- (void)setLayout:(CGFloat)height {
+    _textView.frame = CGRectMake(15, _adaDetaiLab.bottom + 10, Width - 30, height);
+    _warningIV.top = _textView.bottom + 10;
+    _describeLab.top = _textView.bottom + 10;
+    _viewZhuma.top = _describeLab.bottom + 10;
+    _ScrollView.contentSize = CGSizeMake(Width, _viewZhuma.bottom + 10);
+}
 
 #pragma mark - Lazy Load
 
@@ -1013,8 +1020,8 @@
         [textSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];   
         textSwitch.transform = CGAffineTransformMakeScale( 0.7, 0.7);
         textSwitch.on = false;
+        self.currentSwitch = textSwitch;
         self.textViewPlaceholder.text = @"有价值的深度分析内容才会推送到推荐首页";
-        self.textView.userInteractionEnabled = false;
         [_ViewTextTitle addSubview:textSwitch];
     }
     return _ViewTextTitle;
@@ -1025,12 +1032,12 @@
         BOOL isButtonOn = [switchButton isOn];
         if (isButtonOn) {
             self.textViewPlaceholder.text = @"有价值的深度分析内容将会被推送到推荐大厅";
-            self.textView.userInteractionEnabled = YES;
             self.coverView.hidden = true;
+            [self setLayout:_textViewHeight];
         }else {
             self.textViewPlaceholder.text = @"有价值的深度分析内容将会被推送到推荐大厅";
-            self.textView.userInteractionEnabled = false;
             self.coverView.hidden = false;
+            [self setLayout:140];
         }
     
     } else {
@@ -1077,6 +1084,7 @@
         _textView.allowsEditingTextAttributes = YES;
         _textView.backgroundColor = [UIColor whiteColor];
         [_textView addSubview:self.textViewPlaceholder];
+        _textView.userInteractionEnabled = true;
     }
     return _textView;
 }
@@ -1173,6 +1181,7 @@
 - (void)tapButtomView
 {
     [self.textView resignFirstResponder];
+    [self.textFiled  resignFirstResponder];
 }
 - (UIButton *)btnPhoto{
     if (!_btnPhoto) {
@@ -1195,9 +1204,7 @@
     }
     if (_textViewHeight != size.height) {
         _textViewHeight = size.height;
-        _textView.frame = CGRectMake(15, _ViewTextTitle.bottom, Width - 30, size.height);
-        _viewZhuma.frame = CGRectMake(0, _textView.bottom + 15, Width, 145);
-         _ScrollView.contentSize = CGSizeMake(Width, _ViewTextTitle.bottom + _textViewHeight + 10 + self.viewZhuma.height+ 15  + 20 + 15 );
+         [self setLayout:size.height];
         if (self.ScrollView.contentSize.height >self.ScrollView.height) {
              [self.ScrollView setContentOffset:CGPointMake(0, self.ScrollView.contentSize.height - self.ScrollView.height - ( 10 + self.viewZhuma.height+ 15 +  20 + 15 ))];
         }
@@ -1216,9 +1223,7 @@
     }
     if (_textViewHeight != size.height) {
         _textViewHeight = size.height;
-        _textView.frame = CGRectMake(15, _ViewTextTitle.bottom, Width - 30, size.height);
-        _viewZhuma.frame = CGRectMake(0, _textView.bottom + 15, Width, 145);
-        _ScrollView.contentSize = CGSizeMake(Width, _ViewTextTitle.bottom + _textViewHeight + 10 + self.viewZhuma.height+ 15  + 20 + 15 );
+        [self setLayout:size.height];
         if (self.ScrollView.contentSize.height >self.ScrollView.height) {
             [self.ScrollView setContentOffset:CGPointMake(0, self.ScrollView.contentSize.height - self.ScrollView.height - ( 10 + self.viewZhuma.height+ 15  + 20 + 15 ))];
         }
@@ -1364,9 +1369,8 @@
     CGSize constraintSize = CGSizeMake(frame.size.width, MAXFLOAT);
     CGSize size = [_textView sizeThatFits:constraintSize];
     if (size.height>140 && _textViewHeight != size.height) {
-        _textView.frame = CGRectMake(15, _ViewTextTitle.bottom, Width - 30, size.height);
-        _textViewHeight = size.height;
-        _ScrollView.contentSize = CGSizeMake(Width, _ViewTextTitle.bottom + size.height + 10);
+         _textViewHeight = size.height;
+        [self setLayout:size.height];
         if (self.ScrollView.contentSize.height >self.ScrollView.height) {
             [self.ScrollView setContentOffset:CGPointMake(0, self.ScrollView.contentSize.height - self.ScrollView.height)];
         }
@@ -1488,6 +1492,8 @@
 
 - (void)fabuTuijianWithHtml:(NSString *)htmlStr withContent:(NSString *)contentStr
 {
+    
+    
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
     [parameter setObject:[NSString stringWithFormat:@"%ld",self.model.sid] forKey:@"matchId"];
     [parameter setObject:_playContent forKey:_play];
@@ -1498,10 +1504,11 @@
     [parameter setObject:PARAM_IS_NIL_ERROR(self.textFiled.text) forKey:@"slogan"];
     [parameter setObject:PARAM_IS_NIL_ERROR([_textView.text stringByReplacingOccurrencesOfString:@"\ufffc" withString:@""])  forKey:@"content"];
     [parameter setObject:@(1) forKey:@"ignore"];
+    [ZBLodingAnimateView showLodingView];
     [[ZBDCHttpRequest shareInstance] sendRequestByMethod:@"post" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server, url_addrecommend] ArrayFile:nil Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
-        NSLog(@"%@",responseOrignal);
+        [ZBLodingAnimateView dissMissLoadingView];
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             _isTouchedFabuBtn = YES;
             _tuijianBackID = [[responseOrignal objectForKey:@"data"] intValue];
@@ -1518,6 +1525,7 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         _isTouchedFabuBtn = NO;
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+        [ZBLodingAnimateView dissMissLoadingView];
     }];
 }
 - (void)updateModel
