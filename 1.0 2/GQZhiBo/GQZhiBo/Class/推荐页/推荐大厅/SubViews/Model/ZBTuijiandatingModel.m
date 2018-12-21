@@ -86,7 +86,7 @@
              @"showPrice": @"showPrice",
              @"showBuyCount":@"showBuyCount",
              @"red":@"red",
-             @"sclassred":@"sclassred",
+             @"sclassRed":@"sclassRed",
              @"slogan":@"slogan",
              @"tenWinRate": @"tenWinRate",
              @"read_count":@"read_count"

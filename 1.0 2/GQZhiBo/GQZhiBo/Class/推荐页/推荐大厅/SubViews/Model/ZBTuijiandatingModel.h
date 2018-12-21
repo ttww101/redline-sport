@@ -91,7 +91,7 @@
 @property (nonatomic, assign) BOOL showBuyCount;
 
 @property (nonatomic, assign) NSInteger red;
-@property (nonatomic, assign) NSInteger sclassred;
+@property (nonatomic, assign) NSInteger sclassRed;
 @property (nonatomic , copy) NSString *tenWinRate;
 @property (nonatomic, assign) NSInteger read_count;
 

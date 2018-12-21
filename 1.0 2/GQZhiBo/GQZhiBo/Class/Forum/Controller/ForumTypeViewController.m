@@ -99,6 +99,9 @@ static NSString *const CellID = @"GLCellID";
             self.headers = allModel.all;
             CGFloat height = Scale_Value(135) + 60 * topModel.top.count + 70;
             self.header.dataSource = topModel.top;
+            if (!(topModel.top.count > 0)) {
+                height -= 26;
+            }
             self.header.height = height;
             self.section.top = height - self.section.height;
             _sectionOrigin = self.section.frame;

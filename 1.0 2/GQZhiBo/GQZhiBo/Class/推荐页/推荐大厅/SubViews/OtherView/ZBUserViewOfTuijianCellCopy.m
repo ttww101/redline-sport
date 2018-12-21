@@ -115,7 +115,7 @@
         _labRemark1.text = @"";
     }
     
-    if (model.red == 0 && model.sclassred == 0) {
+    if (model.red == 0 && model.sclassRed == 0) {
         _userWin.text = @"";
         [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.btnAuthorPic.mas_right).offset(9);
@@ -126,7 +126,7 @@
             make.left.equalTo(self.userWin.mas_left);
             make.centerY.equalTo(self.userWin.mas_centerY);
         }];
-    } else if (model.red > model.sclassred) {
+    } else if (model.red > model.sclassRed) {
         _userWin.text = [NSString stringWithFormat:@"正在%zi连红",model.red];
         CGFloat width = [_userWin.text widthForFont:font10];
         width += 10;
@@ -140,8 +140,8 @@
             make.centerY.equalTo(self.userWin.mas_centerY);
         }];
         
-    } else if (model.sclassred > model.red) {
-        _userWin.text = [NSString stringWithFormat:@"%@%zi连红", model.leagueName,model.red];
+    } else if (model.sclassRed > model.red) {
+        _userWin.text = [NSString stringWithFormat:@"%@%zi连红", model.Name_JS,model.sclassRed];
         CGFloat width = [_userWin.text widthForFont:font10];
         width += 10;
         [self.userWin mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -154,7 +154,6 @@
             make.centerY.equalTo(self.userWin.mas_centerY);
         }];
     }
-    
     
     NSString *goodPlay = @"";
     NSString *firstStr = nil;
