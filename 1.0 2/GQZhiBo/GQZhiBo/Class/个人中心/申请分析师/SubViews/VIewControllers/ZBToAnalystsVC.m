@@ -279,6 +279,11 @@
         if (self.model.userinfo.length > 0) {
             self.labPlaceholder.hidden = YES;
         }
+
+        if (self.model.applyreason.length > 0) {
+            self.txtReson.text = self.model.applyreason;
+            self.labPlaceholder.hidden = true;
+        }
         self.txtReson.text = self.model.applyreason;
         self.txtReson.frame = CGRectMake(0, 0, Width - 30, 33);
         CGRect frame = self.txtReson.frame;

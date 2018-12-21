@@ -40,11 +40,12 @@
     for (NSInteger i = 0; i < itemArray.count; i ++) {
         NSDictionary *dic = itemArray[i];
         if (i == 0) {
-            NSString *amount = [_model.diamondDesc stringValue];
-            if (!amount) {
-                amount = @"0";
+            if (_model.diamondDesc) {
+                str = _model.diamondDesc;
+            } else {
+                str = @"0";
             }
-            str = amount;
+            
         } else if (i == 1) {
             NSString *amount = [_model.coin stringValue];
             if (!amount) {

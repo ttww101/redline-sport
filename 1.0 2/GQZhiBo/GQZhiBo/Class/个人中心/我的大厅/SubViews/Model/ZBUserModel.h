@@ -50,7 +50,7 @@
 @property (nonatomic , copy) NSString *cardPic2;
 
 
-@property (nonatomic , copy) NSNumber *diamondDesc;
+@property (nonatomic , copy) NSString *diamondDesc;
 
 
 @end
