@@ -82,7 +82,7 @@ static SystemSoundID shake_sound_id = 0;
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    [self changeTimer];
+    [self changeTimer]; // 刷新比分
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
         if (![[NSUserDefaults standardUserDefaults] boolForKey:@"youjinqiu"]) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -377,9 +377,10 @@ static SystemSoundID shake_sound_id = 0;
 - (void)loadDataJishiViewControllerWithQici:(ZBQiciModel *)model
 {
     NSString *sub = @"all";
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jingcaibifen"]) {
-        sub = @"jc";
-    }
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jingcaibifen"]) {
+//        sub = @"jc";
+//    }
+    sub = self.filterDic[ParamtersSub];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
        
@@ -409,6 +410,12 @@ static SystemSoundID shake_sound_id = 0;
                 self.defaultFailure = @"";
     
                 NSMutableArray *arrLoad = [[NSMutableArray alloc] initWithArray:[ZBJSbifenModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+                
+                if (_memeryArrAllPart.count > 0) {
+                    if ([[[_memeryArrAllPart firstObject] class]isEqual:NSClassFromString(@"ZBLiveScoreModel")]) {
+                        [_memeryArrAllPart removeAllObjects];
+                    }
+                }
                 
                 NSMutableArray *arrComplete = [NSMutableArray array];
                 for (int i = 0; i<_memeryArrAllPart.count; i++) {
@@ -493,9 +500,9 @@ static SystemSoundID shake_sound_id = 0;
                 _arrData = [[NSMutableArray alloc] initWithArray:arrLoad];
 
                 [self reloadTableView];
-                
-                
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
+                NSTimeInterval timerinterVal = [[NSDate date] timeIntervalSince1970] + 10;
+                [[NSUserDefaults standardUserDefaults] setDouble:timerinterVal forKey:@"bifenchangeSaveTime"];
                
                 
             } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
@@ -540,6 +547,12 @@ static SystemSoundID shake_sound_id = 0;
                 self.defaultFailure = @"";
                 if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
                     NSMutableArray *arrLoad = [[NSMutableArray alloc] initWithArray:[ZBLiveScoreModel arrayOfEntitiesFromArray:[[responseOrignal objectForKey:@"data"] objectForKey:@"matchs"]]];
+                    
+                    if (_memeryArrAllPart.count > 0) {
+                        if ([[[_memeryArrAllPart firstObject] class]isEqual:NSClassFromString(@"ZBJSbifenModel")]) {
+                            [_memeryArrAllPart removeAllObjects];
+                        }
+                    }
                     
                     NSMutableArray *arrComplete = [NSMutableArray array];
                     for (int m= 0; m < _memeryArrAllPart.count; m++) {
@@ -589,6 +602,8 @@ static SystemSoundID shake_sound_id = 0;
                     _arrData = [[NSMutableArray alloc] initWithArray:arrLoad];
                     [self reloadTableView];
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
+                    NSTimeInterval timerinterVal = [[NSDate date] timeIntervalSince1970] + 10;
+                    [[NSUserDefaults standardUserDefaults] setDouble:timerinterVal forKey:@"bifenchangeSaveTime"];
                 }
             } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
                 self.defaultFailure = errorDict;
@@ -652,6 +667,7 @@ static SystemSoundID shake_sound_id = 0;
             }];
     }
 }
+
 - (MBProgressHUD *)hud
 {
     if (!_hud) {
@@ -694,6 +710,7 @@ static SystemSoundID shake_sound_id = 0;
     }
     return _jsbfView;
 }
+
 - (void)changeLivingScoreWithData:(NSArray *)arrLiving
 {
     NSArray *arr = arrLiving;
@@ -703,13 +720,37 @@ static SystemSoundID shake_sound_id = 0;
     
     
     NSMutableArray *appendArray = [NSMutableArray array];
-
+    
+    BOOL timeType = true; // 判断是按时间 还是按照赛事
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
+        
+        if (_memeryArrAllPart.count > 0) {
+            if ([[[_memeryArrAllPart firstObject] class]isEqual:[ZBLiveScoreModel class]]) {
+                [self getNewData];
+                return;
+            }
+        }
+        
         appendArray = self.arrData;
+        timeType = false;
+        
     } else {
+        
+        if (_memeryArrAllPart.count > 0) {
+            if ([[[_memeryArrAllPart firstObject] class] isEqual:[ZBJSbifenModel class]]) {
+                [self getNewData];
+                return;
+            }
+            
+        }
+
         ZBJSbifenModel *model = [[ZBJSbifenModel alloc]init];
         model.data = self.arrData;
         [appendArray addObject:model];
+        timeType = true;
+        
+       
     }
     
     if (appendArray > 0 ) {
@@ -872,12 +913,21 @@ static SystemSoundID shake_sound_id = 0;
         ZBJSbifenModel *jsmodel = [appendArray objectAtIndex:i];
         for (int m = 0; m<jsmodel.data.count; m++) {
             ZBLiveScoreModel * scoreModel= [jsmodel.data objectAtIndex:m];
-            for (int j= 0; j<_memeryArrAllPart.count; j++){
-                ZBJSbifenModel *jsMMmodel = [_memeryArrAllPart objectAtIndex:j];
-                for (int n = 0; n<jsMMmodel.data.count; n++) {
-                    ZBLiveScoreModel *mmModel = [jsMMmodel.data objectAtIndex:n];
+            if (timeType) {
+                for (int j= 0; j<_memeryArrAllPart.count; j++){
+                    ZBLiveScoreModel *mmModel = [_memeryArrAllPart objectAtIndex:j];
                     if (scoreModel.mid == mmModel.mid) {
                         mmModel = scoreModel;
+                    }
+                }
+            } else {
+                for (int j= 0; j<_memeryArrAllPart.count; j++){
+                    ZBJSbifenModel *jsMMmodel = [_memeryArrAllPart objectAtIndex:j];
+                    for (int n = 0; n<jsMMmodel.data.count; n++) {
+                        ZBLiveScoreModel *mmModel = [jsMMmodel.data objectAtIndex:n];
+                        if (scoreModel.mid == mmModel.mid) {
+                            mmModel = scoreModel;
+                        }
                     }
                 }
             }
