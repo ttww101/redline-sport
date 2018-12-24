@@ -1332,6 +1332,7 @@
     [picker dismissViewControllerAnimated:YES completion:^{
     }];
 }
+
 -(void)setImageText:(UIImage *)img withRange:(NSRange)range appenReturn:(BOOL)appen
 {
     UIImage * image=img;
@@ -1377,6 +1378,7 @@
     }
     [self.textView becomeFirstResponder];
 }
+
 -(void)appenReturn
 {
     NSAttributedString * returnStr=[[NSAttributedString alloc]initWithString:@"\n"];
@@ -1385,6 +1387,7 @@
     _textView.attributedText=att;
     _textViewSelectedRange = _textView.selectedRange;
 }
+
 -(void)setInitLocation
 {
     self.locationStr=nil;

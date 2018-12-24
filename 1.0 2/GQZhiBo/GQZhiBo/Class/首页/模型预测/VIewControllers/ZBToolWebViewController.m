@@ -38,11 +38,12 @@
 
 @end
 #define wxpay @"wx"
+#define alipay @"ali"
 @implementation ZBToolWebViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if ([self.model.webUrl rangeOfString:@"pay-for.html"].location != NSNotFound) {
+    if ([self.model.webUrl containsString:@"pay-for.html"] || [self.model.webUrl containsString:@"buy-diamond.html"] || [self.model.webUrl containsString:@"buy-gold.html"]) {
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
     }
     
@@ -103,7 +104,7 @@
 }
 #pragma mark - Notification
 - (void)refreshResult {
-    if ([[NSUserDefaults standardUserDefaults]objectForKey:wxpay]) {
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:wxpay] || [[NSUserDefaults standardUserDefaults]objectForKey:alipay]) {
         NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"payResult"}];
         [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
         }];
@@ -612,6 +613,8 @@
             }];
         } else if ([type isEqualToString:@"ali"]) {
             NSString *orderSign = dataDic[@"data"];
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:alipay];
+            [[NSUserDefaults standardUserDefaults]synchronize];
             [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"com.Gunqiu.GQapp" completed:^(NSDictionary *resultDict) {
                 NSInteger status = [resultDict[@"resultStatus"] integerValue];
                 if(status == 9000){

@@ -20,5 +20,7 @@
 //高
 @property(nonatomic, assign) NSUInteger height;
 
+@property (nonatomic , assign) NSInteger tag;
+
 
 @end

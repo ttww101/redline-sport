@@ -71,6 +71,7 @@
         if (dataArray.count > 0) {
             weatherShowThirdPay = 1;
         }
+        weatherShowThirdPay = 1;
         NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
         NSString *sysVersion = [UIDevice currentDevice].systemVersion;
         NSString *idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];

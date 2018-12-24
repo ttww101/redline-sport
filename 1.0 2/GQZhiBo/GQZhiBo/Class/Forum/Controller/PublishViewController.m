@@ -24,7 +24,6 @@
 @property (nonatomic, strong) NSMutableArray *picArray;
 @property (nonatomic, strong) NSMutableArray *imageArray;
 
-
 @property (nonatomic, assign) BOOL isRecord;
 
 
@@ -110,20 +109,23 @@
 #pragma mark - Load Data
 
 - (void)loadData {
-    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:RecordsFormEditContentPath];
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults]objectForKey:RecordsFormEditContentPath];
     self.titleTxtFiled.text = dic[@"title"];
     self.picArray = [dic[@"pic"] mutableCopy];
     NSMutableAttributedString *attributText = [[NSMutableAttributedString alloc]initWithString: PARAM_IS_NIL_ERROR(dic[@"content"])];
     NSMutableArray *array = [NSMutableArray array];
+    NSArray *layouts = dic[@"layout"];
     for (NSInteger i = 0; i < self.picArray.count; i ++) {
         UIImage *image = [[YYImageCache sharedCache]getImageForKey:self.picArray[i]];
         [array addObject:image];
         UIFont *font = [UIFont systemFontOfSize:16];
-        UIImage *showImage = [UIImage imageWithCGImage:image.CGImage scale:2 orientation:UIImageOrientationUp];
-        NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:showImage contentMode:UIViewContentModeCenter attachmentSize:showImage.size alignToFont:font alignment:YYTextVerticalAlignmentCenter];
-        [attributText appendAttributedString:attachText];
+        YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+        imageView.frame = CGRectMake(0, 0, Width - 30, Width - 30/image.size.width*image.size.height);
+        imageView.tag = 0;
+        NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:imageView contentMode:UIViewContentModeCenter attachmentSize:imageView.size alignToFont:font alignment:YYTextVerticalAlignmentCenter];
+        [attributText insertAttributedString:attachText atIndex:[layouts[i] integerValue]];
     }
-     self.textview.attributedText = attributText;
+    self.textview.attributedText = attributText;
     self.imageArray = array;
 }
 
@@ -144,9 +146,31 @@
 
 #pragma mark - YYTextViewDelegate
 
+- (void)textViewDidEndEditing:(YYTextView *)textView {
+    
+}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
+}
+
+- (void)textViewDidChange:(YYTextView *)textView {
+   
+}
+
+- (BOOL)textView:(YYTextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@""]) {
+        NSArray *attachmentRanges = textView.textLayout.attachmentRanges;
+        NSInteger location = range.location;
+        for (NSInteger i = 0; i < attachmentRanges.count; i ++) {
+            NSRange r = [attachmentRanges[i] rangeValue];
+            if (r.location == location) {
+                [self.picArray removeObjectAtIndex:i];
+                [self.imageArray removeObjectAtIndex:i];
+            }
+        }
+    }
+    return true;
 }
 
 #pragma mark @protocol YYTextKeyboardObserver
@@ -211,6 +235,7 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     NSData*imageData =UIImageJPEGRepresentation(image,0.8);
     image = [UIImage imageWithData:imageData];
+    
     [ZBLodingAnimateView showLodingView];
     [[ZBDCHttpRequest shareInstance]sendRequestByMethod:@"post" WithParamaters:@{@"type":@"avatar"} PathUrlL:[NSString stringWithFormat:@"http://mobile.gunqiu.com:8897%@",url_uploadAliyun] ArrayFile:[NSArray arrayWithObjects:image, nil] Start:^(id requestOrignal) {
     } End:^(id responseOrignal) {
@@ -220,15 +245,9 @@
             NSDictionary *dic = responseOrignal;
             NSDictionary *contentDic = dic[@"data"];
             NSString *picUrl = contentDic[@"picurl"];
-            picUrl = [NSString stringWithFormat:@"%@%@",url_pic,picUrl];
-            NSMutableAttributedString *attributText = [self.textview.attributedText mutableCopy];
-            UIFont *font = [UIFont systemFontOfSize:16];
-            UIImage *showImage = [UIImage imageWithCGImage:image.CGImage scale:2 orientation:UIImageOrientationUp];
-            NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:showImage contentMode:UIViewContentModeCenter attachmentSize:showImage.size alignToFont:font alignment:YYTextVerticalAlignmentCenter];
-            [attributText appendAttributedString:attachText];
-            self.textview.attributedText = attributText;
-             [self.picArray addObject:picUrl];
+            [self.picArray addObject:picUrl];
             [self.imageArray addObject:image];
+             [self setImageText:image withRange:_textview.selectedRange appenReturn:true currentTime:0];
         }else{
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
         }
@@ -236,6 +255,7 @@
         [ZBLodingAnimateView dissMissLoadingView];
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
     }];
+    
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -291,27 +311,37 @@
 #pragma mark - Notification
 
 - (void)saveContent {
-    [self resetPicContent];
+    
     if (self.isRecord) {
         NSString *content = self.textview.attributedText.string;
         for (NSInteger i = 0; i < self.picArray.count; i ++) {
             YYImageCache *cache = [YYImageCache sharedCache];
             [cache setImage:self.imageArray[i] forKey:self.picArray[i]];
         }
+        NSMutableArray *array = [NSMutableArray array];
+        
+        NSArray *attachmentRanges = self.textview.textLayout.attachmentRanges;
+        for (NSValue *range in attachmentRanges)
+        {
+            NSRange r = [range rangeValue];
+            [array addObject:@(r.location)];
+        }
         NSDictionary *saveDic = @{
                                   @"title": PARAM_IS_NIL_ERROR(self.titleTxtFiled.text),
                                   @"content": PARAM_IS_NIL_ERROR(content),
-                                  @"pic": self.picArray
+                                  @"pic": self.picArray,
+                                  @"layout": array
                                   };
-        [saveDic writeToFile:RecordsFormEditContentPath atomically:true];
+        [[NSUserDefaults standardUserDefaults]setObject:saveDic forKey:RecordsFormEditContentPath];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    
     } else {
-        NSFileManager *manger = [NSFileManager defaultManager];
-        if ([manger fileExistsAtPath:RecordsFormEditContentPath]) {
-            [self.picArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [[YYImageCache sharedCache]removeImageForKey:obj];
-            }];
-            [manger removeItemAtPath:RecordsFormEditContentPath error:nil];
-        }
+        [self.picArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [[YYImageCache sharedCache]removeImageForKey:obj];
+        }];
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:RecordsFormEditContentPath];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    
     }
 }
 
@@ -334,7 +364,6 @@
          return;
     }
     
-    [self resetPicContent];
     ZBUserModel *model = [ZBMethods getUserModel];
     NSString *content = [self replacetagWithImageArray:[self.picArray copy]];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
@@ -403,26 +432,6 @@
     return contentStr.string;
 }
 
-- (void)resetPicContent {
-    __block NSInteger count = 0;
-    NSMutableAttributedString * contentStr=[[NSMutableAttributedString alloc]initWithAttributedString:self.textview.attributedText];
-    [contentStr enumerateAttribute:@"YYTextAttachment" inRange:NSMakeRange(0, contentStr.length)
-                           options:0
-                        usingBlock:^(id value, NSRange range, BOOL *stop) {
-                            if (value && [value isKindOfClass:[YYTextAttachment class]]) {
-                                count++;
-                            }
-                        }];
-    NSMutableArray *recordArray = [NSMutableArray array];
-    NSMutableArray *recordImage = [NSMutableArray array];
-    for (NSInteger i = 0; i < count; i ++) {
-        [recordArray addObject:self.picArray[i]];
-        [recordImage addObject:self.imageArray[i]];
-    }
-    self.picArray = recordArray;
-    self.imageArray = recordImage;
-}
-
 - (void)getPPP:(NSString *)strHTML{
     NSArray *arrayOne = [strHTML componentsSeparatedByString:@"<body>"];
     NSArray *arrayTwo = [arrayOne[1] componentsSeparatedByString:@"</body>"];
@@ -459,6 +468,26 @@
     html = [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     html = [html stringByReplacingOccurrencesOfString:@"\r" withString:@""];
     return html;
+}
+
+- (void)setImageText:(UIImage *)img withRange:(NSRange)range appenReturn:(BOOL)appen currentTime:(NSTimeInterval)time {
+    UIImage * image=img;
+    if (image == nil)
+    {
+        return;
+    }
+    if (![image isKindOfClass:[UIImage class]])
+    {
+        return;
+    }
+    NSMutableAttributedString *attributText = [self.textview.attributedText mutableCopy];
+    UIFont *font = [UIFont systemFontOfSize:16];
+    YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(0, 0, _textview.width, _textview.width/image.size.width*image.size.height);
+    imageView.tag = time;
+    NSMutableAttributedString *attachText = [NSMutableAttributedString yy_attachmentStringWithContent:imageView contentMode:UIViewContentModeCenter attachmentSize:imageView.size alignToFont:font alignment:YYTextVerticalAlignmentCenter];
+    [attributText insertAttributedString:attachText atIndex:range.location];
+    self.textview.attributedText = attributText;
 }
 
 #pragma mark - Lazy Load
