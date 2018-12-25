@@ -103,9 +103,6 @@ static SystemSoundID shake_sound_id = 0;
         if (_changedShowSortType) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NSNotificationCenterupdateWhetherShowSort" object:nil];
         }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationTogetAllJishibifen" object:nil];
-        }
         [self.navigationController popViewControllerAnimated:YES];
     }else if(index == 2){
     }
@@ -818,6 +815,9 @@ static SystemSoundID shake_sound_id = 0;
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"youjinqiu"];
 [[NSUserDefaults standardUserDefaults] synchronize];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationTogetAllJishibifen" object:nil];
+                }
             }else{
             }
             break;
@@ -829,6 +829,9 @@ static SystemSoundID shake_sound_id = 0;
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"loadedBifenData"];
                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"youjinqiu"];
 [[NSUserDefaults standardUserDefaults] synchronize];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"loadedBifenData"]) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationTogetAllJishibifen" object:nil];
+                }
             }else{
             }
             break;

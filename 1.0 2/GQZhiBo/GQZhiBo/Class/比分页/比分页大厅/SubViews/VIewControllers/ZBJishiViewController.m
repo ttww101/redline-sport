@@ -127,6 +127,7 @@ static SystemSoundID shake_sound_id = 0;
 }
 - (void)getNewData
 {
+    [_arrData removeAllObjects];
     [_memeryArrAllPart removeAllObjects];
     [self loadDataQiciJishiViewController];
 }
@@ -172,13 +173,15 @@ static SystemSoundID shake_sound_id = 0;
     }
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
      if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
          return _arrData.count;
      } else {
          return 1;
      }
+    
+    
    
 }
 
