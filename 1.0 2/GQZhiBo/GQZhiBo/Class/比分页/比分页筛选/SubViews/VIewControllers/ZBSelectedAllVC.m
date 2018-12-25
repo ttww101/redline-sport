@@ -79,6 +79,25 @@
         }
     }
     _allselectedV.btnAll.selected = isAllSelected;
+    
+    BOOL isAllNotSelected = true;
+    for (NSInteger i = 0; i < self.dataList.count; i ++) {
+        FilterData *model = self.dataList[i];
+        for (NSInteger j = 0 ; j < model.dataList.count; j ++) {
+            ZBBIfenSelectedSaishiModel *bifenmodel = model.dataList[j];
+            if (bifenmodel.isSelected) {
+                isAllNotSelected = false;
+                break;
+            }
+        }
+    }
+    
+    
+    _allselectedV.btnNotAll.selected = isAllNotSelected;
+    if (isAllNotSelected) {
+        _allselectedV.btnConfirm.selected = true; // 置灰
+        _allselectedV.btnConfirm.userInteractionEnabled = false;
+    }
 }
 
 #pragma mark - Lazy Load

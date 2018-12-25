@@ -377,14 +377,15 @@ static SystemSoundID shake_sound_id = 0;
     [self loadDataJishiViewControllerWithQici:nil];
 }
 
-- (void)loadDataJishiViewControllerWithQici:(ZBQiciModel *)model
-{
+- (void)loadDataJishiViewControllerWithQici:(ZBQiciModel *)model {
     NSString *sub = @"all";
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jingcaibifen"]) {
-//        sub = @"jc";
-//    }
-    sub = self.filterDic[ParamtersSub];
-    
+    if (self.filterDic) {
+         sub = self.filterDic[ParamtersSub];
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jingcaibifen"]) {
+            sub = @"jc";
+        }
+    }
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
        
 //        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";

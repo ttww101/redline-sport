@@ -1,7 +1,6 @@
 #import "ZBAllSelectedView.h"
 @interface ZBAllSelectedView()
 @property (nonatomic, strong) UIView *basicView;
-@property (nonatomic, strong) UIButton *btnNotAll;
 @property (nonatomic, strong) UIView *viewLine;
 @property (nonatomic, strong) UIView *viewCenter;
 @end
@@ -131,4 +130,7 @@
         _btnAll.selected = NO;
     }
 }
+
+
+
 @end

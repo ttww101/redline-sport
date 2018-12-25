@@ -5,6 +5,7 @@
 @end
 @interface ZBAllSelectedView : UIView
 @property (nonatomic, strong) UIButton *btnAll;
+@property (nonatomic, strong) UIButton *btnNotAll;
 @property (nonatomic, weak) id<AllSelectedViewDelegate> delegate;
 - (void)changeBtnSelectedState:(BOOL)isSelected;
 @property (nonatomic, strong) UIButton *btnConfirm;
