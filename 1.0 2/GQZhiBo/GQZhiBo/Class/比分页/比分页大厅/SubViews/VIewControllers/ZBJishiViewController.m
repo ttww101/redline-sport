@@ -389,7 +389,7 @@ static SystemSoundID shake_sound_id = 0;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kaisaisaishi"]) {
        
 //        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
-        NSString *urlStage = [NSString stringWithFormat:@"%@/bifen/live",APPDELEGATE.url_Server];
+        NSString *urlStage = [NSString stringWithFormat:@"%@/bifen2/live",APPDELEGATE.url_Server];
         NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
         [parameter setValue:@(1) forKey:@"return_fmt"];
         if (self.filterDic[ParamtersFilters]) {
@@ -525,7 +525,7 @@ static SystemSoundID shake_sound_id = 0;
         });
     } else {
         //        NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
-        NSString *urlStage = [NSString stringWithFormat:@"%@/bifen/live",APPDELEGATE.url_Server];
+        NSString *urlStage = [NSString stringWithFormat:@"%@/bifen2/live",APPDELEGATE.url_Server];
         NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
         [parameter setValue:@(0) forKey:@"return_fmt"];
         

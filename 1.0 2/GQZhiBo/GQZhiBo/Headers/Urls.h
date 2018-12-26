@@ -182,7 +182,7 @@
 
 #pragma mark - 比分
 
-#define url_bifen_filterAll @"/bifen/filter"
+#define url_bifen_filterAll @"/bifen2/filter"
 #define url_focusd_matches @"/focus/matches"
 #define url_attention @"/attentionSchedule/add"
 #define url_cancle_attention @"/attentionSchedule/del"

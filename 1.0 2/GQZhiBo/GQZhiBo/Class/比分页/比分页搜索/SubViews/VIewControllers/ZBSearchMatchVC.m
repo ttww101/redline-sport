@@ -140,7 +140,7 @@
 
 - (void)searchMatchWithName:(NSString *)searchStr {
 //    NSString *urlStage = @"http://120.55.30.173:8809/bifen/live";
-    NSString *urlStage = [NSString stringWithFormat:@"%@/bifen/live",APPDELEGATE.url_Server];
+    NSString *urlStage = [NSString stringWithFormat:@"%@/bifen2/live",APPDELEGATE.url_Server];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
    [parameter setValue:@(0) forKey:@"return_fmt"];
     [parameter setValue:PARAM_IS_NIL_ERROR(searchStr) forKey:@"query"];
