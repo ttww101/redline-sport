@@ -526,8 +526,6 @@
         APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com";
         APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
         APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时指数的
-    
-
 
 ////    上线的时候开启
 //    if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"APPDELEGATE.url_Server"] isEqualToString:@"http://mobile.gunqiu.com/interface"]) {

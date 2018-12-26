@@ -122,8 +122,10 @@
         paste.string = data;
         [SVProgressHUD showSuccessWithStatus:@"复制成功"];
     }];
+    
     [self.bridge registerHandler:@"getState" handler:^(id data, WVJBResponseCallback responseCallback) {
     }];
+    
     [self.bridge registerHandler:@"back" handler:^(id data, WVJBResponseCallback responseCallback) {
         ZBJSModel *model =  [ZBJSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"back:",
@@ -136,6 +138,7 @@
         });
         responseCallback(@"Response from testObjcCallback");
     }];
+    
     [self.bridge registerHandler:@"dialog" handler:^(id data, WVJBResponseCallback responseCallback) {
         ZBJSModel *model =  [ZBJSModel yy_modelWithDictionary:@{
                                                             @"methdName":@"dialog:",
@@ -147,6 +150,7 @@
             }];
         });
     }];
+    
     [self.bridge registerHandler:@"toast" handler:^(id data, WVJBResponseCallback responseCallback) {
         if (data == nil) {
             return ;
@@ -159,6 +163,7 @@
         [SVProgressHUD showSuccessWithStatus:dic[@"text"]];
         [SVProgressHUD dismissWithDelay:[dic[@"time"] integerValue] / 1000];
     }];
+    
     [self.bridge registerHandler:@"getResource" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"00" ofType:@"png"];
         NSURL *urlPath = [NSURL fileURLWithPath:path];

@@ -8786,8 +8786,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 242Y3S46QH;
@@ -8849,7 +8849,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -8866,8 +8866,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -8928,7 +8928,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -8988,8 +8988,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = GQZhiBo/GQZhiBo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 242Y3S46QH;
 				ENABLE_BITCODE = NO;
@@ -9050,7 +9050,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = GunQiuTiYu_AD_HOC;
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
