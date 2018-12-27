@@ -131,6 +131,7 @@
     tuiijanModel.title = @"推荐";
     tuiijanModel.webUrl = [NSString stringWithFormat:@"%@/%@/tuijianIndex.html", APPDELEGATE.url_ip,H5_Host];
     model.hideNavigationBar = YES;
+    tuiijanModel.fromTab = true;
     NSDictionary *secondTabBarItemsAttributes = @{
                                                  GQTableBarControllerName : @"ZBToolWebViewController",
                                                  GQTabBarItemTitle : @"推荐",
