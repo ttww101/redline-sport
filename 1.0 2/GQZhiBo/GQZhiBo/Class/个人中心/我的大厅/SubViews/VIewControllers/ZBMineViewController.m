@@ -193,6 +193,7 @@
                 [MobClick event:@"yhq" label:@""];
                 ZBWebModel *model = [[ZBWebModel alloc]init];
                 model.title = @"优惠券";
+                model.hideNavigationBar = true;
                 model.webUrl = [NSString stringWithFormat:@"%@/%@/pay-card.html", APPDELEGATE.url_ip,H5_Host];
                 ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
                 webDetailVC.model = model;

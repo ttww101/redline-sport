@@ -85,7 +85,7 @@
                                   @"deviceType":[ZBMethods iphoneType],
                                   @"userId": @(model.idId),
                                   @"thirdPay":@(weatherShowThirdPay),
-                                  @"User-Agent": @"GQLive",
+                                  @"User-Agent": @"gqapp",
                                   @"h5Path":webPath
                                   };
         NSString *jsonInfo = [self getJSONMessage:infoDic];

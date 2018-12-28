@@ -494,7 +494,7 @@
     APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
    // 新加
     APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时指数的
-    APPDELEGATE.url_ip = @"http://mobile.gunqiu.com";
+    APPDELEGATE.url_ip = @"https://mobile.gunqiu.com";
 
 
     //    本地测试环境

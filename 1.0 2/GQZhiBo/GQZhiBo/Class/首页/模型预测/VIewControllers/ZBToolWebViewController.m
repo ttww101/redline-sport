@@ -97,8 +97,10 @@
     [super didReceiveMemoryWarning];
 }
 - (void)dealloc {
+    if (self.useWkWeb) {
+        [self.wkWeb removeObserver:self forKeyPath:@"estimatedProgress"];
+    }
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-    [self.wkWeb removeObserver:self forKeyPath:@"estimatedProgress"];
     self.wkWeb = nil;
     self.bridge = nil;
 }
