@@ -42,7 +42,6 @@
     self.navigationController.navigationBarHidden = YES;
     [self viewdatanew];
     [self zhucetongzhi];
-    [self.tableView reloadData];
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -57,11 +56,19 @@
         _status = 1;
     }
     [self payViewpayl];
-    [self loadDataWhetherFirst:YES];
+    
+    if (_tableView) {
+        [_tableView removeFromSuperview];
+        _tableView = nil;
+    }
+    
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.payView];
     [self.view addSubview:self.bottomView];
     [self addAutoLayout];
+    
+    [self loadDataWhetherFirst:YES];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addComment:) name:@"TuijianDetailVCAddComment" object:nil];
@@ -577,10 +584,10 @@
             _tableView.arrData = recods;
 
           
-
+             _tableView.headerModel = _model;
             if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
                 _tableView.typeTuijianDetailHeader = _typeTuijianDetailHeader;
-                _tableView.headerModel = _model;
+               
                 if (_status == 1) {
                 }
                 self.tableView.hidden = NO;

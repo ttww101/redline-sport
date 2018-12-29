@@ -122,7 +122,7 @@
     }
     [_imageViewHome sd_setImageWithURL:[NSURL URLWithString:url_imageTeam((long)model.HomeTeamID)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
     [_imageViewGuest sd_setImageWithURL:[NSURL URLWithString:url_imageTeam((long)model.GuestTeamID)] placeholderImage:[UIImage imageNamed:@"DefaultTeam"]];
-    if (_model.amount == 0) {
+    if (!_model.see) {
         _labMoney.text = @"";
         _labMoney.textColor = greencolor;
         _priceLab.text = @"";

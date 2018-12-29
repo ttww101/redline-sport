@@ -121,7 +121,7 @@
                 break;
             case 1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"re_winhalf"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_win_half"];
             }
                 break;
             case 2:

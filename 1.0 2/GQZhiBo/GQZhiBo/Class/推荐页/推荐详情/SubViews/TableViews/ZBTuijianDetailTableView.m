@@ -170,7 +170,7 @@
      DetailGroupModel *model = _arrData[indexPath.section];
     if (indexPath.section == 0) {
         if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
-             ZBTuijianDetailHeaderView   *cell = [[ZBTuijianDetailHeaderView alloc] init];
+             ZBTuijianDetailHeaderView   *cell = [tableView dequeueReusableCellWithIdentifier:CellTuijianDetailHeader forIndexPath:indexPath];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.webViewHight = _cellWebhight;
             cell.model = _headerModel;
