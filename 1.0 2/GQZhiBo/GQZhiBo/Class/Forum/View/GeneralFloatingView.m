@@ -39,7 +39,7 @@
     CGPoint origin  = self.origin;
     CGSize size = self.size;
     origin.x = Width * _scale;
-    origin.y = (_ignoreTab ? Height - 78 : Height) * _scale;
+    origin.y = (_ignoreTab ? (Height - 41 * _imagesPath.count - 49) : Height) * _scale;
     size.width = 41;
     size.height = _imagesPath.count * 41;
     self.origin = origin;

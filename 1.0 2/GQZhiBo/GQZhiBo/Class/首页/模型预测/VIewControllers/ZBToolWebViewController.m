@@ -384,8 +384,26 @@
 #pragma mark - GeneralFloatingViewDelegate
 
 - (void)floatingViewDidSelected:(NSInteger)sender {
-    ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
-    [self.navigationController pushViewController:control animated:true];
+    if (sender == 0) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+            return;
+        }
+        ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
+        [self.navigationController pushViewController:control animated:true];
+    } else {
+        if (_wkWeb) {
+            [_wkWeb removeFromSuperview];
+            _wkWeb = nil;
+            self.bridge = nil;
+            [self.wkWeb addSubview:self.progressView];
+            [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+            [self configUI];
+            [self loadBradgeHandler];
+            [self loadData];
+            [self.view bringSubviewToFront:self.floatingView];
+        }
+    }
 }
 
 #pragma mark - JSHandle
@@ -1088,7 +1106,7 @@
 
 - (GeneralFloatingView *)floatingView {
     if (_floatingView == nil) {
-        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"publish_btn"] scale:0.8 ignoreTabBar:true];
+        _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"publish_btn", @"formReload"] scale:0.8 ignoreTabBar:true];
         _floatingView.delegate = self;
     }
     return _floatingView;
