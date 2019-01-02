@@ -33,6 +33,7 @@
 @property (nonatomic , strong) NSDictionary *commentsDic;
 @property (nonatomic , strong) UIButton *replyBtn;
 @property (nonatomic , strong) GeneralFloatingView *floatingView;
+@property (nonatomic , strong) GeneralFloatingView *refreshVew;
 @property (nonatomic, assign) BOOL useWkWeb;
 
 
@@ -47,8 +48,8 @@
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshResult) name:@"refreshPayPage" object:nil];
     }
     
-    if ([self.model.webUrl containsString:@"index"]) {
-        self.useWkWeb = false;
+    if ([self.model.webUrl containsString:@"113"]) {
+        self.useWkWeb = false; // uiweb  暂时不用
         
     } else {
         self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, Width, 2)];
@@ -66,6 +67,8 @@
     [self loadData];
     if ([self.model.webUrl containsString:@"tuijianIndex"]) {
         [self.view addSubview:self.floatingView];
+    } else if ([self.model.title isEqualToString:@"发现"]) {
+        [self.view addSubview:self.refreshVew];
     }
     
 }
@@ -384,14 +387,7 @@
 #pragma mark - GeneralFloatingViewDelegate
 
 - (void)floatingViewDidSelected:(NSInteger)sender {
-    if (sender == 0) {
-        if(![ZBMethods login]) {
-            [ZBMethods toLogin];
-            return;
-        }
-        ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
-        [self.navigationController pushViewController:control animated:true];
-    } else {
+    if(_refreshVew) {
         if (_wkWeb) {
             [_wkWeb removeFromSuperview];
             _wkWeb = nil;
@@ -401,9 +397,31 @@
             [self configUI];
             [self loadBradgeHandler];
             [self loadData];
-            [self.view bringSubviewToFront:self.floatingView];
+            [self.view bringSubviewToFront:self.refreshVew];
+        }
+    } else {
+        if (sender == 0) {
+            if(![ZBMethods login]) {
+                [ZBMethods toLogin];
+                return;
+            }
+            ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
+            [self.navigationController pushViewController:control animated:true];
+        } else {
+            if (_wkWeb) {
+                [_wkWeb removeFromSuperview];
+                _wkWeb = nil;
+                self.bridge = nil;
+                [self.wkWeb addSubview:self.progressView];
+                [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+                [self configUI];
+                [self loadBradgeHandler];
+                [self loadData];
+                [self.view bringSubviewToFront:self.floatingView];
+            }
         }
     }
+    
 }
 
 #pragma mark - JSHandle
@@ -1108,8 +1126,18 @@
     if (_floatingView == nil) {
         _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"publish_btn", @"formReload"] scale:0.8 ignoreTabBar:true];
         _floatingView.delegate = self;
+         _floatingView.tag = 1;
     }
     return _floatingView;
+}
+
+- (GeneralFloatingView *)refreshVew {
+    if (_refreshVew == nil) {
+        _refreshVew = [[GeneralFloatingView alloc]initWithImages:@[@"formReload"] scale:0.8 ignoreTabBar:false];
+        _refreshVew.delegate = self;
+        _refreshVew.tag = 2;
+    }
+    return _refreshVew;
 }
 
 @end

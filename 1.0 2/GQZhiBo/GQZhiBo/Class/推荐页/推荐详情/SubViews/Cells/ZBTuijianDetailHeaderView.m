@@ -133,8 +133,13 @@
             str = @"钻石";
         }
         
+        if (_model.amount == 0) {
+            _labMoney.text = @"免费推荐";
+        } else {
+             _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
+        }
         
-        _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
+       
     }
     NSString *space = @"";
     if (isOniPhone4 ||  isOniPhone5) {

@@ -466,6 +466,7 @@ static CGFloat imageHeight = 76.f;
                 ZBTuijianDetailVC *tuijianDT = [[ZBTuijianDetailVC alloc] init];
                 tuijianDT.modelId =[[pushInfo objectForKey:@"targetid"] integerValue];
                 tuijianDT.typeTuijianDetailHeader = typeTuijianDetailHeaderCellDanchang;
+                tuijianDT.status = 2;
                 tuijianDT.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:tuijianDT animated:YES];
             }

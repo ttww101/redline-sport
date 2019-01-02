@@ -160,7 +160,7 @@
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
                                                             options:NSJSONReadingMutableContainers
                                                               error:&err];
-        [SVProgressHUD showSuccessWithStatus:dic[@"text"]];
+        [SVProgressHUD showInfoWithStatus:dic[@"text"]];
         [SVProgressHUD dismissWithDelay:[dic[@"time"] integerValue] / 1000];
     }];
     
