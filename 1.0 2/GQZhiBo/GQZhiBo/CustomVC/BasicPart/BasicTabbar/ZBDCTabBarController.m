@@ -62,9 +62,23 @@ static CGFloat imageHeight = 76.f;
      [self update];
     [[UITabBar appearance]setTranslucent:false];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSData *launchOptionPushInfoData =[[NSUserDefaults standardUserDefaults] objectForKey:@"launchOptionPushInfo"];
+    if (launchOptionPushInfoData) {
+        NSDictionary *launchOptionPushInfo = [NSDictionary dictionaryWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithData:launchOptionPushInfoData]];
+        if (launchOptionPushInfo.allValues.count>0) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"launchOptionPushInfo"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationpushToNewsWeb object:nil userInfo:launchOptionPushInfo];
+        }
+    }
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }

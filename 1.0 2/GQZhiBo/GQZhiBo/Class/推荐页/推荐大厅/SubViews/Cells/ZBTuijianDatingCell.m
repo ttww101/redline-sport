@@ -116,7 +116,7 @@
         switch ([_model.result integerValue]) {
             case 0:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"re_Invalid"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_go"];
             }
                 break;
             case 1:
@@ -131,7 +131,7 @@
                 break;
             case -1:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"re_losehalf"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_lose_half"];
             }
                 break;
             case -2:
@@ -141,12 +141,12 @@
                 break;
             case -3:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"re_go"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_Invalid"];
             }
                 break;
             case 10:
             {
-                _imageViewWin.image = [UIImage imageNamed:@"wuxiaoNew"];
+                _imageViewWin.image = [UIImage imageNamed:@"re_Invalid"];
             }
                 break;
             case -10:
