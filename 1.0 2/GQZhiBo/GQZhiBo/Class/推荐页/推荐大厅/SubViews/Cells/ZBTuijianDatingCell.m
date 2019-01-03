@@ -731,14 +731,16 @@
             infoVC.hidesBottomBarWhenPushed = YES;
             infoVC.status = _model.status;
             infoVC.modelId = _model.idId;
-            [APPDELEGATE.customTabbar pushToViewController:infoVC animated:YES];
+            [[ZBMethods help_getCurrentVC].navigationController pushViewController:infoVC animated:true];
         }
     }else{
+        
         ZBTuijianDetailVC *infoVC = [[ZBTuijianDetailVC alloc] init];
         infoVC.hidesBottomBarWhenPushed = YES;
         infoVC.status = 2;
         infoVC.modelId = _model.idId;
-        [APPDELEGATE.customTabbar pushToViewController:infoVC animated:YES];
+         [[ZBMethods help_getCurrentVC].navigationController pushViewController:infoVC animated:true];
+        
     }
 }
 - (void)addLikedHated:(UIButton *)btn

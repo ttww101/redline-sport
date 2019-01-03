@@ -41,13 +41,13 @@
     [super viewDidLoad];
     [self getCommentUserInfo];
     [self setNavView];
-    [self.view addSubview:self.topView];
+//    [self.view addSubview:self.topView];
     self.view.backgroundColor = [UIColor whiteColor];
     ZBWebModel *model = [[ZBWebModel alloc]init];
     model.webUrl = [NSString stringWithFormat:@"%@/%@/chengji.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userId];
     ZBWebView *web = [[ZBWebView alloc]init];
     web.webDelegate = self;
-    web.frame = CGRectMake(0, _topView.bottom, self.view.width, self.view.height - _topView.bottom);
+    web.frame = CGRectMake(0, 64, self.view.width, self.view.height - 64);
     web.model = model;
     [self.view addSubview:web];
     _webView = web;

@@ -40,6 +40,18 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSData *launchOptionPushInfoData =[[NSUserDefaults standardUserDefaults] objectForKey:@"launchOptionPushInfo"];
+    if (launchOptionPushInfoData) {
+        NSDictionary *launchOptionPushInfo = [NSDictionary dictionaryWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithData:launchOptionPushInfoData]];
+        if (launchOptionPushInfo.allValues.count>0) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"launchOptionPushInfo"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationpushToNewsWeb object:nil userInfo:launchOptionPushInfo];
+        }
+    }
+}
+
 #pragma mark - Config UI
 
 - (void)configUI {

@@ -1,6 +1,7 @@
 #import "ZBUsermarkModel.h"
 #import "ZBMedalsModel.h"
 #import "ZBUserViewOfTuijianCellCopy.h"
+#import "ZBToolWebViewController.h"
 @interface ZBUserViewOfTuijianCellCopy()
 @property (nonatomic, assign) BOOL addedAutoLayout;
 @property (nonatomic, strong) UIView *basicView;
@@ -548,12 +549,14 @@
     if (_Idid == 1) {
         return;
     }
-     ZBUserViewController *userVC = [[ZBUserViewController alloc] init];
+    
+    ZBUserViewController *userVC = [[ZBUserViewController alloc] init];
     userVC.userId = _Idid;
     userVC.userName = _nickName;
     userVC.userPic = _pic;
     userVC.Number=1;
     userVC.hidesBottomBarWhenPushed = YES;
     [APPDELEGATE.customTabbar pushToViewController:userVC animated:YES];
+
 }
 @end
