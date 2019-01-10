@@ -507,6 +507,11 @@
 }
 #pragma mark - Live Action
 - (void)liveAction {
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(tapPlayVideoAction:)]) {
+        [_delegate tapPlayVideoAction:@[@"http://dlhls.cdn.zhanqi.tv/zqlive/50920_eRaQd.m3u8"]];
+    }
+    
     if (_model.matchstate == 0) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛未开始"];
         return;
@@ -531,6 +536,9 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"暂时不能观看"];
     }];
+    
+    
+    
 }
 - (void)addAutolayout
 {

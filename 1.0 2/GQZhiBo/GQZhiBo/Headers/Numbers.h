@@ -20,6 +20,7 @@
 #define PADDING_OF_LEFT_STEP_LINE 21
 #define PADDING_OF_LEFT_RIGHT 15
 #define WIDTH_OF_PROCESS_LABLE (300 *[UIScreen mainScreen].bounds.size.width / 375)
+
 #define  adjustsScrollViewInsets_NO(scrollView,vc)\
 do { \
 _Pragma("clang diagnostic push") \

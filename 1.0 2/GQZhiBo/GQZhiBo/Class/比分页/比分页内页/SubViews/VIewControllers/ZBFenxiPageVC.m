@@ -22,6 +22,10 @@
 #import "ZBAnalysisWebview.h"
 #import "ZBShowActivityView.h"
 #import "ZBRecommendedWKWeb.h"
+
+
+
+
 @interface ZBFenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate>
 @property (nonatomic, strong) ZBBifenDTTable *tableView;
 @property (nonatomic, strong) ZBTitleIndexView *titleView;
@@ -53,8 +57,34 @@
 @property (nonatomic , copy) NSDictionary *activityDic;
 @property (nonatomic, assign) BOOL isBack;
 @property (nonatomic , strong) ZBShowActivityView *animationActivityView;
+
+
+@property (nonatomic, strong) UIView *playerContainerView; // 视频播放容器
+
+
 @end
+
 @implementation ZBFenxiPageVC
+
+#pragma mark - FenxiHeaderViewDelegate
+
+- (void)tapPlayVideoAction:(NSArray *)signalArray {
+    [self.view addSubview:self.playerContainerView];
+}
+
+#pragma mark - Lazy Load
+
+- (UIView *)playerContainerView {
+    if (_playerContainerView == nil) {
+        _playerContainerView = [[UIView alloc]initWithFrame:self.headerView.frame];
+        _playerContainerView.backgroundColor = [UIColor orangeColor];
+    }
+    return _playerContainerView;
+}
+
+
+#pragma mark - ************  以下高人所写  ************
+
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
