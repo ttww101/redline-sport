@@ -2,7 +2,7 @@
 
 - (void)backClick:(NSInteger)btnTag;
 
-- (void)tapPlayVideoAction:(NSArray *)signalArray;
+- (void)tapPlayVideoAction:(NSString *)signal;
 
 @end
 

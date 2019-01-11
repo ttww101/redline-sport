@@ -33,6 +33,7 @@
 #define url_bifen_focus @"/bifen/focus"
 #define url_bifen_jsbfnew @"/bifen/jsbf"
 #define url_video_live @"/livestv"
+#define url_video_list @"/livestv/list"
 #define url_eurocupchamp @"/eurocup/champ"
 #define url_eurocupquizmatch @"/eurocup/quizmatch"
 #define url_eurocupmatch @"/eurocup/match"

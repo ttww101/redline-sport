@@ -22,6 +22,8 @@ target 'GQZhiBo' do
     pod 'Mantle', '1.5.5'
     pod 'SDWebImage', '~> 3.8.0'
     pod 'HYBLoopScrollView', '~> 3.0.0'
+    
+    pod 'NELivePlayer', '~> 2.1.0' # 网易播放SDK
 
     # 腾讯 Bugly
     pod 'Bugly', '~> 2.4.6'

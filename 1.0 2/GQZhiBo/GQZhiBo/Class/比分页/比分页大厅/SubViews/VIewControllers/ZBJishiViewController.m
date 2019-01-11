@@ -910,7 +910,6 @@ static SystemSoundID shake_sound_id = 0;
         }
     }
     if (arrlive.count >0) {
-        NSLog(@"all ---arrlive.count----%ld",(unsigned long)arrlive.count);
         [self reloadTableView];
     }
     for (int i = 0 ; i<appendArray.count; i++) {

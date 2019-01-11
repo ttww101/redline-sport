@@ -1,6 +1,7 @@
 #import "ZBFenxiHeaderView.h"
 #import "ZBshowVideoView.h"
-@interface ZBFenxiHeaderView ()
+#import "ZBShowSignals.h"
+@interface ZBFenxiHeaderView () <ZBShowSignalsDelegate>
 {
 }
 @property (nonatomic, assign) BOOL isAddAutolayout;
@@ -27,6 +28,10 @@
 @property (nonatomic, strong) UILabel               *labGuestOrder;
 @property (nonatomic, assign) BOOL hideHeader;
 @property (nonatomic , strong) UIButton *liveVideoBtn;
+@property (nonatomic, copy) NSArray *signalLists;
+
+@property (nonatomic , strong) ZBShowSignals *choiceSignalView;
+
 @end
 @implementation ZBFenxiHeaderView
 - (id)initWithFrame:(CGRect)frame
@@ -45,8 +50,7 @@
     }
     _labHscore.text = countTime;
 }
-- (void)updateScroeWithmodel:(ZBLiveScoreModel *)liviModel
-{
+- (void)updateScroeWithmodel:(ZBLiveScoreModel *)liviModel{
     NSString *time = [ZBMethods getDateByStyle:dateStyleFormatter withDate:[NSDate date]];
     if (liviModel.matchstate == 1 || liviModel.matchstate == 3) {
         [_imageAnimation startAnimating];
@@ -96,8 +100,8 @@
         _labHscore.text = @"VS";
     }
 }
-- (void)setModel:(ZBLiveScoreModel *)model
-{
+- (void)setModel:(ZBLiveScoreModel *)model{
+    [self checkoutVideoSignal];
     _model = model;
     [self addSubview:self.basicView];
     [_imageback setBackgroundImage:[UIImage imageNamed:@"clear"] forState:UIControlStateNormal];
@@ -502,16 +506,30 @@
         _liveVideoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_liveVideoBtn setBackgroundImage:[UIImage imageNamed:@"liveimage"] forState:UIControlStateNormal];
         [_liveVideoBtn addTarget:self action:@selector(liveAction) forControlEvents:UIControlEventTouchUpInside];
+        _liveVideoBtn.hidden = true;
     }
     return _liveVideoBtn;
 }
+
+#pragma mark - ZBShowSignalsDelegate
+
+- (void)didSelectItem:(NSDictionary *)data {
+    NSString *url = data[@"url"];
+    if ([data[@"type"] integerValue] == 2) {
+        if (url.length > 0) {
+            ZBshowVideoView *video = [[ZBshowVideoView alloc]init];
+            video.url = url;
+            [[ZBMethods getMainWindow] addSubview:video];
+        }
+    } else {
+        if (_delegate && [_delegate respondsToSelector:@selector(tapPlayVideoAction:)]) {
+            [_delegate tapPlayVideoAction:url];
+        }
+    }
+}
+
 #pragma mark - Live Action
 - (void)liveAction {
-    
-    if (_delegate && [_delegate respondsToSelector:@selector(tapPlayVideoAction:)]) {
-        [_delegate tapPlayVideoAction:@[@"http://dlhls.cdn.zhanqi.tv/zqlive/50920_eRaQd.m3u8"]];
-    }
-    
     if (_model.matchstate == 0) {
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛未开始"];
         return;
@@ -519,26 +537,30 @@
         [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"比赛已结束"];
          return;
     }
-     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
-    [parameter setObject:[NSString stringWithFormat:@"%zi",_model.mid ] forKey:@"mid"];
-    [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_video_live] Start:^(id requestOrignal) {
-    } End:^(id responseOrignal) {
-    } Success:^(id responseResult, id responseOrignal) {
-        NSDictionary *data = responseOrignal[@"data"];
-        NSString *url = data[@"url"];
-        if (url.length > 0) {
-            ZBshowVideoView *video = [[ZBshowVideoView alloc]init];
-            video.url = url;
-            [[ZBMethods getMainWindow] addSubview:video];
-        } else {
-            [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"暂无信号"];
+
+    if (self.signalLists.count > 1) {
+        if (!_choiceSignalView) {
+            _choiceSignalView = [[ZBShowSignals alloc]initWithFrame:CGRectMake(0, 0, Width, Height) mid:[NSString stringWithFormat:@"%zi", _model.mid]];
+            _choiceSignalView.delegate = self;
+            [[ZBMethods help_getCurrentVC].view addSubview:_choiceSignalView];
         }
-    } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"暂时不能观看"];
-    }];
-    
-    
-    
+        [_choiceSignalView showSignals:self.signalLists];
+        
+    } else {
+        NSDictionary *data = [self.signalLists firstObject];
+        NSString *url = data[@"url"];
+        if ([data[@"type"] integerValue] == 2) {
+            if (url.length > 0) {
+                ZBshowVideoView *video = [[ZBshowVideoView alloc]init];
+                video.url = url;
+                [[ZBMethods getMainWindow] addSubview:video];
+            }
+        } else {
+                if (_delegate && [_delegate respondsToSelector:@selector(tapPlayVideoAction:)]) {
+                    [_delegate tapPlayVideoAction:url];
+                }
+        }
+    }
 }
 - (void)addAutolayout
 {
@@ -740,4 +762,32 @@
         }
     });
 }
+
+
+- (void)checkoutVideoSignal {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter]];
+        [parameter setObject:@(_model.mid) forKey:@"mid"];
+        [parameter setObject:[NSString stringWithFormat:@"%zi",_model.mid ] forKey:@"mid"];
+        [[ZBDCHttpRequest shareInstance]sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_video_list] Start:^(id requestOrignal) {
+        } End:^(id responseOrignal) {
+        } Success:^(id responseResult, id responseOrignal) {
+            NSArray *data = responseOrignal[@"data"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                 self.signalLists = data;
+                if (data.count > 0) {
+                    _liveVideoBtn.hidden = false;
+                    
+                } else {
+                      _liveVideoBtn.hidden = true;
+                }
+               
+            });
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+    
+        }];
+    });
+}
+
+
 @end

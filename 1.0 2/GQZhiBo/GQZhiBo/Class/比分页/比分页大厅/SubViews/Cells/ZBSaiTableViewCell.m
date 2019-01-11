@@ -39,6 +39,7 @@
 @property (nonatomic, strong) UILabel               *labTJ;
 @property (nonatomic, strong) UILabel               *labTJNum;
 @property (nonatomic, assign) BOOL isToFenxi;
+@property (nonatomic, strong) BaseImageView *videoPlayIcon;
 
 
 //@property (nonatomic, strong) UILabel *homeGrade;
@@ -80,6 +81,13 @@
 {
     _ScoreModel = ScoreModel;
     [self.contentView addSubview:self.basicView];
+    
+    if (_ScoreModel.islive) {
+        self.videoPlayIcon.hidden = false;
+    } else {
+         self.videoPlayIcon.hidden = true;
+    }
+    
     if (ScoreModel.bgIsRed) {
         _imageBg.image = [UIImage imageNamed:@"jinqiuYellowBg1"];
     }else{
@@ -613,6 +621,9 @@
     
 //    self.homeGrade.text = [NSString stringWithFormat:@"[%@]",ScoreModel.homeOrder];
 //    self.visitierGrade.text = [NSString stringWithFormat:@"[%@]",ScoreModel.guestOrder];
+    
+    
+  
 }
 - (UIView *)basicView
 {
@@ -654,6 +665,8 @@
         
         [_basicView addSubview:self.viewLineR];
         [_basicView addSubview:self.labQB];
+        
+        [_basicView addSubview:self.videoPlayIcon];
         
 //        [_basicView addSubview:self.homeGrade];
 //        [_basicView addSubview:self.visitierGrade];
@@ -989,6 +1002,17 @@
     }
     return _labRemark;
 }
+
+- (BaseImageView *)videoPlayIcon {
+    if (_videoPlayIcon == nil) {
+        _videoPlayIcon = [[BaseImageView alloc]init];
+        _videoPlayIcon.image = [UIImage imageNamed:@"play_icon"];
+        _videoPlayIcon.contentMode = UIViewContentModeScaleAspectFill;
+        _videoPlayIcon.hidden = false;
+    }
+    return _videoPlayIcon;
+}
+
 - (void)addAutoLayoutToCell
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1170,6 +1194,12 @@
         make.right.equalTo(self.basicView.mas_right).offset(0);
         make.bottom.equalTo(self.basicView.mas_bottom).offset(0);
         make.height.mas_equalTo(0).priority(750);
+    }];
+    
+    [self.videoPlayIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.basicView.mas_right).offset(-15);
+        make.bottom.equalTo(self.basicView.mas_bottom).offset(-20);
+        make.size.mas_equalTo(CGSizeMake(22, 20));
     }];
 }
 

@@ -23,10 +23,13 @@
 #import "ZBShowActivityView.h"
 #import "ZBRecommendedWKWeb.h"
 
+#import <NELivePlayerFramework/NELivePlayerFramework.h>
+#import "NELivePlayerControlView.h"
+#import <Photos/Photos.h>
 
 
+@interface ZBFenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate, NELivePlayerControlViewProtocol>
 
-@interface ZBFenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate>
 @property (nonatomic, strong) ZBBifenDTTable *tableView;
 @property (nonatomic, strong) ZBTitleIndexView *titleView;
 @property (nonatomic, strong) ZBDCScrollVIew *scrollMainView;
@@ -60,16 +63,379 @@
 
 
 @property (nonatomic, strong) UIView *playerContainerView; // 视频播放容器
+@property (nonatomic, strong) NELivePlayerController *player; //播放器sdk
+@property (nonatomic, strong) NELivePlayerControlView *controlView; //播放器控制视图
+//外挂字幕处理缓存
+@property (nonatomic, strong) NSMutableArray *subtitleIdArray;
+@property (nonatomic, strong) NSMutableDictionary *subtitleDic;
+@property (nonatomic, strong) NSMutableArray *exSubtitleIdArray;
+@property (nonatomic, strong) NSMutableDictionary *exSubtitleDic;
+@property (nonatomic , strong) dispatch_source_t timerSource;
+@property (nonatomic , copy) NSString *videoSingal;
+
 
 
 @end
 
 @implementation ZBFenxiPageVC
 
+#pragma mark - System Method
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.player.playbackState == NELPMoviePlaybackStatePlaying ) {
+        [self doDestroyPlayer];
+    }
+    self.isBack = YES;
+}
+
+
+-(BOOL)shouldAutorotate{        //必须关闭旋转屏幕
+    return NO;      //默认YES
+}
+
+
 #pragma mark - FenxiHeaderViewDelegate
 
-- (void)tapPlayVideoAction:(NSArray *)signalArray {
+- (void)tapPlayVideoAction:(NSString *)signal {
+    _videoSingal = signal;
     [self.view addSubview:self.playerContainerView];
+    [self initializationPlayer];
+    [self doInitPlayerNotication];
+    
+}
+
+#pragma mark - 播放器通知事件
+
+- (void)NELivePlayerDidPreparedToPlay:(NSNotification*)notification {
+    //add some methods
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerDidPreparedToPlayNotification 通知");
+    
+    //获取视频信息，主要是为了告诉界面的可视范围，方便字幕显示
+    NELPVideoInfo info;
+    memset(&info, 0, sizeof(NELPVideoInfo));
+    [_player getVideoInfo:&info];
+    _controlView.videoResolution = CGSizeMake(info.width, info.height);
+    
+    [self syncUIStatus];
+    [_player play]; //开始播放
+    
+    //开
+    [_player setRealTimeListenerWithIntervalMS:500 callback:^(NSTimeInterval realTime) {
+        NSLog(@"当前时间戳：[%f]", realTime);
+    }];
+    
+    //关
+    [_player setRealTimeListenerWithIntervalMS:500 callback:nil];
+}
+
+- (void)NELivePlayerPlaybackStateChanged:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerPlaybackStateChangedNotification 通知");
+}
+
+- (void)NeLivePlayerloadStateChanged:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerLoadStateChangedNotification 通知");
+    
+    NELPMovieLoadState nelpLoadState = _player.loadState;
+    
+    if (nelpLoadState == NELPMovieLoadStatePlaythroughOK)
+    {
+        NSLog(@"finish buffering");
+        _controlView.isBuffing = NO;
+    }
+    else if (nelpLoadState == NELPMovieLoadStateStalled)
+    {
+        NSLog(@"begin buffering");
+        _controlView.isBuffing = YES;
+    }
+}
+
+- (void)NELivePlayerPlayBackFinished:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerPlaybackFinishedNotification 通知");
+    
+    UIAlertController *alertController = NULL;
+    UIAlertAction *action = NULL;
+    __weak typeof(self) weakSelf = self;
+    switch ([[[notification userInfo] valueForKey:NELivePlayerPlaybackDidFinishReasonUserInfoKey] intValue])
+    {
+        case NELPMovieFinishReasonPlaybackEnded: {
+            alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"直播结束" preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [weakSelf doDestroyPlayer];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }];
+            [alertController addAction:action];
+            [weakSelf presentViewController:alertController animated:YES completion:nil];
+        }
+            break;
+           
+    
+        case NELPMovieFinishReasonPlaybackError: {
+            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [weakSelf doDestroyPlayer];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }];
+            [alertController addAction:action];
+            [weakSelf presentViewController:alertController animated:YES completion:nil];
+        }
+             break;
+           
+        case NELPMovieFinishReasonUserExited: {
+            
+        }
+            
+            break;
+            
+        default: {
+            
+        }
+            break;
+    }
+}
+
+- (void)NELivePlayerFirstVideoDisplayed:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerFirstVideoDisplayedNotification 通知");
+}
+
+- (void)NELivePlayerFirstAudioDisplayed:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerFirstAudioDisplayedNotification 通知");
+}
+
+- (void)NELivePlayerVideoParseError:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerVideoParseError 通知");
+}
+
+- (void)NELivePlayerSeekComplete:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerMoviePlayerSeekCompletedNotification 通知");
+    [self cleanSubtitls];
+}
+
+- (void)NELivePlayerReleaseSuccess:(NSNotification*)notification {
+    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerReleaseSueecssNotification 通知");
+}
+
+#pragma mark - 控制页面的事件
+
+- (void)controlViewOnClickQuit:(NELivePlayerControlView *)controlView {
+    NSLog(@"[NELivePlayer Demo] 点击退出");
+    
+    if (self.playerContainerView.width > self.headerView.width) {
+        CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
+        [UIView animateWithDuration:duration animations:^{
+            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+            self.view.transform = CGAffineTransformIdentity;
+            self.view.frame = CGRectMake(0, 0, Width, Height);
+            self.playerContainerView.frame = self.headerView.frame;
+            self.player.view.frame = self.playerContainerView.bounds;
+            self.controlView.frame = self.playerContainerView.bounds;
+        }];
+        
+        return;
+    }
+    
+    [self doDestroyPlayer];
+    
+    // 释放timer
+    if (_timerSource != nil) {
+        dispatch_source_cancel(_timerSource);
+        _timerSource = nil;
+    }
+    
+    [self.navigationController popViewControllerAnimated:true];
+}
+
+- (void)controlViewOnClickPlay:(NELivePlayerControlView *)controlView isPlay:(BOOL)isPlay {
+    NSLog(@"[NELivePlayer Demo] 点击播放，当前状态: [%@]", (isPlay ? @"播放" : @"暂停"));
+    if (isPlay) {
+        [self.player play];
+    } else {
+        [self.player pause];
+    }
+}
+
+- (void)controlViewOnClickSeek:(NELivePlayerControlView *)controlView dstTime:(NSTimeInterval)dstTime {
+    NSLog(@"[NELivePlayer Demo] 执行seek，目标时间: [%f]", dstTime);
+    self.player.currentPlaybackTime = dstTime;
+}
+
+- (void)controlViewOnClickMute:(NELivePlayerControlView *)controlView isMute:(BOOL)isMute{
+    NSLog(@"[NELivePlayer Demo] 点击静音，当前状态: [%@]", (isMute ? @"静音开" : @"静音关"));
+    [self.player setMute:isMute];
+}
+
+- (void)controlViewOnClickSnap:(NELivePlayerControlView *)controlView{
+    
+    NSLog(@"[NELivePlayer Demo] 点击屏幕截图");
+    
+    UIImage *snapImage = [self.player getSnapshot];
+
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        
+        PHAssetChangeRequest *req = [PHAssetChangeRequest creationRequestForAssetFromImage:snapImage];
+        
+    } completionHandler:^(BOOL success, NSError * _Nullable error) {
+
+        if(success){
+            [SVProgressHUD showSuccessWithStatus:@"图片保存成功"];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"图片保存失败"];
+        }
+        
+    }];
+}
+
+- (void)controlViewOnClickScale:(NELivePlayerControlView *)controlView isFill:(BOOL)isFill {
+    NSLog(@"[NELivePlayer Demo] 点击屏幕缩放，当前状态: [%@]", (isFill ? @"全屏" : @"适应"));
+    CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
+    [UIView animateWithDuration:duration animations:^{
+        [[UIApplication sharedApplication] setStatusBarOrientation:isFill ? UIInterfaceOrientationLandscapeRight : UIInterfaceOrientationPortrait];
+        
+        self.view.transform = isFill ? CGAffineTransformMakeRotation(M_PI_2) : CGAffineTransformIdentity;
+        if (isFill) {
+             self.view.frame = CGRectMake(0, 0, Height, Width);
+            self.playerContainerView.frame = self.view.bounds;
+        } else {
+             self.view.frame = CGRectMake(0, 0, Width, Height);
+            self.playerContainerView.frame = self.headerView.frame;
+        }
+        self.player.view.frame = self.playerContainerView.bounds;
+        self.controlView.frame = self.playerContainerView.bounds;
+    }];
+}
+
+#pragma mark  播放器SDK功能
+
+- (void)initializationPlayer {
+    [NELivePlayerController setLogLevel:NELP_LOG_VERBOSE];
+    NSError *error = nil;
+    NSURL *url = [NSURL URLWithString:_videoSingal];
+    self.player = [[NELivePlayerController alloc]initWithContentURL:url error:&error];
+    self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.player.view.frame = self.playerContainerView.bounds;
+    [self.playerContainerView addSubview:self.player.view];
+    
+    self.view.autoresizesSubviews = true;
+    [self.player setBufferStrategy:NELPFluent]; // 直播低延时模式
+    [self.player setShouldAutoplay:YES]; // 设置prepareToPlay完成后是否自动播放
+    [self.player setHardwareDecoder:true]; // 设置解码模式，是否开启硬件解码
+    [self.player setPauseInBackground:NO]; // 设置切入后台时的状态，暂停还是继续播放
+    [self.player setPlaybackTimeout:15 *1000]; // 设置拉流超时时间
+    [self.player setScalingMode:NELPMovieScalingModeNone]; // 设置画面显示模式，默认原始大小
+    [self.player setScalingMode:NELPMovieScalingModeAspectFill];
+    [self.player prepareToPlay];
+    
+    [self.playerContainerView addSubview:self.controlView];
+}
+
+- (void)doInitPlayerNotication {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerDidPreparedToPlay:)
+                                                 name:NELivePlayerDidPreparedToPlayNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerPlaybackStateChanged:)
+                                                 name:NELivePlayerPlaybackStateChangedNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NeLivePlayerloadStateChanged:)
+                                                 name:NELivePlayerLoadStateChangedNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerPlayBackFinished:)
+                                                 name:NELivePlayerPlaybackFinishedNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerFirstVideoDisplayed:)
+                                                 name:NELivePlayerFirstVideoDisplayedNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerFirstAudioDisplayed:)
+                                                 name:NELivePlayerFirstAudioDisplayedNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerReleaseSuccess:)
+                                                 name:NELivePlayerReleaseSueecssNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerVideoParseError:)
+                                                 name:NELivePlayerVideoParseErrorNotification
+                                               object:_player];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NELivePlayerSeekComplete:)
+                                                 name:NELivePlayerMoviePlayerSeekCompletedNotification
+                                               object:_player];
+}
+
+- (void)syncUIStatus
+{
+    _controlView.isPlaying = NO;
+    
+    __block NSTimeInterval mDuration = 0;
+    __block bool getDurFlag = false;
+    __weak typeof(self) weakSelf = self;
+    dispatch_queue_t syncUIQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    _timerSource = CreateDispatchSyncUITimerN(1.0, syncUIQueue, ^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (!getDurFlag) {
+                mDuration = [weakSelf.player duration];
+                if (mDuration > 0) {
+                    getDurFlag = true;
+                }
+            }
+            
+            weakSelf.controlView.isAllowSeek = (mDuration > 0);
+            weakSelf.controlView.duration = mDuration;
+            weakSelf.controlView.currentPos = [weakSelf.player currentPlaybackTime];
+            weakSelf.controlView.isPlaying = ([weakSelf.player playbackState] == NELPMoviePlaybackStatePlaying);
+        });
+    });
+}
+
+- (void)doDestroyPlayer {
+    [self.player shutdown]; // 退出播放并释放相关资源
+    [self.player.view removeFromSuperview];
+    self.player = nil;
+}
+
+- (void)cleanSubtitls { //seek完成后，或者切换完字幕，需要清空
+    [_exSubtitleDic removeAllObjects];
+    [_exSubtitleIdArray removeAllObjects];
+    [_subtitleDic removeAllObjects];
+    [_subtitleIdArray removeAllObjects];
+    
+    //更新UI
+    _controlView.subtitle_ex = @"";
+    _controlView.subtitle = @"";
+}
+
+#pragma mark - Tools
+
+dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t queue, dispatch_block_t block)
+{
+    //创建Timer
+    dispatch_source_t timer  = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);//queue是一个专门执行timer回调的GCD队列
+    if (timer) {
+        //使用dispatch_source_set_timer函数设置timer参数
+        dispatch_source_set_timer(timer, dispatch_time(DISPATCH_TIME_NOW, interval*NSEC_PER_SEC), interval*NSEC_PER_SEC, (1ull * NSEC_PER_SEC)/10);
+        //设置回调
+        dispatch_source_set_event_handler(timer, block);
+        //dispatch_source默认是Suspended状态，通过dispatch_resume函数开始它
+        dispatch_resume(timer);
+    }
+    
+    return timer;
 }
 
 #pragma mark - Lazy Load
@@ -77,11 +443,19 @@
 - (UIView *)playerContainerView {
     if (_playerContainerView == nil) {
         _playerContainerView = [[UIView alloc]initWithFrame:self.headerView.frame];
-        _playerContainerView.backgroundColor = [UIColor orangeColor];
+
+        _playerContainerView.backgroundColor = [UIColor whiteColor];
     }
     return _playerContainerView;
 }
 
+- (NELivePlayerControlView *)controlView {
+    if (_controlView == nil) {
+        _controlView = [[NELivePlayerControlView alloc] initWithFrame:_playerContainerView.bounds];
+        _controlView.delegate = self;
+    }
+    return _controlView;
+}
 
 #pragma mark - ************  以下高人所写  ************
 
@@ -89,9 +463,11 @@
 {
     return UIStatusBarStyleLightContent;
 }
-- (void)dealloc
-{
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mainTableCanscroll = YES;
@@ -149,11 +525,13 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self loadLiveData];
     });
+    
+    if (_playerContainerView) {
+        [self initializationPlayer];
+        [self doInitPlayerNotication];
+    }
 }
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.isBack = YES;
-}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];

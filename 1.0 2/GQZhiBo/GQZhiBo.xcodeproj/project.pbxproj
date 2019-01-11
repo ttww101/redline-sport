@@ -45,7 +45,6 @@
 		A911D67121A54BB30077CC38 /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D67021A54BB30077CC38 /* CommentModel.m */; };
 		A911D67521A557950077CC38 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D67421A557950077CC38 /* HeaderView.m */; };
 		A911D67A21A55DA90077CC38 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A911D67921A55DA90077CC38 /* ItemCell.m */; };
-		A9128A9C20F610FD0012AB4D /* company.png in Resources */ = {isa = PBXBuildFile; fileRef = A9128A9B20F610FD0012AB4D /* company.png */; };
 		A91C6DF8207C4D240035DFC0 /* ZBOldMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF6207C4D240035DFC0 /* ZBOldMineViewController.m */; };
 		A91C6DFB207C5EE70035DFC0 /* ZBTuijianDatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A91C6DF9207C5EE60035DFC0 /* ZBTuijianDatingCell.m */; };
 		A91D406A20C77FC20059D501 /* ZBWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A91D406920C77FC20059D501 /* ZBWebView.m */; };
@@ -120,6 +119,8 @@
 		A9546D2721A422910097B6E8 /* YYPhotoGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9546D2621A422910097B6E8 /* YYPhotoGroupView.m */; };
 		A95AC76521A7D632009B67B8 /* PublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A95AC76421A7D632009B67B8 /* PublishViewController.m */; };
 		A95AC76A21A7E025009B67B8 /* GL_TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A95AC76921A7E025009B67B8 /* GL_TextView.m */; };
+		A95C4BF221E83D2C0091BC3F /* company.png in Resources */ = {isa = PBXBuildFile; fileRef = A95C4BF121E83D2B0091BC3F /* company.png */; };
+		A95C4BF521E877AA0091BC3F /* ZBShowSignals.m in Sources */ = {isa = PBXBuildFile; fileRef = A95C4BF421E877AA0091BC3F /* ZBShowSignals.m */; };
 		A961E43320CF9DFB00000E06 /* ZBWebviewProgressLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A961E43220CF9DFB00000E06 /* ZBWebviewProgressLine.m */; };
 		A96C141D2084875500284E4B /* XHPayWxReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14132084875400284E4B /* XHPayWxReq.m */; };
 		A96C141E2084875500284E4B /* XHPayKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A96C14162084875400284E4B /* XHPayKit.m */; };
@@ -163,6 +164,7 @@
 		A991662F2111B07400FABE68 /* ZBDeatilHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166232111B07400FABE68 /* ZBDeatilHeaderView.m */; };
 		A99166322111B62400FABE68 /* ZBCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166312111B62400FABE68 /* ZBCommentsView.m */; };
 		A992872921ABC499003F6137 /* PlayControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A992872821ABC499003F6137 /* PlayControl.m */; };
+		A9B41DBD21E73433008F3516 /* NELivePlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B41DBC21E73433008F3516 /* NELivePlayerControlView.m */; };
 		A9B5228B20930C20001DF9B9 /* ZBMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228A20930C20001DF9B9 /* ZBMineViewController.m */; };
 		A9B5228F2093139A001DF9B9 /* ZBMineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228E2093139A001DF9B9 /* ZBMineModel.m */; };
 		A9B522922093150D001DF9B9 /* ZBMineViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B522912093150D001DF9B9 /* ZBMineViewModel.m */; };
@@ -1184,7 +1186,6 @@
 		A911D67421A557950077CC38 /* HeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
 		A911D67821A55DA90077CC38 /* ItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		A911D67921A55DA90077CC38 /* ItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
-		A9128A9B20F610FD0012AB4D /* company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = company.png; sourceTree = "<group>"; };
 		A91C6DF6207C4D240035DFC0 /* ZBOldMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBOldMineViewController.m; sourceTree = "<group>"; };
 		A91C6DF7207C4D240035DFC0 /* ZBOldMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBOldMineViewController.h; sourceTree = "<group>"; };
 		A91C6DF9207C5EE60035DFC0 /* ZBTuijianDatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBTuijianDatingCell.m; sourceTree = "<group>"; };
@@ -1320,6 +1321,9 @@
 		A95AC76421A7D632009B67B8 /* PublishViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishViewController.m; sourceTree = "<group>"; };
 		A95AC76821A7E025009B67B8 /* GL_TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL_TextView.h; sourceTree = "<group>"; };
 		A95AC76921A7E025009B67B8 /* GL_TextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GL_TextView.m; sourceTree = "<group>"; };
+		A95C4BF121E83D2B0091BC3F /* company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = company.png; sourceTree = "<group>"; };
+		A95C4BF321E877AA0091BC3F /* ZBShowSignals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBShowSignals.h; sourceTree = "<group>"; };
+		A95C4BF421E877AA0091BC3F /* ZBShowSignals.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBShowSignals.m; sourceTree = "<group>"; };
 		A961E43120CF9DFB00000E06 /* ZBWebviewProgressLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWebviewProgressLine.h; sourceTree = "<group>"; };
 		A961E43220CF9DFB00000E06 /* ZBWebviewProgressLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWebviewProgressLine.m; sourceTree = "<group>"; };
 		A96C14122084875400284E4B /* NSDictionary+XHPayKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+XHPayKit.h"; sourceTree = "<group>"; };
@@ -1400,6 +1404,8 @@
 		A99166312111B62400FABE68 /* ZBCommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBCommentsView.m; sourceTree = "<group>"; };
 		A992872721ABC499003F6137 /* PlayControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayControl.h; sourceTree = "<group>"; };
 		A992872821ABC499003F6137 /* PlayControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayControl.m; sourceTree = "<group>"; };
+		A9B41DBA21E73433008F3516 /* NELivePlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELivePlayerControlView.h; sourceTree = "<group>"; };
+		A9B41DBC21E73433008F3516 /* NELivePlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELivePlayerControlView.m; sourceTree = "<group>"; };
 		A9B5228920930C20001DF9B9 /* ZBMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBMineViewController.h; sourceTree = "<group>"; };
 		A9B5228A20930C20001DF9B9 /* ZBMineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBMineViewController.m; sourceTree = "<group>"; };
 		A9B5228D2093139A001DF9B9 /* ZBMineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBMineModel.h; sourceTree = "<group>"; };
@@ -3492,7 +3498,7 @@
 		EB2CABBA1CF99514002938D1 /* guide */ = {
 			isa = PBXGroup;
 			children = (
-				A9128A9B20F610FD0012AB4D /* company.png */,
+				A95C4BF121E83D2B0091BC3F /* company.png */,
 				EBFB51FC1DF03EEB00FB6818 /* guide.png */,
 				EBFB51FD1DF03EEB00FB6818 /* guide4.png */,
 			);
@@ -5489,6 +5495,8 @@
 		EB8C1D5E1F21944B00A07863 /* OtherView */ = {
 			isa = PBXGroup;
 			children = (
+				A9B41DBA21E73433008F3516 /* NELivePlayerControlView.h */,
+				A9B41DBC21E73433008F3516 /* NELivePlayerControlView.m */,
 				EB9419301F5D7ADC002660E4 /* ZBFenXiHeaderBottomView.h */,
 				EB9419311F5D7ADC002660E4 /* ZBFenXiHeaderBottomView.m */,
 				EB8C1D5F1F21944B00A07863 /* ZBFenxiHeaderView.h */,
@@ -5503,6 +5511,8 @@
 				A900863620DB4A9600437F72 /* ZBshowVideoView.m */,
 				A91DCB7B20E9D0EB005B0BC5 /* ZBShowActivityView.h */,
 				A91DCB7C20E9D0EB005B0BC5 /* ZBShowActivityView.m */,
+				A95C4BF321E877AA0091BC3F /* ZBShowSignals.h */,
+				A95C4BF421E877AA0091BC3F /* ZBShowSignals.m */,
 			);
 			path = OtherView;
 			sourceTree = "<group>";
@@ -7883,6 +7893,7 @@
 				EB1A186C1F04DE5300A45856 /* YHLogo@2x.png in Resources */,
 				EB8EA7351F626CBE00689C16 /* yintian@2x.png in Resources */,
 				EB467B5D1F430EB200C7299E /* roundEnd@2x.png in Resources */,
+				A95C4BF221E83D2C0091BC3F /* company.png in Resources */,
 				EBC0A3D91CA92AD700F75E7E /* xiala.png in Resources */,
 				EB142D0E1DF96980002C57B0 /* lauchImage@2x.png in Resources */,
 				EB076A6E1EC321A000940D64 /* noAttentionNew@2x.png in Resources */,
@@ -7985,7 +7996,6 @@
 				EB9419821F5D7B26002660E4 /* pankousel1@2x.png in Resources */,
 				A9C58F0221B5423F005F7396 /* compose_emotion_table_left_selected@2x.png in Resources */,
 				EB9419A31F5D7B26002660E4 /* yuyan2@2x.png in Resources */,
-				A9128A9C20F610FD0012AB4D /* company.png in Resources */,
 				EB9213371DFE964A0020B39F /* log0.png in Resources */,
 				EB642B9F1F188FBE00173172 /* userContentDown@2x.png in Resources */,
 				EB9213581DFE964A0020B39F /* share00.png in Resources */,
@@ -8129,6 +8139,7 @@
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${PODS_ROOT}/NELivePlayer/LivePlayer_iOS_SDK_v2.1.0/NELivePlayerFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework",
@@ -8151,6 +8162,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mantle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NELivePlayerFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketRocket.framework",
@@ -8503,6 +8515,7 @@
 				EB8C1E3D1F21944C00A07863 /* ZBUserOfOtherCell.m in Sources */,
 				A97DD4DA21A2922500F12FEA /* ZBForumViewController.m in Sources */,
 				EB8C1E701F21944C00A07863 /* ZBTuijianDTViewController.m in Sources */,
+				A95C4BF521E877AA0091BC3F /* ZBShowSignals.m in Sources */,
 				A98C9694207B7F4A00C308AE /* ZBUserViewofMyBuyTuijian.m in Sources */,
 				EB8C1E781F21944C00A07863 /* ZBSearchVCZhujiaCell.m in Sources */,
 				EB8C1EA91F21944C00A07863 /* ZBJiaoYiNewTabelView.m in Sources */,
@@ -8566,6 +8579,7 @@
 				EB8C1FB81F219A8C00A07863 /* ZBBasicViewController.m in Sources */,
 				EB8C1EAF1F21944C00A07863 /* ZBJiXianCell.m in Sources */,
 				EB518D131F7B84ED00D548BC /* ZBJSPLDownTwoModel.m in Sources */,
+				A9B41DBD21E73433008F3516 /* NELivePlayerControlView.m in Sources */,
 				EB8C1FD71F219B5900A07863 /* ZBWebDetailViewController.m in Sources */,
 				EB75EDC11F3D886E00B6046C /* ZBTechModel.m in Sources */,
 				EB8C1E511F21944C00A07863 /* ZBSignatureVC.m in Sources */,

@@ -40,4 +40,6 @@
 @property (nonatomic, copy) NSString *homeOrderNum;
 @property (nonatomic, copy) NSString *guestOrderNum;
 @property (nonatomic, assign) BOOL bgIsRed;
+@property (nonatomic, assign) BOOL islive;
+
 @end
