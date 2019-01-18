@@ -21,7 +21,8 @@ static AFHTTPRequestOperationManager *_afnetManager;
     }else{
         [_afnetManager.requestSerializer setValue:@"" forHTTPHeaderField:@"token"];
     }
-    [_afnetManager.requestSerializer setValue:@"gqapp" forHTTPHeaderField:@"User-Agent"];
+    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+    [_afnetManager.requestSerializer setValue:[NSString stringWithFormat:@"gqapp/%@", version] forHTTPHeaderField:@"User-Agent"];
     return dcHttpRequset;
     return nil;
 }

@@ -78,7 +78,7 @@
     
     _overlayControl.frame = self.bounds;
     _topControlView.frame = CGRectMake(0, 0, _overlayControl.width, kPlayerBtnWidth);
-    _playQuitBtn.frame = CGRectMake(8.0, 0, kPlayerBtnWidth, _topControlView.height);
+    _playQuitBtn.frame = CGRectMake(8.0, 10, kPlayerBtnWidth, _topControlView.height);
     _fileName.frame = CGRectMake(_playQuitBtn.right + 8.0,
                                  0,
                                  _topControlView.width - (_playQuitBtn.right + 8.0)*2,
@@ -425,6 +425,7 @@
         self.snapshotBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.snapshotBtn setImage:[UIImage imageNamed:@"btn_player_snap"] forState:UIControlStateNormal];
         [self.snapshotBtn addTarget:self action:@selector(onClickBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        _snapshotBtn.hidden = true;
     }
     return _snapshotBtn;
 }

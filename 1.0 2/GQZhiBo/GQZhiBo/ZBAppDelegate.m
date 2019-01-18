@@ -105,6 +105,9 @@
     ZBStartViewController *launchControl = [[ZBStartViewController alloc]init];
     self.window.rootViewController = launchControl;
     [self.window makeKeyAndVisible];
+    [self loadLaunchImageView]; // 开屏广告
+
+    
     [self getUrlSerPath];
 
     [self isFirstLaunched];
@@ -133,8 +136,6 @@
 //    [self initLocalNotification];
     
     [self getScreenShot];
-    
-    [self loadConfig];
     
     [[ZBAppConfig shareInstance]initialize];
 
@@ -307,7 +308,6 @@
     config.tableBarController.selectedIndex = 0;
     self.window.rootViewController = config.tableBarController;
     [self.window makeKeyWindow];
-    [self loadLaunchImageView];
     //启动程序后请求看有没有未读通知
     if ([ZBMethods login]) {
         [APPDELEGATE.customTabbar loadUreadNotificationNum];
@@ -977,8 +977,7 @@
 
 
 
-- (void)loadLaunchImageView
-{
+- (void)loadLaunchImageView {
     NSMutableDictionary *parameter = [NSMutableDictionary dictionaryWithDictionary:[ZBHttpString getCommenParemeter] ];
     [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_startpage] Start:^(id requestOrignal) {
         
@@ -987,6 +986,7 @@
     } Success:^(id responseResult, id responseOrignal) {
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             NSDictionary *dataDic = [responseOrignal objectForKey:@"data"];
+             [self loadConfig];
             if (!(dataDic.allKeys.count == 0)) {
                 ZBLaunchView *launchV = [[ZBLaunchView alloc] initWithFrame:self.window.bounds];
                 launchV.dataDic = dataDic;
@@ -994,7 +994,7 @@
             }
         }
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
-
+         [self loadConfig];
     }];
 }
 

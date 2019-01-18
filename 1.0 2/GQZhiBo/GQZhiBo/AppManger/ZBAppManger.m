@@ -85,7 +85,7 @@
                                   @"deviceType":[ZBMethods iphoneType],
                                   @"userId": @(model.idId),
                                   @"thirdPay":@(weatherShowThirdPay),
-                                  @"User-Agent": @"gqapp",
+                                  @"User-Agent": [NSString stringWithFormat:@"gqapp/%@", version],
                                   @"h5Path":webPath
                                   };
         NSString *jsonInfo = [self getJSONMessage:infoDic];
@@ -355,7 +355,7 @@
     }];
     
     [self.bridge registerHandler:@"openBrowser" handler:^(id data, WVJBResponseCallback responseCallback) {
-        if ([data isKindOfClass:[NSString class]]) {
+        if (data) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:data]];
         } else {
             [SVProgressHUD showErrorWithStatus:@"地址错误"];

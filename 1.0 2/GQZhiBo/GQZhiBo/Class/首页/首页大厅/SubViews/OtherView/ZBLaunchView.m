@@ -26,11 +26,12 @@
     }
     return self;
 }
+
 - (void)setDataDic:(NSDictionary *)dataDic {
     _dataDic = dataDic;
     if ([_dataDic isKindOfClass:[NSDictionary class]]) {
         [_imageV sd_setImageWithURL:[NSURL URLWithString:PARAM_IS_NIL_ERROR(_dataDic[@"pic"])] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if (image) {
+            if (!error) {
                 [self addSubview:self.bottomImage];
                 [self addSubview:self.skipBtn];
                 [self scheduledGCDTimerWithSeconds:[_dataDic[@"watingtime"] integerValue]];
@@ -40,6 +41,7 @@
         }];
     }
 }
+
 - (void)scheduledGCDTimerWithSeconds:(NSInteger)seconds
 {
     [self cancleGCDTimer];
