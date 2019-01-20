@@ -5,6 +5,8 @@
 #import "ZBMyProfileVC.h"
 #import "ZBHeaderControl.h"
 #import "ZBUserTuijianVC.h"
+#import "MineHeaderTool.h"
+
 @interface ZBMineHeaderView ()
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -21,6 +23,10 @@
 @property (nonatomic , strong) ZBHeaderControl *centerControl;
 @property (nonatomic , strong) ZBHeaderControl *rightControl;
 @property (nonatomic, assign) CGFloat controlWidth;
+
+@property (nonatomic, strong) NSMutableArray *toolArray;
+@property (nonatomic , strong) MineHeaderTool *toolView;
+
 @end
 static CGFloat imageHeight = 50;
 @implementation ZBMineHeaderView
@@ -78,7 +84,37 @@ static CGFloat imageHeight = 50;
         self.rightControl.hidden = YES;
     }
     
+    [_toolArray removeAllObjects];
+    if (1) {
+        NSString *content = @"会员(已开通)";
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:[content rangeOfString:@"会员"]];
+        [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(323232) range:[content rangeOfString:@"会员"]];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:[content rangeOfString:@"(已开通)"]];
+        [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(DB2D21) range:[content rangeOfString:@"(已开通)"]];
+        [self.toolArray addObject:@{@"title": att, @"icon": @"image1"}];
+    } else {
+        NSString *content = @"会员(未开通)";
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:[content rangeOfString:@"会员"]];
+        [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(323232) range:[content rangeOfString:@"会员"]];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:[content rangeOfString:@"(未开通)"]];
+        [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(999999) range:[content rangeOfString:@"(未开通)"]];
+        [self.toolArray addObject:@{@"title": att, @"icon": @"image1"}];
+    }
+    
+    NSArray *titles = @[@"模型", @"工具", @"情报"];
+    NSArray *icons = @[@"image1", @"image1", @"image1"];
+    for (NSInteger i = 0; i < titles.count; i++) {
+        NSString *content = titles[i];
+         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
+        [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:[content rangeOfString:content]];
+        [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(323232) range:[content rangeOfString:content]];
+         [self.toolArray addObject:@{@"title": att, @"icon": icons[i]}];
+    }
     self.applyBtn.hidden = true;
+    self.toolView.top = self.height - 70;
+    self.toolView.toolItems = self.toolArray;
 }
 #pragma mark - Config UI
 - (void)configUI {
@@ -144,6 +180,7 @@ static CGFloat imageHeight = 50;
 //    [self addSubview:self.leftControl];
     [self addSubview:self.centerControl];
     [self addSubview:self.rightControl];
+    [self addSubview:self.toolView];
 }
 #pragma mark - Events
 - (void)applyAction {
@@ -350,4 +387,20 @@ static CGFloat imageHeight = 50;
     }
     return _rightControl;
 }
+
+
+- (MineHeaderTool *)toolView {
+    if (_toolView == nil) {
+        _toolView = [[MineHeaderTool alloc]initWithFrame:CGRectMake(15, 0, Width - 30, 60)];
+    }
+    return _toolView;
+}
+
+- (NSMutableArray *)toolArray {
+    if (_toolArray == nil) {
+        _toolArray = [NSMutableArray array];
+    }
+    return _toolArray;
+}
+
 @end

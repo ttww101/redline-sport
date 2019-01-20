@@ -31,9 +31,9 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     if ([ZBMethods login]) {
-        self.headerView.height = 200 + 35;
+        self.headerView.height = 200 + 35 + 70;
     } else {
-        self.headerView.height = 210;
+        self.headerView.height = 210 + 70;
     }
     [self loadData];
 }
@@ -75,7 +75,7 @@
                 self.tableView.tableHeaderView = self.headerView;
                
                 if (_userModel == nil) {
-                    self.headerView.height = 210;
+                    self.headerView.height = 210 + 70;
                 }
                  [self.tableView reloadData];
                 
@@ -120,7 +120,7 @@
         self.headerView.model = nil;
         self.tableView.tableHeaderView = self.headerView;
         if (_userModel == nil) {
-            self.headerView.height = 210;
+            self.headerView.height = 210 + 70;
         }
         [self.tableView reloadData];
     }

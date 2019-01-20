@@ -164,6 +164,8 @@
 		A991662F2111B07400FABE68 /* ZBDeatilHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166232111B07400FABE68 /* ZBDeatilHeaderView.m */; };
 		A99166322111B62400FABE68 /* ZBCommentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = A99166312111B62400FABE68 /* ZBCommentsView.m */; };
 		A992872921ABC499003F6137 /* PlayControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A992872821ABC499003F6137 /* PlayControl.m */; };
+		A99F80F221F451AC008885B9 /* MineHeaderTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A99F80F121F451AC008885B9 /* MineHeaderTool.m */; };
+		A99F80F821F45718008885B9 /* ToolControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A99F80F721F45718008885B9 /* ToolControl.m */; };
 		A9B41DBD21E73433008F3516 /* NELivePlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B41DBC21E73433008F3516 /* NELivePlayerControlView.m */; };
 		A9B5228B20930C20001DF9B9 /* ZBMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228A20930C20001DF9B9 /* ZBMineViewController.m */; };
 		A9B5228F2093139A001DF9B9 /* ZBMineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B5228E2093139A001DF9B9 /* ZBMineModel.m */; };
@@ -1404,6 +1406,10 @@
 		A99166312111B62400FABE68 /* ZBCommentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBCommentsView.m; sourceTree = "<group>"; };
 		A992872721ABC499003F6137 /* PlayControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayControl.h; sourceTree = "<group>"; };
 		A992872821ABC499003F6137 /* PlayControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayControl.m; sourceTree = "<group>"; };
+		A99F80F021F451AC008885B9 /* MineHeaderTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineHeaderTool.h; sourceTree = "<group>"; };
+		A99F80F121F451AC008885B9 /* MineHeaderTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineHeaderTool.m; sourceTree = "<group>"; };
+		A99F80F621F45718008885B9 /* ToolControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolControl.h; sourceTree = "<group>"; };
+		A99F80F721F45718008885B9 /* ToolControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolControl.m; sourceTree = "<group>"; };
 		A9B41DBA21E73433008F3516 /* NELivePlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NELivePlayerControlView.h; sourceTree = "<group>"; };
 		A9B41DBC21E73433008F3516 /* NELivePlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NELivePlayerControlView.m; sourceTree = "<group>"; };
 		A9B5228920930C20001DF9B9 /* ZBMineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBMineViewController.h; sourceTree = "<group>"; };
@@ -4427,10 +4433,14 @@
 				A9B5229720932D0E001DF9B9 /* ZBMineHeaderView.m */,
 				A9B5229920933A8E001DF9B9 /* ZBHeaderAmountView.h */,
 				A9B5229A20933A8E001DF9B9 /* ZBHeaderAmountView.m */,
+				A99F80F021F451AC008885B9 /* MineHeaderTool.h */,
+				A99F80F121F451AC008885B9 /* MineHeaderTool.m */,
 				A920B9B920BD412C00867100 /* ZBItemControl.h */,
 				A920B9BA20BD412C00867100 /* ZBItemControl.m */,
 				A920B9BE20BD656900867100 /* ZBHeaderControl.h */,
 				A920B9BF20BD656900867100 /* ZBHeaderControl.m */,
+				A99F80F621F45718008885B9 /* ToolControl.h */,
+				A99F80F721F45718008885B9 /* ToolControl.m */,
 			);
 			path = OtherView;
 			sourceTree = "<group>";
@@ -8503,6 +8513,7 @@
 				EB8C1E831F21944C00A07863 /* ZBJiBenWebView.m in Sources */,
 				EBF439321E9F56A90050AAE8 /* UIView+Additions.m in Sources */,
 				EBF223301F8E330C00A1E67B /* ZBBangAccountVC.m in Sources */,
+				A99F80F221F451AC008885B9 /* MineHeaderTool.m in Sources */,
 				EB75EDB71F3D508700B6046C /* ZBZhiboTableView.m in Sources */,
 				EB6685341F4FF6490082EA34 /* ZBPeilvViewOfTuijianCell.m in Sources */,
 				EB6BDA361F395E3300C9EA73 /* ZBTongpeiDTResultView.m in Sources */,
@@ -8575,6 +8586,7 @@
 				EB8C200E1F219DD100A07863 /* ZBDCPhotoView.m in Sources */,
 				EB8C1EC01F21944C00A07863 /* ZBRedDanModel.m in Sources */,
 				EB9DA4ED1F4E7DBA00DE7FB9 /* ZBTuijianSelectedItemView.m in Sources */,
+				A99F80F821F45718008885B9 /* ToolControl.m in Sources */,
 				A951F982213D062A0001B803 /* SDCycleScrollView.m in Sources */,
 				EB8C1FB81F219A8C00A07863 /* ZBBasicViewController.m in Sources */,
 				EB8C1EAF1F21944C00A07863 /* ZBJiXianCell.m in Sources */,
