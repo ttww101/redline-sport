@@ -361,6 +361,33 @@
             [SVProgressHUD showErrorWithStatus:@"地址错误"];
         }
     }];
+    
+    [self.bridge registerHandler:@"webStorage" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                            options:NSJSONReadingMutableContainers
+                                                              error:&err];
+        [[NSUserDefaults standardUserDefaults]setObject:dic[@"storageValue"] forKey:dic[@"storageKey"]];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }];
+    
+    [self.bridge registerHandler:@"getStorage" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSString *jsonData = [[NSUserDefaults standardUserDefaults]objectForKey:PARAM_IS_NIL_ERROR(data)];
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getStorageData", @"val":jsonData}];
+        [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+            
+        }];
+        
+    }];
+    
+    [self.bridge registerHandler:@"removeStorage" handler:^(id data, WVJBResponseCallback responseCallback) {
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:PARAM_IS_NIL_ERROR(data)];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }];
+
+    
+    
 
     [self.bridge registerHandler:@"pagetoolbar" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSData *jsonData = [data dataUsingEncoding:NSUTF8StringEncoding];

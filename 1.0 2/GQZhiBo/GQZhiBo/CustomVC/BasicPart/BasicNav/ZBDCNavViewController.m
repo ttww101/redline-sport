@@ -38,6 +38,9 @@
 }
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureRecognizer.view];
+    if ([[ZBMethods help_getCurrentVC].className isEqualToString:@"ZBFenxiPageVC"]) {
+        return false;
+    }
     if (translation.x <= 0) {
         return NO;
     }

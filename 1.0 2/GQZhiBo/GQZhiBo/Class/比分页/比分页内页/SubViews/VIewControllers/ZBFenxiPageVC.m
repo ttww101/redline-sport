@@ -28,7 +28,7 @@
 #import <Photos/Photos.h>
 
 
-@interface ZBFenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate, NELivePlayerControlViewProtocol>
+@interface ZBFenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate, NELivePlayerControlViewProtocol, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) ZBBifenDTTable *tableView;
 @property (nonatomic, strong) ZBTitleIndexView *titleView;
@@ -530,6 +530,7 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
         [self initializationPlayer];
         [self doInitPlayerNotication];
     }
+   
 }
 
 - (void)viewDidDisappear:(BOOL)animated
