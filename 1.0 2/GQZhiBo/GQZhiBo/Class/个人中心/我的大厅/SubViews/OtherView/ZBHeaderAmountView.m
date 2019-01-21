@@ -12,6 +12,7 @@
 @property (nonatomic , strong) UIButton *rechargeBtn;
 @property (nonatomic , strong) UIButton *goldRechargeBtn;
 
+
 @end
 @implementation ZBHeaderAmountView
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -35,6 +36,7 @@
                                }
                            ];
     [self removeAllSubViews];
+
     NSString *str = @"";
     CGFloat itemWidth = self.width / itemArray.count;
     for (NSInteger i = 0; i < itemArray.count; i ++) {
@@ -53,7 +55,7 @@
             }
             str = amount;
         }
-        ZBItemControl *control  = [[ZBItemControl alloc]initWithFrame:CGRectMake(i * itemWidth, 0, itemWidth, self.height) imageName:dic[@"icon"] title:dic[@"title"] amount:str];
+        ZBItemControl *control  = [[ZBItemControl alloc]initWithFrame:CGRectMake(i * itemWidth, 0, itemWidth, self.height) imageName:dic[@"icon"] title:dic[@"title"] amount:str hidenLine:i];
         control.tag = i;
         [control addTarget:self action:@selector(controlAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:control];
@@ -77,7 +79,9 @@
 - (void)configUI {
     self.backgroundColor = [UIColor whiteColor];
     self.layer.cornerRadius = 5;
-    self.layer.masksToBounds = YES;
+    self.layer.shadowColor = UIColorHex(CDCDCD).CGColor;
+    self.layer.shadowOpacity = 1;
+    self.layer.shadowOffset = CGSizeMake(1, 1);
 }
 #pragma mark - Events
 - (void)controlAction:(ZBItemControl *)senter {
@@ -244,4 +248,6 @@
     }
     return _rightArrorImageView;
 }
+
+
 @end

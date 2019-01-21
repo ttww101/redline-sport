@@ -84,15 +84,24 @@ static CGFloat imageHeight = 50;
         self.rightControl.hidden = YES;
     }
     
+    
+    
+   
+    self.applyBtn.hidden = true;
+}
+
+
+- (void)setDic:(NSDictionary *)dic {
+    _dic = dic;
     [_toolArray removeAllObjects];
-    if (1) {
+    if (dic[@"isopen"]) {
         NSString *content = @"会员(已开通)";
         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:[content rangeOfString:@"会员"]];
         [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(323232) range:[content rangeOfString:@"会员"]];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:[content rangeOfString:@"(已开通)"]];
         [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(DB2D21) range:[content rangeOfString:@"(已开通)"]];
-        [self.toolArray addObject:@{@"title": att, @"icon": @"image1"}];
+        [self.toolArray addObject:@{@"title": att, @"icon": @"tool2"}];
     } else {
         NSString *content = @"会员(未开通)";
         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
@@ -100,25 +109,32 @@ static CGFloat imageHeight = 50;
         [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(323232) range:[content rangeOfString:@"会员"]];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10] range:[content rangeOfString:@"(未开通)"]];
         [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(999999) range:[content rangeOfString:@"(未开通)"]];
-        [self.toolArray addObject:@{@"title": att, @"icon": @"image1"}];
+        [self.toolArray addObject:@{@"title": att, @"icon": @"tool2", @"newValue":@0}];
     }
     
     NSArray *titles = @[@"模型", @"工具", @"情报"];
-    NSArray *icons = @[@"image1", @"image1", @"image1"];
+    NSArray *icons = @[@"tool3", @"tool4", @"tool1"];
+    NSArray *hasNewValue = nil;
+    if ([dic isKindOfClass:NSClassFromString(@"NSDictionary")]) {
+        hasNewValue = @[@([dic[@"hasModel"] integerValue]), @([dic[@"hasTools"] integerValue]),  @([dic[@"hasInformation"] integerValue])];
+    } else {
+        hasNewValue = @[@(0), @(0), @(0)];
+    }
+   
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *content = titles[i];
-         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
+        NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:[content rangeOfString:content]];
         [att addAttribute:NSForegroundColorAttributeName value:UIColorHex(323232) range:[content rangeOfString:content]];
-         [self.toolArray addObject:@{@"title": att, @"icon": icons[i]}];
+        [self.toolArray addObject:@{@"title": att, @"icon": icons[i], @"newValue":hasNewValue[i]}];
     }
-    self.applyBtn.hidden = true;
     self.toolView.top = self.height - 70;
     self.toolView.toolItems = self.toolArray;
 }
+
 #pragma mark - Config UI
 - (void)configUI {
-    self.backgroundColor = UIColorFromRGBWithOX(0xebebeb);
+    self.backgroundColor = UIColorFromRGBWithOX(0xffffff);
     self.controlWidth = (Width - 100) / 2.f;
     [self addSubview:self.bgImageView];
     [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -6,9 +6,10 @@
 - (instancetype)initWithFrame:(CGRect)frame
                     imageName:(NSString *)imageName
                         title:(NSString *)title
-                       amount:(NSString *)amount{
+                       amount:(NSString *)amount hidenLine:(BOOL)hide{
     self = [super initWithFrame:frame];
     if (self) {
+        
         
         _imageName = [imageName copy];
         _title = [title copy];
@@ -45,6 +46,8 @@
             make.bottom.equalTo(self.mas_bottom).offset(-12);
             make.width.mas_equalTo(1);
         }];
+        
+        lineView.hidden = hide;
         
         UILabel *amountLabel = [[UILabel alloc]init];
         amountLabel.text = amount;

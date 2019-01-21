@@ -100,6 +100,7 @@
 #define url_userinfo @"/user/info"
 #define url_usernewinfo @"/user/myinfo"
 #define url_minemessagecount @"/user/message_panel/unread/count"
+#define url_vip_index @"/vip/index"
 #define url_ucenterstatistics @"/ucenter/statistics"
 #define url_ucenteruserstatis @"/ucenter/userstatis"
 #define url_ucenterusercatestatis @"/ucenter/usercatestatis"

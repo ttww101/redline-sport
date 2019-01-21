@@ -93,6 +93,9 @@
         }];
         
         
+        
+        
+        
         [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_minemessagecount] Start:^(id requestOrignal) {
         } End:^(id responseOrignal) {
             
@@ -112,6 +115,16 @@
         }];
         
         
+        [[ZBDCHttpRequest shareInstance] sendGetRequestByMethod:@"get" WithParamaters:parameter PathUrlL:[NSString stringWithFormat:@"%@%@",APPDELEGATE.url_Server,url_vip_index] Start:^(id requestOrignal) {
+        } End:^(id responseOrignal) {
+            
+        } Success:^(id responseResult, id responseOrignal) {
+            if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
+                self.headerView.dic = responseOrignal[@"data"];
+            }
+        } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
+            self.headerView.dic = nil;
+        }];
         
         
         
@@ -122,6 +135,7 @@
         if (_userModel == nil) {
             self.headerView.height = 210 + 70;
         }
+        self.headerView.dic = nil;
         [self.tableView reloadData];
     }
 }
@@ -146,6 +160,15 @@
     if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
         ((UITableViewHeaderFooterView *)view).backgroundView.backgroundColor = UIColorHex(#F3F4F6);
     }
+}
+
+- (CGFloat)tableView:(  UITableView *)tableView heightForHeaderInSection:( NSInteger )section {
+    
+    return 10.0 ;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.10 ;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -308,7 +331,7 @@
         _tableView.emptyDataSetDelegate = self;
         _tableView.sectionHeaderHeight = 0;
         _tableView.sectionFooterHeight = 10;
-        _tableView.backgroundColor = UIColorHex(#F3F4F6);
+        _tableView.backgroundColor = UIColorHex(#f5f5f5);
         _tableView.separatorColor = [UIColor clearColor];
     }
     return _tableView;
