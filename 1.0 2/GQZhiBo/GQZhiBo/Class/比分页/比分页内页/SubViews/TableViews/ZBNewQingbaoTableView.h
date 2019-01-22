@@ -10,4 +10,10 @@
 @property (nonatomic, strong) NSMutableArray *jiDianArr;
 @property (nonatomic, weak) id<NewQingbaoTableViewDelegate>delegateNewQB;
 @property (nonatomic, assign) BOOL cellCanScroll;
+
+@property (nonatomic, assign) NSInteger matchID;
+
+@property (nonatomic , copy) NSDictionary *feeDic;
+
+
 @end

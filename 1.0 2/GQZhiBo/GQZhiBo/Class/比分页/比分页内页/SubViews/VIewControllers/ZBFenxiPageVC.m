@@ -932,6 +932,7 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
         _NewQBTableView.tag = 32;
         _NewQBTableView.delegateNewQB = self;
         _NewQBTableView.backgroundColor = colorTableViewBackgroundColor;
+        _NewQBTableView.matchID = self.model.mid;
     }
     return _NewQBTableView;
 }
@@ -1146,6 +1147,8 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
             }
             if (_NewQBTableView.arrawayInfo.count>0 ||  _NewQBTableView.arrneutralInfo.count>0 ||_NewQBTableView.arrhomeInfo.count>0 ) {
             }
+            
+            _NewQBTableView.feeDic = [[responseOrignal objectForKey:@"data"] objectForKey:@"fee"];
             _NewQBTableView.defaultTitle = @"暂无情报，你要做头条吗";
             _NewQBTableView.defaultPage =defaultPageThird;
             [_NewQBTableView reloadData];

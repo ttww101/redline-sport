@@ -47,4 +47,6 @@
 @property (nonatomic, strong)NSString *newsTypeName;
 @property (nonatomic, strong)NSString *newsTypeColor;
 @property (nonatomic, assign)NSInteger mark;
+@property (nonatomic, assign) BOOL best;
+
 @end

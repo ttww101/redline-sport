@@ -88,7 +88,7 @@
 #define url_newrecommendlistUser @"/v22/recommend/listUser"
 #define url_recommendlistUserChuanGuan @"/recommend/querymycg"
 #define url_quizmyQuizList @"/quiz/myQuizList"
-#define url_infolistOneSchedule @"/info/listOneSchedule"
+#define url_infolistOneSchedule @"/info/oneMatch"
 #define url_recommmendlistOneSchedule @"/recommend/listOneSchedule"
 #define url_tidian @"/tip/mobile"
 #define url_illegaladd @"/report"

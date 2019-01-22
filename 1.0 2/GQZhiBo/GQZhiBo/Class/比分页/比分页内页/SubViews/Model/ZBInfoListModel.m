@@ -48,7 +48,8 @@
              @"medals" : @"medals",
              @"newsTypeName":@"newsTypeName",
              @"newsTypeColor":@"newsTypeColor",
-             @"mark":@"mark"
+             @"mark":@"mark",
+             @"best": @"best"
              };
 }
 + (NSValueTransformer *)GuestScoreJSONTransformer

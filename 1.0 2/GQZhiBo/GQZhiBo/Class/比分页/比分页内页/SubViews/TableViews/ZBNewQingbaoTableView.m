@@ -3,12 +3,47 @@
 #import "ZBNewQBTableViewCell.h"
 #import "ZBTimeModel.h"
 #import "ZBRightSlidetabletableViewCell.h"
+#import "LockQingBaoView.h"
+#import "ZBToolWebViewController.h"
+
+
 static NSString * iden = @"testTime";
-@interface ZBNewQingbaoTableView ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface ZBNewQingbaoTableView ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate, LockQingBaoViewDelegate>
 @property (nonatomic, assign) CGFloat oldContentY;
 @property(strong,nonatomic)NSMutableArray * dataList;
+@property (nonatomic , strong) LockQingBaoView *lockView;
+
 @end
 @implementation ZBNewQingbaoTableView
+
+
+#pragma mark - Lazy Load
+
+#pragma mark - LockQingBaoViewDelegate
+
+- (void)LockQingBaoViewTapAction {
+    if(![ZBMethods login]) {
+        [ZBMethods toLogin];
+        return;
+    }
+    ZBWebModel *model = [[ZBWebModel alloc]init];
+    model.hideNavigationBar = true;
+    model.webUrl = [NSString stringWithFormat:@"%@/%@/vip-pay.html?scheduleId=%zi&kind=1", APPDELEGATE.url_ip,H5_Host, self.matchID];
+    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+    webDetailVC.model = model;
+    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+}
+
+- (LockQingBaoView *)lockView {
+    if (_lockView == nil) {
+        _lockView = [[LockQingBaoView alloc]initWithFrame:CGRectMake(0, 35, self.width, 0)];
+        _lockView.delegate = self;
+    }
+    return _lockView;
+}
+
+#pragma mark - ************  以下高人所写  ************
+
 - (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
     self = [super initWithFrame:frame style:style];
@@ -31,6 +66,20 @@ static NSString * iden = @"testTime";
     [self setupMJ_header];
     [self reloadData];
 }
+
+
+- (void)setFeeDic:(NSDictionary *)feeDic {
+    _feeDic = feeDic;
+    if (_feeDic[@"count"] > 0) {
+        [self addSubview:self.lockView];
+        _lockView.infoMap = _feeDic;
+    } else {
+        if (_lockView) {
+            [_lockView removeFromSuperview];
+        }
+    }
+}
+
 - (void)setArrData:(NSArray *)arrData
 {
     _arrData = arrData;
@@ -99,7 +148,13 @@ static NSString * iden = @"testTime";
             ZBInfoListModel *infoModel = [self.arrhomeInfo objectAtIndex:indexPath.row];
             CGFloat heiContent = [ZBMethods getTextHeightStationWidth:[NSString stringWithFormat:@"%@",infoModel.content] anWidthTxtt:Width - 30 anfont:14 andLineSpace:5.5 andHeaderIndent:0];
             CGFloat heiTitle = [ZBMethods getTextHeightStationWidth:infoModel.title anWidthTxtt:Width - 30 anfont:20 andLineSpace:5 andHeaderIndent:0];
-            return 60 + heiContent + heiTitle;
+            
+            CGFloat rowHeight = 60 + heiContent + heiTitle;
+            
+            if (indexPath.row == 0 && _lockView) {
+                _lockView.height = rowHeight;
+            }
+            return rowHeight;
         }
             break;
         case 1:

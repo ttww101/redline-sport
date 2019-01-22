@@ -148,6 +148,7 @@
 		A98129C621B53DE500209845 /* EmoticonWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A98129C521B53DE500209845 /* EmoticonWeibo.bundle */; };
 		A98129C821B53E0300209845 /* EmoticonQQ.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A98129C721B53E0200209845 /* EmoticonQQ.bundle */; };
 		A9833D4320E4D1F7008A6F94 /* ZBUserViewOfTuijianCellCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9833D4220E4D1F7008A6F94 /* ZBUserViewOfTuijianCellCopy.m */; };
+		A983A09C21F5ACFB00F1F815 /* LockQingBaoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A983A09B21F5ACFB00F1F815 /* LockQingBaoView.m */; };
 		A98632D020BE56800021DAFA /* ZBRecommendedWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A98632CF20BE56800021DAFA /* ZBRecommendedWebView.m */; };
 		A98C9694207B7F4A00C308AE /* ZBUserViewofMyBuyTuijian.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9690207B7F4A00C308AE /* ZBUserViewofMyBuyTuijian.m */; };
 		A98C9695207B7F4A00C308AE /* ZBMyBuyTuijianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C9692207B7F4A00C308AE /* ZBMyBuyTuijianVC.m */; };
@@ -1374,6 +1375,8 @@
 		A98129C721B53E0200209845 /* EmoticonQQ.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EmoticonQQ.bundle; sourceTree = "<group>"; };
 		A9833D4020E4D1EE008A6F94 /* ZBUserViewOfTuijianCellCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUserViewOfTuijianCellCopy.h; sourceTree = "<group>"; };
 		A9833D4220E4D1F7008A6F94 /* ZBUserViewOfTuijianCellCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUserViewOfTuijianCellCopy.m; sourceTree = "<group>"; };
+		A983A09A21F5ACFB00F1F815 /* LockQingBaoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockQingBaoView.h; sourceTree = "<group>"; };
+		A983A09B21F5ACFB00F1F815 /* LockQingBaoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockQingBaoView.m; sourceTree = "<group>"; };
 		A98632CE20BE56800021DAFA /* ZBRecommendedWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRecommendedWebView.h; sourceTree = "<group>"; };
 		A98632CF20BE56800021DAFA /* ZBRecommendedWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRecommendedWebView.m; sourceTree = "<group>"; };
 		A98C968F207B7F4A00C308AE /* ZBUserViewofMyBuyTuijian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUserViewofMyBuyTuijian.h; sourceTree = "<group>"; };
@@ -5523,6 +5526,8 @@
 				A91DCB7C20E9D0EB005B0BC5 /* ZBShowActivityView.m */,
 				A95C4BF321E877AA0091BC3F /* ZBShowSignals.h */,
 				A95C4BF421E877AA0091BC3F /* ZBShowSignals.m */,
+				A983A09A21F5ACFB00F1F815 /* LockQingBaoView.h */,
+				A983A09B21F5ACFB00F1F815 /* LockQingBaoView.m */,
 			);
 			path = OtherView;
 			sourceTree = "<group>";
@@ -8589,6 +8594,7 @@
 				A99F80F821F45718008885B9 /* ToolControl.m in Sources */,
 				A951F982213D062A0001B803 /* SDCycleScrollView.m in Sources */,
 				EB8C1FB81F219A8C00A07863 /* ZBBasicViewController.m in Sources */,
+				A983A09C21F5ACFB00F1F815 /* LockQingBaoView.m in Sources */,
 				EB8C1EAF1F21944C00A07863 /* ZBJiXianCell.m in Sources */,
 				EB518D131F7B84ED00D548BC /* ZBJSPLDownTwoModel.m in Sources */,
 				A9B41DBD21E73433008F3516 /* NELivePlayerControlView.m in Sources */,

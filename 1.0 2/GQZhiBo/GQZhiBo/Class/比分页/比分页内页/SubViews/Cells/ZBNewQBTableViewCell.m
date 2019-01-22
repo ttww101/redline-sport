@@ -10,6 +10,9 @@
 @property (nonatomic, strong) UIView *LineVRight;
 @property (nonatomic, strong) UIView *LineH;
 @property (nonatomic, strong) UIImageView *imgType;
+
+@property (nonatomic, strong) BaseImageView *bestQingbao;
+
 @end
 @implementation ZBNewQBTableViewCell
 - (void)awakeFromNib {
@@ -27,6 +30,7 @@
     _labHomeOrAway.text = model.newsTypeName;
     _labHomeOrAway.textColor = [ZBMethods getColor:model.newsTypeColor];
     _labtitle.text = [NSString stringWithFormat:@"%@",_model.title];
+    _bestQingbao.hidden = !model.best;
     if (_model.content == nil) {
         _model.content = @"";
     }
@@ -80,6 +84,7 @@
         [_basicView addSubview:self.labdate];
         [_basicView addSubview:self.LineV];
         [_basicView addSubview:self.imgType];
+        [_basicView addSubview:self.bestQingbao];
     }
     return _basicView;
 }
@@ -145,6 +150,18 @@
     }
     return _imgType;
 }
+
+- (BaseImageView *)bestQingbao {
+    if (_bestQingbao == nil) {
+        _bestQingbao = [[BaseImageView alloc]init];
+        _bestQingbao.image = [UIImage imageNamed:@"bestQingbao"];
+        _bestQingbao.layer.masksToBounds = true;
+        _bestQingbao.contentMode = UIViewContentModeScaleAspectFill;
+        _bestQingbao.hidden = true;
+    }
+    return _bestQingbao;
+}
+
 - (void)addAutoLayoutToCell
 {
     [self.basicView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,6 +203,12 @@
         make.top.mas_equalTo(self.labtitle.mas_top).offset(5);
         make.right.mas_equalTo(self.basicView.mas_right);
     }];
+    
+    [self.bestQingbao mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.basicView.mas_top).offset(10);
+        make.right.mas_equalTo(self.basicView.mas_right).offset(-15);
+    }];
+    
 }
 - (void)pushToDetailVC
 {
