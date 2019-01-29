@@ -508,24 +508,24 @@
 //    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
 
     //上线的时候关闭--wt
-    APPDELEGATE.url_Server = @"http://mobiledev.gunqiu.com:81/interface";
-    APPDELEGATE.url_jsonHeader = @"http://mobiledev.gunqiu.com";
-    APPDELEGATE.url_ip = @"http://mobiledev.gunqiu.com:81";
-    APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
-    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
-    APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com";
-    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
-    APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时指数的
+//    APPDELEGATE.url_Server = @"http://mobiledev.gunqiu.com:81/interface";
+//    APPDELEGATE.url_jsonHeader = @"http://mobiledev.gunqiu.com";
+//    APPDELEGATE.url_ip = @"http://mobiledev.gunqiu.com:81";
+//    APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
+//    APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
+//    APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com";
+//    APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
+//    APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时指数的
     
 //    预发布
-//        APPDELEGATE.url_Server = @"https://mobile.gunqiu.com:82/interface/v3.6";
-//        APPDELEGATE.url_jsonHeader = @"http://mobile.gunqiu.com/";
-//        APPDELEGATE.url_ip = @"https://mobile.gunqiu.com:82";
-//        APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
-//        APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
-//        APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com";
-//        APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
-//        APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时指数的
+        APPDELEGATE.url_Server = @"https://mobile.gunqiu.com:82/interface/v3.6";
+        APPDELEGATE.url_jsonHeader = @"http://mobile.gunqiu.com/";
+        APPDELEGATE.url_ip = @"https://mobile.gunqiu.com:82";
+        APPDELEGATE.url_ServerWWW = @"http://pctest.gunqiu.com";
+        APPDELEGATE.url_ServerAgreement = @"http://www.gunqiu.com";
+        APPDELEGATE.url_ServerQiuTan = @"http://mobile.gunqiu.com";
+        APPDELEGATE.url_upLoadImg = @"http://mobile.gunqiu.com:8897";
+        APPDELEGATE.url_JISHUIDATA=@"http://mobile.gunqiu.com:8803";//及时更新数据-及时指数的
 
 ////    上线的时候开启
 //    if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"APPDELEGATE.url_Server"] isEqualToString:@"http://mobile.gunqiu.com/interface"]) {

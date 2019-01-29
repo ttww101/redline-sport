@@ -27,7 +27,8 @@ static NSString * iden = @"testTime";
         return;
     }
     ZBWebModel *model = [[ZBWebModel alloc]init];
-    model.hideNavigationBar = true;
+    model.title = @"开通服务";
+    model.hideNavigationBar = false;
     model.webUrl = [NSString stringWithFormat:@"%@/%@/vip-pay.html?scheduleId=%zi&kind=1", APPDELEGATE.url_ip,H5_Host, self.matchID];
     ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
     webDetailVC.model = model;
@@ -36,7 +37,7 @@ static NSString * iden = @"testTime";
 
 - (LockQingBaoView *)lockView {
     if (_lockView == nil) {
-        _lockView = [[LockQingBaoView alloc]initWithFrame:CGRectMake(0, 35, self.width, 0)];
+        _lockView = [[LockQingBaoView alloc]initWithFrame:CGRectMake(0, 35, self.width, Scale_Value(142))];
         _lockView.delegate = self;
     }
     return _lockView;
@@ -71,11 +72,12 @@ static NSString * iden = @"testTime";
 - (void)setFeeDic:(NSDictionary *)feeDic {
     _feeDic = feeDic;
     if (_feeDic[@"count"] > 0) {
-        [self addSubview:self.lockView];
+        self.tableHeaderView = self.lockView;
         _lockView.infoMap = _feeDic;
     } else {
         if (_lockView) {
             [_lockView removeFromSuperview];
+            self.tableHeaderView = nil;
         }
     }
 }
@@ -150,10 +152,6 @@ static NSString * iden = @"testTime";
             CGFloat heiTitle = [ZBMethods getTextHeightStationWidth:infoModel.title anWidthTxtt:Width - 30 anfont:20 andLineSpace:5 andHeaderIndent:0];
             
             CGFloat rowHeight = 60 + heiContent + heiTitle;
-            
-            if (indexPath.row == 0 && _lockView) {
-                _lockView.height = rowHeight;
-            }
             return rowHeight;
         }
             break;

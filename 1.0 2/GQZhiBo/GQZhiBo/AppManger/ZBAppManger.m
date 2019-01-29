@@ -376,7 +376,7 @@
     
     [self.bridge registerHandler:@"getStorage" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSString *jsonData = [[NSUserDefaults standardUserDefaults]objectForKey:PARAM_IS_NIL_ERROR(data)];
-        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getStorageData", @"val":jsonData}];
+        NSString *jsonParameter = [self getJSONMessage:@{@"id":@"getStorageData", @"val":PARAM_IS_NIL_ERROR(jsonData)}];
         [weakSelf.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
             
         }];
