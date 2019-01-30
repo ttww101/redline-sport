@@ -64,7 +64,7 @@
         case 1: {
             ZBWebModel *model = [[ZBWebModel alloc]init];
             model.hideNavigationBar = true;
-            model.webUrl = [NSString stringWithFormat:@"%@/%@/model.html", APPDELEGATE.url_ip,H5_Host];
+            model.webUrl = [NSString stringWithFormat:@"%@/%@/mode.html", APPDELEGATE.url_ip,H5_Host];
             ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
             webDetailVC.model = model;
             [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];

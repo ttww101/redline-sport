@@ -485,7 +485,6 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
     _nav.btnRight.hidden = YES;
     [self.view addSubview:self.tableView];
     [self setNavView];
-    [self lodaDataAnalysisQB];
     [self lodaDataTiDian];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderData:) name:@"NSNotificationupdateHeaderData" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTableViewFrame) name:@"changeTableViewFrame" object:nil];
@@ -530,6 +529,8 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
         [self initializationPlayer];
         [self doInitPlayerNotication];
     }
+    
+    [self lodaDataAnalysisQB];
    
 }
 

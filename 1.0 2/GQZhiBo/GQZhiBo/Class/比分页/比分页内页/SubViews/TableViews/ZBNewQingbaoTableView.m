@@ -71,7 +71,7 @@ static NSString * iden = @"testTime";
 
 - (void)setFeeDic:(NSDictionary *)feeDic {
     _feeDic = feeDic;
-    if (_feeDic[@"count"] > 0) {
+    if ([_feeDic[@"count"] integerValue] > 0) {
         self.tableHeaderView = self.lockView;
         _lockView.infoMap = _feeDic;
     } else {

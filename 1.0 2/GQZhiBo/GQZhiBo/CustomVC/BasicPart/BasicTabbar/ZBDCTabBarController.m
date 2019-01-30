@@ -32,7 +32,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
 @property (nonatomic , strong) ZBCustmerTableBar *taBar;
 @property (nonatomic, assign) BOOL isToFenxi;
 @end
-static CGFloat imageHeight = 76.f;
+static CGFloat imageHeight = 66.f;
 @implementation ZBDCTabBarController
 - (instancetype)initWithItemArray:(NSArray *)itemArray {
     if (self) {
@@ -112,7 +112,7 @@ static CGFloat imageHeight = 76.f;
 }
 #pragma mark - Config Activity
 - (void)configActivityEntrance {
-    if (self.recordView) {
+    if (_recordView) {
         [self.recordView removeFromSuperview];
         self.recordView = nil;
     }
@@ -338,7 +338,7 @@ static CGFloat imageHeight = 76.f;
     if (![self.selectedViewController isKindOfClass:[UINavigationController class]]) {
         return;
     }
-    Class targetCalss = NSClassFromString(self.activityDic[@"n"]);
+    Class targetCalss = NSClassFromString([NSString stringWithFormat:@"ZB%@",self.activityDic[@"n"]]);
     ZBToolWebViewController *target =[[targetCalss alloc] init];
     UINavigationController *nc = (UINavigationController *)self.selectedViewController;
     ZBWebModel *model = [[ZBWebModel alloc]init];

@@ -66,7 +66,7 @@
 #pragma mark -   新加接口
 #define url_couponlist @"/couponlist"
 #define url_reward_list @"/reward_list"
-#define url_liveQuiz @"/activity_entry3"
+#define url_liveQuiz @"/activity_entry4"
 #define url_idfa @"/upidfa"
 #define url_update @"/upgrade"
 #define url_redBomb @"/redpacket/pic"
@@ -74,7 +74,7 @@
 #define url_modelPay_ali @"/pay/alipay/model"
 #define url_modelPay_coupon @"/pay/couponpay/model"
 #define url_ConfigjSon @"/initx.json"
-#define H5_Host @"appH5/v5"
+#define H5_Host @"appH5/v6"
 #define url_purchase @"/pay/applepay/model" 
 #define url_purchase_recommend @"/payweb/apple/recommend" 
 #define url_verifyPayment @"/applepay/verifyPayment"
