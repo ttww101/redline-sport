@@ -27,6 +27,8 @@
 #import "NELivePlayerControlView.h"
 #import <Photos/Photos.h>
 
+#import "VideoLoading.h"
+
 
 @interface ZBFenxiPageVC ()<UIScrollViewDelegate,NewQingbaoTableViewDelegate,TuijianDatingTableViewDelegate,ViewPagerDelegate,TitleIndexViewDelegate,FenxiHeaderViewDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,SRWebSocketDelegate, NELivePlayerControlViewProtocol, UIGestureRecognizerDelegate>
 
@@ -73,6 +75,8 @@
 @property (nonatomic , strong) dispatch_source_t timerSource;
 @property (nonatomic , copy) NSString *videoSingal;
 
+@property (nonatomic , strong) VideoLoading *videoLoadingView;
+
 
 
 @end
@@ -108,10 +112,10 @@
 #pragma mark - 播放器通知事件
 
 - (void)NELivePlayerDidPreparedToPlay:(NSNotification*)notification {
-    //add some methods
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerDidPreparedToPlayNotification 通知");
-    
+    // 调用prepareToPlay之后
     //获取视频信息，主要是为了告诉界面的可视范围，方便字幕显示
+
+
     NELPVideoInfo info;
     memset(&info, 0, sizeof(NELPVideoInfo));
     [_player getVideoInfo:&info];
@@ -130,11 +134,12 @@
 }
 
 - (void)NELivePlayerPlaybackStateChanged:(NSNotification*)notification {
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerPlaybackStateChangedNotification 通知");
+    // 播放状态发生改变时发出
 }
 
 - (void)NeLivePlayerloadStateChanged:(NSNotification*)notification {
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerLoadStateChangedNotification 通知");
+   
+    // 加载状态发生改变时
     
     NELPMovieLoadState nelpLoadState = _player.loadState;
     
@@ -151,7 +156,7 @@
 }
 
 - (void)NELivePlayerPlayBackFinished:(NSNotification*)notification {
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerPlaybackFinishedNotification 通知");
+    // 播放完成时发送
     
     UIAlertController *alertController = NULL;
     UIAlertAction *action = NULL;
@@ -160,21 +165,22 @@
     {
         case NELPMovieFinishReasonPlaybackEnded: {
             alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"直播结束" preferredStyle:UIAlertControllerStyleAlert];
-            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 [weakSelf doDestroyPlayer];
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                [self.playerContainerView removeFromSuperview];
+                self.playerContainerView = nil;
             }];
             [alertController addAction:action];
             [weakSelf presentViewController:alertController animated:YES completion:nil];
         }
             break;
-           
-    
+        
         case NELPMovieFinishReasonPlaybackError: {
-            alertController = [UIAlertController alertControllerWithTitle:@"注意" message:@"播放失败" preferredStyle:UIAlertControllerStyleAlert];
-            action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"加载失败" preferredStyle:UIAlertControllerStyleAlert];
+            action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 [weakSelf doDestroyPlayer];
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                [self.playerContainerView removeFromSuperview];
+                self.playerContainerView = nil;
             }];
             [alertController addAction:action];
             [weakSelf presentViewController:alertController animated:YES completion:nil];
@@ -184,7 +190,6 @@
         case NELPMovieFinishReasonUserExited: {
             
         }
-            
             break;
             
         default: {
@@ -195,11 +200,15 @@
 }
 
 - (void)NELivePlayerFirstVideoDisplayed:(NSNotification*)notification {
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerFirstVideoDisplayedNotification 通知");
+   // 第一帧视频显示时发出
+    if (_videoLoadingView) {
+        [_videoLoadingView dismiss];
+        _videoLoadingView = nil;
+    }
 }
 
 - (void)NELivePlayerFirstAudioDisplayed:(NSNotification*)notification {
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerFirstAudioDisplayedNotification 通知");
+    //  第一帧音频播放时发出
 }
 
 - (void)NELivePlayerVideoParseError:(NSNotification*)notification {
@@ -207,12 +216,12 @@
 }
 
 - (void)NELivePlayerSeekComplete:(NSNotification*)notification {
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerMoviePlayerSeekCompletedNotification 通知");
+   // seek完成时发出，仅用于点播
     [self cleanSubtitls];
 }
 
 - (void)NELivePlayerReleaseSuccess:(NSNotification*)notification {
-    NSLog(@"[NELivePlayer Demo] 收到 NELivePlayerReleaseSueecssNotification 通知");
+   // NELivePlayerReleaseSueecssNotification
 }
 
 #pragma mark - 控制页面的事件
@@ -308,6 +317,13 @@
 #pragma mark  播放器SDK功能
 
 - (void)initializationPlayer {
+    
+    _videoLoadingView = [[VideoLoading alloc]initWithFrame:self.controlView.bounds];
+    [self.playerContainerView addSubview:_videoLoadingView];
+    [_videoLoadingView startAnimation];
+    
+    
+    
     [NELivePlayerController setLogLevel:NELP_LOG_VERBOSE];
     NSError *error = nil;
     NSURL *url = [NSURL URLWithString:_videoSingal];
@@ -485,6 +501,7 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
     _nav.btnRight.hidden = YES;
     [self.view addSubview:self.tableView];
     [self setNavView];
+    [self lodaDataAnalysisQB];
     [self lodaDataTiDian];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderData:) name:@"NSNotificationupdateHeaderData" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeTableViewFrame) name:@"changeTableViewFrame" object:nil];
@@ -529,8 +546,6 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
         [self initializationPlayer];
         [self doInitPlayerNotication];
     }
-    
-    [self lodaDataAnalysisQB];
    
 }
 
