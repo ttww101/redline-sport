@@ -135,7 +135,7 @@ static CGFloat imageHeight = 66.f;
             [recoverView bringSubviewToFront:self.tabBar];
             self.recordView = recoverView;
             ZBDCNavViewController *nav = [self.childViewControllers objectAtIndex:2];
-            nav.tabBarItem.title = @"";
+            nav.tabBarItem.title = @"123";
             nav.tabBarItem.image = nil;
             nav.tabBarItem.selectedImage = nil;
             break;
@@ -354,7 +354,13 @@ static CGFloat imageHeight = 66.f;
 #pragma mark -- UITabBarControllerDelegate
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if ([self.viewControllers indexOfObject:viewController] == 2 && self.recordView) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+            return false;
+        }
+
         [self p_didSelectCenterTabBarItem];
+        
         return NO;
     }
     if ([self.viewControllers indexOfObject:viewController] == 0) {

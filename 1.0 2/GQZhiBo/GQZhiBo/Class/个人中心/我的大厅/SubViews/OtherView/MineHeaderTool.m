@@ -44,13 +44,14 @@
 }
 
 - (void)controlAction:(ToolControl *)sender {
+    
+    if(![ZBMethods login]) {
+        [ZBMethods toLogin];
+        return;
+    }
+    
     switch (sender.tag) {
         case 0: {
-            if(![ZBMethods login]) {
-                [ZBMethods toLogin];
-                return;
-            }
-            
             ZBWebModel *model = [[ZBWebModel alloc]init];
             model.title = @"VIP会员";
             model.hideNavigationBar = false;

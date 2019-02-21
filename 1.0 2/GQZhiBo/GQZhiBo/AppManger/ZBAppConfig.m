@@ -4,6 +4,7 @@
 #import <WebKit/WebKit.h>
 #define Config_Version @"configVersion"
 @implementation ZBAppConfig
+
 + (instancetype)shareInstance {
     static ZBAppConfig *manger;
     static dispatch_once_t onceToken;
@@ -12,6 +13,7 @@
     });
     return manger;
 }
+
 - (void)initialize {
     NSLog(@"----SandBox     %@",[ArchiveFile LibraryDirectory]);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

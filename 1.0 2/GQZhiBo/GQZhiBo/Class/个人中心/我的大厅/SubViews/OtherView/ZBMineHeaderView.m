@@ -94,7 +94,7 @@ static CGFloat imageHeight = 50;
 - (void)setDic:(NSDictionary *)dic {
     _dic = dic;
     [_toolArray removeAllObjects];
-    if (dic[@"isopen"]) {
+    if ([dic[@"isOpen"] boolValue]) {
         NSString *content = @"会员(已开通)";
         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:content];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:[content rangeOfString:@"会员"]];
