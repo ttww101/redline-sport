@@ -23,7 +23,7 @@
 #import "XHPayKit.h"
 #import <UMPush/UMessage.h>
 #import "ZBAppConfig.h"
-#import "ZBTbableConfig.h"
+#import "ZBTabConfig.h"
 #import "ArchiveFile.h"
 #import "ZBStartViewController.h"
 #import "ZBLaunchView.h"
@@ -98,7 +98,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-        
+    NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+
     // 根视图 默认是透明的,也就是黑色的
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -177,7 +178,7 @@
                 }
             }
             
-            // 配置tableBar
+            // 配置tabBar
             if (tabBarArray) {
                 if (tabBarArray.count == 0) {
                     [ArchiveFile clearCachesWithFilePath:TableConfig];
@@ -304,10 +305,10 @@
 {
     //每次初始化的时候清除首页缓存
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstPageDataLocal"];
-    ZBTbableConfig *config = [[ZBTbableConfig alloc]init];
-    APPDELEGATE.customTabbar = config.tableBarController;
-    config.tableBarController.selectedIndex = 0;
-    self.window.rootViewController = config.tableBarController;
+    ZBTabConfig *config = [[ZBTabConfig alloc]init];
+    APPDELEGATE.customTabbar = config.tabBarController;
+    config.tabBarController.selectedIndex = 0;
+    self.window.rootViewController = config.tabBarController;
     [self.window makeKeyWindow];
     //启动程序后请求看有没有未读通知
     if ([ZBMethods login]) {

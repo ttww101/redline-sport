@@ -57,6 +57,8 @@
 		10C515562212BEDC00D68C9D /* banner_000033.png in Resources */ = {isa = PBXBuildFile; fileRef = 10C515262212BEDC00D68C9D /* banner_000033.png */; };
 		10C515572212BEDC00D68C9D /* banner_000032.png in Resources */ = {isa = PBXBuildFile; fileRef = 10C515272212BEDC00D68C9D /* banner_000032.png */; };
 		10C515582212BEDC00D68C9D /* banner_000026.png in Resources */ = {isa = PBXBuildFile; fileRef = 10C515282212BEDC00D68C9D /* banner_000026.png */; };
+		188B10DE227AC4D100BE912A /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
+		188B10DF227AC4D100BE912A /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7D29C6ED1DDDC3E800844CBE /* fensiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EC1DDDC3E800844CBE /* fensiuser@2x.png */; };
 		7D29C6EF1DDDC40F00844CBE /* shezhiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EE1DDDC40F00844CBE /* shezhiuser@2x.png */; };
 		7D29C6F91DE43A5000844CBE /* guanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6F71DE43A5000844CBE /* guanzhu.png */; };
@@ -133,7 +135,6 @@
 		A94B677A2071E42300E0748F /* ZBLiveListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67792071E42300E0748F /* ZBLiveListTableViewCell.m */; };
 		A94B677D2071FC0D00E0748F /* ZBToolWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B677C2071FC0D00E0748F /* ZBToolWebViewController.m */; };
 		A94B67832072003B00E0748F /* ZBLodingAnimateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A94B67812072003A00E0748F /* ZBLodingAnimateView.m */; };
-		A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
 		A94F2C1E20DCF6D100F805E2 /* ZBRecommendedWKWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A94F2C1D20DCF6D100F805E2 /* ZBRecommendedWKWeb.m */; };
 		A94FF62C21B12D98002BFBEC /* ZBReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A94FF62B21B12D98002BFBEC /* ZBReplyViewController.m */; };
 		A951F96E213D06030001B803 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = A951F965213D06030001B803 /* WebViewJavascriptBridgeBase.m */; };
@@ -182,7 +183,7 @@
 		A96E170120A3E93B0092E763 /* register0_4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96E16FD20A3E93A0092E763 /* register0_4@3x.png */; };
 		A96E170220A3E93B0092E763 /* register0_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96E16FE20A3E93A0092E763 /* register0_4@2x.png */; };
 		A96E170320A3E93B0092E763 /* register4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A96E16FF20A3E93B0092E763 /* register4@3x.png */; };
-		A96F452C2091699700A6FF76 /* ZBTbableConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A96F452B2091699700A6FF76 /* ZBTbableConfig.m */; };
+		A96F452C2091699700A6FF76 /* ZBTabConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A96F452B2091699700A6FF76 /* ZBTabConfig.m */; };
 		A9762885206C89EB007C79D1 /* ZBAppleIAPService.m in Sources */ = {isa = PBXBuildFile; fileRef = A9762884206C89EB007C79D1 /* ZBAppleIAPService.m */; };
 		A97A2A0A20A0527600A9A83F /* ZBNavImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A2A0920A0527600A9A83F /* ZBNavImageView.m */; };
 		A97C522B20E3974E005D0B26 /* ZBTopContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A97C522A20E3974E005D0B26 /* ZBTopContentView.m */; };
@@ -242,8 +243,6 @@
 		A9D9494420BBAB4D0031B2F5 /* ZBTabbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9494320BBAB4D0031B2F5 /* ZBTabbarButton.m */; };
 		A9DD3B5A207C7FF5007BDFBC /* ZBMyPurchaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DD3B59207C7FF5007BDFBC /* ZBMyPurchaseModel.m */; };
 		A9E60CEF2071CC7E002BF207 /* ZBMatchListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E60CEE2071CC7E002BF207 /* ZBMatchListViewModel.m */; };
-		A9E876372080409800480C81 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
-		A9E876382080409800480C81 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A9E8764320807F9700480C81 /* ZBCouponListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8764220807F9700480C81 /* ZBCouponListViewController.m */; };
 		A9E87647208083AE00480C81 /* ZBCouponListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E87646208083AE00480C81 /* ZBCouponListTableViewCell.m */; };
 		A9E8764A20809A9000480C81 /* ZBCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E8764920809A9000480C81 /* ZBCouponModel.m */; };
@@ -1154,6 +1153,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		188B10E0227AC4D100BE912A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A94D70C3207F43C0002F4310 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 		A94D70C8207F43C0002F4310 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A94D70C3207F43C0002F4310 /* Charts.xcodeproj */;
@@ -1168,23 +1174,16 @@
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
-		A9E876392080409800480C81 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A94D70C3207F43C0002F4310 /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A58A4ED274A941CA248EA921;
-			remoteInfo = Charts;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6A129DD7205CEF2600B49673 /* Embed Frameworks */ = {
+		188B10E2227AC4D200BE912A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A9E876382080409800480C81 /* Charts.framework in Embed Frameworks */,
+				188B10DF227AC4D100BE912A /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1242,6 +1241,8 @@
 		10C515262212BEDC00D68C9D /* banner_000033.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_000033.png; sourceTree = "<group>"; };
 		10C515272212BEDC00D68C9D /* banner_000032.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_000032.png; sourceTree = "<group>"; };
 		10C515282212BEDC00D68C9D /* banner_000026.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_000026.png; sourceTree = "<group>"; };
+		188B10D5227AC41F00BE912A /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = "../../../../Library/Developer/Xcode/DerivedData/GQZhiBo-brmyvlnkyfqhycfmdwwefgztzggm/Build/Products/Debug/Charts.framework"; sourceTree = "<group>"; };
+		188F555E227695AF00B5EEEB /* newProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newProject.h; sourceTree = "<group>"; };
 		18B483B5C0848FACEF0A2822 /* Pods-GQZhiBo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GQZhiBo.release.xcconfig"; path = "Pods/Target Support Files/Pods-GQZhiBo/Pods-GQZhiBo.release.xcconfig"; sourceTree = "<group>"; };
 		7ADBF1513C6676E76BF5EF48 /* Pods_GQZhiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GQZhiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D29C6EC1DDDC3E800844CBE /* fensiuser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fensiuser@2x.png"; sourceTree = "<group>"; };
@@ -1446,8 +1447,8 @@
 		A96E16FD20A3E93A0092E763 /* register0_4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "register0_4@3x.png"; sourceTree = "<group>"; };
 		A96E16FE20A3E93A0092E763 /* register0_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "register0_4@2x.png"; sourceTree = "<group>"; };
 		A96E16FF20A3E93B0092E763 /* register4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "register4@3x.png"; sourceTree = "<group>"; };
-		A96F452A2091699700A6FF76 /* ZBTbableConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTbableConfig.h; sourceTree = "<group>"; };
-		A96F452B2091699700A6FF76 /* ZBTbableConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTbableConfig.m; sourceTree = "<group>"; };
+		A96F452A2091699700A6FF76 /* ZBTabConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTabConfig.h; sourceTree = "<group>"; };
+		A96F452B2091699700A6FF76 /* ZBTabConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabConfig.m; sourceTree = "<group>"; };
 		A9762883206C89EB007C79D1 /* ZBAppleIAPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppleIAPService.h; sourceTree = "<group>"; };
 		A9762884206C89EB007C79D1 /* ZBAppleIAPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppleIAPService.m; sourceTree = "<group>"; };
 		A97A2A0820A0527600A9A83F /* ZBNavImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNavImageView.h; sourceTree = "<group>"; };
@@ -2802,9 +2803,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A94D70CD207F460B002F4310 /* Charts.framework in Frameworks */,
-				A9E876372080409800480C81 /* Charts.framework in Frameworks */,
 				089A6AAEB5921B3B3FF11925 /* Pods_GQZhiBo.framework in Frameworks */,
+				188B10DE227AC4D100BE912A /* Charts.framework in Frameworks */,
 				A9363D662150D60E00EB18F9 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6524,8 +6524,8 @@
 				A9D9494320BBAB4D0031B2F5 /* ZBTabbarButton.m */,
 				A9C3BC47209B05BE001674D2 /* ZBStartViewController.h */,
 				A9C3BC48209B05BF001674D2 /* ZBStartViewController.m */,
-				A96F452A2091699700A6FF76 /* ZBTbableConfig.h */,
-				A96F452B2091699700A6FF76 /* ZBTbableConfig.m */,
+				A96F452A2091699700A6FF76 /* ZBTabConfig.h */,
+				A96F452B2091699700A6FF76 /* ZBTabConfig.m */,
 			);
 			path = BasicTabbar;
 			sourceTree = "<group>";
@@ -6843,6 +6843,7 @@
 		EBC0A2A71CA924AE00F75E7E /* GQZhiBo */ = {
 			isa = PBXGroup;
 			children = (
+				188F555E227695AF00B5EEEB /* newProject.h */,
 				A951F98B213D094F0001B803 /* AppManger */,
 				A91D406620C77E4E0059D501 /* BaseClass */,
 				A94D6EA9207F4115002F4310 /* ThirdPart */,
@@ -7521,6 +7522,7 @@
 		FC658D28C1ECD243C61D154B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				188B10D5227AC41F00BE912A /* Charts.framework */,
 				A9363D652150D60E00EB18F9 /* StoreKit.framework */,
 				7ADBF1513C6676E76BF5EF48 /* Pods_GQZhiBo.framework */,
 			);
@@ -7541,12 +7543,12 @@
 				6A5C06F29B97D748AB4EABC3 /* [CP] Embed Pods Frameworks */,
 				E9F6D873A0DFC80E0A7CD22E /* [CP] Copy Pods Resources */,
 				8403451B1F32CC5B009F66C2 /* ShellScript */,
-				6A129DD7205CEF2600B49673 /* Embed Frameworks */,
+				188B10E2227AC4D200BE912A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A9E8763A2080409800480C81 /* PBXTargetDependency */,
+				188B10E1227AC4D100BE912A /* PBXTargetDependency */,
 			);
 			name = GQZhiBo;
 			productName = GQZhiBo;
@@ -7564,7 +7566,7 @@
 				TargetAttributes = {
 					EBC0A2A41CA924AE00F75E7E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 242Y3S46QH;
+						DevelopmentTeam = B4ABS8YVQL;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -7586,6 +7588,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				"zh-Hans",
@@ -8870,7 +8873,7 @@
 				EB69036A1F69110400FF5D3F /* ZBTokenModel.m in Sources */,
 				EB518D3F1F7BDF4F00D548BC /* ZBYapanZhoushouVC.m in Sources */,
 				A951F987213D062A0001B803 /* TAAnimatedDotView.m in Sources */,
-				A96F452C2091699700A6FF76 /* ZBTbableConfig.m in Sources */,
+				A96F452C2091699700A6FF76 /* ZBTabConfig.m in Sources */,
 				A9C3BC49209B05BF001674D2 /* ZBStartViewController.m in Sources */,
 				EB82F1571F2AD21D000524A0 /* UIColor+Define.m in Sources */,
 				EB8C1FC81F219A8C00A07863 /* ZBDependetNetMethods.m in Sources */,
@@ -8901,10 +8904,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A9E8763A2080409800480C81 /* PBXTargetDependency */ = {
+		188B10E1227AC4D100BE912A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Charts;
-			targetProxy = A9E876392080409800480C81 /* PBXContainerItemProxy */;
+			targetProxy = 188B10E0227AC4D100BE912A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -9028,7 +9031,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 242Y3S46QH;
+				DEVELOPMENT_TEAM = B4ABS8YVQL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9085,7 +9088,7 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
@@ -9107,7 +9110,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 242Y3S46QH;
+				DEVELOPMENT_TEAM = B4ABS8YVQL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9164,7 +9167,7 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
@@ -9229,7 +9232,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 242Y3S46QH;
+				DEVELOPMENT_TEAM = B4ABS8YVQL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9286,7 +9289,7 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";

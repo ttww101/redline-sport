@@ -164,6 +164,32 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    NSString *jsStr = @"\
+function changeCSS(newCssHref, oldCssHref) {\
+var oldlinks = document.getElementsByTagName(\"link\");\
+var result;\
+for (result = 0; result < oldlinks.length; result++) {\
+if (oldlinks[result].href == oldCssHref)\
+break;\
+}\
+\
+var oldlink = document.getElementsByTagName(\"link\").item(result);\
+\
+var newlink = document.createElement(\"link\");\
+newlink.setAttribute(\"rel\", \"stylesheet\");\
+newlink.setAttribute(\"type\", \"text/css\");\
+newlink.setAttribute(\"href\", newCssHref);\
+\
+document.getElementsByTagName(\"head\").item(0).replaceChild(newlink, oldlink);\
+}\
+changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunqiu.com/appH5/v6/css/style.css?_=9\")\
+";
+    NSLog(@"weburl: %@", _model.webUrl);
+    
+    
+    [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        
+    }];
     self.progressView.hidden = YES;
     [self dissMissToastView];
 }
@@ -234,7 +260,7 @@
     ZBAppManger *manger = [[ZBAppManger alloc]init];
     WebViewJavascriptBridge *bridge ;
     if (self.useWkWeb) {
-      bridge = [manger WK_RegisterJSTool:self.wkWeb hannle:^(id data, GQJSResponseCallback responseCallback) {
+        bridge = [manger WK_RegisterJSTool:self.wkWeb hannle:^(id data, GQJSResponseCallback responseCallback) {
             if (responseCallback) {
                 weakSelf.callBack = responseCallback;
             }
@@ -304,15 +330,15 @@
 }
 - (void)configUI {
     if (self.useWkWeb) {
-         [self.view addSubview:self.wkWeb];
-         adjustsScrollViewInsets_NO(self.wkWeb.scrollView, self);
+        [self.view addSubview:self.wkWeb];
+        adjustsScrollViewInsets_NO(self.wkWeb.scrollView, self);
     } else {
-         [self.view addSubview:self.webView];
-         adjustsScrollViewInsets_NO(self.webView.scrollView, self);
+        [self.view addSubview:self.webView];
+        adjustsScrollViewInsets_NO(self.webView.scrollView, self);
     }
-   
+    
     self.navigationItem.title = _model.title;
-   
+    
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
     if (_model.showBuyBtn) {
         UIButton *buyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -718,12 +744,12 @@
 }
 - (void)pagetoolbar:(id)data {
     if ([data isKindOfClass:NSClassFromString(@"NSDictionary")]) {
-
+        
         self.commentsDic = (NSDictionary *)data;
         if ([self.commentsDic[@"comment"][@"module"]  isEqualToString:@"community"]) {
             [self.view addSubview:self.replyBtn];
-              self.wkWeb.height = self.wkWeb.height - self.replyBtn.height;
-             self.replyBtn.top = self.wkWeb.bottom;
+            self.wkWeb.height = self.wkWeb.height - self.replyBtn.height;
+            self.replyBtn.top = self.wkWeb.bottom;
         } else {
             [self.view addSubview:self.commentsView];
             self.wkWeb.height = self.wkWeb.height - self.commentsView.height;
@@ -734,7 +760,7 @@
             [self.commentsView loadData];
         }
         
-       
+        
     }
 }
 #pragma mark - Private Method
@@ -786,7 +812,7 @@
 - (void)createNullToastView:(NSString *)text imageName:(NSString *)imageName {
     if (!_toastView) {
         CGRect bounds = self.useWkWeb ? self.wkWeb.bounds : self.webView.bounds;
-         _toastView = [[UIView alloc]initWithFrame:bounds];
+        _toastView = [[UIView alloc]initWithFrame:bounds];
         UIImageView *toastImageView = [UIImageView new];
         toastImageView.image = [UIImage imageNamed:imageName];
         toastImageView.contentMode = UIViewContentModeScaleToFill;
@@ -860,7 +886,7 @@
             model.webUrl = url;
         }
     } else {
-          model.webUrl = [NSString stringWithFormat:@"%@/appH5/%@", APPDELEGATE.url_ip,_model.modelType];
+        model.webUrl = [NSString stringWithFormat:@"%@/appH5/%@", APPDELEGATE.url_ip,_model.modelType];
     }
     ZBToolWebViewController *webControl = [[ZBToolWebViewController alloc]init];
     webControl.model = model;
@@ -1006,11 +1032,11 @@
     }];
 }
 - (void)appleBuyWithData:(NSDictionary *)data {
-     MBProgressHUD *hud = [[MBProgressHUD alloc]init];
-     hud.mode = MBProgressHUDModeIndeterminate;
-     hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-     [self.view addSubview:hud];
-     [hud show:YES];
+    MBProgressHUD *hud = [[MBProgressHUD alloc]init];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    [self.view addSubview:hud];
+    [hud show:YES];
     NSDictionary *dic = data;
     NSNumber *ordeId = dic[@"orderId"];
     NSString *productId = dic[@"productId"];
@@ -1126,7 +1152,7 @@
     if (_floatingView == nil) {
         _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"publish_btn", @"formReload"] scale:0.8 ignoreTabBar:true];
         _floatingView.delegate = self;
-         _floatingView.tag = 1;
+        _floatingView.tag = 1;
     }
     return _floatingView;
 }

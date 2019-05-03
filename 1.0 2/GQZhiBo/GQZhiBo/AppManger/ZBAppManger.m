@@ -45,7 +45,7 @@
     if (self.webView) {
         self.bridge = [WebViewJavascriptBridge bridgeForWebView:_webView];
     } else {
-         self.bridge = [WebViewJavascriptBridge bridgeForWebView:_wkWebView];
+        self.bridge = [WebViewJavascriptBridge bridgeForWebView:_wkWebView];
     }
     __weak ZBAppManger *weakSelf = self;
     [self.bridge registerHandler:@"currentPage" handler:^(id data, WVJBResponseCallback responseCallback) {
@@ -104,9 +104,9 @@
         webModel.webUrl =  dic[@"url"];
         webModel.parameter = dic[@"nav"];
         webModel.hideNavigationBar = [dic[@"nav_hidden"] integerValue];
-        ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
-        control.model = webModel;
-        [APPDELEGATE.customTabbar pushToViewController:control animated:YES];
+        ZBToolWebViewController *webVC = [[ZBToolWebViewController alloc]init];
+        webVC.model = webModel;
+        [APPDELEGATE.customTabbar pushToViewController:webVC animated:YES];
         return ;
     }];
     [self.bridge registerHandler:@"UMAnalytics" handler:^(id data, WVJBResponseCallback responseCallback) {

@@ -41,7 +41,7 @@
     [super viewDidLoad];
     [self getCommentUserInfo];
     [self setNavView];
-//    [self.view addSubview:self.topView];
+    //    [self.view addSubview:self.topView];
     self.view.backgroundColor = [UIColor whiteColor];
     ZBWebModel *model = [[ZBWebModel alloc]init];
     model.webUrl = [NSString stringWithFormat:@"%@/%@/chengji.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userId];
@@ -294,7 +294,7 @@
                 cell.delegate = self;
                 cell.Number=self.Number;
                 return cell;
-                                return [UITableViewCell new];
+                return [UITableViewCell new];
             }
                 break;
             case 2:

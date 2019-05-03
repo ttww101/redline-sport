@@ -1108,7 +1108,7 @@ static SystemSoundID shake_sound_id = 0;
             path = [[NSBundle mainBundle] pathForResource:@"music1" ofType:@"wav"];
         }
         if (path) {
-            AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&shake_sound_id);
+             AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&shake_sound_id);
             AudioServicesPlaySystemSound(shake_sound_id);
         }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"jinqiuzhendong"]) {

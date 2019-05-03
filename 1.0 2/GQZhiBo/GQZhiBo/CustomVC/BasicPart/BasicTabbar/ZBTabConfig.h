@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "ZBDCTabBarController.h"
-@interface ZBTbableConfig : NSObject
-@property (nonatomic, readonly, strong) ZBDCTabBarController *tableBarController;
+@interface ZBTabConfig : NSObject
+@property (nonatomic, readonly, strong) ZBDCTabBarController *tabBarController;
 @property (nonatomic, copy) NSString *currentPage;
 @end

@@ -26,7 +26,7 @@ NSString *const GQTabBarItemWbebModel = @"GQTabBarItemWbebModel";
     ZBDCNavViewController *_mineNav;
 }
 @property (strong, nonatomic)NSTimer *refreshUnreadCountTimer;
-@property (nonatomic, copy) NSArray *tableBarItemArray;
+@property (nonatomic, copy) NSArray *tabBarItemArray;
 @property (nonatomic , strong) UIView *recordView;
 @property (nonatomic , copy) NSDictionary *activityDic;
 @property (nonatomic , strong) ZBCustmerTableBar *taBar;
@@ -36,7 +36,7 @@ static CGFloat imageHeight = 66.f;
 @implementation ZBDCTabBarController
 - (instancetype)initWithItemArray:(NSArray *)itemArray {
     if (self) {
-        _tableBarItemArray = [itemArray copy];
+        _tabBarItemArray = [itemArray copy];
     }
     return self;
 }
@@ -46,8 +46,8 @@ static CGFloat imageHeight = 66.f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToNewsWeb:) name:NotificationpushToNewsWeb object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(configActivityEntrance) name:@"reloadTableBarActivity" object:nil];
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
-    NSLog(@"status width - %f", rectStatus.size.width); 
-    NSLog(@"status height - %f", rectStatus.size.height);   
+//    NSLog(@"status width - %f", rectStatus.size.width);
+//    NSLog(@"status height - %f", rectStatus.size.height);
     UINavigationController *nav = [[UINavigationController alloc] init];
     CGRect rectNav = nav.navigationBar.frame;
     self.height_myStateBar = rectStatus.size.height;
@@ -58,8 +58,8 @@ static CGFloat imageHeight = 66.f;
     if ([ZBMethods login]) {
         [self creatRefreshUnreadCountTimer];
     }
-     [self configActivityEntrance]; 
-     [self update];
+//    [self configActivityEntrance];
+    [self update];
     [[UITabBar appearance]setTranslucent:false];
 }
 
@@ -267,11 +267,18 @@ static CGFloat imageHeight = 66.f;
     return YES;
 }
 - (void)setupTabbarItems {
-    [_tableBarItemArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_tabBarItemArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSDictionary *dic = (NSDictionary *)obj;
         BOOL loadH5 = [dic[GQTabBarItemLoadH5] integerValue];
         if (loadH5) {
-            [self addChildWebControllerWithVcStr:dic[GQTableBarControllerName] imageName:dic[GQTabBarItemImage] selectedImage:dic[GQTabBarItemSelectedImage] title:dic[GQTabBarItemTitle] tag:idx webModel:dic[GQTabBarItemWbebModel]];
+            [self addChildWebControllerWithVcStr:dic[GQTableBarControllerName]
+                                       imageName:dic[GQTabBarItemImage]
+                                   selectedImage:dic[GQTabBarItemSelectedImage]
+                                           title:dic[GQTabBarItemTitle]
+                                             tag:idx
+                                        webModel:dic[GQTabBarItemWbebModel]
+             ];
+            
         } else {
             [self addChildControllerWithVcStr:dic[GQTableBarControllerName] imageName:dic[GQTabBarItemImage] selectedImage:dic[GQTabBarItemSelectedImage] title:dic[GQTabBarItemTitle] tag:idx];
         }
