@@ -198,7 +198,7 @@
         [_btnConfirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _btnConfirm.tag = 4;
         [_btnConfirm addTarget:self action:@selector(choiceType:) forControlEvents:UIControlEventTouchUpInside];
-        _btnConfirm.backgroundColor = UIColorHex(#DB2D21);
+        _btnConfirm.backgroundColor = UIColorHex(#1D50A1);
         _btnConfirm.layer.cornerRadius = 2;
         _btnConfirm.layer.masksToBounds = YES;
     }

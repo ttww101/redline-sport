@@ -42,7 +42,7 @@
 -(void)downLoad_completed:(NSData *)data{
     NSURL *url=[NSURL URLWithString:_model.webUrl];
     NSString *nameType=[self mimeType:url];
-    [self loadData:data MIMEType:nameType textEncodingName:@"UTF-8" baseURL:url];
+//    [self loadData:data MIMEType:nameType textEncodingName:@"UTF-8" baseURL:url];
 }
 - (NSString *)mimeType:(NSURL *)url {
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -63,7 +63,7 @@
 - (void)loadBradgeHandler {
     __weak ZBRecommendedWebView *weakSelf = self;
     ZBAppManger *manger = [[ZBAppManger alloc]init];
-     WebViewJavascriptBridge* bridge = [manger registerJSTool:self hannle:^(id data, GQJSResponseCallback responseCallback) {
+     WebViewJavascriptBridge* bridge = [manger WK_RegisterJSTool:self hannle:^(id data, GQJSResponseCallback responseCallback) {
         if (responseCallback) {
             weakSelf.callBack = responseCallback;
         }
@@ -138,7 +138,14 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self.progressLine endLoadingAnimation];
-    NSString *jsStr = @"\
+
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [self.progressLine endLoadingAnimation];
+}
+// WKNav
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+NSString *jsStr = @"\
 function changeCSS(newCssHref, oldCssHref) {\
 var oldlinks = document.getElementsByTagName(\"link\");\
 var result;\
@@ -158,11 +165,9 @@ document.getElementsByTagName(\"head\").item(0).replaceChild(newlink, oldlink);\
 }\
 changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunqiu.com/appH5/v6/css/style.css?_=9\")\
 ";
-    [webView stringByEvaluatingJavaScriptFromString:jsStr];
+    [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    [self.progressLine endLoadingAnimation];
-}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (!_cellCanScroll) {

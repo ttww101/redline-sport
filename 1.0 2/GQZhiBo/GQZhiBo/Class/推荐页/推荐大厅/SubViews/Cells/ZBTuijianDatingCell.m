@@ -384,7 +384,7 @@
 - (UIView *)lockView {
     if (_lockView == nil) {
         _lockView = [[UIView alloc]init];
-        _lockView.backgroundColor = UIColorFromRGBWithOX(0xE2392D);
+        _lockView.backgroundColor = UIColorFromRGBWithOX(0x5079EF);
         _lockView.layer.cornerRadius = 12;
         _lockView.layer.masksToBounds = true;
     }
