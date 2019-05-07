@@ -59,6 +59,7 @@
 		10C515582212BEDC00D68C9D /* banner_000026.png in Resources */ = {isa = PBXBuildFile; fileRef = 10C515282212BEDC00D68C9D /* banner_000026.png */; };
 		188B10DE227AC4D100BE912A /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
 		188B10DF227AC4D100BE912A /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		188E3956227C05FE007B4858 /* ZBWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E3955227C05FE007B4858 /* ZBWKWebView.m */; };
 		7D29C6ED1DDDC3E800844CBE /* fensiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EC1DDDC3E800844CBE /* fensiuser@2x.png */; };
 		7D29C6EF1DDDC40F00844CBE /* shezhiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EE1DDDC40F00844CBE /* shezhiuser@2x.png */; };
 		7D29C6F91DE43A5000844CBE /* guanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6F71DE43A5000844CBE /* guanzhu.png */; };
@@ -1242,6 +1243,8 @@
 		10C515272212BEDC00D68C9D /* banner_000032.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_000032.png; sourceTree = "<group>"; };
 		10C515282212BEDC00D68C9D /* banner_000026.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_000026.png; sourceTree = "<group>"; };
 		188B10D5227AC41F00BE912A /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = "../../../../Library/Developer/Xcode/DerivedData/GQZhiBo-brmyvlnkyfqhycfmdwwefgztzggm/Build/Products/Debug/Charts.framework"; sourceTree = "<group>"; };
+		188E3954227C05FE007B4858 /* ZBWKWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBWKWebView.h; sourceTree = "<group>"; };
+		188E3955227C05FE007B4858 /* ZBWKWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWKWebView.m; sourceTree = "<group>"; };
 		188F555E227695AF00B5EEEB /* newProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newProject.h; sourceTree = "<group>"; };
 		18B483B5C0848FACEF0A2822 /* Pods-GQZhiBo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GQZhiBo.release.xcconfig"; path = "Pods/Target Support Files/Pods-GQZhiBo/Pods-GQZhiBo.release.xcconfig"; sourceTree = "<group>"; };
 		7ADBF1513C6676E76BF5EF48 /* Pods_GQZhiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GQZhiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2879,6 +2882,8 @@
 		A91D406620C77E4E0059D501 /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
+				188E3954227C05FE007B4858 /* ZBWKWebView.h */,
+				188E3955227C05FE007B4858 /* ZBWKWebView.m */,
 				A91D406820C77FC20059D501 /* ZBWebView.h */,
 				A91D406920C77FC20059D501 /* ZBWebView.m */,
 				A961E43120CF9DFB00000E06 /* ZBWebviewProgressLine.h */,
@@ -8546,6 +8551,7 @@
 				EB8C1E5C1F21944C00A07863 /* ZBRegisterViewController.m in Sources */,
 				EB4617731E1611E900A2907E /* ZBFile.swift in Sources */,
 				EB8C1E4D1F21944C00A07863 /* ZBUserTuijianTable.m in Sources */,
+				188E3956227C05FE007B4858 /* ZBWKWebView.m in Sources */,
 				EB8C1E5F1F21944C00A07863 /* ZBQingBaoFPTwoModel.m in Sources */,
 				A911D66E21A4FA110077CC38 /* ZBAppDelegate.m in Sources */,
 				EB8C1E8E1F21944C00A07863 /* ZBDCindexBtn.m in Sources */,

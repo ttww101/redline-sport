@@ -1,76 +1,88 @@
-#import "ZBRecommendedWebView.h"
+#import "ZBWKWebView.h"
 #import "WebViewJavascriptBridge.h"
 #import "ZBAppManger.h"
 #import <YYModel/YYModel.h>
 #import "ZBToolWebViewController.h"
 #import "ArchiveFile.h"
 #import "ZBWebviewProgressLine.h"
-#import <WebKit/WebKit.h>
-@interface ZBRecommendedWebView () <UIWebViewDelegate, WKUIDelegate, WKNavigationDelegate, UIWebViewDelegate>
+@interface ZBWKWebView () <UIWebViewDelegate, WKNavigationDelegate>
 @property (nonatomic , copy) GQJSResponseCallback callBack;
-@property (nonatomic , strong) ZBWebviewProgressLine *progressLine;
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
+@property (nonatomic , strong) ZBWebviewProgressLine *progressLine;
 @end
-@implementation ZBRecommendedWebView
+@implementation ZBWKWebView
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    NSLog(@"fdsafasfs");
+    
+    NSString *jsStr = @"\
+    function changeCSS(newCssHref, oldCssHref) {\
+    var oldlinks = document.getElementsByTagName(\"link\");\
+    var result;\
+    for (result = 0; result < oldlinks.length; result++) {\
+    if (oldlinks[result].href == oldCssHref)\
+    break;\
+    }\
+    \
+    var oldlink = document.getElementsByTagName(\"link\").item(result);\
+    \
+    var newlink = document.createElement(\"link\");\
+    newlink.setAttribute(\"rel\", \"stylesheet\");\
+    newlink.setAttribute(\"type\", \"text/css\");\
+    newlink.setAttribute(\"href\", newCssHref);\
+    \
+    document.getElementsByTagName(\"head\").item(0).replaceChild(newlink, oldlink);\
+    }\
+    changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunqiu.com/appH5/v6/css/style.css?_=9\")\
+    ";
+    
+    
+    [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
+    //    [webView evaluateJavaScript:@"document.body.style.backgroundColor = 'yellow'" completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = colorTableViewBackgroundColor;
+        [[UIApplication sharedApplication] setApplicationSupportsShakeToEdit:YES];
+        [self becomeFirstResponder];
+//        [self loadBradgeHandler];
         self.progressLine = [[ZBWebviewProgressLine alloc] initWithFrame:CGRectMake(0, 0, Width, 3)];
         self.progressLine.lineColor = redcolor;
         [self addSubview:self.progressLine];
-        [self loadBradgeHandler];
     }
     return self;
+}
+- (void)dealloc {
+    [self resignFirstResponder];
+}
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
 - (void)setModel:(ZBWebModel *)model {
     _model = model;
     [self loadData];
 }
--(void)downLoadWeb {
-    NSURL *url=[NSURL URLWithString:_model.webUrl];
-    NSError *error;
-    NSString *strData=[NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-    NSData *data=[strData dataUsingEncoding:NSUTF8StringEncoding];
-    if (data !=nil) {
-        [self performSelectorOnMainThread:@selector(downLoad_completed:) withObject:data waitUntilDone:NO];
-    } else {
-        NSLog(@"error when download:%@",error);
-    }
-}
--(void)downLoad_completed:(NSData *)data{
-    NSURL *url=[NSURL URLWithString:_model.webUrl];
-    NSString *nameType=[self mimeType:url];
-    [self loadData:data MIMEType:nameType textEncodingName:@"UTF-8" baseURL:url];
-}
-- (NSString *)mimeType:(NSURL *)url {
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLResponse *response = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    return response.MIMEType;
-}
 - (void)reloadData {
+    [self loadData];
+}
+- (void)jsReoload {
     NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"reload"}];
     [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
     }];
 }
-- (void)cancleLoadData {
-    if (self.isLoading) {
-        [self stopLoading];
-    }
-}
 - (void)loadBradgeHandler {
-    __weak ZBRecommendedWebView *weakSelf = self;
+    __weak ZBWKWebView *weakSelf = self;
     ZBAppManger *manger = [[ZBAppManger alloc]init];
-     WebViewJavascriptBridge* bridge = [manger registerJSTool:self hannle:^(id data, GQJSResponseCallback responseCallback) {
+     WebViewJavascriptBridge *bridge = [manger WK_RegisterJSTool:self hannle:^(id data, GQJSResponseCallback responseCallback) {
         if (responseCallback) {
             weakSelf.callBack = responseCallback;
         }
         ZBJSModel *model = (ZBJSModel *)data;
         NSString *actionString = model.methdName;
         SEL action = NSSelectorFromString(actionString);
-        if ([self respondsToSelector:action]) {
+        if ([weakSelf respondsToSelector:action]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [weakSelf performSelector:action withObject:model.parameterData];
@@ -101,8 +113,15 @@
 #pragma mark - JS Handle
 - (void)openNative:(id)data {
     if ([data isKindOfClass:[NSDictionary class]]) {
+        [self closeWin:@""];
         NSDictionary *dataDic = (NSDictionary *)data;
         NSString *className = dataDic[@"n"];
+        if ([className isEqualToString:@"TuijianDetailVC"]) {
+            className = @"ZBTuijianDetailVC";
+        }
+        if ([className isEqualToString:@"UserTuijianVC"]) {
+            className = @"ZBUserTuijianVC";
+        }
         Class targetCalss = NSClassFromString(className);
         id target = [[targetCalss alloc] init];
         if (target == nil) {
@@ -132,47 +151,48 @@
         }
     }
 }
+- (void)closeWin:(id)data {
+    if (_webDelegate && [_webDelegate respondsToSelector:@selector(webClose:)]) {
+        [_webDelegate webClose:@"关闭"];
+    }
+}
+- (void)toLogin:(id)data {
+    [self closeWin:@""];
+}
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     [self.progressLine startLoadingAnimation];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self.progressLine endLoadingAnimation];
-    NSString *jsStr = @"\
-function changeCSS(newCssHref, oldCssHref) {\
-var oldlinks = document.getElementsByTagName(\"link\");\
-var result;\
-for (result = 0; result < oldlinks.length; result++) {\
-if (oldlinks[result].href == oldCssHref)\
-break;\
-}\
-\
-var oldlink = document.getElementsByTagName(\"link\").item(result);\
-\
-var newlink = document.createElement(\"link\");\
-newlink.setAttribute(\"rel\", \"stylesheet\");\
-newlink.setAttribute(\"type\", \"text/css\");\
-newlink.setAttribute(\"href\", newCssHref);\
-\
-document.getElementsByTagName(\"head\").item(0).replaceChild(newlink, oldlink);\
-}\
-changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunqiu.com/appH5/v6/css/style.css?_=9\")\
-";
-    [webView stringByEvaluatingJavaScriptFromString:jsStr];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self.progressLine endLoadingAnimation];
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (!_cellCanScroll) {
-        scrollView.contentOffset = CGPointZero;
+#pragma mark - ShakeToEdit 摇动手机之后的回调方法
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        [self shake_start];
     }
-    if (scrollView.contentOffset.y <= 0) {
-        _cellCanScroll = NO;
-        scrollView.contentOffset = CGPointZero;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeTableViewFrame" object:nil];
+}
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+}
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (event.subtype == UIEventSubtypeMotionShake){
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self shake_end];
     }
+}
+#pragma mark - Open Method
+- (void)shake_start {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"shake_start"}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+    }];
+}
+- (void)shake_end {
+    NSString *jsonParameter = [self getJSONMessage:@{@"id":@"fireEvent", @"val":@"shake_end"}];
+    [self.bridge callHandler:@"jsCallBack" data:jsonParameter responseCallback:^(id responseData) {
+    }];
 }
 #pragma mark - Private Method
 - (NSString *)getJSONMessage:(NSDictionary *)messageDic {

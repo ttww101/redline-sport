@@ -6,14 +6,15 @@
 #import "ZBTuijiandatingModel.h"
 #import "ZBUserTuijianVC.h"
 #import "ZBUserTongjiAllModel.h"
-#import "ZBWebView.h"
+#import "ZBWKWebView.h"
 #import "ZBTongjiVC.h"
 #import "ZBTopContentView.h"
+
 #define cellUserViewController @"cellUserViewController"
 #define cellUserViewControllerRecommand @"cellUserViewControllerRecommand"
 #define cellUserTongji @"cellUserTongji"
 #define cellUserTongjiGoodPlay @"cellUserTongjiGoodPlay"
-@interface ZBUserViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,UserOfotherCellTwoDelegate,UserTongjiCellDelegate, GQWebViewDelegate, TopContentViewDelegate>
+@interface ZBUserViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,UserOfotherCellTwoDelegate,UserTongjiCellDelegate, GQWebViewDelegate, TopContentViewDelegate, WKNavigationDelegate>
 @property (nonatomic, strong) ZBUserModel *userModel;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ZBUserOfotherCellTwo *usercell;
@@ -23,9 +24,50 @@
 @property (nonatomic, strong) ZBNavView *nav;
 @property (nonatomic , strong) ZBTopContentView *topView;
 @property (nonatomic, assign) BOOL isBack;
-@property (nonatomic , strong) ZBWebView *webView;
+@property (nonatomic , strong) ZBWKWebView *webView;
 @end
 @implementation ZBUserViewController
+
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
+    NSLog(@"fkalsdjf");
+}
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"error:%@", error);
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    NSLog(@"error:%@", error);
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    NSLog(@"fdsafasfs");
+    
+        NSString *jsStr = @"\
+function changeCSS(newCssHref, oldCssHref) {\
+var oldlinks = document.getElementsByTagName(\"link\");\
+var result;\
+for (result = 0; result < oldlinks.length; result++) {\
+if (oldlinks[result].href == oldCssHref)\
+break;\
+}\
+\
+var oldlink = document.getElementsByTagName(\"link\").item(result);\
+\
+var newlink = document.createElement(\"link\");\
+newlink.setAttribute(\"rel\", \"stylesheet\");\
+newlink.setAttribute(\"type\", \"text/css\");\
+newlink.setAttribute(\"href\", newCssHref);\
+\
+document.getElementsByTagName(\"head\").item(0).replaceChild(newlink, oldlink);\
+}\
+changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunqiu.com/appH5/v6/css/style.css?_=9\")\
+";
+    
+    
+    [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
+//    [webView evaluateJavaScript:@"document.body.style.backgroundColor = 'yellow'" completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -45,12 +87,18 @@
     self.view.backgroundColor = [UIColor whiteColor];
     ZBWebModel *model = [[ZBWebModel alloc]init];
     model.webUrl = [NSString stringWithFormat:@"%@/%@/chengji.html?id=%zi", APPDELEGATE.url_ip,H5_Host,_userId];
-    ZBWebView *web = [[ZBWebView alloc]init];
-    web.webDelegate = self;
-    web.frame = CGRectMake(0, 64, self.view.width, self.view.height - 64);
-    web.model = model;
-    [self.view addSubview:web];
-    _webView = web;
+//    model.webUrl = [NSString stringWithFormat:@"https://apple.com", APPDELEGATE.url_ip,H5_Host,_userId];
+    ZBWKWebView *wkWebView = [[ZBWKWebView alloc]init];
+    wkWebView.webDelegate = self;
+    
+//    wkWebView.navigationDelegate = self;
+    wkWebView.frame = CGRectMake(0, 64, self.view.width, self.view.height - 64);
+    wkWebView.model = model;
+    [self.view addSubview:wkWebView];
+    _webView = wkWebView;
+    [_webView loadBradgeHandler];
+//    _webView.navigationDelegate = self;
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -180,7 +228,7 @@
         UILabel *labRight = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80 -18, 40)];
         if (self.Number==1) {
             labRight.text = @"更多推荐";
-        }else{
+        } else {
             labRight.text = @"更多竞猜";
         }
         labRight.textAlignment= NSTextAlignmentRight;
