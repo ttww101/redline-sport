@@ -223,7 +223,7 @@ static CGFloat imageHeight = 50;
     }
     ZBWebModel *model = [[ZBWebModel alloc]init];
     model.title = @"消息";
-    model.webUrl = [NSString stringWithFormat:@"%@/%@/message.html", APPDELEGATE.url_ip,H5_Host];
+    model.webUrl = [NSString stringWithFormat:@"https://tok-fungame.github.io/message.html", APPDELEGATE.url_ip,H5_Host];
     ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
     model.hideNavigationBar = YES;
     webDetailVC.model = model;

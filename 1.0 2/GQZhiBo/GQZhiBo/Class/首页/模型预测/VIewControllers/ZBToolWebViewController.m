@@ -186,9 +186,7 @@ changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunq
 ";
     
     
-    [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        
-    }];
+    [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
     self.progressView.hidden = YES;
     [self dissMissToastView];
 }

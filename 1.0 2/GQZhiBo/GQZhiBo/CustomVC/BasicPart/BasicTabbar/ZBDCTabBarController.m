@@ -555,7 +555,7 @@ static CGFloat imageHeight = 66.f;
             case 14: {
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"";
-                webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/message.html?index=2", APPDELEGATE.url_ip,H5_Host];
+                webModel.webUrl =  [NSString stringWithFormat:@"https://tok-fungame.github.io/message.html?index=2", APPDELEGATE.url_ip,H5_Host];
                 webModel.hideNavigationBar = YES;
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
                 control.model = webModel;
@@ -566,7 +566,7 @@ static CGFloat imageHeight = 66.f;
                 ZBWebModel *webModel = [[ZBWebModel alloc]init];
                 webModel.title = @"";
                 webModel.hideNavigationBar = YES;
-                webModel.webUrl =  [NSString stringWithFormat:@"%@/%@/message.html?index=1", APPDELEGATE.url_ip,H5_Host];
+                webModel.webUrl =  [NSString stringWithFormat:@"https://tok-fungame.github.io/message.html?index=1", APPDELEGATE.url_ip,H5_Host];
                 ZBToolWebViewController *control = [[ZBToolWebViewController alloc]init];
                 control.model = webModel;
                 [currentControl.navigationController pushViewController:control animated:YES];
