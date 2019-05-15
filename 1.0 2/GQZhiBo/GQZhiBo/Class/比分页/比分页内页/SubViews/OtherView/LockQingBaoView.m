@@ -39,14 +39,14 @@
     
     _messageLab = [[UILabel alloc]initWithFrame:CGRectZero];
     _messageLab.numberOfLines = 1;
-    _messageLab.textColor = UIColorHex(#F96153);
+    _messageLab.textColor = UIColorHex(#FF8E00);
     _messageLab.font = [UIFont systemFontOfSize:13];
     _messageLab.textAlignment = NSTextAlignmentCenter;
     [self addSubview:_messageLab];
     
     _diamond = [UIButton buttonWithType:UIButtonTypeCustom];
     _diamond.titleLabel.font = [UIFont systemFontOfSize:12];
-    [_diamond setBackgroundColor:UIColorHex(#F96153)];
+    [_diamond setBackgroundColor:UIColorHex(#FF8E00)];
     [_diamond setImage:[UIImage imageNamed:@"lock"] forState:UIControlStateNormal];
     _diamond.layer.cornerRadius = 13;
     _diamond.layer.masksToBounds = true;

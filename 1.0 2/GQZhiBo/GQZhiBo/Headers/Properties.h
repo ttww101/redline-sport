@@ -2,7 +2,7 @@
 #define GunQiuLive_Properties_h
 #define ColorWithRGBA(r,g,b,a) ([UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a])
 #define UIColorFromRGBWithOX(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-#define redcolor UIColorFromRGBWithOX(0x1D4FA0)
+#define redcolor UIColorFromRGBWithOX(0xFF8E00)
 #define yellowcolor UIColorFromRGBWithOX(0xfbbc05)
 #define bluecolor UIColorFromRGBWithOX(0x4285f4)
 #define greencolor UIColorFromRGBWithOX(0x34a853)

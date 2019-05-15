@@ -7571,7 +7571,7 @@
 				TargetAttributes = {
 					EBC0A2A41CA924AE00F75E7E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = B4ABS8YVQL;
+						DevelopmentTeam = UAVKYZ79Z3;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -9037,7 +9037,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = B4ABS8YVQL;
+				DEVELOPMENT_TEAM = UAVKYZ79Z3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9094,7 +9094,7 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
@@ -9116,7 +9116,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B4ABS8YVQL;
+				DEVELOPMENT_TEAM = UAVKYZ79Z3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9173,7 +9173,7 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";
@@ -9238,7 +9238,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B4ABS8YVQL;
+				DEVELOPMENT_TEAM = UAVKYZ79Z3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -9295,7 +9295,7 @@
 					"-framework",
 					"\"SVProgressHUD\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wuqiu.gunqiutiyu3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GQZhiBo/GQZhiBo-Bridging-Header.h";

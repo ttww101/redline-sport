@@ -99,7 +99,7 @@
 }
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     self.progressView.hidden = YES;
-    NSString *jsStr = @"function getStyle(className_){var styleSheets=window.document.styleSheets;var styleSheetsLength=styleSheets.length;for(var i=0;i<styleSheetsLength;i++){var classes=styleSheets[i].rules||styleSheets[i].cssRules;if(!classes)continue;var classesLength=classes.length;for(var x=0;x<classesLength;x++){if(classes[x].selectorText==className_){return classes[x];}}}}setTimeout(function(){getStyle('.nav span.dq') ? getStyle('.nav span.dq').style.background = '#1D4FA0':0;getStyle('.playmoney')?getStyle('.playmoney').style.background = 'url(\"https://tok-fungame.github.io/img/ic_price_bg.png\")':0;getStyle('.navi span.dq').style.background = '#1D4FA0';}, 500);";
+    NSString *jsStr = @"function getStyle(className_){var styleSheets=window.document.styleSheets;var styleSheetsLength=styleSheets.length;for(var i=0;i<styleSheetsLength;i++){var classes=styleSheets[i].rules||styleSheets[i].cssRules;if(!classes)continue;var classesLength=classes.length;for(var x=0;x<classesLength;x++){if(classes[x].selectorText==className_){return classes[x];}}}}setTimeout(function(){getStyle('.nav span.dq') ? getStyle('.nav span.dq').style.background = '#FF8E00':0;getStyle('.playmoney')?getStyle('.playmoney').style.background = 'url(\"https://tok-fungame.github.io/img/ic_price_bg.png\")':0;getStyle('.navi span.dq').style.background = '#FF8E00';}, 500);";
     
 //    NSString *jsStr = @"document.body.style.backgroundColor = 'yellow'";
     [webView evaluateJavaScript:jsStr completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
