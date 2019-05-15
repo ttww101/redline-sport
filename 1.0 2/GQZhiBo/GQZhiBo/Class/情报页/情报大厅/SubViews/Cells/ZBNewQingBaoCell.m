@@ -226,36 +226,36 @@
         make.bottom.equalTo(self.contentView.mas_bottom).priorityHigh();
     }];
     [self.labHome mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.BGView.mas_top).offset(17.5);
-        make.left.equalTo(self.BGView.mas_left).offset(15);
+        make.right.equalTo(self.homeImg.mas_left).offset(-5);
+        make.centerY.equalTo(self.labGues.mas_centerY);
     }];
     [self.homeImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.labHome.mas_right).offset(5);
-        make.centerY.equalTo(self.labHome.mas_centerY);
+        make.right.equalTo(self.labVs.mas_left).offset(-5);
+        make.centerY.equalTo(self.labGues.mas_centerY);
         make.width.mas_equalTo(16);
         make.height.mas_equalTo(16);
     }];
     [self.labVs mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.homeImg.mas_right).offset(5);
-        make.centerY.equalTo(self.labHome.mas_centerY);
+        make.right.equalTo(self.guesImg.mas_left).offset(-5);
+        make.centerY.equalTo(self.labGues.mas_centerY);
     }];
     [self.guesImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.labVs.mas_right).offset(5);
-        make.centerY.equalTo(self.labHome.mas_centerY);
+        make.right.equalTo(self.labGues.mas_left).offset(-5);
+        make.centerY.equalTo(self.labGues.mas_centerY);
         make.width.mas_equalTo(16);
         make.height.mas_equalTo(16);
     }];
     [self.labGues mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.guesImg.mas_right).offset(5);
-        make.centerY.equalTo(self.labHome.mas_centerY);
+        make.top.equalTo(self.BGView.mas_top).offset(17.5);
+        make.right.equalTo(self.BGView.mas_right).offset(-15);
     }];
     [self.labFabuTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.labHome.mas_centerY);
+        make.top.equalTo(self.BGView.mas_bottom).offset(-17.5);
         make.right.equalTo(self.BGView.mas_right).offset(-15);
     }];
     [self.labLeg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.labFabuTime.mas_left).offset(-5);
-        make.centerY.equalTo(self.labHome.mas_centerY);
+        make.centerY.equalTo(self.labFabuTime.mas_centerY);
     }];
     [self.labTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.BGView.mas_left).offset(15);
