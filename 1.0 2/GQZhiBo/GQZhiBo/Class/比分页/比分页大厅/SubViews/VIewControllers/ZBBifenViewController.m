@@ -15,13 +15,16 @@
 #import "ZBHSTabBarContentView.h"
 #import "ArchiveFile.h"
 #import "GeneralFloatingView.h"
+#import "GBPopMenuButtonView.h"
+#import "ZBFabuTuijianSelectedItemVC.h"
+#import "ZBToolWebViewController.h"
 
-@interface ZBBifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate, GeneralFloatingViewDelegate>
+@interface ZBBifenViewController ()<ViewPagerDataSource,ViewPagerDelegate,SelectedEventViewDelegate,NavViewDelegate,SelecterMatchViewDelegate,HSTabBarContentViewDelegate, GeneralFloatingViewDelegate, GBMenuButtonDelegate>
 @property (nonatomic, strong)ZBJishiViewController *jishiVC;
 @property (nonatomic, strong)ZBSaiguoViewController *saiguoVC;
 @property (nonatomic, strong)ZBSaichengViewController *saichengVC;
 @property (nonatomic, strong)ZBGuanzhuViewController *guanzhuVC;
-@property (nonatomic, strong) ZBSelectedEventView*TitleView;
+@property (nonatomic, strong) ZBSelectedEventView*titleView;
 @property (nonatomic, assign)NSInteger currentIndex;
 @property (nonatomic, assign)NSInteger currentflag;
 @property (nonatomic, strong) NSArray *arrSelectedSaishi;
@@ -32,6 +35,8 @@
 @property (nonatomic, strong) UIButton *imageV;
 
 @property (nonatomic , strong) GeneralFloatingView *floatingView;
+@property (nonatomic, strong) GBPopMenuButtonView *menuButtonView;
+@property (nonatomic, strong) UIView *indexView;
 
 @end
 @implementation ZBBifenViewController
@@ -56,14 +61,51 @@
 
 - (void)configUI {
     [self.view addSubview:self.floatingView];
+    _menuButtonView = [[GBPopMenuButtonView alloc] initWithItems:@[@"聊天", @"form_publish",@"formReload"] size:CGSizeMake(50, 50) type:GBMenuButtonTypeLineTop isMove:YES];
+    _menuButtonView.delegate = self;
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    _menuButtonView.frame = CGRectMake(width - 70, height - 125, 50, 50);
+    [self.view addSubview:_menuButtonView];
 }
 
 - (GeneralFloatingView *)floatingView {
     if (_floatingView == nil) {
         _floatingView = [[GeneralFloatingView alloc]initWithImages:@[@"filter"] scale:0.8 ignoreTabBar:false];
         _floatingView.delegate = self;
+        CGRect rect = _floatingView.frame;
+        CGFloat width = self.view.frame.size.width;
+        CGFloat height = self.view.frame.size.height;
+        rect.origin = CGPointMake(30, height - 120);
+        _floatingView.frame = rect;
     }
     return _floatingView;
+}
+
+-(void)menuButtonSelectedAtIdex:(NSInteger)index {
+    NSLog(@"%ldl", index);
+    if (index == 0) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+        } else {
+            ZBToolWebViewController *target =[[ZBToolWebViewController alloc] init];
+            ZBWebModel *model = [[ZBWebModel alloc]init];
+            model.title = PARAM_IS_NIL_ERROR(@"聊天室");
+            model.webUrl = PARAM_IS_NIL_ERROR(@"https://mobile.gunqiu.com/appH5/gqpro/chat2/#/?roomId=3");
+            model.hideNavigationBar = YES;
+            model.parameter = nil;
+            target.model = model;
+            [self.navigationController pushViewController:target animated:YES];
+            [MobClick event:@"syjc2" label:@""];
+        }
+    } else if (index == 1) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+            return;
+        }
+        ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
+        [self.navigationController pushViewController:control animated:true];
+    } else {}
 }
 
 #pragma mark - GeneralFloatingViewDelegate
@@ -295,7 +337,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.TitleView];
+    [self.view addSubview:self.titleView];
+    [self.view addSubview:self.indexView];
     self.delegate = self;
     self.dataSource = self;
     self.manualLoadData = NO;
@@ -357,14 +400,67 @@
             break;
     }
 }
-- (ZBSelectedEventView *)TitleView{
-    if (!_TitleView) {
-        _TitleView = [[ZBSelectedEventView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar+10, Width, 44)];
-            _TitleView.arrData = @[@"即时",@"赛果",@"赛程",@"关注"];
-        _TitleView.delegate = self;
-        _TitleView.selectedIndex = 0;
+- (UIView *)indexView {
+    if (!_indexView) {
+        _indexView = [[UIView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar+10, Width, 60)];
+        _indexView.backgroundColor = UIColorHex(FFF6DB);
+        UIImage *image1 = [UIImage imageNamed:@"icon-tjspf"];
+        UIImage *image2 = [UIImage imageNamed:@"icon-tjya"];
+        UIImage *image3 = [UIImage imageNamed:@"icon-tjdx"];
+        CGFloat y = 7;
+        CGFloat imageSize = 115;
+        CGFloat spacing = (Width - 20 - imageSize * 3) / 2;
+        UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(10, y, imageSize, 46)];
+        
+        UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(10 + imageSize + spacing, y, imageSize, 46)];
+        UIButton *btn3 = [[UIButton alloc] initWithFrame:CGRectMake(10 + (imageSize + spacing) * 2, y, imageSize, 46)];
+        [btn1 setImage:image1 forState:UIControlStateNormal];
+        [btn2 setImage:image2 forState:UIControlStateNormal];
+        [btn3 setImage:image3 forState:UIControlStateNormal];
+        [_indexView addSubview:btn1];
+        [_indexView addSubview:btn2];
+        [_indexView addSubview:btn3];
+        [btn1 addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [btn2 addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [btn3 addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+        btn1.tag = 1;
+        btn2.tag = 2;
+        btn3.tag = 3;
     }
-    return _TitleView;
+    return _indexView;
+}
+- (void)clickBtn:(UIButton *)sender {
+    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+    ZBWebModel *model = [[ZBWebModel alloc]init];
+    if (sender.tag == 1) {
+        model.title = @"临场胜平负";
+        model.hideNavigationBar = false;
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/spfmode.html", APPDELEGATE.url_ip,H5_Host];
+        model.hideNavigationBar = YES;
+        webDetailVC.model = model;
+    } else if (sender.tag == 2) {
+        model.title = @"临场亚指";
+        model.hideNavigationBar = false;
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/yamode.html", APPDELEGATE.url_ip,H5_Host];
+        model.hideNavigationBar = YES;
+        webDetailVC.model = model;
+    } else if (sender.tag == 3) {
+        model.title = @"八维指数";
+        model.hideNavigationBar = false;
+        model.webUrl = [NSString stringWithFormat:@"%@/%@/dxmode.html", APPDELEGATE.url_ip,H5_Host];
+        model.hideNavigationBar = YES;
+        webDetailVC.model = model;
+    }
+    [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
+}
+- (ZBSelectedEventView *)titleView{
+    if (!_titleView) {
+        _titleView = [[ZBSelectedEventView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar+60+10, Width, 44)];
+            _titleView.arrData = @[@"即时",@"赛果",@"赛程",@"关注"];
+        _titleView.delegate = self;
+        _titleView.selectedIndex = 0;
+    }
+    return _titleView;
 }
 - (void)didSelectedAtIndex:(NSInteger)index
 {
@@ -466,7 +562,7 @@
     } else {
         self.floatingView.hidden = false;
     }
-    [self.TitleView updateSelectedIndex:_currentIndex];
+    [self.titleView updateSelectedIndex:_currentIndex];
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -516,7 +612,7 @@
 }
 
 - (void)getAttentionNum:(NSNotification *)notifi {
-    _TitleView.attentionNum = notifi.userInfo[@"num"];
+    _titleView.attentionNum = notifi.userInfo[@"num"];
     
 }
 - (void)stay

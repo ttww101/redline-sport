@@ -60,6 +60,9 @@
 		188B10DE227AC4D100BE912A /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; };
 		188B10DF227AC4D100BE912A /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A94D70C9207F43C0002F4310 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		188E3956227C05FE007B4858 /* ZBWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E3955227C05FE007B4858 /* ZBWKWebView.m */; };
+		18F15057228C49720022DFA9 /* GBAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F15050228C49710022DFA9 /* GBAnimationTool.m */; };
+		18F15058228C49720022DFA9 /* GBPopMenuButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F15051228C49710022DFA9 /* GBPopMenuButtonItem.m */; };
+		18F15059228C49720022DFA9 /* GBPopMenuButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F15052228C49710022DFA9 /* GBPopMenuButtonView.m */; };
 		7D29C6ED1DDDC3E800844CBE /* fensiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EC1DDDC3E800844CBE /* fensiuser@2x.png */; };
 		7D29C6EF1DDDC40F00844CBE /* shezhiuser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6EE1DDDC40F00844CBE /* shezhiuser@2x.png */; };
 		7D29C6F91DE43A5000844CBE /* guanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D29C6F71DE43A5000844CBE /* guanzhu.png */; };
@@ -1247,6 +1250,12 @@
 		188E3955227C05FE007B4858 /* ZBWKWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBWKWebView.m; sourceTree = "<group>"; };
 		188F555E227695AF00B5EEEB /* newProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = newProject.h; sourceTree = "<group>"; };
 		18B483B5C0848FACEF0A2822 /* Pods-GQZhiBo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GQZhiBo.release.xcconfig"; path = "Pods/Target Support Files/Pods-GQZhiBo/Pods-GQZhiBo.release.xcconfig"; sourceTree = "<group>"; };
+		18F15050228C49710022DFA9 /* GBAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAnimationTool.m; sourceTree = "<group>"; };
+		18F15051228C49710022DFA9 /* GBPopMenuButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPopMenuButtonItem.m; sourceTree = "<group>"; };
+		18F15052228C49710022DFA9 /* GBPopMenuButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBPopMenuButtonView.m; sourceTree = "<group>"; };
+		18F15053228C49710022DFA9 /* GBAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAnimationTool.h; sourceTree = "<group>"; };
+		18F15054228C49710022DFA9 /* GBPopMenuButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPopMenuButtonItem.h; sourceTree = "<group>"; };
+		18F15055228C49710022DFA9 /* GBPopMenuButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBPopMenuButtonView.h; sourceTree = "<group>"; };
 		7ADBF1513C6676E76BF5EF48 /* Pods_GQZhiBo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GQZhiBo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D29C6EC1DDDC3E800844CBE /* fensiuser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fensiuser@2x.png"; sourceTree = "<group>"; };
 		7D29C6EE1DDDC40F00844CBE /* shezhiuser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shezhiuser@2x.png"; sourceTree = "<group>"; };
@@ -2868,6 +2877,19 @@
 				10C515282212BEDC00D68C9D /* banner_000026.png */,
 			);
 			path = videoloading;
+			sourceTree = "<group>";
+		};
+		18F1504F228C49710022DFA9 /* GBPopMenuButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				18F15050228C49710022DFA9 /* GBAnimationTool.m */,
+				18F15051228C49710022DFA9 /* GBPopMenuButtonItem.m */,
+				18F15052228C49710022DFA9 /* GBPopMenuButtonView.m */,
+				18F15053228C49710022DFA9 /* GBAnimationTool.h */,
+				18F15054228C49710022DFA9 /* GBPopMenuButtonItem.h */,
+				18F15055228C49710022DFA9 /* GBPopMenuButtonView.h */,
+			);
+			path = GBPopMenuButtonView;
 			sourceTree = "<group>";
 		};
 		843C413E1FB550E8000AB5A0 /* 及时更新 */ = {
@@ -6849,6 +6871,7 @@
 			isa = PBXGroup;
 			children = (
 				188F555E227695AF00B5EEEB /* newProject.h */,
+				18F1504F228C49710022DFA9 /* GBPopMenuButtonView */,
 				A951F98B213D094F0001B803 /* AppManger */,
 				A91D406620C77E4E0059D501 /* BaseClass */,
 				A94D6EA9207F4115002F4310 /* ThirdPart */,
@@ -8515,6 +8538,7 @@
 				EB5A46981F26F1760093962B /* ZBPictureView.m in Sources */,
 				EB518D391F7BD09900D548BC /* ZBPlycSelectedView.m in Sources */,
 				A94F2C1E20DCF6D100F805E2 /* ZBRecommendedWKWeb.m in Sources */,
+				18F15059228C49720022DFA9 /* GBPopMenuButtonView.m in Sources */,
 				A951F9A8213D0D840001B803 /* ZBUIAlertController+askForUser.m in Sources */,
 				EB8C1E411F21944C00A07863 /* ZBSettingVC.m in Sources */,
 				A9C3BC46209ABE96001674D2 /* ZBPayModel.m in Sources */,
@@ -8696,11 +8720,13 @@
 				EB9419281F5D7A94002660E4 /* ZBMessageSoundMgr.m in Sources */,
 				EB6BDA5D1F39CD7300C9EA73 /* ZBBaolengDTcell.m in Sources */,
 				A941D534206E22FB008CE14F /* ZBToolKitViewController.m in Sources */,
+				18F15058228C49720022DFA9 /* GBPopMenuButtonItem.m in Sources */,
 				EB3E74E41F3C726600C29DA7 /* ZBBaolengDetailModel.m in Sources */,
 				EB8C1E6A1F21944C00A07863 /* ZBUsermarkModel.m in Sources */,
 				EB8C1FC11F219A8C00A07863 /* ZBMethods.m in Sources */,
 				A9546D2121A416490097B6E8 /* BaseImageView.m in Sources */,
 				EB7684321F3AF5800054A705 /* ZBBaolengMatchModel.m in Sources */,
+				18F15057228C49720022DFA9 /* GBAnimationTool.m in Sources */,
 				A99166252111B07400FABE68 /* ZBInfoViewModel.m in Sources */,
 				EB8C1E401F21944C00A07863 /* ZBFeedbackVC.m in Sources */,
 				A9E876572080BD4700480C81 /* ZBLiveQuizWithdrawalTableViewCell.m in Sources */,

@@ -18,8 +18,10 @@
 #import "ZBInputViewController.h"
 #import "ZBReplyViewController.h"
 #import "GeneralFloatingView.h"
+#import "GBPopMenuButtonView.h"
+#import "ZBNewQingBaoViewController.h"
 
-@interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate, GeneralFloatingViewDelegate, UIWebViewDelegate>
+@interface ZBToolWebViewController () <UIWebViewDelegate, GQWebViewDelegate, WKUIDelegate,WKNavigationDelegate, CommentsViewDelegate, GeneralFloatingViewDelegate, UIWebViewDelegate, GBMenuButtonDelegate>
 @property (nonatomic , strong) WebViewJavascriptBridge* bridge;
 @property (nonatomic , copy) GQJSResponseCallback callBack;
 @property (nonatomic , copy) NSString *recordUrl;
@@ -35,6 +37,7 @@
 @property (nonatomic , strong) GeneralFloatingView *floatingView;
 @property (nonatomic , strong) GeneralFloatingView *refreshVew;
 @property (nonatomic, assign) BOOL useWkWeb;
+@property (nonatomic, strong) GBPopMenuButtonView *menuButtonView;
 
 
 @end
@@ -65,13 +68,63 @@
     [self configUI];
     [self loadBradgeHandler];
     [self loadData];
-    if ([self.model.webUrl containsString:@"tuijianIndex"]) {
-        [self.view addSubview:self.floatingView];
+    if ([self.model.webUrl containsString:@"tuijianIndex"] || [self.model.webUrl containsString:@"speciallist-hots"]) {
+//        [self.view addSubview:self.floatingView];
+        _menuButtonView = [[GBPopMenuButtonView alloc] initWithItems:@[@"聊天", @"form_publish",@"formReload"] size:CGSizeMake(50, 50) type:GBMenuButtonTypeLineTop isMove:YES];
+        _menuButtonView.delegate = self;
+        CGFloat width = self.view.frame.size.width;
+        CGFloat height = self.view.frame.size.height;
+        _menuButtonView.frame = CGRectMake(width - 70, height - 125, 50, 50);
+        [self.view addSubview:_menuButtonView];
     } else if ([self.model.title isEqualToString:@"发现"]) {
         [self.view addSubview:self.refreshVew];
     }
     
+    
+    
 }
+
+-(void)menuButtonSelectedAtIdex:(NSInteger)index {
+    NSLog(@"%ldl", index);
+    if (index == 0) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+        } else {
+            ZBToolWebViewController *target =[[ZBToolWebViewController alloc] init];
+            ZBWebModel *model = [[ZBWebModel alloc]init];
+            model.title = PARAM_IS_NIL_ERROR(@"聊天室");
+            model.webUrl = PARAM_IS_NIL_ERROR(@"https://mobile.gunqiu.com/appH5/gqpro/chat2/#/?roomId=3");
+            model.hideNavigationBar = YES;
+            model.parameter = nil;
+            target.model = model;
+            [self.navigationController pushViewController:target animated:YES];
+            [MobClick event:@"syjc2" label:@""];
+        }
+    } else if (index == 1) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+            return;
+        }
+        ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
+        [self.navigationController pushViewController:control animated:true];
+    } else if (index == 2) {
+        if (_wkWeb) {
+            [_wkWeb removeFromSuperview];
+            _wkWeb = nil;
+            self.bridge = nil;
+            [self.wkWeb addSubview:self.progressView];
+            [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+            [self configUI];
+            [self loadBradgeHandler];
+            [self loadData];
+            [self.view bringSubviewToFront:self.menuButtonView];
+        } else {
+            ZBNewQingBaoViewController *vc = [ZBNewQingBaoViewController new];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
@@ -440,7 +493,7 @@ changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunq
                 [self configUI];
                 [self loadBradgeHandler];
                 [self loadData];
-                [self.view bringSubviewToFront:self.floatingView];
+                [self.view bringSubviewToFront:self.menuButtonView];
             }
         }
     }
@@ -542,6 +595,22 @@ changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunq
         NSDictionary *dataDic = (NSDictionary *)data;
         NSString *className = dataDic[@"n"];
         className = [NSString stringWithFormat:@"ZB%@",className];
+        if ([className isEqualToString:@"ZBstartChat"]) {
+            if(![ZBMethods login]) {
+                [ZBMethods toLogin];
+            } else {
+                ZBToolWebViewController *target =[[ZBToolWebViewController alloc] init];
+                ZBWebModel *model = [[ZBWebModel alloc]init];
+                model.title = PARAM_IS_NIL_ERROR(@"聊天室");
+                model.webUrl = PARAM_IS_NIL_ERROR(@"https://mobile.gunqiu.com/appH5/gqpro/chat2/#/?roomId=3");
+                model.hideNavigationBar = YES;
+                model.parameter = nil;
+                target.model = model;
+                [self.navigationController pushViewController:target animated:YES];
+                [MobClick event:@"syjc2" label:@""];
+            }
+            return;
+        }
         if ([className isEqualToString:@"ZBGQMineViewController"]) {
             className = @"ZBMineViewController";
         }

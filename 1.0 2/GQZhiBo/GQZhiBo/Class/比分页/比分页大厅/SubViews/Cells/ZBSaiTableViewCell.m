@@ -1078,28 +1078,31 @@
 //        make.centerY.equalTo(self.teamAwayLab.mas_centerY);
 //    }];
     
+    //MARK: Master
     [self.peiLvHomeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.teamAwayLab.mas_left).offset(0);
         make.top.equalTo(self.teamAwayLab.mas_bottom).offset(3);
     }];
     [self.pankouLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.peiLvHomeLab.mas_right).offset(5);
+        make.left.equalTo(self.peiLvHomeLab.mas_right).offset(8);
         make.centerY.equalTo(self.peiLvHomeLab.mas_centerY);
     }];
     [self.peilvAwayLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.pankouLab.mas_right).offset(5);
+        make.left.equalTo(self.pankouLab.mas_right).offset(8);
         make.centerY.equalTo(self.peiLvHomeLab.mas_centerY);
     }];
+    
+    //MARK: Master
     [self.peilvAwayLableft mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.teamHomeLab.mas_right).offset(0);
         make.top.equalTo(self.teamHomeLab.mas_bottom).offset(3);
     }];
     [self.pankouLableft mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.peilvAwayLableft.mas_left).offset(-5);
+        make.right.equalTo(self.peilvAwayLableft.mas_left).offset(-8);
         make.centerY.equalTo(self.peilvAwayLableft.mas_centerY);
     }];
     [self.peiLvHomeLableft mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.pankouLableft.mas_left).offset(-5);
+        make.right.equalTo(self.pankouLableft.mas_left).offset(-8);
         make.centerY.equalTo(self.peilvAwayLableft.mas_centerY);
     }];
     [self.listHomeLab mas_makeConstraints:^(MASConstraintMaker *make) {

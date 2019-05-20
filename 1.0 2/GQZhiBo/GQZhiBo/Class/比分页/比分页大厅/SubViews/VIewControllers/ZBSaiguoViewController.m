@@ -137,7 +137,7 @@
 
 - (ZBSelectedDateTitleView *)dataTitleView {
     if (!_dataTitleView) {
-        _dataTitleView = [[ZBSelectedDateTitleView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, 39)];
+        _dataTitleView = [[ZBSelectedDateTitleView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+60+14, Width, 39)];
         _dataTitleView.delegate = self;
     }
     return _dataTitleView;
@@ -156,7 +156,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44 + 39+ 14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar - 39- 14) style:UITableViewStylePlain];
+         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 60 + 44 + 39+ 14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 -  APPDELEGATE.customTabbar.height_myTabBar - 39- 14 - 60) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[ZBSaiTableViewCell class] forCellReuseIdentifier:cellSaiguoViewController];
         [self setupHeaderView];

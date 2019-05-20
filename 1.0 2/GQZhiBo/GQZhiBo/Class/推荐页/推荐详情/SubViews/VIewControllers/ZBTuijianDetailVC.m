@@ -332,25 +332,25 @@
         [ZBMethods toLogin];
         return;
     }
-    ZBWebModel *model = [[ZBWebModel alloc]init];
-    model.title = @"购买";
-    NSString *amount = [NSString stringWithFormat:@"%ld",_model.amount];
-    NSString *name = [NSString stringWithFormat:@"%@vs%@",_model.guestTeam, _model.homeTeam];
-    name = [name xh_URLEncodedString];
-    NSString *parameterPath = [NSString stringWithFormat:@"type=%@&name=%@&amount=%@&id=%@",@"1", name, amount, [NSString stringWithFormat:@"%zi",_modelId]];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/pay-for.html?%@", APPDELEGATE.url_ip, H5_Host,parameterPath];
-    model.webUrl = url;
-    model.hideNavigationBar = YES;
-    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
-    webDetailVC.model = model;
-    [self.navigationController pushViewController:webDetailVC animated:YES];
-    return;
-    NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
-    if (dataArray.count > 0) {
-        [self buyActionWithOption:dataArray];
-    } else {
+//    ZBWebModel *model = [[ZBWebModel alloc]init];
+//    model.title = @"购买";
+//    NSString *amount = [NSString stringWithFormat:@"%ld",_model.amount];
+//    NSString *name = [NSString stringWithFormat:@"%@vs%@",_model.guestTeam, _model.homeTeam];
+//    name = [name xh_URLEncodedString];
+//    NSString *parameterPath = [NSString stringWithFormat:@"type=%@&name=%@&amount=%@&id=%@",@"1", name, amount, [NSString stringWithFormat:@"%zi",_modelId]];
+//    NSString *url = [NSString stringWithFormat:@"%@/%@/pay-for.html?%@", APPDELEGATE.url_ip, H5_Host,parameterPath];
+//    model.webUrl = url;
+//    model.hideNavigationBar = YES;
+//    ZBToolWebViewController *webDetailVC = [[ZBToolWebViewController alloc] init];
+//    webDetailVC.model = model;
+//    [self.navigationController pushViewController:webDetailVC animated:YES];
+//    return;
+//    NSMutableArray *dataArray = [ArchiveFile getDataWithPath:Buy_Type_Path];
+//    if (dataArray.count > 0) {
+//        [self buyActionWithOption:dataArray];
+//    } else {
         [self appleBuyWithData];
-    }
+//    }
 }
 -(void)zhucetongzhi{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wxtongzhi:) name:@"wxtongzhi" object:nil];

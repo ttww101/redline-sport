@@ -90,7 +90,7 @@
 #define colorFB9A81 UIColorFromRGBWithOX(0xfb9a81)
 #define colorFFFFDF UIColorFromRGBWithOX(0xffffdf)
 #define colorFF9900 UIColorFromRGBWithOX(0xfbbc05)
-#define color4C8DE5 UIColorFromRGBWithOX(0x4285F4)
+#define color4C8DE5 UIColorFromRGBWithOX(0xFF8E00)
 #define colorFBAF04 UIColorFromRGBWithOX(0xfbbc05)
 #define colorFEE3E1 UIColorFromRGBWithOX(0xfee3e1)
 #define colorFFD8D6 UIColorFromRGBWithOX(0xfee3e1)

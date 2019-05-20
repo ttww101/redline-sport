@@ -143,7 +143,7 @@ static SystemSoundID shake_sound_id = 0;
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar-14) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+60+14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar-14-60) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
         [_tableView registerClass:[ZBSaiTableViewCell class] forCellReuseIdentifier:cellJishiViewController];
         [self setupHeaderView];
@@ -1234,7 +1234,7 @@ static SystemSoundID shake_sound_id = 0;
             [_activityImageView removeFromSuperview];
             _activityImageView = nil;
         }
-        self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar-14);
+        self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar + 44+14+60, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar -44 - APPDELEGATE.customTabbar.height_myTabBar-14-60);
     }
 }
 #pragma mark - Events

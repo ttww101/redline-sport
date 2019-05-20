@@ -5,16 +5,44 @@
 #import "ZBQBNavigationVC.h"
 #import "ZBWebModel.h"
 #import "ZBToolWebViewController.h"
+#import "GBPopMenuButtonView.h"
 #define aCell @"cellNewQingBaoViewController"
-@interface ZBNewQingBaoViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-@property (nonatomic, strong)UITableView *tableView;
-@property (nonatomic, strong)NSMutableArray *arrAllDate;
-@property (nonatomic,strong) MJRefreshAutoNormalFooter *footer;
-@property (nonatomic, assign)NSInteger limitStart;
-@property (nonatomic, strong)UITableViewCell *seleCell;
+
+@interface ZBNewQingBaoViewController ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate, GBMenuButtonDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *arrAllDate;
+@property (nonatomic, strong) MJRefreshAutoNormalFooter *footer;
+@property (nonatomic, assign) NSInteger limitStart;
+@property (nonatomic, strong) UITableViewCell *seleCell;
 @property (nonatomic, assign) BOOL isToFenxi;
+@property (nonatomic, strong) GBPopMenuButtonView *menuButtonView;
 @end
 @implementation ZBNewQingBaoViewController
+-(void)menuButtonSelectedAtIdex:(NSInteger)index {
+    NSLog(@"%ldl", index);
+    if (index == 0) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+        } else {
+            ZBToolWebViewController *target =[[ZBToolWebViewController alloc] init];
+            ZBWebModel *model = [[ZBWebModel alloc]init];
+            model.title = PARAM_IS_NIL_ERROR(@"聊天室");
+            model.webUrl = PARAM_IS_NIL_ERROR(@"https://mobile.gunqiu.com/appH5/gqpro/chat2/#/?roomId=3");
+            model.hideNavigationBar = YES;
+            model.parameter = nil;
+            target.model = model;
+            [self.navigationController pushViewController:target animated:YES];
+            [MobClick event:@"syjc2" label:@""];
+        }
+    } else if (index == 1) {
+        if(![ZBMethods login]) {
+            [ZBMethods toLogin];
+            return;
+        }
+        ZBFabuTuijianSelectedItemVC *control= [[ZBFabuTuijianSelectedItemVC alloc]init];
+        [self.navigationController pushViewController:control animated:true];
+    } else {}
+}
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -35,6 +63,15 @@
     _limitStart = 0;
      [self.tableView.mj_header beginRefreshing];
        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTableViewContentOffsetZero) name:NotificationsetThirdTableViewContentOffsetZero object:nil];
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg"]];
+    _tableView.backgroundView = backgroundImage;
+    
+    _menuButtonView = [[GBPopMenuButtonView alloc] initWithItems:@[@"聊天", @"form_publish",@"formReload"] size:CGSizeMake(50, 50) type:GBMenuButtonTypeLineTop isMove:YES];
+    _menuButtonView.delegate = self;
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
+    _menuButtonView.frame = CGRectMake(width - 70, height - 125, 50, 50);
+    [self.view addSubview:_menuButtonView];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -129,7 +166,7 @@
     NSDictionary *attributes = @{NSFontAttributeName: font12, NSForegroundColorAttributeName: [UIColor grayColor]};
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
-- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView{
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView {
     return YES;
 }
 - (void)setupHeader
@@ -153,6 +190,7 @@
      _limitStart += 20;
     [self loadData];
 }
+
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (tableView.contentSize.height > tableView.frame.size.height) {
@@ -214,6 +252,12 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.00001;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [UIView new];
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [UIView new];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
