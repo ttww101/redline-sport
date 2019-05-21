@@ -175,7 +175,7 @@
     ZBNavView *nav = [[ZBNavView alloc] init];
     nav.height = 74;
     nav.delegate = self;
-    nav.labTitle.text = @"滚球体育";
+    nav.labTitle.text = @"赛事";
     [nav.btnLeft setBackgroundImage:[UIImage imageNamed:@"bifen_top_setting"] forState:UIControlStateNormal];
     nav.btnLeft.frame =  CGRectMake(15, 30, 20, 30);
 

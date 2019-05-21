@@ -18,7 +18,7 @@
                 CGSize textSize = [[obj currentTitle] sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font14,NSFontAttributeName, nil]];
                 pageW = textSize.width;
             }
-            self.viewPage.frame = CGRectMake(0, self.height - 3 -3, pageW + 20, self.temBtnHeight - 18);
+            self.viewPage.frame = CGRectMake(0, self.height - 3 -3, pageW + 50, self.temBtnHeight - 18);
             self.viewPage.center = obj.center; 
             obj.titleLabel.font = BoldFont4(fontSize14);
         }else{

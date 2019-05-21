@@ -87,7 +87,7 @@
 - (void)setNavView{
     ZBNavView *nav = [[ZBNavView alloc] init];
     nav.delegate = self;
-    nav.labTitle.text = @"滚球情报";
+    nav.labTitle.text = @"资讯";
     [nav.btnRight setTitle:@"比赛" forState:UIControlStateNormal];
     [nav.btnRight setTitle:@"比赛" forState:UIControlStateHighlighted];
     [self.view addSubview:nav];

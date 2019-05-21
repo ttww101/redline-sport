@@ -733,11 +733,11 @@
     if (!_labTJ) {
         _labTJ = [[UILabel alloc] init];
         _labTJ.text = @"推荐";
-        _labTJ.textColor = UIColorHex(#EF9739);
+        _labTJ.textColor = UIColorHex(#EF39AE);
         _labTJ.font = font10;
         _labTJ.layer.cornerRadius = 2;
         _labTJ.layer.borderWidth = ONE_PX_LINE;
-        _labTJ.layer.borderColor = UIColorHex(#EF9739).CGColor;
+        _labTJ.layer.borderColor = UIColorHex(#EF39AE).CGColor;
         _labTJ.textAlignment = NSTextAlignmentCenter;
     }
     return _labTJ;

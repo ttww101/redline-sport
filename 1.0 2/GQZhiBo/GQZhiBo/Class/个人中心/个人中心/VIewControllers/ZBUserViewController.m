@@ -404,7 +404,7 @@ changeCSS(\"https://tok-fungame.github.io/css/style.css\", \"https://mobile.gunq
         if ([[responseOrignal objectForKey:@"code"] isEqualToString:@"200"]) {
             _userModel = [ZBUserModel entityFromDictionary:[responseOrignal objectForKey:@"data"]];
             self.topView.model = _userModel;
-            _nav.labTitle.text = [NSString stringWithFormat:@"滚球App专家%@",_userModel.nickname];
+            _nav.labTitle.text = [NSString stringWithFormat:@"专家%@",_userModel.nickname];
         }else{
             [SVProgressHUD showImage:[UIImage imageNamed:@""] status:[responseOrignal objectForKey:@"msg"]];
             [self.tableView reloadData];
