@@ -733,13 +733,12 @@
     if (!_labTJ) {
         _labTJ = [[UILabel alloc] init];
         _labTJ.text = @"推荐";
-        _labTJ.textColor = UIColorHex(#FF9E9C);
-        _labTJ.font = font7;
+        _labTJ.textColor = UIColorHex(#EF9739);
+        _labTJ.font = font10;
         _labTJ.layer.cornerRadius = 2;
         _labTJ.layer.borderWidth = ONE_PX_LINE;
-        _labTJ.layer.borderColor = UIColorHex(#FF9E9C).CGColor;
+        _labTJ.layer.borderColor = UIColorHex(#EF9739).CGColor;
         _labTJ.textAlignment = NSTextAlignmentCenter;
-        
     }
     return _labTJ;
 }
@@ -1170,8 +1169,8 @@
     
     [self.labTJ mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.labQB.mas_centerY);
-        make.right.equalTo(self.labQB.mas_left).offset(-5);
-        make.size.mas_equalTo(CGSizeMake(20, 10));
+        make.right.equalTo(self.labQB.mas_right).offset(-3);
+        make.size.mas_equalTo(CGSizeMake(30, 15));
     }];
     
 //    [self.labTJNum mas_makeConstraints:^(MASConstraintMaker *make) {

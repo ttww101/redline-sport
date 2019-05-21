@@ -352,7 +352,7 @@
         [self appleBuyWithData];
 //    }
 }
--(void)zhucetongzhi{
+- (void)zhucetongzhi{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wxtongzhi:) name:@"wxtongzhi" object:nil];
 }
 - (void)wxtongzhi:(NSNotification *)text{
@@ -876,6 +876,7 @@
         [ZBLodingAnimateView showLodingView];
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
+        [self paySuccess];
         [ZBLodingAnimateView dissMissLoadingView];
         NSDictionary *dic = (NSDictionary *)responseOrignal;
         if (dic) {
