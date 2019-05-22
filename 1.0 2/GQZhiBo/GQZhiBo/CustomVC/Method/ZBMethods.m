@@ -991,7 +991,7 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     NSInteger amount = 0;
     if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian8"]) {
         amount = 8;
-    } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian18"]) {
+    } else if ([productId isEqualToString:@"com.lineredsport.mobile.18gems"]) {
         amount = 18;
     } else if ([productId isEqualToString:@"com.Gunqiu.GQapptuijian28"]) {
         amount = 28;

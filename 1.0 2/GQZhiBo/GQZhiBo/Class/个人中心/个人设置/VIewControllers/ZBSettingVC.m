@@ -63,7 +63,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -75,7 +75,7 @@
             break;
         case 1:
         {
-            return 2;
+            return 1;
         }
             break;
         case 2:
@@ -103,7 +103,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section != 2) {
+    if (indexPath.section != 1) {
         return 44;
     }else{
         if (![ZBMethods login]) {
@@ -121,9 +121,9 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            while ([cell.contentView.subviews lastObject]!= nil) {
-                [[cell.contentView.subviews lastObject] removeFromSuperview];
-            }
+        while ([cell.contentView.subviews lastObject]!= nil) {
+            [[cell.contentView.subviews lastObject] removeFromSuperview];
+        }
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, Width - 40, 44)];
         lab.textColor = color33;
         lab.font = font14;
@@ -132,24 +132,24 @@
         imageMore.center = CGPointMake(imageMore.center.x, lab.center.y);
         imageMore.image = [UIImage imageNamed:@"meRight"];
         [cell.contentView addSubview:imageMore];
-        UIView *viewline = [[UIView alloc] initWithFrame:CGRectMake(0, 43, Width , 0.5)]; 
+        UIView *viewline = [[UIView alloc] initWithFrame:CGRectMake(0, 43, Width , 0.5)];
         viewline.backgroundColor = colorCellLine;
         [cell.contentView addSubview:viewline];
         if (indexPath.section == 0) {
             switch (indexPath.row) {
                 case 0:
                 {
-                   lab.text = @"账户与安全";
+                    lab.text = @"账户与安全";
                 }
                     break;
                 case 1:
                 {
-                     lab.text = @"推送设置";
+                    lab.text = @"推送设置";
                 }
                     break;
                 case 2: {
                     lab.text = @"清除缓存";
-                    UILabel *sizeLab = [[UILabel alloc] init]; 
+                    UILabel *sizeLab = [[UILabel alloc] init];
                     sizeLab.text = [self getCashesSize];
                     sizeLab.font = font12;
                     sizeLab.textColor = color99;
@@ -162,7 +162,7 @@
                 default:
                     break;
             }
-        }else if (indexPath.section == 1){
+        }/*else if (indexPath.section == 1){
             switch (indexPath.row) {
                 case 0:
                 {
@@ -180,7 +180,7 @@
                 default:
                     break;
             }
-        }else{
+        }*/else{
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
@@ -245,7 +245,7 @@
             default:
                 break;
         }
-    }else if (indexPath.section == 1){
+    }/*else if (indexPath.section == 1){
         switch (indexPath.row) {
             case 0:
             {
@@ -256,7 +256,7 @@
                 [APPDELEGATE.customTabbar pushToViewController:webVC animated:YES];
             }
                 break;
-                case 1:
+            case 1:
             {
                 ZBWKWebViewController *webVC = [[ZBWKWebViewController alloc] init];
                 webVC.strurl = [NSString stringWithFormat:@"%@/notice/about.html",APPDELEGATE.url_ServerWWW];
@@ -268,7 +268,7 @@
             default:
                 break;
         }
-    }
+    }*/
 }
 - (void)loginOut
 {

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UIImageView *levealImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *userLevelLabel;
 @property (nonatomic, strong) UIImageView *rightArrorImageView;
 @property (nonatomic , strong) UIButton *applyBtn;
 @property (nonatomic , strong) ZBHeaderAmountView *amountView;
@@ -42,16 +43,21 @@ static CGFloat imageHeight = 50;
     if (_model) {
         [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:_model.pic] placeholderImage:[UIImage imageNamed:@"defaultPic"]];
         NSString *name = _model.nickname;
-        if (name.length >= 8) {
-            NSString *str = [name substringToIndex:8];
-            name = [NSString stringWithFormat:@"%@...",str];
-        }
+//        if (name.length >= 8) {
+//            NSString *str = [name substringToIndex:8];
+//            name = [NSString stringWithFormat:@"%@...",str];
+//        }
         NSDictionary *dic = _model.userDetail;
-        NSString *text = [NSString stringWithFormat:@"%@| %@", name ,dic[@"levelName"]];
+        NSString *text = name;
         NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:text];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18.f] range:[text rangeOfString:name]];
         [att addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.f] range:[text rangeOfString:dic[@"levelName"]]];
         _nameLabel.attributedText = att;
+        
+        NSString *levlText = dic[@"levelName"];
+        NSMutableAttributedString *att1 = [[NSMutableAttributedString alloc]initWithString:levlText];
+        
+        _userLevelLabel.attributedText = att1;
         NSString *imageName = [ZBMethods getPersonLeavelImageName:_model.analysttype];
         self.levealImageView.image = [UIImage imageNamed:imageName];
         if (_model.analyst == 1) {
@@ -59,7 +65,7 @@ static CGFloat imageHeight = 50;
         } else {
             self.applyBtn.hidden = false;
         }
-        [self addSubview:self.amountView];
+//        [self addSubview:self.amountView];
         _amountView.model = _model;
         self.desLabel.hidden = YES;
         self.control.hidden = YES;
@@ -83,10 +89,7 @@ static CGFloat imageHeight = 50;
         self.centerControl.hidden = YES;
         self.rightControl.hidden = YES;
     }
-    
-    
-    
-   
+
     self.applyBtn.hidden = true;
 }
 
@@ -141,7 +144,7 @@ static CGFloat imageHeight = 50;
         make.top.equalTo(self.mas_top).offset(0);
         make.right.equalTo(self.mas_right).offset(0);
         make.left.equalTo(self.mas_left).offset(0);
-        make.height.mas_equalTo(200);
+        make.height.mas_equalTo(140);
     }];
     [self.bgImageView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -167,8 +170,14 @@ static CGFloat imageHeight = 50;
         make.size.mas_equalTo(CGSizeMake(16, 16));
     }];
     [self.bgImageView addSubview:self.nameLabel];
+    [self.bgImageView addSubview:self.userLevelLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.avatarImageView.mas_centerY);
+        make.centerY.equalTo(self.avatarImageView.mas_centerY).offset(-10);
+        make.left.equalTo(self.avatarImageView.mas_right).offset(15);
+        make.right.equalTo(self.bgImageView.mas_right).offset(-10);
+    }];
+    [self.userLevelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.avatarImageView.mas_centerY).offset(10);
         make.left.equalTo(self.avatarImageView.mas_right).offset(15);
         make.right.equalTo(self.bgImageView.mas_right).offset(-10);
     }];
@@ -191,12 +200,12 @@ static CGFloat imageHeight = 50;
     [self.bgImageView addSubview:self.desLabel];
     [self.desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nameLabel.mas_left);
-        make.top.equalTo(self.nameLabel.mas_bottom).offset(7);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(25);
     }];
 //    [self addSubview:self.leftControl];
     [self addSubview:self.centerControl];
     [self addSubview:self.rightControl];
-    [self addSubview:self.toolView];
+//    [self addSubview:self.toolView];
 }
 #pragma mark - Events
 - (void)applyAction {
@@ -331,6 +340,16 @@ static CGFloat imageHeight = 50;
     }
     return _avatarImageView;
 }
+- (UILabel *)userLevelLabel {
+    if (_userLevelLabel == nil) {
+        _userLevelLabel = [UILabel new];
+        _userLevelLabel.font = [UIFont systemFontOfSize:18.f];;
+        _userLevelLabel.textColor = UIColorFromRGBWithOX(0xffffff);
+        _userLevelLabel.text = @"你的名字";
+        _userLevelLabel.adjustsFontSizeToFitWidth = YES;
+    }
+    return _userLevelLabel;
+}
 - (UILabel *)nameLabel {
     if (_nameLabel == nil) {
         _nameLabel = [UILabel new];
@@ -384,21 +403,21 @@ static CGFloat imageHeight = 50;
 }
 - (ZBHeaderControl *)leftControl {
     if (_leftControl == nil) {
-        _leftControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(0, 130, self.controlWidth, 30) content:@"推荐:0" showRightLine:false];
+        _leftControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(0, 125, self.controlWidth, 30) content:@"推荐:0" showRightLine:true];
         [_leftControl addTarget:self action:@selector(leftControlAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftControl;
 }
 - (ZBHeaderControl *)centerControl {
     if (_centerControl == nil) {
-        _centerControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(50, 130, self.controlWidth, 30) content:@"关注:0" showRightLine:false];
+        _centerControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(50, 120, self.controlWidth, 30) content:@"关注:0" showRightLine:true];
         [_centerControl addTarget:self action:@selector(centerControlAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _centerControl;
 }
 - (ZBHeaderControl *)rightControl {
     if (_rightControl == nil) {
-        _rightControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(self.centerControl.right, 130, self.controlWidth, 30) content:@"粉丝:0" showRightLine:YES];
+        _rightControl = [[ZBHeaderControl alloc]initWithFrame:CGRectMake(self.centerControl.right, 120, self.controlWidth, 30) content:@"粉丝:0" showRightLine:true];
         [_rightControl addTarget:self action:@selector(rightControlAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightControl;

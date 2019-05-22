@@ -62,7 +62,7 @@
     switch (section) {
         case 0:
         {
-            return 3;
+            return 2;
         }
             break;
         default:
@@ -115,17 +115,17 @@
     }];
     if (indexPath.section == 0) {
         switch (indexPath.row) {
+//            case 0:
+//            {
+//                lab.text = @"实名认证";
+//                if (self.model.autonym == 1) {
+//                    labStr.text = @"已认证";
+//                }else{
+//                    labStr.text = @"未认证";
+//                }
+//            }
+//                break;
             case 0:
-            {
-                lab.text = @"实名认证";
-                if (self.model.autonym == 1) {
-                    labStr.text = @"已认证";
-                }else{
-                    labStr.text = @"未认证";
-                }
-            }
-                break;
-            case 1:
             {
                 lab.text = @"账户绑定";
                 if (_model.mobile.length > 0) {
@@ -135,7 +135,7 @@
                 }
             }
                 break;
-            case 2:
+            case 1:
             {
                 lab.text = @"修改密码";
                 labStr.text = @"修改";

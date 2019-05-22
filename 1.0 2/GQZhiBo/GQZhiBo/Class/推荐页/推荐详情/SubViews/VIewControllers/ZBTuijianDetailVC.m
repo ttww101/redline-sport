@@ -876,12 +876,15 @@
         [ZBLodingAnimateView showLodingView];
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
-        [self paySuccess];
+//        [self paySuccess];
         [ZBLodingAnimateView dissMissLoadingView];
         NSDictionary *dic = (NSDictionary *)responseOrignal;
         if (dic) {
             NSDictionary *dataDic = dic[@"data"];
-            NSString *productID = dataDic[@"productId"];
+            NSString *gemAmount = dataDic[@"productId"];
+            gemAmount = [gemAmount stringByReplacingOccurrencesOfString:@"com.Gunqiu.GQapptuijian" withString:@""];
+            
+            NSString *productID = [NSString stringWithFormat:@"com.lineredsport.mobile.%@gems", gemAmount];
             _orderId = dataDic[@"orderId"];
             NSInteger amount = [ZBMethods amountWithProductId:productID];
             amount = amount * 100;

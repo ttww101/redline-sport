@@ -30,11 +30,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    if ([ZBMethods login]) {
-        self.headerView.height = 200 + 35 + 70;
-    } else {
-        self.headerView.height = 210 + 70;
-    }
+//    if ([ZBMethods login]) {
+//        self.headerView.height = 200 + 35 + 70;
+//    } else {
+        self.headerView.height = 160;
+//    }
     [self loadData];
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
@@ -293,7 +293,7 @@
                 model.hideNavigationBar = YES;
                 webDetailVC.model = model;
                 [APPDELEGATE.customTabbar pushToViewController:webDetailVC animated:YES];
-            } else if (indexPath.row == 1) {
+            } /*else if (indexPath.row == 1) {
                 [MobClick event:@"yqhy" label:@""];
                 ZBWebModel *model = [[ZBWebModel alloc]init];
                 model.title = @"邀请好友";
@@ -305,7 +305,7 @@
                 ZBFeedbackVC *feed = [[ZBFeedbackVC alloc] init];
                 feed.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:feed animated:YES];
-            } else if (indexPath.row == 3) {
+            }*/ else if (indexPath.row == 1) {
                 ZBSettingVC *setVC = [[ZBSettingVC alloc] init];
                 setVC.hidesBottomBarWhenPushed = YES;
                 [APPDELEGATE.customTabbar pushToViewController:setVC animated:YES];
@@ -338,7 +338,7 @@
 }
 - (ZBMineHeaderView *)headerView {
     if (_headerView == nil) {
-        _headerView = [[ZBMineHeaderView alloc]initWithFrame:CGRectMake(0, 0, Width, 210)];
+        _headerView = [[ZBMineHeaderView alloc]initWithFrame:CGRectMake(0, 0, Width, 160)];
     }
     return _headerView;
 }
