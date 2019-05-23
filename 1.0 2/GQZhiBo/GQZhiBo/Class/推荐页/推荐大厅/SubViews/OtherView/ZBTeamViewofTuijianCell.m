@@ -79,7 +79,7 @@
         if (!(str.length > 0)) {
             str = @"钻石";
         }
-        _labMoney.text = [NSString stringWithFormat:@"%ld%@",_model.amount/100,str];
+        _labMoney.text = [NSString stringWithFormat:@" ¥ %ld",_model.amount==3800?30:_model.amount/100];
         _labMoney.attributedText = [ZBMethods withContent:_labMoney.text WithColorText:str textColor:color33 strFont:font12];
     }
     _labMoney.text = @"";

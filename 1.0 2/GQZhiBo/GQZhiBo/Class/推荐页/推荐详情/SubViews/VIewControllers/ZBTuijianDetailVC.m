@@ -615,9 +615,9 @@
                     if (!(str.length > 0)) {
                         str = @"钻石";
                     }
-                    _labelQiuBi.text = [NSString stringWithFormat:@"需支付%ld%@",_model.amount/100,str];
+                    _labelQiuBi.text = [NSString stringWithFormat:@"需支付 ¥ %ld",_model.amount==3800?30:_model.amount/100];
                     _labelQiuBi.font = font14;
-                    _labelQiuBi.attributedText = [ZBMethods withContent:_labelQiuBi.text WithColorText:[NSString stringWithFormat:@"%ld",_model.amount/100] textColor:redcolor strFont:font18];
+                    _labelQiuBi.attributedText = [ZBMethods withContent:_labelQiuBi.text WithColorText:[NSString stringWithFormat:@"¥ %ld",_model.amount==3800?30:_model.amount/100] textColor:redcolor strFont:font18];
                 }else{
                     self.bottomView.hidden = NO;
                     self.payView.hidden = YES;

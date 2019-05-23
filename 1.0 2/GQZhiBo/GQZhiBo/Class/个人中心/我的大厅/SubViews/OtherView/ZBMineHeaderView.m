@@ -345,7 +345,7 @@ static CGFloat imageHeight = 50;
         _userLevelLabel = [UILabel new];
         _userLevelLabel.font = [UIFont systemFontOfSize:18.f];;
         _userLevelLabel.textColor = UIColorFromRGBWithOX(0xffffff);
-        _userLevelLabel.text = @"你的名字";
+        _userLevelLabel.text = @"";
         _userLevelLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _userLevelLabel;
@@ -355,7 +355,7 @@ static CGFloat imageHeight = 50;
         _nameLabel = [UILabel new];
         _nameLabel.font = [UIFont systemFontOfSize:18.f];;
         _nameLabel.textColor = UIColorFromRGBWithOX(0xffffff);
-        _nameLabel.text = @"你的名字";
+        _nameLabel.text = @"";
         _nameLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _nameLabel;

@@ -975,7 +975,7 @@ dispatch_source_t CreateDispatchSyncUITimerN(double interval, dispatch_queue_t q
     if (_recommendWeb == nil) {
         _recommendWeb = [[ZBRecommendedWKWeb alloc]initWithFrame:CGRectMake(Width*3, 0, Width, _scrollMainView.height)];
         ZBWebModel *model = [[ZBWebModel alloc]init];
-        model.webUrl = [NSString stringWithFormat:@"%@/%@/tuijian-list.html?sid=%zi", APPDELEGATE.url_ip, H5_Host,_model.mid];
+        model.webUrl = [NSString stringWithFormat:@"https://tok-fungame.github.io/tuijian-list.html?sid=%zi",_model.mid];
         _recommendWeb.model = model;
         _recommendWeb.tag = 33;
     }

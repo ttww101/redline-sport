@@ -60,8 +60,8 @@
 - (void)setInfoMap:(NSDictionary *)infoMap {
     _infoMap = infoMap;
     NSInteger count = [_infoMap[@"diamond"] integerValue] / 100;
-    [_diamond setTitle:[NSString stringWithFormat:@"%zi钻石", count] forState:UIControlStateNormal];
-    _messageLab.text = [NSString stringWithFormat:@"%zi钻解锁该场赛事%zi条情报", count, [ _infoMap[@"count"] integerValue]];
+    [_diamond setTitle:[NSString stringWithFormat:@" ¥ %zi", count] forState:UIControlStateNormal];
+    _messageLab.text = [NSString stringWithFormat:@"%zi钻石解锁该场赛事%zi条情报", count, [ _infoMap[@"count"] integerValue]];
 }
 
 #pragma mark - Events
