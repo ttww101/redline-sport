@@ -75,7 +75,7 @@
                 self.tableView.tableHeaderView = self.headerView;
                
                 if (_userModel == nil) {
-                    self.headerView.height = 210 + 70;
+                    self.headerView.height = 160;
                 }
                  [self.tableView reloadData];
                 
@@ -133,7 +133,7 @@
         self.headerView.model = nil;
         self.tableView.tableHeaderView = self.headerView;
         if (_userModel == nil) {
-            self.headerView.height = 210 + 70;
+            self.headerView.height = 160;
         }
         self.headerView.dic = nil;
         [self.tableView reloadData];

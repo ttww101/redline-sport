@@ -93,7 +93,7 @@ NSString * const ID = @"cycleCell";
     _bannerImageViewContentMode = UIViewContentModeScaleToFill;
     
     self.backgroundColor = [UIColor lightGrayColor];
-    
+    self.clipsToBounds = YES;
 }
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup
@@ -158,6 +158,7 @@ NSString * const ID = @"cycleCell";
     if (!self.backgroundImageView) {
         UIImageView *bgImageView = [UIImageView new];
         bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+        bgImageView.clipsToBounds = YES;
         [self insertSubview:bgImageView belowSubview:self.mainView];
         self.backgroundImageView = bgImageView;
     }

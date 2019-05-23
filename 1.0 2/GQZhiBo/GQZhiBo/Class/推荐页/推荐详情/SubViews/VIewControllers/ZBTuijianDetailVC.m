@@ -377,9 +377,16 @@
             self.bottomView.hidden= NO;
             self.tableView.frame = CGRectMake(0, APPDELEGATE.customTabbar.height_myNavigationBar, Width, Height - APPDELEGATE.customTabbar.height_myNavigationBar - 49);
             _model.see = YES;
+            [self loadDataWhetherFirst:YES];
             self.tableView.headerModel = _model;
             [self.tableView reloadData];
-             [self loadDataWhetherFirst:YES];
+            
+            // reload webPage
+            BOOL isWebView = [NSStringFromClass([self.navigationController.viewControllers[0] class]) isEqualToString:@"ZBToolWebViewController"];
+            if (isWebView) {
+                ZBToolWebViewController *toolWebViewController = self.navigationController.viewControllers[0];
+                [toolWebViewController reload];
+            }
         }else {
             [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"%@",[responseOrignal objectForKey:@"msg"]]];
             [SVProgressHUD dismissWithDelay:2.0f];
@@ -877,6 +884,7 @@
     } End:^(id responseOrignal) {
     } Success:^(id responseResult, id responseOrignal) {
 //        [self paySuccess];
+//        return;
         [ZBLodingAnimateView dissMissLoadingView];
         NSDictionary *dic = (NSDictionary *)responseOrignal;
         if (dic) {
@@ -903,7 +911,7 @@
     } Failure:^(NSError *error, NSString *errorDict, id responseOrignal) {
         [ZBLodingAnimateView dissMissLoadingView];
         [hud hide:YES];
-        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:errorDict];
+        [SVProgressHUD showImage:[UIImage imageNamed:@""] status:@"无法取得商品"];
     }];
 }
 @end

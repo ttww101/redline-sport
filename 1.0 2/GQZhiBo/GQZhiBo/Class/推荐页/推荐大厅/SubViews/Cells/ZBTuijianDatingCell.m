@@ -75,6 +75,9 @@
             }
             _labMoney.text = [NSString stringWithFormat:@" %ld%@ ",_model.amount/100,str];
               self.lockView.hidden = false;
+            if (_model.amount == 12800) {
+                self.lockView.hidden = true;
+            }
         } else {
             _labMoney.text = nil;
              self.lockView.hidden = true;
@@ -384,7 +387,7 @@
 - (UIView *)lockView {
     if (_lockView == nil) {
         _lockView = [[UIView alloc]init];
-        _lockView.backgroundColor = UIColorFromRGBWithOX(0x5079EF);
+        _lockView.backgroundColor = UIColorFromRGBWithOX(0xFF8E00);
         _lockView.layer.cornerRadius = 12;
         _lockView.layer.masksToBounds = true;
     }

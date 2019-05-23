@@ -30,6 +30,7 @@
         }else if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellZucai){
         }
         [self registerClass:[ZBTuijianDetailHeaderView class] forCellReuseIdentifier:CellTuijianDetailHeader];
+        [self registerClass:[ZBTuijianDetailHeaderView class] forCellReuseIdentifier:@"showCell"];
         [self registerClass:[ZBTuijianDetailCommentCell class] forCellReuseIdentifier:CellTuijianDetailComment];
         [self registerClass:NSClassFromString(@"ZBTuijianDatingCell") forCellReuseIdentifier:CellTuijianDating];
     }
@@ -138,10 +139,17 @@
 {  DetailGroupModel *model = _arrData[indexPath.section];
     if (indexPath.section == 0) {
         if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
-            return [tableView fd_heightForCellWithIdentifier:CellTuijianDetailHeader configuration:^(ZBTuijianDetailHeaderView* cell) {
-                cell.webViewHight = _cellWebhight;
-                cell.model = _headerModel;
-            }];
+            if (_headerModel.see) {
+                return [tableView fd_heightForCellWithIdentifier:@"showCell" configuration:^(ZBTuijianDetailHeaderView* cell) {
+                    cell.webViewHight = _cellWebhight;
+                    cell.model = _headerModel;
+                }];
+            } else {
+                return [tableView fd_heightForCellWithIdentifier:CellTuijianDetailHeader configuration:^(ZBTuijianDetailHeaderView* cell) {
+                    cell.webViewHight = _cellWebhight;
+                    cell.model = _headerModel;
+                }];
+            }
         }else if(_typeTuijianDetailHeader == typeTuijianDetailHeaderCellChuanGuan){
             
         }else if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellZucai){
@@ -170,11 +178,24 @@
      DetailGroupModel *model = _arrData[indexPath.section];
     if (indexPath.section == 0) {
         if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellDanchang) {
-             ZBTuijianDetailHeaderView   *cell = [tableView dequeueReusableCellWithIdentifier:CellTuijianDetailHeader forIndexPath:indexPath];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.webViewHight = _cellWebhight;
-            cell.model = _headerModel;
-            return cell;
+            if (_headerModel.see) {
+                ZBTuijianDetailHeaderView   *cell = [tableView dequeueReusableCellWithIdentifier:@"showCell" forIndexPath:indexPath];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.webViewHight = _cellWebhight;
+                cell.model = _headerModel;
+                NSLog(@"ZBTuijianDetailHeaderView666-%@1", cell.model.content);
+                return cell;
+            } else {
+                ZBTuijianDetailHeaderView   *cell = [tableView dequeueReusableCellWithIdentifier:CellTuijianDetailHeader forIndexPath:indexPath];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.webViewHight = _cellWebhight;
+                cell.model = _headerModel;
+                NSLog(@"ZBTuijianDetailHeaderView666-%@0", cell.model.content);
+                return cell;
+            }
+            
         }else if(_typeTuijianDetailHeader == typeTuijianDetailHeaderCellChuanGuan){
         }else if (_typeTuijianDetailHeader == typeTuijianDetailHeaderCellZucai){
         }

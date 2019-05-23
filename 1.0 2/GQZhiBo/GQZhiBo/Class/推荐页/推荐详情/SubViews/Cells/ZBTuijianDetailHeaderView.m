@@ -59,11 +59,19 @@
 @property (nonatomic , strong) UILabel *eyeLab;
 
 @property (nonatomic , strong) UILabel *noPublicLab;
-
+@property (nonatomic) TuijianDetailHeaderViewtype myType;
 
 
 @end
 @implementation ZBTuijianDetailHeaderView
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]){
+        _basicView = nil;
+    }
+    
+    return self;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
@@ -310,7 +318,9 @@
 }
 - (UIView *)basicView
 {
+    NSLog(@"ZBTuijianDetailHeaderView677-%zd", _type);
     if (!_basicView) {
+        _myType = TuijianDetailHeaderViewHideContent;
         _basicView = [[UIView alloc] init];
         _basicView.backgroundColor = [UIColor whiteColor];
         [_basicView addSubview:self.headerUser];
@@ -362,13 +372,40 @@
             [_basicView addSubview:self.labcontentPart];
             [_basicView addSubview:self.imghidecontent];
         }
-        
+    
         [_basicView addSubview:self.timeIV];
         [_basicView addSubview:self.timeLab];
         [_basicView addSubview:self.eyeIV];
         [_basicView addSubview:self.eyeLab];
         [_basicView addSubview:self.labcontentPartDetail];
     }
+//    if (_myType == TuijianDetailHeaderViewHideContent && _type == TuijianDetailHeaderViewShowContent) {
+//        _myType = TuijianDetailHeaderViewShowContent;
+//        [_basicView addSubview:self.priceLab];
+//        [_basicView addSubview:self.labMoney];
+//        [_basicView addSubview:self.labMultipleTitle];
+//        [_basicView addSubview:self.imageMultiple];
+//        [_basicView addSubview:self.labMultiple];
+//        [_basicView addSubview:self.labCompany];
+//        [_basicView addSubview:self.redView];
+//        [_basicView addSubview:self.redView1];
+//        [_basicView addSubview:self.redView2];
+//        [_basicView addSubview:self.labContent];
+//        [_basicView addSubview:self.webView];
+//        [_basicView addSubview:self.labCreatTime];
+//        [_basicView addSubview:self.labConmmentNum];
+//        [_basicView addSubview:self.btnComment];
+//        [_basicView addSubview:self.labNoZanNum];
+//        [_basicView addSubview:self.btnNoZan];
+//        [_basicView addSubview:self.labZanNum];
+//        [_basicView addSubview:self.btnZan];
+//
+//
+//
+//
+//        [self.labcontentPart removeFromSuperview];
+//        [self.imghidecontent removeFromSuperview];
+//    }
     return _basicView;
 }
 - (ZBUserViewOfTuijianCellCopy *)headerUser

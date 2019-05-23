@@ -125,6 +125,22 @@
     }
 }
 
+- (void)reload {
+    if (_wkWeb) {
+        [_wkWeb removeFromSuperview];
+        _wkWeb = nil;
+        self.bridge = nil;
+        [self.wkWeb addSubview:self.progressView];
+        [self.wkWeb addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+        [self configUI];
+        [self loadBradgeHandler];
+        [self loadData];
+        [self.view bringSubviewToFront:self.menuButtonView];
+    }
+}
+
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:_model.hideNavigationBar animated:YES];
